@@ -1,0 +1,1652 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="EnrollmentTrends"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+     enrollment.`schoolYear` AS SY,
+     Count(enrollment.`seq`) As TotalEnrollees,
+     person.`status` AS Status,
+     enrollment.`dateEnrolled` AS DateEnrolled,
+     enrollment.`gradeLevel` AS GradeLevel,
+     enrollment.`paymentPlanType` AS PlanType
+FROM
+     `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
+WHERE
+	enrollment.`schoolYear` = $P{PARAM_schoolYear}
+AND
+	person.`status` = 'ENROLLED'
+GROUP BY
+	enrollment.`schoolYear`]]></queryString>
+
+	<field name="SY" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String"/>
+	<field name="DateEnrolled" class="java.sql.Date"/>
+	<field name="GradeLevel" class="java.lang.String"/>
+	<field name="PlanType" class="java.lang.String"/>
+	<field name="TotalEnrollees" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="88"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="14"
+						y="0"
+						width="500"
+						height="88"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\Header.jpg"]]></imageExpression>
+				</image>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="460"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="333"
+						y="40"
+						width="181"
+						height="16"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SY: "+$F{SY}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="229"
+						y="77"
+						width="65"
+						height="16"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-1"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[LEVEL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="96"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-2"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Nursery]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="114"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-3"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Kinder]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="132"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-4"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Prep]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="150"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-5"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="168"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-6"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="186"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-7"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 3]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="204"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-8"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 4]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="222"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-9"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 5]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="240"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-10"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[Grade 6]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="258"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-11"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[1st Year]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="276"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-12"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[2nd Year]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="294"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-13"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[3rd Year]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="312"
+						width="65"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-14"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+				<text><![CDATA[4th Year]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="330"
+						width="206"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-15"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL PLAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="333"
+						y="77"
+						width="41"
+						height="16"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-16"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PLAN A]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="403"
+						y="77"
+						width="41"
+						height="16"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-17"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PLAN B]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="473"
+						y="77"
+						width="41"
+						height="16"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-18"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PLAN C]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="333"
+						y="57"
+						width="181"
+						height="16"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-20"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[No. of Students]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="94"
+						width="297"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="112"
+						width="297"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="130"
+						width="297"
+						height="0"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="148"
+						width="297"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="166"
+						width="297"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="184"
+						width="297"
+						height="0"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="202"
+						width="297"
+						height="0"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="220"
+						width="297"
+						height="0"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="238"
+						width="297"
+						height="0"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="256"
+						width="297"
+						height="0"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="274"
+						width="297"
+						height="0"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="292"
+						width="297"
+						height="0"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="310"
+						width="297"
+						height="0"
+						key="line-13"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="328"
+						width="511"
+						height="0"
+						key="line-14"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="300"
+						y="38"
+						width="1"
+						height="347"
+						key="line-15"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="300"
+						y="74"
+						width="219"
+						height="1"
+						key="line-16"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="376"
+						y="74"
+						width="0"
+						height="291"
+						key="line-17"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="446"
+						y="74"
+						width="0"
+						height="291"
+						key="line-18"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="14"
+						y="40"
+						width="206"
+						height="16"
+						forecolor="#000000"
+						key="element-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ENROLLMENT TRENDS]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="38"
+						width="1"
+						height="291"
+						key="line-19"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="346"
+						width="511"
+						height="0"
+						key="line-20"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="364"
+						width="511"
+						height="0"
+						key="line-21"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="14"
+						y="348"
+						width="206"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-21"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PERCENTAGE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="366"
+						width="206"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-22"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL ENROLLEES]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="186"
+						width="41"
+						height="15"
+						key="subreport-43"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G3%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="204"
+						width="41"
+						height="15"
+						key="subreport-44"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G4%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="150"
+						width="41"
+						height="15"
+						key="subreport-45"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G1%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="168"
+						width="41"
+						height="15"
+						key="subreport-46"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G2%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="96"
+						width="41"
+						height="15"
+						key="subreport-47"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'N%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="114"
+						width="41"
+						height="15"
+						key="subreport-48"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'K%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="132"
+						width="41"
+						height="15"
+						key="subreport-49"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'P%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="258"
+						width="41"
+						height="15"
+						key="subreport-50"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H1%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="276"
+						width="41"
+						height="15"
+						key="subreport-51"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H2%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="294"
+						width="41"
+						height="15"
+						key="subreport-52"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H3%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="312"
+						width="41"
+						height="15"
+						key="subreport-53"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H4%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="222"
+						width="41"
+						height="15"
+						key="subreport-54"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G5%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="240"
+						width="41"
+						height="15"
+						key="subreport-55"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G6%' AND "+
+"paymentPlanType = 'Q'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="96"
+						width="41"
+						height="15"
+						key="subreport-56"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'N%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="114"
+						width="41"
+						height="15"
+						key="subreport-57"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'K%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="132"
+						width="41"
+						height="15"
+						key="subreport-58"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'P%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="150"
+						width="41"
+						height="15"
+						key="subreport-59"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G1%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="168"
+						width="41"
+						height="15"
+						key="subreport-60"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G2%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="186"
+						width="41"
+						height="15"
+						key="subreport-61"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G3%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="204"
+						width="41"
+						height="15"
+						key="subreport-62"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G4%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="222"
+						width="41"
+						height="15"
+						key="subreport-63"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G5%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="240"
+						width="41"
+						height="15"
+						key="subreport-64"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G6%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="258"
+						width="41"
+						height="15"
+						key="subreport-65"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H1%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="276"
+						width="41"
+						height="15"
+						key="subreport-66"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H2%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="294"
+						width="41"
+						height="15"
+						key="subreport-67"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H3%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="312"
+						width="41"
+						height="15"
+						key="subreport-68"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H4%' AND "+
+"paymentPlanType = 'S'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="96"
+						width="41"
+						height="15"
+						key="subreport-69"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'N%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="114"
+						width="41"
+						height="15"
+						key="subreport-70"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'K%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="132"
+						width="41"
+						height="15"
+						key="subreport-71"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'P%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="150"
+						width="41"
+						height="15"
+						key="subreport-72"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G1%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="168"
+						width="41"
+						height="15"
+						key="subreport-73"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G2%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="186"
+						width="41"
+						height="15"
+						key="subreport-74"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G3%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="204"
+						width="41"
+						height="15"
+						key="subreport-75"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G4%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="222"
+						width="41"
+						height="15"
+						key="subreport-76"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G5%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="240"
+						width="41"
+						height="15"
+						key="subreport-77"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'G6%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="258"
+						width="41"
+						height="15"
+						key="subreport-78"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H1%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="276"
+						width="41"
+						height="15"
+						key="subreport-79"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H2%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="294"
+						width="41"
+						height="15"
+						key="subreport-80"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H3%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="312"
+						width="41"
+						height="15"
+						key="subreport-81"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(enrollment.`paymentPlanType`) AS any, schoolYear AS SY, gradeLevel AS GradeLevel "+
+"FROM enrollment "+
+"WHERE schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"gradeLevel LIKE 'H4%' AND "+
+"paymentPlanType = 'A'"+
+" GROUP BY paymentPlanType "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="330"
+						width="41"
+						height="15"
+						key="subreport-82"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(*) AS any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.paymentPlanType LIKE 'Q%' AND e.gradeLevel IS NOT NULL"
+]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="330"
+						width="41"
+						height="15"
+						key="subreport-83"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(*) AS any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.paymentPlanType LIKE 'S%' AND e.gradeLevel IS NOT NULL"
+]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="330"
+						width="41"
+						height="15"
+						key="subreport-84"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT Count(*) AS any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.paymentPlanType LIKE 'A%' AND e.gradeLevel IS NOT NULL"
+]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="473"
+						y="348"
+						width="41"
+						height="15"
+						key="subreport-85"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT (SELECT count(*) FROM Enrollment WHERE paymentPlanType='Q' AND gradeLevel IS NOT NULL AND schoolYear='"+$P{PARAM_schoolYear}+"')/count(*) As any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.gradeLevel IS NOT NULL "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverWithPercentSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="384"
+						width="511"
+						height="0"
+						key="line-22"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="518"
+						y="38"
+						width="1"
+						height="347"
+						key="line-24"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="328"
+						width="0"
+						height="57"
+						key="line-25"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="222"
+						y="38"
+						width="297"
+						height="0"
+						key="line-26"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="229"
+						y="392"
+						width="65"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-26"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Annual]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="407"
+						width="65"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-27"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Semi Annual]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="229"
+						y="422"
+						width="65"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-28"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Quarterly]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="392"
+						width="206"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-29"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Plan A -]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="407"
+						width="206"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-30"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[B -]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="422"
+						width="206"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-31"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[C -]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="333"
+						y="3"
+						width="181"
+						height="16"
+						forecolor="#000000"
+						key="element-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Finance Administrator]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="333"
+						y="348"
+						width="41"
+						height="15"
+						key="subreport-89"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT (SELECT count(*) FROM Enrollment WHERE paymentPlanType='A' AND gradeLevel IS NOT NULL AND schoolYear='"+$P{PARAM_schoolYear}+"')/count(*) As any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.gradeLevel IS NOT NULL "
+
+]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverWithPercentSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="348"
+						width="41"
+						height="15"
+						key="subreport-88"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT (SELECT count(*) FROM Enrollment WHERE paymentPlanType='S' AND gradeLevel IS NOT NULL AND schoolYear='"+$P{PARAM_schoolYear}+"')/count(*) As any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.gradeLevel IS NOT NULL "
+]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverWithPercentSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="403"
+						y="366"
+						width="41"
+						height="15"
+						key="subreport-87"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT count(*) As any "+
+"FROM enrollment e, person p "+
+"WHERE e.studentId=p.personId and p.status='ENROLLED' AND e.schoolYear = '"+$P{PARAM_schoolYear}+"' AND "+
+"e.gradeLevel IS NOT NULL "]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="27"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="325"
+						y="4"
+						width="170"
+						height="19"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Helvetica" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="499"
+						y="4"
+						width="36"
+						height="19"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+						<font fontName="Helvetica" pdfFontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" pdfEncoding ="CP1252" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="6"
+						width="209"
+						height="19"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

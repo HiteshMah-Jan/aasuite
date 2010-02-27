@@ -1,0 +1,1343 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Alphalist"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="2016"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     alphalist.`seq` AS seq,
+     alphalist.`withholdingAgentName` AS withholdingAgentName,
+     alphalist.`telephoneNumber` AS telephoneNumber,
+     alphalist.`year` AS year,
+     alphalist.`registeredAddress` AS registeredAddress,
+     alphalist.`numberofAttachedSheet` AS numberofAttachedSheet,
+     alphalist.`zipCode` AS zipCode,
+     alphalist.`rdoCode` AS rdoCode,
+     alphalist.`hasRevisedFundForEmployees` AS hasRevisedFundForEmployees,
+     alphalist.`revisedFundDate` AS revisedFundDate,
+     alphalist.`tin` AS tin,
+     alphalist.`totalRemittanceAmount` AS totalRemittanceAmount,
+     alphalist.`amendedReturn` AS amendedReturn,
+     alphalist.`monthFirstCredit` AS monthFirstCredit,
+     alphalist.`lineOfBusiness` AS lineOfBusiness,
+     alphalist.`withholdingAgentCategory` AS withholdingAgentCategory
+FROM
+     `alphalistremittancesummary` alphalistremittancesummary INNER JOIN `alphalist` alphalist ON alphalistremittancesummary.`alphalistId` = alphalist.`seq`
+
+WHERE 
+
+	alphalist.seq=$P{REPORT_ADD_WHERE}]]></queryString>
+
+	<field name="seq" class="java.lang.Integer"/>
+	<field name="withholdingAgentName" class="java.lang.String"/>
+	<field name="telephoneNumber" class="java.lang.String"/>
+	<field name="year" class="java.lang.Integer"/>
+	<field name="registeredAddress" class="java.lang.String"/>
+	<field name="numberofAttachedSheet" class="java.lang.Integer"/>
+	<field name="zipCode" class="java.lang.String"/>
+	<field name="rdoCode" class="java.lang.String"/>
+	<field name="hasRevisedFundForEmployees" class="java.lang.Boolean"/>
+	<field name="revisedFundDate" class="java.sql.Date"/>
+	<field name="tin" class="java.lang.String"/>
+	<field name="totalRemittanceAmount" class="java.lang.Double"/>
+	<field name="amendedReturn" class="java.lang.Boolean"/>
+	<field name="monthFirstCredit" class="java.lang.String"/>
+	<field name="lineOfBusiness" class="java.lang.String"/>
+	<field name="withholdingAgentCategory" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="1976"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="967"
+						width="552"
+						height="906"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\AlphaList Images\\schedule5-1.jpg"]]></imageExpression>
+				</image>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="1055"
+						width="552"
+						height="17"
+						key="subreport-41"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT tin as any2,  prevSss as any3, address as any4, status as any5, atc as any6, incomeNature as any7, incomeAmount as any8, taxRate as any9, taxWithheld as any10 "+
+"FROM AlphaListEmployee "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	isSubjectToFinalWTax= '1'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSchedule5SubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="2"
+						width="552"
+						height="906"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\AlphaList Images\\page1.jpg"]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="100"
+						y="89"
+						width="46"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{year}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="89"
+						width="52"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Boolean"><![CDATA[$F{amendedReturn}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="489"
+						y="89"
+						width="37"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{numberofAttachedSheet}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="31"
+						y="119"
+						width="191"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tin}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="282"
+						y="119"
+						width="37"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{rdoCode}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="413"
+						y="119"
+						width="131"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{lineOfBusiness}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="32"
+						y="146"
+						width="405"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{withholdingAgentName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="469"
+						y="146"
+						width="75"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{telephoneNumber}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="31"
+						y="174"
+						width="406"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{registeredAddress}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="489"
+						y="174"
+						width="55"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{zipCode}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="196"
+						width="58"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Boolean"><![CDATA[$F{hasRevisedFundForEmployees}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="459"
+						y="196"
+						width="85"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{revisedFundDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="148"
+						y="213"
+						width="85"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{totalRemittanceAmount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="350"
+						y="213"
+						width="14"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{monthFirstCredit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="400"
+						y="213"
+						width="144"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{withholdingAgentCategory}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="270"
+						width="496"
+						height="10"
+						key="subreport-1"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='JAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="280"
+						width="496"
+						height="10"
+						key="subreport-2"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='FEB'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="300"
+						width="496"
+						height="10"
+						key="subreport-3"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='APR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="290"
+						width="496"
+						height="10"
+						key="subreport-4"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='MAR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="310"
+						width="496"
+						height="10"
+						key="subreport-5"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='MAY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="320"
+						width="496"
+						height="10"
+						key="subreport-6"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='JUN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="330"
+						width="496"
+						height="10"
+						key="subreport-7"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='JUL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="340"
+						width="496"
+						height="10"
+						key="subreport-8"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='AUG'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="350"
+						width="496"
+						height="10"
+						key="subreport-9"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='SEP'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="360"
+						width="496"
+						height="10"
+						key="subreport-10"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='OCT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="370"
+						width="496"
+						height="10"
+						key="subreport-11"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='NOV'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="380"
+						width="496"
+						height="10"
+						key="subreport-12"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-C' AND "+
+"	monthQuarter='DEC'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="428"
+						width="496"
+						height="10"
+						key="subreport-13"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, penalties as any4, totalAmountRemitted as any5 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='JAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="448"
+						width="496"
+						height="10"
+						key="subreport-14"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='MAR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="438"
+						width="496"
+						height="10"
+						key="subreport-15"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='FEB'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="458"
+						width="496"
+						height="10"
+						key="subreport-16"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='APR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="468"
+						width="496"
+						height="10"
+						key="subreport-17"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='MAY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="478"
+						width="496"
+						height="10"
+						key="subreport-18"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='JUN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="488"
+						width="496"
+						height="10"
+						key="subreport-19"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='JUL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="498"
+						width="496"
+						height="10"
+						key="subreport-20"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='AUG'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="508"
+						width="496"
+						height="10"
+						key="subreport-21"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='SEP'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="518"
+						width="496"
+						height="10"
+						key="subreport-22"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='OCT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="528"
+						width="496"
+						height="10"
+						key="subreport-23"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='NOV'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="538"
+						width="496"
+						height="10"
+						key="subreport-24"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1601-F' AND "+
+"	monthQuarter='DEC'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="584"
+						width="496"
+						height="10"
+						key="subreport-25"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='JAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="594"
+						width="496"
+						height="10"
+						key="subreport-26"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='FEB'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="604"
+						width="496"
+						height="10"
+						key="subreport-27"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='MAR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="614"
+						width="496"
+						height="10"
+						key="subreport-28"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='APR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="624"
+						width="496"
+						height="10"
+						key="subreport-29"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='MAY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="634"
+						width="496"
+						height="10"
+						key="subreport-30"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='JUN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="644"
+						width="496"
+						height="10"
+						key="subreport-31"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='JUL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="654"
+						width="496"
+						height="10"
+						key="subreport-32"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='AUG'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="664"
+						width="496"
+						height="10"
+						key="subreport-33"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='SEP'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="674"
+						width="496"
+						height="10"
+						key="subreport-34"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='OCT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="684"
+						width="496"
+						height="10"
+						key="subreport-35"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='NOV'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="694"
+						width="496"
+						height="10"
+						key="subreport-36"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1602' AND "+
+"	monthQuarter='DEC'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="742"
+						width="496"
+						height="10"
+						key="subreport-37"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1603' AND "+
+"	monthQuarter='1st QTR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="752"
+						width="496"
+						height="10"
+						key="subreport-38"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1603' AND "+
+"	monthQuarter='2ND QTR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="762"
+						width="496"
+						height="10"
+						key="subreport-39"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1603' AND "+
+"	monthQuarter='3RD QTR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="48"
+						y="772"
+						width="496"
+						height="10"
+						key="subreport-40"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT remittanceDate as any1, nameOfBank as any2, taxesWithheld as any3, adjustment as any4, penalties as any5, totalAmountRemitted as any6 "+
+"FROM AlphalistRemittanceSummary "+
+"WHERE "+
+"	alphalistId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	remittanceNum= '1603' AND "+
+"	monthQuarter='4TH QTR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\AlphalistSummaryRemitanceSubReport2.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="-22"
+						y="934"
+						width="552"
+						height="0"
+						key="element-1"/>
+				</break>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

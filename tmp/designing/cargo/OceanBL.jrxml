@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="OceanBL"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     awb.`active` AS awb_active,
+     awb.`agent` AS awb_agent,
+     awb.`amountInsurance` AS awb_amountInsurance,
+     awb.`arrivalDate` AS awb_arrivalDate,
+     awb.`awbType` AS awb_awbType,
+     awb.`bookRef` AS awb_bookRef,
+     awb.`carrierSignature` AS awb_carrierSignature,
+     awb.`commissionAmount` AS awb_commissionAmount,
+     awb.`commissionPercent` AS awb_commissionPercent,
+     awb.`commodityCode` AS awb_commodityCode,
+     awb.`consignee` AS awb_consignee,
+     awb.`contactPerson` AS awb_contactPerson,
+     awb.`contactPhone` AS awb_contactPhone,
+     awb.`creditDetails` AS awb_creditDetails,
+     awb.`currencyCode` AS awb_currencyCode,
+     awb.`customsOriginCode` AS awb_customsOriginCode,
+     awb.`declaredValueCarriage` AS awb_declaredValueCarriage,
+     awb.`declaredValueCustoms` AS awb_declaredValueCustoms,
+     awb.`densityGroup` AS awb_densityGroup,
+     awb.`departureDate` AS awb_departureDate,
+     awb.`descCode` AS awb_descCode,
+     awb.`destination` AS awb_destination,
+     awb.`destinationChargeCode` AS awb_destinationChargeCode,
+     awb.`destinationPrepaid` AS awb_destinationPrepaid,
+     awb.`freeDescriptionOfGoods` AS awb_freeDescriptionOfGoods,
+     awb.`handlingParty` AS awb_handlingParty,
+     awb.`harmonizedCode` AS awb_harmonizedCode,
+     awb.`house` AS awb_house,
+     awb.`hshc1` AS awb_hshc1,
+     awb.`hshc2` AS awb_hshc2,
+     awb.`hwbSerial` AS awb_hwbSerial,
+     awb.`issueDate` AS awb_issueDate,
+     awb.`issuePlace` AS awb_issuePlace,
+     awb.`kgLb` AS awb_kgLb,
+     awb.`lc` AS awb_lc,
+     awb.`lp` AS awb_lp,
+     awb.`master` AS awb_master,
+     awb.`masterAwbSeq` AS awb_masterAwbSeq,
+     awb.`mh` AS awb_mh,
+     awb.`mp` AS awb_mp,
+     awb.`natureOfGoods` AS awb_natureOfGoods,
+     awb.`origin` AS awb_origin,
+     awb.`originChargeCode` AS awb_originChargeCode,
+     awb.`originPrepaid` AS awb_originPrepaid,
+     awb.`otherServiceInformation` AS awb_otherServiceInformation,
+     awb.`paymentType` AS awb_paymentType,
+     awb.`pieces` AS awb_pieces,
+     awb.`place` AS awb_place,
+     awb.`prefix` AS awb_prefix,
+     awb.`priority` AS awb_priority,
+     awb.`rateClassCode` AS awb_rateClassCode,
+     awb.`remarks` AS awb_remarks,
+     awb.`reqOfficeAddress` AS awb_reqOfficeAddress,
+     awb.`reqParticipant` AS awb_reqParticipant,
+     awb.`salesIncentiveAmount` AS awb_salesIncentiveAmount,
+     awb.`senderFileReference` AS awb_senderFileReference,
+     awb.`senderPartId` AS awb_senderPartId,
+     awb.`senderReference` AS awb_senderReference,
+     awb.`serial` AS awb_serial,
+     awb.`serviceCode` AS awb_serviceCode,
+     awb.`serviceLevel` AS awb_serviceLevel,
+     awb.`shc1` AS awb_shc1,
+     awb.`shc2` AS awb_shc2,
+     awb.`shipmentReferenceInformation` AS awb_shipmentReferenceInformation,
+     awb.`shipmentSupplementaryInformation` AS awb_shipmentSupplementaryInformation,
+     awb.`shipper` AS awb_shipper,
+     awb.`shipperSignature` AS awb_shipperSignature,
+     awb.`slac` AS awb_slac,
+     awb.`specialServiceRequest` AS awb_specialServiceRequest,
+     awb.`totConsignmentPieces` AS awb_totConsignmentPieces,
+     awb.`uldCount` AS awb_uldCount,
+     awb.`uldRateClassType` AS awb_uldRateClassType,
+     awb.`volume` AS awb_volume,
+     awb.`volumeCode` AS awb_volumeCode,
+     awb.`weight` AS awb_weight
+FROM
+     `awb` awb]]></queryString>
+
+	<field name="awb_active" class="java.lang.Boolean"/>
+	<field name="awb_agent" class="java.lang.String"/>
+	<field name="awb_amountInsurance" class="java.lang.Double"/>
+	<field name="awb_arrivalDate" class="java.sql.Date"/>
+	<field name="awb_awbType" class="java.lang.String"/>
+	<field name="awb_bookRef" class="java.lang.String"/>
+	<field name="awb_carrierSignature" class="java.lang.String"/>
+	<field name="awb_commissionAmount" class="java.lang.Double"/>
+	<field name="awb_commissionPercent" class="java.lang.Double"/>
+	<field name="awb_commodityCode" class="java.lang.String"/>
+	<field name="awb_consignee" class="java.lang.String"/>
+	<field name="awb_contactPerson" class="java.lang.String"/>
+	<field name="awb_contactPhone" class="java.lang.String"/>
+	<field name="awb_creditDetails" class="java.lang.String"/>
+	<field name="awb_currencyCode" class="java.lang.String"/>
+	<field name="awb_customsOriginCode" class="java.lang.String"/>
+	<field name="awb_declaredValueCarriage" class="java.lang.Double"/>
+	<field name="awb_declaredValueCustoms" class="java.lang.Double"/>
+	<field name="awb_densityGroup" class="java.lang.Integer"/>
+	<field name="awb_departureDate" class="java.sql.Date"/>
+	<field name="awb_descCode" class="java.lang.String"/>
+	<field name="awb_destination" class="java.lang.String"/>
+	<field name="awb_destinationChargeCode" class="java.lang.String"/>
+	<field name="awb_destinationPrepaid" class="java.lang.Boolean"/>
+	<field name="awb_freeDescriptionOfGoods" class="java.lang.String"/>
+	<field name="awb_handlingParty" class="java.lang.String"/>
+	<field name="awb_harmonizedCode" class="java.lang.String"/>
+	<field name="awb_house" class="java.lang.Boolean"/>
+	<field name="awb_hshc1" class="java.lang.String"/>
+	<field name="awb_hshc2" class="java.lang.String"/>
+	<field name="awb_hwbSerial" class="java.lang.String"/>
+	<field name="awb_issueDate" class="java.sql.Date"/>
+	<field name="awb_issuePlace" class="java.lang.String"/>
+	<field name="awb_kgLb" class="java.lang.String"/>
+	<field name="awb_lc" class="java.lang.Integer"/>
+	<field name="awb_lp" class="java.lang.Integer"/>
+	<field name="awb_master" class="java.lang.Boolean"/>
+	<field name="awb_masterAwbSeq" class="java.lang.Integer"/>
+	<field name="awb_mh" class="java.lang.Integer"/>
+	<field name="awb_mp" class="java.lang.Integer"/>
+	<field name="awb_natureOfGoods" class="java.lang.String"/>
+	<field name="awb_origin" class="java.lang.String"/>
+	<field name="awb_originChargeCode" class="java.lang.String"/>
+	<field name="awb_originPrepaid" class="java.lang.Boolean"/>
+	<field name="awb_otherServiceInformation" class="java.lang.String"/>
+	<field name="awb_paymentType" class="java.lang.String"/>
+	<field name="awb_pieces" class="java.lang.Integer"/>
+	<field name="awb_place" class="java.lang.String"/>
+	<field name="awb_prefix" class="java.lang.String"/>
+	<field name="awb_priority" class="java.lang.Integer"/>
+	<field name="awb_rateClassCode" class="java.lang.String"/>
+	<field name="awb_remarks" class="java.lang.String"/>
+	<field name="awb_reqOfficeAddress" class="java.lang.String"/>
+	<field name="awb_reqParticipant" class="java.lang.String"/>
+	<field name="awb_salesIncentiveAmount" class="java.lang.Double"/>
+	<field name="awb_senderFileReference" class="java.lang.String"/>
+	<field name="awb_senderPartId" class="java.lang.String"/>
+	<field name="awb_senderReference" class="java.lang.String"/>
+	<field name="awb_serial" class="java.lang.String"/>
+	<field name="awb_serviceCode" class="java.lang.String"/>
+	<field name="awb_serviceLevel" class="java.lang.String"/>
+	<field name="awb_shc1" class="java.lang.String"/>
+	<field name="awb_shc2" class="java.lang.String"/>
+	<field name="awb_shipmentReferenceInformation" class="java.lang.String"/>
+	<field name="awb_shipmentSupplementaryInformation" class="java.lang.String"/>
+	<field name="awb_shipper" class="java.lang.String"/>
+	<field name="awb_shipperSignature" class="java.lang.String"/>
+	<field name="awb_slac" class="java.lang.String"/>
+	<field name="awb_specialServiceRequest" class="java.lang.String"/>
+	<field name="awb_totConsignmentPieces" class="java.lang.Integer"/>
+	<field name="awb_uldCount" class="java.lang.Integer"/>
+	<field name="awb_uldRateClassType" class="java.lang.String"/>
+	<field name="awb_volume" class="java.lang.Double"/>
+	<field name="awb_volumeCode" class="java.lang.String"/>
+	<field name="awb_weight" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="802"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" vAlign="Middle" hAlign="Center" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="590"
+						height="802"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\images\\oceanbl.JPG"]]></imageExpression>
+				</image>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

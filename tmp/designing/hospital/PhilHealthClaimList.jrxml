@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="PhilHealthClaimList"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<queryString><![CDATA[SELECT
+     governmentclaim.`dateClaimed` AS governmentclaim_dateClaimed,
+     governmentclaim.`amount` AS governmentclaim_amount,
+     hospitalgovernmentclaim.`physician` AS hospitalgovernmentclaim_physician,
+     hospitalgovernmentclaim.`patient` AS hospitalgovernmentclaim_patient,
+     hospitalgovernmentclaim.`memberLastName` AS hospitalgovernmentclaim_memberLastName,
+     hospitalgovernmentclaim.`memberMiddleName` AS hospitalgovernmentclaim_memberMiddleName,
+     hospitalgovernmentclaim.`memberFirstName` AS hospitalgovernmentclaim_memberFirstName,
+     hospitalgovernmentclaim.`amountDeductedFromHospitalCharges` AS hospitalgovernmentclaim_amountDeductedFromHospitalCharges,
+     hospitalgovernmentclaim.`amountDeductedFromProfessionalCharges` AS hospitalgovernmentclaim_amountDeductedFromProfessionalCharges,
+     hospitalgovernmentclaim.`amountPaidForMedicine` AS hospitalgovernmentclaim_amountPaidForMedicine,
+     hospitalgovernmentclaim.`employerName` AS hospitalgovernmentclaim_employerName,
+     hospitalgovernmentclaim.`confinementStartDate` AS hospitalgovernmentclaim_confinementStartDate,
+     hospitalgovernmentclaim.`confinementStartTime` AS hospitalgovernmentclaim_confinementStartTime,
+     hospitalgovernmentclaim.`confinementEndTime` AS hospitalgovernmentclaim_confinementEndTime,
+     hospitalgovernmentclaim.`confinementEndDate` AS hospitalgovernmentclaim_confinementEndDate,
+     hospitalgovernmentclaim.`caseType` AS hospitalgovernmentclaim_caseType,
+     hospitalgovernmentclaim.`membershipType` AS hospitalgovernmentclaim_membershipType,
+     hospitalgovernmentclaim.`surgeonActualCharges` AS hospitalgovernmentclaim_surgeonActualCharges,
+     hospitalgovernmentclaim.`physicianActualCharges` AS hospitalgovernmentclaim_physicianActualCharges,
+     hospitalgovernmentclaim.`hospitalRoomActualCharges` AS hospitalgovernmentclaim_hospitalRoomActualCharges,
+     hospitalgovernmentclaim.`hospitalOutsideActualCharges` AS hospitalgovernmentclaim_hospitalOutsideActualCharges,
+     hospitalgovernmentclaim.`hospitalOperatingRoomActualCharges` AS hospitalgovernmentclaim_hospitalOperatingRoomActualCharges,
+     hospitalgovernmentclaim.`hospitalMedicineActualCharges` AS hospitalgovernmentclaim_hospitalMedicineActualCharges,
+     hospitalgovernmentclaim.`hospitalLaboratoryActualCharges` AS hospitalgovernmentclaim_hospitalLaboratoryActualCharges,
+     hospitalgovernmentclaim.`anesthesiologistActualCharges` AS hospitalgovernmentclaim_anesthesiologistActualCharges
+FROM
+     `hospitalgovernmentclaim` hospitalgovernmentclaim INNER JOIN `governmentclaim` governmentclaim ON hospitalgovernmentclaim.`opdId` = governmentclaim.`opdId`]]></queryString>
+
+	<field name="governmentclaim_dateClaimed" class="java.sql.Date"/>
+	<field name="governmentclaim_amount" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_physician" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_patient" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_memberLastName" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_memberMiddleName" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_memberFirstName" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_amountDeductedFromHospitalCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_amountDeductedFromProfessionalCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_amountPaidForMedicine" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_employerName" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_confinementStartDate" class="java.sql.Date"/>
+	<field name="hospitalgovernmentclaim_confinementStartTime" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_confinementEndTime" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_confinementEndDate" class="java.sql.Date"/>
+	<field name="hospitalgovernmentclaim_caseType" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_membershipType" class="java.lang.String"/>
+	<field name="hospitalgovernmentclaim_surgeonActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_physicianActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_hospitalRoomActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_hospitalOutsideActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_hospitalOperatingRoomActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_hospitalMedicineActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_hospitalLaboratoryActualCharges" class="java.lang.Double"/>
+	<field name="hospitalgovernmentclaim_anesthesiologistActualCharges" class="java.lang.Double"/>
+
+	<variable name="totalClaimed" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{governmentclaim_amount}]]></variableExpression>
+	</variable>
+
+		<group  name="hospitalgovernmentclaim_patient" >
+			<groupExpression><![CDATA[$F{hospitalgovernmentclaim_patient}]]></groupExpression>
+			<groupHeader>
+			<band height="45"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="95"
+						y="0"
+						width="300"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hospitalgovernmentclaim_patient}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="95"
+						y="15"
+						width="300"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hospitalgovernmentclaim_physician}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="486"
+						y="0"
+						width="296"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hospitalgovernmentclaim_memberLastName}+", "+$F{hospitalgovernmentclaim_memberFirstName}+" "+$F{hospitalgovernmentclaim_memberMiddleName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="95"
+						y="30"
+						width="92"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{hospitalgovernmentclaim_confinementStartDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="30"
+						width="173"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{hospitalgovernmentclaim_confinementEndDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="515"
+						y="30"
+						width="52"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{hospitalgovernmentclaim_amountDeductedFromHospitalCharges}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="703"
+						y="30"
+						width="79"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{hospitalgovernmentclaim_amountDeductedFromProfessionalCharges}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="486"
+						y="15"
+						width="296"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hospitalgovernmentclaim_employerName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="187"
+						y="30"
+						width="35"
+						height="15"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[To: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="395"
+						y="30"
+						width="120"
+						height="15"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Deducted From Hospital:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="30"
+						width="95"
+						height="15"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Confinement Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="567"
+						y="30"
+						width="136"
+						height="15"
+						key="staticText-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[   From Professional Fee:  ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="95"
+						height="15"
+						key="staticText-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Patient:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="15"
+						width="95"
+						height="15"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Physician:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="395"
+						y="0"
+						width="91"
+						height="15"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Member Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="395"
+						y="15"
+						width="91"
+						height="15"
+						key="staticText-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Employer Name:]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="15"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="515"
+						y="0"
+						width="188"
+						height="15"
+						key="staticText-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total Claimed: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="703"
+						y="0"
+						width="79"
+						height="15"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{governmentclaim_amount}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="35"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="5"
+						width="782"
+						height="30"
+						key="staticText"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[PhilHealth Claim]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="0"
+						width="120"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{governmentclaim_dateClaimed}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="703"
+						y="0"
+						width="79"
+						height="15"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{governmentclaim_amount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="222"
+						y="0"
+						width="173"
+						height="15"
+						key="staticText-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[Date Claimed: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="515"
+						y="0"
+						width="188"
+						height="15"
+						key="staticText-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[Amount Claimed: ]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

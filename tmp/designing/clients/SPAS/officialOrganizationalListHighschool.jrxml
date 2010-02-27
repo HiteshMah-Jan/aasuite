@@ -1,0 +1,3509 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="classic"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="1008"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["ENROLLED"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     person.`personId` AS person_personId,
+     enrollment.`studentId` AS enrollment_studentId,
+     person.`gender` AS person_gender,
+     enrollment.`schoolYear` AS enrollment_schoolYear,
+     section.`faculty` AS section_faculty,
+     section.`code` AS section_code
+FROM
+     `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
+     INNER JOIN `section` section ON person.`section` = section.`code`
+WHERE
+     person.status = $P{REPORT_ADD_WHERE}
+     and enrollment.schoolYear = $P{PARAM_schoolYear}]]></queryString>
+
+	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="enrollment_studentId" class="java.lang.Integer"/>
+	<field name="person_gender" class="java.lang.String"/>
+	<field name="enrollment_schoolYear" class="java.lang.String"/>
+	<field name="section_faculty" class="java.lang.String"/>
+	<field name="section_code" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="968"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="81"
+						width="551"
+						height="22"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[THE OFFICIAL ORGANIZATIONAL LIST]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="55"
+						width="551"
+						height="22"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["SY:" + "  "+$P{PARAM_schoolYear}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="29"
+						width="551"
+						height="22"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[ELIZABETH SETON SCHOOL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="128"
+						width="133"
+						height="22"
+						forecolor="#000000"
+						key="element-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[FIRST YEAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="362"
+						y="128"
+						width="63"
+						height="22"
+						forecolor="#000000"
+						key="element-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[BOYS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="423"
+						y="128"
+						width="63"
+						height="22"
+						forecolor="#000000"
+						key="element-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[GIRLS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="485"
+						y="128"
+						width="63"
+						height="22"
+						forecolor="#000000"
+						key="element-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="160"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[BASILAN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="182"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[BUKIDNON]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="204"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[CAMIGUIN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="314"
+						width="133"
+						height="22"
+						forecolor="#000000"
+						key="element-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SECOND YEAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="346"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[COMPOSTELLA VALLEY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="367"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[DAVAO DEL NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="270"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-16"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[ZAMBOANGA DEL NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="500"
+						width="133"
+						height="22"
+						forecolor="#000000"
+						key="element-17"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[THIRD YEAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="532"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[AGUSAN DEL NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="553"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-22"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[AGUSAN DEL SUR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="574"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-23"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[COTABATO CITY]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="160"
+						width="180"
+						height="22"
+						key="subreport-45"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='BASILAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="182"
+						width="180"
+						height="22"
+						key="subreport-46"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='BUKIDNON'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="204"
+						width="180"
+						height="22"
+						key="subreport-47"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='CAMIGUIN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="346"
+						width="180"
+						height="22"
+						key="subreport-48"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='COMPOSTELLA VALLEY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="368"
+						width="180"
+						height="22"
+						key="subreport-49"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='DAVAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="270"
+						width="180"
+						height="22"
+						key="subreport-50"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='ZAMBOANGA DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="532"
+						width="180"
+						height="22"
+						key="subreport-51"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='AGUSAN DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="554"
+						width="180"
+						height="22"
+						key="subreport-52"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='AGUSAN DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="575"
+						width="180"
+						height="22"
+						key="subreport-53"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='COTABATO CITY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="226"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-26"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[MISAMIS OCCIDENTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="248"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-27"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[MISAMIS ORIENTAL]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="226"
+						width="180"
+						height="22"
+						key="subreport-64"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="182"
+						y="248"
+						width="180"
+						height="22"
+						key="subreport-65"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='MISAMIS ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="389"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-28"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[DAVAO ORIENTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="455"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-29"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SULTAN KUDARAT]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="389"
+						width="180"
+						height="22"
+						key="subreport-75"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='DAVAO ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="455"
+						width="180"
+						height="22"
+						key="subreport-76"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SULTAN KUDARAT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="411"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-30"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SARANGANI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="433"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-31"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SOUTH COTABATO]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="411"
+						width="180"
+						height="22"
+						key="subreport-83"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SARANGANI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="183"
+						y="433"
+						width="180"
+						height="22"
+						key="subreport-84"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SOUTH COTABATO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="640"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-32"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SURIGAO DEL SUR]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="640"
+						width="180"
+						height="22"
+						key="subreport-91"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SURIGAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="596"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-33"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[LANAO DEL NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="618"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-34"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SURIGAO DEL NORTE]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="596"
+						width="180"
+						height="22"
+						key="subreport-98"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='LANAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="618"
+						width="180"
+						height="22"
+						key="subreport-99"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SURIGAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="1"
+						y="893"
+						width="378"
+						height="22"
+						forecolor="#000000"
+						key="element-35"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[Total No. of Students in High School Department ..................................]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="898"
+						width="17"
+						height="14"
+						key="subreport-100"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	section IN('BASILAN','BUKIDNON','MISAMIS OCCIDENTAL','MISAMIS OCCIDENTAL','MISAMIS ORIENTAL','ZAMBOANGA DEL NORTE','COMPOSTELLA VALLEY','DAVAO DEL NORTE','DAVAO ORIENTAL','SARANGANI','SOUTH COTABATO','SULTAN KUDARAT','AGUSAN DEL NORTE','AGUSAN DEL SUR','COTABATO CITY','LANAO DEL NORTE','SURIGAO DEL NORTE','SURIGAO DEL SUR','JOLO','LANAO DEL SUR','MARAWI','MAGUINDANAO','SULU','TAWI-TAWI')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="1"
+						y="686"
+						width="133"
+						height="22"
+						forecolor="#000000"
+						key="element-36"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[FOURTH YEAR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="719"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-37"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[JOLO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="740"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-38"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[LANAO DEL SUR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="761"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[MARAWI]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="719"
+						width="180"
+						height="22"
+						key="subreport-110"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='JOLO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="741"
+						width="180"
+						height="22"
+						key="subreport-111"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='LANAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="762"
+						width="180"
+						height="22"
+						key="subreport-112"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='MARAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="827"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[TAWI - TAWI]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="827"
+						width="180"
+						height="22"
+						key="subreport-119"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='TAWI-TAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="11"
+						y="783"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[MAGUINDANAO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="805"
+						width="155"
+						height="22"
+						forecolor="#000000"
+						key="element-42"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[SULU]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="783"
+						width="180"
+						height="22"
+						key="subreport-126"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='MAGUINDANAO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="184"
+						y="805"
+						width="180"
+						height="22"
+						key="subreport-127"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT faculty as any "+
+"FROM Section "+
+"WHERE "+
+"	code='SULU'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="1"
+						y="920"
+						width="378"
+						height="22"
+						forecolor="#000000"
+						key="element-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="12" isBold="false" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[Total No. of Pupils  / Students in all LEVELS ...........................................]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="925"
+						width="17"
+						height="14"
+						key="subreport-128"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	gradeLevel IN('N1','K1','P1','G1','G2','G3','G4','G5','G6','H1','H2','H3','H4')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="362"
+						y="288"
+						width="190"
+						height="0"
+						forecolor="#000000"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+				</line>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="160"
+						width="17"
+						height="14"
+						key="subreport-129"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='BASILAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="160"
+						width="17"
+						height="14"
+						key="subreport-130"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='BASILAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="182"
+						width="17"
+						height="14"
+						key="subreport-131"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='BUKIDNON'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="182"
+						width="17"
+						height="14"
+						key="subreport-132"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='BUKIDNON'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="182"
+						width="17"
+						height="14"
+						key="subreport-133"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='BUKIDNON'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="204"
+						width="17"
+						height="14"
+						key="subreport-134"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="204"
+						width="17"
+						height="14"
+						key="subreport-135"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="204"
+						width="17"
+						height="14"
+						key="subreport-136"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="346"
+						width="17"
+						height="14"
+						key="subreport-137"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='COMPOSTELLA VALLEY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="346"
+						width="17"
+						height="14"
+						key="subreport-138"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='COMPOSTELLA VALLEY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="346"
+						width="17"
+						height="14"
+						key="subreport-139"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='COMPOSTELLA VALLEY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="368"
+						width="17"
+						height="14"
+						key="subreport-140"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='DAVAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="368"
+						width="17"
+						height="14"
+						key="subreport-141"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='DAVAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="368"
+						width="17"
+						height="14"
+						key="subreport-142"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='DAVAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="270"
+						width="17"
+						height="14"
+						key="subreport-143"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='ZAMBOANGA DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="270"
+						width="17"
+						height="14"
+						key="subreport-144"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='ZAMBOANGA DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="270"
+						width="17"
+						height="14"
+						key="subreport-145"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='ZAMBOANGA DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="292"
+						width="17"
+						height="14"
+						key="subreport-146"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section IN ('BASILAN','BUKIDNON','MISAMIS OCCIDENTAL','MISAMIS OCCIDENTAL','MISAMIS ORIENTAL','ZAMBOANGA DEL NORTE')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="292"
+						width="17"
+						height="14"
+						key="subreport-147"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section IN ('BASILAN','BUKIDNON','MISAMIS OCCIDENTAL','MISAMIS OCCIDENTAL','MISAMIS ORIENTAL','ZAMBOANGA DEL NORTE')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="292"
+						width="17"
+						height="14"
+						key="subreport-148"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	section IN ('BASILAN','BUKIDNON','MISAMIS OCCIDENTAL','MISAMIS OCCIDENTAL','MISAMIS ORIENTAL','ZAMBOANGA DEL NORTE')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="532"
+						width="17"
+						height="14"
+						key="subreport-149"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='AGUSAN DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="532"
+						width="17"
+						height="14"
+						key="subreport-150"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='AGUSAN DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="532"
+						width="17"
+						height="14"
+						key="subreport-151"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='AGUSAN DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="554"
+						width="17"
+						height="14"
+						key="subreport-152"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='AGUSAN DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="554"
+						width="17"
+						height="14"
+						key="subreport-153"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='AGUSAN DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="554"
+						width="17"
+						height="14"
+						key="subreport-154"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='AGUSAN DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="575"
+						width="17"
+						height="14"
+						key="subreport-155"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='COTABATO CITY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="575"
+						width="17"
+						height="14"
+						key="subreport-156"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='COTABATO CITY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="575"
+						width="17"
+						height="14"
+						key="subreport-157"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='COTABATO CITY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="160"
+						width="17"
+						height="14"
+						key="subreport-158"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='BASILAN'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="226"
+						width="17"
+						height="14"
+						key="subreport-159"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="226"
+						width="17"
+						height="14"
+						key="subreport-160"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="248"
+						width="17"
+						height="14"
+						key="subreport-161"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='MISAMIS ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="248"
+						width="17"
+						height="14"
+						key="subreport-162"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='MISAMIS ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="248"
+						width="17"
+						height="14"
+						key="subreport-163"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='MISAMIS ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="226"
+						width="17"
+						height="14"
+						key="subreport-164"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='MISAMIS OCCIDENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="364"
+						y="473"
+						width="190"
+						height="0"
+						forecolor="#000000"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+				</line>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="389"
+						width="17"
+						height="14"
+						key="subreport-165"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='DAVAO ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="389"
+						width="17"
+						height="14"
+						key="subreport-166"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='DAVAO ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="389"
+						width="17"
+						height="14"
+						key="subreport-167"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='DAVAO ORIENTAL'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="455"
+						width="17"
+						height="14"
+						key="subreport-168"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SULTAN KUDARAT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="455"
+						width="17"
+						height="14"
+						key="subreport-169"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SULTAN KUDARAT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="455"
+						width="17"
+						height="14"
+						key="subreport-170"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SULTAN KUDARAT'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="478"
+						width="17"
+						height="14"
+						key="subreport-171"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section IN ('COMPOSTELLA VALLEY','DAVAO DEL NORTE','DAVAO ORIENTAL','SARANGANI','SOUTH COTABATO','SULTAN KUDARAT')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="478"
+						width="17"
+						height="14"
+						key="subreport-172"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section IN ('COMPOSTELLA VALLEY','DAVAO DEL NORTE','DAVAO ORIENTAL','SARANGANI','SOUTH COTABATO','SULTAN KUDARAT')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="478"
+						width="17"
+						height="14"
+						key="subreport-173"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	section IN ('COMPOSTELLA VALLEY','DAVAO DEL NORTE','DAVAO ORIENTAL','SARANGANI','SOUTH COTABATO','SULTAN KUDARAT')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="411"
+						width="17"
+						height="14"
+						key="subreport-174"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SARANGANI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="411"
+						width="17"
+						height="14"
+						key="subreport-175"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SARANGANI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="433"
+						width="17"
+						height="14"
+						key="subreport-176"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SOUTH COTABATO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="453"
+						y="433"
+						width="17"
+						height="14"
+						key="subreport-177"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SOUTH COTABATO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="513"
+						y="433"
+						width="17"
+						height="14"
+						key="subreport-178"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SOUTH COTABATO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="390"
+						y="411"
+						width="17"
+						height="14"
+						key="subreport-179"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SARANGANI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="363"
+						y="658"
+						width="190"
+						height="0"
+						forecolor="#000000"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+				</line>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="640"
+						width="17"
+						height="14"
+						key="subreport-180"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SURIGAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="640"
+						width="17"
+						height="14"
+						key="subreport-181"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SURIGAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="640"
+						width="17"
+						height="14"
+						key="subreport-182"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SURIGAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="663"
+						width="17"
+						height="14"
+						key="subreport-183"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section IN ('AGUSAN DEL NORTE','AGUSAN DEL SUR','COTABATO CITY','LANAO DEL NORTE','SURIGAO DEL NORTE','SURIGAO DEL SUR')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="663"
+						width="17"
+						height="14"
+						key="subreport-184"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section IN ('AGUSAN DEL NORTE','AGUSAN DEL SUR','COTABATO CITY','LANAO DEL NORTE','SURIGAO DEL NORTE','SURIGAO DEL SUR')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="663"
+						width="17"
+						height="14"
+						key="subreport-185"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	section IN ('AGUSAN DEL NORTE','AGUSAN DEL SUR','COTABATO CITY','LANAO DEL NORTE','SURIGAO DEL NORTE','SURIGAO DEL SUR')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="596"
+						width="17"
+						height="14"
+						key="subreport-186"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='LANAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="596"
+						width="17"
+						height="14"
+						key="subreport-187"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='LANAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="618"
+						width="17"
+						height="14"
+						key="subreport-188"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SURIGAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="618"
+						width="17"
+						height="14"
+						key="subreport-189"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SURIGAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="618"
+						width="17"
+						height="14"
+						key="subreport-190"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SURIGAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="596"
+						width="17"
+						height="14"
+						key="subreport-191"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='LANAO DEL NORTE'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						x="362"
+						y="847"
+						width="190"
+						height="0"
+						forecolor="#000000"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch" pen="1Point"/>
+				</line>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="719"
+						width="17"
+						height="14"
+						key="subreport-192"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='JOLO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="719"
+						width="17"
+						height="14"
+						key="subreport-193"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='JOLO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="741"
+						width="17"
+						height="14"
+						key="subreport-194"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='LANAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="741"
+						width="17"
+						height="14"
+						key="subreport-195"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='LANAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="741"
+						width="17"
+						height="14"
+						key="subreport-196"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='LANAO DEL SUR'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="763"
+						width="17"
+						height="14"
+						key="subreport-197"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='MARAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="763"
+						width="17"
+						height="14"
+						key="subreport-198"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='MARAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="763"
+						width="17"
+						height="14"
+						key="subreport-199"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='MARAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="829"
+						width="17"
+						height="14"
+						key="subreport-200"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='TAWI-TAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="829"
+						width="17"
+						height="14"
+						key="subreport-201"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='TAWI-TAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="829"
+						width="17"
+						height="14"
+						key="subreport-202"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='TAWI-TAWI'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="851"
+						width="17"
+						height="14"
+						key="subreport-203"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section IN ('JOLO','LANAO DEL SUR','MARAWI','MAGUINDANAO','SULU','TAWI-TAWI')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="851"
+						width="17"
+						height="14"
+						key="subreport-204"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section IN ('JOLO','LANAO DEL SUR','MARAWI','MAGUINDANAO','SULU','TAWI-TAWI')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="851"
+						width="17"
+						height="14"
+						key="subreport-205"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN ('MALE','FEMALE') AND "+
+"	section IN ('JOLO','LANAO DEL SUR','MARAWI','MAGUINDANAO','SULU','TAWI-TAWI')"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="719"
+						width="17"
+						height="14"
+						key="subreport-206"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='JOLO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="785"
+						width="17"
+						height="14"
+						key="subreport-207"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='MAGUINDANAO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="785"
+						width="17"
+						height="14"
+						key="subreport-208"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='MAGUINDANAO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="807"
+						width="17"
+						height="14"
+						key="subreport-209"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='SULU'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="452"
+						y="807"
+						width="17"
+						height="14"
+						key="subreport-210"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='FEMALE' AND "+
+"	section='SULU'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="512"
+						y="807"
+						width="17"
+						height="14"
+						key="subreport-211"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender IN('MALE','FEMALE') AND "+
+"	section='SULU'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="389"
+						y="785"
+						width="17"
+						height="14"
+						key="subreport-212"/>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT COUNT(*) as any "+
+"FROM Person "+
+"WHERE "+
+"	status='"+$P{REPORT_ADD_WHERE}+"' AND "+
+"	gender='MALE' AND "+
+"	section='MAGUINDANAO'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverSubReport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

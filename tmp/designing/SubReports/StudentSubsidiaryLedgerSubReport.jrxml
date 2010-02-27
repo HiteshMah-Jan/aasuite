@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="StudentSubsidiaryLedgerSubReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="594"
+		 columnWidth="842"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_paidBy" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+     payment.`paidBy` AS PaidBy,
+     payment.`paid` AS Paid,
+     payment.`section` AS Section,
+     payment.`schoolYear` AS SY,
+     payment.`amount` AS Amount,
+     payment.`discount` AS Discount,
+     payment.`orAmount` AS OrAmount,
+     payment.`balance` AS Balance,
+     payment.`cashier` AS Cashier,
+     payment.`overallAmountDue` AS OverallAmountDue,
+     payment.`overallAmountPaid` AS OverallAmountPaid,
+     person.`section` AS Section,
+     person.`gradeLevel` AS GradeLevel
+FROM
+     `payment` payment INNER JOIN `person` person ON payment.`paidBy` = person.`personId`
+WHERE
+     payment.`schoolYear` = $P{PARAM_schoolYear}
+
+ AND payment.`paidBy` = $P{PARAM_paidBy}
+ AND payment.`paid` = 1]]></queryString>
+
+	<field name="PaidBy" class="java.lang.Integer"/>
+	<field name="Paid" class="java.lang.Boolean"/>
+	<field name="Section" class="java.lang.String"/>
+	<field name="SY" class="java.lang.String"/>
+	<field name="Amount" class="java.lang.Double"/>
+	<field name="Balance" class="java.lang.Double"/>
+	<field name="Cashier" class="java.lang.String"/>
+	<field name="OverallAmountDue" class="java.lang.Double"/>
+	<field name="OverallAmountPaid" class="java.lang.Double"/>
+	<field name="Discount" class="java.lang.Double"/>
+	<field name="OrAmount" class="java.lang.Double"/>
+
+	<variable name="TotalBalance" class="java.lang.Double" resetType="Group" resetGroup="TotalGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{Balance}]]></variableExpression>
+	</variable>
+	<variable name="TotalPaid" class="java.lang.Double" resetType="Group" resetGroup="TotalGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{OrAmount}]]></variableExpression>
+	</variable>
+	<variable name="TotalDiscount" class="java.lang.Double" resetType="Group" resetGroup="TotalGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{Discount}]]></variableExpression>
+	</variable>
+	<variable name="TotalDebit" class="java.lang.Double" resetType="Group" resetGroup="TotalGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{Amount}]]></variableExpression>
+	</variable>
+
+		<group  name="TotalGroup" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="14"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="18"
+						y="0"
+						width="370"
+						height="13"
+						key="subreport-1"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{SY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_paidBy">
+						<subreportParameterExpression><![CDATA[$F{PaidBy}.toString()]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\StudentSubsidiaryTuitionBalanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="1"
+						width="51"
+						height="12"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{TotalPaid}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="58"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="12"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="99"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="159"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="209"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="262"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="314"
+						y="-3"
+						width="0"
+						height="16"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="1"
+						width="48"
+						height="12"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{TotalDiscount}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

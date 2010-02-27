@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="AdmissionSlip"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["9"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_enrollOnOrBefore" isForPrompting="true" class="java.util.Date">
+		<defaultValueExpression ><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     admission.`age` AS Age,
+     admission.`birthDate` AS BirthDate,
+     admission.`examinationDate` AS ExaminationDate,
+     admission.`firstName` AS FirstName,
+     admission.`lastName` AS LastName,
+     admission.`middleInitial` AS MiddleInitial,
+     admission.`birthCertificateNsoCopy` AS BirthCertificateNsoCopy,
+     admission.`baptismalCertificate` AS BaptismalCertificate,
+     admission.`letterOfRecommendation` AS LetterOfRecommendation,
+     admission.`studyPermit` AS StudyPermit,
+     admission.`passportForVerification` AS PassportForVerification,
+     admission.`threeColoredIdPictures` AS ThreeColoredIdPictures,
+     admission.`latestReportCard` AS LatestReportCard,
+     admission.`copyOfAcr` AS CopyOfAcr,
+     admission.`completeScholasticRecords` AS CompleteScholasticRecords,
+     admission.`originalReportCard` AS OriginalReportCard,
+     admission.`gpaEla` AS GpaEla,
+     admission.`gpaMath` AS GpaMath,
+     admission.`gpaSci` AS GpaSci,
+     admission.`gpaFil` AS GpaFil,
+     admission.`gpaSs` AS GpaSs,
+     admission.`gpaCon` AS GpaCon,
+     admission.`gpaAve` AS GpaAve,
+     companyconfig.`companyName` AS companyconfig_companyName,
+     admission.`orNumber` AS ORNumber,
+     admission.`elaPercentage` AS ElaPercentage,
+     admission.`elaScore` AS ElaScore,
+     admission.`mathPercentage` AS MathPercentage,
+     admission.`mathScore` AS MathScore,
+     admission.`sciScore` AS SciScore,
+     admission.`sciPercentage` AS SciPercentage,
+     gradelevel.`longName` AS GradeLevel,
+     admission.`elementaryAttended` AS ElementaryAttended,
+     admission.`preschoolAttended` AS PreschoolAttended,
+     admission.`recommendedRemedialCon` AS RemedialCon,
+     admission.`recommendedRemedialEla` AS RemedialEla,
+     admission.`recommendedRemedialFil` AS RemedialFil,
+     admission.`recommendedRemedialMath` AS RemedialMath,
+     admission.`recommendedRemedialSS` AS RemedialSS,
+     admission.`recommendedRemedialSci` AS RemedialSci,
+     admission.`prevSchool` AS PrevSchool,
+     admission.`previousGradeLevel` AS PreviousGradeLevel,
+     admission.`goodMoral` AS GoodMoral,
+     admission.`finalRemarks` AS FinalRemarks,
+     admission.`studentNumber` AS StudentNumber
+FROM
+     `gradelevel` gradelevel INNER JOIN `admission` admission ON gradelevel.`code` = admission.`gradeLevel`,
+     `companyconfig` companyconfig
+WHERE
+	admission.seq = $P{REPORT_ADD_WHERE}
+ORDER BY
+admission.gradelevel, admission.lastname]]></queryString>
+
+	<field name="Age" class="java.lang.Integer"/>
+	<field name="BirthDate" class="java.sql.Date"/>
+	<field name="ExaminationDate" class="java.sql.Date"/>
+	<field name="FirstName" class="java.lang.String"/>
+	<field name="LastName" class="java.lang.String"/>
+	<field name="MiddleInitial" class="java.lang.String"/>
+	<field name="BirthCertificateNsoCopy" class="java.lang.Boolean"/>
+	<field name="BaptismalCertificate" class="java.lang.Boolean"/>
+	<field name="LetterOfRecommendation" class="java.lang.Boolean"/>
+	<field name="StudyPermit" class="java.lang.Boolean"/>
+	<field name="PassportForVerification" class="java.lang.Boolean"/>
+	<field name="ThreeColoredIdPictures" class="java.lang.Boolean"/>
+	<field name="LatestReportCard" class="java.lang.Boolean"/>
+	<field name="CopyOfAcr" class="java.lang.Boolean"/>
+	<field name="CompleteScholasticRecords" class="java.lang.Boolean"/>
+	<field name="OriginalReportCard" class="java.lang.Boolean"/>
+	<field name="GpaEla" class="java.lang.String"/>
+	<field name="GpaMath" class="java.lang.String"/>
+	<field name="GpaSci" class="java.lang.String"/>
+	<field name="GpaFil" class="java.lang.String"/>
+	<field name="GpaSs" class="java.lang.String"/>
+	<field name="GpaCon" class="java.lang.String"/>
+	<field name="GpaAve" class="java.lang.String"/>
+	<field name="companyconfig_companyName" class="java.lang.String"/>
+	<field name="ORNumber" class="java.lang.String"/>
+	<field name="ElaPercentage" class="java.lang.Double"/>
+	<field name="ElaScore" class="java.lang.Integer"/>
+	<field name="MathPercentage" class="java.lang.Double"/>
+	<field name="MathScore" class="java.lang.Integer"/>
+	<field name="SciScore" class="java.lang.Integer"/>
+	<field name="SciPercentage" class="java.lang.Double"/>
+	<field name="GradeLevel" class="java.lang.String"/>
+	<field name="ElementaryAttended" class="java.lang.String"/>
+	<field name="PreschoolAttended" class="java.lang.String"/>
+	<field name="RemedialCon" class="java.lang.Boolean"/>
+	<field name="RemedialEla" class="java.lang.Boolean"/>
+	<field name="RemedialFil" class="java.lang.Boolean"/>
+	<field name="RemedialMath" class="java.lang.Boolean"/>
+	<field name="RemedialSS" class="java.lang.Boolean"/>
+	<field name="RemedialSci" class="java.lang.Boolean"/>
+	<field name="PrevSchool" class="java.lang.String"/>
+	<field name="PreviousGradeLevel" class="java.lang.String"/>
+	<field name="GoodMoral" class="java.lang.Boolean"/>
+	<field name="FinalRemarks" class="java.lang.String"/>
+	<field name="StudentNumber" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="48"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="18"
+						width="243"
+						height="16"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student Records Unit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="32"
+						width="243"
+						height="16"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ADMISSION REPORT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="243"
+						height="20"
+						key="textField-1"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{companyconfig_companyName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="243"
+						y="18"
+						width="157"
+						height="16"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ Effectivity Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="243"
+						y="0"
+						width="157"
+						height="20"
+						key="staticText-6"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ Rec. Control #: SRU-3.6.4]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="243"
+						y="32"
+						width="157"
+						height="16"
+						key="staticText-34"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="574"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="97"
+						width="400"
+						height="37"
+						key="staticText-36"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Recommended for summer/remedial classes in:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="62"
+						width="400"
+						height="35"
+						key="staticText-35"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Level Applied For]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="25"
+						width="400"
+						height="37"
+						key="staticText-5"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[ Applicants Name:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="34"
+						width="387"
+						height="20"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{LastName}+", "+$F{FirstName}+"  "+$F{MiddleInitial}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="72"
+						width="387"
+						height="20"
+						key="textField-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GradeLevel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="67"
+						y="0"
+						width="76"
+						height="20"
+						key="textField-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{StudentNumber}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="67"
+						height="20"
+						key="staticText-33"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student No.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="6"
+						y="111"
+						width="387"
+						height="18"
+						forecolor="#000000"
+						key="textField-6"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{RemedialEla}.booleanValue()?"   English":"")+
+($F{RemedialMath}.booleanValue()?"   Math":"")+
+($F{RemedialSci}.booleanValue()?"   Sceince":"")+
+($F{RemedialFil}.booleanValue()?"   Filipino":"")+
+($F{RemedialSS}.booleanValue()?"   Social Studies":"")+
+($F{RemedialCon}.booleanValue()?"   Conduct":"")]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="134"
+						width="95"
+						height="23"
+						key="staticText-37"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Date of Enrollment]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="219"
+						y="134"
+						width="181"
+						height="23"
+						key="textField-7"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{PARAM_enrollOnOrBefore}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="157"
+						width="400"
+						height="63"
+						key="staticText-38"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Approved by:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="6"
+						y="188"
+						width="387"
+						height="20"
+						key="staticText-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MS. MARIA SHIRLEY G. DANAO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="6"
+						y="200"
+						width="387"
+						height="20"
+						key="staticText-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Head, Student Records Unit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="95"
+						y="134"
+						width="124"
+						height="23"
+						key="staticText-41"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[on or before  ]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

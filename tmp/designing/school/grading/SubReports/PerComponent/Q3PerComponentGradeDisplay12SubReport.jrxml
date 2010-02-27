@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Q3PerComponentGradeDisplay12SubReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["753"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_component" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["SEATWORK"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_subject" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["G2_Arts"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     studentsubjectdetailgrading.`q3Grade` AS Grade,
+     studentsubjectdetailgrading.`gradeShareQ3` AS gradeShare,
+     studentsubjectdetailgrading.`q3ItemCount1` AS ItemCount1,
+     studentsubjectdetailgrading.`q3ItemCount10` AS ItemCount10,
+     studentsubjectdetailgrading.`q3ItemCount11` AS ItemCount11,
+     studentsubjectdetailgrading.`q3ItemCount12` AS ItemCount12,
+     studentsubjectdetailgrading.`q3ItemCount2` AS ItemCount2,
+     studentsubjectdetailgrading.`q3ItemCount3` AS ItemCount3,
+     studentsubjectdetailgrading.`q3ItemCount4` AS ItemCount4,
+     studentsubjectdetailgrading.`q3ItemCount5` AS ItemCount5,
+     studentsubjectdetailgrading.`q3ItemCount6` AS ItemCount6,
+     studentsubjectdetailgrading.`q3ItemCount7` AS ItemCount7,
+     studentsubjectdetailgrading.`q3ItemCount8` AS ItemCount8,
+     studentsubjectdetailgrading.`q3ItemCount9` AS ItemCount9,
+     studentsubjectdetailgrading.`q3Score1` AS Score1,
+     studentsubjectdetailgrading.`q3Score10` AS Score10,
+     studentsubjectdetailgrading.`q3Score11` AS Score11,
+     studentsubjectdetailgrading.`q3Score12` AS Score12,
+     studentsubjectdetailgrading.`q3Score2` AS Score2,
+     studentsubjectdetailgrading.`q3Score3` AS Score3,
+     studentsubjectdetailgrading.`q3Score4` AS Score4,
+     studentsubjectdetailgrading.`q3Score5` AS Score5,
+     studentsubjectdetailgrading.`q3Score6` AS Score6,
+     studentsubjectdetailgrading.`q3Score7` AS Score7,
+     studentsubjectdetailgrading.`q3Score8` AS Score8,
+     studentsubjectdetailgrading.`q3Score9` AS Score9,
+     studentsubjectdetailgrading.`usePercentage` AS usePercentage,
+     studentsubjectdetailgrading.`weight` AS weight,
+     studentsubjectdetailgrading.`component` AS component,
+     studentsubjectdetailgrading.`description` AS description
+FROM
+     `studentsubjectdetailgrading` studentsubjectdetailgrading
+WHERE 
+     studentId = $P{REPORT_ADD_WHERE} AND
+     subject = $P{PARAM_subject} AND
+     component = $P{PARAM_component}
+ORDER BY
+     studentsubjectdetailgrading.`q3Grade` DESC]]></queryString>
+
+	<field name="Grade" class="java.lang.Double"/>
+	<field name="gradeShare" class="java.lang.Double"/>
+	<field name="ItemCount1" class="java.lang.Integer"/>
+	<field name="ItemCount10" class="java.lang.Integer"/>
+	<field name="ItemCount11" class="java.lang.Integer"/>
+	<field name="ItemCount12" class="java.lang.Integer"/>
+	<field name="ItemCount2" class="java.lang.Integer"/>
+	<field name="ItemCount3" class="java.lang.Integer"/>
+	<field name="ItemCount4" class="java.lang.Integer"/>
+	<field name="ItemCount5" class="java.lang.Integer"/>
+	<field name="ItemCount6" class="java.lang.Integer"/>
+	<field name="ItemCount7" class="java.lang.Integer"/>
+	<field name="ItemCount8" class="java.lang.Integer"/>
+	<field name="ItemCount9" class="java.lang.Integer"/>
+	<field name="Score1" class="java.lang.Integer"/>
+	<field name="Score10" class="java.lang.Integer"/>
+	<field name="Score11" class="java.lang.Integer"/>
+	<field name="Score12" class="java.lang.Integer"/>
+	<field name="Score2" class="java.lang.Integer"/>
+	<field name="Score3" class="java.lang.Integer"/>
+	<field name="Score4" class="java.lang.Integer"/>
+	<field name="Score5" class="java.lang.Integer"/>
+	<field name="Score6" class="java.lang.Integer"/>
+	<field name="Score7" class="java.lang.Integer"/>
+	<field name="Score8" class="java.lang.Integer"/>
+	<field name="Score9" class="java.lang.Integer"/>
+	<field name="usePercentage" class="java.lang.String"/>
+	<field name="weight" class="java.lang.Double"/>
+	<field name="component" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+
+	<variable name="DISPLAY_COUNT" class="java.lang.Integer" resetType="Report" calculation="Nothing">
+		<initialValueExpression><![CDATA[new Integer("RECITATION|PROJECT|QUIZ".contains($P{PARAM_component})?5:("QUARTER TEST|LONG TEST".contains($P{PARAM_component})?1:12))]]></initialValueExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="11"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="16"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="32"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="48"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score4}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="64"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score5}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="80"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score6}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="96"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score7}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="112"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score8}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="128"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score9}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="144"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score10}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score11}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="176"
+						y="1"
+						width="16"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{Score12}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="210"
+						y="1"
+						width="30"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{Grade}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="240"
+						y="1"
+						width="24"
+						height="10"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{gradeShare}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="192"
+						y="1"
+						width="18"
+						height="10"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double(($F{Score1}.intValue()==-1?0:$F{Score1}.intValue())+
+($F{Score2}.intValue()==-1?0:$F{Score2}.intValue())+
+($F{Score3}.intValue()==-1?0:$F{Score3}.intValue())+
+($F{Score4}.intValue()==-1?0:$F{Score4}.intValue())+
+($F{Score5}.intValue()==-1?0:$F{Score5}.intValue())+
+($F{Score6}.intValue()==-1?0:$F{Score6}.intValue())+
+($F{Score7}.intValue()==-1?0:$F{Score7}.intValue())+
+($F{Score8}.intValue()==-1?0:$F{Score8}.intValue())+
+($F{Score9}.intValue()==-1?0:$F{Score9}.intValue())+
+($F{Score10}.intValue()==-1?0:$F{Score10}.intValue())+
+($F{Score11}.intValue()==-1?0:$F{Score11}.intValue())+
+($F{Score12}.intValue()==-1?0:$F{Score12}.intValue()))]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

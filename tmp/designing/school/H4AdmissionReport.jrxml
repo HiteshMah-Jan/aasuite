@@ -1,0 +1,1399 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="H4AdmissionReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="552"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     admission.`age` AS Age,
+     admission.`birthDate` AS BirthDate,
+     admission.`examinationDate` AS ExaminationDate,
+     admission.`firstName` AS FirstName,
+     admission.`lastName` AS LastName,
+     admission.`middleInitial` AS MiddleInitial,
+     admission.`birthCertificateNsoCopy` AS BirthCertificateNsoCopy,
+     admission.`baptismalCertificate` AS BaptismalCertificate,
+     admission.`letterOfRecommendation` AS LetterOfRecommendation,
+     admission.`studyPermit` AS StudyPermit,
+     admission.`passportForVerification` AS PassportForVerification,
+     admission.`threeColoredIdPictures` AS ThreeColoredIdPictures,
+     admission.`latestReportCard` AS LatestReportCard,
+     admission.`copyOfAcr` AS CopyOfAcr,
+     admission.`completeScholasticRecords` AS CompleteScholasticRecords,
+     admission.`originalReportCard` AS OriginalReportCard,
+     admission.`gpaEla` AS GpaEla,
+     admission.`gpaMath` AS GpaMath,
+     admission.`gpaSci` AS GpaSci,
+     admission.`gpaFil` AS GpaFil,
+     admission.`gpaSs` AS GpaSs,
+     admission.`gpaCon` AS GpaCon,
+     admission.`gpaAve` AS GpaAve,
+     companyconfig.`companyName` AS companyconfig_companyName,
+     admission.`orNumber` AS ORNumber,
+     admission.`elaPercentage` AS ElaPercentage,
+     admission.`elaScore` AS ElaScore,
+     admission.`mathPercentage` AS MathPercentage,
+     admission.`mathScore` AS MathScore,
+     admission.`sciScore` AS SciScore,
+     admission.`sciPercentage` AS SciPercentage,
+     gradelevel.`longName` AS GradeLevel,
+     admission.`elementaryAttended` AS ElementaryAttended,
+     admission.`preschoolAttended` AS PreschoolAttended,
+     admission.`recommendedRemedialCon` AS RemedialCon,
+     admission.`recommendedRemedialEla` AS RemedialEla,
+     admission.`recommendedRemedialFil` AS RemedialFil,
+     admission.`recommendedRemedialMath` AS RemedialMath,
+     admission.`recommendedRemedialSS` AS RemedialSS,
+     admission.`recommendedRemedialSci` AS RemedialSci,
+     admission.`prevSchool` AS PrevSchool,
+     admission.`previousGradeLevel` AS PreviousGradeLevel,
+     admission.`goodMoral` AS GoodMoral,
+     admission.`finalRemarks` AS FinalRemarks
+FROM
+     `gradelevel` gradelevel INNER JOIN `admission` admission ON gradelevel.`code` = admission.`gradeLevel`,
+     `companyconfig` companyconfig
+WHERE
+	admission.`gradeLevel` = 'H4'
+AND
+        admission.seq = $P{REPORT_ADD_WHERE}
+ORDER BY
+admission.gradelevel, admission.lastname]]></queryString>
+
+	<field name="Age" class="java.lang.Integer"/>
+	<field name="BirthDate" class="java.sql.Date"/>
+	<field name="ExaminationDate" class="java.sql.Date"/>
+	<field name="FirstName" class="java.lang.String"/>
+	<field name="LastName" class="java.lang.String"/>
+	<field name="MiddleInitial" class="java.lang.String"/>
+	<field name="BirthCertificateNsoCopy" class="java.lang.Boolean"/>
+	<field name="BaptismalCertificate" class="java.lang.Boolean"/>
+	<field name="LetterOfRecommendation" class="java.lang.Boolean"/>
+	<field name="StudyPermit" class="java.lang.Boolean"/>
+	<field name="PassportForVerification" class="java.lang.Boolean"/>
+	<field name="ThreeColoredIdPictures" class="java.lang.Boolean"/>
+	<field name="LatestReportCard" class="java.lang.Boolean"/>
+	<field name="CopyOfAcr" class="java.lang.Boolean"/>
+	<field name="CompleteScholasticRecords" class="java.lang.Boolean"/>
+	<field name="OriginalReportCard" class="java.lang.Boolean"/>
+	<field name="GpaEla" class="java.lang.String"/>
+	<field name="GpaMath" class="java.lang.String"/>
+	<field name="GpaSci" class="java.lang.String"/>
+	<field name="GpaFil" class="java.lang.String"/>
+	<field name="GpaSs" class="java.lang.String"/>
+	<field name="GpaCon" class="java.lang.String"/>
+	<field name="GpaAve" class="java.lang.String"/>
+	<field name="companyconfig_companyName" class="java.lang.String"/>
+	<field name="ORNumber" class="java.lang.String"/>
+	<field name="ElaPercentage" class="java.lang.Double"/>
+	<field name="ElaScore" class="java.lang.Integer"/>
+	<field name="MathPercentage" class="java.lang.Double"/>
+	<field name="MathScore" class="java.lang.Integer"/>
+	<field name="SciScore" class="java.lang.Integer"/>
+	<field name="SciPercentage" class="java.lang.Double"/>
+	<field name="GradeLevel" class="java.lang.String"/>
+	<field name="ElementaryAttended" class="java.lang.String"/>
+	<field name="PreschoolAttended" class="java.lang.String"/>
+	<field name="RemedialCon" class="java.lang.Boolean"/>
+	<field name="RemedialEla" class="java.lang.Boolean"/>
+	<field name="RemedialFil" class="java.lang.Boolean"/>
+	<field name="RemedialMath" class="java.lang.Boolean"/>
+	<field name="RemedialSS" class="java.lang.Boolean"/>
+	<field name="RemedialSci" class="java.lang.Boolean"/>
+	<field name="PrevSchool" class="java.lang.String"/>
+	<field name="PreviousGradeLevel" class="java.lang.String"/>
+	<field name="GoodMoral" class="java.lang.String"/>
+	<field name="FinalRemarks" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="58"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="17"
+						width="364"
+						height="20"
+						key="staticText-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student Records Unit]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="0"
+						width="364"
+						height="20"
+						key="textField-18"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{companyconfig_companyName}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="365"
+						y="17"
+						width="187"
+						height="20"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ Effectivity Date:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="365"
+						y="34"
+						width="187"
+						height="20"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="365"
+						y="0"
+						width="187"
+						height="20"
+						key="staticText-11"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ Rec. Control #: SRU-3.6.4]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="34"
+						width="364"
+						height="20"
+						forecolor="#000000"
+						key="textField-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["ADMISSION REPORT: "+$F{GradeLevel}]]></textFieldExpression>
+				</textField>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="679"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="427"
+						width="551"
+						height="118"
+						forecolor="#000000"
+						key="element-132"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified">
+						<font fontName="" size="10"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="134"
+						width="266"
+						height="55"
+						forecolor="#000000"
+						key="element-116"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="313"
+						width="266"
+						height="114"
+						forecolor="#666666"
+						key="element-128"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Approved by:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="252"
+						width="285"
+						height="175"
+						forecolor="#000000"
+						key="element-120"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="134"
+						width="285"
+						height="97"
+						forecolor="#000000"
+						key="element-100"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="0"
+						width="285"
+						height="51"
+						forecolor="#666666"
+						key="element-90"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Name of Applicant]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="431"
+						width="528"
+						height="40"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Bottom">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[               Qualified applicants are expected to complete all the requirements and enroll on or before the specified date, unless adjustment is requested at the Finance Administration (Business Office). Otherwise, Elizabeth Seton School may assign the slot to another applicant.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="0"
+						width="133"
+						height="28"
+						forecolor="#666666"
+						key="element-90"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Date of Exam]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="28"
+						width="266"
+						height="23"
+						forecolor="#666666"
+						key="element-90"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Application Fee OR No.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="20"
+						width="285"
+						height="20"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{LastName}+", "+$F{FirstName}+"  "+$F{MiddleInitial}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="8"
+						y="142"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[English]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="268"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Birth Certificate NSO Copy ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="282"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[BaptismalCertificate]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="324"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Letter of Recommendation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="310"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[3 Colored Id Pictures]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="296"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Latest Report Card]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="409"
+						width="266"
+						height="14"
+						forecolor="#000000"
+						key="element-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Head, Student Records Unit]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="142"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaEla}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="156"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaMath}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="170"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaSci}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="184"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaFil}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="198"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaSs}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="71"
+						y="212"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaCon}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="135"
+						y="170"
+						width="142"
+						height="26"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GpaAve}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="419"
+						y="0"
+						width="133"
+						height="28"
+						forecolor="#666666"
+						key="element-91"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Date of Release]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="51"
+						width="285"
+						height="35"
+						forecolor="#666666"
+						key="element-92"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Name of Previous School]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="51"
+						width="266"
+						height="35"
+						forecolor="#666666"
+						key="element-93"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Level Applied For]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="286"
+						y="62"
+						width="266"
+						height="20"
+						forecolor="#000000"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GradeLevel}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="86"
+						width="285"
+						height="27"
+						forecolor="#666666"
+						key="element-94"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Previous Level]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="286"
+						y="86"
+						width="266"
+						height="27"
+						forecolor="#000000"
+						backcolor="#F1EBEB"
+						key="element-95"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ADMISSION RESULTS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="113"
+						width="285"
+						height="21"
+						forecolor="#000000"
+						backcolor="#F1EBEB"
+						key="element-96"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[GPA IN PREVIOUS SCHOOL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="113"
+						width="133"
+						height="21"
+						forecolor="#000000"
+						key="element-97"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SKILLS AREAS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="419"
+						y="113"
+						width="67"
+						height="21"
+						forecolor="#000000"
+						key="element-98"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[RS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="485"
+						y="113"
+						width="67"
+						height="21"
+						forecolor="#000000"
+						key="element-99"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="156"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-101"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Mathematics]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="170"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-102"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Science]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="184"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-103"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Filipino]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="198"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-104"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Social Studies]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="212"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						key="element-105"/>
+					<box topBorder="Thin" topBorderColor="#CCCCCC" leftBorder="Thin" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="Thin" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Conduct]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="135"
+						y="142"
+						width="85"
+						height="12"
+						forecolor="#000000"
+						key="element-106"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" size="8"/>
+					</textElement>
+				<text><![CDATA[Average:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="313"
+						y="142"
+						width="106"
+						height="14"
+						forecolor="#000000"
+						key="element-107"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[English]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="313"
+						y="156"
+						width="106"
+						height="14"
+						forecolor="#000000"
+						key="element-108"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Mathematics]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="313"
+						y="170"
+						width="106"
+						height="14"
+						forecolor="#000000"
+						key="element-109"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#FFFFFF"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Science]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="189"
+						width="266"
+						height="42"
+						forecolor="#000000"
+						key="element-117"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[For Remediation in:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="231"
+						width="285"
+						height="21"
+						forecolor="#000000"
+						backcolor="#F1EBEB"
+						key="element-118"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Submitted Requirements:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="286"
+						y="231"
+						width="266"
+						height="21"
+						forecolor="#000000"
+						backcolor="#F1EBEB"
+						key="element-119"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FINAL REMARKS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="252"
+						width="266"
+						height="61"
+						forecolor="#000000"
+						key="element-121"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="338"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-122"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Good Moral/Certificate of eligibility to transfer]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="352"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-123"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Transript of Records (Form 137)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="367"
+						width="87"
+						height="14"
+						forecolor="#000000"
+						key="element-124"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="8" isBold="false"/>
+					</textElement>
+				<text><![CDATA[For Foreign Students:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="381"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-125"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Study Permit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="395"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-126"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ACR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="47"
+						y="409"
+						width="230"
+						height="14"
+						forecolor="#000000"
+						key="element-127"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Passport (Photocopy)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="286"
+						y="395"
+						width="266"
+						height="14"
+						forecolor="#000000"
+						key="element-129"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MS. MARIA SHIRLEY G. DANAO]]></text>
+				</staticText>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="268"
+						width="12"
+						height="14"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{BirthCertificateNsoCopy}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="282"
+						width="12"
+						height="14"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{BaptismalCertificate}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="296"
+						width="12"
+						height="14"
+						key="image-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{LatestReportCard}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="310"
+						width="12"
+						height="14"
+						key="image-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{ThreeColoredIdPictures}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="324"
+						width="12"
+						height="14"
+						key="image-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{LetterOfRecommendation}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="352"
+						width="12"
+						height="14"
+						key="image-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{OriginalReportCard}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="381"
+						width="12"
+						height="14"
+						key="image-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{StudyPermit}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="395"
+						width="12"
+						height="14"
+						key="image-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{CopyOfAcr}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="409"
+						width="12"
+						height="14"
+						key="image-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{PassportForVerification}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="16"
+						y="471"
+						width="528"
+						height="40"
+						forecolor="#000000"
+						key="element-130"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Bottom">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[               Once enrolled, students and their parents are bound to comply with the rules and regulations including withdrawal at specified period of time defined in the Students' Handbook, ESS Manual and the Manual of Regulations for Private Schools.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="16"
+						y="511"
+						width="528"
+						height="30"
+						forecolor="#000000"
+						key="element-131"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Bottom">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[                     The Student Records  Unit/ Admissions shall return all submitted requirements to applicants who did not qualify.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="286"
+						y="31"
+						width="266"
+						height="15"
+						forecolor="#000000"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORNumber}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="142"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-5"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ElaScore}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="156"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-6"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{MathScore}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="170"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-7"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{SciScore}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="485"
+						y="142"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-8"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ElaPercentage}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="485"
+						y="156"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-9"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{MathPercentage}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="485"
+						y="170"
+						width="67"
+						height="14"
+						forecolor="#000000"
+						key="textField-10"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{SciPercentage}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="545"
+						width="551"
+						height="20"
+						forecolor="#000000"
+						backcolor="#F1EBEB"
+						key="element-133"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Acknowledgement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="565"
+						width="551"
+						height="114"
+						forecolor="#000000"
+						key="element-134"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="14"
+						y="566"
+						width="536"
+						height="30"
+						forecolor="#000000"
+						key="element-135"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[I have received the Admission Report of my child and shall comply with the policies of Elizabeth Seton School.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="286"
+						y="11"
+						width="133"
+						height="15"
+						forecolor="#000000"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{ExaminationDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="95"
+						y="623"
+						width="364"
+						height="20"
+						key="staticText-6"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Signature of Parent/Authorized Guardian over Printed Name]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="130"
+						y="653"
+						width="289"
+						height="20"
+						key="staticText-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Date:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="292"
+						y="204"
+						width="260"
+						height="18"
+						forecolor="#000000"
+						key="textField-13"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{RemedialEla}.booleanValue()?"   English":"")+
+($F{RemedialMath}.booleanValue()?"   Math":"")+
+($F{RemedialSci}.booleanValue()?"   Sceince":"")+
+($F{RemedialFil}.booleanValue()?"   Filipino":"")+
+($F{RemedialSS}.booleanValue()?"   Social Studies":"")+
+($F{RemedialCon}.booleanValue()?"   Conduct":"")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="63"
+						width="267"
+						height="20"
+						forecolor="#000000"
+						key="textField-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PrevSchool}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="10"
+						y="90"
+						width="267"
+						height="20"
+						forecolor="#000000"
+						key="textField-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PreviousGradeLevel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="292"
+						y="270"
+						width="260"
+						height="18"
+						forecolor="#000000"
+						key="textField-16"/>
+					<box topBorder="None" topBorderColor="#CCCCCC" leftBorder="None" leftBorderColor="#CCCCCC" leftPadding="2" rightBorder="None" rightBorderColor="#CCCCCC" rightPadding="2" bottomBorder="None" bottomBorderColor="#CCCCCC"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FinalRemarks}]]></textFieldExpression>
+				</textField>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="338"
+						width="12"
+						height="14"
+						key="image-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\images\\"+$F{GoodMoral}+"Icon.jpg"]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="true" pattern="dd-MMM-yy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="419"
+						y="11"
+						width="133"
+						height="15"
+						forecolor="#000000"
+						key="textField-17"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

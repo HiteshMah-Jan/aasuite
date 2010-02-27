@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportSourceDefinition Cached="false" Expiration="0" Id="RSD_PRICESDAYWEEKMONTHYEAR" IncrementalDimension="" MaxRowCount="2147483647" MaxRowsDimensionReference="" Multilanguage="false">
+  <DimensionSourceDefinitions>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="Year" Expression="" ExternalData="Year" Name="Year"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="Month" Expression="" ExternalData="Month" Name="Month"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="Week" Expression="" ExternalData="Week" Name="Week"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="Day" Expression="" ExternalData="Day" Name="Day"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="plant" Expression="" ExternalData="plant" Name="plant"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="region" Expression="" ExternalData="region" Name="region"/>
+    <DimensionSourceDefinition Calculated="false" DataType="STRING" Description="resourceName" Expression="" ExternalData="resourceName" Name="resourceName"/>
+  </DimensionSourceDefinitions>
+  <MetricSourceDefinitions>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Megawatt_Day" ExternalCalculated="false" ExternalData="Megawatt_Day" GroupFooterFunction="" GroupFooterType="NONE" Name="Megawatt_Day"/>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Price_7_18" ExternalCalculated="false" ExternalData="Price_7_18" GroupFooterFunction="" GroupFooterType="NONE" Name="Price_7_18"/>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Mega_7_18" ExternalCalculated="false" ExternalData="Mega_7_18" GroupFooterFunction="" GroupFooterType="NONE" Name="Mega_7_18"/>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Mega_NonPeak" ExternalCalculated="false" ExternalData="Mega_NonPeak" GroupFooterFunction="" GroupFooterType="NONE" Name="Mega_NonPeak"/>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Price_NonPeak" ExternalCalculated="false" ExternalData="Price_NonPeak" GroupFooterFunction="" GroupFooterType="NONE" Name="Price_NonPeak"/>
+    <MetricSourceDefinition AggregateFunction="" AggregateType="SUM" Calculated="false" Description="Price_Day" ExternalCalculated="false" ExternalData="Price_Day" GroupFooterFunction="" GroupFooterType="NONE" Name="Price_Day"/>
+  </MetricSourceDefinitions>
+  <FilterDefinitions/>
+  <DataSourceDefinitions>
+    <DataSourceDefinition DatePattern="" DateTimePattern="" Expression="select 	year(offerDate) Year, 	month(offerDate) Month, 	weekofyear(offerDate) Week, 	weekday(offerDate) Day, 	region, 	plant, 	resourceName, 	sum(megawatt1+ 	megawatt2+ 	megawatt3+ 	megawatt4+ 	megawatt5+ 	megawatt6+ 	megawatt7+ 	megawatt8+ 	megawatt9+ 	megawatt10+ 	megawatt11+ 	megawatt12+ 	megawatt13+ 	megawatt14+ 	megawatt15+ 	megawatt16+ 	megawatt17+ 	megawatt18+ 	megawatt19+ 	megawatt20+ 	megawatt21+ 	megawatt22+ 	megawatt23+ 	megawatt24) as Megawatt_Day, 	sum(price1+ 	price2+ 	price3+ 	price4+ 	price5+ 	price6+ 	price7+ 	price8+ 	price9+ 	price10+ 	price11+ 	price12+ 	price13+ 	price14+ 	price15+ 	price16+ 	price17+ 	price18+ 	price19+ 	price20+ 	price21+ 	price22+ 	price23+ 	price24) Price_Day, 	sum(megawatt7+ 	megawatt8+ 	megawatt9+ 	megawatt10+ 	megawatt11+ 	megawatt12+ 	megawatt13+ 	megawatt14+ 	megawatt15+ 	megawatt16+ 	megawatt17+ 	megawatt18) Mega_7_18, 	sum(price7+ 	price8+ 	price9+ 	price10+ 	price11+ 	price12+ 	price13+ 	price14+ 	price15+ 	price16+ 	price17+ 	price18) Price_7_18, 	sum(megawatt1+ 	megawatt2+ 	megawatt3+ 	megawatt4+ 	megawatt5+ 	megawatt6+ 	megawatt19+ 	megawatt20+ 	megawatt21+ 	megawatt22+ 	megawatt23+ 	megawatt24) as Mega_NonPeak, 	sum(price1+ 	price2+ 	price3+ 	price4+ 	price5+ 	price6+ 	price19+ 	price20+ 	price21+ 	price22+ 	price23+ 	price24) Price_NonPeak from pricesandschedulepivot  %where_prefilter% group by year(offerDate), 	month(offerDate), 	weekofyear(offerDate),   weekday(offerDate), 	region, 	plant, 	resourceName " ExternalClassName="com.mysql.jdbc.Driver" ExternalConnectionClassName="com.mysql.jdbc.Driver" ExternalConnectionDistributedUrl="" ExternalConnectionLocalUrl="jdbc:mysql://localhost:3306/energy" ExternalConnectionPassword="password" ExternalConnectionString="" ExternalConnectionUser="root" ExternalSourceData="" Name="PRICESDAYWEEKMONTHYEAR" SourceType="SQL"/>
+  </DataSourceDefinitions>
+  <ParameterValues/>
+  <Localizations/>
+</ReportSourceDefinition>
