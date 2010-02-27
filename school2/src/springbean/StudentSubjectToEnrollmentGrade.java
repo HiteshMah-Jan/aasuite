@@ -1,0 +1,189 @@
+package springbean;
+
+import java.util.List;
+
+import util.DBClient;
+import bean.Enrollment;
+import bean.person.StudentSubject;
+import bean.reference.Subject;
+
+public class StudentSubjectToEnrollmentGrade {
+	private List<Subject> allsubs;
+	
+	private Subject getSubject(String code) {
+		for (Subject sub:allsubs) {
+			if (code.equals(sub.code)) {
+				return sub;
+			}
+		}
+		return null;
+	}
+	
+	public StudentSubjectToEnrollmentGrade(List<Subject> allsubs) {
+		this.allsubs = allsubs;
+	}
+
+	protected void putAllMapeh(Enrollment e, List<StudentSubject> l) {
+		double totalMAPEHUnits1 = 0;
+		double totalMAPEHUnits2 = 0;
+		double totalMAPEHUnits3 = 0;
+		double totalMAPEHUnits4 = 0;
+		double totalMAPEH1 = 0;
+		double totalMAPEH2 = 0;
+		double totalMAPEH3 = 0;
+		double totalMAPEH4 = 0;
+		for (StudentSubject s:l) {
+	        String mysub = s.subject.toUpperCase();
+	        mysub = mysub.replaceAll("MAPEH", "");
+	        mysub = mysub.replaceAll("MK", "");
+			if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
+				Subject subject = getSubject(s.subject);
+				if (subject.unit>0) {
+					if (s.grade1>60) {
+						totalMAPEHUnits1 += subject.unit;
+						totalMAPEH1 += (( (int) (s.grade1+.5) ) * subject.unit);
+					}
+					if (s.grade2>60) {
+						totalMAPEHUnits2 += subject.unit;
+						totalMAPEH2 += (( (int) (s.grade2+.5) ) * subject.unit);
+					}
+					if (s.grade3>60) {
+						totalMAPEHUnits3 += subject.unit;
+						totalMAPEH3 += (( (int) (s.grade3+.5) ) * subject.unit);
+					}
+					if (s.grade4>60) {
+						totalMAPEHUnits4 += subject.unit;
+						totalMAPEH4 += (( (int) (s.grade4+.5) ) * subject.unit);
+					}
+				}
+			}
+		}
+		if (totalMAPEH1>0 && totalMAPEHUnits1>0) e.q1MAPEH = totalMAPEH1/totalMAPEHUnits1;
+		if (totalMAPEH2>0 && totalMAPEHUnits2>0) e.q2MAPEH = totalMAPEH2/totalMAPEHUnits2;
+		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3MAPEH = totalMAPEH3/totalMAPEHUnits3;
+		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4MAPEH = totalMAPEH4/totalMAPEHUnits4;
+	}
+	
+	protected void putAllSubjects(Enrollment e, List<StudentSubject> l) {
+		double totalUnits1 = 0;
+		double totalUnits2 = 0;
+		double totalUnits3 = 0;
+		double totalUnits4 = 0;
+		double totalGPA1 = 0;
+		double totalGPA2 = 0;
+		double totalGPA3 = 0;
+		double totalGPA4 = 0;
+		for (StudentSubject s:l) {
+			Subject subject = getSubject(s.subject);
+			if (subject.unit>0) {
+				if (s.grade1>60) {
+					totalUnits1 += subject.unit;
+					totalGPA1 += (( (int) (s.grade1+.5) ) * subject.unit);
+				}
+				if (s.grade2>60) {
+					totalUnits2 += subject.unit;
+					totalGPA2 += (( (int) (s.grade2+.5) ) * subject.unit);
+				}
+				if (s.grade3>60) {
+					totalUnits3 += subject.unit;
+					totalGPA3 += (( (int) (s.grade3+.5) ) * subject.unit);
+				}
+				if (s.grade4>60) {
+					totalUnits4 += subject.unit;
+					totalGPA4 += (( (int) (s.grade4+.5) ) * subject.unit);
+				}
+			}
+		}
+		if (totalGPA1>0 && totalUnits1>0) e.gpa1 = totalGPA1/totalUnits1;
+		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = totalGPA2/totalUnits2;
+		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = totalGPA3/totalUnits3;
+		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = totalGPA4/totalUnits4;
+	}
+	
+	private void setGrades(Enrollment e, StudentSubject s, String subjectName) {
+		e.changeValue("q1" + subjectName, s.grade1);
+		e.changeValue("q2" + subjectName, s.grade2);
+		e.changeValue("q3" + subjectName, s.grade3);
+		e.changeValue("q4" + subjectName, s.grade4);
+		e.changeValue("qall" + subjectName, s.finalRating);
+	}
+	
+	public Enrollment setupEnrollmentGrade(StudentSubject subject, Enrollment e) {
+        if (e == null || e.studentId!=subject.studentId) {
+        	System.out.println("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT "+subject.studentName+".");
+        	return e;
+        }
+		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
+		putAllMapeh(e, allStudSubjects);
+		putAllSubjects(e, allStudSubjects);
+		
+        String mysub = subject.subject.toUpperCase();
+        mysub = mysub.replaceAll("MAPEH", "");
+        mysub = mysub.replaceAll("MK", "");
+    	System.out.println(mysub);
+        if (mysub.contains("ENGLISH")) {
+        	setGrades(e, subject, "English");
+        }
+        else if (mysub.contains("FILIPINO")) {
+        	setGrades(e, subject, "Filipino");
+        }
+        else if (mysub.contains("OP") && mysub.contains("MATH")) {
+        	setGrades(e, subject, "OpMath");
+        }
+        else if (mysub.contains("READ")) {
+        	setGrades(e, subject, "Reading");
+        }
+        else if (mysub.contains("MATH")) {
+        	setGrades(e, subject, "Math");
+        }
+        else if (mysub.contains("RESEARCH")) {
+        	setGrades(e, subject, "Research");
+        }
+        else if (mysub.contains("SCIENCE2") || mysub.contains("SCIENCEB")) {
+        	setGrades(e, subject, "ChineseA");
+        }
+        else if (mysub.contains("SCIENCE")) {
+        	setGrades(e, subject, "Science");
+        }
+        else if (mysub.contains("COMPUTER")) {
+        	setGrades(e, subject, "Computer");
+        }
+        else if (mysub.contains("ARTS")) {
+        	setGrades(e, subject, "Arts");
+        }
+        else if (mysub.contains("HEKASI")) {
+        	setGrades(e, subject, "Hekasi");
+        }
+        else if (mysub.contains("MUSIC")) {
+        	setGrades(e, subject, "Music");
+        }
+        else if (mysub.contains("PE")) {
+        	setGrades(e, subject, "PE");
+        }
+        else if (mysub.contains("RELIGION")) {
+        	setGrades(e, subject, "CCF");
+        }
+        else if (mysub.contains("EP")) {
+        	setGrades(e, subject, "CCF");
+        }
+        else if (mysub.contains("AP") || mysub.contains("ARALI")) {
+        	setGrades(e, subject, "AP");
+        }
+        else if (mysub.contains("TLE")) {
+        	setGrades(e, subject, "TLE");
+        }
+        else if (mysub.contains("HEALTH")) {
+        	setGrades(e, subject, "Health");
+        }
+        else if (mysub.contains("GK") || mysub.contains("CAT")) {
+        	setGrades(e, subject, "CE");
+        }
+        else if (mysub.contains("CHINESE") && mysub.contains("B")) {
+        	setGrades(e, subject, "ChineseB");
+        }
+        else if (mysub.contains("CHINESE")) {
+        	setGrades(e, subject, "ChineseA");
+        }
+        return e;
+	}
+}
