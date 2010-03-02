@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package util;
 
 import bean.reference.EventHoliday;
@@ -30,39 +29,42 @@ public class DateUtil {
     public static SimpleDateFormat sdfYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
 
     public static boolean isBetween(Date myDate, Date fromDate, Date toDate) {
-        if (myDate==null) return false;
-        if (toDate==null && myDate.getTime() >= fromDate.getTime()) return false;
-        if (fromDate==null && myDate.getTime() <= toDate.getTime()) return false;
-        return (myDate.getTime()>=fromDate.getTime() && myDate.getTime()<=toDate.getTime());
+        if (myDate == null) {
+            return false;
+        }
+        if (toDate == null && myDate.getTime() >= fromDate.getTime()) {
+            return false;
+        }
+        if (fromDate == null && myDate.getTime() <= toDate.getTime()) {
+            return false;
+        }
+        return (myDate.getTime() >= fromDate.getTime() && myDate.getTime() <= toDate.getTime());
     }
-    
+
     public static Date getFirstDayOfMonth() {
         String day1 = DateUtil.formatDate(constants.Constants.useDate, "yyyyMM01");
         return DateUtil.readDate(day1, "yyyyMMdd");
     }
-    
+
     public static Date getDateOfMonth(int month, int day) {
         String year = DateUtil.formatDate(constants.Constants.useDate, "yyyy-");
-        return DateUtil.readDate(year+month+"-"+day, "yyyy-MM-dd");
+        return DateUtil.readDate(year + month + "-" + day, "yyyy-MM-dd");
     }
 
     public static Date getDateOfMonth(int day) {
         String yearMonth = DateUtil.formatDate(constants.Constants.useDate, "yyyy-MM-");
-        return DateUtil.readDate(yearMonth+day, "yyyy-MM-dd");
+        return DateUtil.readDate(yearMonth + day, "yyyy-MM-dd");
     }
 
     public static Date addMonth(Date d, int months) {
         int month = DateUtil.getMonth(d);
-        return DateUtil.readDate(DateUtil.formatDate(d, "yyyy-dd-")+(month+months), "yyyy-dd-MM");
+        return DateUtil.readDate(DateUtil.formatDate(d, "yyyy-dd-") + (month + months), "yyyy-dd-MM");
     }
 
     public static Date getEndOfMonth() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(constants.Constants.useDate);
-        int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        return readDate(maxDay+"");
+        return getEndOfMonth(constants.Constants.useDate);
     }
-    
+
     public static Date getEndOfLastMonth() {
         return addDay(readDate("1"), -1);
     }
@@ -71,18 +73,16 @@ public class DateUtil {
         String m = DateUtil.formatDate(d, "MM");
         try {
             return Integer.parseInt(m);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         return 1;
     }
-    
+
     public static int getMonth() {
         String m = DateUtil.formatDate(constants.Constants.useDate, "MM");
         try {
             return Integer.parseInt(m);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         return 1;
     }
@@ -95,8 +95,7 @@ public class DateUtil {
         String m = DateUtil.formatDate(d, "d");
         try {
             return Integer.parseInt(m);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         return 1;
     }
@@ -105,8 +104,7 @@ public class DateUtil {
         String m = DateUtil.formatDate(constants.Constants.useDate, "d");
         try {
             return Integer.parseInt(m);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         return 1;
     }
@@ -116,9 +114,9 @@ public class DateUtil {
     }
 
     public static String formatTime(String time) {
-    	if (time.contains(":")) {
-    		time = time.replace(":", "");
-    	}
+        if (time.contains(":")) {
+            time = time.replace(":", "");
+        }
         int val = DataUtil.getFirstNumber(time).intValue();
         if (val < 10) {
             return "000" + val;
@@ -143,7 +141,7 @@ public class DateUtil {
     public static String getTime() {
         return formatDate(new Date(), "HHmm");
     }
-    
+
     public static int getIntTime() {
         String str = formatDate(new Date(), "HHmm");
         return Integer.parseInt(str);
@@ -194,7 +192,7 @@ public class DateUtil {
 
     public static String formatDateToSql(Date date, int plusDay) {
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd");
-        return form.format(addDay(date,plusDay));
+        return form.format(addDay(date, plusDay));
     }
 
     public static String formatDate(Date date, SimpleDateFormat sdf) {
@@ -221,13 +219,11 @@ public class DateUtil {
     public static Date readDate(String dateStr) {
         try {
             java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyyMMdd");
-            if (dateStr.length()==4) {
+            if (dateStr.length() == 4) {
                 dateStr = formatDate(constants.Constants.useDate, "yyyy") + dateStr;
-            }
-            else if (dateStr.length()==2) {
+            } else if (dateStr.length() == 2) {
                 dateStr = formatDate(constants.Constants.useDate, "yyyyMM") + dateStr;
-            }
-            else if (dateStr.length()==1) {
+            } else if (dateStr.length() == 1) {
                 dateStr = formatDate(constants.Constants.useDate, "yyyyMM") + "0" + dateStr;
             }
             return format.parse(dateStr);
@@ -236,12 +232,12 @@ public class DateUtil {
         }
         return null;
     }
-    
+
     public static List<Date> getAllDates(String dayOfWeek) {
         List<Date> lst = new ArrayList<Date>();
         String year = formatDate(constants.Constants.useDate, "yyyy");
-        Date firstDayOfYear = readDate(year+"0101");
-        Date lastDayOfYear = readDate(year+"1231");
+        Date firstDayOfYear = readDate(year + "0101");
+        Date lastDayOfYear = readDate(year + "1231");
 
         long timeLast = lastDayOfYear.getTime();
         long timeFirst = firstDayOfYear.getTime();
@@ -306,11 +302,20 @@ public class DateUtil {
     }
 
     public static int countDaySpan(Date from, Date to) {
-        if (from==null || to==null) return 0;
+        if (from == null || to == null) {
+            return 0;
+        }
         long fromTime = from.getTime();
         long toTime = to.getTime();
         long spanTime = toTime - fromTime;
-        return (int) (spanTime / (1000*60*60*24));
+        return (int) (spanTime / (1000 * 60 * 60 * 24));
+    }
+
+    public static Date getEndOfMonth(Date startDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        return readDate(getYear()+"-"+getMonth(startDate)+"-"+maxDay, "yyyy-MM-dd");
     }
 
     public static class Days {
@@ -349,85 +354,107 @@ public class DateUtil {
     public static boolean isTimezoneLate(String origin, Date date, String time) {
         return false;
     }
-    
+
     public static int getDayOfMonth() {
         int d = Integer.parseInt(formatDate(constants.Constants.useDate, "d"));
-        Logger.getLogger("global").info("DAY === "+d);
+        Logger.getLogger("global").info("DAY === " + d);
         return d;
     }
 
     public static int getYear() {
-        int d = Integer.parseInt(formatDate(constants.Constants.useDate, "yyyy"));
+        return getYear(constants.Constants.useDate);
+    }
+
+    public static int getYear(Date date) {
+        int d = Integer.parseInt(formatDate(date, "yyyy"));
         return d;
     }
-    
+
     public static boolean isHoliday(Date date) {
-        EventHoliday hol = (EventHoliday) AbstractIBean.firstRecord("SELECT a FROM EventHoliday a WHERE a.eventDate='"+DateUtil.formatDateToSql(date)+"'");
-        if (hol==null || hol.getEventDate()==null) return false;
+        EventHoliday hol = (EventHoliday) AbstractIBean.firstRecord("SELECT a FROM EventHoliday a WHERE a.eventDate='" + DateUtil.formatDateToSql(date) + "'");
+        if (hol == null || hol.getEventDate() == null) {
+            return false;
+        }
         return true;
     }
 
     public static int getSpanYears(Date fromDate) {
-        if (fromDate==null) return 0;
+        if (fromDate == null) {
+            return 0;
+        }
         int oldd = Integer.parseInt(formatDate(fromDate, "yyyy"));
         int newd = Integer.parseInt(formatDate(constants.Constants.useDate, "yyyy"));
         return newd - oldd;
     }
-    
+
     public static int getSpanMonth(Date fromDate) {
-        if (fromDate==null) return 0;
+        if (fromDate == null) {
+            return 0;
+        }
         int oldd = Integer.parseInt(formatDate(fromDate, "MM"));
         int newd = Integer.parseInt(formatDate(constants.Constants.useDate, "MM"));
         return newd - oldd;
     }
-    
+
     public static int getSpanDays(Date fromDate) {
-        if (fromDate==null) return 0;
+        if (fromDate == null) {
+            return 0;
+        }
         int oldd = Integer.parseInt(formatDate(fromDate, "d"));
         int newd = Integer.parseInt(formatDate(constants.Constants.useDate, "d"));
         return newd - oldd;
     }
-    
+
     public static String getSQLDayName(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " DAYNAME("+field+") ";
+        return " DAYNAME(" + field + ") ";
     }
 
     public static String getSQLMonthName(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " MONTHNAME("+field+") ";
+        return " MONTHNAME(" + field + ") ";
     }
 
     public static String getSQLYear(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " YEAR("+field+") ";
+        return " YEAR(" + field + ") ";
     }
-    
+
     public static int getHour() {
-		int hour = Integer.parseInt(DateUtil.formatDate(new Date(), "HH"));
-		return hour;
+        int hour = Integer.parseInt(DateUtil.formatDate(new Date(), "HH"));
+        return hour;
     }
-    
+
     public static double getTotalHours(String start, String end) {
 //    	System.out.println("TIME = "+start+" "+end);
         try {
-            double shours = DataUtil.getIntValue(start.substring(0, 2)) + DataUtil.getIntValue(start.substring(2))/60;
-            double ehours = DataUtil.getIntValue(end.substring(0, 2)) + DataUtil.getIntValue(end.substring(2))/60;
+            double shours = DataUtil.getIntValue(start.substring(0, 2)) + DataUtil.getIntValue(start.substring(2)) / 60;
+            double ehours = DataUtil.getIntValue(end.substring(0, 2)) + DataUtil.getIntValue(end.substring(2)) / 60;
             return DataUtil.getDoubleValue(ehours - shours);
-        }
-        catch (Exception e) {
-        	e.printStackTrace();
+        } catch (Exception e) {
+//            e.printStackTrace();
         }
         return 0;
     }
 
-	public static boolean sameDate(Date date1, Date date2) {
-		String s1 = formatDate(date1);
-		String s2 = formatDate(date2);
-		return s1.equals(s2);
-	}
-    
+    public static double getNightHours(String end) {
+        try {
+            String start = "2200";
+            double shours = DataUtil.getIntValue(start.substring(0, 2)) + DataUtil.getIntValue(start.substring(2)) / 60;
+            double ehours = DataUtil.getIntValue(end.substring(0, 2)) + DataUtil.getIntValue(end.substring(2)) / 60;
+            return DataUtil.getDoubleValue(ehours - shours);
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static boolean sameDate(Date date1, Date date2) {
+        String s1 = formatDate(date1);
+        String s2 = formatDate(date2);
+        return s1.equals(s2);
+    }
 }

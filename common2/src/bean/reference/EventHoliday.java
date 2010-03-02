@@ -21,7 +21,9 @@ import javax.persistence.Temporal;
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
+import template.Reports;
 import template.UITemplate;
+import template.screen.TemplateTabSinglePageNoSubPanel;
 import util.DBClient;
 import util.DateUtil;
 
@@ -32,7 +34,7 @@ import util.DateUtil;
 @Entity
 @Table(name = "EventHoliday")
 //@UITemplate(template = Template2.class, gridCount = 4, columnSearch = {"eventDate", "eventHoliday", "description"})
-@UITemplate(gridCount = 4, 
+@UITemplate(template=TemplateTabSinglePageNoSubPanel.class,gridCount = 4, 
 	columnSearch = {"eventHoliday", "eventDate", "percentage", "description"},
 	criteriaSearch = {"eventHoliday"}
 )
@@ -42,6 +44,9 @@ import util.DateUtil;
     @Display(name="eventDate"),
     @Display(name="percentage"),
     @Display(name="description", gridFieldWidth=3, width=-1)        
+})
+  @Reports({
+    @template.Report(reportFile = "EventHoliday", reportTitle = "Event / Holidays", reportSql = "")
 })
 public class EventHoliday extends AbstractIBean implements Serializable {
     @Id

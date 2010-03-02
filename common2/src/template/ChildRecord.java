@@ -31,7 +31,7 @@ public @interface ChildRecord {
     public String[] tableFields() default {""};
     public String users() default "";
     public String groups() default "";
-    public String duties() default "";
+    public String[] duties() default {""};
     public String[] fieldMapping() default {"",""};
     public boolean autoResizeTable() default true;
     public boolean sortable() default true;

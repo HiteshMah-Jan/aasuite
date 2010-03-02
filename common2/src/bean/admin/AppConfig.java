@@ -40,6 +40,35 @@ import util.DateUtil;
         @Display(name="value", gridFieldWidth=3, width=-1, upCase=false)
 })
 public class AppConfig extends AbstractIBean implements Serializable {
+
+    public static String getCompanyLineOfBusiness() {
+        return AppConfig.getAppValue("COMPANY LINE OF BUSINESS", "");
+    }
+
+    public static String getCompanyRDOCode() {
+        return AppConfig.getAppValue("COMPANY RDO CODE", "");
+    }
+
+    public static String getCompanyTelNo() {
+        return AppConfig.getAppValue("COMPANY TELEPHONE NUMBER", "");
+    }
+
+    public static String getCompanyTIN() {
+        return AppConfig.getAppValue("COMPANY TIN NUMBER", "");
+    }
+
+    public static String getCompanyWTaxAgentCategory() {
+        return AppConfig.getAppValue("COMPANY WITHHOLDING TAX AGENT CATEGORY", "");
+    }
+
+    public static String getCompanyWTaxAgent() {
+        return AppConfig.getAppValue("COMPANY WITHHOLDING TAX AGENT", "");
+    }
+
+    public static String getCompanyZipCode() {
+        return AppConfig.getAppValue("COMPANY ZIP CODE", "");
+    }
+
     @Id
     @Column(name = "code")
     public String code;
@@ -225,9 +254,24 @@ public class AppConfig extends AbstractIBean implements Serializable {
         AppConfig.alwaysCheckConnection();
         AppConfig.isLockPerGradeLevel();
         AppConfig.isRunFWB();
+        AppConfig.hasPromotionReport();
+        AppConfig.isTrimester();
+        AppConfig.getCompanyLineOfBusiness();
+        AppConfig.getCompanyRDOCode();
+        AppConfig.getCompanyAddress();
+        AppConfig.getCompanyTelNo();
+        AppConfig.getCompanyTIN();
+        AppConfig.getCompanyWTaxAgentCategory();
+        AppConfig.getCompanyWTaxAgent();
+        AppConfig.getCompanyZipCode();
+        AppConfig.getCompanyNameOfBank();
     }
     
-    public static String getTemporaryFolder() {
+    public static boolean isTrimester() {
+        return AppConfig.isTrue("IS TRIMESTER", false);
+	}
+
+	public static String getTemporaryFolder() {
         return AppConfig.getAppValue("TEMPORARY FOLDER", "C:/tmp");
 	}
 
@@ -237,6 +281,10 @@ public class AppConfig extends AbstractIBean implements Serializable {
 
     public static boolean alwaysCheckConnection() {
         return AppConfig.isTrue("ALWAYS CHECK CONNECTION", false);
+	}
+
+    public static boolean hasPromotionReport() {
+        return AppConfig.isTrue("HAS PROMOTION REPORT", false);
 	}
 
     public static boolean isProduction() {
@@ -430,5 +478,9 @@ public class AppConfig extends AbstractIBean implements Serializable {
 	public void setupIndex() {
 		List lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.faculty IS NULL", 1, 15000);
 		DBClient.persistBean(lst);
+	}
+
+	public static String getCompanyNameOfBank() {
+        return AppConfig.getAppValue("COMPANY NAME OF BANK REMITTANCE", "");
 	}
 }

@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import constants.UserInfo;
+
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
 import template.screen.component.AbstractComponentRenderer;
@@ -117,6 +119,9 @@ public class TemplateTabPage extends AbstractTemplatePanel {
                     }
                 });
                 pnlReportButtons.add(btn);
+                if (!UserInfo.hasDuty(report.duties())) {
+                	btn.setVisible(false);
+                }
             }
         }
         

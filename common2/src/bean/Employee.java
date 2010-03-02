@@ -10,7 +10,8 @@ package bean;
 
 import bean.hr.HRAssessment;
 import bean.person.*;
-import bean.accounting.Payroll;
+import bean.accounting.payroll.Payroll;
+import bean.accounting.payroll.PersonAttendance;
 import bean.reference.BenefitType;
 import bean.reference.DeductionType;
 import bean.reference.Department;
@@ -237,29 +238,6 @@ public class Employee extends Person implements Serializable {
             perHourPay = extractCalculatedPerHour(basicPay);
         }
         return perHourPay;
-    }
-
-    @Transient
-    Payroll latestPayroll;
-
-    public Payroll extractLatestPayroll() {
-        if (latestPayroll == null) {
-            latestPayroll = (Payroll) AbstractIBean.firstRecord("SELECT a FROM Payroll a WHERE a.employeeId=" + getPersonId());
-        }
-        if (latestPayroll == null) {
-            latestPayroll = new Payroll();
-            latestPayroll.setEmployeeId(getPersonId());
-            latestPayroll.setDepartment(getDepartment());
-            latestPayroll.setEmployeeStatus(getStatus());
-            latestPayroll.setEmployeeType(getPosition());
-            latestPayroll.setBasicPay(basicPay);
-            latestPayroll.setHireDate(hiredDate);
-//            latestPayroll.setOtherDeduction(0);
-//            latestPayroll.setSalariesWages(basicPay);
-            latestPayroll.setTax(0);
-//            latestPayroll.setTotalAbsent(0);
-        }
-        return latestPayroll;
     }
 
     @SuppressWarnings("unchecked")

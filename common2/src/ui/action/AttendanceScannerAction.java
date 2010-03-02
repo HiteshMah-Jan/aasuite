@@ -7,7 +7,8 @@
 package ui.action;
 
 import bean.Person;
-import bean.person.PersonAttendance;
+import bean.accounting.payroll.PersonAttendance;
+
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -174,7 +175,6 @@ private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             else {
                 att.logout = sdf.format(date);
             }
-            att.calculate();
             att.save();
             lblPerson.setText(p.toString());
         }

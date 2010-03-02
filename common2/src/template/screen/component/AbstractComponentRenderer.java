@@ -13,6 +13,9 @@ import component.JCheckBoxPallete;
 import component.JLinkLabelPallete;
 import component.LookupTableFieldPallete;
 import component.PalleteRuleManager;
+import component.SecuredField;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
@@ -32,6 +35,8 @@ import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.ELProperty;
+
+import constants.UserInfo;
 import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.ITemplate;
@@ -40,6 +45,7 @@ import ui.AppMenuForm;
 import ui.BusinessRuleForm;
 import ui.BusinessRuleServiceForm;
 import ui.DynamicAccessForm;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -339,6 +345,29 @@ public abstract class AbstractComponentRenderer {
             });
         }
         PanelUtil.setupCursor(obj);
+        String[] duties = field.display.duties();
+        if (!UserInfo.hasDuty(duties)) {
+        	System.out.println(field.display.name()+" not allowed "+BeanUtil.concat(duties));
+            String[] viewOnDuties = field.display.viewOnDuties();
+            if (!UserInfo.hasDuty(viewOnDuties)) {
+            	return new SecuredField(duties, "<<Secured>>");
+            }
+            else {
+            	((JComponent) obj).setEnabled(false);
+            	Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Thread.currentThread().sleep(2000);
+			            	((JComponent) obj).setEnabled(false);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+            	});
+            	t.start();
+            }
+        }
         return obj;
     }
     

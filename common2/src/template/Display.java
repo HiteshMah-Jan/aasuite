@@ -28,7 +28,8 @@ public @interface Display {
     public boolean hidden() default false;
     public String users() default "";
     public String groups() default "";
-    public String duties() default "";
+    public String[] duties() default {""};
+    public String[] viewOnDuties() default {""};
     public int gridLabelWidth() default 1;
     public int gridFieldWidth() default 1;
     public boolean addInfoOnly() default false;

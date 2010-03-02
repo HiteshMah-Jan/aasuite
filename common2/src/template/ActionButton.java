@@ -19,4 +19,5 @@ public @interface ActionButton {
     public String icon() default "";
     public boolean top() default false;   
     public boolean parentOnly() default true;   
+    public String[] duties() default {""};
 }

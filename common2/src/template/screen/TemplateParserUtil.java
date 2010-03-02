@@ -4,6 +4,7 @@
  */
 package template.screen;
 
+import bean.admin.AppConfig;
 import component.IRule;
 import component.JButtonPallete;
 import component.JLinkLabelPallete;
@@ -28,11 +29,14 @@ import org.jdesktop.beansbinding.Converter;
 import org.jdesktop.beansbinding.ELProperty;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
+
+import constants.UserInfo;
 import rule.BusinessRuleWrapper;
 import template.*;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.component.AbstractComponentRenderer;
 import template.screen.component.JTableReadOnly;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -213,11 +217,16 @@ public class TemplateParserUtil {
             }
         }
         if (group != null) {
-            pnlGroup = GroupPanel.construct(group.title(), pnlGroup, group.color());
-            pnlGroup.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
-            if (constants.Constants.panelBackground!=null) {
-                pnlGroup.setBackground(constants.Constants.panelBackground);
-            }
+        	if (!UserInfo.hasDuty(group.duties())) {
+        		pnlGroup.setVisible(false);
+        	}
+        	else {
+                pnlGroup = GroupPanel.construct(group.title(), pnlGroup, group.color());
+                pnlGroup.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
+                if (constants.Constants.panelBackground!=null) {
+                    pnlGroup.setBackground(constants.Constants.panelBackground);
+                }
+        	}
         }
         return pnlGroup;
     }

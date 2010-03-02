@@ -154,6 +154,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("SchoolEmployeeApplicantExt", "Accounting", "Applicant", 320).save();
             createAppMenuObj("AccountingReferenceForm", "Accounting", "Accounting Reference", 330).save();
             createAppMenuObj("SchoolAccountingProcessForm", "Accounting", "Accounting Process", 340).save();
+            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
             createAppMenuObj("PurchaseOrderForm", "Accounting", "Purchase Order", 351).save();
             createAppMenuObj("InventoryForm", "Accounting", "Inventory", 352).save();
         }
@@ -169,6 +170,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("Employee", "Accounting", "Employee", 300).save();
             createAppMenuObj("AccountingReferenceForm", "Accounting", "Accounting Reference", 310).save();
             createAppMenuObj("AccountingProcessForm", "Accounting", "Accounting Process", 320).save();
+            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
         }
         else if ("HOSPITAL".equalsIgnoreCase(module)) {
             createAppMenuObj("OutPatient", "Main", "Out Patient", 100).save();
@@ -185,6 +187,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("HospitalEmployeeApplicantExt", "Accounting", "Applicant", 320).save();
             createAppMenuObj("AccountingReferenceForm", "Accounting", "Accounting Reference", 330).save();
             createAppMenuObj("HospitalAccountingProcessForm", "Accounting", "Accounting Process", 340).save();
+            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
         }
         else if ("CARGO".equalsIgnoreCase(module)) {
             createAppMenuObj("BookingExt", "Main", "Booking", 100).save();
@@ -201,6 +204,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("Station", "Reference", "Station", 420).save();
             createAppMenuObj("UldNumber", "Reference", "ULD Number", 430).save();
             createAppMenuObj("CargoReferenceForm", "Reference", "Reference Data", 440).save();
+            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
         }
         else if ("ENERGY".equalsIgnoreCase(module)) {
             createAppMenuObj("Offer", "Main", "Offer", 100).save();
@@ -213,6 +217,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("ParticipantResource", "Reference", "Resource", 430).save();
             createAppMenuObj("Weather", "Reference", "Weather", 440).save();
             createAppMenuObj("Location", "Reference", "Location", 450).save();
+            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
         }
     }
 }

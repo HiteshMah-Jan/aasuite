@@ -640,13 +640,9 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             		else {
                 		overallAmountPaid += p.overallAmountPaid;
             		}
-            		surchargePaid += p.surchargePaid;
         		}
         	}
         	balance = overallBalance = amount - overallAmountPaid - discount;
-//        	if (surchargePaid>0) {
-//        		surcharge = surcharge + surchargePaid;
-//        	}
         	surchargeBalance = surcharge - discountSurcharge + outstandingSurcharge;
         	if (overallBalance<0) overallBalance = 0;
         	if (surchargeBalance<0) surchargeBalance = 0;
@@ -1232,15 +1228,16 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             	totalAmount += DataUtil.getMoneyFormat(p.orAmount);
             	totalSurchargePaid += DataUtil.getMoneyFormat(p.surchargePaid);
             	totalSurchargeDiscount += DataUtil.getMoneyFormat(p.discountSurcharge);
-            	if (p.surchargePaid>0) {
-                	desc.append(p.paymentForLongDesc()).append(" - ").append(DataUtil.getCurrencyFormat(p.overallAmountPaid)).append(", surcharges - ").append(DataUtil.getCurrencyFormat(p.surchargePaid)).append("   ");
-            	}
-            	else {
+            	System.out.println("p.overallAmountPaid = "+p.overallAmountPaid);
+            	if (p.overallAmountPaid > 0.2) {
                 	desc.append(p.paymentForLongDesc()).append(" - ").append(DataUtil.getCurrencyFormat(p.overallAmountPaid)).append("   ");
             	}
             	if (p.discount>0 && p.discountReason!=null) {
             		inv.discountReason = p.discountReason;
             	}
+            }
+            if (totalSurchargePaid > 0) {
+            	desc.append(" surcharges - ").append(DataUtil.getCurrencyFormat(totalSurchargePaid));
             }
 //            for check only
             inv.totalAmount = inv.allAmount = DataUtil.getMoneyFormat(totalAmount);

@@ -11,12 +11,10 @@ import javax.swing.JComponent;
 
 import springbean.SuccessfulLogin;
 import template.report.AbstractReportTemplate;
-import ui.EmployeeAttendanceForm;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Employee;
 import bean.Person;
-import bean.accounting.PaymentPlan;
 import bean.admin.AclGroup;
 import bean.admin.AclModule;
 import bean.admin.AclUser;
@@ -39,7 +37,7 @@ public class Employee_RULE extends Person_RULE {
             resetPassword();
         }
     	else if ("btnEmployeeAttendance".equals(comp.getName())) {
-            displayAttendance();
+//            displayAttendance();
         }
     	else if ("btnAutoLogin".equals(comp.getName())) {
             autoLogin();
@@ -92,11 +90,6 @@ public class Employee_RULE extends Person_RULE {
 		util.AccessControlUtil.setAccessControl(Common2View.mainView.getMenuBar());
 		SpringCall.getSpringCallBean(SuccessfulLogin.class).call(userInfo);
 		LoginMonitor.addLogin();
-	}
-
-	protected void displayAttendance() {
-	    Employee p = (Employee) this.getBean();
-	    EmployeeAttendanceForm.display(p);
 	}
 
 	protected void addModule(String module) {

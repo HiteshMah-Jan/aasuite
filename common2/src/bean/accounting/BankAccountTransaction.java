@@ -5,12 +5,16 @@
 
 package bean.accounting;
 
-import bean.reference.Department;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.ChildRecord;
@@ -22,8 +26,11 @@ import template.Displays;
 import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
-import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.DataUtil;
+import util.NumberToWordConverter;
+import bean.admin.AppConfig;
+import bean.reference.Department;
 
 /**
  *
@@ -141,6 +148,15 @@ public class BankAccountTransaction extends AbstractIBean implements IGL {
     public String approvedBy2;
 
     @Override
+	public void save() {
+        String currencyWord = AppConfig.getCurrencyWord();
+        String centavoWord = AppConfig.getCentWord();
+        amount = DataUtil.getMoneyFormat(amount);
+        amountInWord = NumberToWordConverter.convertMoney(amount, currencyWord, centavoWord);
+		super.save();
+	}
+
+	@Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria, "accountNumber", "transactionType");
     }

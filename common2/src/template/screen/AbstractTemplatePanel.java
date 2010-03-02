@@ -81,6 +81,7 @@ import component.JCalendarPallete;
 import component.JComboBoxPallete;
 import component.LookupTableFieldPallete;
 import component.PalleteRuleManager;
+import constants.UserInfo;
 
 /**
  *
@@ -351,7 +352,9 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                             tmp.setBackground(constants.Constants.panelBackground);
                         }
                         tmp.add(pnl);
-                        tabChildren.add(info.title(), tmp);
+                        if (UserInfo.hasDuty(info.duties())) {
+                            tabChildren.add(info.title(), tmp);
+                        }
                     }
                 }
                 ChildRecord[] records = childRecordsAnnotation.value();
@@ -366,11 +369,13 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                             tmp.setBackground(constants.Constants.panelBackground);
                         }
                         tmp.add(pnl);
-                        if (childRecord.title().isEmpty()) {
-                            tabChildren.addTab(PanelUtil.getTitle(childRecord.entity()), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
-                        }
-                        else {
-                            tabChildren.addTab(childRecord.title(), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
+                        if (UserInfo.hasDuty(childRecord.duties())) {
+                            if (childRecord.title().isEmpty()) {
+                                tabChildren.addTab(PanelUtil.getTitle(childRecord.entity()), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
+                            }
+                            else {
+                                tabChildren.addTab(childRecord.title(), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
+                            }
                         }
                     }
                 }
@@ -578,6 +583,9 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 btn.setToolTipText(button.name());
                 this.addFieldComponent(btn);
                 panel.add(btn);
+                if (!UserInfo.hasDuty(button.duties())) {
+                	btn.setVisible(false);
+                }
             }
         }
         if (constants.Constants.panelBackground!=null) {

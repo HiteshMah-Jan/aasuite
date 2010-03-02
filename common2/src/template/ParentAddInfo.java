@@ -21,6 +21,6 @@ public @interface ParentAddInfo {
     public String[] displayFields() default {};
     public String users() default "";
     public String groups() default "";
-    public String duties() default "";
+    public String[] duties() default {""};
     public int gridCount() default -1;
 }

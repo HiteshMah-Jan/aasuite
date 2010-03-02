@@ -191,7 +191,7 @@ public class UserInfo implements Serializable, IService {
     }
     
     static List<AclUserDuty> dutyLst;
-    private static boolean hasDuty(String dutycode) {
+    public static boolean hasDuty(String dutycode) {
         if (loginUser==null) return false;
         if (dutyLst==null) {
 //            need to call the server first
@@ -273,6 +273,7 @@ public class UserInfo implements Serializable, IService {
     public ReturnStruct callService(ParamStruct param) {
 //        populate all the duty codes here
 //    	System.out.println("CALLED USERINFO.");
+        AclDuty.createDuty("CAN EDIT SALARY", "");
         AclDuty.createDuty("CAN CHANGE STUDENT NUMBER", "");
         AclDuty.createDuty("HAS CREATE ENROLLMENT PAYMENT", "");
         AclDuty.createDuty("HAS PRINT INVOICE", "");
@@ -294,12 +295,23 @@ public class UserInfo implements Serializable, IService {
         AclDuty.createDuty("HAS DELETE GRADE", "");
         AclDuty.createDuty("DELETE STUDENT", "");
         AclDuty.createDuty("DELETE EMPLOYEE", "");
+        AclDuty.createDuty("CAN EDIT ADMISSION SCORE", "");
+        AclDuty.createDuty("CAN EDIT ADMISSION DETAIL", "");
+        AclDuty.createDuty("CAN VIEW REPORT STUDENT PROFILE", "");
 //        AclDuty.createDuty("", "");
 //        AclDuty.createDuty("", "");
 //        AclDuty.createDuty("", "");
 //        AclDuty.createDuty("", "");
+        
         return null;
     }
+
+	public static boolean canEditAdmissionScore() {
+        return hasDuty("CAN EDIT ADMISSION SCORE");
+	}
+	public static boolean canEditAdmissionDetail() {
+        return hasDuty("CAN EDIT ADMISSION DETAIL");
+	}
 
 	public static boolean canModifyReference() {
         return hasDuty("HAS REFERENCE ACCESS");
@@ -323,5 +335,18 @@ public class UserInfo implements Serializable, IService {
 
 	public static boolean canDeleteEmployee() {
         return hasDuty("DELETE EMPLOYEE");
+	}
+
+	public static boolean hasDuty(String[] duties) {
+		if (duties == null || duties.length == 0) {
+			return true;
+		}
+		for (String s:duties) {
+//			should not have empty, empty is for all user
+			if (s.isEmpty() || hasDuty(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

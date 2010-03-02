@@ -19,4 +19,5 @@ public @interface DisplayGroup {
     public int color() default 1;
     public int gridCount() default -1;
     public boolean addInfoOnly() default false;
+    public String[] duties() default {""};
 }

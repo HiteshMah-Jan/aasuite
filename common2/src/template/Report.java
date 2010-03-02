@@ -14,5 +14,5 @@ public @interface Report {
     public int reportGroups() default 0;
     public String users() default "";
     public String groups() default "";
-    public String duties() default "";
+    public String[] duties() default {""};
 }

@@ -143,7 +143,7 @@ public class DisplayWrapper {
         return display.defaultValue();
     }
 
-    public String getDuties() {
+    public String[] getDuties() {
         return display.duties();
     }
 

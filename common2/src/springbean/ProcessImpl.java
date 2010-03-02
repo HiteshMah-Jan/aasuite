@@ -8,8 +8,8 @@ package springbean;
 import bean.Person;
 import bean.PurchaseOrderItem;
 import bean.SalesOrderItem;
+import bean.accounting.payroll.PersonAttendance;
 import bean.person.EmployeeLeaveApplication;
-import bean.person.PersonAttendance;
 import bean.reference.EventHoliday;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,7 +60,7 @@ public class ProcessImpl extends AccountingImpl implements IProcess {
                 if (util.DateUtil.isHoliday(fromDate)) {
                     PersonAttendance att = new PersonAttendance();
                     att.attendanceDate = fromDate;
-                    att.attendanceType = "HOLIDAY";
+                    att.attendanceType = "HOLIDAY"; 
                     att.personId = person.personId;
                     att.save();
                     continue;

@@ -12,15 +12,19 @@ package component;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 
 /**
- *
+ * 
  * @author Budoy Entokwa
  */
 public interface IGetText {
 	String getText();
+
 	void setText(String text);
+
 	boolean isEmpty();
-        Object getValue();
-        
-        FieldCompose getFieldCompose();
-        void setFieldCompose(FieldCompose field);
+
+	Object getValue();
+
+	FieldCompose getFieldCompose();
+
+	void setFieldCompose(FieldCompose field);
 }

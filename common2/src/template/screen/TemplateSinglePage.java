@@ -33,6 +33,10 @@ public class TemplateSinglePage extends AbstractTemplatePanel {
         super.updateList(newList);
     }
 
+    public void callSearchResult() {
+    	super.getMainSearchResult();
+    }
+    
     @Override
     public void hideSearchCriteria() {
         pnlCriteria2.setVisible(false);
@@ -165,10 +169,10 @@ public class TemplateSinglePage extends AbstractTemplatePanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel pnlButton2;
-    private javax.swing.JPanel pnlCriteria2;
-    private javax.swing.JPanel pnlMainForm2;
-    private javax.swing.JPanel pnlResult2;
+    protected javax.swing.JPanel pnlButton2;
+    protected javax.swing.JPanel pnlCriteria2;
+    protected javax.swing.JPanel pnlMainForm2;
+    protected javax.swing.JPanel pnlResult2;
     private javax.swing.JPanel pnlSearch;
     // End of variables declaration//GEN-END:variables
 

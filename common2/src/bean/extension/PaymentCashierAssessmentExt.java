@@ -30,7 +30,7 @@ import template.UITemplate;
     title="Assessment", gridCount=8,
     columnSearch = {"dueDate","paymentFor","adjustmentStr",
     	"amount","overallAmountPaid","overallBalance",
-    	"surcharge","surchargePaid","surchargeBalance",
+    	"surcharge","outstandingSurcharge","surchargeBalance",
     	"overallAmountDue"},
     sumFooter="3,4,5,6,7,8,9,10",
     orderBy="a.paymentDate",
@@ -98,7 +98,8 @@ import template.UITemplate;
         @Display(name="amount10", hideLabel=true),
         @Display(name="bounceCheck10", hideLabel=true, type="CheckBox"),
 
-        @Display(name="adjustmentStr", label="-", addInfoOnly=true)
+        @Display(name="adjustmentStr", label="-", addInfoOnly=true),
+        @Display(name="outstandingSurcharge", label="OUT-SUR")    
 })
 @DisplayGroups({
 //    @DisplayGroup(gridCount=8, title="Discount Approval", fields={
