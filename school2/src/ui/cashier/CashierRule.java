@@ -59,7 +59,7 @@ public class CashierRule {
             double unpaid = DataUtil.getMoneyFormat(getTotalUnpaid());
             //.5 can be negligible
             if (damount>unpaid+.5) {
-                PanelUtil.showMessage(old, "More than unpaid amount, please type another.");
+                PanelUtil.showMessage(old, "More than unpaid amount ["+unpaid+"], please type another.");
                 runAcceptPayment();
                 return;
             }
