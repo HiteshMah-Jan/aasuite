@@ -55,7 +55,10 @@ public class CashierRule {
                 return;
             }
             double damount = PanelUtil.getDoubleValue(amount);
-            if (damount>getTotalUnpaid()) {
+            damount = DataUtil.getMoneyFormat(damount);
+            double unpaid = DataUtil.getMoneyFormat(getTotalUnpaid());
+            //.5 can be negligible
+            if (damount>unpaid+.5) {
                 PanelUtil.showMessage(old, "More than unpaid amount, please type another.");
                 runAcceptPayment();
                 return;
@@ -65,7 +68,6 @@ public class CashierRule {
                 runAcceptPayment();
                 return;
             }
-            damount = DataUtil.getMoneyFormat(damount);
             Payment p = old.nextPayment(null);
 
             String discountReason = getDiscountReason(p);
