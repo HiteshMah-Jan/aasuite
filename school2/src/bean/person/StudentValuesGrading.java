@@ -1357,6 +1357,71 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	@Column(name = "zl2Average4")
 	public double zl2Average4;
 
+	@Column(name = "affectiveAverageFinal")
+	public double affectiveAverageFinal;
+	@Column(name = "psychomotorAverageFinal")
+	public double psychomotorAverageFinal;
+	@Column(name = "megaskillAverageFinal")
+	public double megaskillAverageFinal;
+	@Column(name = "valuesPromotedAverageFinal")
+	public double valuesPromotedAverageFinal;
+	@Column(name = "zl2AverageFinal")
+	public double zl2AverageFinal;
+       
+        @Column(name = "gpaValuesFinal")
+        public double gpaValuesFinal;
+
+   
+        public double getGpaValuesFinal() {
+        return gpaValuesFinal;
+    }
+
+    public void setGpaValuesFinal(double gpaValuesFinal) {
+        this.gpaValuesFinal = gpaValuesFinal;
+    }
+        
+        
+
+	public double getAffectiveAverageFinal() {
+		return affectiveAverageFinal;
+	}
+
+	public void setAffectiveAverageFinal(double affectiveAverageFinal) {
+		this.affectiveAverageFinal = affectiveAverageFinal;
+	}
+
+	public double getPsychomotorAverageFinal() {
+		return psychomotorAverageFinal;
+	}
+
+	public void setPsychomotorAverageFinal(double psychomotorAverageFinal) {
+		this.psychomotorAverageFinal = psychomotorAverageFinal;
+	}
+
+	public double getMegaskillAverageFinal() {
+		return megaskillAverageFinal;
+	}
+
+	public void setMegaskillAverageFinal(double megaskillAverageFinal) {
+		this.megaskillAverageFinal = megaskillAverageFinal;
+	}
+
+	public double getValuesPromotedAverageFinal() {
+		return valuesPromotedAverageFinal;
+	}
+
+	public void setValuesPromotedAverageFinal(double valuesPromotedAverageFinal) {
+		this.valuesPromotedAverageFinal = valuesPromotedAverageFinal;
+	}
+
+	public double getZl2AverageFinal() {
+		return zl2AverageFinal;
+	}
+
+	public void setZl2AverageFinal(double zl2AverageFinal) {
+		this.zl2AverageFinal = zl2AverageFinal;
+	}
+
 	public double getAffectiveAverage1() {
 		return affectiveAverage1;
 	}
@@ -2156,11 +2221,13 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		affectiveAverage2 = extractAverage("2", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage3 = extractAverage("3", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage4 = extractAverage("4", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
+		affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");
 		
 		psychomotorAverage1 = extractAverage("", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage2 = extractAverage("2", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage3 = extractAverage("3", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage4 = extractAverage("4", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
+		psychomotorAverageFinal = extractAverage("", "psychomotorAverage1", "psychomotorAverage2", "psychomotorAverage3", "psychomotorAverage4");
 
 //		megaskillAverage1 = extractAverage("", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
 //		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
@@ -2171,24 +2238,38 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
 		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
 		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
+		megaskillAverageFinal = extractAverage("", "megaskillAverage1", "megaskillAverage2", "megaskillAverage3", "megaskillAverage4");
 
 		valuesPromotedAverage1 = extractAverage("", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage2 = extractAverage("2", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage3 = extractAverage("3", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage4 = extractAverage("4", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
+		valuesPromotedAverageFinal = extractAverage("", "valuesPromotedAverage1", "valuesPromotedAverage2", "valuesPromotedAverage3", "valuesPromotedAverage4");
 
 		zl2Average1 = extractAverage("", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average2 = extractAverage("2", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average3 = extractAverage("3", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average4 = extractAverage("4", "pfe", "cra", "ca", "kin", "ec1", "ec2");
-		System.out.println("SAVE RECORD "+seq);
+		zl2AverageFinal = extractAverage("", "zl2Average1", "zl2Average2", "zl2Average3", "zl2Average4");
+		
+		gpaValuesFinal = extractAverage("", "affectiveAverageFinal", "psychomotorAverageFinal", "megaskillAverageFinal", "valuesPromotedAverageFinal", "zl2AverageFinal");
 		super.save();
 	}
 
+	private void setFinalAverage(String str) {
+		System.out.println(str);
+		int d = extractAverage("", str, str+"2", str+"3", str+"4");
+		BeanUtil.setPropertyValue(this, str+"Final", d);
+	}
+	
 	private int extractAverage(String quarter, String...str) {
 		double totalScore = 0;
 		double totalCount = 0;
 		for (String s:str) {
+			if ("4".equals(quarter)) {
+				//setup the final grade
+				setFinalAverage(s);
+			}
 			double val = BeanUtil.getDoubleValue(this, s+quarter);
 			if (val==0) {
 				continue;

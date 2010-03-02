@@ -60,7 +60,8 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
         	calculateFinal();
         }
         else if (comp.getName().equals("btnDeleteDuplicate")) {
-        	deleteDuplicate();
+        	PanelUtil.showError(comp, "To clean the duplicate assessment. Please use the Student Info and remove duplicate entries from the Enrollment sub panel.");
+//        	deleteDuplicate();
         }
     }
 

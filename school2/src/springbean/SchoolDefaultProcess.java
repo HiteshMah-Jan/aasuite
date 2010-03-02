@@ -41,6 +41,7 @@ import bean.admin.AppConfig;
 import bean.person.StudentSchoolAttended;
 import bean.person.StudentSubject;
 import bean.person.StudentSummerSchoolAttended;
+import bean.person.StudentValuesGrading;
 import bean.reference.CourseSubject;
 import bean.reference.GradeLevel;
 import bean.reference.ScholarshipTable;
@@ -549,6 +550,8 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     static List lst;
     public static class CreateCurriculum implements Runnable {
     	Student student;
+    	List<Enrollment> enrolls;
+    	
     	public CreateCurriculum(Student stud) {
     		this.student = stud;
     	}
@@ -573,14 +576,49 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     		l.add(newEnrollment("H2"));
     		l.add(newEnrollment("H3"));
     		l.add(newEnrollment("H4"));
+
+    		l.add(newValues("P1"));
+    		l.add(newValues("P2"));
+    		l.add(newValues("K1"));
+    		l.add(newValues("K2"));
+    		l.add(newValues("N1"));
+    		l.add(newValues("N2"));
+    		l.add(newValues("G1"));
+    		l.add(newValues("G2"));
+    		l.add(newValues("G3"));
+    		l.add(newValues("G4"));
+    		l.add(newValues("G5"));
+    		l.add(newValues("G6"));
+    		l.add(newValues("H1"));
+    		l.add(newValues("H2"));
+    		l.add(newValues("H3"));
+    		l.add(newValues("H4"));
     		DBClient.persistBean(l);
     	}
 
     	protected Enrollment newEnrollment(String level) {
+    		if (enrolls==null) {
+    			enrolls = DBClient.getList("SELECT a FROM Enrollment a WHERE a.studentId="+student.personId);
+    		}
+    		if (enrolls != null) {
+    			for (Enrollment e : enrolls) {
+    				if (e.gradeLevel.equals(level)) {
+    					return e;
+    				}
+    			}
+    		}
     		Enrollment e = new Enrollment();
     		e.gradeLevel = level;
     		e.studentId = student.personId;
     		return e;
+    	}
+    	
+    	protected StudentValuesGrading newValues(String level) {
+    		StudentValuesGrading val = new StudentValuesGrading();
+    		val.gradeLevel = level;
+    		val.studentId = student.personId;
+    		val.schoolYear = AppConfig.getSchoolYear();
+    		return val;
     	}
     	
     	protected void createSubjects() {

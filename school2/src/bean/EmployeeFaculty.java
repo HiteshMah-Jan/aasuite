@@ -34,6 +34,8 @@ import bean.person.PersonNotes;
 import bean.person.PersonPositionHistory;
 import bean.person.PersonSeminarAttended;
 import bean.reference.Department;
+import bean.reference.EmployeePositionRef;
+import bean.reference.EmployeeTaxStatus;
 
 /**
  *
@@ -60,7 +62,7 @@ import bean.reference.Department;
 //       @ChildRecord(title="Loan", entity = EmployeeLoan.class, sql = "SELECT a FROM EmployeeLoan a WHERE a.personId=${personId}", fieldMapping={"personId","personId"})
  },
     info={
-        @ParentAddInfo(title="Personal Information", displayFields={"hiredDate", "email","birthDate","gender","age","weight","height","citizenship","sssNumber","maritalStatus","religion","address", "contactNumber","placeOfBirth","tinNumber","pagibigNumber","philhealthNumber","aCROrICRNumber", "specialSkills","hobbies","address1","contactNumber1"}),
+        @ParentAddInfo(title="Personal Information", displayFields={"hiredDate", "perHourPay","email","birthDate","gender","age","weight","height","citizenship","sssNumber","maritalStatus","religion","address", "contactNumber","placeOfBirth","tinNumber","pagibigNumber","philhealthNumber","aCROrICRNumber", "specialSkills","hobbies","address1","contactNumber1"}),
         @ParentAddInfo(title="PRC License", displayFields={"isLETPasser","prcLevel","prcLicenseNumber","prcRegistrationDate", "prcValidUntil","letRating"})
 }
 )
@@ -71,13 +73,13 @@ import bean.reference.Department;
         @Display(name="firstName"),
         @Display(name="middleInitial",label="Middle Name"),
         @Display(name="department",type="PopSearch", linktoBean=Department.class),
-        @Display(name="position"),
+        @Display(name="position",type="PopSearch",linktoBean=EmployeePositionRef.class),
         @Display(name="occupation"),
-        @Display(name="status",type="Combo",modelCombo={"Z","SME","SME1","SME2","SME3","SME4"}),
-        @Display(name="basicPay",width=-1),
-        @Display(name = "hiredDate", addInfoOnly = true,gridFieldWidth=3),
-        @Display(name = "birthDate", addInfoOnly = true),
-        @Display(name = "age", addInfoOnly = true,width=30),
+        @Display(name="status",type="PopSearch", linktoBean=EmployeeTaxStatus.class),
+        @Display(name="basicPay",width=-1,duties={"CAN EDIT SALARY"},viewOnDuties={"CAN EDIT SALARY"}),
+        @Display(name="hiredDate", addInfoOnly = true,gridFieldWidth=3),
+        @Display(name="birthDate", addInfoOnly = true),
+        @Display(name="age", addInfoOnly = true,width=30),
         @Display(name="citizenship",addInfoOnly=true,width=-1),
         @Display(name="religion",addInfoOnly=true,width=-1),
         @Display(name="gender",addInfoOnly=true,type="Combo",modelCombo={"MALE", "FEMALE"},width=-1),
@@ -94,7 +96,7 @@ import bean.reference.Department;
         @Display(name="philhealthNumber",addInfoOnly=true,width=-1),
         
         
-        @Display(name="perHourPay",addInfoOnly=true),
+        @Display(name="perHourPay",addInfoOnly=true,duties={"CAN EDIT SALARY"},viewOnDuties={"CAN EDIT SALARY"}),
         @Display(name="sickLeaveBenefit",addInfoOnly=true),
         @Display(name="sickLeaveUsed",addInfoOnly=true),
         @Display(name="vacLeaveBenefit",addInfoOnly=true),

@@ -9,10 +9,10 @@
 package bean.extension;
 
 import bean.LibraryBorrowedBooks;
+import bean.accounting.payroll.PersonAttendance;
 import bean.person.StudentEncounter;
 import bean.person.StudentEncounterClinic;
 import bean.person.StudentPersonalityExam;
-import bean.person.PersonAttendance;
 import java.io.Serializable;
 import template.ChildRecord;
 import template.ChildRecords;

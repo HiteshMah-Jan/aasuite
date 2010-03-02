@@ -57,7 +57,7 @@ public class CalculateGradeService implements IService {
 
 	private double getTotalShares(int quarter, int studentId, String subject) {
 		double val = DBClient.getSingleColumnDouble("SELECT SUM(gradeShareQ"+quarter+") FROM StudentSubjectDetailGrading WHERE studentId="+studentId+" AND subject='"+subject+"'");
-		if (val < 70) {
+		if (val < 70 && val > 60) {
 			val = 70;
 		}
 		return val;

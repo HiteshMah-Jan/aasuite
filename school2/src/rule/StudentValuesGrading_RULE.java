@@ -56,6 +56,11 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 	}
 
 	protected void merit(int quarter) {
+		if (AppConfig.isTrimester() && quarter==4) {
+			PanelUtil.showMessage(null, "This system is configured for trimester, you cannot use this button.");
+			return;
+		}
+
 		StudentValuesGrading grd = (StudentValuesGrading) this.getBean();
 		if (grd==null || grd.isEmptyKey()) {
 			PanelUtil.showError(null, "Please select a record to perform merit process.");

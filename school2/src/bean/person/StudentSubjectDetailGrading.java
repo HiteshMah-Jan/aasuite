@@ -134,12 +134,18 @@ public class StudentSubjectDetailGrading extends AbstractIBean implements Serial
 			recalculateGrade(4);
 			double total = q1Grade+q2Grade+q3Grade+q4Grade;
 			if (total>0) {
-				computedGrade = doubleVal(total/4);
 				gradeShareQ1 = doubleVal(q1Grade*weight/100);
 				gradeShareQ2 = doubleVal(q2Grade*weight/100);
 				gradeShareQ3 = doubleVal(q3Grade*weight/100);
 				gradeShareQ4 = doubleVal(q4Grade*weight/100);
-				gradeShare = doubleVal((gradeShareQ1+gradeShareQ2+gradeShareQ3+gradeShareQ4)/4);
+				if (AppConfig.isTrimester()) {
+					computedGrade = doubleVal(total/3);
+					gradeShare = doubleVal((gradeShareQ1+gradeShareQ2+gradeShareQ3)/3);
+				}
+				else {
+					computedGrade = doubleVal(total/4);
+					gradeShare = doubleVal((gradeShareQ1+gradeShareQ2+gradeShareQ3+gradeShareQ4)/4);
+				}
 			}
 		}
 	}

@@ -11,7 +11,6 @@ package bean.reference;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +22,9 @@ import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import util.DBClient;
 import bean.Employee;
 import constants.UserInfo;
+import template.screen.TemplateTabSinglePage;
 
 /**
  *
@@ -33,14 +32,21 @@ import constants.UserInfo;
  */
 @Entity
 @Table(name = "GradeLevel")
-@UITemplate(columnSearch={"code", "longName", "course", "head"}, gridCount=4, title="Level")
+@UITemplate(template=TemplateTabSinglePage.class,columnSearch={"code", "longName", "course", "head", "sortNumber"}, gridCount=4, title="Level")
 @Displays({
        // @Display(name="schoolYear"),
         @Display(name="code"),
+        @Display(name="sortNumber"),
         @Display(name="longName", upCase=false),
         @Display(name="course", type="PopSearch", linktoBean=Course.class, gridFieldWidth=3, width=-1),
         @Display(name="headId", linktoBean=Employee.class, type="PopSearch", label="Head", gridFieldWidth=3, width=-1),
-        @Display(name="college")
+        @Display(name="college"),
+        @Display(name="elaItemCount"),
+        @Display(name="mathItemCount"),
+        @Display(name="sciItemCount"),
+        @Display(name="cognitiveItemCount"),
+        @Display(name="affectiveItemCount"),
+        @Display(name="psychomotorItemCount")
 //        @Display(name="tuitionFee"),
 //        @Display(name="otherFee"),
 //        
@@ -80,6 +86,8 @@ public class GradeLevel extends AbstractIBean implements Serializable {
     public String code;
     @Column(name = "longName")
     public String longName;
+    @Column(name = "sortNumber")
+    public int sortNumber;
     @Column(name = "course")
     public String course;
     @Column(name = "tuitionFee")
@@ -121,6 +129,12 @@ public class GradeLevel extends AbstractIBean implements Serializable {
     public int mathItemCount;
     @Column(name = "sciItemCount")
     public int sciItemCount;
+    @Column(name = "cognitiveItemCount")
+    public int cognitiveItemCount;
+    @Column(name = "affectiveItemCount")
+    public int affectiveItemCount;
+    @Column(name = "psychomotorItemCount")
+    public int psychomotorItemCount;
     @Column(name = "pracItemCount")
     public int pracItemCount;
     @Column(name = "otherItemCount1")
@@ -148,6 +162,39 @@ public class GradeLevel extends AbstractIBean implements Serializable {
     	}
 		super.save();
 	}
+
+    public int getAffectiveItemCount() {
+        return affectiveItemCount;
+    }
+
+    public void setAffectiveItemCount(int affectiveItemCount) {
+        this.affectiveItemCount = affectiveItemCount;
+    }
+
+    public int getCognitiveItemCount() {
+        return cognitiveItemCount;
+    }
+
+    public void setCognitiveItemCount(int cognitiveItemCount) {
+        this.cognitiveItemCount = cognitiveItemCount;
+    }
+
+    public int getPsychomotorItemCount() {
+        return psychomotorItemCount;
+    }
+
+    public void setPsychomotorItemCount(int psychomotorItemCount) {
+        this.psychomotorItemCount = psychomotorItemCount;
+    }
+
+    
+    public int getSortNumber() {
+        return sortNumber;
+    }
+
+    public void setSortNumber(int sortNumber) {
+        this.sortNumber = sortNumber;
+    }
 
 	public boolean isLocked() {
 		return locked;

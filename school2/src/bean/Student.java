@@ -110,6 +110,7 @@ import constants.UserInfo;
 
 		@Display(name = "scholarshipCode", type = "PopSearch", linktoBean = ScholarshipTable.class, gridFieldWidth = 3, width = -1),
 		@Display(name = "tempPass", label = "Password", gridFieldWidth = 3, width = -1),
+		@Display(name = "promotedTo", type = "PopSearch", linktoBean = GradeLevel.class, gridFieldWidth = 3, width = -1),
 
 		@Display(name = "lastName", labelTop = true),
 		@Display(name = "firstName", labelTop = true),
@@ -254,7 +255,6 @@ import constants.UserInfo;
 
 })
 @ActionButtons( {
-		@ActionButton(name = "btnChangeGrade", label = "Change Grade/Course"),
 		@ActionButton(name = "btnGenerateCurriculum", label = "Generate Curriculum"),
 		@ActionButton(name = "btnPrintTOR", label = "Print TOR"),
 		// @ActionButton(name="btnAssessNoEnrollment",
@@ -406,7 +406,18 @@ public class Student extends Customer implements Serializable {
 	public Date acrDateIssued;
 	@Column(name = "college")
 	public boolean college;
+        @Column(name = "promotedTo")
+	public String promotedTo;
 
+    public String getPromotedTo() {
+        return promotedTo;
+    }
+
+    public void setPromotedTo(String promotedTo) {
+        this.promotedTo = promotedTo;
+    }
+
+        
 	public boolean isCollege() {
 		return college;
 	}
@@ -765,24 +776,24 @@ public class Student extends Customer implements Serializable {
 			if (studentNumber == null || studentNumber.trim().isEmpty()) {
 				this.registrationDate = constants.Constants.useDate;
 				schoolYear = SchoolConfig.getSchoolYear();
-				String yFormat = AppConfig.getSchoolYearFormat();
-				boolean start0 = AppConfig.isStudentNumberStart0();
-				String yy = DateUtil.formatDate(constants.Constants.useDate,
-						yFormat);
-				Object obj = "0";
-				if (start0) {
-					obj = singleColumn("SELECT MAX(studentCountThisSCYear) FROM Person WHERE personType='STUDENT' AND schoolYear='"
-							+ schoolYear + "'");
-				} else {
-					obj = singleColumn("SELECT COUNT(*) FROM Person WHERE personType='STUDENT'");
-				}
+				String yy = schoolYear.substring(schoolYear.indexOf("-")+1);
+				Object obj = singleColumn("SELECT MAX(studentNumber) FROM Person WHERE personType='STUDENT' AND studentNumber LIKE '"
+							+ yy + "-%'");
 				int count = 0;
-				try {
-					count = Integer.parseInt(obj.toString());
-				} catch (Exception e) {
+				if (obj != null) {
+					try {
+						String ycount = obj.toString(); 
+						ycount = ycount.substring(ycount.indexOf("-")+1);
+						count = Integer.parseInt(ycount);
+					} catch (Exception e) {
+					}
 				}
-				studentCountThisSCYear = count + 1;
-				studentNumber = yy + "-" + (count + 1 + 1000);
+				if (count > 1000) {
+					studentNumber = yy + "-" + (count + 1);
+				}
+				else {
+					studentNumber = yy + "-" + (count + 1 + 1000);
+				}
 			}
 			userid = studentNumber;
 			tempPass = studentNumber;
@@ -967,7 +978,7 @@ public class Student extends Customer implements Serializable {
 			useYear = lst.get(0).schoolYear;
 		}
 		for (PaymentEnrollment p : lst) {
-			if (p.schoolYear.equals(useYear)) {
+			if (p.schoolYear.equals(useYear) && !p.paid) {
 				totalBack += p.overallAmountDue;
 			}
 		}
@@ -983,8 +994,12 @@ public class Student extends Customer implements Serializable {
 				+ " AND a.gradeLevel='" + lvl.code + "'";
 		Enrollment e = (Enrollment) DBClient.getFirstRecord(sql);
 		if (e==null) {
-			PanelUtil.showError(null, "Assessment cannot continue. Please ask SRU or Registrar to click Generate Curriculum button for chosen student prior to assessment.");
-			return;
+			e = new Enrollment();
+			e.studentId = personId;
+			e.paymentPlanType = plan;
+			e.gradeLevel = lvl.code;
+			e.schoolYear = schoolYear;
+			e.save();
 		}
 		e.paymentPlanType = plan;
 		e.gradeLevel = lvl.code;

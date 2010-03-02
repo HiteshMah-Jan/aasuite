@@ -141,15 +141,6 @@ public class GradingProcess implements Runnable {
 			AveLow values = isValuesHonor(s, val, 4, 3, quarter, "els", "wfr", "apgw", "spaa","iva", "isl", "aspvi", "hspd", "sd", "put","hlew","prs","cr","cws");
 			if (values.isHonor) {
 //				create or update record in StudentHonor
-				StudentHonor honor = (StudentHonor) DBClient.getFirstRecord("SELECT a FROM StudentHonor a WHERE a.schoolYear='"+schoolYear+"' AND a.section='"+s.section+"'");
-				if (honor==null) {
-					honor = new StudentHonor();
-					honor.studentId = s.personId;
-					honor.schoolYear = AppConfig.getSchoolYear();
-					honor.gradeLevel = s.gradeLevel;
-				}
-				honor.studentName = s.toString();
-				honor.section = s.section;
 				String honorType = "";
 				if (ave.average>=93 && ave.lowest>=87 && values.average>=4 && values.lowest>=3 && values2.average>=4 && values2.lowest>=3) {
 					honorType = "GREEN";
@@ -160,18 +151,8 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				String strQ = "q"+quarter;
-				if (quarter==5) {
-					strQ = "final";
-				}
-				honor.changeValue(strQ+"Honor", honorType);
-				honor.changeValue(strQ+"AchievementGPA", (int)ave.average);
-				honor.changeValue(strQ+"AchievementLowestGrade", (int)ave.lowest);
-				honor.changeValue(strQ+"Values1GPA", (int)values.average);
-				honor.changeValue(strQ+"Values1LowestGrade", (int)values.lowest);
-				honor.changeValue(strQ+"Values2GPA", (int)values2.average);
-				honor.changeValue(strQ+"Values2LowestGrade", (int)values2.lowest);
-				honor.save();
+				e.changeValue("meritQ"+quarter, honorType);
+				e.save();
 			}
 		}
 	}
@@ -188,15 +169,6 @@ public class GradingProcess implements Runnable {
 			AveLow values = isValuesHonor(s, val, 3, 3, quarter, "els", "wfr", "apgw", "spaa","iva", "isl", "aspvi", "hspd", "sd", "put","hlew","prs","cr","cws");
 			if (values.isHonor) {
 //				create or update record in StudentHonor
-				StudentHonor honor = (StudentHonor) DBClient.getFirstRecord("SELECT a FROM StudentHonor a WHERE a.schoolYear='"+schoolYear+"' AND a.section='"+s.section+"'");
-				if (honor==null) {
-					honor = new StudentHonor();
-					honor.studentId = s.personId;
-					honor.schoolYear = AppConfig.getSchoolYear();
-					honor.gradeLevel = s.gradeLevel;
-				}
-				honor.studentName = s.toString();
-				honor.section = s.section;
 				String honorType = "";
 				if (ave.average>=93 && ave.lowest>=89 && values.average>=5 && values.lowest>=4 && values2.average>=5 && values2.lowest>=4) {
 					honorType = "GREEN";
@@ -207,18 +179,8 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				String strQ = "q"+quarter;
-				if (quarter==5) {
-					strQ = "final";
-				}
-				honor.changeValue(strQ+"Honor", honorType);
-				honor.changeValue(strQ+"AchievementGPA", (int)ave.average);
-				honor.changeValue(strQ+"AchievementLowestGrade", (int)ave.lowest);
-				honor.changeValue(strQ+"Values1GPA", (int)values.average);
-				honor.changeValue(strQ+"Values1LowestGrade", (int)values.lowest);
-				honor.changeValue(strQ+"Values2GPA", (int)values2.average);
-				honor.changeValue(strQ+"Values2LowestGrade", (int)values2.lowest);
-				honor.save();
+				e.changeValue("meritQ"+quarter, honorType);
+				e.save();
 			}
 		}
 	}
@@ -231,15 +193,6 @@ public class GradingProcess implements Runnable {
 			AveLow values = isValuesHonor(s, val, 3, 3, quarter, "con", "mot", "eff", "res","ini", "per","car","tea","com","pro","focus","respect");
 			if (values.isHonor) {
 //				create or update record in StudentHonor
-				StudentHonor honor = (StudentHonor) DBClient.getFirstRecord("SELECT a FROM StudentHonor a WHERE a.schoolYear='"+schoolYear+"' AND a.section='"+s.section+"'");
-				if (honor==null) {
-					honor = new StudentHonor();
-					honor.studentId = s.personId;
-					honor.schoolYear = AppConfig.getSchoolYear();
-					honor.gradeLevel = s.gradeLevel;
-				}
-				honor.studentName = s.toString();
-				honor.section = s.section;
 				String honorType = "";
 				if (ave.average>=93 && ave.lowest>=89 && values.average>=5 && values.lowest>=4) {
 					honorType = "GREEN";
@@ -250,16 +203,8 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				String strQ = "q"+quarter;
-				if (quarter==5) {
-					strQ = "final";
-				}
-				honor.changeValue(strQ+"Honor", honorType);
-				honor.changeValue(strQ+"AchievementGPA", (int)ave.average);
-				honor.changeValue(strQ+"AchievementLowestGrade", (int)ave.lowest);
-				honor.changeValue(strQ+"Values1GPA", (int)values.average);
-				honor.changeValue(strQ+"Values1LowestGrade", (int)values.lowest);
-				honor.save();
+				e.changeValue("meritQ"+quarter, honorType);
+				e.save();
 			}
 		}
 	}
@@ -276,15 +221,6 @@ public class GradingProcess implements Runnable {
 			AveLow values = isValuesHonor(s, val, 3, 3, quarter, "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 			if (values.isHonor) {
 //				create or update record in StudentHonor
-				StudentHonor honor = (StudentHonor) DBClient.getFirstRecord("SELECT a FROM StudentHonor a WHERE a.schoolYear='"+schoolYear+"' AND a.section='"+s.section+"'");
-				if (honor==null) {
-					honor = new StudentHonor();
-					honor.studentId = s.personId;
-					honor.schoolYear = AppConfig.getSchoolYear();
-					honor.gradeLevel = s.gradeLevel;
-				}
-				honor.studentName = s.toString();
-				honor.section = s.section;
 				String honorType = "";
 				if (ave.average>=93 && ave.lowest>=89 && values.average>=5 && values.lowest>=4 && values2.average>=5 && values2.lowest>=4) {
 					honorType = "GREEN";
@@ -295,16 +231,8 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				String strQ = "q"+quarter;
-				if (quarter==5) {
-					strQ = "final";
-				}
-				honor.changeValue(strQ+"Honor", honorType);
-				honor.changeValue(strQ+"AchievementGPA", (int)ave.average);
-				honor.changeValue(strQ+"AchievementLowestGrade", (int)ave.lowest);
-				honor.changeValue(strQ+"Values1GPA", (int)values.average);
-				honor.changeValue(strQ+"Values1LowestGrade", (int)values.lowest);
-				honor.save();
+				e.changeValue("meritQ"+quarter, honorType);
+				e.save();
 			}
 		}
 	}

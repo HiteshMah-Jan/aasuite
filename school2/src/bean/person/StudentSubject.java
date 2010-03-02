@@ -27,6 +27,7 @@ import util.DBClient;
 import util.PanelUtil;
 import bean.Person;
 import bean.Student;
+import bean.admin.AppConfig;
 import bean.reference.Subject;
 import constants.UserInfo;
 
@@ -615,7 +616,12 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 			actionTaken = "";
 		}
 		else {
-			finalRating = (grade1+grade2+grade3+grade4)/4;
+			if (AppConfig.isTrimester()) {
+				finalRating = (grade1+grade2+grade3)/3;
+			}
+			else {
+				finalRating = (grade1+grade2+grade3+grade4)/4;
+			}
 			if (finalRating>74) {
 				actionTaken = "PASSED";
 			}

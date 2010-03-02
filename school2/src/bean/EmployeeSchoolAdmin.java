@@ -8,6 +8,7 @@
  */
 package bean;
 
+import bean.accounting.payroll.PersonAttendance;
 import bean.hr.HRAssessment;
 import bean.person.*;
 import bean.reference.Department;

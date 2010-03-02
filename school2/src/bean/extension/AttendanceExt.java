@@ -31,7 +31,7 @@ import template.screen.TemplateSinglePage;
  *
  * @author Entokwaa
  */
-public class AttendanceExt extends bean.person.PersonAttendance {
+public class AttendanceExt extends bean.accounting.payroll.PersonAttendance {
     public static void main(String[] args) {
         view(AttendanceExt.class);
     }    

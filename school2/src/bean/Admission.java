@@ -40,7 +40,10 @@ import util.DateUtil;
 import bean.accounting.Invoice;
 import bean.extension.GradeLevelExamExt;
 import bean.person.PersonDependent;
+import bean.reference.GradeLevel;
 import constants.UserInfo;
+import template.ActionButton;
+import template.ActionButtons;
 
 /**
  *
@@ -49,8 +52,8 @@ import constants.UserInfo;
 @Entity
 @Table(name = "Admission")
 @UITemplate(template = TemplateLeftRight.class, showChart = false, showFiles = true,showImages=true,imageInsideForm=true, sumFooter = "5", editableCol = "5",
-criteriaSearch = {"lastName", "firstName", "gradeLevel"},
-columnSearch = {"lastName", "firstName", "middleInitial", "gradeLevel"},
+criteriaSearch = {"lastName", "firstName", "gradeLevel","examinationDate"},
+columnSearch = {"lastName", "firstName", "middleInitial", "gradeLevel","examinationDate"},
 gridCount = 2)
 @ChildRecords(value = { //@ChildRecord(template=ChildTemplateListPopup.class, fieldMapping={"seq","admissionId"}, entity=AdmissionExamReference.class, sql="SELECT a FROM AdmissionExam a WHERE a.admissionId=${seq} ORDER BY a.examType", title="Exams")
 },
@@ -60,8 +63,10 @@ info = {
     @ParentAddInfo(title = "Applicants Other Info", gridCount = 4,
     displayFields = {"father", "fatherOccupation", "fatherCompany", "fatherCompanyAddress","fatherCompanyTelNo", 
     "mother", "motherOccupation", "motherCompany", "motherCompanyAddress","motherCompanyTelNo"},hideGroup="5,6,7,8,9,10"),
-     @ParentAddInfo(title = "Examination Details", gridCount = 4,
-    displayFields = {"orDate","orNumber"},hideGroup="3,4,5")
+     @ParentAddInfo(title = "Examination Details", gridCount = 4, displayFields = {"orDate","orNumber"},hideGroup="3,4,5,9,10"),
+     @ParentAddInfo(title = "Recommendation", gridCount = 4, hideGroup="1,2,3,4,5,6,7,8",
+     displayFields={""})
+    
 })
 @DisplayGroups({
     @DisplayGroup(title = "Applicant's Name", gridCount = 6, fields = {"lastName", "firstName", "middleInitial"}),
@@ -69,25 +74,25 @@ info = {
     @DisplayGroup(title = "Other children studying in this School", gridCount = 4, fields = {"childName1", "childGradeSection1","childName2", "childGradeSection2", "childName3", "childGradeSection3"}),
     @DisplayGroup(title = "Recent Schools Attended", gridCount = 4, fields = {"preschoolAttended", "preschoolSchoolYear", "preschoolReasonForTransfer","elementaryAttended", "elementarySchoolYear", "elementaryReasonForTransfer","highschoolAttended", "highschoolSchoolYear", "highschoolReasonForTransfer"}, addInfoOnly = true),
     @DisplayGroup(title = "Grade point Average in Previous School", gridCount = 6, fields = { "gpaEla", "gpaMath","gpaSci","gpaFil","gpaSs","gpaCon","gpaAve","prevSchool"},addInfoOnly=true),
-    @DisplayGroup(title = "For Foreigner", gridCount = 2, fields = {"copyOfAcr", "passportForVerification", "completeScholasticRecords","studyPermit"}, addInfoOnly = true),
+    @DisplayGroup(title = "For Foreigner", gridCount = 2, fields = {"foreigner","copyOfAcr", "passportForVerification", "completeScholasticRecords","studyPermit"}, addInfoOnly = true),
     @DisplayGroup(title = "Exam Schedule", gridCount = 2, fields = {"examinationDate", "examTime", "roomAssign"}, addInfoOnly = true),
-    @DisplayGroup(title = "Test Score", gridCount = 8, fields = {"elaCount", "elaScore", "elaPercentage","elaRemarks","mathCount", "mathScore", "mathPercentage","mathRemarks","sciCount", "sciScore", "sciPercentage","sciRemarks","pracCount", "pracScore", "pracPercentage","pracRemarks","itemTotal", "itemScore", "itemPercentage","totalRemarks"}, addInfoOnly = true),
+    @DisplayGroup(title = "Test Score", gridCount = 8, fields = {"elaCount", "elaScore", "elaPercentage","elaRemarks","mathCount", "mathScore", "mathPercentage","mathRemarks","sciCount", "sciScore", "sciPercentage","sciRemarks","cognitiveCount", "cognitiveScore", "cognitivePercentage","cognitiveRemarks","psychomotorCount", "psychomotorScore", "psychomotorPercentage","psychomotorRemarks","affectiveCount", "affectiveScore", "affectivePercentage","affectiveRemarks","finalRemarks","forImprovementIn"}, addInfoOnly = true),
     @DisplayGroup(title = "Evaluation", gridCount = 2, fields = {"evaluationDate", "evaluation", "enrolledDate"}, addInfoOnly = true),
-    @DisplayGroup(title = "Recommended Remedial Class", gridCount = 2, fields = {"recommendedRemedialEla", "recommendedRemedialMath","recommendedRemedialSci","recommendedRemedialFil","recommendedRemedialSS","recommendedRemedialCon"}, addInfoOnly = true),
+    @DisplayGroup(title = "Recommended Remedial Class", gridCount = 6, fields = {"recommendedRemedialEla","recommendedRemedialReading","recommendedRemedialWriting", "recommendedRemedialMath","recommendedRemedialSci","recommendedRemedialFil","recommendedRemedialSS","recommendedRemedialCon","betterQualifiedLevel"}, addInfoOnly = true),
     @DisplayGroup(title = "Recommendation", gridCount = 4, fields = {"recommendation", "recommendationCondition"}, addInfoOnly = true)
     
 })
 @Displays({
-     @Display(name = "branchCode"),
-    @Display(name = "schoolYear"),
+     @Display(name = "branchCode",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "schoolYear",duties={"CAN EDIT ADMISSION DETAIL"}),
    
    // @Display(name = "applicationStatus", type = "Combo", modelCombo = {"OLD", "NEW"},width=150),
     //@Display(name="branchCode", width = 150),
     
-    @Display(name = "gender",type="Combo",modelCombo={"MALE","FEMALE"}),
-    @Display(name = "previousGradeLevel", type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Previous Level"),
+    @Display(name = "gender",duties={"CAN EDIT ADMISSION DETAIL"},type="Combo",modelCombo={"MALE","FEMALE"}),
+    @Display(name = "previousGradeLevel",duties={"CAN EDIT ADMISSION DETAIL"}, type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Previous Level"),
    //@Display(name = "course", type = "PopSearch", linktoBean = Course.class,width=150),
-    @Display(name = "gradeLevel", type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Level Applied For"),
+    @Display(name = "gradeLevel",duties={"CAN EDIT ADMISSION DETAIL"}, type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Level Applied For"),
     // @Display(name="section", type="PopSearch", linktoBean=Section.class, width = 117),
     
     @Display(name = "lastName",labelTop=true),
@@ -95,131 +100,167 @@ info = {
     @Display(name = "middleInitial", label = "Middle Name",labelTop=true),
   
     
-    @Display(name = "birthDate"),
-    @Display(name = "age",width=20),
-    @Display(name = "birthPlace"),
-    @Display(name = "telNum"),
-    @Display(name = "address",gridFieldWidth=3,width=-1),
-    @Display(name = "nationality"),
-    @Display(name = "ifAlienAcrNo"),
-    @Display(name = "acrPlaceIssued"),
-    @Display(name = "acrDateIssued"),
-    @Display(name = "religion"),
-    @Display(name = "otherReligion",label="Non Catholic(Specify)"),
-    @Display(name = "schoolLastAttended",gridFieldWidth=3,width=-1),
-    @Display(name = "schoolLastAttendedAddress",gridFieldWidth=3,width=-1,label="Address of School"),
-    @Display(name = "reasonForTransfer",gridFieldWidth=3,width=-1),
+    @Display(name = "birthDate",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "age",duties={"CAN EDIT ADMISSION DETAIL"},width=20),
+    @Display(name = "birthPlace",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "telNum",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "address",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
+    @Display(name = "nationality",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "foreigner",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "ifAlienAcrNo",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "acrPlaceIssued",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "acrDateIssued",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "religion",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "otherReligion",duties={"CAN EDIT ADMISSION DETAIL"},label="Non Catholic(Specify)"),
+    @Display(name = "schoolLastAttended",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
+    @Display(name = "schoolLastAttendedAddress",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Address of School"),
+    @Display(name = "reasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
     
     
-    @Display(name = "father",addInfoOnly=true,label="Father's Name",gridFieldWidth=3,width=-1),
-    @Display(name = "fatherOccupation",addInfoOnly=true,label="Occupation"),
-    @Display(name = "fatherCompanyTelNo",addInfoOnly=true,label="Tel No./s"),
-    @Display(name = "fatherCompany",addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
-    @Display(name = "fatherCompanyAddress",addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
-    @Display(name = "mother",addInfoOnly=true,label="Mother's Name",gridFieldWidth=3,width=-1),
-    @Display(name = "motherOccupation",addInfoOnly=true,label="Occupation"),
-    @Display(name = "motherCompanyTelNo",addInfoOnly=true,label="Tel No./s"),
-    @Display(name = "motherCompany",addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
+    @Display(name = "father",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Father's Name",gridFieldWidth=3,width=-1),
+    @Display(name = "fatherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Occupation"),
+    @Display(name = "fatherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Tel No./s"),
+    @Display(name = "fatherCompany",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
+    @Display(name = "fatherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
+    @Display(name = "mother",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Mother's Name",gridFieldWidth=3,width=-1),
+    @Display(name = "motherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Occupation"),
+    @Display(name = "motherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Tel No./s"),
+    @Display(name = "motherCompany",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
     
-    @Display(name = "motherCompanyAddress",addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
+    @Display(name = "motherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
    
     
     
-    @Display(name = "childName1",labelTop=true,label="Name",width=250),
-    @Display(name = "childGradeSection1",labelTop=true,label="Grade / Section"),
-    @Display(name = "childName2",hideLabel=true,width=250),
-    @Display(name = "childGradeSection2",hideLabel=true),
-    @Display(name = "childName3",hideLabel=true,width=250),
-    @Display(name = "childGradeSection3",hideLabel=true),
+    @Display(name = "childName1",duties={"CAN EDIT ADMISSION DETAIL"},labelTop=true,label="Name",width=250),
+    @Display(name = "childGradeSection1",duties={"CAN EDIT ADMISSION DETAIL"},labelTop=true,label="Grade / Section"),
+    @Display(name = "childName2",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true,width=250),
+    @Display(name = "childGradeSection2",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true),
+    @Display(name = "childName3",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true,width=250),
+    @Display(name = "childGradeSection3",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true),
     
     
-    @Display(name = "preschoolAttended",label="Schools Attended",addInfoOnly=true,width=250,labelTop=true,leftLabel="Pre School"),
-    @Display(name = "preschoolSchoolYear",label="School Year",addInfoOnly=true,width=60,labelTop=true),
-    @Display(name = "preschoolReasonForTransfer",gridFieldWidth=3,width=-1,label="Reason for Transfer"),
-    @Display(name = "elementaryAttended",label="Elementary",addInfoOnly=true,width=250),
-    @Display(name = "elementarySchoolYear",label="School Year",addInfoOnly=true,width=60,hideLabel=true),
-    @Display(name = "elementaryReasonForTransfer",gridFieldWidth=3,width=-1,label="Reason for Transfer"),
-    @Display(name = "highschoolAttended",label="High School",addInfoOnly=true,width=250),
-    @Display(name = "highschoolSchoolYear",label="School Year",addInfoOnly=true,width=60,hideLabel=true),
-    @Display(name = "highschoolReasonForTransfer",gridFieldWidth=3,width=-1,addInfoOnly=true,label="Reason for Transfer"),
+    @Display(name = "preschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="Schools Attended",addInfoOnly=true,width=250,labelTop=true,leftLabel="Pre School"),
+    @Display(name = "preschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,labelTop=true),
+    @Display(name = "preschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Reason for Transfer"),
+    @Display(name = "elementaryAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="Elementary",addInfoOnly=true,width=250),
+    @Display(name = "elementarySchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,hideLabel=true),
+    @Display(name = "elementaryReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Reason for Transfer"),
+    @Display(name = "highschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="High School",addInfoOnly=true,width=250),
+    @Display(name = "highschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,hideLabel=true),
+    @Display(name = "highschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,addInfoOnly=true,label="Reason for Transfer"),
     
     
         
-    @Display(name = "gpaEla",addInfoOnly=true,label="English",width=50),
-    @Display(name = "gpaMath",addInfoOnly=true,label="Math",width=50),
-    @Display(name = "gpaSci",addInfoOnly=true,label="Science",width=50),
-    @Display(name = "gpaFil",addInfoOnly=true,label="Filipino",width=50),
-    @Display(name = "gpaSs",addInfoOnly=true,label="SS",width=50),
-    @Display(name = "gpaAve",addInfoOnly=true,label="Average",width=50),
-    @Display(name = "gpaCon",addInfoOnly=true,label="Conduct",gridFieldWidth=5,width=60,type="Combo",modelCombo={"VERY GOOD","GOOD"}),
+    @Display(name = "gpaEla",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="English",width=50),
+    @Display(name = "gpaMath",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Math",width=50),
+    @Display(name = "gpaSci",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Science",width=50),
+    @Display(name = "gpaFil",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Filipino",width=50),
+    @Display(name = "gpaSs",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="SS",width=50),
+    @Display(name = "gpaAve",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Average",width=50),
+    @Display(name = "gpaCon",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Conduct",gridFieldWidth=5,width=60,type="Combo",modelCombo={"VERY GOOD","GOOD"}),
    
-    @Display(name = "prevSchool",addInfoOnly=true,label="Prev. School",gridFieldWidth=5,width=-1),
+    @Display(name = "prevSchool",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Prev. School",gridFieldWidth=5,width=-1),
     
     
     
-    @Display(name =  "orDate",addInfoOnly=true),
-    @Display(name =  "orNumber",width=120,addInfoOnly=true),
+    @Display(name =  "orDate",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true),
+    @Display(name =  "orNumber",duties={"CAN EDIT ADMISSION DETAIL"},width=120,addInfoOnly=true),
     
-    @Display(name = "examinationDate",label="Scheduled Date",addInfoOnly=true),
-    @Display(name = "examTime", type = "Time",addInfoOnly=true,width=-1),
-    @Display(name = "roomAssign",width=-1,addInfoOnly=true),
+    @Display(name = "examinationDate",duties={"CAN EDIT ADMISSION DETAIL"},label="Scheduled Date",addInfoOnly=true),
+    @Display(name = "examTime",duties={"CAN EDIT ADMISSION DETAIL"}, type = "Time",addInfoOnly=true,width=-1),
+    @Display(name = "roomAssign",duties={"CAN EDIT ADMISSION DETAIL"},width=-1,addInfoOnly=true),
     
-    @Display(name = "evaluationDate",addInfoOnly=true),
-    @Display(name = "evaluation",type="Combo", modelCombo = {"PASSED", "FAILED", "RECONSIDERED","RESCHEDULED"},addInfoOnly=true,width=-1,label="Evaluation"),
-    @Display(name = "enrolledDate",addInfoOnly=true),
+    @Display(name = "evaluationDate",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true),
+    @Display(name = "evaluation",duties={"CAN EDIT ADMISSION DETAIL"},type="Combo", modelCombo = {"PASSED", "FAILED", "RECONSIDERED","RESCHEDULED"},addInfoOnly=true,width=-1,label="Evaluation"),
+    @Display(name = "enrolledDate",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true),
      
      
-     @Display(name = "elaCount",addInfoOnly=true,width=60,labelTop=true,label="Item Count",leftLabel="English"),
-     @Display(name = "elaScore",addInfoOnly=true,width=60,labelTop=true,label="Score"), 
-     @Display(name = "elaPercentage",addInfoOnly=true,width=60,labelTop=true,label="Percentage"), 
-     @Display(name = "elaRemarks",addInfoOnly=true,width=80,labelTop=true,label="Remarks"), 
+     @Display(name = "cognitiveCount",addInfoOnly=true,width=60, leftLabel= "Cognitive",labelTop=true,label="Item Count"), 
+     @Display(name = "cognitiveScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,labelTop=true,label="Score"), 
+     @Display(name = "cognitivePercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,labelTop=true,label="Percentage"), 
+     @Display(name = "cognitiveRemarks",addInfoOnly=true,width=80,labelTop=true,label="Remarks"),
+     @Display(name = "psychomotorCount",addInfoOnly=true,width=60, label = "Psychomotor"), 
+     @Display(name = "psychomotorScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "psychomotorPercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "psychomotorRemarks",addInfoOnly=true,width=80,hideLabel=true),
+     @Display(name = "affectiveCount",addInfoOnly=true,width=60, label = "Affective"), 
+     @Display(name = "affectiveScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "affectivePercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "affectiveRemarks",addInfoOnly=true,width=80,hideLabel=true),
+     
+     
+     @Display(name = "elaCount",addInfoOnly=true,width=60,label="English"),
+     @Display(name = "elaScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,label="Score",hideLabel=true), 
+     @Display(name = "elaPercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,label="Percentage",hideLabel=true), 
+     @Display(name = "elaRemarks",addInfoOnly=true,width=80,label="Remarks",hideLabel=true), 
      @Display(name = "mathCount",addInfoOnly=true,width=60,label="Math"), 
-     @Display(name = "mathScore",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "mathPercentage",addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "mathScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "mathPercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
      @Display(name = "mathRemarks",addInfoOnly=true,width=80,hideLabel=true),
      @Display(name = "sciCount",addInfoOnly=true,width=60,label="Science"), 
-     @Display(name = "sciScore",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "sciPercentage",addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "sciScore",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
+     @Display(name = "sciPercentage",duties={"CAN EDIT ADMISSION SCORE"},addInfoOnly=true,width=60,hideLabel=true), 
      @Display(name = "sciRemarks",addInfoOnly=true,width=80,hideLabel=true),
-     @Display(name = "pracCount",addInfoOnly=true,width=60,label="Prac"), 
-     @Display(name = "pracScore",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "pracPercentage",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "pracRemarks",addInfoOnly=true,width=80,hideLabel=true),
-     @Display(name = "itemTotal",addInfoOnly=true,width=60,label="Total Items"), 
-     @Display(name = "itemScore",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "itemPercentage",addInfoOnly=true,width=60,hideLabel=true), 
-     @Display(name = "totalRemarks",addInfoOnly=true,width=80,hideLabel=true),
      
+//     @Display(name = "pracCount",addInfoOnly=true,width=60,label="Prac"), 
+//     @Display(name = "pracScore",addInfoOnly=true,width=60,hideLabel=true), 
+//     @Display(name = "pracPercentage",addInfoOnly=true,width=60,hideLabel=true), 
+//     @Display(name = "pracRemarks",addInfoOnly=true,width=80,hideLabel=true),
+//     @Display(name = "itemTotal",addInfoOnly=true,width=60,label="Total Items"), 
+//     @Display(name = "itemScore",addInfoOnly=true,width=60,hideLabel=true), 
+//     @Display(name = "itemPercentage",addInfoOnly=true,width=60,hideLabel=true), 
+//     @Display(name = "totalRemarks",addInfoOnly=true,width=80,hideLabel=true),
+     @Display(name = "finalRemarks",addInfoOnly=true,gridFieldWidth= 7 ,width = -1),
      
+    @Display(name = "forImprovementIn", addInfoOnly = true,gridFieldWidth=7,width=-1),
     @Display(name = "recommendedRemedialEla", addInfoOnly = true, label = "English"),
+    @Display(name = "recommendedRemedialReading", addInfoOnly = true, label = "Reading"),
+    @Display(name = "recommendedRemedialWriting", addInfoOnly = true, label = "Writing"),
     @Display(name = "recommendedRemedialMath", addInfoOnly = true, label = "Math"),
     @Display(name = "recommendedRemedialSci", addInfoOnly = true, label = "Science"),
     @Display(name = "recommendedRemedialFil", addInfoOnly = true, label = "Filipino"),
     @Display(name = "recommendedRemedialSS", addInfoOnly = true, label = "Social Studies"),
-    @Display(name = "recommendedRemedialCon", addInfoOnly = true, label = "Conduct"),
+    @Display(name = "recommendedRemedialCon", addInfoOnly = true, label = "Conduct", gridFieldWidth=3),
+    @Display(name = "betterQualifiedLevel", addInfoOnly = true, type = "PopSearch", linktoBean = GradeLevel.class ,label = "Better for", gridFieldWidth=5, width = -1),
      
     @Display(name = "recommendation", addInfoOnly = true,type="Combo",modelCombo={"ACCEPTED","ACCEPTED ON CONDITION","NOT ACCEPTED"},labelTop=true),
-    @Display(name = "recommendationCondition", addInfoOnly = true,label="Condition",labelTop=true,width=250),
+    @Display(name = "recommendationCondition", addInfoOnly = true,label="Condition",labelTop=true,width=250, upCase=false),
     
         
-    @Display(name = "threeColoredIdPictures", label = "Three (3) colored ID Pictures (1x1)", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "birthCertificateNsoCopy", label = "Birth Certificate (NSO Copy)", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "baptismalCertificate", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "latestReportCard", label = "Latest Report Card", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "originalReportCard", label = "Certified true Copy of Form 137", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "letterOfRecommendation", label = "Letter of Recommendation from the principal / guidance counselor", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "copyOfAcr", label = "Copy of ACR", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "passportForVerification", addInfoOnly = true, gridFieldWidth = 3),
-    @Display(name = "completeScholasticRecords", addInfoOnly = true, label = "Complete Scholastic Records", gridFieldWidth = 3),
-    @Display(name = "studyPermit", addInfoOnly = true, gridFieldWidth = 3)
+    @Display(name = "threeColoredIdPictures",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Three (3) colored ID Pictures (1x1)", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "birthCertificateNsoCopy",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Birth Certificate (NSO Copy)", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "baptismalCertificate",duties={"CAN EDIT ADMISSION DETAIL"}, addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "latestReportCard",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Latest Report Card", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "originalReportCard",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Certified true Copy of Form 137", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "goodMoral",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Good Moral/Certificate of Eligibility to Transfer", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "letterOfRecommendation",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Letter of Recommendation from the principal / guidance counselor", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "copyOfAcr",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Copy of ACR", addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "passportForVerification",duties={"CAN EDIT ADMISSION DETAIL"}, addInfoOnly = true, gridFieldWidth = 3),
+    @Display(name = "completeScholasticRecords",duties={"CAN EDIT ADMISSION DETAIL"}, addInfoOnly = true, label = "Complete Scholastic Records", gridFieldWidth = 3),
+    @Display(name = "studyPermit",duties={"CAN EDIT ADMISSION DETAIL"}, addInfoOnly = true, gridFieldWidth = 3)
 
 //        @Display(name="admissionId"),
 //        @Display(name="invoiceId"),
 //        @Display(name="birthDate"),
 //        @Display(name="personId")
 })
+@ActionButtons( {
+		@ActionButton(name = "btnSummaryofApplicant", label = "All Applicants"),
+		@ActionButton(name = "btnTestApplicants", label = "Test Applicants")
+})
 @Reports({
-    @template.Report(reportFile="StudentAdmissionReport", reportTitle="Admission Report", reportSql="${personId}")
+   // @template.Report(reportFile="StudentAdmissionReport", reportTitle="Admission Report", reportSql="${personId}"),
+   // @template.Report(reportFile="AdmissionSummaryofApplicants", reportTitle="All Applicants", reportSql=""),
+    @template.Report(reportFile="AdmissionLevelWaiver", reportTitle="Lowered In Level", reportSql="${seq}"),
+    @template.Report(reportFile="AdmissionReport", reportTitle="Student Admission", reportSql="${seq}"),
+    @template.Report(reportFile="AcademicWaiver", reportTitle="Waiver", reportSql="${seq}"),
+    @template.Report(reportFile="ExaminationPermit", reportTitle="Permit", reportSql="${seq}"),
+    @template.Report(reportFile="AdmissionSlip", reportTitle="Admission Slip", reportSql="${seq}"),
+    @template.Report(reportFile="STAR", reportTitle="STAR", reportSql=""),
+    @template.Report(reportFile="IncompleteRequirement", reportTitle="Inc. Req.", reportSql=""),
+    @template.Report(reportFile="ForeignIncompleteRequirement", reportTitle="Inc. Req Foreigner", reportSql="")
+   
+ 
 })
 
 public class Admission extends AbstractIBean implements Serializable {
@@ -275,6 +316,8 @@ public class Admission extends AbstractIBean implements Serializable {
     public String nationality;
     @Column(name = "ifAlienAcrNo")
     public String ifAlienAcrNo;
+    @Column(name = "foreigner")
+    public boolean foreigner;
     @Column(name = "acrPlaceIssued")
     public String acrPlaceIssued;
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -360,10 +403,14 @@ public class Admission extends AbstractIBean implements Serializable {
     public boolean passportForVerification;
     @Column(name = "completeScholasticRecords")
     public boolean completeScholasticRecords;
+    @Column(name = "goodMoral")
+    public boolean goodMoral;
     @Column(name = "studyPermit")
     public boolean studyPermit;
     @Column(name = "prevSchool")
     public String prevSchool;
+    @Column(name = "forImprovementIn")
+    public String forImprovementIn;
     @Column(name = "gpaEla")
     public String gpaEla;
     @Column(name = "gpaMath")
@@ -421,6 +468,35 @@ public class Admission extends AbstractIBean implements Serializable {
     @Column(name = "pracRemarks")
     public String pracRemarks;
 
+    @Column(name = "cognitiveCount")
+    public int cognitiveCount;
+    @Column(name = "cognitiveScore")
+    public int cognitiveScore;
+    @Column(name = "cognitivePercentage")
+    public double cognitivePercentage;
+    @Column(name = "cognitiveRemarks")
+    public String cognitiveRemarks;
+
+    @Column(name = "psychomotorCount")
+    public int psychomotorCount;
+    @Column(name = "psychomotorScore")
+    public int psychomotorScore;
+    @Column(name = "psychomotorPercentage")
+    public double psychomotorPercentage;
+    @Column(name = "psychomotorRemarks")
+    public String psychomotorRemarks;
+
+    @Column(name = "affectiveCount")
+    public int affectiveCount;
+    @Column(name = "affectiveScore")
+    public int affectiveScore;
+    @Column(name = "affectivePercentage")
+    public double affectivePercentage;
+    @Column(name = "affectiveRemarks")
+    public String affectiveRemarks;
+    @Column(name = "finalRemarks")
+    public String finalRemarks;
+
     @Column(name = "sciCount")
     public int sciCount;
     @Column(name = "sciScore")
@@ -456,6 +532,10 @@ public class Admission extends AbstractIBean implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     public Date enrolledDate;
     
+    @Column(name = "recommendedRemedialReading")
+    public boolean recommendedRemedialReading;
+    @Column(name = "recommendedRemedialWriting")
+    public boolean recommendedRemedialWriting;
     @Column(name = "recommendedRemedialEla")
     public boolean recommendedRemedialEla;
     @Column(name = "recommendedRemedialMath")
@@ -468,6 +548,8 @@ public class Admission extends AbstractIBean implements Serializable {
     public boolean recommendedRemedialSS;
     @Column(name = "recommendedRemedialCon")
     public boolean recommendedRemedialCon;
+    @Column(name = "betterQualifiedLevel")
+    public String betterQualifiedLevel;
     //OLD FIELDS
     //    @Column(name = "prevSchoolAdd")
 //    public String prevSchoolAdd;
@@ -513,6 +595,164 @@ public class Admission extends AbstractIBean implements Serializable {
     @Column(name = "talents")
     public String talents;
 
+    public boolean isForeigner() {
+        return foreigner;
+    }
+
+    public void setForeigner(boolean foreigner) {
+        this.foreigner = foreigner;
+    }
+
+    public String getForImprovementIn() {
+        return forImprovementIn;
+    }
+
+    public void setForImprovementIn(String forImprovementIn) {
+        this.forImprovementIn = forImprovementIn;
+    }
+
+    
+    public boolean isRecommendedRemedialReading() {
+        return recommendedRemedialReading;
+    }
+
+    public void setRecommendedRemedialReading(boolean recommendedRemedialReading) {
+        this.recommendedRemedialReading = recommendedRemedialReading;
+    }
+
+    public boolean isRecommendedRemedialWriting() {
+        return recommendedRemedialWriting;
+    }
+
+    public void setRecommendedRemedialWriting(boolean recommendedRemedialWriting) {
+        this.recommendedRemedialWriting = recommendedRemedialWriting;
+    }
+
+    
+    public String getBetterQualifiedLevel() {
+        return betterQualifiedLevel;
+    }
+
+    public void setBetterQualifiedLevel(String betterQualifiedLevel) {
+        this.betterQualifiedLevel = betterQualifiedLevel;
+    }
+
+    
+    
+    public int getAffectiveCount() {
+        return affectiveCount;
+    }
+
+    public void setAffectiveCount(int affectiveCount) {
+        this.affectiveCount = affectiveCount;
+    }
+
+    public double getAffectivePercentage() {
+        return affectivePercentage;
+    }
+
+    public void setAffectivePercentage(double affectivePercentage) {
+        this.affectivePercentage = affectivePercentage;
+    }
+
+    public String getAffectiveRemarks() {
+        return affectiveRemarks;
+    }
+
+    public void setAffectiveRemarks(String affectiveRemarks) {
+        this.affectiveRemarks = affectiveRemarks;
+    }
+
+    public int getAffectiveScore() {
+        return affectiveScore;
+    }
+
+    public void setAffectiveScore(int affectiveScore) {
+        this.affectiveScore = affectiveScore;
+    }
+
+    public int getCognitiveCount() {
+        return cognitiveCount;
+    }
+
+    public void setCognitiveCount(int cognitiveCount) {
+        this.cognitiveCount = cognitiveCount;
+    }
+
+    public double getCognitivePercentage() {
+        return cognitivePercentage;
+    }
+
+    public void setCognitivePercentage(double cognitivePercentage) {
+        this.cognitivePercentage = cognitivePercentage;
+    }
+
+    public String getCognitiveRemarks() {
+        return cognitiveRemarks;
+    }
+
+    public void setCognitiveRemarks(String cognitiveRemarks) {
+        this.cognitiveRemarks = cognitiveRemarks;
+    }
+
+    public int getCognitiveScore() {
+        return cognitiveScore;
+    }
+
+    public void setCognitiveScore(int cognitiveScore) {
+        this.cognitiveScore = cognitiveScore;
+    }
+
+    public String getFinalRemarks() {
+        return finalRemarks;
+    }
+
+    public void setFinalRemarks(String finalRemarks) {
+        this.finalRemarks = finalRemarks;
+    }
+
+    public boolean isGoodMoral() {
+        return goodMoral;
+    }
+
+    public void setGoodMoral(boolean goodMoral) {
+        this.goodMoral = goodMoral;
+    }
+
+    public int getPsychomotorCount() {
+        return psychomotorCount;
+    }
+
+    public void setPsychomotorCount(int psychomotorCount) {
+        this.psychomotorCount = psychomotorCount;
+    }
+
+    public double getPsychomotorPercentage() {
+        return psychomotorPercentage;
+    }
+
+    public void setPsychomotorPercentage(double psychomotorPercentage) {
+        this.psychomotorPercentage = psychomotorPercentage;
+    }
+
+    public String getPsychomotorRemarks() {
+        return psychomotorRemarks;
+    }
+
+    public void setPsychomotorRemarks(String psychomotorRemarks) {
+        this.psychomotorRemarks = psychomotorRemarks;
+    }
+
+    public int getPsychomotorScore() {
+        return psychomotorScore;
+    }
+
+    public void setPsychomotorScore(int psychomotorScore) {
+        this.psychomotorScore = psychomotorScore;
+    }
+
+   
+    
     public int getElaCount() {
         return elaCount;
     }
@@ -1646,6 +1886,8 @@ public class Admission extends AbstractIBean implements Serializable {
             admission.personId = student.personId;
             admission.studentNumber = student.studentNumber;
             admission.save();
+            
+            new SchoolDefaultProcess().createAllSubjects(student);
         } else {
             studTmp.course = admission.course;
             studTmp.setDefaultStudentNumber();
@@ -1654,7 +1896,6 @@ public class Admission extends AbstractIBean implements Serializable {
             admission.personId = studTmp.personId;
             admission.studentNumber = studTmp.studentNumber;
             admission.save();
-            new SchoolDefaultProcess().createAllSubjects(studTmp);
         }
     }
     

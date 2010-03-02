@@ -4,22 +4,19 @@
  */
 package rule;
 
-import bean.Admission;
-import bean.reference.GradeLevel;
-import bean.accounting.GLPostingScript;
-import bean.accounting.Invoice;
-import bean.accounting.PaymentAdmission;
-import constants.UserInfo;
-import java.util.Date;
 import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 import service.util.AbstractIBean;
 import springbean.SchoolDefaultProcess;
 import template.report.AbstractReportTemplate;
 import template.screen.TransactionPanel;
 import util.PanelUtil;
-import util.DBClient;
+import bean.Admission;
+import bean.accounting.GLPostingScript;
+import bean.accounting.Invoice;
+import bean.accounting.PaymentAdmission;
+import bean.reference.GradeLevel;
+import constants.UserInfo;
 
 /**
  *
@@ -31,53 +28,28 @@ public class Admission_RULE extends BusinessRuleWrapper {
 
     @Override
     public void onChangeRecord() {
-    	SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-		        Admission ad = (Admission) getBean();
-		        if (ad!=null && getComponent("recommendationCondition")!=null) {
-		            if(ad.recommendation!=null)
-		                    getComponent("recommendationCondition").setEnabled(ad.recommendation.equals("ACCEPTED ON CONDITION"));
-		        }
-			}
-    	});
     }
 
     @Override
     public void onLoad() {
         if (!UserInfo.canPrintInvoice()) {
-//            getComponent("btnPrintInvoice").setEnabled(false);
         }
         if (!UserInfo.canViewGL()) {
-//            getComponent("btnViewGL").setEnabled(false);
         }
         if (!UserInfo.canAssessStudent()) {
-            //getComponent("examinationFee").setEnabled(false);
-            //getComponent("accountNumber").setEnabled(false);
-            //getComponent("orNumber").setEnabled(false);
-            //getComponent("btnorNumber").setEnabled(false);
         }
         if (!UserInfo.canUpdateExamDetails()) {
-            getComponent("orDate").setEnabled(false);
-            getComponent("orNumber").setEnabled(false);
-//            getComponent("elaCount").setEnabled(false);
-//            getComponent("elaScore").setEnabled(false);
-//            getComponent("elaPercentage").setEnabled(false);
-//            getComponent("mathCount").setEnabled(false);
-//            getComponent("mathScore").setEnabled(false);
-//            getComponent("mathPercentage").setEnabled(false);
-//            getComponent("sciCount").setEnabled(false);
-//            getComponent("sciScore").setEnabled(false);
-//            getComponent("sciPercentage").setEnabled(false);
-//            getComponent("itemTotal").setEnabled(false);
-//            getComponent("itemScore").setEnabled(false);
-//            getComponent("itemPercentage").setEnabled(false);
+            getComponent("orDate").setEnabled(true);
+            getComponent("orNumber").setEnabled(true);
         }
     }
 
     @Override
     public void runFocusLost(JComponent comp) {
         Admission admission = (Admission) panel.getCurrentObject();
+        if ("gradeLevel".equals(comp.getName())) {
+            changeItemCount();
+        }
         if (comp.getName().equalsIgnoreCase("rating")) {
             if (admission.rating >= SchoolDefaultProcess.MAX_GRADE_RECALCULATE) {
                 rate = "PASSED";
@@ -89,10 +61,8 @@ public class Admission_RULE extends BusinessRuleWrapper {
         if ("birthDate".equalsIgnoreCase(comp.getName())) {
             setAge(admission);
         }
-        if ("gradeLevel".equals(comp.getName())) {
-            changeItemCount();
-        }
-        if ("elaCount|mathCount|sciCount|elaScore|mathScore|sciScore".contains(comp.getName())) {
+        
+        if (comp.getName().contains("Count") || comp.getName().contains("Score") || comp.getName().contains("Percentage")) {
             changePercentageRemarks();
         }
     }
@@ -104,63 +74,117 @@ public class Admission_RULE extends BusinessRuleWrapper {
     }
 
     private void changePercentageRemarks() {
-        Admission ad = (Admission) this.getBean();
-        setValue("itemTotal", ad.elaCount+ad.mathCount+ad.sciCount);
-        setValue("itemScore", ad.elaScore+ad.mathScore+ad.sciScore);
+        setValue("itemPercentage", 0);
+        setValue("totalRemarks", "");
+        setValue("pracRemarks", "");
 
-        if (ad.elaCount>0 && ad.elaScore>0) setValue("elaPercentage", getPercentage(ad.elaCount,ad.elaScore));
-        if (ad.mathCount>0 && ad.mathScore>0) setValue("mathPercentage", getPercentage(ad.mathCount,ad.mathScore));
-        if (ad.sciCount>0 && ad.sciScore>0) setValue("sciPercentage", getPercentage(ad.sciCount,ad.sciScore));
-        setValue("itemPercentage", getPercentage(ad.itemTotal, ad.itemScore));
-
-        setValue("elaRemarks", ad.elaPercentage>50?"PASSED":"FAILED");
-        setValue("mathRemarks", ad.mathPercentage>50?"PASSED":"FAILED");
-        setValue("sciRemarks", ad.sciPercentage>50?"PASSED":"FAILED");
-        setValue("totalRemarks", ad.itemPercentage>50?"PASSED":"FAILED");
-
-        getComponent("recommendationCondition").setEnabled(false);
+        String[] arr = {"ela","math","sci","prac","cognitive","affective","psychomotor"};
+    	int countFailed = 0;
+        setValue("recommendation", "ACCEPTED");
         setValue("recommendationCondition", "");
-//        category A
-        if (ad.elaPercentage>=50 && ad.mathPercentage>=50 && ad.sciPercentage>=50) {
-//            just need to have 50 percent of items
-            setValue("recommendation", "ACCEPTED");
-        }
-        else {
-            if (ad.elaPercentage<40 || ad.mathPercentage<40 || ad.sciPercentage<40) {
-                setValue("recommendation", "NOT ACCEPTED");
-            }
-//        category B
-            else {
-                if (ad.elaPercentage>=50 && ad.mathPercentage>=50) {
-                    setValue("recommendation", "ACCEPTED ON CONDITION");
-                    getComponent("recommendationCondition").setEnabled(true);
-                    setValue("recommendationCondition", "REMEDIAL ON SCIENCE");
-                }
-                else if (ad.mathPercentage>=50 && ad.sciPercentage>=50) {
-                    setValue("recommendation", "ACCEPTED ON CONDITION");
-                    getComponent("recommendationCondition").setEnabled(true);
-                    setValue("recommendationCondition", "REMEDIAL ON ENGLISH");
-                }
-                else if (ad.elaPercentage>=50 && ad.sciPercentage>=50) {
-                    setValue("recommendation", "ACCEPTED ON CONDITION");
-                    getComponent("recommendationCondition").setEnabled(true);
-                    setValue("recommendationCondition", "REMEDIAL ON MATHEMATICS");
-                }
-                else {
+        int itemCount = 0;
+        int itemScore = 0;
+    	for (String a:arr) {
+    		if (getIntValue(a+"Count", 0)<=0) {
+    			setValue(a+"Score", "0");
+    			setValue(a+"Percentage", "0");
+    			setValue(a+"Remarks", "");
+    			continue;
+    		}
+        	changePercentageRemarks(a);        	
+        	double percent = getIntValue(a+"Percentage", 0);
+        	itemCount += getIntValue(a+"Count", 0);
+        	itemScore += getIntValue(a+"Score", 0);
+        	if (percent < 50) {
+        		//failed
+        		countFailed++;
+        		if (countFailed > 1) {
                     setValue("recommendation", "NOT ACCEPTED");
-                }
-            }
-        }
+                    setValue("recommendationCondition", "");
+        			break;
+        		}
+        		else {
+                    setValue("recommendation", "ACCEPTED ON CONDITION");
+                    String s = "";
+                    if ("ela".equals(a)) {
+                    	s = "ENGLISH";
+                        setValue("recommendedRemedialEla", true);
+                    }
+                    else if ("math".equals(a)) {
+                    	s = "MATHEMATICS";
+                        setValue("recommendedRemedialMath", true);
+                    }
+                    else if ("sci".equals(a)) {
+                    	s = "SCIENCE";
+                        setValue("recommendedRemedialSci", true);
+                    }
+                    else if ("prac".equals(a)) {
+                    	s = "PRACTICAL EXAM";
+                    }
+                    else if ("cognitive".equals(a)) {
+                    	s = "COGNITIVE DEVELOPMENT";
+                    }
+                    else if ("affective".equals(a)) {
+                    	s = "AFFECTIVE DEVELOPMENT";
+                    }
+                    else if ("psychomotor".equals(a)) {
+                    	s = "PSYCHOMOTOR DEVELOPMENT";
+                    }
+                    setValue("recommendationCondition", "REMEDIAL ON "+s);
+        		}
+        	}
+    	}
+        setValue("itemTotal", itemCount);
+        setValue("itemScore", itemScore);
+    	changePercentageRemarks("item");
     }
 
+    private void changePercentageRemarks(String examName) {
+        int count = 0;
+    	if (examName.equals("item")) {
+            count = getIntValue("itemTotal", 0);
+    	}
+    	else {
+            count = getIntValue(examName+"Count", 0);
+    	}
+        int score = getIntValue(examName+"Score", 0);
+        if (count>0 && score>0) {
+        	setValue(examName+"Percentage", getPercentage(count,score));
+        	double percent = getDoubleValue(examName+"Percentage", 0);
+        	if (examName.equals("item")) {
+                setValue("totalRemarks", percent>=50?"PASSED":"FAILED");
+        	}
+        	else {
+                setValue(examName+"Remarks", percent>=50?"PASSED":"FAILED");
+        	}
+        }
+    }
+    
     private void changeItemCount() {
         Admission ad = (Admission) this.getBean();
         if (ad.gradeLevel!=null && ad.schoolYear!=null) {
             GradeLevel ref = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), ad.gradeLevel);
-            setValue("elaCount", ref.elaItemCount);
-            setValue("mathCount", ref.mathItemCount);
-            setValue("sciCount", ref.sciItemCount);
-            setValue("pracCount", ref.pracItemCount);
+            if (ad.elaCount<=0) {
+            	setValue("elaCount", ref.elaItemCount);
+            }
+            if (ad.mathCount<=0) {
+                setValue("mathCount", ref.mathItemCount);
+            }
+            if (ad.sciCount<=0) {
+                setValue("sciCount", ref.sciItemCount);
+            }
+            if (ad.cognitiveCount<=0) {
+                setValue("cognitiveCount", ref.cognitiveItemCount);
+            }
+            if (ad.affectiveCount<=0) {
+                setValue("affectiveCount", ref.affectiveItemCount);
+            }
+            if (ad.psychomotorCount<=0) {
+                setValue("psychomotorCount", ref.psychomotorItemCount);
+            }
+            if (ad.pracCount<=0) {
+                setValue("pracCount", ref.pracItemCount);
+            }
         }
     }
 
@@ -173,8 +197,19 @@ public class Admission_RULE extends BusinessRuleWrapper {
         } else if (comp.getName().equals("btnViewGL")) {
             viewGL();
         }
+          else if (comp.getName().equals("btnSummaryofApplicant")) {
+            printAllApplicant();
+        }
+          else if (comp.getName().equals("btnTestApplicants")) {
+            printTestApplicant();
+        }
     }
-
+    private void printAllApplicant(){
+    AbstractReportTemplate.getInstance().showReportFromFileTemplate("AdmissionSummaryofApplicants", "");
+    }
+    private void printTestApplicant(){
+    AbstractReportTemplate.getInstance().showReportFromFileTemplate("AdmissionListofApplicantsForTesting", "");
+    }
     protected void registerStudent() {
         Admission ad = (Admission) this.getBean();
         if (ad.seq == null || ad.seq == 0) {

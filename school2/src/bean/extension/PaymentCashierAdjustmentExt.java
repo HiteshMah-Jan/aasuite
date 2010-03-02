@@ -25,7 +25,7 @@ import constants.UserInfo;
     title="Assessment", gridCount=8,
     columnSearch = {"dueDate","paymentDate","paymentFor",
     	"amount","overallAmountPaid","overallBalance",
-    	"surcharge","surchargePaid","surchargeBalance",
+    	"surcharge","outstandingSurcharge","surchargeBalance",
     	"overallAmountDue"},
     sumFooter="2,3,4,5,6,7,8,9",
     orderBy="a.paymentDate",
@@ -51,7 +51,9 @@ import constants.UserInfo;
     @Display(name="surcharge", label="Surcharge"),
     @Display(name="discountSurcharge", label="Discount/Waived", hideLabel=true),
     @Display(name="surchargePaid", label="Surcharge Paid", hideLabel=true, type="Label"),
-    @Display(name="surchargeBalance", label="Surcharge Balance", hideLabel=true, type="Label")
+    @Display(name="surchargeBalance", label="Surcharge Balance", hideLabel=true, type="Label"),
+    
+    @Display(name="outstandingSurcharge", label="Outstanding Surcharge")    
 })
 public class PaymentCashierAdjustmentExt extends bean.accounting.PaymentEnrollment implements Serializable {
     public static void main(String[] args) {

@@ -136,6 +136,10 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	}
 
 	protected void saveAllScore(int quarter) {
+		if (AppConfig.isTrimester() && quarter==4) {
+			PanelUtil.showMessage(null, "This system is configured for trimester, you cannot use this button.");
+			return;
+		}
 		FacultyGradingTask task = (FacultyGradingTask) this.getBean();
 		if (task.weight==0) {
 			PanelUtil.showMessage(usedComp, "Weight is zero, please change weight then save again.");
@@ -155,6 +159,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		CalculateGradeService.calculateGrade(quarter, task, tlist);
 		
 		redisplayRecord();
+		task.save();
 		PanelUtil.hideWaitFrame();
 	}
 

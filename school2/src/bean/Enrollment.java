@@ -445,10 +445,24 @@ public class Enrollment extends AbstractIBean implements Serializable {
     
     @Column(name = "q1Math")
     public double q1Math;
+    @Column(name = "q1Math2")
+    public double q1Math2;
+    @Column(name = "q1Math3")
+    public double q1Math3;
     @Column(name = "q1Science")
     public double q1Science;
+    @Column(name = "q1Science2")
+    public double q1Science2;
+    @Column(name = "q1Science3")
+    public double q1Science3;
     @Column(name = "q1English")
     public double q1English;
+    @Column(name = "q1English2")
+    public double q1English2;
+    @Column(name = "q1English3")
+    public double q1English3;
+    @Column(name = "q1Language")
+    public double q1Language;
     @Column(name = "q1Filipino")
     public double q1Filipino;
     @Column(name = "q1Reading")
@@ -486,10 +500,24 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
     @Column(name = "q2Math")
     public double q2Math;
+    @Column(name = "q2Math2")
+    public double q2Math2;
+    @Column(name = "q2Math3")
+    public double q2Math3;
     @Column(name = "q2Science")
     public double q2Science;
+    @Column(name = "q2Science2")
+    public double q2Science2;
+    @Column(name = "q2Science3")
+    public double q2Science3;
     @Column(name = "q2English")
     public double q2English;
+    @Column(name = "q2English2")
+    public double q2English2;
+    @Column(name = "q2English3")
+    public double q2English3;
+    @Column(name = "q2Language")
+    public double q2Language;
     @Column(name = "q2Filipino")
     public double q2Filipino;
     @Column(name = "q2Reading")
@@ -498,7 +526,16 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q2Writing;
     @Column(name = "q2Computer")
     public double q2Computer;
-    
+    @Column(name = "q1Makabayan")
+    public double q1Makabayan;
+    @Column(name = "q2Makabayan")
+    public double q2Makabayan;
+    @Column(name = "q3Makabayan")
+    public double q3Makabayan;
+    @Column(name = "q4Makabayan")
+    public double q4Makabayan;
+    @Column(name = "qallMakabayan")
+    public double qallMakabayan;
     @Column(name = "q2CCF")
     public double q2CCF;
     @Column(name = "q2AP")
@@ -527,10 +564,24 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
     @Column(name = "q3Math")
     public double q3Math;
+    @Column(name = "q3Math2")
+    public double q3Math2;
+    @Column(name = "q3Math3")
+    public double q3Math3;
     @Column(name = "q3Science")
     public double q3Science;
+    @Column(name = "q3Science2")
+    public double q3Science2;
+    @Column(name = "q3Science3")
+    public double q3Science3;
     @Column(name = "q3English")
     public double q3English;
+    @Column(name = "q3English2")
+    public double q3English2;
+    @Column(name = "q3English3")
+    public double q3English3;
+    @Column(name = "q3Language")
+    public double q3Language;
     @Column(name = "q3Filipino")
     public double q3Filipino;
     @Column(name = "q3Reading")
@@ -568,10 +619,24 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
     @Column(name = "q4Math")
     public double q4Math;
+    @Column(name = "q4Math2")
+    public double q4Math2;
+    @Column(name = "q4Math3")
+    public double q4Math3;
     @Column(name = "q4Science")
     public double q4Science;
+    @Column(name = "q4Science2")
+    public double q4Science2;
+    @Column(name = "q4Science3")
+    public double q4Science3;
     @Column(name = "q4English")
     public double q4English;
+    @Column(name = "q4English2")
+    public double q4English2;
+    @Column(name = "q4English3")
+    public double q4English3;
+    @Column(name = "q4Language")
+    public double q4Language;
     @Column(name = "q4Filipino")
     public double q4Filipino;
     @Column(name = "q4Reading")
@@ -609,10 +674,24 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
     @Column(name = "qallMath")
     public double qallMath;
+    @Column(name = "qallMath2")
+    public double qallMath2;
+    @Column(name = "qallMath3")
+    public double qallMath3;
     @Column(name = "qallScience")
     public double qallScience;
+    @Column(name = "qallScience2")
+    public double qallScience2;
+    @Column(name = "qallScience3")
+    public double qallScience3;
     @Column(name = "qallEnglish")
     public double qallEnglish;
+    @Column(name = "qallEnglish2")
+    public double qallEnglish2;
+    @Column(name = "qallEnglish3")
+    public double qallEnglish3;
+    @Column(name = "qallLanguage")
+    public double qallLanguage;
     @Column(name = "qallFilipino")
     public double qallFilipino;
     @Column(name = "qallReading")
@@ -897,7 +976,28 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q4Health;
     @Column(name = "qallHealth")
     public double qallHealth;
+    @Column(name = "promotedTo")
+    public String promotedTo;
+    @Column(name = "retainedAs")
+    public String retainedAs;
 
+    public String getPromotedTo() {
+        return promotedTo;
+    }
+
+    public void setPromotedTo(String promotedTo) {
+        this.promotedTo = promotedTo;
+    }
+
+    public String getRetainedAs() {
+        return retainedAs;
+    }
+
+    public void setRetainedAs(String retainedAs) {
+        this.retainedAs = retainedAs;
+    }
+
+    
     public double getQallHealth() {
 		return qallHealth;
 	}
@@ -2681,6 +2781,326 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
 	public void setQ4ChineseB(double chineseB) {
 		q4ChineseB = chineseB;
+	}
+	
+	public double getQ1Math2() {
+		return q1Math2;
+	}
+
+	public void setQ1Math2(double math2) {
+		q1Math2 = math2;
+	}
+
+	public double getQ1Math3() {
+		return q1Math3;
+	}
+
+	public void setQ1Math3(double math3) {
+		q1Math3 = math3;
+	}
+
+	public double getQ1Science2() {
+		return q1Science2;
+	}
+
+	public void setQ1Science2(double science2) {
+		q1Science2 = science2;
+	}
+
+	public double getQ1Science3() {
+		return q1Science3;
+	}
+
+	public void setQ1Science3(double science3) {
+		q1Science3 = science3;
+	}
+
+	public double getQ1English2() {
+		return q1English2;
+	}
+
+	public void setQ1English2(double english2) {
+		q1English2 = english2;
+	}
+
+	public double getQ1English3() {
+		return q1English3;
+	}
+
+	public void setQ1English3(double english3) {
+		q1English3 = english3;
+	}
+
+	public double getQ2Math2() {
+		return q2Math2;
+	}
+
+	public void setQ2Math2(double math2) {
+		q2Math2 = math2;
+	}
+
+	public double getQ2Math3() {
+		return q2Math3;
+	}
+
+	public void setQ2Math3(double math3) {
+		q2Math3 = math3;
+	}
+
+	public double getQ2Science2() {
+		return q2Science2;
+	}
+
+	public void setQ2Science2(double science2) {
+		q2Science2 = science2;
+	}
+
+	public double getQ2Science3() {
+		return q2Science3;
+	}
+
+	public void setQ2Science3(double science3) {
+		q2Science3 = science3;
+	}
+
+	public double getQ2English2() {
+		return q2English2;
+	}
+
+	public void setQ2English2(double english2) {
+		q2English2 = english2;
+	}
+
+	public double getQ2English3() {
+		return q2English3;
+	}
+
+	public void setQ2English3(double english3) {
+		q2English3 = english3;
+	}
+
+	public double getQ3Math2() {
+		return q3Math2;
+	}
+
+	public void setQ3Math2(double math2) {
+		q3Math2 = math2;
+	}
+
+	public double getQ3Math3() {
+		return q3Math3;
+	}
+
+	public void setQ3Math3(double math3) {
+		q3Math3 = math3;
+	}
+
+	public double getQ3Science2() {
+		return q3Science2;
+	}
+
+	public void setQ3Science2(double science2) {
+		q3Science2 = science2;
+	}
+
+	public double getQ3Science3() {
+		return q3Science3;
+	}
+
+	public void setQ3Science3(double science3) {
+		q3Science3 = science3;
+	}
+
+	public double getQ3English2() {
+		return q3English2;
+	}
+
+	public void setQ3English2(double english2) {
+		q3English2 = english2;
+	}
+
+	public double getQ3English3() {
+		return q3English3;
+	}
+
+	public void setQ3English3(double english3) {
+		q3English3 = english3;
+	}
+
+	public double getQ4Math2() {
+		return q4Math2;
+	}
+
+	public void setQ4Math2(double math2) {
+		q4Math2 = math2;
+	}
+
+	public double getQ4Math3() {
+		return q4Math3;
+	}
+
+	public void setQ4Math3(double math3) {
+		q4Math3 = math3;
+	}
+
+	public double getQ4Science2() {
+		return q4Science2;
+	}
+
+	public void setQ4Science2(double science2) {
+		q4Science2 = science2;
+	}
+
+	public double getQ4Science3() {
+		return q4Science3;
+	}
+
+	public void setQ4Science3(double science3) {
+		q4Science3 = science3;
+	}
+
+	public double getQ4English2() {
+		return q4English2;
+	}
+
+	public void setQ4English2(double english2) {
+		q4English2 = english2;
+	}
+
+	public double getQ4English3() {
+		return q4English3;
+	}
+
+	public void setQ4English3(double english3) {
+		q4English3 = english3;
+	}
+
+	public double getQallMath2() {
+		return qallMath2;
+	}
+
+	public void setQallMath2(double qallMath2) {
+		this.qallMath2 = qallMath2;
+	}
+
+	public double getQallMath3() {
+		return qallMath3;
+	}
+
+	public void setQallMath3(double qallMath3) {
+		this.qallMath3 = qallMath3;
+	}
+
+	public double getQallScience2() {
+		return qallScience2;
+	}
+
+	public void setQallScience2(double qallScience2) {
+		this.qallScience2 = qallScience2;
+	}
+
+	public double getQallScience3() {
+		return qallScience3;
+	}
+
+	public void setQallScience3(double qallScience3) {
+		this.qallScience3 = qallScience3;
+	}
+
+	public double getQallEnglish2() {
+		return qallEnglish2;
+	}
+
+	public void setQallEnglish2(double qallEnglish2) {
+		this.qallEnglish2 = qallEnglish2;
+	}
+
+	public double getQallEnglish3() {
+		return qallEnglish3;
+	}
+
+	public void setQallEnglish3(double qallEnglish3) {
+		this.qallEnglish3 = qallEnglish3;
+	}
+
+	public double getQ1Language() {
+		return q1Language;
+	}
+
+	public void setQ1Language(double language) {
+		q1Language = language;
+	}
+
+	public double getQ2Language() {
+		return q2Language;
+	}
+
+	public void setQ2Language(double language) {
+		q2Language = language;
+	}
+
+	public double getQ3Language() {
+		return q3Language;
+	}
+
+	public void setQ3Language(double language) {
+		q3Language = language;
+	}
+
+	public double getQ4Language() {
+		return q4Language;
+	}
+
+	public void setQ4Language(double language) {
+		q4Language = language;
+	}
+
+	public double getQallLanguage() {
+		return qallLanguage;
+	}
+
+	public void setQallLanguage(double qallLanguage) {
+		this.qallLanguage = qallLanguage;
+	}
+
+	public double getQ1Makabayan() {
+		return q1Makabayan;
+	}
+
+	public void setQ1Makabayan(double makabayan) {
+		q1Makabayan = makabayan;
+	}
+
+	public double getQ2Makabayan() {
+		return q2Makabayan;
+	}
+
+	public void setQ2Makabayan(double makabayan) {
+		q2Makabayan = makabayan;
+	}
+
+	public double getQ3Makabayan() {
+		return q3Makabayan;
+	}
+
+	public void setQ3Makabayan(double makabayan) {
+		q3Makabayan = makabayan;
+	}
+
+	public double getQ4Makabayan() {
+		return q4Makabayan;
+	}
+
+	public void setQ4Makabayan(double makabayan) {
+		q4Makabayan = makabayan;
+	}
+
+	public double getQallMakabayan() {
+		return qallMakabayan;
+	}
+
+	public void setQallMakabayan(double qallMakabayan) {
+		this.qallMakabayan = qallMakabayan;
 	}
 
 	public int getRankQ1() {

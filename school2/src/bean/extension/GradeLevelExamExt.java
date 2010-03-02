@@ -14,12 +14,15 @@ import template.Display;
  */
 @UITemplate(template=template.screen.TemplateSinglePage.class,
     criteriaSearch={"code"},
-    columnSearch={"code","elaItemCount","mathItemCount","sciItemCount","pracItemCount"}, gridCount=8)
+    columnSearch={"code","elaItemCount","mathItemCount","sciItemCount","cognitiveItemCount","affectiveItemCount","psychomotorItemCount"}, gridCount=8)
 @Displays({
         @Display(name="code",gridFieldWidth = 3),
         @Display(name="elaItemCount"),
         @Display(name="mathItemCount"),
         @Display(name="sciItemCount"),
+        @Display(name="cognitiveItemCount"),
+        @Display(name="affectiveItemCount"),
+        @Display(name="psychomotorItemCount"),
         @Display(name="pracItemCount")
 })
 public class GradeLevelExamExt extends GradeLevel {

@@ -38,7 +38,7 @@ public class StudentSubjectToEnrollmentGrade {
 	        mysub = mysub.replaceAll("MK", "");
 			if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
 				Subject subject = getSubject(s.subject);
-				if (subject.unit>0) {
+				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
 						totalMAPEH1 += (( (int) (s.grade1+.5) ) * subject.unit);
@@ -64,6 +64,61 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4MAPEH = totalMAPEH4/totalMAPEHUnits4;
 	}
 	
+	protected void putAllMakabayan(Enrollment e, List<StudentSubject> l) {
+		double totalMAPEHUnits1 = 0;
+		double totalMAPEHUnits2 = 0;
+		double totalMAPEHUnits3 = 0;
+		double totalMAPEHUnits4 = 0;
+		double totalMAPEH1 = 0;
+		double totalMAPEH2 = 0;
+		double totalMAPEH3 = 0;
+		double totalMAPEH4 = 0;
+		for (StudentSubject s:l) {
+	        String mysub = s.subject.toUpperCase();
+	        mysub = mysub.replaceAll("MAPEH", "");
+	        mysub = mysub.replaceAll("MK", "");
+			if (mysub.contains("MUSIC") || 
+					mysub.contains("ART") || 
+					mysub.contains("PE") || 
+					mysub.contains("HEALTH") || 
+					mysub.contains("AP") || 
+					mysub.contains("HEKASI") || 
+					mysub.contains("SIBIKA") || 
+					mysub.contains("TLE") || 
+					mysub.contains("COMPUTER") || 
+					mysub.contains("TEPP") || 
+					mysub.contains("EP") || 
+					mysub.contains("SOCIAL") || 
+					mysub.contains("HELE") || 
+					mysub.contains("HELE") || 
+					mysub.contains("GK")) {
+				Subject subject = getSubject(s.subject);
+				if (subject != null && subject.unit>0) {
+					if (s.grade1>60) {
+						totalMAPEHUnits1 += subject.unit;
+						totalMAPEH1 += (( (int) (s.grade1+.5) ) * subject.unit);
+					}
+					if (s.grade2>60) {
+						totalMAPEHUnits2 += subject.unit;
+						totalMAPEH2 += (( (int) (s.grade2+.5) ) * subject.unit);
+					}
+					if (s.grade3>60) {
+						totalMAPEHUnits3 += subject.unit;
+						totalMAPEH3 += (( (int) (s.grade3+.5) ) * subject.unit);
+					}
+					if (s.grade4>60) {
+						totalMAPEHUnits4 += subject.unit;
+						totalMAPEH4 += (( (int) (s.grade4+.5) ) * subject.unit);
+					}
+				}
+			}
+		}
+		if (totalMAPEH1>0 && totalMAPEHUnits1>0) e.q1Makabayan = totalMAPEH1/totalMAPEHUnits1;
+		if (totalMAPEH2>0 && totalMAPEHUnits2>0) e.q2Makabayan = totalMAPEH2/totalMAPEHUnits2;
+		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3Makabayan = totalMAPEH3/totalMAPEHUnits3;
+		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4Makabayan = totalMAPEH4/totalMAPEHUnits4;
+	}
+
 	protected void putAllSubjects(Enrollment e, List<StudentSubject> l) {
 		double totalUnits1 = 0;
 		double totalUnits2 = 0;
@@ -75,7 +130,10 @@ public class StudentSubjectToEnrollmentGrade {
 		double totalGPA4 = 0;
 		for (StudentSubject s:l) {
 			Subject subject = getSubject(s.subject);
-			if (subject.unit>0) {
+			if (subject == null) {
+				System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+			}
+			if (subject != null && subject.unit>0) {
 				if (s.grade1>60) {
 					totalUnits1 += subject.unit;
 					totalGPA1 += (( (int) (s.grade1+.5) ) * subject.unit);
@@ -115,13 +173,20 @@ public class StudentSubjectToEnrollmentGrade {
         }
 		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
 		putAllMapeh(e, allStudSubjects);
+		putAllMakabayan(e, allStudSubjects);
 		putAllSubjects(e, allStudSubjects);
 		
         String mysub = subject.subject.toUpperCase();
         mysub = mysub.replaceAll("MAPEH", "");
         mysub = mysub.replaceAll("MK", "");
     	System.out.println(mysub);
-        if (mysub.contains("ENGLISH")) {
+        if (mysub.contains("ENGLISH3") || mysub.contains("ENGLISHC")) {
+        	setGrades(e, subject, "English3");
+        }
+        else if (mysub.contains("ENGLISH2") || mysub.contains("ENGLISHB")) {
+        	setGrades(e, subject, "English2");
+        }
+        else if (mysub.contains("ENGLISH") || mysub.contains("ENGLISHA")) {
         	setGrades(e, subject, "English");
         }
         else if (mysub.contains("FILIPINO")) {
@@ -133,16 +198,28 @@ public class StudentSubjectToEnrollmentGrade {
         else if (mysub.contains("READ")) {
         	setGrades(e, subject, "Reading");
         }
-        else if (mysub.contains("MATH")) {
+        else if (mysub.contains("LANG")) {
+        	setGrades(e, subject, "Language");
+        }
+        else if (mysub.contains("MATH3") || mysub.contains("MATHEMATICS3") || mysub.contains("MATHEMATICSC")) {
+        	setGrades(e, subject, "Math3");
+        }
+        else if (mysub.contains("MATH2") || mysub.contains("MATHEMATICS2") || mysub.contains("MATHEMATICSB")) {
+        	setGrades(e, subject, "Math2");
+        }
+        else if (mysub.contains("MATH") || mysub.contains("MATHEMATICS") || mysub.contains("MATHEMATICS1") || mysub.contains("MATHEMATICSA")) {
         	setGrades(e, subject, "Math");
         }
         else if (mysub.contains("RESEARCH")) {
         	setGrades(e, subject, "Research");
         }
-        else if (mysub.contains("SCIENCE2") || mysub.contains("SCIENCEB")) {
-        	setGrades(e, subject, "ChineseA");
+        else if (mysub.contains("SCIENCE3") || mysub.contains("SCIENCEC")) {
+        	setGrades(e, subject, "Science3");
         }
-        else if (mysub.contains("SCIENCE")) {
+        else if (mysub.contains("SCIENCE2") || mysub.contains("SCIENCEB")) {
+        	setGrades(e, subject, "Science2");
+        }
+        else if (mysub.contains("SCIENCE") || mysub.contains("SCIENCEA")) {
         	setGrades(e, subject, "Science");
         }
         else if (mysub.contains("COMPUTER")) {

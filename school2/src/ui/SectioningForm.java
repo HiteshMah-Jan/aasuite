@@ -7,7 +7,10 @@
 package ui;
 
 import bean.Student;
+import bean.admin.AppConfig;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,18 @@ public class SectioningForm extends TransactionPanel {
 	/** Creates new form SectioningForm */
     public SectioningForm() {
         initComponents();
+        javax.swing.JButton btnShowPromotionReport = new javax.swing.JButton();
+        btnShowPromotionReport.setText("Show Organization Report");
+        btnShowPromotionReport.setName("btnShowSectioningReport"); // NOI18N
+        btnShowPromotionReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowPromotionReportActionPerformed(evt);
+            }
+        });
+        java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(3, 4, 0, 0);
+        jPanel5.add(btnShowPromotionReport, gridBagConstraints);
+        btnShowPromotionReport.setVisible(AppConfig.hasPromotionReport());
         try {
         	PanelUtil.updateColor(jPanel1);
         	PanelUtil.updateColor(jPanel2);
@@ -47,13 +62,18 @@ public class SectioningForm extends TransactionPanel {
         	PanelUtil.updateColor(lblGirls);
         	PanelUtil.updateColor(lblSection);
         	PanelUtil.updateColor(lblTotal);
-                btnRefreshListActionPerformed(null);
+            btnRefreshListActionPerformed(null);
         }
         catch (Exception e) {
         }
     }
     
-     public static void main(String[] args) {
+     protected void btnShowPromotionReportActionPerformed(ActionEvent evt) {
+    	 bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
+    	 AbstractReportTemplate.getInstance().showReportFromFileTemplate("Promotion"+sec.gradeLevel, "");
+	}
+
+	public static void main(String[] args) {
         java.awt.Color clr = new java.awt.Color(44, 117, 44);
         constants.Constants.panelBackground = clr;
         constants.Constants.labelColor = Color.WHITE;

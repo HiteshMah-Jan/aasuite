@@ -26,7 +26,9 @@ public class Student_RULE extends Person_RULE {
     public void onLoad() {
         getComponent("studentNumber").setEnabled(false);
         if (!UserInfo.canChangeStudentNumber()) {
-            getComponent("btnstudentNumber").setEnabled(false);
+        	if (getComponent("btnstudentNumber") != null) {
+                getComponent("btnstudentNumber").setEnabled(false);
+        	}
         }
         if (!b) {
         	this.hideAllTabs();

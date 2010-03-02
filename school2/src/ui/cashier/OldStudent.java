@@ -10,6 +10,7 @@ import bean.Student;
 import bean.admin.AppConfig;
 import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Payment;
+import bean.extension.Student201Ext;
 import component.BeanPanelPallete;
 import component.JTextFieldPallete;
 import component.LabelPallete;
@@ -195,61 +196,62 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         btnPrintStatementOfAccount = new javax.swing.JButton();
         btnSurchargeCalculator = new javax.swing.JButton();
         btnAdjust = new javax.swing.JButton();
+        btnStudent = new javax.swing.JButton();
         pnlSearch = new javax.swing.JPanel();
         pnlStudentList = new component.BeanPanelPallete();
-        pnlStudentInfo = new component.BeanPanelPallete(true);
+        pnlStudentInfo = new component.BeanPanelPallete();
         txtSearchOldStudent = new JTextFieldPallete();
         pnlAssessment = new component.BeanPanelPallete();
         pnlPayment = new component.BeanPanelPallete();
         lblSurchargeAmount = new LabelPallete();
 
-        btnEdit.setText("Edit");
-        btnEdit.setName("btnEdit");
+        btnEdit.setText("Edit"); // NOI18N
+        btnEdit.setName("btnEdit"); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
             }
         });
 
-        btnViewOtherPayments.setText("View Other Payments");
-        btnViewOtherPayments.setName("btnViewOtherPayments");
+        btnViewOtherPayments.setText("View Other Payments"); // NOI18N
+        btnViewOtherPayments.setName("btnViewOtherPayments"); // NOI18N
         btnViewOtherPayments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewOtherPaymentsActionPerformed(evt);
             }
         });
 
-        btnDeletePayment.setText("Delete Payment [TEST]");
-        btnDeletePayment.setName("btnDeletePayment");
+        btnDeletePayment.setText("Delete Payment [TEST]"); // NOI18N
+        btnDeletePayment.setName("btnDeletePayment"); // NOI18N
         btnDeletePayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletePaymentActionPerformed(evt);
             }
         });
 
-        btnViewBookPayments.setText("View Book Payments");
-        btnViewBookPayments.setName("btnViewBookPayments");
+        btnViewBookPayments.setText("View Book Payments"); // NOI18N
+        btnViewBookPayments.setName("btnViewBookPayments"); // NOI18N
         btnViewBookPayments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewBookPaymentsActionPerformed(evt);
             }
         });
 
-        btnRequestDiscount.setText("Discount");
-        btnRequestDiscount.setName("btnRequestDiscount");
+        btnRequestDiscount.setText("Discount"); // NOI18N
+        btnRequestDiscount.setName("btnRequestDiscount"); // NOI18N
         btnRequestDiscount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRequestDiscountActionPerformed(evt);
             }
         });
 
-        pnlAdjust.setName("pnlAdjust");
+        pnlAdjust.setName("pnlAdjust"); // NOI18N
         pnlAdjust.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setName("jPanel1");
+        jPanel1.setName("jPanel1"); // NOI18N
 
-        btnSaveAdjustment.setText("Save Adjustment");
-        btnSaveAdjustment.setName("btnSaveAdjustment");
+        btnSaveAdjustment.setText("Save Adjustment"); // NOI18N
+        btnSaveAdjustment.setName("btnSaveAdjustment"); // NOI18N
         btnSaveAdjustment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveAdjustmentActionPerformed(evt);
@@ -259,8 +261,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
 
         pnlAdjust.add(jPanel1, java.awt.BorderLayout.SOUTH);
 
-        beanPanelPallete1.setBeanName("PaymentCashierAdjustmentExt");
-        beanPanelPallete1.setName("beanPanelPallete1");
+        beanPanelPallete1.setBeanName("PaymentCashierAdjustmentExt"); // NOI18N
+        beanPanelPallete1.setName("beanPanelPallete1"); // NOI18N
         beanPanelPallete1.setShowImage(false);
 
         javax.swing.GroupLayout beanPanelPallete1Layout = new javax.swing.GroupLayout(beanPanelPallete1);
@@ -280,18 +282,18 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
 
         lblAmount.setFont(new java.awt.Font("Tahoma", 0, 12));
         lblAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAmount.setText("--");
-        lblAmount.setName("lblAmount");
+        lblAmount.setText("--"); // NOI18N
+        lblAmount.setName("lblAmount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         add(lblAmount, gridBagConstraints);
 
-        pnlButton.setName("pnlButton");
+        pnlButton.setName("pnlButton"); // NOI18N
 
-        btnAssessStudent.setText("Assess Student");
-        btnAssessStudent.setName("btnAssessStudent");
+        btnAssessStudent.setText("Assess Student"); // NOI18N
+        btnAssessStudent.setName("btnAssessStudent"); // NOI18N
         btnAssessStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssessStudentActionPerformed(evt);
@@ -299,8 +301,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnAssessStudent);
 
-        btnAcceptPayment.setText("Accept Payment");
-        btnAcceptPayment.setName("btnAcceptPayment");
+        btnAcceptPayment.setText("Accept Payment"); // NOI18N
+        btnAcceptPayment.setName("btnAcceptPayment"); // NOI18N
         btnAcceptPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAcceptPaymentActionPerformed(evt);
@@ -308,8 +310,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnAcceptPayment);
 
-        btnChangePaymentPlan.setText("ReAssess");
-        btnChangePaymentPlan.setName("btnChangePaymentPlan");
+        btnChangePaymentPlan.setText("ReAssess"); // NOI18N
+        btnChangePaymentPlan.setName("btnChangePaymentPlan"); // NOI18N
         btnChangePaymentPlan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangePaymentPlanActionPerformed(evt);
@@ -317,8 +319,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnChangePaymentPlan);
 
-        btnReprintOR.setText("Reprint OR");
-        btnReprintOR.setName("btnReprintOR");
+        btnReprintOR.setText("Reprint OR"); // NOI18N
+        btnReprintOR.setName("btnReprintOR"); // NOI18N
         btnReprintOR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReprintORActionPerformed(evt);
@@ -326,8 +328,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnReprintOR);
 
-        btnPrintStatementOfAccount.setText("Print SOA");
-        btnPrintStatementOfAccount.setName("btnPrintStatementOfAccount");
+        btnPrintStatementOfAccount.setText("Print SOA"); // NOI18N
+        btnPrintStatementOfAccount.setName("btnPrintStatementOfAccount"); // NOI18N
         btnPrintStatementOfAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrintStatementOfAccountActionPerformed(evt);
@@ -335,8 +337,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnPrintStatementOfAccount);
 
-        btnSurchargeCalculator.setText("Surcharge Calculator");
-        btnSurchargeCalculator.setName("btnSurchargeCalculator");
+        btnSurchargeCalculator.setText("Surcharge Calculator"); // NOI18N
+        btnSurchargeCalculator.setName("btnSurchargeCalculator"); // NOI18N
         btnSurchargeCalculator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSurchargeCalculatorActionPerformed(evt);
@@ -344,14 +346,23 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         });
         pnlButton.add(btnSurchargeCalculator);
 
-        btnAdjust.setText("Adjust");
-        btnAdjust.setName("btnAdjust");
+        btnAdjust.setText("Adjust"); // NOI18N
+        btnAdjust.setName("btnAdjust"); // NOI18N
         btnAdjust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdjustActionPerformed(evt);
             }
         });
         pnlButton.add(btnAdjust);
+
+        btnStudent.setText("Student 201"); // NOI18N
+        btnStudent.setName("btnStudent"); // NOI18N
+        btnStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStudentActionPerformed(evt);
+            }
+        });
+        pnlButton.add(btnStudent);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -360,12 +371,12 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(pnlButton, gridBagConstraints);
 
-        pnlSearch.setName("pnlSearch");
+        pnlSearch.setName("pnlSearch"); // NOI18N
         pnlSearch.setLayout(new java.awt.GridLayout(1, 0));
 
-        pnlStudentList.setBeanName("StudentCashierExt");
+        pnlStudentList.setBeanName("StudentCashierExt"); // NOI18N
         pnlStudentList.setMinimumSize(new java.awt.Dimension(500, 30));
-        pnlStudentList.setName("pnlStudentList");
+        pnlStudentList.setName("pnlStudentList"); // NOI18N
         pnlStudentList.setPreferredSize(new java.awt.Dimension(500, 30));
         pnlStudentList.setShowForm(false);
         pnlStudentList.setShowResult(true);
@@ -391,16 +402,16 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         add(pnlSearch, gridBagConstraints);
 
         pnlStudentInfo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        pnlStudentInfo.setBeanName("StudentSnapshotExt");
+        pnlStudentInfo.setBeanName("StudentSnapshotExt"); // NOI18N
         pnlStudentInfo.setMinimumSize(new java.awt.Dimension(300, 180));
-        pnlStudentInfo.setName("pnlStudentInfo");
+        pnlStudentInfo.setName("pnlStudentInfo"); // NOI18N
         pnlStudentInfo.setPreferredSize(new java.awt.Dimension(300, 180));
 
         javax.swing.GroupLayout pnlStudentInfoLayout = new javax.swing.GroupLayout(pnlStudentInfo);
         pnlStudentInfo.setLayout(pnlStudentInfoLayout);
         pnlStudentInfoLayout.setHorizontalGroup(
             pnlStudentInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 307, Short.MAX_VALUE)
         );
         pnlStudentInfoLayout.setVerticalGroup(
             pnlStudentInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,7 +427,7 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         add(pnlStudentInfo, gridBagConstraints);
 
         txtSearchOldStudent.setMinimumSize(new java.awt.Dimension(280, 30));
-        txtSearchOldStudent.setName("txtSearchOldStudent");
+        txtSearchOldStudent.setName("txtSearchOldStudent"); // NOI18N
         txtSearchOldStudent.setPreferredSize(new java.awt.Dimension(280, 30));
         txtSearchOldStudent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,9 +441,9 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         add(txtSearchOldStudent, gridBagConstraints);
 
-        pnlAssessment.setBeanName("PaymentCashierAssessmentExt");
+        pnlAssessment.setBeanName("PaymentCashierAssessmentExt"); // NOI18N
         pnlAssessment.setMinimumSize(new java.awt.Dimension(0, 150));
-        pnlAssessment.setName("pnlAssessment");
+        pnlAssessment.setName("pnlAssessment"); // NOI18N
         pnlAssessment.setPreferredSize(new java.awt.Dimension(0, 150));
         pnlAssessment.setShowForm(false);
         pnlAssessment.setShowImage(false);
@@ -442,7 +453,7 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         pnlAssessment.setLayout(pnlAssessmentLayout);
         pnlAssessmentLayout.setHorizontalGroup(
             pnlAssessmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 809, Short.MAX_VALUE)
         );
         pnlAssessmentLayout.setVerticalGroup(
             pnlAssessmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,9 +469,9 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
         add(pnlAssessment, gridBagConstraints);
 
-        pnlPayment.setBeanName("PaymentCashierPaymentExt");
+        pnlPayment.setBeanName("PaymentCashierPaymentExt"); // NOI18N
         pnlPayment.setMinimumSize(new java.awt.Dimension(0, 210));
-        pnlPayment.setName("pnlPayment");
+        pnlPayment.setName("pnlPayment"); // NOI18N
         pnlPayment.setPreferredSize(new java.awt.Dimension(0, 210));
         pnlPayment.setShowForm(false);
         pnlPayment.setShowImage(false);
@@ -470,7 +481,7 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         pnlPayment.setLayout(pnlPaymentLayout);
         pnlPaymentLayout.setHorizontalGroup(
             pnlPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 809, Short.MAX_VALUE)
         );
         pnlPaymentLayout.setVerticalGroup(
             pnlPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,8 +497,8 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
         add(pnlPayment, gridBagConstraints);
 
         lblSurchargeAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSurchargeAmount.setText("--");
-        lblSurchargeAmount.setName("lblSurchargeAmount");
+        lblSurchargeAmount.setText("--"); // NOI18N
+        lblSurchargeAmount.setName("lblSurchargeAmount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 16, 0, 0);
         add(lblSurchargeAmount, gridBagConstraints);
@@ -674,6 +685,10 @@ private void btnSaveAdjustmentActionPerformed(java.awt.event.ActionEvent evt) {/
 //    p.setupIndex();
 }//GEN-LAST:event_btnSaveAdjustmentActionPerformed
 
+private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentActionPerformed
+ PanelUtil.popupBeanTemplate(Student201Ext.class, "File 201", true);
+}//GEN-LAST:event_btnStudentActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.BeanPanelPallete beanPanelPallete1;
     private javax.swing.JButton btnAcceptPayment;
@@ -686,6 +701,7 @@ private void btnSaveAdjustmentActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JButton btnReprintOR;
     private javax.swing.JButton btnRequestDiscount;
     private javax.swing.JButton btnSaveAdjustment;
+    private javax.swing.JButton btnStudent;
     private javax.swing.JButton btnSurchargeCalculator;
     private javax.swing.JButton btnViewBookPayments;
     private javax.swing.JButton btnViewOtherPayments;

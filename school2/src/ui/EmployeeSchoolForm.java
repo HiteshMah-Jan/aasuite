@@ -17,7 +17,7 @@ public class EmployeeSchoolForm extends TabPanelForm {
     }
     @Override
     public String tabs() {
-        return "EmployeeFaculty,EmployeeInactiveExt,EmployeeFacultyAttendanceForm";
+        return "EmployeeFaculty,EmployeeInactiveExt";
     }
 
 }

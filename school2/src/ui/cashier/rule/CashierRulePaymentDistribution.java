@@ -39,15 +39,43 @@ public class CashierRulePaymentDistribution {
 	}
 
 	public void processDistibution() throws Exception {
+		double markedAmount = amount;
+		double totalOutstanding = 0;
+		for (PaymentEnrollment p:allAssess) {
+			totalOutstanding += p.surchargeBalance;
+		}
+		processSurcharge();
+		for (PaymentEnrollment p:allAssess) {
+			p.outstandingSurcharge = p.surcharge = p.surchargeBalance = p.surchargePaid = 0;
+		}
+		System.out.println("OUT = "+amount);
+		if (totalOutstanding > markedAmount) {
+//			clear all surcharges
+			PaymentEnrollment lastp = allAssess.get(allAssess.size()-1);
+			lastp.outstandingSurcharge = totalOutstanding - markedAmount;
+			if (lastp.outstandingSurcharge < 0) {
+				lastp.outstandingSurcharge = 0;
+			}
+			System.out.println("OUT = "+lastp.outstandingSurcharge);
+		}
 		processMisc();
-		processSurchageAndFee();
+		processFee();
+		putOR(normOR, "N");
 		DBClient.persistBean((List)allAssess);
 		for (PaymentEnrollment p:allAssess) {
 			updateFWB(p);
 			break;
 		}
-		mergeSameCodeAndOR();
+//		mergeSameCodeAndOR();
         old.drawer.updateDrawer();
+	}
+	
+	public void processSurcharge() throws Exception {
+		//		for surcharge
+		for (PaymentEnrollment p:allAssess) {
+			if (p.paymentFor.contains("FWB")) continue;
+			processSurcharge(p);
+		}
 	}
 	
 	public void processMisc() throws Exception {
@@ -58,19 +86,13 @@ public class CashierRulePaymentDistribution {
 		}
 		putOR(miscOR, "A");
 	}
-	
-	public void processSurchageAndFee() throws Exception {
-		//		for surcharge
-		for (PaymentEnrollment p:allAssess) {
-			if (p.paymentFor.contains("FWB")) continue;
-			processSurcharge(p);
-		}
+
+	public void processFee() throws Exception {
 		//		for tuition
 		for (PaymentEnrollment p:allAssess) {
 			if (p.paymentFor.contains("FWB")) continue;
 			processTuition(p);
 		}
-		putOR(normOR, "N");
 	}
 	
 	protected void mergeSameCodeAndOR() {
@@ -164,21 +186,11 @@ public class CashierRulePaymentDistribution {
 			PaymentEnrollment newp = new PaymentEnrollment();
 			newp.paid = true;
 			if (amount>p.overallBalance) {
-//					if (discount>p.balance) {
-//						newp.discount = p.balance;
-//						discount -= p.balance;
-//					}
-//					else {
-//						newp.discount = discount;
-//						discount = 0;
-//					}
 				newp.amountPaid = p.overallBalance;
 				amount -= p.overallBalance;
 				p.overallBalance = 0;
 			}
 			else {
-//					newp.discount = discount;
-//					discount = 0;
 				newp.amountPaid = amount;
 				amount = 0;
 				p.overallBalance -= newp.amountPaid;

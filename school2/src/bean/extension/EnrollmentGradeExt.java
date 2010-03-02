@@ -19,6 +19,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import bean.Enrollment;
+import bean.reference.GradeLevel;
 import bean.reference.Section;
 
 /**
@@ -38,8 +39,9 @@ import bean.reference.Section;
 })
         @DisplayGroups({
     @DisplayGroup(title = "Ranking", gridCount = 10, fields = {"rankQ1", "rankQ2", "rankQ3", "rankQ4", "rankFinal"}),
-    @DisplayGroup(title = "GPA", gridCount =10, fields = {"gpa1", "gpa2", "gpa3","gpa4", "gpaFinal"})
-   
+    @DisplayGroup(title = "GPA", gridCount =10, fields = {"gpa1", "gpa2", "gpa3","gpa4", "gpaFinal"}),
+    @DisplayGroup(title = "Final Remarks", gridCount =4, fields = {"promotedTo", "retainedAs"})
+    
     
 })
 @Displays({
@@ -66,23 +68,65 @@ import bean.reference.Section;
     @Display(name = "q4Writing",hideLabel=true),
     @Display(name = "qallWriting",hideLabel=true),
         
-    @Display(name = "q1Math",label="Math"),
+    @Display(name = "q1Math",label="Math 1"),
     @Display(name = "q2Math",hideLabel=true),
     @Display(name = "q3Math",hideLabel=true),
     @Display(name = "q4Math",hideLabel=true),
     @Display(name = "qallMath",hideLabel=true),
         
-    @Display(name = "q1Science",label="Science"),
+    @Display(name = "q1Math2", label = "Math 2"),
+    @Display(name = "q2Math2", hideLabel = true),
+    @Display(name = "q3Math2", hideLabel = true),
+    @Display(name = "q4Math2", hideLabel = true),
+    @Display(name = "qallMath2", hideLabel = true),
+        
+    @Display(name = "q1Math3", label = "Math 3"),
+    @Display(name = "q2Math3", hideLabel = true),
+    @Display(name = "q3Math3", hideLabel = true),
+    @Display(name = "q4Math3", hideLabel = true),
+    @Display(name = "qallMath3", hideLabel = true),
+    //  
+    @Display(name = "q1Science",label="Science 1"),
     @Display(name = "q2Science",hideLabel=true),
     @Display(name = "q3Science",hideLabel=true),
     @Display(name = "q4Science",hideLabel=true),
     @Display(name = "qallScience",hideLabel=true),
         
-    @Display(name = "q1English",label="English"),
+    @Display(name = "q1Science2",label="Science 2"),
+    @Display(name = "q2Science2",hideLabel=true),
+    @Display(name = "q3Science2",hideLabel=true),
+    @Display(name = "q4Science2",hideLabel=true),
+    @Display(name = "qallScience2",hideLabel=true),
+        
+    @Display(name = "q1Science3", label = "Science 3"),
+    @Display(name = "q2Science3", hideLabel = true),
+    @Display(name = "q3Science3", hideLabel = true),
+    @Display(name = "q4Science3", hideLabel = true),
+    @Display(name = "qallScience3", hideLabel = true),
+     //   
+    @Display(name = "q1English",label="English 1"),
     @Display(name = "q2English",hideLabel=true),
     @Display(name = "q3English",hideLabel=true),
     @Display(name = "q4English",hideLabel=true),
     @Display(name = "qallEnglish",hideLabel=true),
+        
+    @Display(name = "q1English2",label="English 2"),
+    @Display(name = "q2English2",hideLabel=true),
+    @Display(name = "q3English2",hideLabel=true),
+    @Display(name = "q4English2",hideLabel=true),
+    @Display(name = "qallEnglish2",hideLabel=true),
+        
+    @Display(name = "q1English3",label="English 3"),
+    @Display(name = "q2English3",hideLabel=true),
+    @Display(name = "q3English3",hideLabel=true),
+    @Display(name = "q4English3",hideLabel=true),
+    @Display(name = "qallEnglish3",hideLabel=true),
+        
+    @Display(name = "q1Language",label="Language"),
+    @Display(name = "q2Language",hideLabel=true),
+    @Display(name = "q3Language",hideLabel=true),
+    @Display(name = "q4Language",hideLabel=true),
+    @Display(name = "qallLanguage",hideLabel=true),
         
     @Display(name = "q1Filipino",label="Filipino"),
     @Display(name = "q2Filipino",hideLabel=true),
@@ -102,7 +146,7 @@ import bean.reference.Section;
     @Display(name = "q4CCF",hideLabel=true),
     @Display(name = "qallCCF",hideLabel=true),
         
-    @Display(name = "q1AP",label="Araling Panlipunan"),
+    @Display(name = "q1AP",label="AP"),
     @Display(name = "q2AP",hideLabel=true),
     @Display(name = "q3AP",hideLabel=true),
     @Display(name = "q4AP",hideLabel=true),
@@ -166,7 +210,9 @@ import bean.reference.Section;
     @Display(name = "rankQ2", label = "Q2",labelTop=true),
     @Display(name = "rankQ3", label = "Q3",labelTop=true),
     @Display(name = "rankQ4", label = "Q4",labelTop=true),
-    @Display(name = "rankFinal", label = "Final",labelTop=true)
+    @Display(name = "rankFinal", label = "Final",labelTop=true),
+    @Display(name = "promotedTo", type="PopSearch", linktoBean=GradeLevel.class,width=400),
+    @Display(name = "retainedAs", type="PopSearch", linktoBean=GradeLevel.class,width=400)
 })
 //        @ActionButtons( {
 //		

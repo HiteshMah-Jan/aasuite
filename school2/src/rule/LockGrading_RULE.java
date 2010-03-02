@@ -7,6 +7,7 @@ package rule;
 import javax.swing.JComponent;
 
 import util.PanelUtil;
+import bean.admin.AppConfig;
 import bean.reference.LockGrading;
 
 /**
@@ -39,10 +40,15 @@ public class LockGrading_RULE extends BusinessRuleWrapper {
 	}
 
 	private void lockQ4() {
-		LockGrading l = (LockGrading) this.getBean();
-		l.lockQ4(true);
-		l.save();
-		redisplayRecord();
+		if (AppConfig.isTrimester()) {
+			PanelUtil.showMessage(null, "This system is configured for trimester, you cannot use this button.");
+		}
+		else {
+			LockGrading l = (LockGrading) this.getBean();
+			l.lockQ4(true);
+			l.save();
+			redisplayRecord();
+		}
 	}
 
 	private void lockQ3() {

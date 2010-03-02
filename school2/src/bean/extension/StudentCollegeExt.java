@@ -9,12 +9,12 @@
 package bean.extension;
 
 import bean.LibraryBorrowedBooks;
+import bean.accounting.payroll.PersonAttendance;
 import bean.person.PersonDependent;
 import bean.person.PersonEducation;
 import bean.person.StudentEncounter;
 import bean.person.StudentEncounterClinic;
 import bean.person.StudentPersonalityExam;
-import bean.person.PersonAttendance;
 import bean.person.StudentSchoolAttended;
 import bean.person.StudentSummerSchoolAttended;
 import bean.reference.Course;
