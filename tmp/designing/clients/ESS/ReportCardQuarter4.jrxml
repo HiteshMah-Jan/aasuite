@@ -5,10 +5,10 @@
 		 name="ReportCardQuarter4"
 		 columnCount="1"
 		 printOrder="Vertical"
-		 orientation="Portrait"
-		 pageWidth="595"
-		 pageHeight="842"
-		 columnWidth="595"
+		 orientation="Landscape"
+		 pageWidth="1008"
+		 pageHeight="619"
+		 columnWidth="1008"
 		 columnSpacing="0"
 		 leftMargin="0"
 		 rightMargin="0"
@@ -24,52 +24,49 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="PARAM_gradeLevel" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["G1"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<parameter name="PARAM_section" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["Aklan"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`personId` AS person_personId,
-     person.`firstName` AS person_firstName,
-     person.`middleInitial` AS person_middleInitial,
-     person.`lastName` AS person_lastName,
-     person.`latestSchoolYear` AS person_latestSchoolYear,
      person.`gradeLevel` AS person_gradeLevel,
-     person.`studentNumber` AS person_studentNumber,
      person.`section` AS person_section,
-     person.`status` AS person_status,
-     section.`faculty` AS section_faculty,
-     person.`gradeLevelDesc` AS person_gradeLevelDesc
+     enrollment.`schoolYear` AS enrollment_schoolYear
 FROM
-     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
-
+     `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
 WHERE
-     person.status ='ENROLLED'
-
-AND  person.gradeLevel is not null  AND person.section is not null
-
-AND person.section=$P{PARAM_section}
-
-AND person.gradeLevel=$P{PARAM_gradeLevel}  
-
-
-
+     person.status = 'ENROLLED'
+ AND person.gradeLevel IS NOT null
+ AND person.section IS NOT null
+ AND person.section = $P{PARAM_section}
+ AND person.gradeLevel = $P{PARAM_gradeLevel}
+     and enrollment.schoolYear = $P{PARAM_schoolYear}
 ORDER BY
-    person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
+     person.gradeLevel ASC,
+     person.section ASC]]></queryString>
 
 	<field name="person_personId" class="java.lang.Integer"/>
-	<field name="person_firstName" class="java.lang.String"/>
-	<field name="person_middleInitial" class="java.lang.String"/>
-	<field name="person_lastName" class="java.lang.String"/>
-	<field name="person_latestSchoolYear" class="java.lang.String"/>
 	<field name="person_gradeLevel" class="java.lang.String"/>
-	<field name="person_studentNumber" class="java.lang.String"/>
 	<field name="person_section" class="java.lang.String"/>
-	<field name="person_status" class="java.lang.String"/>
-	<field name="section_faculty" class="java.lang.String"/>
-	<field name="person_gradeLevelDesc" class="java.lang.String"/>
+	<field name="enrollment_schoolYear" class="java.lang.String"/>
 
+
+		<group  name="G_Gender" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -87,24 +84,20 @@ ORDER BY
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="11"  isSplitAllowed="true" >
+			<band height="20"  isSplitAllowed="true" >
 				<subreport  isUsingCache="true">
 					<reportElement
 						mode="Transparent"
 						x="0"
-						y="1"
-						width="595"
-						height="10"
-						key="subreport-1"
-						stretchType="RelativeToTallestObject"/>
+						y="0"
+						width="1008"
+						height="19"
+						key="subreport-1"/>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
 					</subreportParameter>
-					<subreportParameter  name="REPORT_QUARTER">
-						<subreportParameterExpression><![CDATA[new Integer(4)]]></subreportParameterExpression>
-					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\"+$F{person_gradeLevel}+"_ReportCardQuarter.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\"+$F{person_gradeLevel}+"_ReportCard.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>

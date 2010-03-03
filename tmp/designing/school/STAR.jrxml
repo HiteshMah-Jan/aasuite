@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="STAR"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="1008"
+		 pageHeight="612"
+		 columnWidth="1008"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="PARAM_examDate" isForPrompting="true" class="java.util.Date">
+		<parameterDescription><![CDATA[yyyy-MM-dd]]></parameterDescription>
+		<defaultValueExpression ><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_gradeLevel" isForPrompting="true" class="java.lang.String">
+		<parameterDescription><![CDATA[G1]]></parameterDescription>
+		<defaultValueExpression ><![CDATA["N1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_preparedBy" isForPrompting="true" class="java.lang.String">
+		<parameterDescription><![CDATA[Examiner's Name]]></parameterDescription>
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     admission.`seq` AS admission_seq,
+     admission.`schoolYear` AS SchoolYear,
+     admission.`gradeLevel` AS GradeLevel,
+     gradelevel.`longName` AS gradelevel_longName,
+     admission.`examinationDate` AS examinationDate
+FROM
+     `gradelevel` gradelevel INNER JOIN `admission` admission ON gradelevel.`code` = admission.`gradeLevel`
+WHERE
+     admission.`examinationDate` = $P{PARAM_examDate}
+AND admission.`gradeLevel` = $P{PARAM_gradeLevel}]]></queryString>
+
+	<field name="admission_seq" class="java.lang.Integer"/>
+	<field name="SchoolYear" class="java.lang.String"/>
+	<field name="GradeLevel" class="java.lang.String"/>
+	<field name="gradelevel_longName" class="java.lang.String"/>
+	<field name="examinationDate" class="java.sql.Date"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="18"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="0"
+						width="1008"
+						height="18"
+						key="subreport-1"/>
+					<subreportParameter  name="PARAM_examDate">
+						<subreportParameterExpression><![CDATA[$F{examinationDate}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA[$P{PARAM_gradeLevel}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_preparedBy">
+						<subreportParameterExpression><![CDATA[$P{PARAM_preparedBy}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\"+$F{GradeLevel}+"STAR.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
