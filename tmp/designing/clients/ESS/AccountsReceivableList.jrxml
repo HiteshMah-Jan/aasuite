@@ -42,14 +42,14 @@ select e.schoolYear, p.gradeLevel, p.section, studentNumber, paymentFor, paidBy,
 	if (paymentFor like '%3' ,overallBalance,0) q3,
 	if (paymentFor like '%4' ,overallBalance,0) q4,
 
-	if ((paymentFor like '%1' OR paymentFor like '%TFEE' OR paymentFor like '%MISC') AND datediff($P{PARAM_useDate},dueDate)>5,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10,0) sur_q1, 
-	if (paymentFor like '%2' AND datediff($P{PARAM_useDate},dueDate)>5,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10,0) sur_q2, 
-	if (paymentFor like '%3' AND datediff($P{PARAM_useDate},dueDate)>5,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10,0) sur_q3, 
-	if (paymentFor like '%4' AND datediff($P{PARAM_useDate},dueDate)>5,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10,0) sur_q4, 
+	if ((paymentFor like '%1' OR paymentFor like '%TFEE' OR paymentFor like '%MISC') AND datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10,0) sur_q1, 
+	if (paymentFor like '%2' AND datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10,0) sur_q2, 
+	if (paymentFor like '%3' AND datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10,0) sur_q3, 
+	if (paymentFor like '%4' AND datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10,0) sur_q4, 
 
 	if (dueDate<$P{PARAM_useDate},overallBalance,0) balance,
-	if (datediff($P{PARAM_useDate},dueDate)>5 ,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10,0) surcharge, 
-	if (datediff($P{PARAM_useDate},dueDate)>5 ,datediff($P{PARAM_useDate},dueDate)*overallBalance*.01/10+overallBalance,overallBalance) due
+	if (datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5 ,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10,0) surcharge, 
+	if (datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))>5 ,datediff($P{PARAM_useDate},if(dueDate>paymentDate,dueDate,paymentDate))*overallBalance*.01/10+overallBalance,overallBalance) due
 from payment, enrollment e, person p
 where 
 	(p.status = 'ENROLLED' OR p.status = 'UNOFF. DROP')
