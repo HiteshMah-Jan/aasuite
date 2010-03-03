@@ -23,14 +23,14 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["10669"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="REPORT_QUARTER" isForPrompting="false" class="java.lang.Integer">
-		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA[new Integer(4)]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`firstName` AS person_firstName,
@@ -1793,13 +1793,65 @@ WHERE
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_studentNumber}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="9"
+						y="116"
+						width="397"
+						height="18"
+						key="staticText-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+				<text><![CDATA[SCHOOL YEAR 2009-2010]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="127"
+						y="613"
+						width="222"
+						height="44"
+						key="subreport-213"/>
+					<subreportParameter  name="REPORT_PERSON_ID">
+						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\AttendanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="159"
+						y="338"
+						width="219"
+						height="12"
+						key="subreport-214"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4, qallHekasi+.5 as anyall "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
 						y="413"
 						width="219"
-						height="11"
-						key="subreport-197"/>
+						height="12"
+						key="subreport-215"/>
 					<subreportParameter  name="REPORT_PERSON_ID">
 						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
 					</subreportParameter>
@@ -1826,10 +1878,10 @@ WHERE
 						x="159"
 						y="458"
 						width="219"
-						height="11"
-						key="subreport-198"/>
+						height="12"
+						key="subreport-216"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT ec1 as any1, ec12 as any2, ec13 as any3, ec14 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT ec1 as any1, ec12 as any2, ec13 as any3, ec14 as any4, ec1Final as anyall "+
 "FROM StudentValuesGrading "+
 "WHERE "+
 "	studentId="+$F{person_personId}+" AND "+
@@ -1850,36 +1902,10 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="473"
+						y="323"
 						width="219"
-						height="11"
-						key="subreport-199"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT ec2 as any1, ec22 as any2, ec23 as any3, ec24 as any4 "+
-"FROM StudentValuesGrading "+
-"WHERE "+
-"	studentId="+$F{person_personId}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="REPORT_ADD_WHERE">
-						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="SUBREPORT_DIR">
-						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="REPORT_QUARTER">
-						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\ReportCardQuarterSQLRetreiverSubReportLetterGtoH.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="159"
-						y="322"
-						width="219"
-						height="11"
-						key="subreport-200"/>
+						height="12"
+						key="subreport-217"/>
 					<subreportParameter  name="REPORT_PERSON_ID">
 						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
 					</subreportParameter>
@@ -1904,12 +1930,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="306"
+						y="308"
 						width="219"
-						height="11"
-						key="subreport-201"/>
+						height="12"
+						key="subreport-218"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4 , qallMath+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -1930,12 +1956,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="261"
+						y="263"
 						width="219"
-						height="11"
-						key="subreport-202"/>
+						height="12"
+						key="subreport-219"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4, qallFilipino+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -1956,12 +1982,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="276"
+						y="278"
 						width="219"
-						height="11"
-						key="subreport-203"/>
+						height="12"
+						key="subreport-220"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4, qallEnglish+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -1982,12 +2008,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="246"
+						y="248"
 						width="219"
-						height="11"
-						key="subreport-204"/>
+						height="12"
+						key="subreport-221"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4, qallCCF+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2008,12 +2034,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="337"
+						y="293"
 						width="219"
-						height="11"
-						key="subreport-205"/>
+						height="12"
+						key="subreport-222"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Science+.5 as any1, q2Science+.5 as any2, q3Science+.5 as any3, q4Science+.5 as any4, qallScience+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2034,12 +2060,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="292"
+						y="368"
 						width="219"
-						height="11"
-						key="subreport-206"/>
+						height="12"
+						key="subreport-223"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Science+.5 as any1, q2Science+.5 as any2, q3Science+.5 as any3, q4Science+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Music+.5 as any1, q2Music+.5 as any2, q3Music+.5 as any3, q4Music+.5 as any4, qallMusic+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2060,12 +2086,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="367"
+						y="383"
 						width="219"
-						height="11"
-						key="subreport-207"/>
+						height="12"
+						key="subreport-224"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Music+.5 as any1, q2Music+.5 as any2, q3Music+.5 as any3, q4Music+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Arts+.5 as any1, q2Arts+.5 as any2, q3Arts+.5 as any3, q4Arts+.5 as any4, qallArts+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2086,12 +2112,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="382"
+						y="398"
 						width="219"
-						height="11"
-						key="subreport-208"/>
+						height="12"
+						key="subreport-225"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Arts+.5 as any1, q2Arts+.5 as any2, q3Arts+.5 as any3, q4Arts+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1PE+.5 as any1, q2PE+.5 as any2, q3PE+.5 as any3, q4PE+.5 as any4, qallPE+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2112,12 +2138,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="397"
+						y="428"
 						width="219"
-						height="11"
-						key="subreport-209"/>
+						height="12"
+						key="subreport-226"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1PE+.5 as any1, q2PE+.5 as any2, q3PE+.5 as any3, q4PE+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1TLE+.5 as any1, q2TLE+.5 as any2, q3TLE+.5 as any3, q4TLE+.5 as any4, qallTLE+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2138,12 +2164,12 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="427"
+						y="443"
 						width="219"
-						height="11"
-						key="subreport-210"/>
+						height="12"
+						key="subreport-227"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1TLE+.5 as any1, q2TLE+.5 as any2, q3TLE+.5 as any3, q4TLE+.5 as any4 "+
+						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4, qallComputer+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -2164,15 +2190,15 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
-						y="442"
+						y="473"
 						width="219"
-						height="11"
-						key="subreport-211"/>
+						height="12"
+						key="subreport-228"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4 "+
-"FROM Enrollment "+
+						<subreportParameterExpression><![CDATA["SELECT ec2 as any1, ec22 as any2, ec23 as any3, ec24 as any4, ec2Final as anyall "+
+"FROM StudentValuesGrading "+
 "WHERE "+
-"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	studentId="+$F{person_personId}+" AND "+
 "	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
@@ -2185,21 +2211,23 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\ReportCardQuarterSQLRetreiverSubReportLetterGtoH.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="159"
 						y="353"
 						width="219"
-						height="11"
-						key="subreport-212"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Mapeh+.5 as any1, q2Mapeh+.5 as any2, q3Mapeh+.5 as any3, q4Mapeh+.5 as any4 "+
-"FROM Enrollment "+
-"WHERE "+
-"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+						height="12"
+						key="subreport-229"/>
+					<subreportParameter  name="REPORT_PERSON_ID">
+						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_SUBJECT">
+						<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_GRADE_LEVEL">
+						<subreportParameterExpression><![CDATA[$F{person_gradeLevel}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -2211,33 +2239,7 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
-				</subreport>
-				<staticText>
-					<reportElement
-						x="9"
-						y="116"
-						width="397"
-						height="18"
-						key="staticText-80"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="12"/>
-					</textElement>
-				<text><![CDATA[SCHOOL YEAR 2009-2010]]></text>
-				</staticText>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="127"
-						y="613"
-						width="222"
-						height="44"
-						key="subreport-213"/>
-					<subreportParameter  name="REPORT_PERSON_ID">
-						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\AttendanceSubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\MSEPGradeRetreiverSubReport.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</summary>
