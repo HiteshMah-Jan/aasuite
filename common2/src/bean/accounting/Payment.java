@@ -1229,8 +1229,9 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             	totalSurchargePaid += DataUtil.getMoneyFormat(p.surchargePaid);
             	totalSurchargeDiscount += DataUtil.getMoneyFormat(p.discountSurcharge);
             	System.out.println("p.overallAmountPaid = "+p.overallAmountPaid);
+            	p.overallAmountPaid = DataUtil.getMoneyFormat(p.overallAmountPaid);
             	if (p.overallAmountPaid > 0.2) {
-                	desc.append(p.paymentForLongDesc()).append(" - ").append(DataUtil.getCurrencyFormat(p.overallAmountPaid)).append("   ");
+                	desc.append(p.paymentForLongDesc()).append(" - ").append(p.overallAmountPaid).append("   ");
             	}
             	if (p.discount>0 && p.discountReason!=null) {
             		inv.discountReason = p.discountReason;
