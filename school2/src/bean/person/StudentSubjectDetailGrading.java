@@ -401,7 +401,7 @@ public class StudentSubjectDetailGrading extends AbstractIBean implements Serial
 		}
 		else {
 			if (score>itemCount) {
-				PanelUtil.showError(null, "Score is more than item count.");
+				PanelUtil.showErrorMessageToScreen("Score is more than item count.");
 				return false;
 			}
 		}
