@@ -94,6 +94,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
     		}
         	changePercentageRemarks(a);        	
         	double percent = getIntValue(a+"Percentage", 0);
+        	if (percent <= 0.1) continue;
         	itemCount += getIntValue(a+"Count", 0);
         	itemScore += getIntValue(a+"Score", 0);
         	if (percent < 50) {
@@ -134,15 +135,20 @@ public class Admission_RULE extends BusinessRuleWrapper {
                     else if ("psychomotor".equals(a)) {
                     	s = "PSYCHOMOTOR DEVELOPMENT";
                     }
-                    setValue("recommendationCondition", "REMEDIAL ON "+s);
+                    Admission ad = (Admission) this.getBean();
+                    if ("|K1|K2|P1|P2|N1|N2|".contains(ad.gradeLevel)) {
+                        setValue("recommendationCondition", "NOT ACCEPTED");
+                    }
+                    else {
+                        setValue("recommendationCondition", "REMEDIAL ON "+s);
+                    }
         		}
         	}
     	}
         setValue("itemTotal", itemCount);
         setValue("itemScore", itemScore);
+        changePercentageRemarks("item");
         setValue("finalRemarks", getValue("recommendationCondition"));
-//        setValue("forImprovementIn", getValue("recommendationCondition"));
-    	changePercentageRemarks("item");
     }
 
     private void changePercentageRemarks(String examName) {
