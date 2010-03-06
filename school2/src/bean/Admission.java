@@ -95,9 +95,9 @@ info = {
     @Display(name = "gradeLevel",duties={"CAN EDIT ADMISSION DETAIL"}, type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Level Applied For"),
     // @Display(name="section", type="PopSearch", linktoBean=Section.class, width = 117),
     
-    @Display(name = "lastName",labelTop=true),
-    @Display(name = "firstName",labelTop=true),
-    @Display(name = "middleInitial", label = "Middle Name",labelTop=true),
+    @Display(name = "lastName",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "firstName",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "middleInitial", label = "Middle Name",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
   
     
     @Display(name = "birthDate",duties={"CAN EDIT ADMISSION DETAIL"}),
@@ -210,21 +210,21 @@ info = {
 //     @Display(name = "itemScore",addInfoOnly=true,width=60,hideLabel=true), 
 //     @Display(name = "itemPercentage",addInfoOnly=true,width=60,hideLabel=true), 
 //     @Display(name = "totalRemarks",addInfoOnly=true,width=80,hideLabel=true),
-     @Display(name = "finalRemarks",addInfoOnly=true,gridFieldWidth= 7 ,width = -1),
+     @Display(name = "finalRemarks",addInfoOnly=true,gridFieldWidth= 7 ,width = -1,duties={"CAN EDIT ADMISSION SCORE"}),
      
-    @Display(name = "forImprovementIn", addInfoOnly = true,gridFieldWidth=7,width=-1),
-    @Display(name = "recommendedRemedialEla", addInfoOnly = true, label = "English"),
-    @Display(name = "recommendedRemedialReading", addInfoOnly = true, label = "Reading"),
-    @Display(name = "recommendedRemedialWriting", addInfoOnly = true, label = "Writing"),
-    @Display(name = "recommendedRemedialMath", addInfoOnly = true, label = "Math"),
-    @Display(name = "recommendedRemedialSci", addInfoOnly = true, label = "Science"),
-    @Display(name = "recommendedRemedialFil", addInfoOnly = true, label = "Filipino"),
-    @Display(name = "recommendedRemedialSS", addInfoOnly = true, label = "Social Studies"),
-    @Display(name = "recommendedRemedialCon", addInfoOnly = true, label = "Conduct", gridFieldWidth=3),
-    @Display(name = "betterQualifiedLevel", addInfoOnly = true, type = "PopSearch", linktoBean = GradeLevel.class ,label = "Better for", gridFieldWidth=5, width = -1),
+    @Display(name = "forImprovementIn", addInfoOnly = true,gridFieldWidth=7,width=-1,duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialEla", addInfoOnly = true, label = "English",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialReading", addInfoOnly = true, label = "Reading",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialWriting", addInfoOnly = true, label = "Writing",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialMath", addInfoOnly = true, label = "Math",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialSci", addInfoOnly = true, label = "Science",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialFil", addInfoOnly = true, label = "Filipino",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialSS", addInfoOnly = true, label = "Social Studies",duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendedRemedialCon", addInfoOnly = true, label = "Conduct", gridFieldWidth=3,duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "betterQualifiedLevel", addInfoOnly = true, type = "PopSearch", linktoBean = GradeLevel.class ,label = "Better for", gridFieldWidth=5, width = -1,duties={"CAN EDIT ADMISSION SCORE"}),
      
-    @Display(name = "recommendation", addInfoOnly = true,type="Combo",modelCombo={"ACCEPTED","ACCEPTED ON CONDITION","NOT ACCEPTED"},labelTop=true),
-    @Display(name = "recommendationCondition", addInfoOnly = true,label="Condition",labelTop=true,width=250, upCase=false),
+    @Display(name = "recommendation", addInfoOnly = true,type="Combo",modelCombo={"ACCEPTED","ACCEPTED ON CONDITION","NOT ACCEPTED"},labelTop=true,duties={"CAN EDIT ADMISSION SCORE"}),
+    @Display(name = "recommendationCondition", addInfoOnly = true,label="Condition",labelTop=true,width=250, upCase=false,duties={"CAN EDIT ADMISSION SCORE"}),
     
         
     @Display(name = "threeColoredIdPictures",duties={"CAN EDIT ADMISSION DETAIL"}, label = "Three (3) colored ID Pictures (1x1)", addInfoOnly = true, gridFieldWidth = 3),
