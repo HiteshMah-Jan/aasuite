@@ -96,7 +96,11 @@ public class Admission_RULE extends BusinessRuleWrapper {
         	itemCount += getIntValue(a+"Count", 0);
         	itemScore += getIntValue(a+"Score", 0);
         	if (percent < 50) {
-        		//failed
+//        		failed
+        		if (percent < 40) {
+//        			this means that the failed is less than 40, this is not accepted 
+            		countFailed++;
+        		}
         		countFailed++;
         		if (countFailed > 1) {
                     setValue("recommendation", "NOT ACCEPTED");
