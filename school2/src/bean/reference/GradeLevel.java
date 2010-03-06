@@ -32,14 +32,14 @@ import template.screen.TemplateTabSinglePage;
  */
 @Entity
 @Table(name = "GradeLevel")
-@UITemplate(template=TemplateTabSinglePage.class,columnSearch={"code", "longName", "course", "head", "sortNumber"}, gridCount=4, title="Level")
+@UITemplate(template=TemplateTabSinglePage.class,columnSearch={"code", "longName", "course", "head", "sortNumber"}, gridCount=6, title="Level")
 @Displays({
        // @Display(name="schoolYear"),
         @Display(name="code"),
-        @Display(name="sortNumber"),
         @Display(name="longName", upCase=false),
-        @Display(name="course", type="PopSearch", linktoBean=Course.class, gridFieldWidth=3, width=-1),
-        @Display(name="headId", linktoBean=Employee.class, type="PopSearch", label="Head", gridFieldWidth=3, width=-1),
+        @Display(name="sortNumber"),
+        @Display(name="course", type="PopSearch", linktoBean=Course.class, width=-1),
+        @Display(name="headId", linktoBean=Employee.class, type="PopSearch", label="Head", width=-1),
         @Display(name="college"),
         @Display(name="elaItemCount"),
         @Display(name="mathItemCount"),
