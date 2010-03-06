@@ -192,7 +192,9 @@ public abstract class BusinessRuleWrapper {
     }
     
     public int getIntValue(String name, int def) {
-        Object obj = ((component.IGetText)getComponent(name)).getValue();
+        Component comp = getComponent(name);
+        if (comp == null) return 0;
+        Object obj = ((component.IGetText)comp).getValue();
         if (obj!=null && obj instanceof Integer) {
             return (Integer)obj;
         }
@@ -207,7 +209,9 @@ public abstract class BusinessRuleWrapper {
     }
     
     public double getDoubleValue(String name, int def) {
-        Object obj = ((component.IGetText)getComponent(name)).getValue();
+        Component comp = getComponent(name);
+        if (comp == null) return 0;
+        Object obj = ((component.IGetText)comp).getValue();
         if (obj!=null && obj instanceof Double) {
             return (Double)obj;
         }
