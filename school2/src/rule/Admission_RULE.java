@@ -78,13 +78,14 @@ public class Admission_RULE extends BusinessRuleWrapper {
         setValue("totalRemarks", "");
         setValue("pracRemarks", "");
 
-        String[] arr = {"ela","math","sci","prac","cognitive","affective","psychomotor"};
+        String[] arr = {"ela","math","sci","cognitive","affective","psychomotor"};
     	int countFailed = 0;
         setValue("recommendation", "ACCEPTED");
-        setValue("recommendationCondition", "");
+        setValue("recommendationCondition", "PASSED");
         int itemCount = 0;
         int itemScore = 0;
     	for (String a:arr) {
+    		System.out.println(a+"Count");
     		if (getIntValue(a+"Count", 0)<=0) {
     			setValue(a+"Score", "0");
     			setValue(a+"Percentage", "0");
@@ -104,8 +105,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
         		countFailed++;
         		if (countFailed > 1) {
                     setValue("recommendation", "NOT ACCEPTED");
-                    setValue("recommendationCondition", "");
-        			break;
+                    setValue("recommendationCondition", "NOT ACCEPTED");
         		}
         		else {
                     setValue("recommendation", "ACCEPTED ON CONDITION");
@@ -140,6 +140,8 @@ public class Admission_RULE extends BusinessRuleWrapper {
     	}
         setValue("itemTotal", itemCount);
         setValue("itemScore", itemScore);
+        setValue("finalRemarks", getValue("recommendationCondition"));
+//        setValue("forImprovementIn", getValue("recommendationCondition"));
     	changePercentageRemarks("item");
     }
 
