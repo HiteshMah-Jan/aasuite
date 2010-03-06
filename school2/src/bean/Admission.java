@@ -95,9 +95,9 @@ info = {
     @Display(name = "gradeLevel",duties={"CAN EDIT ADMISSION DETAIL"}, type = "PopSearch", linktoBean = GradeLevelExamExt.class,label="Level Applied For"),
     // @Display(name="section", type="PopSearch", linktoBean=Section.class, width = 117),
     
-    @Display(name = "lastName",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "firstName",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "middleInitial", label = "Middle Name",labelTop=true,duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "lastName",labelTop=true),
+    @Display(name = "firstName",labelTop=true),
+    @Display(name = "middleInitial", label = "Middle Name",labelTop=true),
   
     
     @Display(name = "birthDate",duties={"CAN EDIT ADMISSION DETAIL"}),
