@@ -48,6 +48,7 @@ FROM
      INNER JOIN `invoice` invoice ON otherpayment.`invoiceId` = invoice.`seq`
 WHERE
      otherpaymentlineitem.`otherPayment` LIKE '$P!{PARAM_type}%'
+AND  invoice.cancelled = 0
 AND  otherPayment.`orDate` BETWEEN $P{PARAM_startDate} AND $P{PARAM_endDate}]]></queryString>
 
 	<field name="PaymentAmount" class="java.lang.Double"/>
