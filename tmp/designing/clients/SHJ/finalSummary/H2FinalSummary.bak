@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="H2FinalSummary"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="1008"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     person.`personId` AS person_personId,
+     enrollment.`schoolYear` AS enrollment_schoolYear,
+     enrollment.`gradeLevel` AS enrollment_gradeLevel
+FROM
+     `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
+WHERE
+enrollment.schoolYear = $P{PARAM_schoolYear}
+AND enrollment.gradeLevel = 'H2']]></queryString>
+
+	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="enrollment_schoolYear" class="java.lang.String"/>
+	<field name="enrollment_gradeLevel" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="235"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="5"
+						width="612"
+						height="12"
+						key="subreport-1"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryCLED.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="24"
+						width="612"
+						height="12"
+						key="subreport-2"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryFilipino.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="20"
+						width="612"
+						height="0"
+						key="element-1"
+						positionType="Float"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="43"
+						width="612"
+						height="12"
+						key="subreport-3"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryEnglish.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="39"
+						width="612"
+						height="0"
+						key="element-2"
+						positionType="Float"/>
+				</break>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="63"
+						width="612"
+						height="12"
+						key="subreport-4"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryMath.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="83"
+						width="612"
+						height="12"
+						key="subreport-5"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryScience.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="103"
+						width="612"
+						height="12"
+						key="subreport-7"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryAP.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="123"
+						width="612"
+						height="12"
+						key="subreport-8"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryMusic.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="143"
+						width="612"
+						height="12"
+						key="subreport-9"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryArts.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="163"
+						width="612"
+						height="12"
+						key="subreport-10"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryPE.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="183"
+						width="612"
+						height="12"
+						key="subreport-11"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryHealth.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="203"
+						width="612"
+						height="12"
+						key="subreport-12"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryTLE.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="223"
+						width="612"
+						height="12"
+						key="subreport-13"/>
+					<subreportParameter  name="PARAM_schoolYear">
+						<subreportParameterExpression><![CDATA[$F{enrollment_schoolYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA["H2"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\finalSummary\\FinalSummaryComputer.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="58"
+						width="612"
+						height="0"
+						key="element-3"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="78"
+						width="612"
+						height="0"
+						key="element-4"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="99"
+						width="612"
+						height="0"
+						key="element-6"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="118"
+						width="612"
+						height="0"
+						key="element-7"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="139"
+						width="612"
+						height="0"
+						key="element-8"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="160"
+						width="612"
+						height="0"
+						key="element-9"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="179"
+						width="612"
+						height="0"
+						key="element-10"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="199"
+						width="612"
+						height="0"
+						key="element-11"
+						positionType="Float"/>
+				</break>
+				<break>
+					<reportElement
+						x="0"
+						y="218"
+						width="612"
+						height="0"
+						key="element-12"
+						positionType="Float"/>
+				</break>
+			</band>
+		</summary>
+</jasperReport>
