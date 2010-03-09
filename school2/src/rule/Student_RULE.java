@@ -154,14 +154,16 @@ public class Student_RULE extends Person_RULE {
 
     private void printTOR() {
         Student stud = (Student) getBean();
-        if (stud.course.startsWith("H")) {
-            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORHS", stud.personId);
-        }
-        else if (stud.course.startsWith("G")) {
-            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORElem", stud.personId);
-        }
-        else {
-            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORCollege", stud.personId);
-        }
+//        if (stud.course.startsWith("H")) {
+//            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORHS", stud.personId);
+//        }
+//        else if (stud.course.startsWith("G")) {
+//            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORElem", stud.personId);
+//        }
+//        else {
+//            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORCollege", stud.personId);
+//                   }
+     AbstractReportTemplate.getInstance().showReportFromFileTemplate("TOR", stud.personId);
+    
     }
 }
