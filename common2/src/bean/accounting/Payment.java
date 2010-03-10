@@ -1223,8 +1223,8 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             		inv.discountReason = p.discountReason;
             	}
             }
-            if (totalSurchargePaid > 0) {
-            	desc.append(" surcharges - ").append(DataUtil.getCurrencyFormat(totalSurchargePaid));
+            if (totalSurchargePaid-totalSurchargeDiscount > 0) {
+            	desc.append(" surcharges - ").append(DataUtil.getCurrencyFormat(totalSurchargePaid-totalSurchargeDiscount));
             }
 //            for check only
             inv.totalAmount = inv.allAmount = DataUtil.getMoneyFormat(totalAmount);
