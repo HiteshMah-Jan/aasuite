@@ -45,6 +45,7 @@ public class CashierRulePaymentDistribution {
 			totalOutstanding += p.surchargeBalance;
 		}
 		processSurcharge();
+		Date d = new Date();
 		for (PaymentEnrollment p:allAssess) {
 			p.outstandingSurcharge = p.surcharge = p.surchargeBalance = p.surchargePaid = 0;
 		}
@@ -61,6 +62,24 @@ public class CashierRulePaymentDistribution {
 		processMisc();
 		processFee();
 		putOR(normOR, "N");
+		
+		Payment t = allAssess.get(0);
+    	List<Payment> lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='"+t.schoolYear+"' AND a.paidBy="+t.paidBy+" AND a.paid=true ORDER BY a.paymentDate DESC");
+		for (PaymentEnrollment p:allAssess) {
+			p.paymentDate = d;
+	    	for (int i=0; i<lst.size(); i++) {
+	    		Payment tmp = lst.get(i);
+	    		if (tmp.paymentFor.equals(p.paymentFor)) {
+	        		if (tmp.overallAmountPaid==0) {
+	            		p.overallAmountPaid += tmp.amountPaid+p.discount;
+	        		}
+	        		else {
+	            		p.overallAmountPaid += tmp.overallAmountPaid;
+	        		}
+	    		}
+	    	}
+		}
+		
 		DBClient.persistBean((List)allAssess);
 		for (PaymentEnrollment p:allAssess) {
 			updateFWB(p);
