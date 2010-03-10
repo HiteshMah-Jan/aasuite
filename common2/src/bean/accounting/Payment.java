@@ -628,20 +628,6 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
         else {
 //        	this is for assessment
             overallAmountPaid = surchargePaid = 0;
-        	Payment latestPayment = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.paidBy="+paidBy+" ORDER BY a.seq DESC");
-			if (latestPayment!=null) paymentDate = latestPayment.paymentDate;
-        	List<Payment> lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='"+schoolYear+"' AND a.paidBy="+paidBy+" AND a.paid=true ORDER BY a.paymentDate DESC");
-        	for (int i=0; i<lst.size(); i++) {
-        		Payment p = lst.get(i);
-        		if (p.paymentFor.equals(paymentFor)) {
-            		if (p.overallAmountPaid==0) {
-                		overallAmountPaid += p.amountPaid+p.discount;
-            		}
-            		else {
-                		overallAmountPaid += p.overallAmountPaid;
-            		}
-        		}
-        	}
         	balance = overallBalance = amount - overallAmountPaid - discount;
         	surchargeBalance = surcharge - discountSurcharge + outstandingSurcharge;
         	if (overallBalance<0) overallBalance = 0;
