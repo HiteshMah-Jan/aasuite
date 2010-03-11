@@ -133,6 +133,7 @@ import constants.UserInfo;
     @template.Report(reportFile = "Q2_Grades", reportTitle = "Q2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_Grades", reportTitle = "Q3", reportSql = "${section}"),
     @template.Report(reportFile = "Q4_Grades", reportTitle = "Q4", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_Grades", reportTitle = "Summary Final", reportSql = "${section}"),
 	@template.Report(reportFile = "SectionReportCardQuarter1", reportTitle = "Card Q1", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter2", reportTitle = "Q2", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter3", reportTitle = "Q3", reportSql = "${section}"),

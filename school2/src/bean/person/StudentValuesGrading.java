@@ -506,6 +506,7 @@ import constants.UserInfo;
     @template.Report(reportFile = "Q2_ValuesGrades", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_ValuesGrades", reportTitle = "3", reportSql = "${section}"),
     @template.Report(reportFile = "Q4_ValuesGrades", reportTitle = "4", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_ValuesGrades", reportTitle = "Values Final", reportSql = "${section}"),
     @template.Report(reportFile = "Q1_NarrativeGrades", reportTitle = "Narr. 1st Qtr.", reportSql = "${section}"),
     @template.Report(reportFile = "Q2_NarrativeGrades", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_NarrativeGrades", reportTitle = "3", reportSql = "${section}"),
