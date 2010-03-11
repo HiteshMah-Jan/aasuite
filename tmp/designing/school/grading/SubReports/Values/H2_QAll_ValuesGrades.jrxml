@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="G4_QAll_ValuesGrades"
+		 name="H2_QAll_ValuesGrades"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
@@ -34,40 +34,48 @@
      person.`middleInitial` AS MI,
      person.`lastName` AS lastName,
      person.`personId` AS No,
-     if(person.`gender`='FEMALE','G','B')AS gender,
+     if(person.`gender`='FEMALE','G','B') AS gender,
      studentvaluesgrading.`section` AS section,
      faculty,
      gradeLevelDesc,
-     conFinal con,
-     motFinal mot,
-     effFinal eff,
-     resFinal res,
-     iniFinal ini,
-     perFinal per,
-     carFinal car,
-     teaFinal tea,
-     comFinal com,
-     proFinal pro,
-     clubsAndParticipationFinal clubsAndParticipation,
-     focusFinal focus,
-     respectFinal respect,
-     scoutingFinal scouting,
+     elsFinal els, 
+     wfrFinal wfr, 
+     apgwFinal apgw, 
+     spaaFinal spaa,
+     ivaFinal iva, 
+     islFinal isl, 
+     aspviFinal aspvi, 
+     hspdFinal hspd, 
+     sdFinal sd, 
+     putFinal put,
+     hlewFinal hlew,
+     prsFinal prs,
+     crFinal cr,
+     cwsFinal cws,
+     pfeFinal pfe,
+     craFinal cra,
+     caFinal ca,
+     kinFinal kin,
+     ec1Final ec1,
+     ec2Final ec2,
+     totalDays4 totalDays,
+     present4 present,
+     absent4 absent,
+     tardy4+0 tardy,
      studentvaluesgrading.`affectiveAverageFinal` AS AffectiveAverage1,
      studentvaluesgrading.`megaskillAverageFinal` AS MegaskillAverage1,
      studentvaluesgrading.`psychomotorAverageFinal` AS PsychomotorAverage1,
      studentvaluesgrading.`valuesPromotedAverageFinal` AS ValuesPromotedAverage1,
      studentvaluesgrading.`zl2AverageFinal` AS Zl2Average1,
-     studentvaluesgrading.`status` AS status,
-     studentvaluesgrading.`megaskillAverageFinal` AS studentvaluesgrading_megaskillAverageFinal
+     studentvaluesgrading.`status` AS status
 FROM
      `person` person INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
 WHERE
      studentvaluesgrading.section = $P{REPORT_ADD_WHERE}
 ORDER BY
      studentvaluesgrading.section ASC,
-     gender ASC,
-     person.lastName ASC,
-     person.firstName ASC]]></queryString>
+     gender ASC, 
+     person.lastName, person.firstName]]></queryString>
 
 	<field name="SN" class="java.lang.String"/>
 	<field name="firstName" class="java.lang.String"/>
@@ -79,27 +87,36 @@ ORDER BY
 	<field name="gender" class="java.lang.String"/>
 	<field name="section" class="java.lang.String"/>
 	<field name="faculty" class="java.lang.String"/>
-	<field name="con" class="java.lang.Integer"/>
-	<field name="mot" class="java.lang.Integer"/>
-	<field name="eff" class="java.lang.Integer"/>
-	<field name="res" class="java.lang.Integer"/>
-	<field name="ini" class="java.lang.Integer"/>
-	<field name="per" class="java.lang.Integer"/>
-	<field name="car" class="java.lang.Integer"/>
-	<field name="tea" class="java.lang.Integer"/>
-	<field name="com" class="java.lang.Integer"/>
-	<field name="pro" class="java.lang.Integer"/>
-	<field name="clubsAndParticipation" class="java.lang.Integer"/>
-	<field name="focus" class="java.lang.Integer"/>
-	<field name="respect" class="java.lang.Integer"/>
-	<field name="scouting" class="java.lang.Integer"/>
+	<field name="els" class="java.lang.Integer"/>
+	<field name="wfr" class="java.lang.Integer"/>
+	<field name="apgw" class="java.lang.Integer"/>
+	<field name="spaa" class="java.lang.Integer"/>
+	<field name="iva" class="java.lang.Integer"/>
+	<field name="isl" class="java.lang.Integer"/>
+	<field name="aspvi" class="java.lang.Integer"/>
+	<field name="hspd" class="java.lang.Integer"/>
+	<field name="sd" class="java.lang.Integer"/>
+	<field name="put" class="java.lang.Integer"/>
+	<field name="hlew" class="java.lang.Integer"/>
+	<field name="prs" class="java.lang.Integer"/>
+	<field name="cr" class="java.lang.Integer"/>
+	<field name="cws" class="java.lang.Integer"/>
+	<field name="pfe" class="java.lang.Integer"/>
+	<field name="cra" class="java.lang.Integer"/>
+	<field name="ca" class="java.lang.Integer"/>
+	<field name="kin" class="java.lang.Integer"/>
+	<field name="ec1" class="java.lang.Integer"/>
+	<field name="ec2" class="java.lang.Integer"/>
+	<field name="totalDays" class="java.lang.Integer"/>
+	<field name="present" class="java.lang.Integer"/>
+	<field name="absent" class="java.lang.Integer"/>
+	<field name="tardy" class="java.lang.Long"/>
 	<field name="AffectiveAverage1" class="java.lang.Double"/>
 	<field name="MegaskillAverage1" class="java.lang.Double"/>
 	<field name="PsychomotorAverage1" class="java.lang.Double"/>
 	<field name="ValuesPromotedAverage1" class="java.lang.Double"/>
 	<field name="Zl2Average1" class="java.lang.Double"/>
 	<field name="status" class="java.lang.String"/>
-	<field name="studentvaluesgrading_megaskillAverageFinal" class="java.lang.Double"/>
 
 
 		<group  name="gender" >
@@ -186,235 +203,333 @@ ORDER BY
 				<staticText>
 					<reportElement
 						x="332"
-						y="0"
-						width="417"
+						y="15"
+						width="26"
 						height="15"
-						forecolor="#666666"
-						key="staticText-4"/>
+						forecolor="#000000"
+						key="staticText-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="7"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
 					</textElement>
-				<text><![CDATA[(Megaskills)]]></text>
+				<text><![CDATA[ els]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="749"
-						y="0"
-						width="37"
+						x="358"
+						y="15"
+						width="26"
 						height="15"
-						forecolor="#666666"
-						key="staticText-26"/>
+						forecolor="#000000"
+						key="staticText-2"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="7"/>
+						<font size="8"/>
 					</textElement>
-				<text><![CDATA[Misc]]></text>
+				<text><![CDATA[wfr]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="384"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[apgw]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="410"
+						y="15"
+						width="32"
+						height="15"
+						forecolor="#000000"
+						key="staticText-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[spaa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="442"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[iva]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="468"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[isl]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="494"
+						y="15"
+						width="32"
+						height="15"
+						forecolor="#000000"
+						key="staticText-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[aspvi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="526"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[hspd]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="552"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[sd]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="578"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[put]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="604"
+						y="15"
+						width="29"
+						height="15"
+						forecolor="#000000"
+						key="staticText-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[hlew]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="633"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[prs]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="659"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[cr]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="685"
+						y="15"
+						width="26"
+						height="15"
+						forecolor="#000000"
+						key="staticText-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[cws]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="741"
+						y="15"
+						width="27"
+						height="15"
+						forecolor="#000000"
+						key="staticText-15"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ pfe]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="768"
+						y="15"
+						width="27"
+						height="15"
+						forecolor="#000000"
+						key="staticText-16"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[cra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="795"
+						y="15"
+						width="27"
+						height="15"
+						forecolor="#000000"
+						key="staticText-17"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ca]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="822"
+						y="15"
+						width="27"
+						height="15"
+						forecolor="#000000"
+						key="staticText-18"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[kin]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="849"
+						y="15"
+						width="27"
+						height="15"
+						forecolor="#000000"
+						key="staticText-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ec1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="876"
+						y="15"
+						width="35"
+						height="15"
+						forecolor="#000000"
+						key="staticText-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ec2]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="332"
-						y="15"
-						width="28"
-						height="15"
+						y="0"
+						width="409"
+						height="16"
 						forecolor="#000000"
-						key="staticText-27"/>
+						key="staticText-21"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12"/>
 					</textElement>
-				<text><![CDATA[ con]]></text>
+				<text><![CDATA[Values Promoted]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="360"
-						y="15"
-						width="26"
-						height="15"
+						x="741"
+						y="0"
+						width="207"
+						height="16"
 						forecolor="#000000"
-						key="staticText-28"/>
+						key="staticText-22"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12"/>
 					</textElement>
-				<text><![CDATA[mot]]></text>
+				<text><![CDATA[ZL2 Components]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="386"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-29"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[eff]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="412"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-30"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[res]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="438"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-31"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ini]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="464"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-32"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[per]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="490"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-33"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[car]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="516"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-34"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[tea]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="542"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-35"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[com]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="568"
-						y="15"
-						width="26"
-						height="15"
-						forecolor="#000000"
-						key="staticText-36"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[pro]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="749"
+						x="911"
 						y="15"
 						width="37"
 						height="15"
 						forecolor="#000000"
-						key="staticText-37"/>
+						key="staticText-23"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[clubs]]></text>
+				<text><![CDATA[Ave.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="594"
+						x="711"
 						y="15"
-						width="37"
+						width="30"
 						height="15"
 						forecolor="#000000"
-						key="staticText-38"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[focus]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="631"
-						y="15"
-						width="37"
-						height="15"
-						forecolor="#000000"
-						key="staticText-39"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[respect]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="668"
-						y="15"
-						width="45"
-						height="15"
-						forecolor="#000000"
-						key="staticText-40"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[scouting]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="713"
-						y="15"
-						width="36"
-						height="15"
-						forecolor="#000000"
-						key="staticText-41"/>
+						key="staticText-24"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
@@ -487,7 +602,7 @@ ORDER BY
 					<reportElement
 						x="332"
 						y="0"
-						width="28"
+						width="26"
 						height="12"
 						forecolor="#000000"
 						key="textField-3"/>
@@ -495,11 +610,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{con}.intValue()==1?"NI":$F{con}.intValue()==2?"MS":$F{con}.intValue()==3?"S":$F{con}.intValue()==4?"HS":$F{con}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{els}.intValue()<1?"-":$F{els}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="360"
+						x="358"
 						y="0"
 						width="26"
 						height="12"
@@ -509,11 +624,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mot}.intValue()==1?"NI":$F{mot}.intValue()==2?"MS":$F{mot}.intValue()==3?"S":$F{mot}.intValue()==4?"HS":$F{mot}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{wfr}.intValue()<1?"-":$F{wfr}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="386"
+						x="384"
 						y="0"
 						width="26"
 						height="12"
@@ -523,13 +638,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{eff}.intValue()==1?"NI":$F{eff}.intValue()==2?"MS":$F{eff}.intValue()==3?"S":$F{eff}.intValue()==4?"HS":$F{eff}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{apgw}.intValue()<1?"-":$F{apgw}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="412"
+						x="410"
 						y="0"
-						width="26"
+						width="32"
 						height="12"
 						forecolor="#000000"
 						key="textField-6"/>
@@ -537,11 +652,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{res}.intValue()==1?"NI":$F{res}.intValue()==2?"MS":$F{res}.intValue()==3?"S":$F{res}.intValue()==4?"HS":$F{res}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{spaa}.intValue()<1?"-":$F{spaa}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="438"
+						x="442"
 						y="0"
 						width="26"
 						height="12"
@@ -551,11 +666,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ini}.intValue()==1?"NI":$F{ini}.intValue()==2?"MS":$F{ini}.intValue()==3?"S":$F{ini}.intValue()==4?"HS":$F{ini}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{iva}.intValue()<1?"-":$F{iva}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="464"
+						x="468"
 						y="0"
 						width="26"
 						height="12"
@@ -565,13 +680,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{per}.intValue()==1?"NI":$F{per}.intValue()==2?"MS":$F{per}.intValue()==3?"S":$F{per}.intValue()==4?"HS":$F{per}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{isl}.intValue()<1?"-":$F{isl}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="490"
+						x="494"
 						y="0"
-						width="26"
+						width="32"
 						height="12"
 						forecolor="#000000"
 						key="textField-9"/>
@@ -579,11 +694,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{car}.intValue()==1?"NI":$F{car}.intValue()==2?"MS":$F{car}.intValue()==3?"S":$F{car}.intValue()==4?"HS":$F{car}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{aspvi}.intValue()<1?"-":$F{aspvi}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="516"
+						x="526"
 						y="0"
 						width="26"
 						height="12"
@@ -593,11 +708,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tea}.intValue()==1?"NI":$F{tea}.intValue()==2?"MS":$F{tea}.intValue()==3?"S":$F{tea}.intValue()==4?"HS":$F{tea}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hspd}.intValue()<1?"-":$F{hspd}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="542"
+						x="552"
 						y="0"
 						width="26"
 						height="12"
@@ -607,11 +722,11 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{com}.intValue()==1?"NI":$F{com}.intValue()==2?"MS":$F{com}.intValue()==3?"S":$F{com}.intValue()==4?"HS":$F{com}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sd}.intValue()<1?"-":$F{sd}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="568"
+						x="578"
 						y="0"
 						width="26"
 						height="12"
@@ -621,13 +736,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pro}.intValue()==1?"NI":$F{pro}.intValue()==2?"MS":$F{pro}.intValue()==3?"S":$F{pro}.intValue()==4?"HS":$F{pro}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{put}.intValue()<1?"-":$F{put}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="749"
+						x="604"
 						y="0"
-						width="37"
+						width="29"
 						height="12"
 						forecolor="#000000"
 						key="textField-13"/>
@@ -635,13 +750,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{clubsAndParticipation}.intValue()==1?"NI":$F{clubsAndParticipation}.intValue()==2?"MS":$F{clubsAndParticipation}.intValue()==3?"S":$F{clubsAndParticipation}.intValue()==4?"HS":$F{clubsAndParticipation}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{hlew}.intValue()<1?"-":$F{hlew}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="594"
+						x="633"
 						y="0"
-						width="37"
+						width="26"
 						height="12"
 						forecolor="#000000"
 						key="textField-14"/>
@@ -649,13 +764,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{focus}.intValue()==1?"NI":$F{focus}.intValue()==2?"MS":$F{focus}.intValue()==3?"S":$F{focus}.intValue()==4?"HS":$F{focus}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{prs}.intValue()<1?"-":$F{prs}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="631"
+						x="659"
 						y="0"
-						width="37"
+						width="26"
 						height="12"
 						forecolor="#000000"
 						key="textField-15"/>
@@ -663,13 +778,13 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{respect}.intValue()==1?"NI":$F{respect}.intValue()==2?"MS":$F{respect}.intValue()==3?"S":$F{respect}.intValue()==4?"HS":$F{respect}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{cr}.intValue()<1?"-":$F{cr}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="668"
+						x="685"
 						y="0"
-						width="45"
+						width="26"
 						height="12"
 						forecolor="#000000"
 						key="textField-16"/>
@@ -677,21 +792,119 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{scouting}.intValue()==1?"NI":$F{scouting}.intValue()==2?"MS":$F{scouting}.intValue()==3?"S":$F{scouting}.intValue()==4?"HS":$F{scouting}.intValue()==5?"O":$F{scouting}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{cws}.intValue()<1?"-":$F{cws}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="713"
+						x="741"
 						y="0"
-						width="36"
+						width="27"
 						height="12"
 						forecolor="#000000"
 						key="textField-17"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pfe}.intValue()<1?"-":$F{pfe}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="768"
+						y="0"
+						width="27"
+						height="12"
+						forecolor="#000000"
+						key="textField-18"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{cra}.intValue()<1?"-":$F{cra}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="795"
+						y="0"
+						width="27"
+						height="12"
+						forecolor="#000000"
+						key="textField-19"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ca}.intValue()<1?"-":$F{ca}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="822"
+						y="0"
+						width="27"
+						height="12"
+						forecolor="#000000"
+						key="textField-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{kin}.intValue()<1?"-":$F{kin}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="849"
+						y="0"
+						width="27"
+						height="12"
+						forecolor="#000000"
+						key="textField-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ec1}.intValue()<1?"-":$F{ec1}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="876"
+						y="0"
+						width="35"
+						height="12"
+						forecolor="#000000"
+						key="textField-22"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ec2}.intValue()<1?"-":$F{ec2}.toString()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="911"
+						y="0"
+						width="37"
+						height="12"
+						forecolor="#000000"
+						key="textField-23"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MegaskillAverage1}.intValue()==1?"NI":$F{MegaskillAverage1}.intValue()==2?"MS":$F{MegaskillAverage1}.intValue()==3?"S":$F{MegaskillAverage1}.intValue()==4?"HS":$F{MegaskillAverage1}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{Zl2Average1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="711"
+						y="0"
+						width="30"
+						height="12"
+						forecolor="#000000"
+						key="textField-24"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ValuesPromotedAverage1}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
@@ -703,9 +916,9 @@ ORDER BY
 			<band height="19"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="568"
+						x="741"
 						y="0"
-						width="181"
+						width="170"
 						height="19"
 						forecolor="#000000"
 						key="textField"/>
@@ -718,7 +931,7 @@ ORDER BY
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Transparent"
-						x="749"
+						x="911"
 						y="0"
 						width="37"
 						height="19"
