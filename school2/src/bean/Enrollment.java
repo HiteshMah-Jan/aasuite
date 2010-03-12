@@ -37,6 +37,7 @@ import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;
 import util.DBClient;
+import util.DataUtil;
 import util.PanelUtil;
 import bean.accounting.PaymentEnrollment;
 import bean.admin.AppConfig;
@@ -3251,7 +3252,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     		double val2 = BeanUtil.getDoubleValue(this, "q2"+s);
     		double val3 = BeanUtil.getDoubleValue(this, "q3"+s);
     		double val4 = BeanUtil.getDoubleValue(this, "q4"+s);
-    		BeanUtil.setPropertyValue(this, "qall"+s, (val1+val2+val3+val4+.001)/4);
+    		double d = DataUtil.getMoneyFormat((val1+val2+val3+val4+.001)/4);
+    		BeanUtil.setPropertyValue(this, "qall"+s, d);
     	}
 	}
 
