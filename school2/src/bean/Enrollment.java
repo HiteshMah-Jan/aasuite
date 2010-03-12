@@ -3183,11 +3183,6 @@ public class Enrollment extends AbstractIBean implements Serializable {
         this.gpaValuesFinal = gpaValuesFinal;
     }
     
-    
-    
-    
-    
-
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria, "schoolYear","semester", "gradeLevel");
@@ -3212,14 +3207,55 @@ public class Enrollment extends AbstractIBean implements Serializable {
             	}
             }
     	}
-//    	Section s = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='"+section+"'");
-//    	if (s!=null) {
-//    		gradeLevel = s.gradeLevel;
-//    	}
+		setFinalGrade("OpMath",
+				"Math","Math2","Math3",
+				"Science","Science2","Science3",
+				"English","English2","English3",
+				"Reading",
+				"Writing",
+				"Computer",
+				"CCF",
+				"AP",
+				"Hekasi",
+				"TLE",
+				"Music",
+				"Arts",
+				"PE",
+				"MAPEH",
+				"ChineseA","ChineseB",
+				"Makabayan",
+				"Filipino",
+				"VP",
+				"ZL",
+				"MC");
+//		check merit for final
+		String meritAll = "|"+meritQ1+"|"+meritQ2+"|"+meritQ3+"|"+meritQ4+"|";
+		if (meritAll.contains("||")) {
+			meritFinal = "";
+		}
+		else if (meritAll.contains("|WHITE|")) {
+			meritFinal = "BRONZE";
+		}
+		else if (meritAll.contains("|YELLOW|")) {
+			meritFinal = "SILVER";
+		}
+		else if (meritAll.contains("|GREEN|")) {
+			meritFinal = "GOLD";
+		}
         super.save();
     }
 
-    public double getGpa1() {
+    private void setFinalGrade(String... string) {
+    	for (String s:string) {
+    		double val1 = BeanUtil.getDoubleValue(this, "q1"+s);
+    		double val2 = BeanUtil.getDoubleValue(this, "q2"+s);
+    		double val3 = BeanUtil.getDoubleValue(this, "q3"+s);
+    		double val4 = BeanUtil.getDoubleValue(this, "q4"+s);
+    		BeanUtil.setPropertyValue(this, "qall"+s, (val1+val2+val3+val4+.001)/4);
+    	}
+	}
+
+	public double getGpa1() {
 		return gpa1;
 	}
 
