@@ -2259,24 +2259,36 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 
 	private void setFinalAverage(String str) {
 		System.out.println(str);
-		int d = extractAverage("", str, str+"2", str+"3", str+"4");
+		int d = extractFinal("", str, str+"2", str+"3", str+"4");
 		BeanUtil.setPropertyValue(this, str+"Final", d);
 	}
-	
-	private int extractAverage(String quarter, String...str) {
+
+	private int extractFinal(String quarter, String...str) {
 		double totalScore = 0;
 		double totalCount = 0;
 		for (String s:str) {
-			if ("4".equals(quarter)) {
-				//setup the final grade
-				setFinalAverage(s);
-			}
 			double val = BeanUtil.getDoubleValue(this, s+quarter);
 			if (val==0) {
 				continue;
 			}
 			totalScore += val;
 			totalCount++;
+			setFinalAverage(s);
+		}
+		return (int) ((totalScore/totalCount)+.5);
+	}
+	
+	private int extractAverage(String quarter, String...str) {
+		double totalScore = 0;
+		double totalCount = 0;
+		for (String s:str) {
+			double val = BeanUtil.getDoubleValue(this, s+quarter);
+			if (val==0) {
+				continue;
+			}
+			totalScore += val;
+			totalCount++;
+			setFinalAverage(s);
 		}
 		return (int) ((totalScore/totalCount)+.5);
 	}
