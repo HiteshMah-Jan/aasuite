@@ -34,13 +34,14 @@
      companyconfig.`companyName` AS companyconfig_companyName,
      gradelevel.`longName` AS GradeLevel,
      admission.`seq` AS admission_seq,
-     admission.`betterQualifiedLevel` AS BetterQualifiedLevel,
      admission.`recommendedRemedialReading` AS RemedialReading,
      admission.`recommendedRemedialMath` AS RemedialMath,
      admission.`recommendedRemedialWriting` AS RemedialWriting,
-     admission.`recommendationCondition` AS RecommendationCondition
+     admission.`recommendationCondition` AS RecommendationCondition,
+     gradelevel_A.`longName` AS betterQualifiedFor
 FROM
-     `gradelevel` gradelevel INNER JOIN `admission` admission ON gradelevel.`code` = admission.`gradeLevel`,
+     `gradelevel` gradelevel INNER JOIN `admission` admission ON gradelevel.`code` = admission.`gradeLevel`
+     INNER JOIN `gradelevel` gradelevel_A ON admission.`betterQualifiedLevel` = gradelevel_A.`code`,
      `companyconfig` companyconfig
 WHERE
      admission.`seq` = $P{REPORT_ADD_WHERE}]]></queryString>
@@ -52,11 +53,11 @@ WHERE
 	<field name="companyconfig_companyName" class="java.lang.String"/>
 	<field name="GradeLevel" class="java.lang.String"/>
 	<field name="admission_seq" class="java.lang.Integer"/>
-	<field name="BetterQualifiedLevel" class="java.lang.String"/>
 	<field name="RemedialReading" class="java.lang.String"/>
 	<field name="RemedialMath" class="java.lang.Boolean"/>
 	<field name="RemedialWriting" class="java.lang.String"/>
 	<field name="RecommendationCondition" class="java.lang.String"/>
+	<field name="betterQualifiedFor" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -178,7 +179,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="11" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{BetterQualifiedLevel}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{betterQualifiedFor}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
