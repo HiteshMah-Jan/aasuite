@@ -40,6 +40,7 @@ import bean.reference.Section;
         @DisplayGroups({
     @DisplayGroup(title = "Ranking", gridCount = 10, fields = {"rankQ1", "rankQ2", "rankQ3", "rankQ4", "rankFinal"}),
     @DisplayGroup(title = "GPA", gridCount =10, fields = {"gpa1", "gpa2", "gpa3","gpa4", "gpaFinal"}),
+    @DisplayGroup(title = "Merit", gridCount =10, fields = {"meritQ1", "meritQ2", "meritQ3","meritQ4", "meritFinal"}),
     @DisplayGroup(title = "Final Remarks", gridCount =4, fields = {"promotedTo", "retainedAs"})
     
     
@@ -211,6 +212,13 @@ import bean.reference.Section;
     @Display(name = "rankQ3", label = "Q3",labelTop=true),
     @Display(name = "rankQ4", label = "Q4",labelTop=true),
     @Display(name = "rankFinal", label = "Final",labelTop=true),
+    
+    @Display(name = "meritQ1", label = "Q1",leftLabel="Merit",labelTop=true),
+    @Display(name = "meritQ2", label = "Q2",labelTop=true),
+    @Display(name = "meritQ3", label = "Q3",labelTop=true),
+    @Display(name = "meritQ4", label = "Q4",labelTop=true),
+    @Display(name = "meritFinal", label = "Final",labelTop=true),
+    
     @Display(name = "promotedTo", type="PopSearch", linktoBean=GradeLevel.class,width=400),
     @Display(name = "retainedAs", type="PopSearch", linktoBean=GradeLevel.class,width=400)
 })
