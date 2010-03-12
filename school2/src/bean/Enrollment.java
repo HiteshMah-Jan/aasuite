@@ -3230,7 +3230,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"MC");
 //		check merit for final
 		String meritAll = "|"+meritQ1+"|"+meritQ2+"|"+meritQ3+"|"+meritQ4+"|";
-		if (meritAll.contains("||")) {
+		if (meritAll.contains("||") || meritAll.contains("|null|")) {
 			meritFinal = "";
 		}
 		else if (meritAll.contains("|WHITE|")) {
