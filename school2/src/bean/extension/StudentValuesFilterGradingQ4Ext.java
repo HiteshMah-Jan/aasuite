@@ -207,6 +207,8 @@ info = {
     @template.Report(reportFile = "Q2_ValuesGrades", reportTitle = "2nd", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_ValuesGrades", reportTitle = "3rd", reportSql = "${section}"),
     @template.Report(reportFile = "Q4_ValuesGrades", reportTitle = "4th", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_ValuesGrades", reportTitle = "Values Final", reportSql = "${section}"),
+    
     @template.Report(reportFile = "Q1_NarrativeGrades", reportTitle = "Narr. 1st Qtr.", reportSql = "${section}"),
     @template.Report(reportFile = "Q2_NarrativeGrades", reportTitle = "2nd", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_NarrativeGrades", reportTitle = "3rd", reportSql = "${section}"),
@@ -215,7 +217,9 @@ info = {
     @template.Report(reportFile = "Q1_Grades", reportTitle = "Summary 1st Qtr.", reportSql = "${section}"),
     @template.Report(reportFile = "Q2_Grades", reportTitle = "2nd", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_Grades", reportTitle = "3rd", reportSql = "${section}"),
-    @template.Report(reportFile = "Q4_Grades", reportTitle = "4th", reportSql = "${section}")
+    @template.Report(reportFile = "Q4_Grades", reportTitle = "4th", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_Grades", reportTitle = "Summary Final", reportSql = "${section}")
+    
 })
 public class StudentValuesFilterGradingQ4Ext extends StudentValuesGrading implements Serializable {
 }
