@@ -39,8 +39,8 @@ public class Admission_RULE extends BusinessRuleWrapper {
         if (!UserInfo.canAssessStudent()) {
         }
         if (!UserInfo.canUpdateExamDetails()) {
-            getComponent("orDate").setEnabled(true);
-            getComponent("orNumber").setEnabled(true);
+            //getComponent("orDate").setEnabled(true);
+            //getComponent("orNumber").setEnabled(true);
         }
     }
 
