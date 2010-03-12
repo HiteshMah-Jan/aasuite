@@ -2235,10 +2235,10 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 //		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
 //		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
 
-		megaskillAverage1 = extractAverage("", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
-		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
-		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
-		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
+		megaskillAverage1 = extractAverage("", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
+		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
+		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
+		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
 		megaskillAverageFinal = extractAverage("", "megaskillAverage1", "megaskillAverage2", "megaskillAverage3", "megaskillAverage4");
 
 		valuesPromotedAverage1 = extractAverage("", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
