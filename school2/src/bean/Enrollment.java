@@ -3275,8 +3275,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     			counter++;
     			total += val4;
     		}
-    		double d = DataUtil.getMoneyFormat(total/counter);
-    		if (d > 60) {
+    		if (total > 50) {
+        		double d = DataUtil.getMoneyFormat(total/counter);
         		BeanUtil.setPropertyValue(this, "qall"+s, d);
     		}
     		else {
