@@ -56,8 +56,6 @@ public class GradingProcess implements Runnable {
 		String level = "";
 		List sql = new ArrayList();
 		int counter = 1;
-		String finalsUpdate = "UPDATE Enrollment set gpaFinal=round((gpa1+gpa2+gpa3+gpa4+.001)/4,2) WHERE schoolYear='"+schoolYear+"' AND section='"+section+"'";
-		sql.add(finalsUpdate);
 		String s1 = "SELECT distinct round("+gpaStr+",2) from enrollment where schoolyear='"+schoolYear+"' and section='"+section+"' and "+gpaStr+" is not null order by "+gpaStr+" desc";
 		List lst = DBClient.getListNative(s1);
 		System.out.println(s1);
