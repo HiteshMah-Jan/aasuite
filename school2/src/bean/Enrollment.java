@@ -3257,8 +3257,31 @@ public class Enrollment extends AbstractIBean implements Serializable {
     		double val2 = BeanUtil.getDoubleValue(this, "q2"+s);
     		double val3 = BeanUtil.getDoubleValue(this, "q3"+s);
     		double val4 = BeanUtil.getDoubleValue(this, "q4"+s);
-    		double d = DataUtil.getMoneyFormat((val1+val2+val3+val4+.001)/4);
-    		BeanUtil.setPropertyValue(this, "qall"+s, d);
+    		int counter = 0;
+    		double total = 0.001;
+    		if (val1 > 60) {
+    			counter++;
+    			total += val1;
+    		}
+    		if (val2 > 60) {
+    			counter++;
+    			total += val2;
+    		}
+    		if (val3 > 60) {
+    			counter++;
+    			total += val3;
+    		}
+    		if (val4 > 60) {
+    			counter++;
+    			total += val4;
+    		}
+    		double d = DataUtil.getMoneyFormat(total/counter);
+    		if (d > 60) {
+        		BeanUtil.setPropertyValue(this, "qall"+s, d);
+    		}
+    		else {
+        		BeanUtil.setPropertyValue(this, "qall"+s, 0);
+    		}
     	}
 	}
 
