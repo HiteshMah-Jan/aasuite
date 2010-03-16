@@ -3,6 +3,7 @@ package springbean;
 import java.util.List;
 
 import util.DBClient;
+import util.DataUtil;
 import bean.Enrollment;
 import bean.person.StudentSubject;
 import bean.reference.Subject;
@@ -41,19 +42,19 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
-						totalMAPEH1 += s.grade1 * subject.unit;
+						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
 					}
 					if (s.grade2>60) {
 						totalMAPEHUnits2 += subject.unit;
-						totalMAPEH2 += s.grade2 * subject.unit;
+						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
 					}
 					if (s.grade3>60) {
 						totalMAPEHUnits3 += subject.unit;
-						totalMAPEH3 += s.grade3 * subject.unit;
+						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
 					}
 					if (s.grade4>60) {
 						totalMAPEHUnits4 += subject.unit;
-						totalMAPEH4 += s.grade4 * subject.unit;
+						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
 					}
 				}
 			}
@@ -96,19 +97,19 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
-						totalMAPEH1 += s.grade1 * subject.unit;
+						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
 					}
 					if (s.grade2>60) {
 						totalMAPEHUnits2 += subject.unit;
-						totalMAPEH2 += s.grade2 * subject.unit;
+						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
 					}
 					if (s.grade3>60) {
 						totalMAPEHUnits3 += subject.unit;
-						totalMAPEH3 += s.grade3 * subject.unit;
+						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
 					}
 					if (s.grade4>60) {
 						totalMAPEHUnits4 += subject.unit;
-						totalMAPEH4 += s.grade4 * subject.unit;
+						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
 					}
 				}
 			}
@@ -120,14 +121,14 @@ public class StudentSubjectToEnrollmentGrade {
 	}
 
 	protected void putAllSubjects(Enrollment e, List<StudentSubject> l) {
-		double totalUnits1 = 0;
-		double totalUnits2 = 0;
-		double totalUnits3 = 0;
-		double totalUnits4 = 0;
-		double totalGPA1 = 0;
-		double totalGPA2 = 0;
-		double totalGPA3 = 0;
-		double totalGPA4 = 0;
+		double totalUnits1 = 0.0001;
+		double totalUnits2 = 0.0001;
+		double totalUnits3 = 0.0001;
+		double totalUnits4 = 0.0001;
+		double totalGPA1 = 0.0001;
+		double totalGPA2 = 0.0001;
+		double totalGPA3 = 0.0001;
+		double totalGPA4 = 0.0001;
 		for (StudentSubject s:l) {
 			Subject subject = getSubject(s.subject);
 			if (subject == null) {
@@ -136,26 +137,58 @@ public class StudentSubjectToEnrollmentGrade {
 			if (subject != null && subject.unit>0) {
 				if (s.grade1>60) {
 					totalUnits1 += subject.unit;
-					totalGPA1 += s.grade1 * subject.unit;
+					totalGPA1 += ((int) s.grade1+.5) * subject.unit;
 				}
 				if (s.grade2>60) {
 					totalUnits2 += subject.unit;
-					totalGPA2 += s.grade2 * subject.unit;
+					totalGPA2 += ((int) s.grade2+.5) * subject.unit;
 				}
 				if (s.grade3>60) {
 					totalUnits3 += subject.unit;
-					totalGPA3 += s.grade3 * subject.unit;
+					totalGPA3 += ((int) s.grade3+.5) * subject.unit;
 				}
 				if (s.grade4>60) {
 					totalUnits4 += subject.unit;
-					totalGPA4 += s.grade4 * subject.unit;
+					totalGPA4 += ((int) s.grade4+.5) * subject.unit;
 				}
 			}
 		}
-		if (totalGPA1>0 && totalUnits1>0) e.gpa1 = totalGPA1/totalUnits1;
-		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = totalGPA2/totalUnits2;
-		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = totalGPA3/totalUnits3;
-		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = totalGPA4/totalUnits4;
+		if (totalGPA1>0 && totalUnits1>0) e.gpa1 = DataUtil.getMoneyFormat(totalGPA1/totalUnits1);
+		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = DataUtil.getMoneyFormat(totalGPA2/totalUnits2);
+		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
+		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
+
+		double totalUnits = 0.0001;
+		double totalGPAFinal = 0.0001;
+		for (StudentSubject s:l) {
+			Subject subject = getSubject(s.subject);
+			if (subject == null) {
+				System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+			}
+			if (subject != null && subject.unit>0) {
+				totalUnits += subject.unit;
+				double totalSubjectGPA = 0;
+				int totalQuarterCount = 0;
+				if (s.grade1 > 60) {
+					totalSubjectGPA += (int) (s.grade1+.5);
+					totalQuarterCount++;
+				}
+				if (s.grade2 > 60) {
+					totalSubjectGPA += (int) (s.grade2+.5);
+					totalQuarterCount++;
+				}
+				if (s.grade3 > 60) {
+					totalSubjectGPA += (int) (s.grade3+.5);
+					totalQuarterCount++;
+				}
+				if (s.grade4 > 60) {
+					totalSubjectGPA += (int) (s.grade4+.5);
+					totalQuarterCount++;
+				}
+				totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount);
+			}
+		}
+		e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 	}
 	
 	private void setGrades(Enrollment e, StudentSubject s, String subjectName) {

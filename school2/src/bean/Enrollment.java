@@ -3243,35 +3243,6 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		else if (meritAll.contains("|GREEN|")) {
 			meritFinal = "GOLD";
 		}
-		gpa1 = DataUtil.getMoneyFormat(gpa1);
-		gpa2 = DataUtil.getMoneyFormat(gpa2);
-		gpa3 = DataUtil.getMoneyFormat(gpa3);
-		gpa4 = DataUtil.getMoneyFormat(gpa4);
-
-		int counter = 0;
-		double total = 0.001;
-		if (gpa1 > 60) {
-			counter++;
-			total += gpa1;
-		}
-		if (gpa2 > 60) {
-			counter++;
-			total += gpa2;
-		}
-		if (gpa3 > 60) {
-			counter++;
-			total += gpa3;
-		}
-		if (gpa4 > 60) {
-			counter++;
-			total += gpa4;
-		}
-		if (total > 50) {
-    		gpaFinal = DataUtil.getMoneyFormat(total/counter);
-		}
-		else {
-    		gpaFinal = 0;
-		}
         super.save();
     }
 
@@ -3285,19 +3256,19 @@ public class Enrollment extends AbstractIBean implements Serializable {
     		double total = 0.001;
     		if (val1 > 60) {
     			counter++;
-    			total += val1;
+    			total += (int)(val1+.5);
     		}
     		if (val2 > 60) {
     			counter++;
-    			total += val2;
+    			total += (int)(val2+.5);
     		}
     		if (val3 > 60) {
     			counter++;
-    			total += val3;
+    			total += (int)(val3+.5);
     		}
     		if (val4 > 60) {
     			counter++;
-    			total += val4;
+    			total += (int)(val4+.5);
     		}
     		if (total > 50) {
         		double d = DataUtil.getMoneyFormat(total/counter);
