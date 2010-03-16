@@ -136,19 +136,19 @@ public class StudentSubjectToEnrollmentGrade {
 			if (subject != null && subject.unit>0) {
 				if (s.grade1>60) {
 					totalUnits1 += subject.unit;
-					totalGPA1 += (( (int) (s.grade1+.5) ) * subject.unit);
+					totalGPA1 += s.grade1 * subject.unit;
 				}
 				if (s.grade2>60) {
 					totalUnits2 += subject.unit;
-					totalGPA2 += (( (int) (s.grade2+.5) ) * subject.unit);
+					totalGPA2 += s.grade2 * subject.unit;
 				}
 				if (s.grade3>60) {
 					totalUnits3 += subject.unit;
-					totalGPA3 += (( (int) (s.grade3+.5) ) * subject.unit);
+					totalGPA3 += s.grade3 * subject.unit;
 				}
 				if (s.grade4>60) {
 					totalUnits4 += subject.unit;
-					totalGPA4 += (( (int) (s.grade4+.5) ) * subject.unit);
+					totalGPA4 += s.grade4 * subject.unit;
 				}
 			}
 		}
