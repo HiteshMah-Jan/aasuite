@@ -3247,7 +3247,31 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		gpa2 = DataUtil.getMoneyFormat(gpa2);
 		gpa3 = DataUtil.getMoneyFormat(gpa3);
 		gpa4 = DataUtil.getMoneyFormat(gpa4);
-		gpaFinal = DataUtil.getMoneyFormat((gpa1+gpa2+gpa3+gpa4+.001)/4);
+
+		int counter = 0;
+		double total = 0.001;
+		if (gpa1 > 60) {
+			counter++;
+			total += gpa1;
+		}
+		if (gpa2 > 60) {
+			counter++;
+			total += gpa2;
+		}
+		if (gpa3 > 60) {
+			counter++;
+			total += gpa3;
+		}
+		if (gpa4 > 60) {
+			counter++;
+			total += gpa4;
+		}
+		if (total > 50) {
+    		gpaFinal = DataUtil.getMoneyFormat(total/counter);
+		}
+		else {
+    		gpaFinal = 0;
+		}
         super.save();
     }
 
