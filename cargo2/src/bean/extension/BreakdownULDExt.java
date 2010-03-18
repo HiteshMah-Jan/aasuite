@@ -14,9 +14,7 @@ import template.Displays;
 import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopupDownButton;
-import bean.Carrier;
 import bean.Flight;
-import bean.UldNumber;
 import bean.awb.AwbUld;
 import bean.reference.Airport;
 import bean.reference.TraceStatus;
@@ -25,19 +23,19 @@ import bean.reference.TraceStatus;
  * @author Charliemagne Mark
  */
 @UITemplate(template = template.screen.TemplateTabSinglePage.class, gridCount = 8, 
-    columnSearch = {"uld","currentAirport","destination","finalDestination","status"})
+    columnSearch = {"uld","currentAirport","destination","finalDestination","flightSeq","status"})
 @Displays({
-    @Display(name = "uld", width=90, type="PopSearch", linktoBean=UldNumber.class),
-    @Display(name = "currentAirport", width=60, type="PopSearch", linktoBean=Airport.class),
-    @Display(name = "destination", label="Dest", width=60, type="PopSearch", linktoBean=Airport.class),
-    @Display(name = "finalDestination", label="Final Dest", width=60, type="PopSearch", linktoBean=Airport.class),
+    @Display(name = "uld", width=90, enabled=false),
+    @Display(name = "currentAirport", width=60, type="PopSearch", linktoBean=Airport.class, enabled=false),
+    @Display(name = "destination", label="Dest", width=60, type="PopSearch", linktoBean=Airport.class, enabled=false),
+    @Display(name = "finalDestination", label="Final Dest", width=60, type="PopSearch", linktoBean=Airport.class, enabled=false),
 
-    @Display(name = "availWeight", label="Weight", width=60, labelTop=true, leftLabel="Available"),
-    @Display(name = "availVolume", width=60, label="Volume", labelTop=true),
-    @Display(name = "maxWeight", width=60, label="Maximum"),
-    @Display(name = "maxVolume", width=60, hideLabel=true),
-    @Display(name = "scaleWeight", width=60, gridFieldWidth=3, label="Scale"),
-    @Display(name = "tareWeight", width=60, gridFieldWidth=3, label="Tare"),
+    @Display(name = "availWeight", label="Weight", width=60, labelTop=true, leftLabel="Available", enabled=false),
+    @Display(name = "availVolume", width=60, label="Volume", labelTop=true, enabled=false),
+    @Display(name = "maxWeight", width=60, label="Maximum", enabled=false),
+    @Display(name = "maxVolume", width=60, hideLabel=true, enabled=false),
+    @Display(name = "scaleWeight", width=60, gridFieldWidth=3, label="Scale", enabled=false),
+    @Display(name = "tareWeight", width=60, gridFieldWidth=3, label="Tare", enabled=false),
 
     @Display(name = "flightSeq", label="Flight", width=300, type="PopSearch", linktoBean=Flight.class),
     @Display(name = "deck", width=60),
@@ -47,7 +45,7 @@ import bean.reference.TraceStatus;
 @DisplayGroups({
     @DisplayGroup(title="Dimension", gridCount=4, 
     		fields={"availWeight","availVolume","maxWeight","maxVolume","scaleWeight","tareWeight"}),
-    @DisplayGroup(title="Dimension", gridCount=6, 
+    @DisplayGroup(title="Flight", gridCount=6,
     		fields={"flightSeq","deck","status"})
 })
 @Reports({

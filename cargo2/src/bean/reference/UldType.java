@@ -27,11 +27,10 @@ import template.screen.TemplateSinglePage;
 @Entity
 @Table(name = "UldType")
 @UITemplate(template = TemplateSinglePage.class,
-    columnSearch = {"code", "name", "productCode"})
+    columnSearch = {"code", "name"})
 @Displays({
     @Display(name = "code"),
-    @Display(name = "name", width = 250),
-    @Display(name = "productCode", gridFieldWidth=3, width=-1)
+    @Display(name = "name", width = 250)
 })
 public class UldType extends AbstractIBean implements Serializable {
     @Id

@@ -29,7 +29,9 @@ import constants.Constants;
 import service.util.AbstractIBean;
 import template.screen.TemplateTabPage;
 import template.*;
+import util.BeanUtil;
 import util.DBClient;
+import util.DateUtil;
 
 /**
  *
@@ -606,6 +608,24 @@ public class AwbFlt extends AbstractIBean implements Serializable {
     	return f;
     }
 
+	transient Awb awbObj = null;
+	transient public String awb;
+	transient public String flightDesc;
+
+	public String getAwb() {
+		if (awbObj == null && awbSeq > 0) {
+			awbObj = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.seq = " + awbSeq);
+		}
+		if (awbObj != null) {
+			return awbObj.prefix + "-" + awbObj.serial;
+		}
+		return "";
+	}
+	
+	public String getFlightDesc() {
+		return BeanUtil.concat(carrier,flightNumber);
+	}
+	
 	@Override
 	public void setupIndex() {
 		runUniqueIndex(1, "carrier","flightNumber","flightDate","origin","awbSeq");

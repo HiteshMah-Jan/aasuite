@@ -10,7 +10,6 @@
 package bean;
 
 import bean.awb.AwbFlt;
-import bean.extension.BreakdownULDExt;
 import bean.reference.Airport;
 import bean.reference.TraceStatus;
 
@@ -25,7 +24,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import service.util.AbstractIBean;
 import template.screen.TemplateSinglePage;
-import template.screen.TemplateTabPage;
 import template.*;
 import util.DBClient;
 
@@ -50,7 +48,7 @@ import util.DBClient;
     @Display(name = "scaleWeight", width=60, gridFieldWidth=3, label="Scale"),
     @Display(name = "tareWeight", width=60, gridFieldWidth=3, label="Tare"),
 
-    @Display(name = "flightSeq", label="Flight", width=200, type="PopSearch", linktoBean=Flight.class, mergeFields={"flightNumber","flightDate"}),
+    @Display(name = "flightSeq", label="Flight", width=200, type="PopSearch", linktoBean=Flight.class),
     @Display(name = "deck", width=60),
     @Display(name = "status", width=60, type="PopSearch", linktoBean=TraceStatus.class)
 
