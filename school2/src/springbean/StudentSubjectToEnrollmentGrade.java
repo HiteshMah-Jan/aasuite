@@ -185,7 +185,7 @@ public class StudentSubjectToEnrollmentGrade {
 					totalSubjectGPA += (int) (s.grade4+.5);
 					totalQuarterCount++;
 				}
-				totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount);
+				totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount) * subject.unit;
 			}
 		}
 		e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
