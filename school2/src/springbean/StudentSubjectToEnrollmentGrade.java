@@ -158,8 +158,8 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
 
-		double totalUnits = 0.0001;
-		double totalGPAFinal = 0.0001;
+		double totalUnits = 0;
+		double totalGPAFinal = 0;
 		for (StudentSubject s:l) {
 			Subject subject = getSubject(s.subject);
 			if (subject == null) {
