@@ -45,13 +45,38 @@
      section.`faculty` AS section_faculty,
      enrollment.`gpaFinal` AS enrollment_gpaFinal,
      studentvaluesgrading.`status` AS studentvaluesgrading_status,
-     person.`promotedTo` AS person_promotedTo
+
+     enrollment.`qallAP` AS enrollment_qallAP,
+     enrollment.`qallArts` AS enrollment_qallArts,
+     enrollment.`qallCCF` AS enrollment_qallCCF,
+     enrollment.`qallCE` AS enrollment_qallCE,
+     enrollment.`qallChineseA` AS enrollment_qallChineseA,
+     enrollment.`qallChineseB` AS enrollment_qallChineseB,
+     enrollment.`qallComputer` AS enrollment_qallComputer,
+     enrollment.`qallEnglish` AS enrollment_qallEnglish,
+     enrollment.`qallFilipino` AS enrollment_qallFilipino,
+     enrollment.`qallHekasi` AS enrollment_qallHekasi,
+     enrollment.`qallMAPEH` AS enrollment_qallMAPEH,
+     enrollment.`qallMC` AS enrollment_qallMC,
+     enrollment.`qallME` AS enrollment_qallME,
+     enrollment.`qallMath` AS enrollment_qallMath,
+     enrollment.`qallMusic` AS enrollment_qallMusic,
+     enrollment.`qallOpMath` AS enrollment_qallOpMath,
+     enrollment.`qallPE` AS enrollment_qallPE,
+     enrollment.`qallReading` AS enrollment_qallReading,
+     enrollment.`qallResearch` AS enrollment_qallResearch,
+     enrollment.`qallScience` AS enrollment_qallScience,
+     enrollment.`qallTLE` AS enrollment_qallTLE,
+     enrollment.`qallVP` AS enrollment_qallVP,
+     enrollment.`qallWriting` AS enrollment_qallWriting,
+     enrollment.`qallZL` AS enrollment_qallZL
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
-     person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
+     person.personId = $P{REPORT_ADD_WHERE}
+AND enrollment.schoolYear="2009-2010"]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>
@@ -68,7 +93,30 @@ WHERE
 	<field name="section_faculty" class="java.lang.String"/>
 	<field name="enrollment_gpaFinal" class="java.lang.Double"/>
 	<field name="studentvaluesgrading_status" class="java.lang.String"/>
-	<field name="person_promotedTo" class="java.lang.String"/>
+	<field name="enrollment_qallAP" class="java.lang.Double"/>
+	<field name="enrollment_qallArts" class="java.lang.Double"/>
+	<field name="enrollment_qallCCF" class="java.lang.Double"/>
+	<field name="enrollment_qallCE" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseA" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseB" class="java.lang.Double"/>
+	<field name="enrollment_qallComputer" class="java.lang.Double"/>
+	<field name="enrollment_qallEnglish" class="java.lang.Double"/>
+	<field name="enrollment_qallFilipino" class="java.lang.Double"/>
+	<field name="enrollment_qallHekasi" class="java.lang.Double"/>
+	<field name="enrollment_qallMAPEH" class="java.lang.Double"/>
+	<field name="enrollment_qallMC" class="java.lang.Double"/>
+	<field name="enrollment_qallME" class="java.lang.Double"/>
+	<field name="enrollment_qallMath" class="java.lang.Double"/>
+	<field name="enrollment_qallMusic" class="java.lang.Double"/>
+	<field name="enrollment_qallOpMath" class="java.lang.Double"/>
+	<field name="enrollment_qallPE" class="java.lang.Double"/>
+	<field name="enrollment_qallReading" class="java.lang.Double"/>
+	<field name="enrollment_qallResearch" class="java.lang.Double"/>
+	<field name="enrollment_qallScience" class="java.lang.Double"/>
+	<field name="enrollment_qallTLE" class="java.lang.Double"/>
+	<field name="enrollment_qallVP" class="java.lang.Double"/>
+	<field name="enrollment_qallWriting" class="java.lang.Double"/>
+	<field name="enrollment_qallZL" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -100,21 +148,36 @@ WHERE
 		</pageFooter>
 		<summary>
 			<band height="611"  isSplitAllowed="true" >
-				<image  scaleImage="Clip" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<staticText>
 					<reportElement
-						x="146"
-						y="33"
-						width="857"
-						height="549"
-						key="image-6"/>
+						x="858"
+						y="544"
+						width="123"
+						height="16"
+						key="staticText-62"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Principal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="858"
+						y="531"
+						width="123"
+						height="12"
+						key="staticText-61"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\images\\High School Back.jpg"]]></imageExpression>
-				</image>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Dr. Delia C. Navaza]]></text>
+				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="172"
-						y="55"
+						x="170"
+						y="54"
 						width="380"
 						height="18"
 						key="textField-1"/>
@@ -126,8 +189,8 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="563"
-						y="55"
+						x="561"
+						y="54"
 						width="207"
 						height="18"
 						key="textField-2"/>
@@ -139,8 +202,8 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="172"
-						y="85"
+						x="170"
+						y="84"
 						width="107"
 						height="18"
 						key="textField-3"/>
@@ -152,8 +215,8 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="298"
-						y="85"
+						x="296"
+						y="84"
 						width="254"
 						height="18"
 						key="textField-4"/>
@@ -165,8 +228,8 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="563"
-						y="85"
+						x="561"
+						y="84"
 						width="207"
 						height="18"
 						key="textField-5"/>
@@ -178,8 +241,8 @@ WHERE
 				</textField>
 				<staticText>
 					<reportElement
-						x="172"
-						y="140"
+						x="169"
+						y="139"
 						width="106"
 						height="12"
 						key="staticText-1"/>
@@ -191,8 +254,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="157"
+						x="169"
+						y="156"
 						width="106"
 						height="12"
 						key="staticText-2"/>
@@ -204,8 +267,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="140"
+						x="439"
+						y="139"
 						width="132"
 						height="12"
 						key="staticText-3"/>
@@ -217,8 +280,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="191"
+						x="169"
+						y="190"
 						width="106"
 						height="12"
 						key="staticText-4"/>
@@ -230,8 +293,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="174"
+						x="169"
+						y="173"
 						width="106"
 						height="12"
 						key="staticText-5"/>
@@ -239,13 +302,13 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[Science and Health]]></text>
+				<text><![CDATA[Science and Technology]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="174"
-						width="132"
+						x="439"
+						y="173"
+						width="152"
 						height="12"
 						key="staticText-23"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
@@ -256,8 +319,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="191"
+						x="439"
+						y="190"
 						width="132"
 						height="12"
 						key="staticText-24"/>
@@ -269,8 +332,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="140"
+						x="733"
+						y="139"
 						width="112"
 						height="12"
 						key="staticText-28"/>
@@ -282,8 +345,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="157"
+						x="733"
+						y="156"
 						width="112"
 						height="12"
 						key="staticText-29"/>
@@ -295,8 +358,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="174"
+						x="733"
+						y="173"
 						width="112"
 						height="12"
 						key="staticText-30"/>
@@ -308,8 +371,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="191"
+						x="733"
+						y="190"
 						width="112"
 						height="12"
 						key="staticText-31"/>
@@ -321,8 +384,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="208"
+						x="733"
+						y="207"
 						width="112"
 						height="12"
 						key="staticText-32"/>
@@ -334,8 +397,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="225"
+						x="733"
+						y="224"
 						width="112"
 						height="12"
 						key="staticText-33"/>
@@ -347,8 +410,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="275"
+						x="169"
+						y="274"
 						width="112"
 						height="20"
 						key="staticText-38"/>
@@ -360,8 +423,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="295"
+						x="169"
+						y="294"
 						width="112"
 						height="20"
 						key="staticText-39"/>
@@ -373,8 +436,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="315"
+						x="169"
+						y="314"
 						width="112"
 						height="20"
 						key="staticText-40"/>
@@ -386,8 +449,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="172"
-						y="335"
+						x="169"
+						y="334"
 						width="112"
 						height="20"
 						key="staticText-41"/>
@@ -395,12 +458,12 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-				<text><![CDATA[Seriousness of Purpose in all activities]]></text>
+				<text><![CDATA[Seriousness of Purpose in All Activities]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="275"
+						x="439"
+						y="274"
 						width="132"
 						height="20"
 						key="staticText-42"/>
@@ -412,8 +475,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="295"
+						x="733"
+						y="294"
 						width="112"
 						height="12"
 						key="staticText-48"/>
@@ -425,9 +488,9 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="312"
-						width="112"
+						x="733"
+						y="311"
+						width="124"
 						height="12"
 						key="staticText-49"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
@@ -438,8 +501,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="329"
+						x="733"
+						y="328"
 						width="112"
 						height="12"
 						key="staticText-50"/>
@@ -451,8 +514,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="346"
+						x="733"
+						y="345"
 						width="112"
 						height="12"
 						key="staticText-51"/>
@@ -464,8 +527,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="363"
+						x="733"
+						y="362"
 						width="112"
 						height="12"
 						key="staticText-52"/>
@@ -477,8 +540,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="295"
+						x="439"
+						y="294"
 						width="132"
 						height="20"
 						key="staticText-53"/>
@@ -490,8 +553,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="442"
-						y="315"
+						x="439"
+						y="314"
 						width="132"
 						height="20"
 						key="staticText-54"/>
@@ -499,12 +562,12 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-				<text><![CDATA[Active Sharing of Personal Views and Idea]]></text>
+				<text><![CDATA[Active Sharing of Personal Views and Ideas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="736"
-						y="278"
+						x="733"
+						y="277"
 						width="112"
 						height="12"
 						key="staticText-56"/>
@@ -516,8 +579,8 @@ WHERE
 				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="279"
-						y="140"
+						x="276"
+						y="139"
 						width="134"
 						height="11"
 						key="subreport-178"/>
@@ -539,8 +602,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="279"
-						y="157"
+						x="276"
+						y="156"
 						width="134"
 						height="11"
 						key="subreport-179"/>
@@ -562,8 +625,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="279"
-						y="174"
+						x="276"
+						y="173"
 						width="134"
 						height="11"
 						key="subreport-180"/>
@@ -585,8 +648,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="279"
-						y="191"
+						x="276"
+						y="190"
 						width="134"
 						height="11"
 						key="subreport-181"/>
@@ -608,8 +671,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="575"
-						y="140"
+						x="572"
+						y="139"
 						width="134"
 						height="11"
 						key="subreport-182"/>
@@ -631,8 +694,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="575"
-						y="174"
+						x="572"
+						y="173"
 						width="134"
 						height="11"
 						key="subreport-184"/>
@@ -654,8 +717,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="575"
-						y="191"
+						x="572"
+						y="190"
 						width="134"
 						height="11"
 						key="subreport-185"/>
@@ -677,8 +740,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="140"
+						x="861"
+						y="139"
 						width="146"
 						height="11"
 						key="subreport-189"/>
@@ -700,8 +763,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="157"
+						x="861"
+						y="156"
 						width="146"
 						height="11"
 						key="subreport-190"/>
@@ -723,8 +786,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="174"
+						x="861"
+						y="173"
 						width="146"
 						height="11"
 						key="subreport-191"/>
@@ -746,8 +809,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="191"
+						x="861"
+						y="190"
 						width="146"
 						height="11"
 						key="subreport-192"/>
@@ -769,8 +832,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="208"
+						x="861"
+						y="207"
 						width="146"
 						height="11"
 						key="subreport-193"/>
@@ -792,8 +855,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="225"
+						x="861"
+						y="224"
 						width="146"
 						height="11"
 						key="subreport-194"/>
@@ -815,8 +878,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="295"
-						y="281"
+						x="292"
+						y="280"
 						width="146"
 						height="11"
 						key="subreport-195"/>
@@ -838,8 +901,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="295"
-						y="301"
+						x="292"
+						y="300"
 						width="146"
 						height="11"
 						key="subreport-196"/>
@@ -861,8 +924,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="295"
-						y="321"
+						x="292"
+						y="320"
 						width="146"
 						height="11"
 						key="subreport-197"/>
@@ -884,8 +947,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="295"
-						y="341"
+						x="292"
+						y="340"
 						width="146"
 						height="11"
 						key="subreport-198"/>
@@ -907,8 +970,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="590"
-						y="281"
+						x="587"
+						y="280"
 						width="134"
 						height="11"
 						key="subreport-199"/>
@@ -930,8 +993,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="590"
-						y="301"
+						x="587"
+						y="300"
 						width="134"
 						height="11"
 						key="subreport-200"/>
@@ -953,8 +1016,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="590"
-						y="321"
+						x="587"
+						y="320"
 						width="134"
 						height="11"
 						key="subreport-201"/>
@@ -976,8 +1039,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="590"
-						y="341"
+						x="587"
+						y="340"
 						width="134"
 						height="11"
 						key="subreport-202"/>
@@ -999,8 +1062,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="278"
+						x="861"
+						y="277"
 						width="146"
 						height="11"
 						key="subreport-203"/>
@@ -1022,8 +1085,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="295"
+						x="861"
+						y="294"
 						width="146"
 						height="11"
 						key="subreport-204"/>
@@ -1045,8 +1108,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="312"
+						x="861"
+						y="311"
 						width="146"
 						height="11"
 						key="subreport-205"/>
@@ -1068,8 +1131,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="329"
+						x="861"
+						y="328"
 						width="146"
 						height="11"
 						key="subreport-206"/>
@@ -1091,8 +1154,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="346"
+						x="861"
+						y="345"
 						width="146"
 						height="11"
 						key="subreport-207"/>
@@ -1114,8 +1177,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="864"
-						y="363"
+						x="861"
+						y="362"
 						width="146"
 						height="11"
 						key="subreport-208"/>
@@ -1137,8 +1200,8 @@ WHERE
 				</subreport>
 				<staticText>
 					<reportElement
-						x="443"
-						y="157"
+						x="440"
+						y="156"
 						width="132"
 						height="12"
 						key="staticText-57"/>
@@ -1150,8 +1213,8 @@ WHERE
 				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="575"
-						y="157"
+						x="572"
+						y="156"
 						width="134"
 						height="11"
 						key="subreport-209"/>
@@ -1173,8 +1236,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="575"
-						y="208"
+						x="572"
+						y="207"
 						width="134"
 						height="11"
 						key="subreport-210"/>
@@ -1196,8 +1259,8 @@ WHERE
 				</subreport>
 				<staticText>
 					<reportElement
-						x="442"
-						y="208"
+						x="439"
+						y="207"
 						width="132"
 						height="12"
 						key="staticText-58"/>
@@ -1205,12 +1268,12 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[MAPEH]]></text>
+				<text><![CDATA[M.A.P.E.H.]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="159"
-						y="420"
+						x="169"
+						y="419"
 						width="116"
 						height="11"
 						forecolor="#000000"
@@ -1223,8 +1286,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="159"
-						y="436"
+						x="169"
+						y="435"
 						width="116"
 						height="11"
 						forecolor="#000000"
@@ -1237,8 +1300,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="159"
-						y="452"
+						x="169"
+						y="451"
 						width="116"
 						height="11"
 						forecolor="#000000"
@@ -1251,8 +1314,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="159"
-						y="468"
+						x="169"
+						y="467"
 						width="116"
 						height="11"
 						forecolor="#000000"
@@ -1261,12 +1324,12 @@ WHERE
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="SansSerif" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<text><![CDATA[No. of Tardiness]]></text>
+				<text><![CDATA[Tardiness]]></text>
 				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="280"
-						y="420"
+						x="278"
+						y="419"
 						width="148"
 						height="11"
 						key="subreport-211"/>
@@ -1288,8 +1351,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="280"
-						y="436"
+						x="278"
+						y="435"
 						width="148"
 						height="11"
 						key="subreport-212"/>
@@ -1311,8 +1374,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="280"
-						y="452"
+						x="278"
+						y="451"
 						width="148"
 						height="11"
 						key="subreport-213"/>
@@ -1334,8 +1397,8 @@ WHERE
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="280"
-						y="468"
+						x="278"
+						y="467"
 						width="148"
 						height="11"
 						key="subreport-214"/>
@@ -1358,7 +1421,7 @@ WHERE
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="418"
-						y="549"
+						y="548"
 						width="30"
 						height="12"
 						key="textField-9"/>
@@ -1366,12 +1429,12 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{enrollment_gpaFinal}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="563"
-						y="548"
+						y="547"
 						width="30"
 						height="12"
 						key="subreport-215"/>
@@ -1389,12 +1452,12 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardValuesAverage.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardValuesAverageNumeric.jasper"]]></subreportExpression>
 				</subreport>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="782"
-						y="66"
+						y="65"
 						width="13"
 						height="13"
 						key="image-2"/>
@@ -1405,7 +1468,7 @@ WHERE
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="857"
-						y="66"
+						y="65"
 						width="13"
 						height="13"
 						key="image-3"/>
@@ -1416,7 +1479,7 @@ WHERE
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="869"
-						y="86"
+						y="85"
 						width="13"
 						height="13"
 						key="image-4"/>
@@ -1427,7 +1490,7 @@ WHERE
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="933"
-						y="86"
+						y="85"
 						width="13"
 						height="13"
 						key="image-5"/>
@@ -1435,58 +1498,91 @@ WHERE
 					<graphicElement stretchType="NoStretch"/>
 					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\images\\"+$F{studentvaluesgrading_status}.contains( "Behavior" )+"Icon.jpg"]]></imageExpression>
 				</image>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="622"
-						y="424"
-						width="363"
-						height="53"
-						key="textField-10"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"This certifies that "+$F{person_lastName}+", "+$F{person_firstName}+", "+$F{person_middleInitial}+" is a bonafide student of the Elizabeth Seton School Enrolled in "+$F{person_gradeLevelDesc}+" for SY: "+$F{enrollment_schoolYear}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="622"
-						y="476"
-						width="363"
-						height="41"
-						key="staticText-59"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[         We attest that he/she has complied with the requirements of the level and that he/she is free from any material &/or financial obligation with the school.                                                                                                ]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="622"
-						y="499"
-						width="363"
-						height="44"
-						key="textField-11"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
-						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"We, therefore, declare his/her eligibility for promotion to  "+$F{person_promotedTo}+" and that his/her freedom to transfer to another learning institution is favorably endorsed."]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="442"
-						y="335"
+						x="439"
+						y="334"
 						width="132"
-						height="25"
+						height="33"
 						key="staticText-60"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
 				<text><![CDATA[High Standards of Personal Discipline Pertinent to Following Rules and Regulations]]></text>
 				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="618"
+						y="420"
+						width="363"
+						height="53"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"This certifies that "+$F{person_lastName}+", "+$F{person_firstName}+"  "+$F{person_middleInitial}+"  enrolled in I Year is a bona fide student of the Elizabeth Seton School for SY: "+$F{enrollment_schoolYear}+"."]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="617"
+						y="544"
+						width="99"
+						height="16"
+						key="staticText-63"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Adviser]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="618"
+						y="464"
+						width="363"
+						height="31"
+						key="textField-13"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?"        "+"He / She is eligible for transfer and admission to 3rd Year.":""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="618"
+						y="487"
+						width="363"
+						height="44"
+						key="textField-14">
+							<printWhenExpression><![CDATA[new Boolean($F{enrollment_qallFilipino}.intValue()<75 || 
+$F{enrollment_qallEnglish}.intValue()<75 || 
+$F{enrollment_qallScience}.intValue()<75 || 
+$F{enrollment_qallMath}.intValue()<75 || 
+$F{enrollment_qallCCF}.intValue()<75 || 
+$F{enrollment_qallAP}.intValue()<75 || 
+$F{enrollment_qallTLE}.intValue()<75 || 
+$F{enrollment_qallComputer}.intValue()<75 || 
+$F{enrollment_qallMAPEH}.intValue()<75)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["         He / She lacks credit in "+
+($F{enrollment_qallFilipino}.intValue()<75?"Filipino ":"")+
+($F{enrollment_qallEnglish}.intValue()<75?"English ":"")+
+($F{enrollment_qallScience}.intValue()<75?"Science ":"")+
+($F{enrollment_qallMath}.intValue()<75?"Math ":"")+
+($F{enrollment_qallCCF}.intValue()<75?"CCF ":"")+
+($F{enrollment_qallAP}.intValue()<75?"AP ":"")+
+($F{enrollment_qallTLE}.intValue()<75?"TLE ":"")+
+($F{enrollment_qallComputer}.intValue()<75?"Computer ":"")+
+($F{enrollment_qallMAPEH}.intValue()<75?"Mapeh ":"")+
+"."]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>

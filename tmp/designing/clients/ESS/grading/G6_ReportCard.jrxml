@@ -45,14 +45,38 @@
      section.`faculty` AS section_faculty,
      enrollment.`gpaFinal` AS enrollment_gpaFinal,
      studentvaluesgrading.`status` AS studentvaluesgrading_status,
-     person.`promotedTo` AS person_promotedTo
+
+     enrollment.`qallAP` AS enrollment_qallAP,
+     enrollment.`qallArts` AS enrollment_qallArts,
+     enrollment.`qallCCF` AS enrollment_qallCCF,
+     enrollment.`qallCE` AS enrollment_qallCE,
+     enrollment.`qallChineseA` AS enrollment_qallChineseA,
+     enrollment.`qallChineseB` AS enrollment_qallChineseB,
+     enrollment.`qallComputer` AS enrollment_qallComputer,
+     enrollment.`qallEnglish` AS enrollment_qallEnglish,
+     enrollment.`qallFilipino` AS enrollment_qallFilipino,
+     enrollment.`qallHekasi` AS enrollment_qallHekasi,
+     enrollment.`qallMAPEH` AS enrollment_qallMAPEH,
+     enrollment.`qallMC` AS enrollment_qallMC,
+     enrollment.`qallME` AS enrollment_qallME,
+     enrollment.`qallMath` AS enrollment_qallMath,
+     enrollment.`qallMusic` AS enrollment_qallMusic,
+     enrollment.`qallOpMath` AS enrollment_qallOpMath,
+     enrollment.`qallPE` AS enrollment_qallPE,
+     enrollment.`qallReading` AS enrollment_qallReading,
+     enrollment.`qallResearch` AS enrollment_qallResearch,
+     enrollment.`qallScience` AS enrollment_qallScience,
+     enrollment.`qallTLE` AS enrollment_qallTLE,
+     enrollment.`qallVP` AS enrollment_qallVP,
+     enrollment.`qallWriting` AS enrollment_qallWriting,
+     enrollment.`qallZL` AS enrollment_qallZL
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
      person.personId = $P{REPORT_ADD_WHERE}
-     and enrollment.schoolYear = "2009-2010"]]></queryString>
+AND enrollment.schoolYear="2009-2010"]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>
@@ -69,7 +93,30 @@ WHERE
 	<field name="section_faculty" class="java.lang.String"/>
 	<field name="enrollment_gpaFinal" class="java.lang.Double"/>
 	<field name="studentvaluesgrading_status" class="java.lang.String"/>
-	<field name="person_promotedTo" class="java.lang.String"/>
+	<field name="enrollment_qallAP" class="java.lang.Double"/>
+	<field name="enrollment_qallArts" class="java.lang.Double"/>
+	<field name="enrollment_qallCCF" class="java.lang.Double"/>
+	<field name="enrollment_qallCE" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseA" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseB" class="java.lang.Double"/>
+	<field name="enrollment_qallComputer" class="java.lang.Double"/>
+	<field name="enrollment_qallEnglish" class="java.lang.Double"/>
+	<field name="enrollment_qallFilipino" class="java.lang.Double"/>
+	<field name="enrollment_qallHekasi" class="java.lang.Double"/>
+	<field name="enrollment_qallMAPEH" class="java.lang.Double"/>
+	<field name="enrollment_qallMC" class="java.lang.Double"/>
+	<field name="enrollment_qallME" class="java.lang.Double"/>
+	<field name="enrollment_qallMath" class="java.lang.Double"/>
+	<field name="enrollment_qallMusic" class="java.lang.Double"/>
+	<field name="enrollment_qallOpMath" class="java.lang.Double"/>
+	<field name="enrollment_qallPE" class="java.lang.Double"/>
+	<field name="enrollment_qallReading" class="java.lang.Double"/>
+	<field name="enrollment_qallResearch" class="java.lang.Double"/>
+	<field name="enrollment_qallScience" class="java.lang.Double"/>
+	<field name="enrollment_qallTLE" class="java.lang.Double"/>
+	<field name="enrollment_qallVP" class="java.lang.Double"/>
+	<field name="enrollment_qallWriting" class="java.lang.Double"/>
+	<field name="enrollment_qallZL" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -101,17 +148,32 @@ WHERE
 		</pageFooter>
 		<summary>
 			<band height="611"  isSplitAllowed="true" >
-				<image  scaleImage="Clip" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<staticText>
 					<reportElement
-						x="150"
-						y="33"
-						width="857"
-						height="549"
-						key="image-6"/>
+						x="860"
+						y="549"
+						width="123"
+						height="16"
+						key="staticText-59"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Principal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="860"
+						y="536"
+						width="123"
+						height="12"
+						key="staticText-58"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\images\\Grade School 5&6 Back.jpg"]]></imageExpression>
-				</image>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Ms. Ligaya S. Quiambao]]></text>
+				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="170"
@@ -448,7 +510,7 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-				<text><![CDATA[Seriousness of Purpose in all activities]]></text>
+				<text><![CDATA[Seriousness of Purpose in All Activities]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -480,7 +542,7 @@ WHERE
 					<reportElement
 						x="736"
 						y="312"
-						width="116"
+						width="128"
 						height="12"
 						key="staticText-49"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
@@ -552,17 +614,17 @@ WHERE
 					<textElement verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
-				<text><![CDATA[Active Sharing of Personal Views and Idea]]></text>
+				<text><![CDATA[Active Sharing of Personal Views and Ideas]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="441"
 						y="335"
 						width="132"
-						height="25"
+						height="33"
 						key="staticText-55"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
 				<text><![CDATA[High Standards of Personal Discipline Pertinent to Following Rules and Regulations]]></text>
@@ -1347,7 +1409,7 @@ WHERE
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="SansSerif" pdfFontName="Helvetica" size="8" isBold="false"/>
 					</textElement>
-				<text><![CDATA[No. of Tardiness]]></text>
+				<text><![CDATA[Tardiness]]></text>
 				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
@@ -1452,7 +1514,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{enrollment_gpaFinal}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
@@ -1475,7 +1537,7 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardValuesAverage.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardValuesAverageNumeric.jasper"]]></subreportExpression>
 				</subreport>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1532,33 +1594,33 @@ WHERE
 					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"This certifies that "+$F{person_lastName}+", "+$F{person_firstName}+", "+$F{person_middleInitial}+" is a bonafide student of the Elizabeth Seton School Enrolled in "+$F{person_gradeLevelDesc}+" for SY: "+$F{enrollment_schoolYear}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"This certifies that "+$F{person_lastName}+", "+$F{person_firstName}+"  "+$F{person_middleInitial}+"  enrolled in Grade 6 is a bona fide student of the Elizabeth Seton School for SY: "+$F{enrollment_schoolYear}+"."]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="620"
-						y="473"
-						width="363"
-						height="41"
-						key="staticText-57"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+						y="549"
+						width="99"
+						height="16"
+						key="staticText-60"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<text><![CDATA[        We attest that he/she has complied with the requirements of the level and that he/she is free from any material &/or financial obligation with the school.                                                                                                ]]></text>
+				<text><![CDATA[Adviser]]></text>
 				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="620"
-						y="496"
+						y="469"
 						width="363"
-						height="44"
+						height="31"
 						key="textField-11"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["        "+"We, therefore, declare his/her eligibility for promotion to  "+$F{person_promotedTo}+" and that his/her freedom to transfer to another learning institution is favorably endorsed."]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?"        "+"He / She is eligible for transfer and admission to 1st Year.":""]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>
