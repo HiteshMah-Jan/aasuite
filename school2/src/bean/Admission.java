@@ -102,52 +102,52 @@ info = {
     
     @Display(name = "birthDate",duties={"CAN EDIT ADMISSION DETAIL"}),
     @Display(name = "age",duties={"CAN EDIT ADMISSION DETAIL"},width=20),
-    @Display(name = "birthPlace",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "telNum",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "address",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
-    @Display(name = "nationality",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "birthPlace",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
+    @Display(name = "telNum",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
+    @Display(name = "address",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,upCase=false),
+    @Display(name = "nationality",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
     @Display(name = "foreigner",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "ifAlienAcrNo",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "acrPlaceIssued",duties={"CAN EDIT ADMISSION DETAIL"}),
+    @Display(name = "ifAlienAcrNo",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
+    @Display(name = "acrPlaceIssued",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
     @Display(name = "acrDateIssued",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "religion",duties={"CAN EDIT ADMISSION DETAIL"}),
-    @Display(name = "otherReligion",duties={"CAN EDIT ADMISSION DETAIL"},label="Non Catholic(Specify)"),
-    @Display(name = "schoolLastAttended",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
-    @Display(name = "schoolLastAttendedAddress",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Address of School"),
-    @Display(name = "reasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1),
+    @Display(name = "religion",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false),
+    @Display(name = "otherReligion",duties={"CAN EDIT ADMISSION DETAIL"},label="Non Catholic(Specify)",upCase=false),
+    @Display(name = "schoolLastAttended",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,upCase=false),
+    @Display(name = "schoolLastAttendedAddress",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Address of School",upCase=false),
+    @Display(name = "reasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,gridFieldWidth=3,width=-1),
     
     
-    @Display(name = "father",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Father's Name",gridFieldWidth=3,width=-1),
-    @Display(name = "fatherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Occupation"),
-    @Display(name = "fatherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Tel No./s"),
-    @Display(name = "fatherCompany",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
-    @Display(name = "fatherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
-    @Display(name = "mother",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Mother's Name",gridFieldWidth=3,width=-1),
-    @Display(name = "motherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Occupation"),
-    @Display(name = "motherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Tel No./s"),
-    @Display(name = "motherCompany",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
+    @Display(name = "father",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Father's Name",gridFieldWidth=3,width=-1),
+    @Display(name = "fatherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Occupation"),
+    @Display(name = "fatherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Tel No./s"),
+    @Display(name = "fatherCompany",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
+    @Display(name = "fatherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
+    @Display(name = "mother",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Mother's Name",gridFieldWidth=3,width=-1),
+    @Display(name = "motherOccupation",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Occupation"),
+    @Display(name = "motherCompanyTelNo",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Tel No./s"),
+    @Display(name = "motherCompany",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Company",gridFieldWidth=3,width=-1),
     
-    @Display(name = "motherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,gridFieldWidth=3,width=-1,label="Company Address"),
+    @Display(name = "motherCompanyAddress",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,gridFieldWidth=3,width=-1,upCase=false,label="Company Address"),
    
     
     
-    @Display(name = "childName1",duties={"CAN EDIT ADMISSION DETAIL"},labelTop=true,label="Name",width=250),
-    @Display(name = "childGradeSection1",duties={"CAN EDIT ADMISSION DETAIL"},labelTop=true,label="Grade / Section"),
-    @Display(name = "childName2",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true,width=250),
-    @Display(name = "childGradeSection2",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true),
-    @Display(name = "childName3",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true,width=250),
-    @Display(name = "childGradeSection3",duties={"CAN EDIT ADMISSION DETAIL"},hideLabel=true),
+    @Display(name = "childName1",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,labelTop=true,label="Name",width=250),
+    @Display(name = "childGradeSection1",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,labelTop=true,label="Grade / Section"),
+    @Display(name = "childName2",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,hideLabel=true,width=250),
+    @Display(name = "childGradeSection2",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,hideLabel=true),
+    @Display(name = "childName3",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,hideLabel=true,width=250),
+    @Display(name = "childGradeSection3",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,hideLabel=true),
     
     
-    @Display(name = "preschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="Schools Attended",addInfoOnly=true,width=250,labelTop=true,leftLabel="Pre School"),
-    @Display(name = "preschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,labelTop=true),
-    @Display(name = "preschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Reason for Transfer"),
-    @Display(name = "elementaryAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="Elementary",addInfoOnly=true,width=250),
-    @Display(name = "elementarySchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,hideLabel=true),
-    @Display(name = "elementaryReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,label="Reason for Transfer"),
-    @Display(name = "highschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},label="High School",addInfoOnly=true,width=250),
-    @Display(name = "highschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},label="School Year",addInfoOnly=true,width=60,hideLabel=true),
-    @Display(name = "highschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},gridFieldWidth=3,width=-1,addInfoOnly=true,label="Reason for Transfer"),
+    @Display(name = "preschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="Schools Attended",addInfoOnly=true,width=250,labelTop=true,leftLabel="Pre School"),
+    @Display(name = "preschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="School Year",addInfoOnly=true,width=60,labelTop=true),
+    @Display(name = "preschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,gridFieldWidth=3,width=-1,label="Reason for Transfer"),
+    @Display(name = "elementaryAttended",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="Elementary",addInfoOnly=true,width=250),
+    @Display(name = "elementarySchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="School Year",addInfoOnly=true,width=60,hideLabel=true),
+    @Display(name = "elementaryReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,gridFieldWidth=3,width=-1,label="Reason for Transfer"),
+    @Display(name = "highschoolAttended",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="High School",addInfoOnly=true,width=250),
+    @Display(name = "highschoolSchoolYear",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,label="School Year",addInfoOnly=true,width=60,hideLabel=true),
+    @Display(name = "highschoolReasonForTransfer",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,gridFieldWidth=3,width=-1,addInfoOnly=true,label="Reason for Transfer"),
     
     
         
@@ -159,7 +159,7 @@ info = {
     @Display(name = "gpaAve",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Average",width=50),
     @Display(name = "gpaCon",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Conduct",gridFieldWidth=5,width=60,type="Combo",modelCombo={"VERY GOOD","GOOD"}),
    
-    @Display(name = "prevSchool",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true,label="Prev. School",gridFieldWidth=5,width=-1),
+    @Display(name = "prevSchool",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,addInfoOnly=true,label="Prev. School",gridFieldWidth=5,width=-1),
     
     
     
@@ -168,7 +168,7 @@ info = {
     
     @Display(name = "examinationDate",duties={"CAN EDIT ADMISSION DETAIL"},label="Scheduled Date",addInfoOnly=true),
     @Display(name = "examTime",duties={"CAN EDIT ADMISSION DETAIL"}, type = "Time",addInfoOnly=true,width=-1),
-    @Display(name = "roomAssign",duties={"CAN EDIT ADMISSION DETAIL"},width=-1,addInfoOnly=true),
+    @Display(name = "roomAssign",duties={"CAN EDIT ADMISSION DETAIL"},upCase=false,width=-1,addInfoOnly=true),
     
     @Display(name = "evaluationDate",duties={"CAN EDIT ADMISSION DETAIL"},addInfoOnly=true),
     @Display(name = "evaluation",duties={"CAN EDIT ADMISSION DETAIL"},type="Combo", modelCombo = {"PASSED", "FAILED", "RECONSIDERED","RESCHEDULED"},addInfoOnly=true,width=-1,label="Evaluation"),
@@ -212,7 +212,7 @@ info = {
 //     @Display(name = "totalRemarks",addInfoOnly=true,width=80,hideLabel=true),
      @Display(name = "finalRemarks",addInfoOnly=true,gridFieldWidth= 7 ,width = -1),
      
-    @Display(name = "forImprovementIn", addInfoOnly = true,gridFieldWidth=7,width=-1),
+    @Display(name = "forImprovementIn", addInfoOnly = true,gridFieldWidth=7,upCase=false,width=-1),
     @Display(name = "recommendedRemedialEla", addInfoOnly = true, label = "English"),
     @Display(name = "recommendedRemedialReading", addInfoOnly = true, label = "Reading"),
     @Display(name = "recommendedRemedialWriting", addInfoOnly = true, label = "Writing"),
