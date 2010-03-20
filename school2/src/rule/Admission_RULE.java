@@ -81,7 +81,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
         String[] arr = {"ela","math","sci","cognitive","affective","psychomotor"};
     	int countFailed = 0;
         setValue("recommendation", "ACCEPTED");
-        setValue("recommendationCondition", "PASSED");
+        setValue("recommendationCondition", "ACCEPTED");
         int itemCount = 0;
         int itemScore = 0;
     	for (String a:arr) {
