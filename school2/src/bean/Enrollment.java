@@ -3253,7 +3253,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     		double val3 = BeanUtil.getDoubleValue(this, "q3"+s);
     		double val4 = BeanUtil.getDoubleValue(this, "q4"+s);
     		int counter = 0;
-    		double total = 0.001;
+    		double total = 0;
     		if (val1 > 60) {
     			counter++;
     			total += (int)(val1+.5);
