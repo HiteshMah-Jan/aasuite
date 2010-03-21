@@ -160,37 +160,42 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
 		System.out.println(e.student + " - " + e.gpa1+":"+e.gpa2+":"+e.gpa3+":"+e.gpa4);
 
-		double totalUnits = 0;
-		double totalGPAFinal = 0;
-		for (StudentSubject s:l) {
-			Subject subject = getSubject(s.subject);
-			if (subject == null) {
-				System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
-			}
-			if (subject != null && subject.unit>0) {
-				totalUnits += subject.unit;
-				double totalSubjectGPA = 0;
-				int totalQuarterCount = 0;
-				if (s.grade1 > 60) {
-					totalSubjectGPA += (int) (s.grade1+.5);
-					totalQuarterCount++;
-				}
-				if (s.grade2 > 60) {
-					totalSubjectGPA += (int) (s.grade2+.5);
-					totalQuarterCount++;
-				}
-				if (s.grade3 > 60) {
-					totalSubjectGPA += (int) (s.grade3+.5);
-					totalQuarterCount++;
-				}
-				if (s.grade4 > 60) {
-					totalSubjectGPA += (int) (s.grade4+.5);
-					totalQuarterCount++;
-				}
-				totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount) * subject.unit;
-			}
+		if ("|P1|P2|K1|K2|N1|N2|".contains(e.gradeLevel)) {
+			e.gpaFinal = DataUtil.getMoneyFormat( (e.gpa1+e.gpa2+e.gpa3+e.gpa4)/4 );
 		}
-		e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
+		else {
+			double totalUnits = 0;
+			double totalGPAFinal = 0;
+			for (StudentSubject s:l) {
+				Subject subject = getSubject(s.subject);
+				if (subject == null) {
+					System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+				}
+				if (subject != null && subject.unit>0) {
+					totalUnits += subject.unit;
+					double totalSubjectGPA = 0;
+					int totalQuarterCount = 0;
+					if (s.grade1 > 60) {
+						totalSubjectGPA += (int) (s.grade1+.5);
+						totalQuarterCount++;
+					}
+					if (s.grade2 > 60) {
+						totalSubjectGPA += (int) (s.grade2+.5);
+						totalQuarterCount++;
+					}
+					if (s.grade3 > 60) {
+						totalSubjectGPA += (int) (s.grade3+.5);
+						totalQuarterCount++;
+					}
+					if (s.grade4 > 60) {
+						totalSubjectGPA += (int) (s.grade4+.5);
+						totalQuarterCount++;
+					}
+					totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount) * subject.unit;
+				}
+			}
+			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
+		}
 		double tmp =  (int)((e.gpaFinal + .05) * 10);
 		System.out.println(e.student + " - " + tmp);
 		e.gpaFinal = tmp/10;
