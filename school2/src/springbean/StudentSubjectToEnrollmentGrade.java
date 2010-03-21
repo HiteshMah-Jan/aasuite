@@ -64,7 +64,8 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3MAPEH = totalMAPEH3/totalMAPEHUnits3;
 		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4MAPEH = totalMAPEH4/totalMAPEHUnits4;
 	}
-        protected void putAllTEPP(Enrollment e, List<StudentSubject> l) {
+	
+    protected void putAllTEPP(Enrollment e, List<StudentSubject> l) {
 		double totalMAPEHUnits1 = 0;
 		double totalMAPEHUnits2 = 0;
 		double totalMAPEHUnits3 = 0;
@@ -82,19 +83,19 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
-						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
+						totalMAPEH1 += ((int) (s.grade1+.5)) * subject.unit;
 					}
 					if (s.grade2>60) {
 						totalMAPEHUnits2 += subject.unit;
-						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
+						totalMAPEH2 += ((int) (s.grade2+.5)) * subject.unit;
 					}
 					if (s.grade3>60) {
 						totalMAPEHUnits3 += subject.unit;
-						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
+						totalMAPEH3 += ((int) (s.grade3+.5)) * subject.unit;
 					}
 					if (s.grade4>60) {
 						totalMAPEHUnits4 += subject.unit;
-						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
+						totalMAPEH4 += ((int) (s.grade4+.5)) * subject.unit;
 					}
 				}
 			}
