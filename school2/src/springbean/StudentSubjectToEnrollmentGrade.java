@@ -64,6 +64,46 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3MAPEH = totalMAPEH3/totalMAPEHUnits3;
 		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4MAPEH = totalMAPEH4/totalMAPEHUnits4;
 	}
+        protected void putAllTEPP(Enrollment e, List<StudentSubject> l) {
+		double totalMAPEHUnits1 = 0;
+		double totalMAPEHUnits2 = 0;
+		double totalMAPEHUnits3 = 0;
+		double totalMAPEHUnits4 = 0;
+		double totalMAPEH1 = 0;
+		double totalMAPEH2 = 0;
+		double totalMAPEH3 = 0;
+		double totalMAPEH4 = 0;
+		for (StudentSubject s:l) {
+	        String mysub = s.subject.toUpperCase();
+	        mysub = mysub.replaceAll("TEPP", "");
+	       	mysub = mysub.replaceAll("MK", "");
+		if (mysub.contains("TLE") || mysub.contains("COMPUTER")) {
+				Subject subject = getSubject(s.subject);
+				if (subject != null && subject.unit>0) {
+					if (s.grade1>60) {
+						totalMAPEHUnits1 += subject.unit;
+						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
+					}
+					if (s.grade2>60) {
+						totalMAPEHUnits2 += subject.unit;
+						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
+					}
+					if (s.grade3>60) {
+						totalMAPEHUnits3 += subject.unit;
+						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
+					}
+					if (s.grade4>60) {
+						totalMAPEHUnits4 += subject.unit;
+						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
+					}
+				}
+			}
+		}
+		if (totalMAPEH1>0 && totalMAPEHUnits1>0) e.q1TEPP = totalMAPEH1/totalMAPEHUnits1;
+		if (totalMAPEH2>0 && totalMAPEHUnits2>0) e.q2TEPP = totalMAPEH2/totalMAPEHUnits2;
+		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3TEPP = totalMAPEH3/totalMAPEHUnits3;
+		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4TEPP = totalMAPEH4/totalMAPEHUnits4;
+	}
 	
 	protected void putAllMakabayan(Enrollment e, List<StudentSubject> l) {
 		double totalMAPEHUnits1 = 0;
@@ -217,6 +257,7 @@ public class StudentSubjectToEnrollmentGrade {
         }
 		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
 		putAllMapeh(e, allStudSubjects);
+		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);
 		putAllSubjects(e, allStudSubjects);
 		
