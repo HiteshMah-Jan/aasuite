@@ -42,19 +42,19 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
-						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
+						totalMAPEH1 += ((int) (s.grade1+.5)) * subject.unit;
 					}
 					if (s.grade2>60) {
 						totalMAPEHUnits2 += subject.unit;
-						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
+						totalMAPEH2 += ((int) (s.grade2+.5)) * subject.unit;
 					}
 					if (s.grade3>60) {
 						totalMAPEHUnits3 += subject.unit;
-						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
+						totalMAPEH3 += ((int) (s.grade3+.5)) * subject.unit;
 					}
 					if (s.grade4>60) {
 						totalMAPEHUnits4 += subject.unit;
-						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
+						totalMAPEH4 += ((int) (s.grade4+.5)) * subject.unit;
 					}
 				}
 			}
@@ -97,19 +97,19 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject != null && subject.unit>0) {
 					if (s.grade1>60) {
 						totalMAPEHUnits1 += subject.unit;
-						totalMAPEH1 += ((int) s.grade1+.5) * subject.unit;
+						totalMAPEH1 += ((int) (s.grade1+.5)) * subject.unit;
 					}
 					if (s.grade2>60) {
 						totalMAPEHUnits2 += subject.unit;
-						totalMAPEH2 += ((int) s.grade2+.5) * subject.unit;
+						totalMAPEH2 += ((int) (s.grade2+.5)) * subject.unit;
 					}
 					if (s.grade3>60) {
 						totalMAPEHUnits3 += subject.unit;
-						totalMAPEH3 += ((int) s.grade3+.5) * subject.unit;
+						totalMAPEH3 += ((int) (s.grade3+.5)) * subject.unit;
 					}
 					if (s.grade4>60) {
 						totalMAPEHUnits4 += subject.unit;
-						totalMAPEH4 += ((int) s.grade4+.5) * subject.unit;
+						totalMAPEH4 += ((int) (s.grade4+.5)) * subject.unit;
 					}
 				}
 			}
@@ -137,19 +137,20 @@ public class StudentSubjectToEnrollmentGrade {
 			if (subject != null && subject.unit>0) {
 				if (s.grade1>60) {
 					totalUnits1 += subject.unit;
-					totalGPA1 += ((int) s.grade1+.5) * subject.unit;
+					System.out.println(e.student + " - " + e.gpa1+":"+e.gpa2+":"+e.gpa3+":"+e.gpa4);
+					totalGPA1 += ((int) (s.grade1+.5)) * subject.unit;
 				}
 				if (s.grade2>60) {
 					totalUnits2 += subject.unit;
-					totalGPA2 += ((int) s.grade2+.5) * subject.unit;
+					totalGPA2 += ((int) (s.grade2+.5)) * subject.unit;
 				}
 				if (s.grade3>60) {
 					totalUnits3 += subject.unit;
-					totalGPA3 += ((int) s.grade3+.5) * subject.unit;
+					totalGPA3 += ((int) (s.grade3+.5)) * subject.unit;
 				}
 				if (s.grade4>60) {
 					totalUnits4 += subject.unit;
-					totalGPA4 += ((int) s.grade4+.5) * subject.unit;
+					totalGPA4 += ((int) (s.grade4+.5)) * subject.unit;
 				}
 			}
 		}
@@ -157,6 +158,7 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = DataUtil.getMoneyFormat(totalGPA2/totalUnits2);
 		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
+		System.out.println(e.student + " - " + e.gpa1+":"+e.gpa2+":"+e.gpa3+":"+e.gpa4);
 
 		double totalUnits = 0;
 		double totalGPAFinal = 0;
