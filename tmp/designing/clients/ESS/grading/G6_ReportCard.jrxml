@@ -45,7 +45,6 @@
      section.`faculty` AS section_faculty,
      enrollment.`gpaFinal` AS enrollment_gpaFinal,
      studentvaluesgrading.`status` AS studentvaluesgrading_status,
-
      enrollment.`qallAP` AS enrollment_qallAP,
      enrollment.`qallArts` AS enrollment_qallArts,
      enrollment.`qallCCF` AS enrollment_qallCCF,
@@ -69,14 +68,23 @@
      enrollment.`qallTLE` AS enrollment_qallTLE,
      enrollment.`qallVP` AS enrollment_qallVP,
      enrollment.`qallWriting` AS enrollment_qallWriting,
-     enrollment.`qallZL` AS enrollment_qallZL
+     enrollment.`qallZL` AS enrollment_qallZL,
+     studentvaluesgrading.`megaskillAverageFinal` AS studentvaluesgrading_megaskillAverageFinal,
+     studentvaluesgrading.`affectiveAverageFinal` AS studentvaluesgrading_affectiveAverageFinal,
+     studentvaluesgrading.`comment1` AS studentvaluesgrading_comment1,
+     studentvaluesgrading.`comment2` AS studentvaluesgrading_comment2,
+     studentvaluesgrading.`comment3` AS studentvaluesgrading_comment3,
+     studentvaluesgrading.`comment4` AS studentvaluesgrading_comment4,
+     studentvaluesgrading.`psychomotorAverageFinal` AS studentvaluesgrading_psychomotorAverageFinal,
+     studentvaluesgrading.`valuesPromotedAverageFinal` AS studentvaluesgrading_valuesPromotedAverageFinal,
+     studentvaluesgrading.`zl2AverageFinal` AS studentvaluesgrading_zl2AverageFinal
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
      person.personId = $P{REPORT_ADD_WHERE}
-AND enrollment.schoolYear="2009-2010"]]></queryString>
+ AND enrollment.schoolYear = "2009-2010"]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>
@@ -117,6 +125,15 @@ AND enrollment.schoolYear="2009-2010"]]></queryString>
 	<field name="enrollment_qallVP" class="java.lang.Double"/>
 	<field name="enrollment_qallWriting" class="java.lang.Double"/>
 	<field name="enrollment_qallZL" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_megaskillAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_affectiveAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_comment1" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment2" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment3" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment4" class="java.lang.String"/>
+	<field name="studentvaluesgrading_psychomotorAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_valuesPromotedAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_zl2AverageFinal" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -1516,29 +1533,6 @@ AND enrollment.schoolYear="2009-2010"]]></queryString>
 					</textElement>
 				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="566"
-						y="548"
-						width="30"
-						height="12"
-						key="subreport-213"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT gpaValuesFinal as any1 "+
-"FROM StudentValuesGrading "+
-"WHERE "+
-"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="REPORT_ADD_WHERE">
-						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="SUBREPORT_DIR">
-						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardValuesAverageNumeric.jasper"]]></subreportExpression>
-				</subreport>
 				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="782"
@@ -1621,6 +1615,19 @@ AND enrollment.schoolYear="2009-2010"]]></queryString>
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?"        "+"He / She is eligible for transfer and admission to 1st Year.":""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="549"
+						width="30"
+						height="12"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>
