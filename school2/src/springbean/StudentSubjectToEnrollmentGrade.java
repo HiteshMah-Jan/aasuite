@@ -121,14 +121,14 @@ public class StudentSubjectToEnrollmentGrade {
 	}
 
 	protected void putAllSubjects(Enrollment e, List<StudentSubject> l) {
-		double totalUnits1 = 0.0001;
-		double totalUnits2 = 0.0001;
-		double totalUnits3 = 0.0001;
-		double totalUnits4 = 0.0001;
-		double totalGPA1 = 0.0001;
-		double totalGPA2 = 0.0001;
-		double totalGPA3 = 0.0001;
-		double totalGPA4 = 0.0001;
+		double totalUnits1 = 0;
+		double totalUnits2 = 0;
+		double totalUnits3 = 0;
+		double totalUnits4 = 0;
+		double totalGPA1 = 0;
+		double totalGPA2 = 0;
+		double totalGPA3 = 0;
+		double totalGPA4 = 0;
 		for (StudentSubject s:l) {
 			Subject subject = getSubject(s.subject);
 			if (subject == null) {
@@ -189,6 +189,10 @@ public class StudentSubjectToEnrollmentGrade {
 			}
 		}
 		e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
+		double tmp =  (int)((e.gpaFinal + .05) * 10);
+		System.out.println(e.student + " - " + tmp);
+		e.gpaFinal = tmp/10;
+		System.out.println(e.student + " - " + e.gpaFinal);
 	}
 	
 	private void setGrades(Enrollment e, StudentSubject s, String subjectName) {
