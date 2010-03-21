@@ -75,10 +75,62 @@
      studentvaluesgrading.`zl2Average2` AS Zl2Average1,
      studentvaluesgrading.`scouting` AS scouting,
      clubsAndParticipation AS CLUB,
-     q1Research+.5 AS Research,
+     enrollment.`q2Research`+.5 AS Research,
      enrollment.`q2Science2`+.5 AS SCI2,
      enrollment.`q2Language`+.5 AS LANG ,
-     enrollment.`q2Math2`+.5 AS MAT2
+     enrollment.`q2Math2`+.5 AS MAT2,
+(studentvaluesgrading.`jan` + 
+     studentvaluesgrading.`feb` +
+     studentvaluesgrading.`mar` +
+     studentvaluesgrading.`apr` +
+     studentvaluesgrading.`may` +
+     studentvaluesgrading.`jun` +
+     studentvaluesgrading.`jul` +
+     studentvaluesgrading.`aug` +
+     studentvaluesgrading.`sep` +
+     studentvaluesgrading.`oct` +
+     studentvaluesgrading.`nov` +
+     studentvaluesgrading.`dece`) AS totalSchoolDays,
+
+     (studentvaluesgrading.`janTardy`+
+     studentvaluesgrading.`febTardy`+
+     studentvaluesgrading.`marTardy` +
+     studentvaluesgrading.`aprTardy` +
+     studentvaluesgrading.`mayTardy` +
+     studentvaluesgrading.`junTardy` +
+     studentvaluesgrading.`julTardy` +
+     studentvaluesgrading.`augTardy` +
+     studentvaluesgrading.`sepTardy` +
+     studentvaluesgrading.`octTardy` +
+     studentvaluesgrading.`novTardy` +
+     studentvaluesgrading.`deceTardy`) As totalTardy,
+
+     ((studentvaluesgrading.`jan` - studentvaluesgrading.`janAbsent`)+
+     (studentvaluesgrading.`feb` - studentvaluesgrading.`febAbsent`)+
+     (studentvaluesgrading.`mar` - studentvaluesgrading.`marAbsent`)+
+     (studentvaluesgrading.`apr` - studentvaluesgrading.`aprAbsent`)+
+     (studentvaluesgrading.`may` - studentvaluesgrading.`mayAbsent`)+
+     (studentvaluesgrading.`jun` - studentvaluesgrading.`junAbsent`)+
+     (studentvaluesgrading.`jul` - studentvaluesgrading.`julAbsent`)+
+     (studentvaluesgrading.`aug` - studentvaluesgrading.`augAbsent`)+
+     (studentvaluesgrading.`sep` - studentvaluesgrading.`sepAbsent`)+
+     (studentvaluesgrading.`oct` - studentvaluesgrading.`octAbsent`)+
+     (studentvaluesgrading.`nov` - studentvaluesgrading.`novAbsent`)+
+     (studentvaluesgrading.`dece` - studentvaluesgrading.`deceAbsent`)) AS totalDaysPresent,
+
+(studentvaluesgrading.`janAbsent`+
+studentvaluesgrading.`febAbsent`+
+studentvaluesgrading.`marAbsent`+
+studentvaluesgrading.`aprAbsent`+
+studentvaluesgrading.`mayAbsent`+
+studentvaluesgrading.`junAbsent`+
+studentvaluesgrading.`julAbsent`+
+studentvaluesgrading.`augAbsent`+
+studentvaluesgrading.`sepAbsent`+
+studentvaluesgrading.`octAbsent`+
+studentvaluesgrading.`novAbsent`+
+studentvaluesgrading.`deceAbsent`) AS totalDaysAbsent
+
 
 FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
@@ -144,6 +196,10 @@ ORDER BY
 	<field name="SCI2" class="java.lang.Double"/>
 	<field name="LANG" class="java.lang.Double"/>
 	<field name="MAT2" class="java.lang.Double"/>
+	<field name="totalSchoolDays" class="java.lang.Long"/>
+	<field name="totalTardy" class="java.lang.Long"/>
+	<field name="totalDaysPresent" class="java.lang.Long"/>
+	<field name="totalDaysAbsent" class="java.lang.Long"/>
 
 
 		<group  name="G_Gender" >
@@ -585,7 +641,7 @@ ORDER BY
 						height="12"
 						forecolor="#000000"
 						key="staticText-29"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
@@ -613,7 +669,7 @@ ORDER BY
 						height="12"
 						forecolor="#000000"
 						key="staticText-31"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
@@ -1057,7 +1113,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{DA}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{totalDaysAbsent}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1155,7 +1211,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{NoD}.intValue()-$F{DA}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{totalDaysPresent}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1169,7 +1225,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{DT}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{totalTardy}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1183,7 +1239,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{NoD}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{totalSchoolDays}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

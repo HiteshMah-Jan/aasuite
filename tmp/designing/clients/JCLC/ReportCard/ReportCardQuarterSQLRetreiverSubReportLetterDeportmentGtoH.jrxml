@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ReportCardQuarterSQLRetreiverSubReportLetterDeportmentGtoH"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_SQL" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["SELECT personId as any1, personId as any2, personId as any3, personId as any4 FROM person WHERE personId=1"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_QUARTER" isForPrompting="false" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[$P!{REPORT_SQL}]]></queryString>
+
+	<field name="any1" class="java.lang.Double"/>
+	<field name="any2" class="java.lang.Double"/>
+	<field name="any3" class="java.lang.Double"/>
+	<field name="any4" class="java.lang.Double"/>
+	<field name="anyall" class="java.lang.Double"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="12"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="0"
+						width="17"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField">
+							<printWhenExpression><![CDATA[new Boolean($F{any1}.doubleValue()>0)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any1}==null||$F{any1}.intValue()==0?"-":$F{any1}.intValue()>9 && $F{any1}.intValue()<70?"70":$F{any1}.intValue()==1?"A":$F{any1}.intValue()==2?"A-":$F{any1}.intValue()==3?"B+":$F{any1}.intValue()==4?"B":$F{any1}.intValue()==5?"B-":$F{any1}.intValue()==6?"C+":$F{any1}.intValue()==7?"C":$F{any1}.intValue()==8?"C-":$F{any1}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="37"
+						y="0"
+						width="17"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-1">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any2}==null||$F{any2}.intValue()==0?"-":$F{any2}.intValue()>9 && $F{any2}.intValue()<70?"70":$F{any2}.intValue()==1?"A":$F{any2}.intValue()==2?"A-":$F{any2}.intValue()==3?"B+":$F{any2}.intValue()==4?"B":$F{any2}.intValue()==5?"B-":$F{any2}.intValue()==6?"C+":$F{any2}.intValue()==7?"C":$F{any2}.intValue()==8?"C-":$F{any2}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="74"
+						y="0"
+						width="17"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-2">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any3}==null||$F{any3}.intValue()==0?"-":$F{any3}.intValue()>9 && $F{any3}.intValue()<70?"70":$F{any3}.intValue()==1?"A":$F{any3}.intValue()==2?"A-":$F{any3}.intValue()==3?"B+":$F{any3}.intValue()==4?"B":$F{any3}.intValue()==5?"B-":$F{any3}.intValue()==6?"C+":$F{any3}.intValue()==7?"C":$F{any3}.intValue()==8?"C-":$F{any3}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="110"
+						y="0"
+						width="17"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-9">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any4}==null||$F{any4}.intValue()==0?"-":$F{any4}.intValue()>9 && $F{any4}.intValue()<70?"70":$F{any4}.intValue()==1?"A":$F{any4}.intValue()==2?"A-":$F{any4}.intValue()==3?"B+":$F{any4}.intValue()==4?"B":$F{any4}.intValue()==5?"B-":$F{any4}.intValue()==6?"C+":$F{any4}.intValue()==7?"C":$F{any4}.intValue()==8?"C-":$F{any4}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="0"
+						width="17"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-10">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}==null||$F{anyall}.intValue()==0?"-":$F{anyall}.intValue()>9 && $F{anyall}.intValue()<70?"70":$F{anyall}.intValue()==1?"A":$F{anyall}.intValue()==2?"A-":$F{anyall}.intValue()==3?"B+":$F{anyall}.intValue()==4?"B":$F{anyall}.intValue()==5?"B-":$F{anyall}.intValue()==6?"C+":$F{anyall}.intValue()==7?"C":$F{anyall}.intValue()==8?"C-":$F{anyall}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="54"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-11">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}==null || $F{anyall}.intValue()==0?"-":$F{anyall}.intValue()==1?"PASSED":$F{anyall}.intValue()==2?"PASSED":$F{anyall}.intValue()==3?"PASSED":$F{anyall}.intValue()==4?"PASSED":$F{anyall}.intValue()==5?"PASSED":$F{anyall}.intValue()==6?"PASSED":$F{anyall}.intValue()==7?"PASSED":$F{anyall}.intValue()==8?"FAILED":$F{anyall}.intValue()+""]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

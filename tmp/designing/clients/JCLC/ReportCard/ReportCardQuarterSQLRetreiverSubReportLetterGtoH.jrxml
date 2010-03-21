@@ -35,6 +35,7 @@
 	<field name="any2" class="java.lang.Double"/>
 	<field name="any3" class="java.lang.Double"/>
 	<field name="any4" class="java.lang.Double"/>
+	<field name="anyall" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -62,14 +63,14 @@
 						height="12"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="textField">
+						key="textField-1">
 							<printWhenExpression><![CDATA[new Boolean($F{any1}.doubleValue()>0)]]></printWhenExpression>
 						</reportElement>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any1}.intValue()==1?"A":$F{any1}.intValue()==2?"A-":$F{any1}.intValue()==3?"B+":$F{any1}.intValue()==4?"B":$F{any1}.intValue()==5?"B-":$F{any1}.intValue()==6?"C+":$F{any1}.intValue()==7?"C":$F{any1}.intValue()==8?"C-":$F{any1}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any1}==null||$F{any1}.intValue()==0?"-":$F{any1}.intValue()>9 && $F{any1}.intValue()<70?"70":$F{any1}.intValue()==1?"A":$F{any1}.intValue()==2?"A-":$F{any1}.intValue()==3?"B+":$F{any1}.intValue()==4?"B":$F{any1}.intValue()==5?"B-":$F{any1}.intValue()==6?"C+":$F{any1}.intValue()==7?"C":$F{any1}.intValue()==8?"C-":$F{any1}.intValue()+""]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -79,14 +80,14 @@
 						height="12"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="textField-1">
+						key="textField-2">
 							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
 						</reportElement>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any2}.intValue()==1?"A":$F{any2}.intValue()==2?"A-":$F{any2}.intValue()==3?"B+":$F{any2}.intValue()==4?"B":$F{any2}.intValue()==5?"B-":$F{any2}.intValue()==6?"C+":$F{any2}.intValue()==7?"C":$F{any2}.intValue()==8?"C-":$F{any2}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any2}==null||$F{any2}.intValue()==0?"-":$F{any2}.intValue()>9 && $F{any2}.intValue()<70?"70":$F{any2}.intValue()==1?"A":$F{any2}.intValue()==2?"A-":$F{any2}.intValue()==3?"B+":$F{any2}.intValue()==4?"B":$F{any2}.intValue()==5?"B-":$F{any2}.intValue()==6?"C+":$F{any2}.intValue()==7?"C":$F{any2}.intValue()==8?"C-":$F{any2}.intValue()+""]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -96,14 +97,14 @@
 						height="12"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="textField-2">
+						key="textField-3">
 							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
 						</reportElement>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any3}.intValue()==1?"A":$F{any3}.intValue()==2?"A-":$F{any3}.intValue()==3?"B+":$F{any3}.intValue()==4?"B":$F{any3}.intValue()==5?"B-":$F{any3}.intValue()==6?"C+":$F{any3}.intValue()==7?"C":$F{any3}.intValue()==8?"C-":$F{any3}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any3}==null||$F{any3}.intValue()==0?"-":$F{any3}.intValue()>9 && $F{any3}.intValue()<70?"70":$F{any3}.intValue()==1?"A":$F{any3}.intValue()==2?"A-":$F{any3}.intValue()==3?"B+":$F{any3}.intValue()==4?"B":$F{any3}.intValue()==5?"B-":$F{any3}.intValue()==6?"C+":$F{any3}.intValue()==7?"C":$F{any3}.intValue()==8?"C-":$F{any3}.intValue()+""]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -113,14 +114,48 @@
 						height="12"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="textField-9">
+						key="textField-4">
 							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
 						</reportElement>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any4}.intValue()==1?"A":$F{any4}.intValue()==2?"A-":$F{any4}.intValue()==3?"B+":$F{any4}.intValue()==4?"B":$F{any4}.intValue()==5?"B-":$F{any4}.intValue()==6?"C+":$F{any4}.intValue()==7?"C":$F{any4}.intValue()==8?"C-":$F{any4}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any4}==null||$F{any4}.intValue()==0?"-":$F{any4}.intValue()>9 && $F{any4}.intValue()<70?"70":$F{any4}.intValue()==1?"A":$F{any4}.intValue()==2?"A-":$F{any4}.intValue()==3?"B+":$F{any4}.intValue()==4?"B":$F{any4}.intValue()==5?"B-":$F{any4}.intValue()==6?"C+":$F{any4}.intValue()==7?"C":$F{any4}.intValue()==8?"C-":$F{any4}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="0"
+						width="17"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-5">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}==null||$F{anyall}.intValue()==0?"-":$F{anyall}.intValue()>9 && $F{anyall}.intValue()<70?"70":$F{anyall}.intValue()==1?"A":$F{anyall}.intValue()==2?"A-":$F{anyall}.intValue()==3?"B+":$F{anyall}.intValue()==4?"B":$F{anyall}.intValue()==5?"B-":$F{anyall}.intValue()==6?"C+":$F{anyall}.intValue()==7?"C":$F{anyall}.intValue()==8?"C-":$F{anyall}.intValue()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="54"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-6">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Times New Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}==null || $F{anyall}.intValue()==0?"-":$F{anyall}.intValue()==1?"PASSED":$F{anyall}.intValue()==2?"PASSED":$F{anyall}.intValue()==3?"PASSED":$F{anyall}.intValue()==4?"PASSED":$F{anyall}.intValue()==5?"PASSED":$F{anyall}.intValue()==6?"PASSED":$F{anyall}.intValue()==7?"PASSED":$F{anyall}.intValue()==8?"FAILED":$F{anyall}.intValue()+""]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

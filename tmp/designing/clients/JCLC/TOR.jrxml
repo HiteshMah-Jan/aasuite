@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="TOR"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="1008"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_LEVEL" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["GS"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     person.`address` AS Address,
+     person.`birthDate` AS BirthDate,
+     person.`firstName` AS FirstName,
+     person.`lastName` AS LastName,
+     person.`middleInitial` AS MI,
+     person.`personId`,
+     person_A.`middleInitial` AS RegMI,
+     person_A.`firstName` AS RegFirstName,
+     person_A.`lastName` AS RegLastName,
+     person_A.`position` AS RegPosition,
+     person_B.`firstName` AS PrincipalFirstName,
+     person_B.`lastName` AS PrincipalLastName,
+     person_B.`middleInitial` AS PrincipalMI,
+     person_B.`position` AS PrincipalPosition,
+     companyconfig.`companyName` AS companyconfig_companyName,
+     companyconfig.`address` AS companyconfig_address,
+     companyconfig.`telephoneNumber` AS companyconfig_telephoneNumber,
+     companyconfig.`faxNumber` AS companyconfig_faxNumber,
+     companyconfig.`cityProvince` AS companyconfig_cityProvince,
+     person.`placeOfBirth` AS person_placeOfBirth
+FROM
+     `person` person,
+     `person` person_A,
+     `person` person_B,
+     `companyconfig` companyconfig
+WHERE
+     person.personId = $P{REPORT_ADD_WHERE}
+ AND person_A.`position` = 'REGISTRAR'
+ AND person_B.`position` LIKE '%PRINCIPAL']]></queryString>
+
+	<field name="Address" class="java.lang.String"/>
+	<field name="BirthDate" class="java.sql.Date"/>
+	<field name="FirstName" class="java.lang.String"/>
+	<field name="LastName" class="java.lang.String"/>
+	<field name="MI" class="java.lang.String"/>
+	<field name="personId" class="java.lang.Integer"/>
+	<field name="RegMI" class="java.lang.String"/>
+	<field name="RegFirstName" class="java.lang.String"/>
+	<field name="RegLastName" class="java.lang.String"/>
+	<field name="RegPosition" class="java.lang.String"/>
+	<field name="PrincipalFirstName" class="java.lang.String"/>
+	<field name="PrincipalLastName" class="java.lang.String"/>
+	<field name="PrincipalMI" class="java.lang.String"/>
+	<field name="PrincipalPosition" class="java.lang.String"/>
+	<field name="companyconfig_companyName" class="java.lang.String"/>
+	<field name="companyconfig_address" class="java.lang.String"/>
+	<field name="companyconfig_telephoneNumber" class="java.lang.String"/>
+	<field name="companyconfig_faxNumber" class="java.lang.String"/>
+	<field name="companyconfig_cityProvince" class="java.lang.String"/>
+	<field name="person_placeOfBirth" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="575"
+						height="11"
+						key="subreport-1"/>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLC\\"+$P{PARAM_LEVEL}+"_TOR.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
