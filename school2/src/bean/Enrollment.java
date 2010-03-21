@@ -493,6 +493,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q1ME;
     @Column(name = "q1MAPEH")
     public double q1MAPEH;
+    @Column(name = "q1TEPP")
+    public double q1TEPP;
 
     @Column(name = "q1ChineseA")
     public double q1ChineseA;
@@ -557,6 +559,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q2ME;
     @Column(name = "q2MAPEH")
     public double q2MAPEH;
+    @Column(name = "q2TEPP")
+    public double q2TEPP;
 
     @Column(name = "q2ChineseA")
     public double q2ChineseA;
@@ -612,6 +616,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q3ME;
     @Column(name = "q3MAPEH")
     public double q3MAPEH;
+    @Column(name = "q3TEPP")
+    public double q3TEPP;
 
     @Column(name = "q3ChineseA")
     public double q3ChineseA;
@@ -667,6 +673,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q4ME;
     @Column(name = "q4MAPEH")
     public double q4MAPEH;
+    @Column(name = "q4TEPP")
+    public double q4TEPP;
 
     @Column(name = "q4ChineseA")
     public double q4ChineseA;
@@ -722,6 +730,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double qallME;
     @Column(name = "qallMAPEH")
     public double qallMAPEH;
+    @Column(name = "qallTEPP")
+    public double qallTEPP;
 
     @Column(name = "qallChineseA")
     public double qallChineseA;
@@ -3183,6 +3193,46 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public void setGpaValuesFinal(double gpaValuesFinal) {
         this.gpaValuesFinal = gpaValuesFinal;
     }
+
+    public double getQ1TEPP() {
+        return q1TEPP;
+    }
+
+    public void setQ1TEPP(double q1TEPP) {
+        this.q1TEPP = q1TEPP;
+    }
+
+    public double getQ2TEPP() {
+        return q2TEPP;
+    }
+
+    public void setQ2TEPP(double q2TEPP) {
+        this.q2TEPP = q2TEPP;
+    }
+
+    public double getQ3TEPP() {
+        return q3TEPP;
+    }
+
+    public void setQ3TEPP(double q3TEPP) {
+        this.q3TEPP = q3TEPP;
+    }
+
+    public double getQ4TEPP() {
+        return q4TEPP;
+    }
+
+    public void setQ4TEPP(double q4TEPP) {
+        this.q4TEPP = q4TEPP;
+    }
+
+    public double getQallTEPP() {
+        return qallTEPP;
+    }
+
+    public void setQallTEPP(double qallTEPP) {
+        this.qallTEPP = qallTEPP;
+    }
     
     @Override
     public String popupSearch(String criteria) {
@@ -3213,6 +3263,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"Science","Science2","Science3",
 				"English","English2","English3",
 				"Reading",
+				"Language",
 				"Writing",
 				"Computer",
 				"CCF",
@@ -3225,6 +3276,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"MAPEH",
 				"ChineseA","ChineseB",
 				"Makabayan",
+				"TEPP",
 				"Filipino",
 				"VP",
 				"ZL",
