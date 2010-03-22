@@ -118,7 +118,7 @@ WHERE
 						key="image-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch"/>
-					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\images\\JCSLC_Form138.PNG"]]></imageExpression>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLC\\images\\JCSLC_Form138.PNG"]]></imageExpression>
 				</image>
 				<rectangle>
 					<reportElement
@@ -1152,19 +1152,6 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="33"
-						y="735"
-						width="182"
-						height="16"
-						key="staticText-108"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Mrs. Gloria S. Beltran]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
 						x="255"
 						y="735"
 						width="182"
@@ -1175,19 +1162,6 @@ WHERE
 						<font fontName="Calibri" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
 				<text><![CDATA[REV. FR. MARION MARK C. MUNDA]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="33"
-						y="747"
-						width="182"
-						height="16"
-						key="staticText-110"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font fontName="Calibri" pdfFontName="Helvetica" size="8" isBold="false" isItalic="false"/>
-					</textElement>
-				<text><![CDATA[PS. & GS. Principal]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -1243,20 +1217,6 @@ WHERE
 						<font fontName="Calibri" pdfFontName="Helvetica" size="9" isBold="false" isItalic="false"/>
 					</textElement>
 				<text><![CDATA[Name of Student:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="33"
-						y="836"
-						width="87"
-						height="16"
-						forecolor="#FF0033"
-						key="staticText-115"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Calibri" pdfFontName="Helvetica" size="9" isBold="false" isItalic="false"/>
-					</textElement>
-				<text><![CDATA[Grade:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -1341,20 +1301,6 @@ WHERE
 						<font fontName="Calibri" pdfFontName="Helvetica" size="9" isBold="false" isItalic="false"/>
 					</textElement>
 				<text><![CDATA[[Signature Over Printed Name]]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="258"
-						y="836"
-						width="87"
-						height="16"
-						forecolor="#FF0033"
-						key="staticText-122"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Calibri" pdfFontName="Helvetica" size="9" isBold="false" isItalic="false"/>
-					</textElement>
-				<text><![CDATA[Section:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -1529,6 +1475,47 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLC\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="33"
+						y="834"
+						width="125"
+						height="18"
+						key="textField-8">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue() > 74.49? "Promoted to:" : "Retained to:"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="158"
+						y="834"
+						width="125"
+						height="18"
+						key="textField-9">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue() > 74.49? "2nd Year:" : "1st Year:"]]></textFieldExpression>
+				</textField>
+				<image  scaleImage="FillFrame" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="39"
+						y="16"
+						width="87"
+						height="74"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLC\\images\\JCSLC_LOGO.PNG"]]></imageExpression>
+				</image>
 			</band>
 		</summary>
 </jasperReport>
