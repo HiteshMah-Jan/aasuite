@@ -8,6 +8,7 @@ import service.ParamStruct;
 import service.ReturnStruct;
 import service.util.CallService;
 import util.DBClient;
+import util.DataUtil;
 import util.ThreadPoolUtil;
 import bean.Enrollment;
 import bean.person.FacultyGradingTask;
@@ -60,6 +61,6 @@ public class CalculateGradeService implements IService {
 		if (val < 70 && val > 60) {
 			val = 70;
 		}
-		return val;
+		return DataUtil.round(val);
 	}
 }

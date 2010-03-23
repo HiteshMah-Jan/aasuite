@@ -24,6 +24,24 @@ public class StudentSubjectToEnrollmentGrade {
 		this.allsubs = allsubs;
 	}
 
+	private double getMapehUnit(List<StudentSubject> l) {
+		double totalMAPEHUnits1 = 0;
+		for (StudentSubject s:l) {
+	        String mysub = s.subject.toUpperCase();
+	        mysub = mysub.replaceAll("MAPEH", "");
+	        mysub = mysub.replaceAll("MK", "");
+			if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
+				Subject subject = getSubject(s.subject);
+				if (subject != null && subject.unit>0) {
+					if (s.grade1>60) {
+						totalMAPEHUnits1 += subject.unit;
+					}
+				}
+			}
+		}
+		return totalMAPEHUnits1;
+	}
+
 	protected void putAllMapeh(Enrollment e, List<StudentSubject> l) {
 		double totalMAPEHUnits1 = 0;
 		double totalMAPEHUnits2 = 0;
@@ -199,7 +217,6 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = DataUtil.getMoneyFormat(totalGPA2/totalUnits2);
 		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
-		System.out.println(e.student + " - " + e.gpa1+":"+e.gpa2+":"+e.gpa3+":"+e.gpa4);
 
 		if ("|P1|P2|K1|K2|N1|N2|".contains(e.gradeLevel)) {
 			e.gpaFinal = DataUtil.getMoneyFormat( (e.gpa1+e.gpa2+e.gpa3+e.gpa4)/4 );
@@ -211,6 +228,13 @@ public class StudentSubjectToEnrollmentGrade {
 				Subject subject = getSubject(s.subject);
 				if (subject == null) {
 					System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+				}
+		        String mysub = s.subject.toUpperCase();
+		        mysub = mysub.replaceAll("MAPEH", "");
+		        mysub = mysub.replaceAll("MK", "");
+				if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
+//					this is mapeh, which is causing the discrepancy
+					continue;
 				}
 				if (subject != null && subject.unit>0) {
 					totalUnits += subject.unit;
@@ -232,15 +256,16 @@ public class StudentSubjectToEnrollmentGrade {
 						totalSubjectGPA += (int) (s.grade4+.5);
 						totalQuarterCount++;
 					}
-					totalGPAFinal += DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount) * subject.unit;
+					double gpa = DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount);
+					totalGPAFinal += gpa * subject.unit;
+//					System.out.println(s.studentName+"\t"+s.subject+"\t"+subject.unit+"\t"+gpa+"\t"+(gpa * subject.unit)+"\t"+totalGPAFinal+"\t"+totalUnits);
 				}
 			}
+			double totalMapehUnit = getMapehUnit(l);
+			totalGPAFinal += e.qallMAPEH * totalMapehUnit;
+			totalUnits += totalMapehUnit;
 			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 		}
-		double tmp =  (int)((e.gpaFinal + .05) * 10);
-		System.out.println(e.student + " - " + tmp);
-		e.gpaFinal = tmp/10;
-		System.out.println(e.student + " - " + e.gpaFinal);
 	}
 	
 	private void setGrades(Enrollment e, StudentSubject s, String subjectName) {

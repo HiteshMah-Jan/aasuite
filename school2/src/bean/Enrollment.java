@@ -3266,7 +3266,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"Language",
 				"Writing",
 				"Computer",
-				"CCF",
+				"CCF","CE",
 				"AP",
 				"Hekasi",
 				"TLE",
