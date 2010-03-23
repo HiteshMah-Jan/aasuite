@@ -38,7 +38,6 @@ import template.Displays;
 import template.ParentAddInfo;
 import template.Reports;
 import template.UITemplate;
-import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateLeftRight;
 import util.BeanUtil;
