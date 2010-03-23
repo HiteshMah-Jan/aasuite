@@ -32,7 +32,7 @@
      companyconfig.`division` AS Division,
      person.`firstName` AS FirstName,
      if(person.`gender`='MALE','Boys','Girls')AS Gender,
-     person.`address` AS Address,
+     person.`address` AS person_Address,
      person.`age` AS Age,
      person.`personId` AS personId,
      enrollment.`schoolYear` AS SchoolYear,
@@ -74,7 +74,7 @@ ORDER BY
 	<field name="Division" class="java.lang.String"/>
 	<field name="FirstName" class="java.lang.String"/>
 	<field name="Gender" class="java.lang.String"/>
-	<field name="Address" class="java.lang.String"/>
+	<field name="person_Address" class="java.lang.String"/>
 	<field name="Age" class="java.lang.Integer"/>
 	<field name="personId" class="java.lang.Integer"/>
 	<field name="SchoolYear" class="java.lang.String"/>
@@ -1113,7 +1113,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Address}+" "+$F{person_barangay}+" "+$F{person_cityProvince}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_Address}== null || $F{person_barangay} == null || $F{person_cityProvince} == null? "": $F{person_Address}+" "+$F{person_barangay}+" "+$F{person_cityProvince}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
