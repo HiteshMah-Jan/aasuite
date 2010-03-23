@@ -27,7 +27,7 @@
 		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="PARAM_gradeLevel" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["G1"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["G4"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`personId` AS person_personId,
@@ -38,8 +38,8 @@ FROM
 WHERE
      person.gradeLevel IS NOT null
  AND person.section IS NOT null
- AND enrollment.schoolYear = $P{PARAM_schoolYear}
- AND enrollment.gradeLevel = $P{PARAM_gradeLevel}
+ AND enrollment.schoolYear = '$P!{PARAM_schoolYear}'
+ AND enrollment.gradeLevel = '$P!{PARAM_gradeLevel}'
 ORDER BY
      person.gradeLevel ASC,
      person.section ASC,
@@ -50,18 +50,6 @@ ORDER BY
 	<field name="person_gradeLevel" class="java.lang.String"/>
 	<field name="person_section" class="java.lang.String"/>
 
-
-		<group  name="G_Gender" >
-			<groupExpression><![CDATA[]]></groupExpression>
-			<groupHeader>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-			</groupHeader>
-			<groupFooter>
-			<band height="0"  isSplitAllowed="true" >
-			</band>
-			</groupFooter>
-		</group>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -98,8 +86,11 @@ ORDER BY
 					<subreportParameter  name="PARAM_schoolYear">
 						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
 					</subreportParameter>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA[$P{PARAM_gradeLevel}]]></subreportParameterExpression>
+					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\grading\\"+$F{person_gradeLevel}+"_ReportCard.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\grading\\"+$P{PARAM_gradeLevel}+"_ReportCard.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>

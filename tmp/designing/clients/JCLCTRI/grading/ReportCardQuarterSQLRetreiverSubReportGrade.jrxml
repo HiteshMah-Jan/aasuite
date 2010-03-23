@@ -34,7 +34,6 @@
 	<field name="any1" class="java.lang.Double"/>
 	<field name="any2" class="java.lang.Double"/>
 	<field name="any3" class="java.lang.Double"/>
-	<field name="any4" class="java.lang.Double"/>
 	<field name="anyall" class="java.lang.Double"/>
 
 		<background>
@@ -55,23 +54,6 @@
 		</columnHeader>
 		<detail>
 			<band height="13"  isSplitAllowed="true" >
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="110"
-						y="0"
-						width="17"
-						height="11"
-						forecolor="#FFFFFF"
-						backcolor="#FFFFFF"
-						key="textField-9">
-							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
-						</reportElement>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font fontName="Times New Roman" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{any4}==null || $F{any4}.intValue()<60?"-":$F{any4}.intValue()<70?"70":$F{any4}.intValue()+""]]></textFieldExpression>
-				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="149"
@@ -104,7 +86,7 @@
 					<textElement verticalAlignment="Top">
 						<font fontName="Times New Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}.intValue()>74?"PASSED":"FAILED"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{anyall}==null|| $F{anyall}.intValue()==0?"-":$F{anyall}.intValue()>1 && $F{anyall}.intValue()<75?"FAILED":"PASSED"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
