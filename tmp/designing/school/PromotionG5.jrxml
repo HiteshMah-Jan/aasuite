@@ -50,12 +50,15 @@
      person.`mIName` AS mIName,
      companyconfig.`townDistrict` AS TownDistrict,
      enrollment.`gpaFinal` AS gpaFinal,
-     enrollment.`qallAP` AS qallAP
+     enrollment.`qallAP` AS qallAP,
+     enrollment.`qallTEPP` AS enrollment_qallTEPP,
+     enrollment.`q4Makabayan` AS enrollment_q4Makabayan
 FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`,
      `companyconfig` companyconfig
 WHERE
-     enrollment.`schoolYear` = $P{PARAM_schoolYear}
+     enrollment.`section` is not null
+ AND enrollment.`schoolYear` = $P{PARAM_schoolYear}
 AND  enrollment.`gradeLevel` = 'G5'
 ORDER BY
      enrollment.gradeLevel ASC,
@@ -89,6 +92,8 @@ ORDER BY
 	<field name="TownDistrict" class="java.lang.String"/>
 	<field name="gpaFinal" class="java.lang.Double"/>
 	<field name="qallAP" class="java.lang.Double"/>
+	<field name="enrollment_qallTEPP" class="java.lang.Double"/>
+	<field name="enrollment_q4Makabayan" class="java.lang.Double"/>
 
 	<variable name="ByGender_Count" class="java.lang.Integer" resetType="Group" resetGroup="Gender" calculation="Count">
 		<variableExpression><![CDATA[$F{Gender}]]></variableExpression>
@@ -509,7 +514,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Times New Roman" pdfFontName="Helvetica" size="14" isBold="false"/>
 					</textElement>
-				<text><![CDATA[(GRADE V)]]></text>
+				<text><![CDATA[(GRADE 5)]]></text>
 				</staticText>
 			</band>
 		</pageHeader>
@@ -937,7 +942,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{enrollment_q4Makabayan}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -951,7 +956,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gpaFinal}.doubleValue()<74.5?"Retained":$F{gpaFinal}.doubleValue()>74.5?"Promoted.":$F{gpaFinal}.doubleValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gpaFinal}.doubleValue()<74.5?"Retained":$F{gpaFinal}.doubleValue()>=74.5?"Promoted.":$F{gpaFinal}.doubleValue()+""]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -995,7 +1000,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{enrollment_qallTEPP}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
