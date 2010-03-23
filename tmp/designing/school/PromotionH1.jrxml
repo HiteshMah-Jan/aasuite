@@ -51,14 +51,15 @@
      companyconfig.`townDistrict` AS TownDistrict,
      enrollment.`gpaFinal` AS gpaFinal,
      enrollment.`qallAP` AS qallAP,
-     enrollment.`qallMakabayan` AS enrollment_qallMakabayan
+     enrollment.`qallMakabayan` AS enrollment_qallMakabayan,
+     person.`barangay` AS person_barangay,
+     person.`cityProvince` AS person_cityProvince
 FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`,
      `companyconfig` companyconfig
 WHERE
-	enrollment.`section` is not null
-AND
-     enrollment.`schoolYear` = $P{PARAM_schoolYear}
+     enrollment.`section` IS NOT null
+ AND enrollment.`schoolYear` = $P{PARAM_schoolYear}
  AND (enrollment.`gradeLevel` = 'H1')
 ORDER BY
      enrollment.gradeLevel ASC,
@@ -93,6 +94,8 @@ ORDER BY
 	<field name="gpaFinal" class="java.lang.Double"/>
 	<field name="qallAP" class="java.lang.Double"/>
 	<field name="enrollment_qallMakabayan" class="java.lang.Double"/>
+	<field name="person_barangay" class="java.lang.String"/>
+	<field name="person_cityProvince" class="java.lang.String"/>
 
 	<variable name="ByGender_Count" class="java.lang.Integer" resetType="Group" resetGroup="Gender" calculation="Count">
 		<variableExpression><![CDATA[$F{Gender}]]></variableExpression>
@@ -1110,7 +1113,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Address}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Address}+" "+$F{person_barangay}+" "+$F{person_cityProvince}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
