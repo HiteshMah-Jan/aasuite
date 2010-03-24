@@ -229,12 +229,14 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject == null) {
 					System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
 				}
-		        String mysub = s.subject.toUpperCase();
-		        mysub = mysub.replaceAll("MAPEH", "");
-		        mysub = mysub.replaceAll("MK", "");
-				if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
-//					this is mapeh, which is causing the discrepancy
-					continue;
+				if (!"|G5|G6|".contains(e.gradeLevel)) {
+			        String mysub = s.subject.toUpperCase();
+			        mysub = mysub.replaceAll("MAPEH", "");
+			        mysub = mysub.replaceAll("MK", "");
+					if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
+//						this is mapeh, which is causing the discrepancy
+						continue;
+					}
 				}
 				if (subject != null && subject.unit>0) {
 					totalUnits += subject.unit;
@@ -261,9 +263,11 @@ public class StudentSubjectToEnrollmentGrade {
 //					System.out.println(s.studentName+"\t"+s.subject+"\t"+subject.unit+"\t"+gpa+"\t"+(gpa * subject.unit)+"\t"+totalGPAFinal+"\t"+totalUnits);
 				}
 			}
-			double totalMapehUnit = getMapehUnit(l);
-			totalGPAFinal += e.qallMAPEH * totalMapehUnit;
-			totalUnits += totalMapehUnit;
+			if (!"|G5|G6|".contains(e.gradeLevel)) {
+				double totalMapehUnit = getMapehUnit(l);
+				totalGPAFinal += e.qallMAPEH * totalMapehUnit;
+				totalUnits += totalMapehUnit;
+			}
 			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 		}
 	}
