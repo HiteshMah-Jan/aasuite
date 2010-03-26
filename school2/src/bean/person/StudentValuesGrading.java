@@ -499,7 +499,8 @@ import constants.UserInfo;
     @ActionButton(name = "btnRankQ1", label = "Rank 1st Qtr."),
     @ActionButton(name = "btnRankQ2", label = "2nd"),
     @ActionButton(name = "btnRankQ3", label = "3rd"),
-    @ActionButton(name = "btnRankQ4", label = "4th")
+    @ActionButton(name = "btnRankQ4", label = "4th"),
+    @ActionButton(name = "btnSaveAllDisplayed", label = "Save All Displayed")
 })
 @Reports({
     @template.Report(reportFile = "Q1_ValuesGrades", reportTitle = "Values 1st Qtr.", reportSql = "${section}"),

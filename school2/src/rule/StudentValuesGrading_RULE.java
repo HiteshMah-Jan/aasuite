@@ -53,6 +53,14 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 		else if ("btnRankQ4".equals(comp.getName())) {
 			merit(4);
 		}
+		else if ("btnSaveAllDisplayed".equals(comp.getName())) {
+			saveAllDisplayed();
+		}
+	}
+
+	private void saveAllDisplayed() {
+		List lst = this.panel.getRecordList();
+		DBClient.persistBean(lst);
 	}
 
 	protected void merit(int quarter) {
