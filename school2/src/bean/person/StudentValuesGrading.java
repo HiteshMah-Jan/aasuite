@@ -2296,14 +2296,18 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		double totalCount = 0;
 		for (String s:str) {
 			double val = BeanUtil.getDoubleValue(this, s+quarter);
-			if (val==0) {
-				continue;
+			if (val>0) {
+				totalScore += val;
+				totalCount++;
+				putFinalAverage(s);
 			}
-			totalScore += val;
-			totalCount++;
-			putFinalAverage(s);
 		}
-		return (int) ((totalScore/totalCount)+.5);
+		if (totalScore==0 || totalCount==0) {
+			return 0;
+		}
+		else {
+			return (int) ((totalScore/totalCount)+.5);
+		}
 	}
 	
 	public int getAp2() {
