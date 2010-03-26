@@ -59,8 +59,11 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 	}
 
 	private void saveAllDisplayed() {
+		PanelUtil.showWaitFrame("Saving records, please wait");
 		List lst = this.panel.getRecordList();
 		DBClient.persistBean(lst);
+		this.redisplayRecord();
+		PanelUtil.hideWaitFrame();
 	}
 
 	protected void merit(int quarter) {
