@@ -2258,7 +2258,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		super.save();
 	}
 
-	private void setFinalAverage(String str) {
+	private void putFinalAverage(String str) {
 		System.out.println(str);
 		try {
 			double val1 = BeanUtil.getDoubleValue(this, str);
@@ -2282,7 +2282,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 			}
 			totalScore += val;
 			totalCount++;
-			setFinalAverage(s);
+			putFinalAverage(s);
 		}
 		return (int) ((totalScore/totalCount)+.5);
 	}
