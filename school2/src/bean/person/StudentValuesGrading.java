@@ -2266,7 +2266,25 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 			double val2 = BeanUtil.getDoubleValue(this, str+"2");
 			double val3 = BeanUtil.getDoubleValue(this, str+"3");
 			double val4 = BeanUtil.getDoubleValue(this, str+"4");
-			double ave = (val1+val2+val3+val4)/4;
+			double v = 0;
+			int count = 0;
+			if (val1>0) {
+				v += val1;
+				count++;
+			}
+			if (val2>0) {
+				v += val2;
+				count++;
+			}
+			if (val3>0) {
+				v += val3;
+				count++;
+			}
+			if (val4>0) {
+				v += val4;
+				count++;
+			}
+			double ave = v/count;
 			BeanUtil.setPropertyValue(this, str+"Final", (int) (ave+.5));
 		}
 		catch (Exception e) {
