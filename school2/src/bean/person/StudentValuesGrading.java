@@ -2223,39 +2223,45 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		affectiveAverage2 = extractAverage("2", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage3 = extractAverage("3", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage4 = extractAverage("4", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
-		affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");
 		
 		psychomotorAverage1 = extractAverage("", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage2 = extractAverage("2", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage3 = extractAverage("3", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage4 = extractAverage("4", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
-		psychomotorAverageFinal = extractAverage("", "psychomotorAverage1", "psychomotorAverage2", "psychomotorAverage3", "psychomotorAverage4");
-
-//		megaskillAverage1 = extractAverage("", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
-//		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
-//		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
-//		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "clubsAndParticipation", "focus", "respect");
 
 		megaskillAverage1 = extractAverage("", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
 		megaskillAverage2 = extractAverage("2", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
 		megaskillAverage3 = extractAverage("3", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
 		megaskillAverage4 = extractAverage("4", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
-		megaskillAverageFinal = extractAverage("", "megaskillAverage1", "megaskillAverage2", "megaskillAverage3", "megaskillAverage4");
 
 		valuesPromotedAverage1 = extractAverage("", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage2 = extractAverage("2", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage3 = extractAverage("3", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 		valuesPromotedAverage4 = extractAverage("4", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
-		valuesPromotedAverageFinal = extractAverage("", "valuesPromotedAverage1", "valuesPromotedAverage2", "valuesPromotedAverage3", "valuesPromotedAverage4");
 
 		zl2Average1 = extractAverage("", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average2 = extractAverage("2", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average3 = extractAverage("3", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average4 = extractAverage("4", "pfe", "cra", "ca", "kin", "ec1", "ec2");
-		zl2AverageFinal = extractAverage("", "zl2Average1", "zl2Average2", "zl2Average3", "zl2Average4");
 		scoutingFinal = extractAverage("", "scouting", "scouting2", "scouting3", "scouting4");
 		
-		gpaValuesFinal = extractAverage("", "affectiveAverageFinal", "psychomotorAverageFinal", "megaskillAverageFinal", "valuesPromotedAverageFinal", "zl2AverageFinal");
+		if ("|K1|N1|P1|K2|N2|P2|".contains(gradeLevel)) {
+			affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");
+			psychomotorAverageFinal = extractAverage("", "psychomotorAverage1", "psychomotorAverage2", "psychomotorAverage3", "psychomotorAverage4");
+			megaskillAverageFinal = extractAverage("", "megaskillAverage1", "megaskillAverage2", "megaskillAverage3", "megaskillAverage4");
+			valuesPromotedAverageFinal = extractAverage("", "valuesPromotedAverage1", "valuesPromotedAverage2", "valuesPromotedAverage3", "valuesPromotedAverage4");
+			zl2AverageFinal = extractAverage("", "zl2Average1", "zl2Average2", "zl2Average3", "zl2Average4");
+			gpaValuesFinal = extractAverage("", "affectiveAverageFinal", "psychomotorAverageFinal", "megaskillAverageFinal", "valuesPromotedAverageFinal", "zl2AverageFinal");
+		}
+		else {
+			affectiveAverageFinal = extractAverage("Final", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
+			psychomotorAverageFinal = extractAverage("Final", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
+			megaskillAverageFinal = extractAverage("Final", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
+			valuesPromotedAverageFinal = extractAverage("Final", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
+			zl2AverageFinal = extractAverage("Final", "pfe", "cra", "ca", "kin", "ec1", "ec2");
+			gpaValuesFinal = extractAverage("", "affectiveAverageFinal", "psychomotorAverageFinal", "megaskillAverageFinal", "valuesPromotedAverageFinal", "zl2AverageFinal");
+		}
+
 		super.save();
 	}
 
