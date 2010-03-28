@@ -61,6 +61,7 @@
      enrollment.`qAllZL` AS ZL,
      enrollment.`rankFinal` AS RANK,
      enrollment.`gpaFinal` AS FG,
+enrollment.`gpaFinal` AS gpaFinal,
      person.`section` AS section,
      section.`faculty` AS faculty,
      section.`gradeLevel` AS section_gradeLevel,
@@ -76,11 +77,8 @@
      ((studentvaluesgrading.`absent`)+(studentvaluesgrading.`absent2`)+(studentvaluesgrading.`absent3`)+(studentvaluesgrading.`absent4`))AS totalDaysAbsent,
      ((studentvaluesgrading.`present`)+(studentvaluesgrading.`present2`)+(studentvaluesgrading.`present3`)+(studentvaluesgrading.`present4`))AS totalDaysPresent,
      ((studentvaluesgrading.`tardy`)+(studentvaluesgrading.`tardy2`)+(studentvaluesgrading.`tardy3`)+(studentvaluesgrading.`tardy4`))AS totalTardy,
-     ((studentvaluesgrading.`totalDays`)+(studentvaluesgrading.`totalDays2`)+(studentvaluesgrading.`totalDays3`)+(studentvaluesgrading.`totalDays4`))AS totalNoDays,
-     (enrollment.`gpa4`+
-     enrollment.`gpa3`+
-     enrollment.`gpa2`+
-     enrollment.`gpa1`)/4 AS gpaFinal
+     ((studentvaluesgrading.`totalDays`)+(studentvaluesgrading.`totalDays2`)+(studentvaluesgrading.`totalDays3`)+(studentvaluesgrading.`totalDays4`))AS totalNoDays
+     
      
     
 FROM
@@ -129,6 +127,7 @@ ORDER BY
 	<field name="ZL" class="java.lang.Double"/>
 	<field name="RANK" class="java.lang.Integer"/>
 	<field name="FG" class="java.lang.Double"/>
+	<field name="gpaFinal" class="java.lang.Double"/>
 	<field name="section" class="java.lang.String"/>
 	<field name="faculty" class="java.lang.String"/>
 	<field name="section_gradeLevel" class="java.lang.String"/>
@@ -145,7 +144,6 @@ ORDER BY
 	<field name="totalDaysPresent" class="java.lang.Long"/>
 	<field name="totalTardy" class="java.lang.Long"/>
 	<field name="totalNoDays" class="java.lang.Long"/>
-	<field name="gpaFinal" class="java.lang.Double"/>
 
 
 		<group  name="G_Gender" >
@@ -877,7 +875,7 @@ ORDER BY
 					<textElement textAlignment="Left">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{gpaFinal}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
