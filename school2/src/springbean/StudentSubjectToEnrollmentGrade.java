@@ -268,7 +268,6 @@ public class StudentSubjectToEnrollmentGrade {
         	return e;
         }
 		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
-//		DBClient.persistBean((List)allStudSubjects);
 		putAllMapeh(e, allStudSubjects);
 		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);
