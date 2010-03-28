@@ -23,7 +23,6 @@ import bean.person.StudentSubjectDetailGrading;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
 import bean.reference.Section;
-import bean.reference.Subject;
 import bean.reference.SubjectGradingCriteria;
 import constants.UserInfo;
 
@@ -116,17 +115,31 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		for (FacultyGradingTask task:filtered) {
 			if (task != null && task.weight > 0) {
 				System.out.println("RECALCULATE");
-				List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
-				if (tlist != null && tlist.size() > 0) {
-					PanelUtil.showWaitFrame("Recalculating grades ["+task.subject+"-"+task.component+"], please wait...");
-					CalculateGradeService.calculateGrade(quarter, task, tlist);
-				}
+				ThreadPoolUtil.execute(new newThread(quarter, task));
 			}
 		}
 		redisplayRecord();
 		PanelUtil.hideWaitFrame();
 	}
 
+	private static class newThread implements Runnable {
+		FacultyGradingTask task;
+		int quarter;
+		private newThread(int quarter, FacultyGradingTask task) {
+			this.task = task;
+			this.quarter = quarter;
+		}
+		@Override
+		public void run() {
+			List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
+			if (tlist != null && tlist.size() > 0) {
+				PanelUtil.showWaitFrame("Recalculating grades ["+task.subject+"-"+task.component+"], please wait...");
+				CalculateGradeService.calculateGrade(quarter, task, tlist);
+			}
+		}
+		
+	}
+	
 	private void rankAll(int i) {
 		GradingProcess.rankAll(i);		
 	}
