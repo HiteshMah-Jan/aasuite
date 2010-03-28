@@ -144,6 +144,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			if (tlist != null && tlist.size() > 0) {
 				PanelUtil.showWaitFrame("Recalculating grades ["+task.faculty+"-"+task.section+"-"+task.subject+"-"+task.component+"], please wait...");
 				MultiSavingGradeService.calculateGrade(quarter, task, tlist);
+				PanelUtil.hideWaitFrame();
 			}
 		}
 		
