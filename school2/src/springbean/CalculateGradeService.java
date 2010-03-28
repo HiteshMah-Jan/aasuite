@@ -48,7 +48,7 @@ public class CalculateGradeService implements IService {
 //			update enrollment
 			Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId="+det.studentId+" AND a.gradeLevel='"+task.gradeLevel+"'");
 			if (e != null) {
-				new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e);
+				e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e);
 				e.save();
 			}
 		}
