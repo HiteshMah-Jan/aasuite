@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import service.util.AbstractIBean;
 import springbean.CalculateGradeService;
 import springbean.GradingProcess;
+import springbean.MultiSavingGradeService;
 import springbean.SchoolDefaultProcess;
 import template.screen.AbstractChildTemplatePanel;
 import util.DBClient;
@@ -88,7 +89,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	}
 
 	private void saveAllSection() {
-		int quarter = (int) PanelUtil.showPromptMessage(null, "Type quarter 3-4", 3);
+		int quarter = (int) PanelUtil.showPromptMessage(null, "Type quarter 3-4", 4);
 		if (quarter!=3 && quarter!=4) {
 			PanelUtil.showMessage(null, "This system is configured for 3rd and 4th quarter only.");
 			return;
@@ -97,9 +98,10 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			PanelUtil.showMessage(null, "This system is configured for trimester, you cannot use this button.");
 			return;
 		}
+		String level = PanelUtil.showPromptDefaultMessage(null, "Please type grade level", "G1");
 		List<String> l = new ArrayList<String>();
 		List<FacultyGradingTask> filtered = new ArrayList<FacultyGradingTask>();
-		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a",0,5000);
+		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a WHERE a.gradeLevel='"+level+"'",0,5000);
 		for (FacultyGradingTask task:alltask) {
 			if (task != null && task.weight > 0) {
 				String s = task.faculty + task.gradeLevel + task.section + task.subject;
@@ -115,10 +117,11 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		for (FacultyGradingTask task:filtered) {
 			if (task != null && task.weight > 0) {
 				System.out.println("RECALCULATE");
-				List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
-				if (tlist != null && tlist.size() > 0) {
-					PanelUtil.showWaitFrame("Recalculating grades ["+task.subject+"-"+task.component+"], please wait...");
-					CalculateGradeService.calculateGrade(quarter, task, tlist);
+				ThreadPoolUtil.execute(new newThread(task, quarter));
+				try {
+					Thread.currentThread().sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
@@ -126,6 +129,25 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		PanelUtil.hideWaitFrame();
 	}
 
+	private static class newThread implements Runnable {
+		FacultyGradingTask task;
+		int quarter;
+		private newThread(FacultyGradingTask task, int quarter) {
+			this.task = task;
+			this.quarter = quarter;
+		}
+		
+		@Override
+		public void run() {
+			System.out.println("RECALCULATE");
+			List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
+			if (tlist != null && tlist.size() > 0) {
+				PanelUtil.showWaitFrame("Recalculating grades ["+task.faculty+"-"+task.section+"-"+task.subject+"-"+task.component+"], please wait...");
+				MultiSavingGradeService.calculateGrade(quarter, task, tlist);
+			}
+		}
+		
+	}
 	private void rankAll(int i) {
 		GradingProcess.rankAll(i);		
 	}
