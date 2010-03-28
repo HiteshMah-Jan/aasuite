@@ -146,6 +146,7 @@ import constants.UserInfo;
     @ActionButton(name = "btnSaveAllScore2", label = "2nd"),
     @ActionButton(name = "btnSaveAllScore3", label = "3rd"),
     @ActionButton(name = "btnSaveAllScore4", label = "4th"),
+    @ActionButton(name = "btnSaveAllSection", label = "All"),
     @ActionButton(name = "btnRankAll1", label = "Rank All 1st Qtr."),
     @ActionButton(name = "btnRankAll2", label = "2nd"),
     @ActionButton(name = "btnRankAll3", label = "3rd"),

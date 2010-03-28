@@ -23,6 +23,7 @@ import bean.person.StudentSubjectDetailGrading;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
 import bean.reference.Section;
+import bean.reference.Subject;
 import bean.reference.SubjectGradingCriteria;
 import constants.UserInfo;
 
@@ -60,6 +61,9 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		else if ("btnSaveAllScore4".equals(comp.getName())) {
 			saveAllScore(4);
 		}
+		else if ("btnSaveAllSection".equals(comp.getName())) {
+			saveAllSection();
+		}
 		else if ("btnDeleteComponent".equals(comp.getName())) {
 //			Common2View.mainView.showBeanPanel(Subject.class.getSimpleName());
 			deleteComponent();
@@ -82,6 +86,45 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		else if ("btnRankAll4".equals(comp.getName())) {
 			rankAll(4);
 		}
+	}
+
+	private void saveAllSection() {
+		int quarter = (int) PanelUtil.showPromptMessage(null, "Type quarter 3-4", 3);
+		if (quarter!=3 && quarter!=4) {
+			PanelUtil.showMessage(null, "This system is configured for 3rd and 4th quarter only.");
+			return;
+		}
+		if (AppConfig.isTrimester() && quarter==4) {
+			PanelUtil.showMessage(null, "This system is configured for trimester, you cannot use this button.");
+			return;
+		}
+		List<String> l = new ArrayList<String>();
+		List<FacultyGradingTask> filtered = new ArrayList<FacultyGradingTask>();
+		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a",0,5000);
+		for (FacultyGradingTask task:alltask) {
+			if (task != null && task.weight > 0) {
+				String s = task.faculty + task.gradeLevel + task.section + task.subject;
+				if (l.contains(s)) {
+					continue;
+				}
+				l.add(s);
+				filtered.add(task);
+				System.out.println(task.faculty+"\t"+task.gradeLevel+"\t"+task.section+"\t"+task.subject);
+			}
+		}
+		System.out.println("Total task count = "+filtered.size());
+		for (FacultyGradingTask task:filtered) {
+			if (task != null && task.weight > 0) {
+				System.out.println("RECALCULATE");
+				List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
+				if (tlist != null && tlist.size() > 0) {
+					PanelUtil.showWaitFrame("Recalculating grades ["+task.subject+"-"+task.component+"], please wait...");
+					CalculateGradeService.calculateGrade(quarter, task, tlist);
+				}
+			}
+		}
+		redisplayRecord();
+		PanelUtil.hideWaitFrame();
 	}
 
 	private void rankAll(int i) {

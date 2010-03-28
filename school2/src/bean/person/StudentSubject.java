@@ -24,6 +24,7 @@ import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
 import util.DBClient;
+import util.DataUtil;
 import util.PanelUtil;
 import bean.Person;
 import bean.Student;
@@ -611,23 +612,30 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 	        Person f = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+facultyId);
 	        if (f!=null) faculty = f.toString();
 		}
-		if (grade4<=60) {
-			finalRating = finalTempRating = 0;
-			actionTaken = "";
+		double totalCount = 0;
+		double totalGrade = 0;
+		if (grade1>60) {
+			totalGrade += (int) (grade1+.5);
+			totalCount++;
+		}
+		if (grade2>60) {
+			totalGrade += (int) (grade2+.5);
+			totalCount++;
+		}
+		if (grade3>60) {
+			totalGrade += (int) (grade3+.5);
+			totalCount++;
+		}
+		if (grade4>60) {
+			totalGrade += (int) (grade4+.5);
+			totalCount++;
+		}
+		finalRating = finalTempRating = DataUtil.getMoneyFormat(totalGrade/totalCount);
+		if (finalRating>74) {
+			actionTaken = "PASSED";
 		}
 		else {
-			if (AppConfig.isTrimester()) {
-				finalRating = (grade1+grade2+grade3)/3;
-			}
-			else {
-				finalRating = (grade1+grade2+grade3+grade4)/4;
-			}
-			if (finalRating>74) {
-				actionTaken = "PASSED";
-			}
-			else {
-				actionTaken = "FAILED";
-			}
+			actionTaken = "FAILED";
 		}
         Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
         if (sub!=null) {

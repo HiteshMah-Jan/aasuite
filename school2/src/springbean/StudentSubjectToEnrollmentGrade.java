@@ -229,7 +229,7 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject == null) {
 					System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
 				}
-				if (!"|G5|G6|".contains(e.gradeLevel)) {
+				if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
 			        String mysub = s.subject.toUpperCase();
 			        mysub = mysub.replaceAll("MAPEH", "");
 			        mysub = mysub.replaceAll("MK", "");
@@ -240,34 +240,16 @@ public class StudentSubjectToEnrollmentGrade {
 				}
 				if (subject != null && subject.unit>0) {
 					totalUnits += subject.unit;
-					double totalSubjectGPA = 0;
-					int totalQuarterCount = 0;
-					if (s.grade1 > 60) {
-						totalSubjectGPA += (int) (s.grade1+.5);
-						totalQuarterCount++;
-					}
-					if (s.grade2 > 60) {
-						totalSubjectGPA += (int) (s.grade2+.5);
-						totalQuarterCount++;
-					}
-					if (s.grade3 > 60) {
-						totalSubjectGPA += (int) (s.grade3+.5);
-						totalQuarterCount++;
-					}
-					if (s.grade4 > 60) {
-						totalSubjectGPA += (int) (s.grade4+.5);
-						totalQuarterCount++;
-					}
-					double gpa = DataUtil.getMoneyFormat(totalSubjectGPA/totalQuarterCount);
-					totalGPAFinal += gpa * subject.unit;
-//					System.out.println(s.studentName+"\t"+s.subject+"\t"+subject.unit+"\t"+gpa+"\t"+(gpa * subject.unit)+"\t"+totalGPAFinal+"\t"+totalUnits);
+					totalGPAFinal += s.finalRating * subject.unit;
+					System.out.println(subject.code+"\t"+s.grade1+"\t"+s.grade2+"\t"+s.grade3+"\t"+s.grade4+"\t"+s.finalRating+"\t"+subject.unit);
 				}
 			}
-			if (!"|G5|G6|".contains(e.gradeLevel)) {
+			if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
 				double totalMapehUnit = getMapehUnit(l);
 				totalGPAFinal += e.qallMAPEH * totalMapehUnit;
 				totalUnits += totalMapehUnit;
 			}
+			System.out.println(e.student+"\t"+totalGPAFinal+"\t/"+totalUnits+"\t="+(totalGPAFinal / totalUnits));
 			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 		}
 	}
@@ -286,6 +268,7 @@ public class StudentSubjectToEnrollmentGrade {
         	return e;
         }
 		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
+//		DBClient.persistBean((List)allStudSubjects);
 		putAllMapeh(e, allStudSubjects);
 		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);
