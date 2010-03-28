@@ -101,7 +101,11 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		String level = PanelUtil.showPromptDefaultMessage(null, "Please type grade level", "G1");
 		List<String> l = new ArrayList<String>();
 		List<FacultyGradingTask> filtered = new ArrayList<FacultyGradingTask>();
-		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a WHERE a.gradeLevel='"+level+"'",0,5000);
+		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a WHERE a.gradeLevel='"+level+"' ORDER BY a.faculty, a.section, a.subject",0,5000);
+		if (alltask == null || alltask.isEmpty()) {
+			PanelUtil.showError(null, "Task not found.");
+			return;
+		}
 		for (FacultyGradingTask task:alltask) {
 			if (task != null && task.weight > 0) {
 				String s = task.faculty + task.gradeLevel + task.section + task.subject;
@@ -140,7 +144,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		@Override
 		public void run() {
 			System.out.println("RECALCULATE");
-			List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq);
+			List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq,0,500);
 			if (tlist != null && tlist.size() > 0) {
 				PanelUtil.showWaitFrame("Recalculating grades ["+task.faculty+"-"+task.section+"-"+task.subject+"-"+task.component+"], please wait...");
 				MultiSavingGradeService.calculateGrade(quarter, task, tlist);
