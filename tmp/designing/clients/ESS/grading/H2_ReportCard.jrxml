@@ -1542,15 +1542,16 @@ WHERE
 					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[($F{enrollment_qallFilipino}.intValue()>=75 || 
-$F{enrollment_qallEnglish}.intValue()>=75 ||
-$F{enrollment_qallScience}.intValue()>=75 ||
-$F{enrollment_qallMath}.intValue()>=75 ||
-$F{enrollment_qallCCF}.intValue()>=75 ||
-$F{enrollment_qallAP}.intValue()>=75 ||
-$F{enrollment_qallTLE}.intValue()>=75 ||
-$F{enrollment_qallComputer}.intValue()>=75 ||
-$F{enrollment_qallMAPEH}.intValue()>=75)?"        "+"He / She is eligible for transfer and admission to 3rd Year.":""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_qallFilipino}.intValue()<75
+|| $F{enrollment_qallEnglish}.intValue()<75
+|| $F{enrollment_qallScience}.intValue()<75 
+|| $F{enrollment_qallMath}.intValue()<75 
+|| $F{enrollment_qallCCF}.doubleValue()<75 
+|| $F{enrollment_qallAP}.intValue()<75 
+|| $F{enrollment_qallTLE}.intValue()<75 
+|| $F{enrollment_qallComputer}.intValue()<75 
+|| $F{enrollment_qallMAPEH}.intValue()<75?"":"         "+"He / She is eligible for transfer and admission to 3rd Year."
+]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

@@ -23,8 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["1051"]]></defaultValueExpression>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["2990"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
@@ -1542,15 +1542,16 @@ WHERE
 					<textElement verticalAlignment="Top" lineSpacing="1_1_2">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[($F{enrollment_qallFilipino}.intValue()>=75 || 
-$F{enrollment_qallEnglish}.intValue()>=75 ||
-$F{enrollment_qallScience}.intValue()>=75 ||
-$F{enrollment_qallMath}.intValue()>=75 ||
-$F{enrollment_qallCCF}.intValue()>=75 ||
-$F{enrollment_qallAP}.intValue()>=75 ||
-$F{enrollment_qallTLE}.intValue()>=75 ||
-$F{enrollment_qallComputer}.intValue()>=75 ||
-$F{enrollment_qallMAPEH}.intValue()>=75)?"        "+"He / She is eligible for transfer and admission to 2nd Year.":""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_qallFilipino}.intValue()<75
+|| $F{enrollment_qallEnglish}.intValue()<75
+|| $F{enrollment_qallScience}.intValue()<75 
+|| $F{enrollment_qallMath}.intValue()<75 
+|| $F{enrollment_qallCCF}.doubleValue()<75 
+|| $F{enrollment_qallAP}.intValue()<75 
+|| $F{enrollment_qallTLE}.intValue()<75 
+|| $F{enrollment_qallComputer}.intValue()<75 
+|| $F{enrollment_qallMAPEH}.intValue()<75?"":"         "+"He / She is eligible for transfer and admission to 2nd Year."
+]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
