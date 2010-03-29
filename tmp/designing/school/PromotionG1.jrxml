@@ -694,7 +694,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gpaFinal}.doubleValue()<74.5?"Retained":$F{gpaFinal}.doubleValue()>=74.5?"Promoted":$F{gpaFinal}.doubleValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gpaFinal}.doubleValue()<74.5?"Retained":$F{gpaFinal}.doubleValue()>=74.5?"Promoted.":$F{gpaFinal}.doubleValue()+""]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
@@ -712,7 +712,7 @@ ORDER BY
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\TotalDaysPresentSubReport.jasper"]]></subreportExpression>
 				</subreport>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="534"
 						y="0"
@@ -724,7 +724,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{gpaFinal}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
