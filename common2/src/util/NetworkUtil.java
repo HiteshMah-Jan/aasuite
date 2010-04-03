@@ -9,21 +9,10 @@
 
 package util;
 
-import component.remote.RemoteScreenDisplayer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.net.NetworkInterface;
-import java.net.InetAddress;
-
-import util.jxta.SocketClient;
-import util.jxta.temp.ChannelAccept;
-import util.jxta.temp.ChannelClient;
-import util.jxta.temp.ChannelCommand;
-import util.jxta.temp.PropagatedPipeClient;
-import util.jxta.temp.PropagatedPipeServer;
-
 /**
  *
  * @author Entokwaa
@@ -75,60 +64,5 @@ public class NetworkUtil {
         } catch (Exception e) {
         }
         return hostName;
-    }
-
-    public static void hideAllScreen() {
-        ChannelAccept.command.setCommand(ChannelCommand.HIDE_WINDOW);
-//        PropagatedPipeServer server = util.jxta.temp.PropagatedPipeServer.getMyInstance();
-//        server.setResize(PropagatedPipeServer.ServerCommand.HIDE);
-    }
-    
-    public static void endMeeting() {
-        ChannelAccept.command.setCommand(ChannelCommand.END_MEETING);
-//        PropagatedPipeServer server = util.jxta.temp.PropagatedPipeServer.getMyInstance();
-//        server.setResize(PropagatedPipeServer.ServerCommand.END);
-    }
-
-    public static void minimizeAllScreen() {
-        ChannelAccept.command.setCommand(ChannelCommand.MINIMIZE_WINDOW);
-//        PropagatedPipeServer server = util.jxta.temp.PropagatedPipeServer.getMyInstance();
-//        server.setResize(PropagatedPipeServer.ServerCommand.MINIMIZE);
-    }
-    
-    public static void maximizeAllScreen() {
-        ChannelAccept.command.setCommand(ChannelCommand.MAXIMIZE_WINDOW);
-//        PropagatedPipeServer server = util.jxta.temp.PropagatedPipeServer.getMyInstance();
-//        server.setResize(PropagatedPipeServer.ServerCommand.MAXIMIZE);
-    }
-    
-    public static void streamMyScreen(final String meetingName) {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    ChannelAccept.startMeeting(meetingName); 
-                } catch (Exception ex) {
-                    Logger.getLogger("global").log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        t.start();
-    }
-    
-    public static void usePanelForStreaming(final RemoteScreenDisplayer pnl, final String meetingName) {
-        try {
-            Thread t = new Thread(new Runnable() {
-                public void run() {
-                    ChannelClient.streamServer(pnl, meetingName);
-//                    Thread.currentThread().setName(PropagatedPipeClient.class.getName() + ".main()");
-//                    PropagatedPipeClient client = PropagatedPipeClient.getInstance(pnl, meetingName);
-//                    client.stopNetwork();
-//                    client.startNetwork();
-                }
-            }); 
-            t.start();
-            Thread.currentThread().sleep(1000);
-        } catch (Throwable e) {
-            e.printStackTrace(System.err);
-        }
     }
 }
