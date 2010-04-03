@@ -9,8 +9,6 @@
 
 package component;
 
-import application.FrameView;
-import application.SingleFrameApplication;
 import common2.Common2View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import org.jdesktop.application.FrameView;
+import org.jdesktop.application.SingleFrameApplication;
 //import ui.ManagerLicenceDialog;
 import util.PanelUtil;
 

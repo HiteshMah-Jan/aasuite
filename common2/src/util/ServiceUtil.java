@@ -5,7 +5,7 @@
 
 package util;
 
-import component.XMPPComponent;
+//import component.XMPPComponent;
 
 /**
  *
@@ -17,6 +17,6 @@ public class ServiceUtil {
     }
     
     public static void sendToMobile(String mobile, String message) {
-        XMPPComponent.sendToMobile(mobile, message);
+//        XMPPComponent.sendToMobile(mobile, message);
     }
 }

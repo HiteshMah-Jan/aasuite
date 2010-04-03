@@ -41,7 +41,6 @@ import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.ITemplate;
 import template.screen.TransactionPanel;
-import ui.AppMenuForm;
 import ui.BusinessRuleForm;
 import ui.BusinessRuleServiceForm;
 import ui.DynamicAccessForm;
@@ -463,7 +462,7 @@ public abstract class AbstractComponentRenderer {
             DynamicAccessForm.showDialog((JComponent)v.getSource());
         }
         else if (c==KeyEvent.VK_F11) {
-            Common2View.showRule(AppMenuForm.getInstance());
+//            Common2View.showRule(AppMenuForm.getInstance());
         }
         else if (c==KeyEvent.VK_F12) {
             Common2View.getTransactionPanel().runRobot();

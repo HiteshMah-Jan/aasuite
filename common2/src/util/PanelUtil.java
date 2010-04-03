@@ -593,7 +593,7 @@ public class PanelUtil {
     }
     
     public static void showHelp() {
-        PanelHelp.showHelp();
+//        PanelHelp.showHelp();
     }
 
     public static AbstractPanel getActivePanel(Component comp) {
