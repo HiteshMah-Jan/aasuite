@@ -30,29 +30,74 @@
      enrollment.`seq` AS seq,
      enrollment.`studentId` AS studentId,
      enrollment.`schoolYear` AS schoolYear,
-     enrollment.`rankFinal` AS rankFinal,
      enrollment.`recommendation` AS recommendation,
      enrollment.`section` AS section,
      enrollment.`student` AS student,
-     enrollment.`qallMusic` AS qallMusic,
      enrollment.`gpaFinal` AS gpaFinal,
-     enrollment.`gradeLevel` AS gradeLevel
+     enrollment.`gradeLevel` AS gradeLevel,
+     ((studentvaluesgrading.`jan`-studentvaluesgrading.`janAbsent`)+(studentvaluesgrading.`feb`-studentvaluesgrading.`febAbsent`)+(studentvaluesgrading.`mar`-studentvaluesgrading.`marAbsent`)+(studentvaluesgrading.`apr`-studentvaluesgrading.`aprAbsent`)+(studentvaluesgrading.`may`-studentvaluesgrading.`mayAbsent`)+(studentvaluesgrading.`jun`-studentvaluesgrading.`junAbsent`)+(studentvaluesgrading.`jul`-studentvaluesgrading.`julAbsent`)+(studentvaluesgrading.`aug`-studentvaluesgrading.`augAbsent`)+(studentvaluesgrading.`sep`-studentvaluesgrading.`sepAbsent`)+(studentvaluesgrading.`oct`-studentvaluesgrading.`octAbsent`)+(studentvaluesgrading.`nov`-studentvaluesgrading.`novAbsent`)+(studentvaluesgrading.`dece`-studentvaluesgrading.`deceAbsent`))AS totalDaysPresent,
+     (studentvaluesgrading.`jan`+studentvaluesgrading.`feb`+studentvaluesgrading.`mar`+studentvaluesgrading.`apr`+studentvaluesgrading.`may`+studentvaluesgrading.`jun`+studentvaluesgrading.`jul`+studentvaluesgrading.`aug`+studentvaluesgrading.`sep`+studentvaluesgrading.`oct`+studentvaluesgrading.`nov`+studentvaluesgrading.`dece`)AS totalSchoolDays,
+     enrollment.`retainedAs` AS retainedAs,
+     enrollment.`promotedTo` AS promotedTo,
+     studentvaluesgrading.`ec1` AS studentvaluesgrading_ec1,
+     studentvaluesgrading.`ec12` AS studentvaluesgrading_ec12,
+     studentvaluesgrading.`ec13` AS studentvaluesgrading_ec13,
+     studentvaluesgrading.`ec14` AS studentvaluesgrading_ec14,
+     studentvaluesgrading.`ec1Final` AS studentvaluesgrading_ec1Final,
+     studentvaluesgrading.`ec2` AS studentvaluesgrading_ec2,
+     studentvaluesgrading.`ec22` AS studentvaluesgrading_ec22,
+     studentvaluesgrading.`ec23` AS studentvaluesgrading_ec23,
+     studentvaluesgrading.`ec24` AS studentvaluesgrading_ec24,
+     studentvaluesgrading.`ec2Final` AS studentvaluesgrading_ec2Final,
+     enrollment.`q1Health` AS q1Health,
+     enrollment.`q2Health` AS q2Health,
+     enrollment.`q3Health` AS q3Health,
+     enrollment.`q4Health` AS q4Health,
+     enrollment.`qallHealth` AS qallHealth,
+     enrollment.`q1CE` AS q1CE,
+     enrollment.`q2CE` AS q2CE,
+     enrollment.`q3CE` AS q3CE,
+     enrollment.`q4CE` AS q4CE,
+     enrollment.`qallCE` AS qallCE
 FROM
-      enrollment
+     `enrollment` enrollment INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
-      enrollment.gradeLevel = 'G3'
-AND   enrollment.studentId = $P{REPORT_ADD_WHERE}]]></queryString>
+     enrollment.gradeLevel = 'G3'
+ AND enrollment.studentId = $P{REPORT_ADD_WHERE}
+ AND enrollment.schoolYear = studentValuesGrading.schoolYear]]></queryString>
 
 	<field name="seq" class="java.lang.Integer"/>
 	<field name="studentId" class="java.lang.Integer"/>
 	<field name="schoolYear" class="java.lang.String"/>
-	<field name="rankFinal" class="java.lang.Integer"/>
 	<field name="recommendation" class="java.lang.String"/>
 	<field name="section" class="java.lang.String"/>
 	<field name="student" class="java.lang.String"/>
-	<field name="qallMusic" class="java.lang.Double"/>
 	<field name="gpaFinal" class="java.lang.Double"/>
 	<field name="gradeLevel" class="java.lang.String"/>
+	<field name="totalDaysPresent" class="java.lang.Long"/>
+	<field name="totalSchoolDays" class="java.lang.Long"/>
+	<field name="retainedAs" class="java.lang.String"/>
+	<field name="promotedTo" class="java.lang.String"/>
+	<field name="studentvaluesgrading_ec1" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec12" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec13" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec14" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec1Final" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec22" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec23" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec24" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_ec2Final" class="java.lang.Integer"/>
+	<field name="q1Health" class="java.lang.Double"/>
+	<field name="q2Health" class="java.lang.Double"/>
+	<field name="q3Health" class="java.lang.Double"/>
+	<field name="q4Health" class="java.lang.Double"/>
+	<field name="qallHealth" class="java.lang.Double"/>
+	<field name="q1CE" class="java.lang.Double"/>
+	<field name="q2CE" class="java.lang.Double"/>
+	<field name="q3CE" class="java.lang.Double"/>
+	<field name="q4CE" class="java.lang.Double"/>
+	<field name="qallCE" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -134,21 +179,6 @@ AND   enrollment.studentId = $P{REPORT_ADD_WHERE}]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="415"
-						y="0"
-						width="54"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-111"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.Long"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
 						x="469"
 						y="0"
 						width="45"
@@ -176,6 +206,21 @@ AND   enrollment.studentId = $P{REPORT_ADD_WHERE}]]></queryString>
 						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{gpaFinal}==null || $F{gpaFinal}.doubleValue()== 0?"-":$F{gpaFinal}.doubleValue()>1 && $F{gpaFinal}.doubleValue()<75?"Failed":"Passed"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="415"
+						y="0"
+						width="54"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-114"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{totalDaysPresent}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
