@@ -50,11 +50,15 @@
      person.`studentNumber` AS person_studentNumber,
      person.`toSection` AS person_toSection,
      person.`gender` AS person_gender,
-     person.`gradeLevelDesc` AS person_gradeLevelDesc
+     person.`gradeLevelDesc` AS person_gradeLevelDesc,
+     enrollment.`gpaFinal` AS enrollment_gpaFinal
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `person` person_A ON section.`facultyId` = person_A.`personId`
+     INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
 WHERE
+     enrollment.`schoolYear` = $P{PARAM_schoolYear}
+AND
      person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
@@ -72,6 +76,7 @@ WHERE
 	<field name="person_toSection" class="java.lang.String"/>
 	<field name="person_gender" class="java.lang.String"/>
 	<field name="person_gradeLevelDesc" class="java.lang.String"/>
+	<field name="enrollment_gpaFinal" class="java.lang.Double"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -451,21 +456,6 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\ReportCard\\AttendanceSubReport.jasper"]]></subreportExpression>
 				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="317"
-						y="524"
-						width="25"
-						height="14"
-						key="subreport-19">
-							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
-						</reportElement>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT sum(finalRating*subject.unit)/sum(subject.unit) any FROM StudentSubject s, Subject WHERE studentId = "+$F{person_personId}+" AND s.subject = Subject.code AND s.gradeLevel = '"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\SQLRetreiverSubReport.jasper"]]></subreportExpression>
-				</subreport>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="222"
@@ -478,6 +468,21 @@ WHERE
 						<font pdfFontName="Helvetica" size="12" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{PARAM_schoolYear}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="304"
+						y="522"
+						width="54"
+						height="18"
+						key="textField-10">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>

@@ -59,8 +59,7 @@ FROM
 WHERE
      enrollment.`schoolYear` = $P{PARAM_schoolYear}
 AND
-     person.personId = $P{REPORT_ADD_WHERE}
-]]></queryString>
+     person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>
@@ -394,21 +393,6 @@ AND
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="317"
-						y="524"
-						width="25"
-						height="14"
-						key="subreport-149">
-							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>3)]]></printWhenExpression>
-						</reportElement>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT sum(finalRating*subject.unit)/sum(subject.unit) any FROM StudentSubject s, Subject WHERE studentId = "+$F{person_personId}+" AND s.subject = Subject.code AND s.gradeLevel = '"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\SQLRetreiverSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
 						x="127"
 						y="602"
 						width="222"
@@ -441,7 +425,7 @@ AND
 						height="12"
 						key="subreport-151"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4, qallHekasi as anyall "+
+						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4, qallHekasi+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -493,7 +477,7 @@ AND
 						height="12"
 						key="subreport-153"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4 , qallMath as anyall "+
+						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4 , qallMath+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -519,7 +503,7 @@ AND
 						height="12"
 						key="subreport-154"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4, qallFilipino as anyall  "+
+						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4, qallFilipino+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -545,7 +529,7 @@ AND
 						height="12"
 						key="subreport-155"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4, qallEnglish as anyall  "+
+						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4, qallEnglish+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -571,7 +555,7 @@ AND
 						height="12"
 						key="subreport-156"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4, qallCCF as anyall "+
+						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4, qallCCF+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -597,7 +581,7 @@ AND
 						height="12"
 						key="subreport-157"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4, qallComputer as anyall  "+
+						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4, qallComputer+.5 as anyall  "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -623,7 +607,7 @@ AND
 						height="12"
 						key="subreport-158"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1Makabayan+.5 as any1, q2Makabayan+.5 as any2, q3Makabayan+.5 as any3, q4Makabayan+.5 as any4 , qallMakabayan as anyall "+
+						<subreportParameterExpression><![CDATA["SELECT q1Makabayan+.5 as any1, q2Makabayan+.5 as any2, q3Makabayan+.5 as any3, q4Makabayan+.5 as any4 , qallMakabayan+.5 as anyall "+
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
@@ -641,6 +625,21 @@ AND
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="304"
+						y="522"
+						width="54"
+						height="18"
+						key="textField-8">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>

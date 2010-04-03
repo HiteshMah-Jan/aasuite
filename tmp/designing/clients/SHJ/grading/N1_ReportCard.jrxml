@@ -50,11 +50,15 @@
      person.`studentNumber` AS person_studentNumber,
      person.`toSection` AS person_toSection,
      person.`gender` AS person_gender,
-     person.`gradeLevelDesc` AS person_gradeLevelDesc
+     person.`gradeLevelDesc` AS person_gradeLevelDesc,
+     enrollment.`gpaFinal` AS enrollment_gpaFinal
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `person` person_A ON section.`facultyId` = person_A.`personId`
+     INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
 WHERE
+     enrollment.`schoolYear` = $P{PARAM_schoolYear}
+AND
      person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>

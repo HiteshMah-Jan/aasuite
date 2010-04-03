@@ -50,11 +50,15 @@
      person.`studentNumber` AS person_studentNumber,
      person.`toSection` AS person_toSection,
      person.`gender` AS person_gender,
-     person.`gradeLevelDesc` AS person_gradeLevelDesc
+     person.`gradeLevelDesc` AS person_gradeLevelDesc,
+     enrollment.`gpaFinal` AS enrollment_gpaFinal
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `person` person_A ON section.`facultyId` = person_A.`personId`
+     INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
 WHERE
+     enrollment.`schoolYear` = $P{PARAM_schoolYear}
+AND
      person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
@@ -559,19 +563,6 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="9"
-						y="116"
-						width="397"
-						height="18"
-						key="textField-7"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica" size="12" isBold="false"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA["SCHOOL YEAR "+$P{PARAM_schoolYear}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
 						x="50"
 						y="173"
 						width="201"
@@ -611,6 +602,19 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\SQLRetreiverSubReport.jasper"]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="222"
+						y="116"
+						width="184"
+						height="18"
+						key="textField-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica" size="12" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{PARAM_schoolYear}]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>
