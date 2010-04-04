@@ -256,15 +256,23 @@ public class StudentSubjectToEnrollmentGrade {
 		}
 	}
 	
-	private void setGrades(Enrollment e, StudentSubject s, String subjectName) {
-		e.changeValue("q1" + subjectName, s.grade1);
-		e.changeValue("q2" + subjectName, s.grade2);
-		e.changeValue("q3" + subjectName, s.grade3);
-		e.changeValue("q4" + subjectName, s.grade4);
+	private void setGrades(Enrollment e, StudentSubject s, String subjectName, int quarter) {
+		if (quarter==1) {
+			e.changeValue("q1" + subjectName, s.grade1);
+		}
+		if (quarter==2) {
+			e.changeValue("q2" + subjectName, s.grade2);
+		}
+		if (quarter==3) {
+			e.changeValue("q3" + subjectName, s.grade3);
+		}
+		if (quarter==4) {
+			e.changeValue("q4" + subjectName, s.grade4);
+		}
 		e.changeValue("qall" + subjectName, s.finalRating);
 	}
 	
-	public Enrollment setupEnrollmentGrade(StudentSubject subject, Enrollment e) {
+	public Enrollment setupEnrollmentGrade(StudentSubject subject, Enrollment e, int quarter) {
         if (e == null || e.studentId!=subject.studentId) {
         	System.out.println("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT "+subject.studentName+".");
         	return e;
@@ -280,85 +288,85 @@ public class StudentSubjectToEnrollmentGrade {
         mysub = mysub.replaceAll("MK", "");
     	System.out.println(mysub);
         if (mysub.contains("ENGLISH3") || mysub.contains("ENGLISHC")) {
-        	setGrades(e, subject, "English3");
+        	setGrades(e, subject, "English3", quarter);
         }
         else if (mysub.contains("ENGLISH2") || mysub.contains("ENGLISHB")) {
-        	setGrades(e, subject, "English2");
+        	setGrades(e, subject, "English2", quarter);
         }
         else if (mysub.contains("ENGLISH") || mysub.contains("ENGLISHA")) {
-        	setGrades(e, subject, "English");
+        	setGrades(e, subject, "English", quarter);
         }
         else if (mysub.contains("FILIPINO")) {
-        	setGrades(e, subject, "Filipino");
+        	setGrades(e, subject, "Filipino", quarter);
         }
         else if (mysub.contains("OP") && mysub.contains("MATH")) {
-        	setGrades(e, subject, "OpMath");
+        	setGrades(e, subject, "OpMath", quarter);
         }
         else if (mysub.contains("READ")) {
-        	setGrades(e, subject, "Reading");
+        	setGrades(e, subject, "Reading", quarter);
         }
         else if (mysub.contains("LANG")) {
-        	setGrades(e, subject, "Language");
+        	setGrades(e, subject, "Language", quarter);
         }
         else if (mysub.contains("MATH3") || mysub.contains("MATHEMATICS3") || mysub.contains("MATHEMATICSC")) {
-        	setGrades(e, subject, "Math3");
+        	setGrades(e, subject, "Math3", quarter);
         }
         else if (mysub.contains("MATH2") || mysub.contains("MATHEMATICS2") || mysub.contains("MATHEMATICSB")) {
-        	setGrades(e, subject, "Math2");
+        	setGrades(e, subject, "Math2", quarter);
         }
         else if (mysub.contains("MATH") || mysub.contains("MATHEMATICS") || mysub.contains("MATHEMATICS1") || mysub.contains("MATHEMATICSA")) {
-        	setGrades(e, subject, "Math");
+        	setGrades(e, subject, "Math", quarter);
         }
         else if (mysub.contains("RESEARCH")) {
-        	setGrades(e, subject, "Research");
+        	setGrades(e, subject, "Research", quarter);
         }
         else if (mysub.contains("SCIENCE3") || mysub.contains("SCIENCEC")) {
-        	setGrades(e, subject, "Science3");
+        	setGrades(e, subject, "Science3", quarter);
         }
         else if (mysub.contains("SCIENCE2") || mysub.contains("SCIENCEB")) {
-        	setGrades(e, subject, "Science2");
+        	setGrades(e, subject, "Science2", quarter);
         }
         else if (mysub.contains("SCIENCE") || mysub.contains("SCIENCEA")) {
-        	setGrades(e, subject, "Science");
+        	setGrades(e, subject, "Science", quarter);
         }
         else if (mysub.contains("COMPUTER")) {
-        	setGrades(e, subject, "Computer");
+        	setGrades(e, subject, "Computer", quarter);
         }
         else if (mysub.contains("ARTS")) {
-        	setGrades(e, subject, "Arts");
+        	setGrades(e, subject, "Arts", quarter);
         }
         else if (mysub.contains("HEKASI")) {
-        	setGrades(e, subject, "Hekasi");
+        	setGrades(e, subject, "Hekasi", quarter);
         }
         else if (mysub.contains("MUSIC")) {
-        	setGrades(e, subject, "Music");
+        	setGrades(e, subject, "Music", quarter);
         }
         else if (mysub.contains("PE")) {
-        	setGrades(e, subject, "PE");
+        	setGrades(e, subject, "PE", quarter);
         }
         else if (mysub.contains("RELIGION")) {
-        	setGrades(e, subject, "CCF");
+        	setGrades(e, subject, "CCF", quarter);
         }
         else if (mysub.contains("EP")) {
-        	setGrades(e, subject, "CCF");
+        	setGrades(e, subject, "CCF", quarter);
         }
         else if (mysub.contains("AP") || mysub.contains("ARALI")) {
-        	setGrades(e, subject, "AP");
+        	setGrades(e, subject, "AP", quarter);
         }
         else if (mysub.contains("TLE")) {
-        	setGrades(e, subject, "TLE");
+        	setGrades(e, subject, "TLE", quarter);
         }
         else if (mysub.contains("HEALTH")) {
-        	setGrades(e, subject, "Health");
+        	setGrades(e, subject, "Health", quarter);
         }
         else if (mysub.contains("GK") || mysub.contains("CAT")) {
-        	setGrades(e, subject, "CE");
+        	setGrades(e, subject, "CE", quarter);
         }
         else if (mysub.contains("CHINESE") && mysub.contains("B")) {
-        	setGrades(e, subject, "ChineseB");
+        	setGrades(e, subject, "ChineseB", quarter);
         }
         else if (mysub.contains("CHINESE")) {
-        	setGrades(e, subject, "ChineseA");
+        	setGrades(e, subject, "ChineseA", quarter);
         }
         return e;
 	}
