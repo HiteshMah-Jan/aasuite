@@ -24,7 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["AKLAN"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["boracay"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`studentNumber` AS SN,
@@ -52,11 +52,11 @@
      focusFinal focus,
      respectFinal respect,
      scoutingFinal scouting,
-     studentvaluesgrading.`affectiveAverage1` AS AffectiveAverage1,
-     studentvaluesgrading.`megaskillAverage1` AS MegaskillAverage1,
-     studentvaluesgrading.`psychomotorAverage1` AS PsychomotorAverage1,
-     studentvaluesgrading.`valuesPromotedAverage1` AS ValuesPromotedAverage1,
-     studentvaluesgrading.`zl2Average1` AS Zl2Average1,
+     studentvaluesgrading.`affectiveAverageFinal` AS AffectiveAverage1,
+     studentvaluesgrading.`megaskillAverageFinal` AS MegaskillAverage1,
+     studentvaluesgrading.`psychomotorAverageFinal` AS PsychomotorAverage1,
+     studentvaluesgrading.`valuesPromotedAverageFinal` AS ValuesPromotedAverage1,
+     studentvaluesgrading.`zl2AverageFinal` AS Zl2Average1,
      studentvaluesgrading.`status` AS status,
      studentvaluesgrading.`megaskillAverageFinal` AS studentvaluesgrading_megaskillAverageFinal
 FROM
@@ -691,7 +691,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MegaskillAverage1}.intValue()==1?"NI":$F{MegaskillAverage1}.intValue()==2?"MS":$F{MegaskillAverage1}.intValue()==3?"S":$F{MegaskillAverage1}.intValue()==4?"HS":$F{MegaskillAverage1}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==1?"NI":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==2?"MS":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==3?"S":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==4?"HS":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
