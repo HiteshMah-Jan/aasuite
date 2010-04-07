@@ -2256,7 +2256,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		else {
 			affectiveAverageFinal = extractAverage("Final", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 			psychomotorAverageFinal = extractAverage("Final", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
-			megaskillAverageFinal = extractAverage("Final", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect","clubsAndParticipation");
+			megaskillAverageFinal = extractAverage("Final", "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
 			valuesPromotedAverageFinal = extractAverage("Final", "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
 			zl2AverageFinal = extractAverage("Final", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 			gpaValuesFinal = extractAverage("", "affectiveAverageFinal", "psychomotorAverageFinal", "megaskillAverageFinal", "valuesPromotedAverageFinal", "zl2AverageFinal");
