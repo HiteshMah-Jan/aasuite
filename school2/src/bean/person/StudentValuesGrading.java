@@ -613,7 +613,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	@Column(name = "scouting4")
 	public int scouting4;
 	@Column(name = "scoutingFinal")
-	public int scoutingFinal;
+	public double scoutingFinal;
 
 	@Column(name = "totalDays")
 	public int totalDays;
@@ -2243,7 +2243,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		zl2Average2 = extractAverage("2", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average3 = extractAverage("3", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average4 = extractAverage("4", "pfe", "cra", "ca", "kin", "ec1", "ec2");
-		scoutingFinal = extractAverage("", "scouting", "scouting2", "scouting3", "scouting4");
+		scoutingFinal = extractAverageDouble("", "scouting", "scouting2", "scouting3", "scouting4");
 		
 		if ("|K1|N1|P1|K2|N2|P2|".contains(gradeLevel)) {
 			affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");
@@ -2316,6 +2316,25 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		}
 	}
 	
+	private double extractAverageDouble(String quarter, String...str) {
+		double totalScore = 0;
+		double totalCount = 0;
+		for (String s:str) {
+			double val = BeanUtil.getDoubleValue(this, s+quarter);
+			if (val>0) {
+				totalScore += val;
+				totalCount++;
+				putFinalAverage(s);
+			}
+		}
+		if (totalScore==0 || totalCount==0) {
+			return 0;
+		}
+		else {
+			return (totalScore/totalCount);
+		}
+	}
+
 	public int getAp2() {
 		return ap2;
 	}
@@ -4676,11 +4695,11 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		this.scouting4 = scouting4;
 	}
 
-	public int getScoutingFinal() {
+	public double getScoutingFinal() {
 		return scoutingFinal;
 	}
 
-	public void setScoutingFinal(int scoutingFinal) {
+	public void setScoutingFinal(double scoutingFinal) {
 		this.scoutingFinal = scoutingFinal;
 	}
 
