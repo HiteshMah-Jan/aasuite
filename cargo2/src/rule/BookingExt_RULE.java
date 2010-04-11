@@ -10,5 +10,5 @@ package rule;
  * @author Charliemagne Mark
  */
 public class BookingExt_RULE extends Awb_RULE {
-
+	
 }

@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import service.FlightService;
 import service.util.AbstractIBean;
 import template.ChildRecord;
 import template.ChildRecords;
@@ -32,16 +31,10 @@ import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
 import util.DBClient;
-import bean.awb.AwbCharges;
-import bean.awb.AwbDangerousGoods;
 import bean.awb.AwbFlt;
-import bean.awb.AwbShc;
 import bean.reference.Airport;
-import bean.reference.Country;
 import bean.reference.PaymentType;
 import bean.reference.ServiceLevel;
-import bean.reference.SpecialHandling;
-import bean.reference.TraceStatus;
 
 /**
  *
@@ -86,20 +79,12 @@ import bean.reference.TraceStatus;
     @Display(name = "serviceCode"),
     @Display(name = "rateClassCode"),
     @Display(name = "uldRateClassType"),
-    @Display(name = "declaredValueCarriage"),
-    @Display(name = "declaredValueCustoms"),
-    @Display(name = "amountInsurance"),
-    @Display(name = "currencyCode"),
-    @Display(name = "originPrepaid"),
-    @Display(name = "destinationPrepaid"),
     @Display(name = "hwbSerial"),
     @Display(name = "freeDescriptionOfGoods"),
     @Display(name = "slac"),
     @Display(name = "commodityCode"),
     @Display(name = "place"),
-    @Display(name = "creditDetails"),
-    @Display(name = "originChargeCode"),
-    @Display(name = "destinationChargeCode")
+    @Display(name = "creditDetails")
 })
 @DisplayGroups({
     @DisplayGroup(title="Voucher Detail", gridCount=4, fields={"creditDetails","place","hwbSerial","destinationPrepaid"})
@@ -188,18 +173,6 @@ public class Awb extends AbstractIBean implements Serializable {
     public String rateClassCode;
     @Column(name = "uldRateClassType", length = 150)
     public String uldRateClassType;
-    @Column(name = "declaredValueCarriage")
-    public double declaredValueCarriage;
-    @Column(name = "declaredValueCustoms")
-    public double declaredValueCustoms;
-    @Column(name = "amountInsurance")
-    public double amountInsurance;
-    @Column(name = "currencyCode", length = 5)
-    public String currencyCode;
-    @Column(name = "originPrepaid")
-    public boolean originPrepaid;
-    @Column(name = "destinationPrepaid")
-    public boolean destinationPrepaid;
     @Column(name = "hwbSerial", length = 20)
     public String hwbSerial;
     @Column(name = "freeDescriptionOfGoods", length = 150)
@@ -212,11 +185,6 @@ public class Awb extends AbstractIBean implements Serializable {
     public String place;
     @Column(name = "creditDetails", length = 100)
     public String creditDetails;
-
-    @Column(name = "originChargeCode", length = 150)
-    public String originChargeCode;
-    @Column(name = "destinationChargeCode", length = 150)
-    public String destinationChargeCode;
 
     @Column(name = "awbType")
     public String awbType;
@@ -268,6 +236,15 @@ public class Awb extends AbstractIBean implements Serializable {
     public String shc1;
     @Column(name = "shc2")
     public String shc2;
+
+    @Column(name = "originCurrency")
+    public String originCurrency;
+    @Column(name = "destCurrency")
+    public String destCurrency;
+    @Column(name = "totalOriginCharges")
+    public double totalOriginCharges;
+    @Column(name = "totalDestCharges")
+    public double totalDestCharges;
 
     public Awb() {
         departureDate = util.DateUtil.addDay(new Date(), 1);
@@ -488,14 +465,6 @@ public class Awb extends AbstractIBean implements Serializable {
         this.agent = agent;
     }
 
-    public double getAmountInsurance() {
-        return amountInsurance;
-    }
-
-    public void setAmountInsurance(double amountInsurance) {
-        this.amountInsurance = amountInsurance;
-    }
-
     public Date getArrivalDate() {
         return arrivalDate;
     }
@@ -552,30 +521,6 @@ public class Awb extends AbstractIBean implements Serializable {
         this.creditDetails = creditDetails;
     }
 
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
-
-    public void setCurrencyCode(String currencyCode) {
-        this.currencyCode = currencyCode;
-    }
-
-    public double getDeclaredValueCarriage() {
-        return declaredValueCarriage;
-    }
-
-    public void setDeclaredValueCarriage(double declaredValueCarriage) {
-        this.declaredValueCarriage = declaredValueCarriage;
-    }
-
-    public double getDeclaredValueCustoms() {
-        return declaredValueCustoms;
-    }
-
-    public void setDeclaredValueCustoms(double declaredValueCustoms) {
-        this.declaredValueCustoms = declaredValueCustoms;
-    }
-
     public Date getDepartureDate() {
         return departureDate;
     }
@@ -590,22 +535,6 @@ public class Awb extends AbstractIBean implements Serializable {
 
     public void setDestination(String destination) {
         this.destination = destination;
-    }
-
-    public String getDestinationChargeCode() {
-        return destinationChargeCode;
-    }
-
-    public void setDestinationChargeCode(String destinationChargeCode) {
-        this.destinationChargeCode = destinationChargeCode;
-    }
-
-    public boolean isDestinationPrepaid() {
-        return destinationPrepaid;
-    }
-
-    public void setDestinationPrepaid(boolean destinationPrepaid) {
-        this.destinationPrepaid = destinationPrepaid;
     }
 
     public String getFreeDescriptionOfGoods() {
@@ -710,22 +639,6 @@ public class Awb extends AbstractIBean implements Serializable {
 
     public void setOrigin(String origin) {
         this.origin = origin;
-    }
-
-    public String getOriginChargeCode() {
-        return originChargeCode;
-    }
-
-    public void setOriginChargeCode(String originChargeCode) {
-        this.originChargeCode = originChargeCode;
-    }
-
-    public boolean isOriginPrepaid() {
-        return originPrepaid;
-    }
-
-    public void setOriginPrepaid(boolean originPrepaid) {
-        this.originPrepaid = originPrepaid;
     }
 
     public String getOtherServiceInformation() {
@@ -888,176 +801,42 @@ public class Awb extends AbstractIBean implements Serializable {
         this.weight = weight;
     }   
     
-    public void createCharge(String charge) {
-        AwbCharges ch = new AwbCharges();
-        ch.chargeCode = charge;
-        ch.awbSeq = seq;
-        ch.save();
-    }
-    public void createDG(String un, int pieces) {
-        AwbDangerousGoods dg = new AwbDangerousGoods();
-        dg.awbSeq = seq;
-        dg.unNumber = un;
-        dg.pieces = pieces;
-        dg.save();
-    }
-    public void createBooking() {
-        if (!isEmptyKey()) {
-            autoCreateSHC();
-            autoCreateFlights();
-            autoCreateCharges();
-        }
-    }
-    public Country extractOriginCountry() {
-        return (Country) selectFirstCache("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+origin+"'");
-    }    
-    public Country extractDestCountry() {
-        return (Country) selectFirstCache("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+destination+"'");
-    }    
-    public void autoCreateFlights() {
-        List col = selectListCache("SELECT a FROM AwbFltBooking a WHERE a.awbSeq="+seq);
-        if (col != null && col.size() > 0) {
-            return;
-        }
-        //get all direct flights first
-        String origint = getOrigin();
-        String destinationt = getDestination();
-        double weightt = getWeight();
-        double volumet = getVolume();
-        int mpt = getMp();
-        int mht = getMh();
-        int lpt = getLp();
-        int lct = getLc();
-        FlightService service = new FlightService();
-        List lst = service.getBestRoute(origint, destinationt, departureDate, weightt, volumet, mht, mpt, lpt, lct);
-        putRouting(lst);
-    }
-    public void putRouting(List lst) {
-        int line = 0;
-        for (Object obj : lst) {
-            Flight flight = (Flight) obj;
-            AwbFlt flt = new AwbFlt();
-            flt.setLine(++line);
-            flt.setArrivalDate(flight.getArrivalDate());
-            flt.setAwbSeq(getSeq());
-            flt.setFlightSeq(flight.getSeq());
-            flt.setPieces(getPieces());
-            flt.setWeight(getWeight());
-            flt.setVolume(getVolume());
-            flt.setMh(getMh());
-            flt.setMp(getMp());
-            flt.setLc(getLc());
-            flt.setLp(getLp());
-            flt.setOrigin(flight.getOrigin());
-            flt.setDestination(flight.getDestination());
-            flt.setCarrier(flight.getCarrier());
-            flt.setFlightNumber(flight.getFlightNumber());
-            flt.setFlightDate(flight.getDepartureDate());
-            flt.setStatus("KK");
-            flt.save();
-//
-//            AwbRouting route = new AwbRouting(); 
-//            route.setAwbSeq(getSeq());
-//            route.setLine(line);
-//            route.setOrigin(flight.getOrigin());
-//            route.setDestination(flight.getDestination());
-//            route.setStatus("KK");
-//            route.save();
-        }
-    }
-    
-    public void autoCreateCharges() {
-        String serviceLevelt = getServiceLevel();
-        if (util.DataUtil.isEmpty(serviceLevelt)) return;
-        //check if there are charges already
-        AwbCharges charge = (AwbCharges) selectFirstCache("SELECT a FROM AwbCharges a WHERE a.awbSeq="+seq);
-        if (charge!=null && !charge.isEmptyKey()) return;
-        ServiceLevel serv = (ServiceLevel) selectFirstCache("SELECT a FROM ServiceLevel a WHERE a.code='"+serviceLevelt+"'");
-        if (serv.getChargeCode1()!=null) {
-            createCharge(serv.chargeCode1);
-        }
-        if (serv.getChargeCode2()!=null) {
-            createCharge(serv.chargeCode2);
-        }
-        if (serv.getChargeCode3()!=null) {
-            createCharge(serv.chargeCode3);
-        }
-        if (serv.getChargeCode4()!=null) {
-            createCharge(serv.chargeCode4);
-        }
-        if (serv.getChargeCode5()!=null) {
-            createCharge(serv.chargeCode5);
-        }
-    }
-    public void autoCreateDG(AwbShc awbShc) {
-        SpecialHandling shc = (SpecialHandling) selectFirstCache("SELECT a FROM SpecialHandling a WHERE a.code='"+awbShc.getShcCode()+"'");
-        if (shc.getDgNumber1()!=null) {
-            createDG(shc.dgNumber1, pieces);
-        }
-        if (shc.getDgNumber2()!=null) {
-            createDG(shc.dgNumber2, pieces);
-        }
-        if (shc.getDgNumber3()!=null) {
-            createDG(shc.dgNumber3, pieces);
-        }
-        if (shc.getDgNumber4()!=null) {
-            createDG(shc.dgNumber4, pieces);
-        }
-        if (shc.getDgNumber5()!=null) {
-            createDG(shc.dgNumber5, pieces);
-        }
-    }
-    public void autoCreateSHC() {
-        List col = selectListCache("SELECT a FROM AwbShc a WHERE a.awbSeq="+seq);
-        if (col != null && col.size() > 0) {
-            return;
-        }
-        //check the service
-        String serviceLevelt = getServiceLevel();
-        ServiceLevel serv = (ServiceLevel) selectFirstCache("SELECT a FROM ServiceLevel a WHERE a.code='"+serviceLevelt+"'");
-        if (serv != null) {
-            if (!util.DataUtil.isEmpty(serv.getShc1())) {
-                AwbShc shc1 = new AwbShc();
-                shc1.setAwbSeq(getSeq());
-                shc1.setShcCode(serv.getShc1());
-                shc1.save();
-                autoCreateDG(shc1);
-            }
-            if (!util.DataUtil.isEmpty(serv.getShc2())) {
-                AwbShc shc2 = new AwbShc();
-                shc2.setAwbSeq(getSeq());
-                shc2.setShcCode(serv.getShc2());
-                shc2.save();
-                autoCreateDG(shc2);
-            }
-            if (!util.DataUtil.isEmpty(serv.getShc3())) {
-                AwbShc shc3 = new AwbShc();
-                shc3.setAwbSeq(getSeq());
-                shc3.setShcCode(serv.getShc3());
-                shc3.save();
-                autoCreateDG(shc3);
-            }
-            if (!util.DataUtil.isEmpty(serv.getShc4())) {
-                AwbShc shc4 = new AwbShc();
-                shc4.setAwbSeq(getSeq());
-                shc4.setShcCode(serv.getShc4());
-                shc4.save();
-                autoCreateDG(shc4);
-            }
-            if (!util.DataUtil.isEmpty(serv.getShc5())) {
-                AwbShc shc5 = new AwbShc();
-                shc5.setAwbSeq(getSeq());
-                shc5.setShcCode(serv.getShc5());
-                shc5.save();
-                autoCreateDG(shc5);
-            }
-        }
-    }
-
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria);
     }
+
+	public String getOriginCurrency() {
+		return originCurrency;
+	}
+
+	public void setOriginCurrency(String originCurrency) {
+		this.originCurrency = originCurrency;
+	}
+
+	public String getDestCurrency() {
+		return destCurrency;
+	}
+
+	public void setDestCurrency(String destCurrency) {
+		this.destCurrency = destCurrency;
+	}
+
+	public double getTotalOriginCharges() {
+		return totalOriginCharges;
+	}
+
+	public void setTotalOriginCharges(double totalOriginCharges) {
+		this.totalOriginCharges = totalOriginCharges;
+	}
+
+	public double getTotalDestCharges() {
+		return totalDestCharges;
+	}
+
+	public void setTotalDestCharges(double totalDestCharges) {
+		this.totalDestCharges = totalDestCharges;
+	}
 
 	@Override
 	public void setupIndex() {
@@ -1077,4 +856,17 @@ public class Awb extends AbstractIBean implements Serializable {
 		}
 		return null;
 	}
+
+	@Override
+	public void save() {
+		if (originCurrency==null || originCurrency.isEmpty()) {
+			originCurrency = Airport.extractCurrency(origin);
+		}
+		if (destCurrency==null || destCurrency.isEmpty()) {
+			destCurrency = Airport.extractCurrency(destination);
+		}
+		super.save();
+	}
+	
+	
 }

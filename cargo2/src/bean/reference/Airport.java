@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import service.util.AbstractIBean;
 import template.screen.TemplateSinglePage;
 import template.*;
+import util.DBClient;
 
 /**
  *
@@ -49,6 +50,16 @@ public class Airport extends AbstractIBean implements Serializable {
     public int gmtTimeDiff;
     @Column(name = "active")
     public boolean active;
+
+    public static String extractCurrency(String airport) {
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+airport+"'");
+    	return c.currency;
+    }    
+
+    public static String extractCountry(String airport) {
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+airport+"'");
+    	return c.code;
+    }    
 
     public boolean isActive() {
         return active;

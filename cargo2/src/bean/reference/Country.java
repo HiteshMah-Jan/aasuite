@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import service.util.AbstractIBean;
 import template.screen.TemplateSinglePage;
 import template.*;
+import util.DBClient;
 
 /**
  *
@@ -41,6 +42,11 @@ public class Country extends AbstractIBean implements Serializable {
     @Column(name = "active")
     public boolean active;
 
+    public static String extractCurrency(String country) {
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country WHERE a.code='"+country+"'");
+    	return c.currency;
+    }
+    
     public boolean isActive() {
         return active;
     }

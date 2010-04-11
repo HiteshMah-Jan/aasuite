@@ -388,11 +388,11 @@ public abstract class AbstractMessageProcessor {
     protected void processCVD(Awb awb, String str) {
         StringSplitter ss = lineSplitter.getStringSplitter(str);
         ss.getNextSplitNonEmpty();
-        awb.currencyCode = ss.getNextSplit();
-        awb.originChargeCode = ss.getNextSplit();
-        awb.declaredValueCarriage = ss.getNextSplitDouble();
-        awb.declaredValueCustoms = ss.getNextSplitDouble();
-        awb.amountInsurance = ss.getNextSplitDouble();
+//        awb.currencyCode = ss.getNextSplit();
+//        awb.originChargeCode = ss.getNextSplit();
+//        awb.declaredValueCarriage = ss.getNextSplitDouble();
+//        awb.declaredValueCustoms = ss.getNextSplitDouble();
+//        awb.amountInsurance = ss.getNextSplitDouble();
     }
     
     protected Participant processAgent(Awb awb, String cus) {

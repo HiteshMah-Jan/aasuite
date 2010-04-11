@@ -14,8 +14,10 @@ import template.Displays;
 import template.ParentAddInfo;
 import template.Reports;
 import template.UITemplate;
+import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import bean.Participant;
+import bean.awb.AwbCharges;
 import bean.awb.AwbDimension;
 import bean.awb.AwbFlt;
 import bean.awb.AwbPackingList;
@@ -58,19 +60,7 @@ import bean.reference.ServiceLevel;
     @Display(name = "lp", width=20),
     @Display(name = "lc", width=20),
     
-    
-    @Display(name = "currencyCode", addInfoOnly=true, width=50, label="Currency", type="PopSearch", linktoBean=Currency.class),
-    @Display(name = "originPrepaid", addInfoOnly=true, width=30, mergeFields={"originChargeCode"}),
-    @Display(name = "originChargeCode", addInfoOnly=true, width=50, label="Charge Code", type="PopSearch", linktoBean=Charges.class),
-    @Display(name = "paymentType", addInfoOnly=true, width=50, type="Combo", modelCombo={"PP","CC","PC"}),
-    @Display(name = "destinationPrepaid", addInfoOnly=true, width=30, mergeFields={"destinationChargeCode"}),
-    @Display(name = "destinationChargeCode", addInfoOnly=true, width=50, label="Charge Code", type="PopSearch", linktoBean=Charges.class),
-
     @Display(name = "commodityCode", addInfoOnly=true, width=50),
-    @Display(name = "declaredValueCarriage", addInfoOnly=true, width=50, label="Value Carriage", mergeFields={"declaredValueCustoms","amountInsurance"}),
-    @Display(name = "declaredValueCustoms", addInfoOnly=true, width=50, label="Customs"),
-    @Display(name = "amountInsurance", addInfoOnly=true, width=50, label="Insurance", gridFieldWidth=5),
-
 //    @Display(name = "master", addInfoOnly=true, width=30, mergeFields={"slac"}),
 //    @Display(name = "slac", addInfoOnly=true, width=30),
 //    @Display(name = "house", addInfoOnly=true, width=30, mergeFields={"masterAwbSeq","hwbSerial"}),
@@ -98,7 +88,7 @@ import bean.reference.ServiceLevel;
 @Reports({
     @template.Report(reportFile="AwbForm", reportTitle="All Bills", reportSql = "${seq}"),
     @template.Report(reportFile="AwbHouse", reportTitle="House", reportSql = "${seq}"),
-    @template.Report(reportFile="AwbFlight", reportTitle="Route", reportSql = "${seq}"),
+//    @template.Report(reportFile="AwbFlight", reportTitle="Route", reportSql = "${seq}"),
     @template.Report(reportFile="AwbDimension", reportTitle="Dimension", reportSql = "${seq}"),
     @template.Report(reportFile="AwbShc", reportTitle="SHC", reportSql = "${seq}"),
     @template.Report(reportFile="AwbUld", reportTitle="ULD", reportSql = "${seq}"),
@@ -108,11 +98,12 @@ import bean.reference.ServiceLevel;
 @ChildRecords(
     value={
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=HouseAwbExt.class, sql="SELECT a FROM Awb a WHERE a.masterAwbSeq=${seq}", title="House", fieldMapping={"seq","masterAwbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbFlt.class, sql="SELECT a FROM AwbFlt a WHERE a.awbSeq=${seq}", title="Routes", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListOnly.class, entity=AwbFlt.class, sql="SELECT a FROM AwbFlt a WHERE a.awbSeq=${seq}", title="Routes", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbDimension.class, sql="SELECT a FROM AwbDimension a WHERE a.awbSeq=${seq}", title="Dimension", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbShc.class, sql="SELECT a FROM AwbShc a WHERE a.awbSeq=${seq}", title="SHC", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbUld.class, sql="SELECT a FROM AwbUld a WHERE a.awbSeq=${seq}", title="ULD", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbPackingList.class, sql="SELECT a FROM AwbPackingList a WHERE a.awbSeq=${seq}", title="Packing List", fieldMapping={"seq","awbSeq"})
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbPackingList.class, sql="SELECT a FROM AwbPackingList a WHERE a.awbSeq=${seq}", title="Packing List", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"}),
     }, 
     info={
         @ParentAddInfo(gridCount=6, title="Additional Info", 
@@ -122,17 +113,9 @@ import bean.reference.ServiceLevel;
                 "serviceCode",
                 "rateClassCode",
                 "uldRateClassType",
-                "declaredValueCarriage",
-                "declaredValueCustoms",
-                "amountInsurance",
-                "currencyCode",
-                "originPrepaid",
-                "destinationPrepaid",
                 "commodityCode",
                 "place",
-                "creditDetails",
-                "originChargeCode",
-                "destinationChargeCode"
+                "creditDetails"
             }),
             @ParentAddInfo(gridCount=6, title="Reference Info", 
                     displayFields={
@@ -145,10 +128,6 @@ import bean.reference.ServiceLevel;
     }
 )
 @template.ActionButtons({
-    @template.ActionButton(name="btnCreateBooking", label="Create Booking"),
-    @template.ActionButton(name="btnChooseRoute", label="Choose Route"),
-    @template.ActionButton(name="btnPutCharges", label="Put Charges"),
-    @template.ActionButton(name="btnPutCommission", label="Put Commission"),
     @template.ActionButton(name="btnCreateInvoice", label="Create Invoice"),
     @template.ActionButton(name="btnViewGL", label="View GL"),
     @template.ActionButton(name="btnShowMessages", label="Show Messages")
