@@ -185,6 +185,13 @@ public class ChargesRule extends AbstractIBean implements Serializable {
 
 	@Override
     public String popupSearch(String criteria) {
-        return buildSearch(criteria, "chargeCode","active","origin","destination","shc","priority");
+        return buildSearch(criteria, "chargeCode","active","origin","destination","shc","serviceLevel");
     }
+	
+	@Override
+	public void setupIndex() {
+		runUniqueIndex(10, "origin","shc","endDate");
+		runUniqueIndex(11, "origin","serviceLevel","endDate");
+		runUniqueIndex(12, "origin","shc","serviceLevel","endDate");
+	}
 }

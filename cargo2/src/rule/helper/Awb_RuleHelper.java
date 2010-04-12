@@ -3,6 +3,7 @@ package rule.helper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import service.FlightService;
 import util.DBClient;
@@ -164,28 +165,32 @@ public class Awb_RuleHelper {
     	
 //    	this part of program should have a switch to disable and enable
     	if (AppConfig.isAutoCreateChargeRule()) {
-        	sql = "SELECT a FROM ChargesRule a " +
+    		List<String> sqlArr = new ArrayList();
+    		
+    		sqlArr.add("SELECT a FROM ChargesRule a " +
 			"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-			"AND "+d+" BETWEEN a.startDate AND a.endDate AND a.shc IS NULL AND a.serviceLevel IS NULL";
-			List originRules = DBClient.getList(sql);
+			"AND "+d+" BETWEEN a.startDate AND a.endDate AND a.shc IS NULL AND a.serviceLevel IS NULL");
+		
+			sqlArr.add("SELECT a FROM ChargesRule a " +
+				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+				"AND "+d+" BETWEEN a.startDate AND a.endDate " +
+				"AND a.shc IN ("+s+") ");
+			
+			sqlArr.add("SELECT a FROM ChargesRule a " +
+				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+				"AND "+d+" BETWEEN a.startDate AND a.endDate " +			
+				"AND a.serviceLevel IN ('"+awb.serviceLevel+"') ");
+
+			Map map = DBClient.batchQueryNoCache(sqlArr);
+			List originRules = (List) map.get(sqlArr.get(0));
 			if (originRules == null || originRules.isEmpty()) {
 				createChargesRule(awb);
 			}
-		
-			sql = "SELECT a FROM ChargesRule a " +
-				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-				"AND "+d+" BETWEEN a.startDate AND a.endDate " +
-				"AND a.shc IN ("+s+") ";
-			List shcRules = DBClient.getList(sql);
+			List shcRules = (List) map.get(sqlArr.get(1));
 			if (shcRules == null || shcRules.isEmpty()) {
 				createChargesRuleForSHC(awb);
 			}
-			
-			sql = "SELECT a FROM ChargesRule a " +
-				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-				"AND "+d+" BETWEEN a.startDate AND a.endDate " +			
-				"AND a.serviceLevel IN ('"+awb.serviceLevel+"') ";
-			List serviceRules = DBClient.getList(sql);
+			List serviceRules = (List) map.get(sqlArr.get(2));
 			if (serviceRules == null || serviceRules.isEmpty()) {
 				createChargesRuleForServiceLevel(awb);
 			}
