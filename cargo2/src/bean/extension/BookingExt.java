@@ -128,6 +128,7 @@ import bean.reference.ServiceLevel;
     }
 )
 @template.ActionButtons({
+    @template.ActionButton(name="btnChargesRule", label="Applicable Charges"),
     @template.ActionButton(name="btnCreateInvoice", label="Create Invoice"),
     @template.ActionButton(name="btnViewGL", label="View GL"),
     @template.ActionButton(name="btnShowMessages", label="Show Messages")

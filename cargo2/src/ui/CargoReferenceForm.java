@@ -14,7 +14,7 @@ public class CargoReferenceForm extends TabPanelForm {
 
     @Override
     public String tabs() {
-        return "Station,Airport,AircraftType,ServiceLevel,Charges,Country,Currency,SpecialHandling,Carrier,UldType,UldNumber,PaymentType,State,Connection";
+        return "Station,Airport,AircraftType,ServiceLevel,Charges,ChargesRule,Country,Currency,SpecialHandling,Carrier,UldType,UldNumber,PaymentType,State,Connection";
     }
 
 }

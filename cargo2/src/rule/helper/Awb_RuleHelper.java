@@ -1,14 +1,20 @@
 package rule.helper;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import service.FlightService;
+import util.DBClient;
+import util.DateUtil;
 import bean.Awb;
+import bean.ChargesRule;
 import bean.Flight;
-import bean.awb.AwbCharges;
+import bean.admin.AppConfig;
 import bean.awb.AwbDangerousGoods;
 import bean.awb.AwbFlt;
 import bean.awb.AwbShc;
+import bean.reference.Charges;
 import bean.reference.ServiceLevel;
 import bean.reference.SpecialHandling;
 
@@ -17,7 +23,6 @@ public class Awb_RuleHelper {
         if (!awb.isEmptyKey()) {
             autoCreateSHC(awb);
             autoCreateFlights(awb);
-            autoCreateCharges(awb);
         }
     }
     public void autoCreateFlights(Awb awb) {
@@ -72,29 +77,6 @@ public class Awb_RuleHelper {
         }
     }
     
-    public void autoCreateCharges(Awb awb) {
-        String serviceLevelt = awb.getServiceLevel();
-        if (util.DataUtil.isEmpty(serviceLevelt)) return;
-        //check if there are charges already
-        AwbCharges charge = (AwbCharges) awb.selectFirstCache("SELECT a FROM AwbCharges a WHERE a.awbSeq="+awb.seq);
-        if (charge!=null && !charge.isEmptyKey()) return;
-        ServiceLevel serv = (ServiceLevel) awb.selectFirstCache("SELECT a FROM ServiceLevel a WHERE a.code='"+serviceLevelt+"'");
-        if (serv.getChargeCode1()!=null) {
-            createCharge(serv.chargeCode1, awb);
-        }
-        if (serv.getChargeCode2()!=null) {
-            createCharge(serv.chargeCode2, awb);
-        }
-        if (serv.getChargeCode3()!=null) {
-            createCharge(serv.chargeCode3, awb);
-        }
-        if (serv.getChargeCode4()!=null) {
-            createCharge(serv.chargeCode4, awb);
-        }
-        if (serv.getChargeCode5()!=null) {
-            createCharge(serv.chargeCode5, awb);
-        }
-    }
     public void autoCreateDG(AwbShc awbShc, Awb awb) {
         SpecialHandling shc = (SpecialHandling) awb.selectFirstCache("SELECT a FROM SpecialHandling a WHERE a.code='"+awbShc.getShcCode()+"'");
         if (shc.getDgNumber1()!=null) {
@@ -160,12 +142,6 @@ public class Awb_RuleHelper {
         }
     }
     
-    public void createCharge(String charge, Awb awb) {
-        AwbCharges ch = new AwbCharges();
-        ch.chargeCode = charge;
-        ch.awbSeq = awb.seq;
-        ch.save();
-    }
     public void createDG(String un, int pieces, Awb awb) {
         AwbDangerousGoods dg = new AwbDangerousGoods();
         dg.awbSeq = awb.seq;
@@ -174,4 +150,110 @@ public class Awb_RuleHelper {
         dg.save();
     }
 
+    public List<ChargesRule> getApplicableCharges(Awb awb) {
+    	List<AwbShc> shcs = DBClient.getList("SELECT a FROM AwbShc a WHERE a.awbSeq='"+awb.seq+"'");
+    	String s = "";
+    	if (shcs != null && !shcs.isEmpty()) {
+         	for (AwbShc shc : shcs) {
+        		s += "'"+shc.shcCode+"',";
+        	}
+    	}
+    	s += "''";
+    	String d = "'"+DateUtil.formatDateToSql(new Date())+"'";
+    	String sql = "";
+    	
+//    	this part of program should have a switch to disable and enable
+    	if (AppConfig.isAutoCreateChargeRule()) {
+        	sql = "SELECT a FROM ChargesRule a " +
+			"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+			"AND "+d+" BETWEEN a.startDate AND a.endDate AND a.shc IS NULL AND a.serviceLevel IS NULL";
+			List originRules = DBClient.getList(sql);
+			if (originRules == null || originRules.isEmpty()) {
+				createChargesRule(awb);
+			}
+		
+			sql = "SELECT a FROM ChargesRule a " +
+				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+				"AND "+d+" BETWEEN a.startDate AND a.endDate " +
+				"AND a.shc IN ("+s+") ";
+			List shcRules = DBClient.getList(sql);
+			if (shcRules == null || shcRules.isEmpty()) {
+				createChargesRuleForSHC(awb);
+			}
+			
+			sql = "SELECT a FROM ChargesRule a " +
+				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+				"AND "+d+" BETWEEN a.startDate AND a.endDate " +			
+				"AND a.serviceLevel IN ('"+awb.serviceLevel+"') ";
+			List serviceRules = DBClient.getList(sql);
+			if (serviceRules == null || serviceRules.isEmpty()) {
+				createChargesRuleForServiceLevel(awb);
+			}
+    	}
+		
+    	sql = "SELECT a FROM ChargesRule a " +
+			"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
+			"AND "+d+" BETWEEN a.startDate AND a.endDate " +
+			"AND (a.shc IS NULL OR a.shc IN ("+s+")) " +
+			"AND (a.serviceLevel IS NULL OR a.serviceLevel IN ('"+awb.serviceLevel+"')) ";
+    	return DBClient.getList(sql);
+    }
+    
+    public void createChargesRule(Awb awb) {
+    	List l = new ArrayList();
+    	List<Charges> lst = DBClient.getList("SELECT a FROM Charges a WHERE a.always=true");
+//    	usual charges
+    	for (Charges ch : lst) {
+        	ChargesRule rule = new ChargesRule();
+        	rule.chargeCode = ch.code;
+        	rule.active = true;
+        	rule.startDate = DateUtil.getFirstDayOfYear();
+        	rule.endDate = DateUtil.getEndDayOfYear();
+        	rule.origin = awb.origin;
+        	rule.destination = awb.destination;
+        	rule.amount = ch.amount;
+        	l.add(rule);
+    	}
+    	DBClient.persistBean(l);
+    }
+
+    public void createChargesRuleForSHC(Awb awb) {
+    	List l = new ArrayList();
+//    	charge for shc
+    	List<AwbShc> shcs = DBClient.getList("SELECT a FROM AwbShc a WHERE a.awbSeq='"+awb.seq+"'");
+    	if (shcs != null && !shcs.isEmpty()) {
+         	for (AwbShc shc : shcs) {
+            	if (shc.shcCode!=null && !shc.shcCode.isEmpty()) {
+                	ChargesRule rule = new ChargesRule();
+                	rule.chargeCode = "SHC";
+                	rule.active = true;
+                	rule.startDate = DateUtil.getFirstDayOfYear();
+                	rule.endDate = DateUtil.getEndDayOfYear();
+                	rule.origin = awb.origin;
+                	rule.destination = awb.destination;
+                	rule.amount = 0;
+                	rule.shc = shc.shcCode;
+                	l.add(rule);
+            	}
+        	}
+    	}
+    	DBClient.persistBean(l);
+    }
+    
+    public void createChargesRuleForServiceLevel(Awb awb) {
+    	List l = new ArrayList();
+    	if (awb.serviceLevel!=null && !awb.serviceLevel.isEmpty()) {
+        	ChargesRule rule = new ChargesRule();
+        	rule.chargeCode = "PROD";
+        	rule.active = true;
+        	rule.startDate = DateUtil.getFirstDayOfYear();
+        	rule.endDate = DateUtil.getEndDayOfYear();
+        	rule.origin = awb.origin;
+        	rule.destination = awb.destination;
+        	rule.amount = 0;
+        	rule.serviceLevel = awb.serviceLevel;
+        	l.add(rule);
+    	}
+    	DBClient.persistBean(l);
+    }
 }

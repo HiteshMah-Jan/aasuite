@@ -14,8 +14,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import rule.helper.Awb_RuleHelper;
 import service.FlightService;
+import template.screen.TablePopup;
+import util.DBClient;
+import util.PanelUtil;
 import bean.Awb;
+import bean.ChargesRule;
 import bean.Flight;
+import bean.awb.AwbCharges;
+import bean.extension.ChargesRuleExt;
 
 import common2.Common2View;
 import component.JTreeTableDisplayer;
@@ -39,6 +45,9 @@ public class Awb_RULE extends BusinessRuleWrapper {
         else if ("btnChooseRoute".equals(comp.getName())) {
             chooseRoute();
         }
+        else if ("btnChargesRule".equals(comp.getName())) {
+        	chargesRule();
+        }
         else if ("btnShowMessages".equals(comp.getName())) {
             showMessages();
         }
@@ -50,7 +59,33 @@ public class Awb_RULE extends BusinessRuleWrapper {
         }
     }
 
-    private void viewGL() {
+    private void chargesRule() {
+        Awb awb = (Awb) this.getBean();
+		List<ChargesRule> lst = helper.getApplicableCharges(awb);
+		PanelUtil.popupBeanTemplate(ChargesRuleExt.class, "Applicable Charges", false, lst);
+		boolean b = showPrompt("Do you want to save the applicable charges?");
+		if (b) {
+//			should merge charge for origin, not yet implemented
+			List l = new ArrayList();
+			for (ChargesRule c:lst) {
+				AwbCharges charge = new AwbCharges();
+				charge.awbSeq = awb.seq;
+				charge.amount = c.amount;
+				charge.chargeCode = c.chargeCode;
+				if (c.shc != null) {
+					charge.reason = c.shc;
+				}
+				else if (c.serviceLevel != null) {
+					charge.reason = c.serviceLevel;
+				}
+				l.add(charge);
+			}
+			DBClient.persistBean(l);
+			redisplayRecord();
+		}
+	}
+
+	private void viewGL() {
 		showError("Under Construction in Awb_RULE, must be called before createInvoice.");		
 	}
 
