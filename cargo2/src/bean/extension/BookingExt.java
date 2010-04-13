@@ -24,7 +24,6 @@ import bean.awb.AwbPackingList;
 import bean.awb.AwbShc;
 import bean.awb.AwbUld;
 import bean.reference.Airport;
-import bean.reference.Charges;
 import bean.reference.Currency;
 import bean.reference.ServiceLevel;
 
@@ -60,25 +59,20 @@ import bean.reference.ServiceLevel;
     @Display(name = "lp", width=20),
     @Display(name = "lc", width=20),
     
-    @Display(name = "commodityCode", addInfoOnly=true, width=50),
-//    @Display(name = "master", addInfoOnly=true, width=30, mergeFields={"slac"}),
-//    @Display(name = "slac", addInfoOnly=true, width=30),
-//    @Display(name = "house", addInfoOnly=true, width=30, mergeFields={"masterAwbSeq","hwbSerial"}),
-//    @Display(name = "masterAwbSeq", addInfoOnly=true, width=30, label="Master Awb"),
-//    @Display(name = "hwbSerial", addInfoOnly=true, width=30),
+    @Display(name = "commodityCode", addInfoOnly=true, width=70, gridFieldWidth=5),
+    @Display(name = "valueCarraige", addInfoOnly=true, width=70, label="Value Carriage"),
+    @Display(name = "valueCustoms", addInfoOnly=true, width=70, label="Customs"),
+    @Display(name = "valueInsurance", addInfoOnly=true, width=70, label="Insurance"),
+    @Display(name = "originCurrency", addInfoOnly=true, width=70, label="Origin Currency", type="PopSearch", linktoBean=Currency.class),
+    @Display(name = "totalOriginCharges", addInfoOnly=true, width=70, label="Total Prepaid", gridFieldWidth=3),
+    @Display(name = "destCurrency", addInfoOnly=true, width=70, label="Destination Currency", type="PopSearch", linktoBean=Currency.class),
+    @Display(name = "totalDestCharges", addInfoOnly=true, width=70, label="Total Collect", gridFieldWidth=3),
     
     @Display(name = "specialServiceRequest", label="SSR", addInfoOnly=true, gridFieldWidth=5, width=400, type="TextArea", height=40),
     @Display(name = "otherServiceInformation", label="OSI", addInfoOnly=true, gridFieldWidth=5, width=-1, type="TextArea", height=40),
     @Display(name = "shipmentSupplementaryInformation", label="SSI", addInfoOnly=true, gridFieldWidth=5, width=-1, type="TextArea", height=40),
     @Display(name = "shipmentReferenceInformation", label="SRI", addInfoOnly=true, gridFieldWidth=5, width=-1, type="TextArea", height=40),
     @Display(name = "freeDescriptionOfGoods", label="FDG", addInfoOnly=true, gridFieldWidth=5, width=-1, type="TextArea", height=40)
-    
-//    @Display(name = "serviceCode", addInfoOnly=true),
-//    @Display(name = "rateClassCode", addInfoOnly=true),
-//    @Display(name = "uldRateClassType", addInfoOnly=true),
-//    @Display(name = "place", addInfoOnly=true),
-//    @Display(name = "creditDetails", addInfoOnly=true),
-//    @Display(name = "remarks", addInfoOnly=true)
 })
 @DisplayGroups({
     @DisplayGroup(title="Service Level", gridCount=6, fields={"priority","serviceLevel","natureOfGoods"}),
@@ -114,6 +108,13 @@ import bean.reference.ServiceLevel;
                 "rateClassCode",
                 "uldRateClassType",
                 "commodityCode",
+                "valueCarraige",
+                "valueCustoms",
+                "valueInsurance",
+                "originCurrency",
+                "totalOriginCharges",
+                "destCurrency",
+                "totalDestCharges",
                 "place",
                 "creditDetails"
             }),

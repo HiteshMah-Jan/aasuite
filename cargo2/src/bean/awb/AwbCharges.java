@@ -25,11 +25,12 @@ import template.*;
  */
 @Entity
 @Table(name = "AwbCharges")
-@UITemplate(template = TemplateTabPage.class, gridCount = 6, columnSearch = {"chargeCode","amount","reason"}, showChart=true)
+@UITemplate(template = TemplateTabPage.class, gridCount = 6, columnSearch = {"chargeCode","amount","reason","prepaid"}, showChart=true)
 @Displays({
     @Display(name = "chargeCode", width=60, type="PopSearch", linktoBean=Charges.class),
     @Display(name = "amount"),
-    @Display(name = "reason")
+    @Display(name = "reason"),
+    @Display(name = "prepaid")
 })
 public class AwbCharges extends AbstractIBean implements Serializable {
     @Id
@@ -37,8 +38,12 @@ public class AwbCharges extends AbstractIBean implements Serializable {
     public Integer seq;
     @Column(name = "amount", nullable = false)
     public double amount;
+    @Column(name = "discount")
+    public double discount;
     @Column(name = "chargeCode", nullable = false, length = 5)
     public String chargeCode;
+    @Column(name = "prepaid")
+    public boolean prepaid;
     @Column(name = "reason", length = 100)
     public String reason;
     @Column(name = "awbSeq", nullable = false)
@@ -56,9 +61,26 @@ public class AwbCharges extends AbstractIBean implements Serializable {
 
     public AwbCharges() {
         reason = "--";
+        prepaid = true;
     }
     
-    public double getAmount() {
+    public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+
+	public boolean isPrepaid() {
+		return prepaid;
+	}
+
+	public void setPrepaid(boolean prepaid) {
+		this.prepaid = prepaid;
+	}
+
+	public double getAmount() {
         return amount;
     }
 

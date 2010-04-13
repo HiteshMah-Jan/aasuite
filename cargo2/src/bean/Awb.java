@@ -31,6 +31,7 @@ import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
 import util.DBClient;
+import bean.awb.AwbCharges;
 import bean.awb.AwbFlt;
 import bean.reference.Airport;
 import bean.reference.PaymentType;
@@ -246,6 +247,13 @@ public class Awb extends AbstractIBean implements Serializable {
     @Column(name = "totalDestCharges")
     public double totalDestCharges;
 
+    @Column(name = "valueCustoms")
+    public double valueCustoms;
+    @Column(name = "valueCarraige")
+    public double valueCarraige;
+    @Column(name = "valueInsurance")
+    public double valueInsurance;
+
     public Awb() {
         departureDate = util.DateUtil.addDay(new Date(), 1);
         contactPerson = "--";
@@ -257,7 +265,31 @@ public class Awb extends AbstractIBean implements Serializable {
 //        new AwbRouting().setupIndex();
     }
 
-    public double getCommissionAmount() {
+    public double getValueCustoms() {
+		return valueCustoms;
+	}
+
+	public void setValueCustoms(double valueCustoms) {
+		this.valueCustoms = valueCustoms;
+	}
+
+	public double getValueCarraige() {
+		return valueCarraige;
+	}
+
+	public void setValueCarraige(double valueCarraige) {
+		this.valueCarraige = valueCarraige;
+	}
+
+	public double getValueInsurance() {
+		return valueInsurance;
+	}
+
+	public void setValueInsurance(double valueInsurance) {
+		this.valueInsurance = valueInsurance;
+	}
+
+	public double getCommissionAmount() {
         return commissionAmount;
     }
 
@@ -865,6 +897,24 @@ public class Awb extends AbstractIBean implements Serializable {
 		if (destCurrency==null || destCurrency.isEmpty()) {
 			destCurrency = Airport.extractCurrency(destination);
 		}
+		if (!isEmptyKey()) {
+			double prepaid = 0;
+			double collect = 0;
+			List<AwbCharges> lst = DBClient.getList("SELECT a FROM AwbCharges a WHERE a.awbSeq="+seq);
+			for (AwbCharges c:lst) {
+				if (c.prepaid) {
+					prepaid += c.amount;
+				}
+				else {
+					collect += c.amount;
+				}
+			}
+			totalOriginCharges = prepaid;
+			totalDestCharges = collect;
+			
+//			calculate valueCustoms, valueCarraige, valueInsurance if 0
+		}
+		
 		super.save();
 	}
 	

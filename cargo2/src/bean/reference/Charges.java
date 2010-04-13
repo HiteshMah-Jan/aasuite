@@ -100,4 +100,18 @@ public class Charges extends AbstractIBean implements Serializable {
     public String popupSearch(String criteria) {
         return buildSearch(criteria,"code","name");
     }
+    
+	@Override
+	public void setupIndex() {
+		createCharges("FUE", "FUEL SURCHARGE", "FUEL SURCHARGE", 0).save();
+	}
+	
+	private Charges createCharges(String code, String name, String reason, double amount) {
+		Charges c = new Charges();
+		c.code = code;
+		c.name = name;
+		c.reason = reason;
+		c.amount = amount;
+		return c;
+	}
 }
