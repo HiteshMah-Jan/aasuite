@@ -265,6 +265,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
         AppConfig.getCompanyWTaxAgent();
         AppConfig.getCompanyZipCode();
         AppConfig.getCompanyNameOfBank();
+        AppConfig.isAutoCreateChargeRule();
     }
     
     public static boolean isTrimester() {
@@ -482,5 +483,9 @@ public class AppConfig extends AbstractIBean implements Serializable {
 
 	public static String getCompanyNameOfBank() {
         return AppConfig.getAppValue("COMPANY NAME OF BANK REMITTANCE", "");
+	}
+
+	public static boolean isAutoCreateChargeRule() {
+        return AppConfig.isTrue("AUTO CREATE CHARGE RULE", true);
 	}
 }

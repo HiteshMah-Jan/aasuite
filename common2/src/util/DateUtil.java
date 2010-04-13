@@ -46,6 +46,16 @@ public class DateUtil {
         return DateUtil.readDate(day1, "yyyyMMdd");
     }
 
+    public static Date getFirstDayOfYear() {
+        String day1 = DateUtil.formatDate(constants.Constants.useDate, "yyyy0101");
+        return DateUtil.readDate(day1, "yyyyMMdd");
+    }
+
+    public static Date getEndDayOfYear() {
+        String day1 = DateUtil.formatDate(constants.Constants.useDate, "yyyy1231");
+        return DateUtil.readDate(day1, "yyyyMMdd");
+    }
+    
     public static Date getDateOfMonth(int month, int day) {
         String year = DateUtil.formatDate(constants.Constants.useDate, "yyyy-");
         return DateUtil.readDate(year + month + "-" + day, "yyyy-MM-dd");
