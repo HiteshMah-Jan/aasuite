@@ -97,7 +97,7 @@ import bean.reference.ServiceLevel;
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbShc.class, sql="SELECT a FROM AwbShc a WHERE a.awbSeq=${seq}", title="SHC", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbUld.class, sql="SELECT a FROM AwbUld a WHERE a.awbSeq=${seq}", title="ULD", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbPackingList.class, sql="SELECT a FROM AwbPackingList a WHERE a.awbSeq=${seq}", title="Packing List", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"})
     }, 
     info={
         @ParentAddInfo(gridCount=6, title="Additional Info", 
