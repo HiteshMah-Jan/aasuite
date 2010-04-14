@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="StickerG5"
+		 name="StickerG3"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -290,7 +290,21 @@ WHERE
 				<staticText>
 					<reportElement
 						x="18"
-						y="492"
+						y="652"
+						width="293"
+						height="23"
+						forecolor="#000000"
+						key="element-97"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Co-curricular: Club/s Participation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="18"
+						y="572"
 						width="293"
 						height="23"
 						forecolor="#000000"
@@ -304,7 +318,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="18"
-						y="532"
+						y="452"
 						width="293"
 						height="23"
 						forecolor="#000000"
@@ -634,7 +648,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="18"
-						y="572"
+						y="492"
 						width="293"
 						height="23"
 						forecolor="#000000"
@@ -769,7 +783,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="18"
-						y="612"
+						y="532"
 						width="293"
 						height="23"
 						forecolor="#000000"
@@ -930,7 +944,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="532"
+						y="452"
 						width="281"
 						height="23"
 						key="subreport-83"/>
@@ -953,7 +967,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="572"
+						y="492"
 						width="281"
 						height="23"
 						key="subreport-84"/>
@@ -976,7 +990,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="612"
+						y="532"
 						width="281"
 						height="23"
 						key="subreport-85"/>
@@ -999,7 +1013,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="492"
+						y="572"
 						width="281"
 						height="23"
 						key="subreport-86"/>
@@ -1043,9 +1057,9 @@ WHERE
 					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="1_1_2">
 						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?""+"Grade 6":"Grade 5"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?""+"Grade 2":"Grade 1"]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="436"
 						y="695"
@@ -1056,7 +1070,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font pdfFontName="Helvetica" size="16" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{studentvaluesgrading_megaskillAverageFinal}.doubleValue()+.5).intValue()==1?"NI":new Double($F{studentvaluesgrading_megaskillAverageFinal}.doubleValue()+.5).intValue()==2?"MS":new Double($F{studentvaluesgrading_megaskillAverageFinal}.doubleValue()+.5).intValue()==3?"S":new Double($F{studentvaluesgrading_megaskillAverageFinal}.doubleValue()+.5).intValue()==4?"HS":new Double($F{studentvaluesgrading_megaskillAverageFinal}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
@@ -1104,30 +1118,16 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardAttendanceSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
-				<staticText>
-					<reportElement
-						x="18"
-						y="452"
-						width="293"
-						height="23"
-						forecolor="#000000"
-						key="element-118"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica-Bold" size="16" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Technology and Livelihood Education]]></text>
-				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="452"
+						y="652"
 						width="281"
 						height="23"
 						key="subreport-89"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT q1TLE+.5 as any1, q2TLE+.5 as any2, q3TLE+.5 as any3, q4TLE+.5 as any4, qallTLE+.5 as any5 "+
-"FROM Enrollment "+
+						<subreportParameterExpression><![CDATA["SELECT clubsAndParticipation as any1, clubsAndParticipation2 as any2, clubsAndParticipation3 as any3, clubsAndParticipation4 as any4, clubsAndParticipationFinal as any5 "+
+"FROM StudentValuesGrading "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
 "	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
@@ -1139,7 +1139,44 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardSubreport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardValuesLetterSticker.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="18"
+						y="613"
+						width="293"
+						height="23"
+						forecolor="#000000"
+						key="element-118"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Scouting]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="317"
+						y="613"
+						width="281"
+						height="23"
+						key="subreport-90"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT scouting+.5 as any1, scouting2+.5 as any2, scouting3+.5 as any3, scouting4+.5 as any4, scoutingFinal+.5 as any5 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>

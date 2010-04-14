@@ -23,8 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["AKLAN"]]></defaultValueExpression>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`studentNumber` AS SN,
@@ -62,7 +62,7 @@
 FROM
      `person` person INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
 WHERE
-     studentvaluesgrading.section = $P{REPORT_ADD_WHERE}
+     studentvaluesgrading.gradeLevel = $P{REPORT_ADD_WHERE}
 ORDER BY
      studentvaluesgrading.section ASC,
      gender ASC,
@@ -92,7 +92,7 @@ ORDER BY
 	<field name="clubsAndParticipation" class="java.lang.Integer"/>
 	<field name="focus" class="java.lang.Integer"/>
 	<field name="respect" class="java.lang.Integer"/>
-	<field name="scouting" class="java.lang.Integer"/>
+	<field name="scouting" class="java.lang.Double"/>
 	<field name="AffectiveAverage1" class="java.lang.Double"/>
 	<field name="MegaskillAverage1" class="java.lang.Double"/>
 	<field name="PsychomotorAverage1" class="java.lang.Double"/>
@@ -102,6 +102,17 @@ ORDER BY
 	<field name="studentvaluesgrading_megaskillAverageFinal" class="java.lang.Double"/>
 
 
+		<group  name="section" isStartNewPage="true" >
+			<groupExpression><![CDATA[$F{section}]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="50"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
 		<group  name="gender" >
 			<groupExpression><![CDATA[$F{gender}]]></groupExpression>
 			<groupHeader>

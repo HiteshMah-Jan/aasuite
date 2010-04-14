@@ -23,8 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["DUMBO"]]></defaultValueExpression>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`studentNumber` AS SN,
@@ -108,7 +108,7 @@
 FROM
      `person` person INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
 WHERE
-     studentvaluesgrading.section = $P{REPORT_ADD_WHERE}
+     studentvaluesgrading.gradeLevel = $P{REPORT_ADD_WHERE}
 ORDER BY
      studentvaluesgrading.section ASC,
      gender ASC, 
@@ -163,7 +163,7 @@ ORDER BY
 	<field name="clubsAndParticipation" class="java.lang.Integer"/>
 	<field name="focus" class="java.lang.Integer"/>
 	<field name="respect" class="java.lang.Integer"/>
-	<field name="scouting" class="java.lang.Integer"/>
+	<field name="scouting" class="java.lang.Double"/>
 	<field name="els" class="java.lang.Integer"/>
 	<field name="wfr" class="java.lang.Integer"/>
 	<field name="apgw" class="java.lang.Integer"/>
@@ -200,6 +200,17 @@ ORDER BY
 			</groupHeader>
 			<groupFooter>
 			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="Section" isStartNewPage="true" >
+			<groupExpression><![CDATA[$F{section}]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 			</groupFooter>
 		</group>
@@ -1103,7 +1114,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PsychomotorAverage1}.intValue()==1?"NI":$F{PsychomotorAverage1}.intValue()==2?"MS":$F{PsychomotorAverage1}.intValue()==3?"S":$F{PsychomotorAverage1}.intValue()==4?"HS":$F{PsychomotorAverage1}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{PsychomotorAverage1}.doubleValue()+.5).intValue()==1?"NI":new Double($F{PsychomotorAverage1}.doubleValue()+.5).intValue()==2?"MS":new Double($F{PsychomotorAverage1}.doubleValue()+.5).intValue()==3?"S":new Double($F{PsychomotorAverage1}.doubleValue()+.5).intValue()==4?"HS":new Double($F{PsychomotorAverage1}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1117,7 +1128,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AffectiveAverage1}.intValue()==1?"NI":$F{AffectiveAverage1}.intValue()==2?"MS":$F{AffectiveAverage1}.intValue()==3?"S":$F{AffectiveAverage1}.intValue()==4?"HS":$F{AffectiveAverage1}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{AffectiveAverage1}.doubleValue()+.5).intValue()==1?"NI":new Double($F{AffectiveAverage1}.doubleValue()+.5).intValue()==2?"MS":new Double($F{AffectiveAverage1}.doubleValue()+.5).intValue()==3?"S":new Double($F{AffectiveAverage1}.doubleValue()+.5).intValue()==4?"HS":new Double($F{AffectiveAverage1}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

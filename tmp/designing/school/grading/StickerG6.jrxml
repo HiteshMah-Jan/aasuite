@@ -23,43 +23,123 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["5224"]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT
-     DISTINCT person.`studentNumber` AS StudentNumber,
-     person.`personId` AS PersonId,
-     person.`lastName` AS LastName,
-     person.`middleInitial` AS MI,
-     person.`gender` AS Gender,
-     person.`course` AS Course,
-     person.`firstName` AS FirstName,
-     enrollment.`section` AS Section,
-     person.`gradeLevel` AS GradeLevel,
-     studentSubject.`preferredYear` AS SY
+     person.`firstName` AS person_firstName,
+     person.`lastName` AS person_lastName,
+     person.`schoolYear` AS person_schoolYear,
+     person.`section` AS person_section,
+     person.`middleInitial` AS person_middleInitial,
+     person.`gradeLevel` AS person_gradeLevel,
+     section.`facultyId` AS section_facultyId,
+     person.`personId` AS person_personId,
+     person.`studentNumber` AS person_studentNumber,
+     person.`toSection` AS person_toSection,
+     person.`gradeLevelDesc` AS person_gradeLevelDesc,
+     enrollment.`schoolYear` AS enrollment_schoolYear,
+     section.`faculty` AS section_faculty,
+     enrollment.`gpaFinal` AS enrollment_gpaFinal,
+     studentvaluesgrading.`status` AS studentvaluesgrading_status,
+     enrollment.`qallAP` AS enrollment_qallAP,
+     enrollment.`qallArts` AS enrollment_qallArts,
+     enrollment.`qallCCF` AS enrollment_qallCCF,
+     enrollment.`qallCE` AS enrollment_qallCE,
+     enrollment.`qallChineseA` AS enrollment_qallChineseA,
+     enrollment.`qallChineseB` AS enrollment_qallChineseB,
+     enrollment.`qallComputer` AS enrollment_qallComputer,
+     enrollment.`qallEnglish` AS enrollment_qallEnglish,
+     enrollment.`qallFilipino` AS enrollment_qallFilipino,
+     enrollment.`qallHekasi` AS enrollment_qallHekasi,
+     enrollment.`qallMAPEH` AS enrollment_qallMAPEH,
+     enrollment.`qallMC` AS enrollment_qallMC,
+     enrollment.`qallME` AS enrollment_qallME,
+     enrollment.`qallMath` AS enrollment_qallMath,
+     enrollment.`qallMusic` AS enrollment_qallMusic,
+     enrollment.`qallOpMath` AS enrollment_qallOpMath,
+     enrollment.`qallPE` AS enrollment_qallPE,
+     enrollment.`qallReading` AS enrollment_qallReading,
+     enrollment.`qallResearch` AS enrollment_qallResearch,
+     enrollment.`qallScience` AS enrollment_qallScience,
+     enrollment.`qallTLE` AS enrollment_qallTLE,
+     enrollment.`qallVP` AS enrollment_qallVP,
+     enrollment.`qallWriting` AS enrollment_qallWriting,
+     enrollment.`qallZL` AS enrollment_qallZL,
+     studentvaluesgrading.`megaskillAverageFinal` AS studentvaluesgrading_megaskillAverageFinal,
+     studentvaluesgrading.`affectiveAverageFinal` AS studentvaluesgrading_affectiveAverageFinal,
+     studentvaluesgrading.`comment1` AS studentvaluesgrading_comment1,
+     studentvaluesgrading.`comment2` AS studentvaluesgrading_comment2,
+     studentvaluesgrading.`comment3` AS studentvaluesgrading_comment3,
+     studentvaluesgrading.`comment4` AS studentvaluesgrading_comment4,
+     studentvaluesgrading.`psychomotorAverageFinal` AS studentvaluesgrading_psychomotorAverageFinal,
+     studentvaluesgrading.`valuesPromotedAverageFinal` AS studentvaluesgrading_valuesPromotedAverageFinal,
+     studentvaluesgrading.`zl2AverageFinal` AS studentvaluesgrading_zl2AverageFinal,
+     person.`gender` AS person_gender
 FROM
-     `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
-     INNER JOIN `studentsubject` studentsubject ON enrollment.`studentId` = studentsubject.`studentId`
+     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
+     INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
+     INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
-     person.`status` = 'ENROLLED'
-AND  person.gradeLevel LIKE 'G6%' 
-ORDER BY
-     person.gradeLevel ASC,
-     enrollment.section ASC,
-     person.gender DESC,
-     person.lastName ASC]]></queryString>
+     person.personId = $P{REPORT_ADD_WHERE}
+ AND enrollment.schoolYear = "2009-2010"]]></queryString>
 
-	<field name="StudentNumber" class="java.lang.String"/>
-	<field name="PersonId" class="java.lang.Integer"/>
-	<field name="LastName" class="java.lang.String"/>
-	<field name="MI" class="java.lang.String"/>
-	<field name="Gender" class="java.lang.String"/>
-	<field name="Course" class="java.lang.String"/>
-	<field name="FirstName" class="java.lang.String"/>
-	<field name="Section" class="java.lang.String"/>
-	<field name="GradeLevel" class="java.lang.String"/>
-	<field name="SY" class="java.lang.String"/>
+	<field name="person_firstName" class="java.lang.String"/>
+	<field name="person_lastName" class="java.lang.String"/>
+	<field name="person_schoolYear" class="java.lang.String"/>
+	<field name="person_section" class="java.lang.String"/>
+	<field name="person_middleInitial" class="java.lang.String"/>
+	<field name="person_gradeLevel" class="java.lang.String"/>
+	<field name="section_facultyId" class="java.lang.Integer"/>
+	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="person_studentNumber" class="java.lang.String"/>
+	<field name="person_toSection" class="java.lang.String"/>
+	<field name="person_gradeLevelDesc" class="java.lang.String"/>
+	<field name="enrollment_schoolYear" class="java.lang.String"/>
+	<field name="section_faculty" class="java.lang.String"/>
+	<field name="enrollment_gpaFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_status" class="java.lang.String"/>
+	<field name="enrollment_qallAP" class="java.lang.Double"/>
+	<field name="enrollment_qallArts" class="java.lang.Double"/>
+	<field name="enrollment_qallCCF" class="java.lang.Double"/>
+	<field name="enrollment_qallCE" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseA" class="java.lang.Double"/>
+	<field name="enrollment_qallChineseB" class="java.lang.Double"/>
+	<field name="enrollment_qallComputer" class="java.lang.Double"/>
+	<field name="enrollment_qallEnglish" class="java.lang.Double"/>
+	<field name="enrollment_qallFilipino" class="java.lang.Double"/>
+	<field name="enrollment_qallHekasi" class="java.lang.Double"/>
+	<field name="enrollment_qallMAPEH" class="java.lang.Double"/>
+	<field name="enrollment_qallMC" class="java.lang.Double"/>
+	<field name="enrollment_qallME" class="java.lang.Double"/>
+	<field name="enrollment_qallMath" class="java.lang.Double"/>
+	<field name="enrollment_qallMusic" class="java.lang.Double"/>
+	<field name="enrollment_qallOpMath" class="java.lang.Double"/>
+	<field name="enrollment_qallPE" class="java.lang.Double"/>
+	<field name="enrollment_qallReading" class="java.lang.Double"/>
+	<field name="enrollment_qallResearch" class="java.lang.Double"/>
+	<field name="enrollment_qallScience" class="java.lang.Double"/>
+	<field name="enrollment_qallTLE" class="java.lang.Double"/>
+	<field name="enrollment_qallVP" class="java.lang.Double"/>
+	<field name="enrollment_qallWriting" class="java.lang.Double"/>
+	<field name="enrollment_qallZL" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_megaskillAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_affectiveAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_comment1" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment2" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment3" class="java.lang.String"/>
+	<field name="studentvaluesgrading_comment4" class="java.lang.String"/>
+	<field name="studentvaluesgrading_psychomotorAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_valuesPromotedAverageFinal" class="java.lang.Double"/>
+	<field name="studentvaluesgrading_zl2AverageFinal" class="java.lang.Double"/>
+	<field name="person_gender" class="java.lang.String"/>
 
 
 		<group  name="GradeLevel" >
-			<groupExpression><![CDATA[$F{GradeLevel}]]></groupExpression>
+			<groupExpression><![CDATA[$F{person_gradeLevel}]]></groupExpression>
 			<groupHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -70,7 +150,7 @@ ORDER BY
 			</groupFooter>
 		</group>
 		<group  name="Section" >
-			<groupExpression><![CDATA[$F{Section}]]></groupExpression>
+			<groupExpression><![CDATA[$F{person_section}]]></groupExpression>
 			<groupHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -81,7 +161,7 @@ ORDER BY
 			</groupFooter>
 		</group>
 		<group  name="Gender" >
-			<groupExpression><![CDATA[$F{Gender}]]></groupExpression>
+			<groupExpression><![CDATA[$F{person_gender}]]></groupExpression>
 			<groupHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -163,7 +243,7 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Science and Technology]]></text>
+				<text><![CDATA[Science and Health]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -210,20 +290,6 @@ ORDER BY
 				<staticText>
 					<reportElement
 						x="18"
-						y="452"
-						width="293"
-						height="23"
-						forecolor="#000000"
-						key="element-97"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Technology & Livelihood Education]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="18"
 						y="492"
 						width="293"
 						height="23"
@@ -251,9 +317,9 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="317"
+						x="316"
 						y="178"
-						width="39"
+						width="57"
 						height="23"
 						forecolor="#000000"
 						key="element-100"/>
@@ -265,9 +331,9 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="377"
+						x="373"
 						y="178"
-						width="39"
+						width="57"
 						height="23"
 						forecolor="#000000"
 						key="element-101"/>
@@ -279,9 +345,9 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="431"
+						x="430"
 						y="178"
-						width="39"
+						width="57"
 						height="23"
 						forecolor="#000000"
 						key="element-102"/>
@@ -295,7 +361,7 @@ ORDER BY
 					<reportElement
 						x="487"
 						y="178"
-						width="39"
+						width="57"
 						height="23"
 						forecolor="#000000"
 						key="element-103"/>
@@ -307,9 +373,9 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="542"
+						x="544"
 						y="178"
-						width="51"
+						width="63"
 						height="23"
 						forecolor="#000000"
 						key="element-104"/>
@@ -423,7 +489,7 @@ ORDER BY
 						x="542"
 						y="171"
 						width="0"
-						height="467"
+						height="507"
 						key="line-16"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -432,7 +498,7 @@ ORDER BY
 						x="485"
 						y="171"
 						width="0"
-						height="467"
+						height="507"
 						key="line-17"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -441,7 +507,7 @@ ORDER BY
 						x="429"
 						y="171"
 						width="0"
-						height="467"
+						height="507"
 						key="line-18"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -450,7 +516,7 @@ ORDER BY
 						x="373"
 						y="171"
 						width="0"
-						height="467"
+						height="507"
 						key="line-19"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -459,7 +525,7 @@ ORDER BY
 						x="315"
 						y="171"
 						width="0"
-						height="467"
+						height="507"
 						key="line-20"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -468,7 +534,7 @@ ORDER BY
 						x="606"
 						y="61"
 						width="0"
-						height="577"
+						height="617"
 						key="line-21"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -477,7 +543,7 @@ ORDER BY
 						x="7"
 						y="61"
 						width="0"
-						height="577"
+						height="617"
 						key="line-22"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
@@ -493,7 +559,7 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[General Average]]></text>
+				<text><![CDATA[General Average:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -521,13 +587,13 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Retained in]]></text>
+				<text><![CDATA[Retained in:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="288"
 						y="695"
-						width="163"
+						width="148"
 						height="23"
 						forecolor="#000000"
 						key="element-111"/>
@@ -535,13 +601,13 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Values / Conduct]]></text>
+				<text><![CDATA[Values / Conduct:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="288"
 						y="725"
-						width="163"
+						width="134"
 						height="23"
 						forecolor="#000000"
 						key="element-112"/>
@@ -549,13 +615,13 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Days of School]]></text>
+				<text><![CDATA[Days of School:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="288"
 						y="745"
-						width="163"
+						width="134"
 						height="23"
 						forecolor="#000000"
 						key="element-113"/>
@@ -563,7 +629,7 @@ ORDER BY
 					<textElement>
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Days Present]]></text>
+				<text><![CDATA[Days Present:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -590,7 +656,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font fontName="Times-Roman" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{LastName}+" , "+ $F{FirstName}+" "+$F{MI}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_lastName}+" , "+ $F{person_firstName}+" "+$F{person_middleInitial}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -603,7 +669,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font fontName="Times-Roman" size="18"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{StudentNumber}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_studentNumber}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -630,7 +696,7 @@ ORDER BY
 					<textElement>
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{GradeLevel}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_gradeLevel}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -644,7 +710,7 @@ ORDER BY
 					<textElement>
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{Section}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_section}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -657,7 +723,7 @@ ORDER BY
 					<textElement textAlignment="Center">
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SY}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_schoolYear}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -714,940 +780,366 @@ ORDER BY
 					</textElement>
 				<text><![CDATA[Physical Education]]></text>
 				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="678"
+						width="599"
+						height="0"
+						key="line-27"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="318"
+						x="317"
 						y="212"
-						width="51"
-						height="23"
-						key="subreport-72"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="212"
-						width="51"
-						height="23"
-						key="subreport-73"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="212"
-						width="51"
-						height="23"
-						key="subreport-74"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="212"
-						width="51"
-						height="23"
-						key="subreport-75"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="252"
-						width="51"
-						height="23"
-						key="subreport-76"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="252"
-						width="51"
+						width="281"
 						height="23"
 						key="subreport-77"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4, qallFilipino+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="375"
+						x="317"
 						y="252"
-						width="51"
+						width="281"
 						height="23"
 						key="subreport-78"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4, qallEnglish+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="318"
-						y="252"
-						width="51"
+						x="317"
+						y="292"
+						width="281"
 						height="23"
 						key="subreport-79"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Science+.5 as any1, q2Science+.5 as any2, q3Science+.5 as any3, q4Science+.5 as any4, qallScience+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="318"
-						y="292"
-						width="51"
+						x="317"
+						y="332"
+						width="281"
 						height="23"
 						key="subreport-80"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4, qallMath+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="375"
-						y="292"
-						width="51"
+						x="317"
+						y="372"
+						width="281"
 						height="23"
 						key="subreport-81"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4, qallCCF+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="431"
-						y="292"
-						width="51"
+						x="317"
+						y="412"
+						width="281"
 						height="23"
 						key="subreport-82"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4, qallHekasi+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="488"
-						y="292"
-						width="51"
+						x="317"
+						y="532"
+						width="281"
 						height="23"
 						key="subreport-83"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Music+.5 as any1, q2Music+.5 as any2, q3Music+.5 as any3, q4Music+.5 as any4, qallMusic+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="488"
-						y="332"
-						width="51"
+						x="317"
+						y="572"
+						width="281"
 						height="23"
 						key="subreport-84"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Arts+.5 as any1, q2Arts+.5 as any2, q3Arts+.5 as any3, q4Arts+.5 as any4, qallArts+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="431"
-						y="332"
-						width="51"
+						x="317"
+						y="612"
+						width="281"
 						height="23"
 						key="subreport-85"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1PE+.5 as any1, q2PE+.5 as any2, q3PE+.5 as any3, q4PE+.5 as any4, qallPE+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="375"
-						y="332"
-						width="51"
+						x="317"
+						y="492"
+						width="281"
 						height="23"
 						key="subreport-86"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4, qallComputer+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="181"
+						y="695"
+						width="57"
+						height="23"
+						key="textField-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica" size="16" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="181"
+						y="725"
+						width="107"
+						height="43"
+						key="textField-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?""+"1st Year":"Grade 6"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="695"
+						width="57"
+						height="23"
+						key="textField-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica" size="16" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue())]]></textFieldExpression>
+				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="318"
-						y="332"
-						width="51"
+						x="422"
+						y="725"
+						width="156"
 						height="23"
 						key="subreport-87"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT totalDays as any1, totalDays2 as any2, totalDays3 as any3, totalDays4 as any4, (totalDays+totalDays2+totalDays3+totalDays4) as any5 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+
+"	studentId="+$P{REPORT_ADD_WHERE}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardAttendanceSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="318"
-						y="372"
-						width="51"
+						x="422"
+						y="745"
+						width="156"
 						height="23"
 						key="subreport-88"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%REL%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT present as any1, present2 as any2, present3 as any3, present4 as any4, (present+present2+present3+present4) as any5 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+
+"	studentId="+$P{REPORT_ADD_WHERE}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardAttendanceSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
+				<staticText>
+					<reportElement
+						x="18"
+						y="452"
+						width="293"
+						height="23"
+						forecolor="#000000"
+						key="element-118"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica-Bold" size="16" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Technology and Livelihood Education]]></text>
+				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
-						x="375"
-						y="372"
-						width="51"
+						x="317"
+						y="452"
+						width="281"
 						height="23"
 						key="subreport-89"/>
 					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%REL%'"]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA["SELECT q1TLE+.5 as any1, q2TLE+.5 as any2, q3TLE+.5 as any3, q4TLE+.5 as any4, qallTLE+.5 as any5 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="372"
-						width="51"
-						height="23"
-						key="subreport-90"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%REL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="372"
-						width="51"
-						height="23"
-						key="subreport-91"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%REL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="412"
-						width="51"
-						height="23"
-						key="subreport-92"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%HEK%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="412"
-						width="51"
-						height="23"
-						key="subreport-93"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%HEK%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="412"
-						width="51"
-						height="23"
-						key="subreport-94"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%HEK%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="412"
-						width="51"
-						height="23"
-						key="subreport-95"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%HEK%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="612"
-						width="51"
-						height="23"
-						key="subreport-104"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%PE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="612"
-						width="51"
-						height="23"
-						key="subreport-105"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%PE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="612"
-						width="51"
-						height="23"
-						key="subreport-106"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%PE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="612"
-						width="51"
-						height="23"
-						key="subreport-107"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%PE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="492"
-						width="51"
-						height="23"
-						key="subreport-108"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="492"
-						width="51"
-						height="23"
-						key="subreport-109"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="492"
-						width="51"
-						height="23"
-						key="subreport-110"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="492"
-						width="51"
-						height="23"
-						key="subreport-111"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="532"
-						width="51"
-						height="23"
-						key="subreport-112"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MUS%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="532"
-						width="51"
-						height="23"
-						key="subreport-113"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MUS%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="532"
-						width="51"
-						height="23"
-						key="subreport-114"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MUS%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="532"
-						width="51"
-						height="23"
-						key="subreport-115"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MUS%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="572"
-						width="51"
-						height="23"
-						key="subreport-116"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ART%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="572"
-						width="51"
-						height="23"
-						key="subreport-117"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ART%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="572"
-						width="51"
-						height="23"
-						key="subreport-118"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ART%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="572"
-						width="51"
-						height="23"
-						key="subreport-119"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ART%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="318"
-						y="452"
-						width="51"
-						height="23"
-						key="subreport-120"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade1` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="375"
-						y="452"
-						width="51"
-						height="23"
-						key="subreport-121"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade2` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="431"
-						y="452"
-						width="51"
-						height="23"
-						key="subreport-122"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade3` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="488"
-						y="452"
-						width="51"
-						height="23"
-						key="subreport-123"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`grade4` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18SubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="212"
-						width="51"
-						height="23"
-						key="subreport-124"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="252"
-						width="51"
-						height="23"
-						key="subreport-125"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="292"
-						width="51"
-						height="23"
-						key="subreport-126"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="332"
-						width="51"
-						height="23"
-						key="subreport-127"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="372"
-						width="51"
-						height="23"
-						key="subreport-128"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%REL%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="412"
-						width="51"
-						height="23"
-						key="subreport-129"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%HEK%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="452"
-						width="51"
-						height="23"
-						key="subreport-130"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="492"
-						width="51"
-						height="23"
-						key="subreport-131"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="532"
-						width="51"
-						height="23"
-						key="subreport-132"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%MUS%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="572"
-						width="51"
-						height="23"
-						key="subreport-133"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%ART%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="547"
-						y="612"
-						width="51"
-						height="23"
-						key="subreport-134"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT s.`finalRating` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
-"FROM studentsubject s "+
-"WHERE s.studentId = '"+$F{PersonId}+"' AND "+
-"s.gradeLevel = '"+$F{GradeLevel}+"' AND "+
-"s.`subject` LIKE '%PE%'"]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:/tmp/designing/SubReports/SQLRetreiverFont18DoubleDecimalSubReport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardSubreport.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>

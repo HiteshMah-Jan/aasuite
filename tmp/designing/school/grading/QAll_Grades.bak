@@ -2,13 +2,13 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="Q4_Grades"
+		 name="QAll_Grades"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
-		 pageWidth="1218"
+		 pageWidth="1332"
 		 pageHeight="737"
-		 columnWidth="1158"
+		 columnWidth="1272"
 		 columnSpacing="0"
 		 leftMargin="30"
 		 rightMargin="30"
@@ -33,47 +33,54 @@
      person.`lastName` AS lastName,
      if(person.`gender`='FEMALE','G','B')AS Gender,
      person.`personId` AS No,
-     enrollment.`q4AP`+.5 AS AP,
-     enrollment.`q4Arts`+.5 AS ARTS,
-     studentvaluesgrading.`absent4` AS DA,
-     studentvaluesgrading.`totalDays4` AS NoD,
-     studentvaluesgrading.`tardy4` AS DT,
-     enrollment.`q4OpMath`+.5 AS OpMath,
-     enrollment.`q4CCF`+.5 AS CCF,
-     enrollment.`q4CE`+.5 AS CE,
-     enrollment.`q4ChineseA`+.5 AS CHINESEA,
-     enrollment.`q4ChineseB`+.5 AS CHINESEB,
-     enrollment.`q4Computer`+.5 AS COMPUTER,
-     enrollment.`q4English`+.5 AS ENG,
-     enrollment.`q4Filipino`+.5 AS FIL,
-     enrollment.`q4Hekasi`+.5 AS HKS,
-     enrollment.`q4MAPEH`+.5 AS MAPEH,
-     enrollment.`meritQ4` AS MC,
-     enrollment.`q4ME`+.5 AS ME,
-     enrollment.`q4Math`+.5 AS MATH,
-     enrollment.`q4Music`+.5 AS MUSIC,
-     enrollment.`q4PE`+.5 AS PE,
-     enrollment.`q4Reading`+.5 AS READING,
-     enrollment.`q4Science`+.5 AS SCI,
-     enrollment.`q4TLE`+.5 AS TLE,
-     enrollment.`q4VP`+.5 AS VP,
-     enrollment.`q4Writing`+.5 AS WRIT,
-     enrollment.`q4ZL`+.5 AS ZL,
-     enrollment.`rankQ4` AS RANK,
-     enrollment.`gpa4` AS FG,
-     enrollment.`gpa4`+.5 AS TFG,
+     enrollment.`qAllAP` AS AP,
+     enrollment.`qAllArts` AS ARTS,
+     enrollment.`qallAttendanceAbsent` AS DA,
+     enrollment.`qallAttendanceNoOfDays` AS NoD,
+     enrollment.`qallAttendanceTardy` AS DT,
+     enrollment.`qAllOpMath` AS OpMath,
+     enrollment.`qAllCCF` AS CCF,
+     enrollment.`qAllCE` AS CE,
+     enrollment.`qAllChineseA` AS CHINESEA,
+     enrollment.`qAllChineseB` AS CHINESEB,
+     enrollment.`qAllComputer` AS COMPUTER,
+     enrollment.`qAllEnglish` AS ENG,
+     enrollment.`qAllFilipino` AS FIL,
+     enrollment.`qAllHekasi` AS HKS,
+     enrollment.`qAllMAPEH` AS MAPEH,
+     enrollment.`meritFinal` AS MC,
+     enrollment.`qAllME` AS ME,
+     enrollment.`qAllMath` AS MATH,
+     enrollment.`qallMusic` AS MUSIC,
+     enrollment.`qAllPE` AS PE,
+     enrollment.`qAllReading` AS READING,
+     enrollment.`qAllScience` AS SCI,
+     enrollment.`qAllTLE` AS TLE,
+     enrollment.`qAllVP` AS VP,
+     enrollment.`qAllWriting` AS WRIT,
+     enrollment.`qAllZL` AS ZL,
+     enrollment.`rankFinal` AS RANK,
+     enrollment.`gpaFinal` AS FG,
+enrollment.`gpaFinal` AS gpaFinal,
      person.`section` AS section,
      section.`faculty` AS faculty,
      section.`gradeLevel` AS section_gradeLevel,
-     studentvaluesgrading.`ec14` AS EC1,
-     studentvaluesgrading.`ec24` AS EC2,
-     studentvaluesgrading.`affectiveAverage4` AS AffectiveAverage1,
-     studentvaluesgrading.`megaskillAverage4` AS MegaskillAverage1,
-     studentvaluesgrading.`psychomotorAverage4` AS PsychomotorAverage1,
-     studentvaluesgrading.`valuesPromotedAverage4` AS ValuesPromotedAverage1,
-     studentvaluesgrading.`zl2Average4` AS Zl2Average1,
-     studentvaluesgrading.`scouting4` AS scouting,
-     clubsAndParticipation4 AS CLUB
+     studentvaluesgrading.`ec1Final` AS EC1,
+     studentvaluesgrading.`ec2Final` AS EC2,
+     studentvaluesgrading.`affectiveAverageFinal` AS AffectiveAverage1,
+     studentvaluesgrading.`megaskillAverageFinal` AS MegaskillAverage1,
+     studentvaluesgrading.`psychomotorAverageFinal` AS PsychomotorAverage1,
+     studentvaluesgrading.`valuesPromotedAverageFinal` AS ValuesPromotedAverage1,
+     studentvaluesgrading.`zl2AverageFinal` AS Zl2Average1,
+     studentvaluesgrading.`scouting` AS scouting,
+     clubsAndParticipation AS CLUB,
+     ((studentvaluesgrading.`absent`)+(studentvaluesgrading.`absent2`)+(studentvaluesgrading.`absent3`)+(studentvaluesgrading.`absent4`))AS totalDaysAbsent,
+     ((studentvaluesgrading.`present`)+(studentvaluesgrading.`present2`)+(studentvaluesgrading.`present3`)+(studentvaluesgrading.`present4`))AS totalDaysPresent,
+     ((studentvaluesgrading.`tardy`)+(studentvaluesgrading.`tardy2`)+(studentvaluesgrading.`tardy3`)+(studentvaluesgrading.`tardy4`))AS totalTardy,
+     ((studentvaluesgrading.`totalDays`)+(studentvaluesgrading.`totalDays2`)+(studentvaluesgrading.`totalDays3`)+(studentvaluesgrading.`totalDays4`))AS totalNoDays
+     
+     
+    
 FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `section` section ON person.`section` = section.`code`
@@ -121,7 +128,7 @@ ORDER BY
 	<field name="ZL" class="java.lang.Double"/>
 	<field name="RANK" class="java.lang.Integer"/>
 	<field name="FG" class="java.lang.Double"/>
-	<field name="TFG" class="java.lang.Double"/>
+	<field name="gpaFinal" class="java.lang.Double"/>
 	<field name="section" class="java.lang.String"/>
 	<field name="faculty" class="java.lang.String"/>
 	<field name="section_gradeLevel" class="java.lang.String"/>
@@ -134,12 +141,16 @@ ORDER BY
 	<field name="Zl2Average1" class="java.lang.Double"/>
 	<field name="scouting" class="java.lang.Integer"/>
 	<field name="CLUB" class="java.lang.Integer"/>
+	<field name="totalDaysAbsent" class="java.lang.Long"/>
+	<field name="totalDaysPresent" class="java.lang.Long"/>
+	<field name="totalTardy" class="java.lang.Long"/>
+	<field name="totalNoDays" class="java.lang.Long"/>
 
 
 		<group  name="S_Section" isStartNewPage="true" >
 			<groupExpression><![CDATA[$F{section}]]></groupExpression>
 			<groupHeader>
-			<band height="1"  isSplitAllowed="true" >
+			<band height="50"  isSplitAllowed="true" >
 			</band>
 			</groupHeader>
 			<groupFooter>
@@ -180,7 +191,7 @@ ORDER BY
 					<textElement>
 						<font size="18"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{section_gradeLevel}+" - "+$F{section}+", 4th Quarter ("+$F{faculty}+")"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{section_gradeLevel}+" - "+$F{section}+", General Average ("+$F{faculty}+")"]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>
@@ -342,7 +353,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="618"
+						x="562"
 						y="24"
 						width="26"
 						height="12"
@@ -356,7 +367,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="789"
+						x="616"
 						y="24"
 						width="28"
 						height="12"
@@ -398,7 +409,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="873"
+						x="817"
 						y="24"
 						width="28"
 						height="12"
@@ -412,7 +423,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="901"
+						x="845"
 						y="24"
 						width="28"
 						height="12"
@@ -456,6 +467,62 @@ ORDER BY
 					<reportElement
 						x="1097"
 						y="24"
+						width="28"
+						height="12"
+						forecolor="#000000"
+						key="staticText"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[DA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1125"
+						y="24"
+						width="28"
+						height="12"
+						forecolor="#000000"
+						key="staticText"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[DP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1153"
+						y="24"
+						width="28"
+						height="12"
+						forecolor="#000000"
+						key="staticText"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[DT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1181"
+						y="24"
+						width="28"
+						height="12"
+						forecolor="#000000"
+						key="staticText"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[NoD]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1209"
+						y="24"
 						width="60"
 						height="12"
 						forecolor="#000000"
@@ -498,7 +565,7 @@ ORDER BY
 					<reportElement
 						x="422"
 						y="12"
-						width="194"
+						width="112"
 						height="12"
 						forecolor="#000000"
 						key="staticText-7"/>
@@ -510,9 +577,9 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="616"
+						x="534"
 						y="12"
-						width="229"
+						width="227"
 						height="12"
 						forecolor="#000000"
 						key="staticText-11"/>
@@ -540,6 +607,20 @@ ORDER BY
 					<reportElement
 						x="1097"
 						y="12"
+						width="112"
+						height="12"
+						forecolor="#000000"
+						key="staticText-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[Z(Attendance)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1209"
+						y="12"
 						width="60"
 						height="12"
 						forecolor="#000000"
@@ -552,7 +633,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="644"
+						x="588"
 						y="24"
 						width="28"
 						height="12"
@@ -594,7 +675,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="817"
+						x="644"
 						y="24"
 						width="28"
 						height="12"
@@ -608,7 +689,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="845"
+						x="789"
 						y="24"
 						width="28"
 						height="12"
@@ -664,7 +745,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="562"
+						x="901"
 						y="24"
 						width="28"
 						height="12"
@@ -678,7 +759,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="590"
+						x="929"
 						y="24"
 						width="28"
 						height="12"
@@ -692,7 +773,7 @@ ORDER BY
 				</staticText>
 				<staticText>
 					<reportElement
-						x="929"
+						x="873"
 						y="24"
 						width="28"
 						height="12"
@@ -789,10 +870,10 @@ ORDER BY
 						forecolor="#000000"
 						key="textField"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement textAlignment="Left">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{TFG}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -803,12 +884,12 @@ ORDER BY
 						forecolor="#000000"
 						key="textField"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement textAlignment="Left">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{FG}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="422"
 						y="0"
@@ -820,9 +901,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{FIL}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{FIL}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="450"
 						y="0"
@@ -834,9 +915,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{ENG}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ENG}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="478"
 						y="0"
@@ -848,9 +929,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{SCI}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{SCI}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="506"
 						y="0"
@@ -862,9 +943,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{MATH}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{MATH}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="534"
 						y="0"
@@ -876,11 +957,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{CCF}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{CCF}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="618"
+						x="562"
 						y="0"
 						width="26"
 						height="10"
@@ -890,11 +971,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{AP}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{AP}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="789"
+						x="616"
 						y="0"
 						width="28"
 						height="10"
@@ -904,9 +985,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{TLE}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{TLE}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="761"
 						y="0"
@@ -918,9 +999,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{CE}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{CE}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="733"
 						y="0"
@@ -932,11 +1013,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{PE}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{PE}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="873"
+						x="817"
 						y="0"
 						width="28"
 						height="10"
@@ -946,11 +1027,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{ME}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ME}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="901"
+						x="845"
 						y="0"
 						width="28"
 						height="10"
@@ -960,7 +1041,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{MAPEH}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{MAPEH}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -994,6 +1075,62 @@ ORDER BY
 					<reportElement
 						x="1097"
 						y="0"
+						width="28"
+						height="10"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{totalDaysAbsent}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1125"
+						y="0"
+						width="28"
+						height="10"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{totalDaysPresent}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1153"
+						y="0"
+						width="28"
+						height="10"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{totalTardy}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1181"
+						y="0"
+						width="28"
+						height="10"
+						forecolor="#000000"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{totalNoDays}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1209"
+						y="0"
 						width="60"
 						height="10"
 						forecolor="#000000"
@@ -1004,9 +1141,9 @@ ORDER BY
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MC}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="644"
+						x="588"
 						y="0"
 						width="28"
 						height="10"
@@ -1016,9 +1153,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{HKS}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{HKS}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="672"
 						y="0"
@@ -1030,9 +1167,9 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{MUSIC}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{MUSIC}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="705"
 						y="0"
@@ -1044,11 +1181,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{ARTS}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ARTS}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="817"
+						x="644"
 						y="0"
 						width="28"
 						height="10"
@@ -1058,11 +1195,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{COMPUTER}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{COMPUTER}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="845"
+						x="789"
 						y="0"
 						width="28"
 						height="10"
@@ -1116,9 +1253,9 @@ ORDER BY
 					</textElement>
 				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ValuesPromotedAverage1}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="562"
+						x="901"
 						y="0"
 						width="28"
 						height="10"
@@ -1128,11 +1265,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{OpMath}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{OpMath}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="590"
+						x="929"
 						y="0"
 						width="28"
 						height="10"
@@ -1142,11 +1279,11 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[new Integer($F{READING}.intValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{READING}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="929"
+						x="873"
 						y="0"
 						width="28"
 						height="10"
@@ -1170,7 +1307,7 @@ ORDER BY
 					<reportElement
 						x="0"
 						y="3"
-						width="1157"
+						width="1269"
 						height="0"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -1179,7 +1316,7 @@ ORDER BY
 				</line>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="845"
+						x="985"
 						y="6"
 						width="224"
 						height="19"
@@ -1194,9 +1331,9 @@ ORDER BY
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Transparent"
-						x="1069"
+						x="1209"
 						y="6"
-						width="88"
+						width="60"
 						height="19"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -1209,9 +1346,9 @@ ORDER BY
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="1"
+						x="0"
 						y="6"
-						width="280"
+						width="281"
 						height="19"
 						forecolor="#000000"
 						key="textField"/>
