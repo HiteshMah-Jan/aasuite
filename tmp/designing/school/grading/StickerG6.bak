@@ -29,6 +29,9 @@
 	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["5224"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString><![CDATA[SELECT
      person.`firstName` AS person_firstName,
      person.`lastName` AS person_lastName,
@@ -78,14 +81,22 @@
      studentvaluesgrading.`psychomotorAverageFinal` AS studentvaluesgrading_psychomotorAverageFinal,
      studentvaluesgrading.`valuesPromotedAverageFinal` AS studentvaluesgrading_valuesPromotedAverageFinal,
      studentvaluesgrading.`zl2AverageFinal` AS studentvaluesgrading_zl2AverageFinal,
-     person.`gender` AS person_gender
+     person.`gender` AS person_gender,
+     studentvaluesgrading.`totalDays` AS studentvaluesgrading_totalDays,
+     studentvaluesgrading.`totalDays2` AS studentvaluesgrading_totalDays2,
+     studentvaluesgrading.`totalDays3` AS studentvaluesgrading_totalDays3,
+     studentvaluesgrading.`totalDays4` AS studentvaluesgrading_totalDays4,
+     studentvaluesgrading.`present` AS studentvaluesgrading_present,
+     studentvaluesgrading.`present2` AS studentvaluesgrading_present2,
+     studentvaluesgrading.`present3` AS studentvaluesgrading_present3,
+     studentvaluesgrading.`present4` AS studentvaluesgrading_present4
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
 WHERE
      person.personId = $P{REPORT_ADD_WHERE}
- AND enrollment.schoolYear = "2009-2010"]]></queryString>
+ AND enrollment.schoolYear = $P{PARAM_schoolYear}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>
@@ -136,6 +147,14 @@ WHERE
 	<field name="studentvaluesgrading_valuesPromotedAverageFinal" class="java.lang.Double"/>
 	<field name="studentvaluesgrading_zl2AverageFinal" class="java.lang.Double"/>
 	<field name="person_gender" class="java.lang.String"/>
+	<field name="studentvaluesgrading_totalDays" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays4" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present4" class="java.lang.Integer"/>
 
 
 		<group  name="GradeLevel" >
@@ -191,8 +210,50 @@ WHERE
 			<band height="778"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
+						x="8"
+						y="397"
+						width="308"
+						height="35"
+						forecolor="#000000"
+						key="element-125"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[  TLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="502"
+						width="308"
+						height="35"
+						forecolor="#000000"
+						key="element-114"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[  Art]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="8"
+						y="537"
+						width="308"
+						height="35"
+						forecolor="#000000"
+						key="element-117"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[  Physical Education]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
 						x="18"
-						y="178"
+						y="157"
 						width="293"
 						height="23"
 						forecolor="#000000"
@@ -205,120 +266,120 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="212"
-						width="293"
-						height="23"
+						x="8"
+						y="187"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-91"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Filipino]]></text>
+				<text><![CDATA[  Filipino]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="252"
-						width="293"
-						height="23"
+						x="8"
+						y="222"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-92"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[English]]></text>
+				<text><![CDATA[  English]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="292"
-						width="293"
-						height="23"
+						x="8"
+						y="257"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-93"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Science and Health]]></text>
+				<text><![CDATA[  Science and Health]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="332"
-						width="293"
-						height="23"
+						x="8"
+						y="292"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-94"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Mathematics]]></text>
+				<text><![CDATA[  Mathematics]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="372"
-						width="293"
-						height="23"
+						x="8"
+						y="327"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-95"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Catholic Christian Formation]]></text>
+				<text><![CDATA[  Catholic Christian Formation]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="412"
-						width="293"
-						height="23"
+						x="8"
+						y="362"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-96"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[HEKASI]]></text>
+				<text><![CDATA[  HEKASI]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="492"
-						width="293"
-						height="23"
+						x="8"
+						y="432"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-98"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Computer Education]]></text>
+				<text><![CDATA[  Computer Education]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="18"
-						y="532"
-						width="293"
-						height="23"
+						x="8"
+						y="467"
+						width="308"
+						height="35"
 						forecolor="#000000"
 						key="element-99"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
+					<textElement verticalAlignment="Middle">
 						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Music]]></text>
+				<text><![CDATA[  Music]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="316"
-						y="178"
+						y="157"
 						width="57"
 						height="23"
 						forecolor="#000000"
@@ -332,7 +393,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="373"
-						y="178"
+						y="157"
 						width="57"
 						height="23"
 						forecolor="#000000"
@@ -346,7 +407,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="430"
-						y="178"
+						y="157"
 						width="57"
 						height="23"
 						forecolor="#000000"
@@ -360,7 +421,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="487"
-						y="178"
+						y="157"
 						width="57"
 						height="23"
 						forecolor="#000000"
@@ -374,7 +435,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="544"
-						y="178"
+						y="157"
 						width="63"
 						height="23"
 						forecolor="#000000"
@@ -388,7 +449,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="8"
-						y="206"
+						y="185"
 						width="599"
 						height="0"
 						key="line-4"/>
@@ -396,98 +457,8 @@ WHERE
 				</line>
 				<line direction="TopDown">
 					<reportElement
-						x="8"
-						y="238"
-						width="599"
-						height="0"
-						key="line-5"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="278"
-						width="599"
-						height="0"
-						key="line-6"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="318"
-						width="599"
-						height="0"
-						key="line-7"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="358"
-						width="599"
-						height="0"
-						key="line-8"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="398"
-						width="599"
-						height="0"
-						key="line-9"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="438"
-						width="599"
-						height="0"
-						key="line-10"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="478"
-						width="599"
-						height="0"
-						key="line-11"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="518"
-						width="599"
-						height="0"
-						key="line-12"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="558"
-						width="599"
-						height="0"
-						key="line-13"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="598"
-						width="599"
-						height="0"
-						key="line-14"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
 						x="542"
-						y="171"
+						y="150"
 						width="0"
 						height="507"
 						key="line-16"/>
@@ -496,7 +467,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="485"
-						y="171"
+						y="150"
 						width="0"
 						height="507"
 						key="line-17"/>
@@ -505,7 +476,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="429"
-						y="171"
+						y="150"
 						width="0"
 						height="507"
 						key="line-18"/>
@@ -514,7 +485,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="373"
-						y="171"
+						y="150"
 						width="0"
 						height="507"
 						key="line-19"/>
@@ -523,7 +494,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="315"
-						y="171"
+						y="150"
 						width="0"
 						height="507"
 						key="line-20"/>
@@ -532,7 +503,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="606"
-						y="61"
+						y="40"
 						width="0"
 						height="617"
 						key="line-21"/>
@@ -541,140 +512,42 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="7"
-						y="61"
+						y="40"
 						width="0"
 						height="617"
 						key="line-22"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
-				<staticText>
-					<reportElement
-						x="18"
-						y="695"
-						width="163"
-						height="23"
-						forecolor="#000000"
-						key="element-108"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[General Average:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="18"
-						y="725"
-						width="163"
-						height="23"
-						forecolor="#000000"
-						key="element-109"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Promoted To /]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="18"
-						y="745"
-						width="163"
-						height="23"
-						forecolor="#000000"
-						key="element-110"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Retained in:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="288"
-						y="695"
-						width="148"
-						height="23"
-						forecolor="#000000"
-						key="element-111"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Values / Conduct:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="288"
-						y="725"
-						width="134"
-						height="23"
-						forecolor="#000000"
-						key="element-112"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Days of School:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="288"
-						y="745"
-						width="134"
-						height="23"
-						forecolor="#000000"
-						key="element-113"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Days Present:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="18"
-						y="572"
-						width="293"
-						height="23"
-						forecolor="#000000"
-						key="element-114"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Art]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="19"
-						y="12"
-						width="577"
+						x="18"
+						y="14"
+						width="431"
 						height="23"
 						key="textField-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="Times-Roman" pdfFontName="Helvetica" size="18" isBold="false"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" pdfFontName="Helvetica" size="16" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_lastName}+" , "+ $F{person_firstName}+" "+$F{person_middleInitial}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="19"
-						y="35"
-						width="577"
+						x="459"
+						y="14"
+						width="147"
 						height="23"
 						key="textField-2"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center">
-						<font fontName="Times-Roman" size="18"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="16"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_studentNumber}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
 						x="19"
-						y="68"
+						y="47"
 						width="577"
 						height="33"
 						forecolor="#000000"
@@ -688,7 +561,7 @@ WHERE
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="19"
-						y="107"
+						y="86"
 						width="301"
 						height="23"
 						key="textField-3"/>
@@ -701,7 +574,7 @@ WHERE
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="19"
-						y="140"
+						y="119"
 						width="301"
 						height="23"
 						forecolor="#000000"
@@ -715,7 +588,7 @@ WHERE
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="352"
-						y="107"
+						y="86"
 						width="244"
 						height="23"
 						key="textField-5"/>
@@ -728,7 +601,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="352"
-						y="132"
+						y="119"
 						width="244"
 						height="23"
 						forecolor="#000000"
@@ -742,7 +615,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="8"
-						y="61"
+						y="40"
 						width="599"
 						height="0"
 						key="line-24"/>
@@ -751,7 +624,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="8"
-						y="171"
+						y="150"
 						width="599"
 						height="0"
 						key="line-25"/>
@@ -760,30 +633,7 @@ WHERE
 				<line direction="TopDown">
 					<reportElement
 						x="8"
-						y="638"
-						width="599"
-						height="0"
-						key="line-26"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<staticText>
-					<reportElement
-						x="18"
-						y="612"
-						width="293"
-						height="23"
-						forecolor="#000000"
-						key="element-117"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
-					</textElement>
-				<text><![CDATA[Physical Education]]></text>
-				</staticText>
-				<line direction="TopDown">
-					<reportElement
-						x="8"
-						y="678"
+						y="657"
 						width="599"
 						height="0"
 						key="line-27"/>
@@ -792,9 +642,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="212"
-						width="281"
-						height="23"
+						y="187"
+						width="290"
+						height="35"
 						key="subreport-77"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4, qallFilipino+.5 as any5 "+
@@ -815,9 +665,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="252"
-						width="281"
-						height="23"
+						y="222"
+						width="290"
+						height="35"
 						key="subreport-78"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4, qallEnglish+.5 as any5 "+
@@ -838,9 +688,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="292"
-						width="281"
-						height="23"
+						y="257"
+						width="290"
+						height="35"
 						key="subreport-79"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Science+.5 as any1, q2Science+.5 as any2, q3Science+.5 as any3, q4Science+.5 as any4, qallScience+.5 as any5 "+
@@ -861,9 +711,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="332"
-						width="281"
-						height="23"
+						y="292"
+						width="290"
+						height="35"
 						key="subreport-80"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4, qallMath+.5 as any5 "+
@@ -884,9 +734,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="372"
-						width="281"
-						height="23"
+						y="327"
+						width="290"
+						height="35"
 						key="subreport-81"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4, qallCCF+.5 as any5 "+
@@ -907,9 +757,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="412"
-						width="281"
-						height="23"
+						y="362"
+						width="290"
+						height="35"
 						key="subreport-82"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4, qallHekasi+.5 as any5 "+
@@ -930,9 +780,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="532"
-						width="281"
-						height="23"
+						y="467"
+						width="290"
+						height="35"
 						key="subreport-83"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Music+.5 as any1, q2Music+.5 as any2, q3Music+.5 as any3, q4Music+.5 as any4, qallMusic+.5 as any5 "+
@@ -953,9 +803,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="572"
-						width="281"
-						height="23"
+						y="502"
+						width="290"
+						height="35"
 						key="subreport-84"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Arts+.5 as any1, q2Arts+.5 as any2, q3Arts+.5 as any3, q4Arts+.5 as any4, qallArts+.5 as any5 "+
@@ -976,9 +826,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="612"
-						width="281"
-						height="23"
+						y="537"
+						width="290"
+						height="35"
 						key="subreport-85"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1PE+.5 as any1, q2PE+.5 as any2, q3PE+.5 as any3, q4PE+.5 as any4, qallPE+.5 as any5 "+
@@ -999,9 +849,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="492"
-						width="281"
-						height="23"
+						y="432"
+						width="290"
+						height="35"
 						key="subreport-86"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4, qallComputer+.5 as any5 "+
@@ -1019,112 +869,271 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
+				<staticText>
+					<reportElement
+						x="19"
+						y="690"
+						width="163"
+						height="23"
+						forecolor="#000000"
+						key="element-118"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[General Average:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="718"
+						width="163"
+						height="23"
+						forecolor="#000000"
+						key="element-119"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Promoted To /]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="742"
+						width="163"
+						height="23"
+						forecolor="#000000"
+						key="element-120"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Retained in:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="373"
+						y="690"
+						width="148"
+						height="23"
+						forecolor="#000000"
+						key="element-121"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Values / Conduct:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="373"
+						y="718"
+						width="148"
+						height="23"
+						forecolor="#000000"
+						key="element-122"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Days of School:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="373"
+						y="742"
+						width="148"
+						height="23"
+						forecolor="#000000"
+						key="element-123"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="" pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Days Present:]]></text>
+				</staticText>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="181"
-						y="695"
-						width="57"
+						x="182"
+						y="690"
+						width="138"
 						height="23"
 						key="textField-6"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font pdfFontName="Helvetica" size="16" isBold="false"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{enrollment_gpaFinal}.doubleValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="181"
-						y="725"
-						width="107"
-						height="43"
+						x="182"
+						y="717"
+						width="138"
+						height="48"
 						key="textField-7"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle" lineSpacing="1_1_2">
-						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" lineSpacing="1_1_2">
+						<font pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?""+"1st Year":"Grade 6"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gpaFinal}.doubleValue()>74.49?""+"Grade 6":"Grade 5"]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="436"
-						y="695"
-						width="57"
+						x="521"
+						y="690"
+						width="75"
 						height="23"
 						key="textField-8"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
-						<font pdfFontName="Helvetica" size="16" isBold="false"/>
+						<font pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue())]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5).intValue()==1?"NI":
+new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5).intValue()==2?"MS":
+new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5).intValue()==3?"S":
+new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5).intValue()==4?"HS":
+new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
 				</textField>
-				<subreport  isUsingCache="true">
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="422"
-						y="725"
-						width="156"
+						x="521"
+						y="718"
+						width="75"
 						height="23"
-						key="subreport-87"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT totalDays as any1, totalDays2 as any2, totalDays3 as any3, totalDays4 as any4, (totalDays+totalDays2+totalDays3+totalDays4) as any5 "+
-"FROM StudentValuesGrading "+
-"WHERE "+
-
-"	studentId="+$P{REPORT_ADD_WHERE}+""]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="REPORT_ADD_WHERE">
-						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="SUBREPORT_DIR">
-						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardAttendanceSubreportSticker.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="422"
-						y="745"
-						width="156"
-						height="23"
-						key="subreport-88"/>
-					<subreportParameter  name="REPORT_SQL">
-						<subreportParameterExpression><![CDATA["SELECT present as any1, present2 as any2, present3 as any3, present4 as any4, (present+present2+present3+present4) as any5 "+
-"FROM StudentValuesGrading "+
-"WHERE "+
-
-"	studentId="+$P{REPORT_ADD_WHERE}+""]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="REPORT_ADD_WHERE">
-						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="SUBREPORT_DIR">
-						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardAttendanceSubreportSticker.jasper"]]></subreportExpression>
-				</subreport>
-				<staticText>
-					<reportElement
-						x="18"
-						y="452"
-						width="293"
-						height="23"
-						forecolor="#000000"
-						key="element-118"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement>
-						<font fontName="" pdfFontName="Helvetica-Bold" size="16" isBold="true"/>
+						key="textField-9"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica" size="18" isBold="false"/>
 					</textElement>
-				<text><![CDATA[Technology and Livelihood Education]]></text>
-				</staticText>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_totalDays}.intValue()+
+$F{studentvaluesgrading_totalDays2}.intValue()+
+$F{studentvaluesgrading_totalDays3}.intValue()+
+$F{studentvaluesgrading_totalDays4}.intValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="521"
+						y="742"
+						width="75"
+						height="23"
+						key="textField-10"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="1Point" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica" size="18" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{studentvaluesgrading_present}.intValue()+
+$F{studentvaluesgrading_present2}.intValue()+
+$F{studentvaluesgrading_present3}.intValue()+
+$F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="221"
+						width="599"
+						height="0"
+						key="line-28"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="256"
+						width="599"
+						height="0"
+						key="line-29"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="291"
+						width="599"
+						height="0"
+						key="line-30"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="326"
+						width="599"
+						height="0"
+						key="line-31"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="360"
+						width="599"
+						height="0"
+						key="line-32"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="395"
+						width="599"
+						height="0"
+						key="line-33"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="431"
+						width="599"
+						height="0"
+						key="line-34"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="466"
+						width="599"
+						height="0"
+						key="line-35"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="501"
+						width="599"
+						height="0"
+						key="line-36"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="535"
+						width="599"
+						height="0"
+						key="line-37"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="8"
+						y="572"
+						width="599"
+						height="0"
+						key="line-39"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="317"
-						y="452"
-						width="281"
-						height="23"
-						key="subreport-89"/>
+						y="397"
+						width="290"
+						height="35"
+						key="subreport-91"/>
 					<subreportParameter  name="REPORT_SQL">
 						<subreportParameterExpression><![CDATA["SELECT q1TLE+.5 as any1, q2TLE+.5 as any2, q3TLE+.5 as any3, q4TLE+.5 as any4, qallTLE+.5 as any5 "+
 "FROM Enrollment "+
@@ -1139,7 +1148,7 @@ WHERE
 						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardSubreport.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\ReportCardSubreportSticker.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>
