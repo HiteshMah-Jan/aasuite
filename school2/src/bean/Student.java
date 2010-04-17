@@ -275,6 +275,7 @@ import constants.UserInfo;
 		@template.Report(reportFile = "ReportCardQuarter4", reportTitle = "Q4", reportSql = ""),
 		@template.Report(reportFile = "StudentId", reportTitle = "ID", reportSql = "${personId}"),
 		@template.Report(reportFile = "StudentIdSingle", reportTitle = "Single", reportSql = "${personId}"),
+		@template.Report(reportFile = "StickerGrade", reportTitle = "Sticker", reportSql = "${personId}", duties="WITH STICKER GRADE"),
 		@template.Report(reportFile = "StudentDirectory", reportTitle = "Directory", reportSql = "${personId}")
 // @template.Report(reportFile = "GoodMoral", reportTitle = "Good Moral Report",
 // reportSql = "${personId}")
