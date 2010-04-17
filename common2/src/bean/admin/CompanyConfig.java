@@ -9,16 +9,20 @@
 package bean.admin;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import service.util.AbstractIBean;
+import template.ChildRecord;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-
-import template.screen.TemplateSinglePage;
+import template.screen.ChildTemplateListPopupDownButton;
+import template.screen.TemplateTabSinglePage;
 
 /**
  *
@@ -26,7 +30,7 @@ import template.screen.TemplateSinglePage;
  */
 @Entity
 @Table(name = "CompanyConfig")
-@UITemplate(template = TemplateSinglePage.class, gridCount = 4, columnSearch = {"companyName"})
+@UITemplate(template = TemplateTabSinglePage.class, gridCount = 4, columnSearch = {"companyName"})
 @Displays({
     @Display(name="companyName", upCase=false,width=200),
     @Display(name="businessCode",width=200),
@@ -52,9 +56,10 @@ import template.screen.TemplateSinglePage;
     @Display(name="region",width=200),
     @Display(name="division",width=200),
     @Display(name="legislativeDistrict",width=200)
-
 })
-    
+@ChildRecords(
+		@ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=CompanyConfigUser.class, sql="SELECT a FROM CompanyConfigUser a WHERE a.companyName='${companyName}'", title="Users", fieldMapping={"companyName","companyName"})
+)
    
 public class CompanyConfig extends AbstractIBean implements Serializable {
 
