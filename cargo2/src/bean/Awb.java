@@ -254,6 +254,21 @@ public class Awb extends AbstractIBean implements Serializable {
     @Column(name = "valueInsurance")
     public double valueInsurance;
 
+    @Column(name = "preCariaige")
+    public String preCariaige;
+    @Column(name = "placeOfReceiptByPreCarrier")
+    public String placeOfReceiptByPreCarrier;
+    @Column(name = "placeOfReceipt")
+    public String placeOfReceipt;
+    @Column(name = "placeOfDelivery")
+    public String placeOfDelivery;
+    @Column(name = "vesselNumber")
+    public String vesselNumber;
+    @Column(name = "voyageNumber")
+    public String voyageNumber;
+    @Column(name = "domesticRouting", length = 1000)
+    public String domesticRouting;
+
     public Awb() {
         departureDate = util.DateUtil.addDay(new Date(), 1);
         contactPerson = "--";
@@ -265,7 +280,63 @@ public class Awb extends AbstractIBean implements Serializable {
 //        new AwbRouting().setupIndex();
     }
 
-    public double getValueCustoms() {
+    public String getDomesticRouting() {
+		return domesticRouting;
+	}
+
+	public void setDomesticRouting(String domesticRouting) {
+		this.domesticRouting = domesticRouting;
+	}
+
+	public String getPreCariaige() {
+		return preCariaige;
+	}
+
+	public void setPreCariaige(String preCariaige) {
+		this.preCariaige = preCariaige;
+	}
+
+	public String getPlaceOfReceiptByPreCarrier() {
+		return placeOfReceiptByPreCarrier;
+	}
+
+	public void setPlaceOfReceiptByPreCarrier(String placeOfReceiptByPreCarrier) {
+		this.placeOfReceiptByPreCarrier = placeOfReceiptByPreCarrier;
+	}
+
+	public String getPlaceOfReceipt() {
+		return placeOfReceipt;
+	}
+
+	public void setPlaceOfReceipt(String placeOfReceipt) {
+		this.placeOfReceipt = placeOfReceipt;
+	}
+
+	public String getPlaceOfDelivery() {
+		return placeOfDelivery;
+	}
+
+	public void setPlaceOfDelivery(String placeOfDelivery) {
+		this.placeOfDelivery = placeOfDelivery;
+	}
+
+	public String getVesselNumber() {
+		return vesselNumber;
+	}
+
+	public void setVesselNumber(String vesselNumber) {
+		this.vesselNumber = vesselNumber;
+	}
+
+	public String getVoyageNumber() {
+		return voyageNumber;
+	}
+
+	public void setVoyageNumber(String voyageNumber) {
+		this.voyageNumber = voyageNumber;
+	}
+
+	public double getValueCustoms() {
 		return valueCustoms;
 	}
 

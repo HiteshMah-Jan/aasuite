@@ -175,12 +175,12 @@ public class FWB extends AbstractMessageProcessor {
             ss.getNextSplit();
             AwbParticipant part = new AwbParticipant();
             part.awbSeq = awb.seq;
-            part.name = ss.getNextSplitNonEmpty();
-            part.messageAddress = ss.getNextSplitNonEmpty();
-            part.fileReference = ss.getNextSplitNonEmpty();
+//            part.name = ss.getNextSplitNonEmpty();
+//            part.messageAddress = ss.getNextSplitNonEmpty();
+//            part.fileReference = ss.getNextSplitNonEmpty();
             part.identifier = ss.getNextSplitNonEmpty();
-            part.partCode = ss.getNextSplitNonEmpty();
-            part.airportCode = ss.getNextSplitNonEmpty();
+//            part.partCode = ss.getNextSplitNonEmpty();
+//            part.airportCode = ss.getNextSplitNonEmpty();
             part.save();
         }
     }

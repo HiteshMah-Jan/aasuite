@@ -432,14 +432,14 @@ public abstract class AbstractMessageProcessor {
         //this needs to create the shipper if does not exist in the system
         AwbParticipant shipper = new AwbParticipant();
         shipper.awbSeq = awb.seq;
-        shipper.name = name;
-        shipper.streetAddress = street.getNextSplitNonEmpty();
-        shipper.place = street.getNextSplitNonEmpty();
-        shipper.state = street.getNextSplitNonEmpty();
-        shipper.country = codeLoc.getNextSplitNonEmpty();
-        shipper.postCode = codeLoc.getNextSplitNonEmpty();
-        shipper.contactId = codeLoc.getNextSplitNonEmpty();
-        shipper.contactPhone = codeLoc.getNextSplitNonEmpty();
+//        shipper.name = name;
+//        shipper.streetAddress = street.getNextSplitNonEmpty();
+//        shipper.place = street.getNextSplitNonEmpty();
+//        shipper.state = street.getNextSplitNonEmpty();
+//        shipper.country = codeLoc.getNextSplitNonEmpty();
+//        shipper.postCode = codeLoc.getNextSplitNonEmpty();
+//        shipper.contactId = codeLoc.getNextSplitNonEmpty();
+//        shipper.contactPhone = codeLoc.getNextSplitNonEmpty();
         shipper.save();
     }
     

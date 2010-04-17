@@ -10,16 +10,18 @@
 package bean.awb;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.reference.Airport;
-import bean.reference.TraceStatus;
 import service.util.AbstractIBean;
+import template.Display;
+import template.Displays;
+import template.UITemplate;
 import template.screen.TemplateTabPage;
-import template.*;
+import bean.reference.Airport;
 
 /**
  *

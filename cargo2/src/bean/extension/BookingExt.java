@@ -21,6 +21,7 @@ import bean.awb.AwbCharges;
 import bean.awb.AwbDimension;
 import bean.awb.AwbFlt;
 import bean.awb.AwbPackingList;
+import bean.awb.AwbParticipant;
 import bean.awb.AwbShc;
 import bean.awb.AwbUld;
 import bean.reference.Airport;
@@ -80,7 +81,8 @@ import bean.reference.ServiceLevel;
     @DisplayGroup(title="Weight and Volume", gridCount=8, fields={"pieces","weight","volume","kgLb","mh","mp","lp","lc"})
 })
 @Reports({
-    @template.Report(reportFile="AwbForm", reportTitle="All Bills", reportSql = "${seq}"),
+    @template.Report(reportFile="AwbList", reportTitle="All Bills", reportSql = "${seq}"),
+    @template.Report(reportFile="AirBL", reportTitle="AWB", reportSql = "${seq}"),
     @template.Report(reportFile="AwbHouse", reportTitle="House", reportSql = "${seq}"),
 //    @template.Report(reportFile="AwbFlight", reportTitle="Route", reportSql = "${seq}"),
     @template.Report(reportFile="AwbDimension", reportTitle="Dimension", reportSql = "${seq}"),
@@ -97,7 +99,8 @@ import bean.reference.ServiceLevel;
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbShc.class, sql="SELECT a FROM AwbShc a WHERE a.awbSeq=${seq}", title="SHC", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbUld.class, sql="SELECT a FROM AwbUld a WHERE a.awbSeq=${seq}", title="ULD", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbPackingList.class, sql="SELECT a FROM AwbPackingList a WHERE a.awbSeq=${seq}", title="Packing List", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"})
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbParticipant.class, sql="SELECT a FROM AwbParticipant a WHERE a.awbSeq=${seq}", title="Participants", fieldMapping={"seq","awbSeq"})
     }, 
     info={
         @ParentAddInfo(gridCount=6, title="Additional Info", 
