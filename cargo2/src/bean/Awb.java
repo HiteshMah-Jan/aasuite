@@ -1002,11 +1002,11 @@ public class Awb extends AbstractIBean implements Serializable {
 		if (companyCode==null || companyCode.isEmpty()) {
 			if ("AAA".equals(UserInfo.getUserName())) {
 				CompanyConfig user = (CompanyConfig) DBClient.getFirstRecord("SELECT a FROM CompanyConfig");
-				companyCode = user.companyName;
+				companyCode = user.businessCode;
 			}
 			else {
 				CompanyConfigUser user = (CompanyConfigUser) DBClient.getFirstRecord("SELECT a FROM CompanyConfigUser a WHERE a.userId='"+UserInfo.getUserName()+"'");
-				companyCode = user.companyName;
+				companyCode = user.businessCode;
 			}
 		}
 		super.save();
