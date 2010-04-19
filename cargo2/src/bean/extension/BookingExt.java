@@ -61,7 +61,7 @@ import bean.reference.ServiceLevel;
     @Display(name = "lc", width=20),
     
     @Display(name = "commodityCode", addInfoOnly=true, width=70, gridFieldWidth=5),
-    @Display(name = "valueCarraige", addInfoOnly=true, width=70, label="Value Carriage"),
+    @Display(name = "valueCarriage", addInfoOnly=true, width=70, label="Value Carriage"),
     @Display(name = "valueCustoms", addInfoOnly=true, width=70, label="Customs"),
     @Display(name = "valueInsurance", addInfoOnly=true, width=70, label="Insurance"),
     @Display(name = "originCurrency", addInfoOnly=true, width=70, label="Origin Currency", type="PopSearch", linktoBean=Currency.class),
@@ -69,13 +69,15 @@ import bean.reference.ServiceLevel;
     @Display(name = "destCurrency", addInfoOnly=true, width=70, label="Destination Currency", type="PopSearch", linktoBean=Currency.class),
     @Display(name = "totalDestCharges", addInfoOnly=true, width=70, label="Total Collect", gridFieldWidth=3),
 
-    @Display(name = "preCariaige", addInfoOnly=true),
+    @Display(name = "preCarriage", addInfoOnly=true),
     @Display(name = "placeOfReceiptByPreCarrier", addInfoOnly=true),
     @Display(name = "placeOfReceipt", addInfoOnly=true),
     @Display(name = "placeOfDelivery", addInfoOnly=true),
     @Display(name = "vesselNumber", addInfoOnly=true),
     @Display(name = "voyageNumber", addInfoOnly=true),
     @Display(name = "domesticRouting", addInfoOnly=true),
+    @Display(name = "forDeliveryOfTheGoodsApplyTo",label="Delivery of Goods Apply To", addInfoOnly=true),
+
 
     
     @Display(name = "specialServiceRequest", label="SSR", addInfoOnly=true, gridFieldWidth=5, width=400, type="TextArea", height=40),
@@ -88,7 +90,7 @@ import bean.reference.ServiceLevel;
     @DisplayGroup(title="Service Level", gridCount=6, fields={"priority","serviceLevel","natureOfGoods"}),
     @DisplayGroup(title="Customer Contact", gridCount=6, fields={"agent","shipper","consignee","contactPerson","contactPhone"}),
     @DisplayGroup(title="Weight and Volume", gridCount=8, fields={"pieces","weight","volume","kgLb","mh","mp","lp","lc"}),
-    @DisplayGroup(title=" ", gridCount=4, fields={"preCariaige","placeOfReceiptByPreCarrier", "placeOfReceipt","placeOfDelivery", "vesselNumber", "voyageNumber", "domesticRouting"},addInfoOnly=true)
+    @DisplayGroup(title=" ", gridCount=4, fields={"preCarriage","placeOfReceiptByPreCarrier", "placeOfReceipt","placeOfDelivery", "vesselNumber", "voyageNumber", "domesticRouting","forDeliveryOfTheGoodsApplyTo"},addInfoOnly=true)
 })
 @Reports({
     @template.Report(reportFile="AwbList", reportTitle="All Bills", reportSql = "${seq}"),
