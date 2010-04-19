@@ -30,10 +30,10 @@ import template.screen.TemplateTabSinglePage;
  */
 @Entity
 @Table(name = "CompanyConfig")
-@UITemplate(template = TemplateTabSinglePage.class, gridCount = 4, columnSearch = {"companyName"})
+@UITemplate(template = TemplateTabSinglePage.class, gridCount = 4, columnSearch = {"businessCode","companyName"})
 @Displays({
-    @Display(name="companyName", upCase=false,width=200),
-    @Display(name="businessCode",width=200),
+    @Display(name="businessCode",upCase=false,width=200),
+    @Display(name="companyName",width=200),
     @Display(name="startOperation",width=200),
     @Display(name="employerType",width=200),
     @Display(name="employerNumber",width=200),
@@ -62,9 +62,10 @@ import template.screen.TemplateTabSinglePage;
 )
    
 public class CompanyConfig extends AbstractIBean implements Serializable {
-
     @Id
-    @Column(name = "companyName", nullable = false)
+    @Column(name = "businessCode",nullable = false)
+    public String businessCode;
+    @Column(name = "companyName",nullable = false)
     public String companyName;
     @Column(name = "employerNumber")
     public String employerNumber;
@@ -96,8 +97,6 @@ public class CompanyConfig extends AbstractIBean implements Serializable {
     public String startOperation;
     @Column(name = "natureOfBusiness")
     public String natureOfBusiness;
-    @Column(name = "businessCode")
-    public String businessCode;
     @Column(name = "sssNumber")
     public String sssNumber;
     
@@ -232,10 +231,6 @@ public class CompanyConfig extends AbstractIBean implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
-    }
-
-    public static CompanyConfig getCompanyConfig() {
-        return (CompanyConfig) AbstractIBean.firstRecord("SELECT a FROM CompanyConfig a");
     }
 
     public java.lang.String getStreetNumber() {

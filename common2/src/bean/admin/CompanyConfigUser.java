@@ -29,7 +29,7 @@ import template.screen.TemplateSinglePage;
 @Table(name = "CompanyConfigUser")
 @UITemplate(template = TemplateSinglePage.class, gridCount = 4, columnSearch = {"userName"})
 @Displays({
-    @Display(name="companyName", type="Label", width=200),
+    @Display(name="businessCode", type="Label", width=200),
     @Display(name="userName", linktoBean=AclUser.class, type="PopSearch")
 })
     
@@ -38,8 +38,8 @@ public class CompanyConfigUser extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
-    @Column(name = "companyName")
-    public String companyName;
+    @Column(name = "businessCode")
+    public String businessCode;
     @Column(name = "userName")
     public String userName;
 	@Override
@@ -53,12 +53,13 @@ public class CompanyConfigUser extends AbstractIBean implements Serializable {
 	}
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}	
+	
+	public String getBusinessCode() {
+		return businessCode;
 	}
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
 	}
 	public String getUserName() {
 		return userName;
