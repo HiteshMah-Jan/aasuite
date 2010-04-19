@@ -24,18 +24,22 @@ import template.*;
  */
 @Entity
 @Table(name = "AwbDimension")
-@UITemplate(template = TemplateTabPage.class, gridCount = 4, 
-    columnSearch = {"marksNumber","pieces","width","length","height","weight","volume","kgLb"}, showChart=true)
+@UITemplate(template = TemplateTabPage.class, gridCount = 8,
+    columnSearch = {"marksNumber","pieces","width","length","height","weight","volume","kgLb"})
 @Displays({
-    @Display(name = "marksNumber", width=30),
-    @Display(name = "pieces", width=30, mergeFields={"width","length","height"}),
-    @Display(name = "width", width=30),
-    @Display(name = "length", width=30),
-    @Display(name = "height", width=30),
-    @Display(name = "weight", width=30, mergeFields={"volume","kgLb"}),
-    @Display(name = "volume", width=30),
-    @Display(name = "kgLb", type="Combo", modelCombo={"KG/MC","LB/CF"}, hideLabel=true, label="UOM", width=50),
-    @Display(name = "description")
+    @Display(name = "marksNumber", width=50,gridFieldWidth=3),
+    @Display(name = "pieces", width=50,labelTop=true),
+    @Display(name = "width", width=50,labelTop=true),
+    @Display(name = "length", width=50,labelTop=true),
+    @Display(name = "height", width=50,labelTop=true),
+    @Display(name = "weight", width=50, labelTop=true),
+    @Display(name = "volume", width=50,labelTop=true),
+    @Display(name = "kgLb", type="Combo",labelTop=true, modelCombo={"KG/MC","LB/CF"},label="UOM", width=50),
+    @Display(name = "description",width=200)
+})
+        @DisplayGroups( {
+		@DisplayGroup(gridCount = 14, title = "", fields = { "pieces","width", "length","height","weight","volume","kgLb" })
+
 })
 public class AwbDimension extends AbstractIBean implements Serializable {
     @Id
@@ -153,5 +157,8 @@ public class AwbDimension extends AbstractIBean implements Serializable {
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria);
+    }
+    public static void main(String[] args) {
+        view(AwbDimension.class);
     }
 }
