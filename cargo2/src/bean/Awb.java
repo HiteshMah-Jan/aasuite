@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import constants.UserInfo;
+
 import service.util.AbstractIBean;
 import template.ChildRecord;
 import template.ChildRecords;
@@ -31,6 +33,8 @@ import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
 import util.DBClient;
+import bean.admin.CompanyConfig;
+import bean.admin.CompanyConfigUser;
 import bean.awb.AwbCharges;
 import bean.awb.AwbFlt;
 import bean.reference.Airport;
@@ -101,6 +105,8 @@ public class Awb extends AbstractIBean implements Serializable {
     public double weight;
     @Column(name = "volume", nullable = false)
     public double volume;
+    @Column(name = "companyCode", nullable = false)
+    public String companyCode;
     @Column(name = "prefix", nullable = false, length = 3)
     public String prefix;
     @Column(name = "kgLb", length = 10)
@@ -941,6 +947,14 @@ public class Awb extends AbstractIBean implements Serializable {
 		this.totalDestCharges = totalDestCharges;
 	}
 
+	public String getCompanyCode() {
+		return companyCode;
+	}
+
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+
 	@Override
 	public void setupIndex() {
 		runUniqueIndex(1, "prefix","serial");
@@ -985,7 +999,16 @@ public class Awb extends AbstractIBean implements Serializable {
 			
 //			calculate valueCustoms, valueCarraige, valueInsurance if 0
 		}
-		
+		if (companyCode==null || companyCode.isEmpty()) {
+			if ("AAA".equals(UserInfo.getUserName())) {
+				CompanyConfig user = (CompanyConfig) DBClient.getFirstRecord("SELECT a FROM CompanyConfig");
+				companyCode = user.companyName;
+			}
+			else {
+				CompanyConfigUser user = (CompanyConfigUser) DBClient.getFirstRecord("SELECT a FROM CompanyConfigUser a WHERE a.userId='"+UserInfo.getUserName()+"'");
+				companyCode = user.companyName;
+			}
+		}
 		super.save();
 	}
 	
