@@ -46,7 +46,8 @@
      awb.`seq` AS awb_seq,
      country.`name` AS country_name,
      country.`code` AS country_code,
-     awb.`origin` AS awb_origin
+     awb.`origin` AS awb_origin,
+     awb.`domesticRouting` AS onward_inLand
 FROM
      `airport` airport INNER JOIN `awb` awb ON airport.`code` = awb.`origin`
      INNER JOIN `country` country ON airport.`country` = country.`code`,
@@ -74,6 +75,7 @@ WHERE
 	<field name="country_name" class="java.lang.String"/>
 	<field name="country_code" class="java.lang.String"/>
 	<field name="awb_origin" class="java.lang.String"/>
+	<field name="onward_inLand" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -144,7 +146,7 @@ WHERE
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="847"  isSplitAllowed="true" >
+			<band height="661"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
@@ -453,7 +455,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awb_origin}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -481,10 +483,10 @@ WHERE
 						backcolor="#FFFFFF"
 						key="textField-14"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
+					<textElement textAlignment="Justified" verticalAlignment="Top">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{onward_inLand}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -515,7 +517,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awb_destination}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -859,111 +861,15 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="195"
-						y="388"
-						width="162"
-						height="202"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-32"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="357"
-						y="388"
-						width="98"
-						height="202"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-33"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="455"
-						y="388"
-						width="97"
-						height="202"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-34"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
 						x="0"
-						y="388"
-						width="98"
-						height="202"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-35"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="388"
-						width="97"
-						height="180"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-36"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="568"
-						width="97"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-37"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Total:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="603"
+						y="417"
 						width="98"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-38"
 						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font size="7"/>
 					</textElement>
@@ -972,14 +878,14 @@ WHERE
 				<staticText>
 					<reportElement
 						x="226"
-						y="603"
+						y="417"
 						width="131"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-39"
 						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
@@ -988,7 +894,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="357"
-						y="603"
+						y="417"
 						width="195"
 						height="14"
 						forecolor="#000000"
@@ -1004,14 +910,14 @@ WHERE
 				<staticText>
 					<reportElement
 						x="98"
-						y="603"
+						y="417"
 						width="128"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-42"
 						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font size="8"/>
 					</textElement>
@@ -1019,88 +925,8 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="98"
-						y="617"
-						width="128"
-						height="208"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-43"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="226"
-						y="617"
-						width="131"
-						height="208"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-44"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="617"
-						width="98"
-						height="230"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-45"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="825"
-						width="128"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-46"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="226"
-						y="825"
-						width="131"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-47"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
 						x="360"
-						y="617"
+						y="431"
 						width="192"
 						height="91"
 						forecolor="#000000"
@@ -1116,7 +942,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="708"
+						y="522"
 						width="192"
 						height="40"
 						forecolor="#000000"
@@ -1132,7 +958,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="748"
+						y="562"
 						width="192"
 						height="43"
 						forecolor="#000000"
@@ -1148,7 +974,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="791"
+						y="605"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1164,7 +990,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="805"
+						y="619"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1180,7 +1006,7 @@ WHERE
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="360"
-						y="819"
+						y="633"
 						width="192"
 						height="14"
 						key="textField-25"/>
@@ -1193,7 +1019,7 @@ WHERE
 				<textField isStretchWithOverflow="false" pattern="MMMMM dd, yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="360"
-						y="791"
+						y="605"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1208,7 +1034,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="357"
-						y="833"
+						y="647"
 						width="195"
 						height="14"
 						forecolor="#000000"
@@ -1224,7 +1050,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="0"
-						y="589"
+						y="403"
 						width="552"
 						height="14"
 						forecolor="#000000"
@@ -1250,6 +1076,36 @@ WHERE
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\ParticipantSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="430"
+						width="195"
+						height="16"
+						key="subreport-5"
+						positionType="Float"/>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$F{awb_seq}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\AwbOceanBLChargesSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="387"
+						width="552"
+						height="16"
+						key="subreport-6"
+						positionType="Float"/>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$F{awb_seq}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\AwbOceanBLDimensionSubReport.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>

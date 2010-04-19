@@ -36,12 +36,13 @@
      awbdimension.`awbSeq` AS awbdimension_awbSeq,
      awbdimension.`dimlength` AS awbdimension_dimlength,
      awbdimension.`kgLb` AS awbdimension_kgLb,
-     awbdimension.`length` AS awbdimension_length
+     awbdimension.`length` AS awbdimension_length,
+     awbdimension.`marksNumber` AS awbdimension_marksNumber,
+     awbdimension.`description` AS awbdimension_description
 FROM
      `awbdimension` awbdimension
 WHERE
-     awbdimension.`awbSeq` = $P{REPORT_ADD_WHERE}
-]]></queryString>
+     awbdimension.`awbSeq` = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="awbdimension_seq" class="java.lang.Integer"/>
 	<field name="awbdimension_height" class="java.lang.Integer"/>
@@ -53,6 +54,8 @@ WHERE
 	<field name="awbdimension_dimlength" class="java.lang.Integer"/>
 	<field name="awbdimension_kgLb" class="java.lang.String"/>
 	<field name="awbdimension_length" class="java.lang.Integer"/>
+	<field name="awbdimension_marksNumber" class="java.lang.String"/>
+	<field name="awbdimension_description" class="java.lang.String"/>
 
 	<variable name="TotalPieces" class="java.lang.Integer" resetType="Group" resetGroup="awbdimension_awbSeq" calculation="Sum">
 		<variableExpression><![CDATA[$F{awbdimension_pieces}]]></variableExpression>
@@ -71,9 +74,9 @@ WHERE
 			<band height="11"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="395"
+						x="451"
 						y="0"
-						width="79"
+						width="56"
 						height="11"
 						key="textField-9"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -84,17 +87,65 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="63"
 						y="0"
-						width="79"
+						width="70"
 						height="11"
 						key="textField-10"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Right">
 						<font fontName="Times-Roman" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{TotalPieces}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="63"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-1"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="133"
+						y="0"
+						width="318"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-2"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="507"
+						y="0"
+						width="45"
+						height="11"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-3"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
 			</band>
 			</groupFooter>
 		</group>
@@ -118,9 +169,9 @@ WHERE
 			<band height="12"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="237"
+						x="379"
 						y="1"
-						width="79"
+						width="36"
 						height="11"
 						key="textField-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -131,9 +182,9 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="395"
+						x="451"
 						y="1"
-						width="79"
+						width="56"
 						height="11"
 						key="textField-2"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -144,22 +195,22 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
+						x="63"
 						y="1"
-						width="79"
+						width="70"
 						height="11"
 						key="textField-3"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
+					<textElement textAlignment="Right">
 						<font fontName="Times-Roman" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{awbdimension_pieces}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="316"
+						x="415"
 						y="1"
-						width="79"
+						width="36"
 						height="11"
 						key="textField-4"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -170,9 +221,9 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="79"
+						x="307"
 						y="1"
-						width="79"
+						width="36"
 						height="11"
 						key="textField-5"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -183,9 +234,9 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="473"
+						x="507"
 						y="1"
-						width="79"
+						width="45"
 						height="11"
 						key="textField-6"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -196,9 +247,9 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="158"
+						x="343"
 						y="1"
-						width="79"
+						width="36"
 						height="11"
 						key="textField-7"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
@@ -206,6 +257,32 @@ WHERE
 						<font fontName="Times-Roman" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{awbdimension_length}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="63"
+						height="11"
+						key="textField-11"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awbdimension_marksNumber}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="133"
+						y="1"
+						width="174"
+						height="11"
+						key="textField-12"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awbdimension_description}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
