@@ -255,13 +255,13 @@ public class Awb extends AbstractIBean implements Serializable {
 
     @Column(name = "valueCustoms")
     public double valueCustoms;
-    @Column(name = "valueCarraige")
-    public double valueCarraige;
+    @Column(name = "valueCarriage")
+    public double valueCarriage;
     @Column(name = "valueInsurance")
     public double valueInsurance;
 
-    @Column(name = "preCariaige")
-    public String preCariaige;
+    @Column(name = "preCarriage")
+    public String preCarriage;
     @Column(name = "placeOfReceiptByPreCarrier")
     public String placeOfReceiptByPreCarrier;
     @Column(name = "placeOfReceipt")
@@ -274,6 +274,10 @@ public class Awb extends AbstractIBean implements Serializable {
     public String voyageNumber;
     @Column(name = "domesticRouting", length = 1000)
     public String domesticRouting;
+    @Column(name = "forDeliveryOfTheGoodsApplyTo")
+    public String forDeliveryOfTheGoodsApplyTo;
+
+
 
     public Awb() {
         departureDate = util.DateUtil.addDay(new Date(), 1);
@@ -286,7 +290,15 @@ public class Awb extends AbstractIBean implements Serializable {
 //        new AwbRouting().setupIndex();
     }
 
-    public String getDomesticRouting() {
+    public String getForDeliveryOfTheGoodsApplyTo() {
+        return forDeliveryOfTheGoodsApplyTo;
+    }
+
+    public void setForDeliveryOfTheGoodsApplyTo(String forDeliveryOfTheGoodsApplyTo) {
+        this.forDeliveryOfTheGoodsApplyTo = forDeliveryOfTheGoodsApplyTo;
+    }
+
+        public String getDomesticRouting() {
 		return domesticRouting;
 	}
 
@@ -294,12 +306,12 @@ public class Awb extends AbstractIBean implements Serializable {
 		this.domesticRouting = domesticRouting;
 	}
 
-	public String getPreCariaige() {
-		return preCariaige;
+	public String getPreCarriage() {
+		return preCarriage;
 	}
 
-	public void setPreCariaige(String preCariaige) {
-		this.preCariaige = preCariaige;
+	public void setPreCarriage(String preCarriage) {
+		this.preCarriage = preCarriage;
 	}
 
 	public String getPlaceOfReceiptByPreCarrier() {
@@ -350,12 +362,12 @@ public class Awb extends AbstractIBean implements Serializable {
 		this.valueCustoms = valueCustoms;
 	}
 
-	public double getValueCarraige() {
-		return valueCarraige;
+	public double getValueCarriage() {
+		return valueCarriage;
 	}
 
-	public void setValueCarraige(double valueCarraige) {
-		this.valueCarraige = valueCarraige;
+	public void setValueCarraige(double valueCarriage) {
+		this.valueCarriage = valueCarriage;
 	}
 
 	public double getValueInsurance() {
