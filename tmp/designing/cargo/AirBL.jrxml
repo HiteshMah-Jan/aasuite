@@ -46,7 +46,15 @@
      awb.`seq` AS awb_seq,
      country.`name` AS country_name,
      country.`code` AS country_code,
-     awb.`origin` AS awb_origin
+     awb.`origin` AS awb_origin,
+     awb.`domesticRouting` AS onward_inLand,
+     awb.`preCarriage` AS awb_preCarriage,
+     awb.`placeOfReceipt` AS awb_placeOfReceipt,
+     awb.`placeOfReceiptByPreCarrier` AS awb_placeOfReceiptByPreCarrier,
+     awb.`placeOfDelivery` AS awb_placeOfDelivery,
+     awb.`vesselNumber` AS awb_vesselNumber,
+     awb.`voyageNumber` AS awb_voyageNumber,
+     awb.`forDeliveryOfTheGoodsApplyTo` AS awb_forDeliveryOfTheGoodsApplyTo
 FROM
      `airport` airport INNER JOIN `awb` awb ON airport.`code` = awb.`origin`
      INNER JOIN `country` country ON airport.`country` = country.`code`,
@@ -74,6 +82,14 @@ WHERE
 	<field name="country_name" class="java.lang.String"/>
 	<field name="country_code" class="java.lang.String"/>
 	<field name="awb_origin" class="java.lang.String"/>
+	<field name="onward_inLand" class="java.lang.String"/>
+	<field name="awb_preCarriage" class="java.lang.String"/>
+	<field name="awb_placeOfReceipt" class="java.lang.String"/>
+	<field name="awb_placeOfReceiptByPreCarrier" class="java.lang.String"/>
+	<field name="awb_placeOfDelivery" class="java.lang.String"/>
+	<field name="awb_vesselNumber" class="java.lang.String"/>
+	<field name="awb_voyageNumber" class="java.lang.String"/>
+	<field name="awb_forDeliveryOfTheGoodsApplyTo" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -144,12 +160,21 @@ WHERE
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="847"  isSplitAllowed="true" >
+			<band height="846"  isSplitAllowed="true" >
+				<line direction="BottomUp">
+					<reportElement
+						x="249"
+						y="394"
+						width="62"
+						height="30"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
 						y="14"
-						width="195"
+						width="249"
 						height="58"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -164,7 +189,7 @@ WHERE
 					<reportElement
 						x="0"
 						y="0"
-						width="195"
+						width="249"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -172,15 +197,15 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Shipper]]></text>
+				<text><![CDATA[ SHIPPERS NAME AND ADDRESS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="195"
+						x="249"
 						y="0"
-						width="162"
+						width="152"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -188,15 +213,15 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
 				<text><![CDATA[ Booking No:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="195"
-						y="72"
-						width="357"
+						x="0"
+						y="144"
+						width="249"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -204,15 +229,15 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Forwarding Agent Reference]]></text>
+				<text><![CDATA[ ISSUING CARRIERS AGENT NAME AND CITY]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="0"
 						y="72"
-						width="195"
+						width="249"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -220,15 +245,15 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Consignee]]></text>
+				<text><![CDATA[ C0ONSIGNEES NAME AND ADDRESS]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
 						y="86"
-						width="195"
+						width="249"
 						height="58"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -239,59 +264,12 @@ WHERE
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="144"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-4"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Notify Party]]></text>
-				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="158"
-						width="195"
-						height="58"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-3"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="195"
-						y="144"
-						width="357"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-5"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Point and Country or Origin]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
+						x="249"
 						y="14"
-						width="162"
-						height="58"
+						width="152"
+						height="34"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField-4"/>
@@ -303,9 +281,9 @@ WHERE
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="195"
-						y="86"
-						width="357"
+						x="0"
+						y="158"
+						width="249"
 						height="58"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -316,88 +294,11 @@ WHERE
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
-						y="158"
-						width="357"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-6"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{country_name}+" "+$F{awb_origin}]]></textFieldExpression>
-				</textField>
 				<staticText>
 					<reportElement
-						x="195"
-						y="180"
-						width="357"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-6"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ For Delivery of The Goods Apply To:]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
-						y="194"
-						width="357"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-7"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="252"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-7"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Place of Receipt]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="266"
-						width="195"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-8"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="357"
+						x="401"
 						y="0"
-						width="195"
+						width="151"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -405,16 +306,16 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
 				<text><![CDATA[ Bill #:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="357"
+						x="401"
 						y="14"
-						width="195"
-						height="58"
+						width="151"
+						height="34"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="textField-9"/>
@@ -424,229 +325,12 @@ WHERE
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awb_prefix}+" - "+$F{awb_serial}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement
-						x="195"
-						y="252"
-						width="162"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-12"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Port of Loading]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
-						y="266"
-						width="162"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-13"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="357"
-						y="216"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-13"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Onward Inland Routing]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="357"
-						y="230"
-						width="195"
-						height="94"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-14"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="288"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-14"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Port of Discharge]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="302"
-						width="195"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-15"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="195"
-						y="288"
-						width="162"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-15"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Place of Delivery]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
-						y="302"
-						width="162"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-16"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="0"
-						y="324"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-16"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Vessel]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="0"
-						y="338"
-						width="195"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-17"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="195"
-						y="324"
-						width="162"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-17"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Voyage]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="195"
-						y="338"
-						width="162"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-18"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="357"
-						y="324"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-18"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement>
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Final Destination]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="357"
-						y="338"
-						width="195"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-19"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awb_destination}]]></textFieldExpression>
-				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
 						mode="Transparent"
 						x="0"
 						y="14"
-						width="195"
+						width="249"
 						height="58"
 						key="subreport-1"/>
 					<subreportParameter  name="PARAM_participant">
@@ -660,7 +344,7 @@ WHERE
 						mode="Transparent"
 						x="0"
 						y="86"
-						width="195"
+						width="249"
 						height="58"
 						key="subreport-2"/>
 					<subreportParameter  name="PARAM_participant">
@@ -672,9 +356,9 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						mode="Transparent"
-						x="195"
-						y="86"
-						width="193"
+						x="0"
+						y="158"
+						width="249"
 						height="58"
 						key="subreport-3"/>
 					<subreportParameter  name="PARAM_participant">
@@ -687,7 +371,7 @@ WHERE
 					<reportElement
 						x="0"
 						y="216"
-						width="195"
+						width="98"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -695,15 +379,15 @@ WHERE
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Pre Carriage By:]]></text>
+				<text><![CDATA[ AGENTS IATA CODE]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
 						y="230"
-						width="195"
+						width="98"
 						height="22"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
@@ -716,29 +400,29 @@ WHERE
 				</textField>
 				<staticText>
 					<reportElement
-						x="195"
+						x="98"
 						y="216"
-						width="162"
+						width="151"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="staticText-21"
+						key="staticText-22"
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement>
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Place of Receipt By Pre-Carrier]]></text>
+				<text><![CDATA[ ACCOUNT NO.]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="195"
+						x="98"
 						y="230"
-						width="162"
+						width="151"
 						height="22"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="textField-24"/>
+						key="textField-25"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
@@ -748,509 +432,2680 @@ WHERE
 				<staticText>
 					<reportElement
 						x="0"
-						y="360"
-						width="98"
+						y="252"
+						width="249"
 						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-22"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Marks and Numbers]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="195"
-						y="360"
-						width="162"
-						height="28"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-23"
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<textElement>
+						<font size="6"/>
 					</textElement>
-				<text><![CDATA[ Decription of Goods and Packages]]></text>
+				<text><![CDATA[ AIRPORT OF DEPARTURE (ADDR OF FIRST CARRIER) AND REQUESTED ROUTING]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="357"
-						y="360"
-						width="98"
-						height="28"
+						x="249"
+						y="48"
+						width="303"
+						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-24"
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Gross Weight]]></text>
+				<text><![CDATA[ CONSIGNEES NAME AND ADDRESS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="455"
-						y="360"
-						width="97"
-						height="28"
+						x="249"
+						y="144"
+						width="303"
+						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-25"
-						positionType="Float"/>
+						positionType="Float"
+						isPrintWhenDetailOverflows="true"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Measurement]]></text>
+				<text><![CDATA[ ALSO NOTIFY NAME AND ADDRESS (OPTIONAL ACCOUNTING INFORMATION)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="98"
-						y="360"
-						width="97"
+						x="249"
+						y="216"
+						width="303"
 						height="14"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-26"
 						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Bottom">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ No. of Packages]]></text>
+				<text><![CDATA[ ACCOUNTING INFORMATION]]></text>
 				</staticText>
-				<staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
+						mode="Transparent"
 						x="0"
-						y="374"
-						width="98"
-						height="14"
+						y="266"
+						width="249"
+						height="22"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
+						key="textField-26"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="288"
+						width="249"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
 						key="staticText-27"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Container No.]]></text>
+				<text><![CDATA[ ROUTING AND DESTINATION]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="98"
-						y="374"
-						width="97"
-						height="14"
+						x="249"
+						y="62"
+						width="303"
+						height="44"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="staticText-31"
+						key="staticText-28"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ or Shipping Units]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="195"
-						y="388"
-						width="162"
-						height="202"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-32"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="357"
-						y="388"
-						width="98"
-						height="202"
+						x="249"
+						y="106"
+						width="303"
+						height="38"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-29"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="298"
+						width="29"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-31"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ TO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="29"
+						y="298"
+						width="104"
+						height="10"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-33"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[ BY FIRST CARRIER]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="455"
-						y="388"
-						width="97"
-						height="202"
+						mode="Opaque"
+						x="133"
+						y="298"
+						width="29"
+						height="10"
 						forecolor="#000000"
-						backcolor="#FFFFFF"
+						backcolor="#E7E1E1"
 						key="staticText-34"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[ TO]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="0"
-						y="388"
-						width="98"
-						height="202"
+						mode="Opaque"
+						x="162"
+						y="298"
+						width="29"
+						height="10"
 						forecolor="#000000"
-						backcolor="#FFFFFF"
+						backcolor="#E7E1E1"
 						key="staticText-35"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[ BY]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="98"
-						y="388"
-						width="97"
-						height="180"
+						mode="Opaque"
+						x="191"
+						y="298"
+						width="29"
+						height="10"
 						forecolor="#000000"
-						backcolor="#FFFFFF"
+						backcolor="#E7E1E1"
 						key="staticText-36"
 						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ TO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="220"
+						y="298"
+						width="29"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-37"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ BY]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="308"
+						width="29"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-27"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="29"
+						y="308"
+						width="104"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-28"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="133"
+						y="308"
+						width="29"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-29"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="162"
+						y="308"
+						width="29"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-30"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="191"
+						y="308"
+						width="29"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-31"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="220"
+						y="308"
+						width="29"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-32"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="249"
+						y="298"
+						width="47"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-39"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
 					</textElement>
 				<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="98"
-						y="568"
-						width="97"
-						height="22"
+						x="334"
+						y="298"
+						width="25"
+						height="10"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="staticText-37"
+						key="staticText-40"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Top">
-						<font size="8"/>
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[ Total:]]></text>
+				<text><![CDATA[ PPD]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="0"
-						y="603"
-						width="98"
-						height="14"
+						x="434"
+						y="298"
+						width="59"
+						height="10"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
-						key="staticText-38"
+						key="staticText-41"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[ FOR CARRIAGE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="249"
+						y="308"
+						width="47"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-33"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="334"
+						y="308"
+						width="25"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-34"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="434"
+						y="308"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-35"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="249"
+						y="288"
+						width="47"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-45"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ CURRENCY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="334"
+						y="288"
+						width="50"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-46"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ WT/VAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="434"
+						y="288"
+						width="59"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-47"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[ DECLARED VALUE CARRIAGE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="296"
+						y="298"
+						width="38"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-51"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ CODE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="296"
+						y="308"
+						width="38"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="296"
+						y="288"
+						width="38"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-52"
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font size="7"/>
 					</textElement>
-				<text><![CDATA[Freight Details, Charges etc]]></text>
+				<text><![CDATA[ CHGS]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="226"
-						y="603"
-						width="131"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-39"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ COLLECT]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="357"
-						y="603"
-						width="195"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-40"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ Excess Value Declaration]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="603"
-						width="128"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-42"
-						positionType="Float"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Bottom">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ PREPAID]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="617"
-						width="128"
-						height="208"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-43"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="226"
-						y="617"
-						width="131"
-						height="208"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-44"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="0"
-						y="617"
-						width="98"
-						height="230"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-45"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="98"
-						y="825"
-						width="128"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-46"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="226"
-						y="825"
-						width="131"
-						height="22"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-47"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="360"
-						y="617"
-						width="192"
-						height="91"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-48"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ RECEIVED by the Carrier the Goods as specified  above in apparent good order and condiion unless otherwise stated, to be transported to such place as agreed, authorised or permitted herein and subject to all the terms and conditions appearing on the fromt and reverse of this Bill of Lading to which the Merchant agrees by accepting this Bill of Lading, any local privileges and customs notwithstanding.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="360"
-						y="708"
-						width="192"
-						height="40"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-49"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ The particulars given above as stated by the shipper and the weight, measure, quantity, condition, contents and value of the Goods are unknown to the Carrier.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="360"
-						y="748"
-						width="192"
-						height="43"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-50"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[ IN WITNESS where of THREE (3) original Bills of Lading have been signed, one of which being accomplished, the other(s) to be void.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="360"
-						y="791"
-						width="192"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-51"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[Place and date of issue]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="360"
-						y="805"
-						width="192"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="staticText-52"
-						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
-					</textElement>
-				<text><![CDATA[Signed on behalf of the Carrier:]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="360"
-						y="819"
-						width="192"
-						height="14"
-						key="textField-25"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Times-Roman" size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{companyconfig_companyName}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="MMMMM dd, yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="360"
-						y="791"
-						width="192"
-						height="14"
-						forecolor="#000000"
-						backcolor="#FFFFFF"
-						key="textField-26"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Right">
-						<font size="8"/>
-					</textElement>
-				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
-						x="357"
-						y="833"
-						width="195"
-						height="14"
+						x="359"
+						y="298"
+						width="25"
+						height="10"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-53"
 						positionType="Float"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Justified" verticalAlignment="Top">
-						<font size="8"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="7"/>
 					</textElement>
-				<text><![CDATA[   by]]></text>
+				<text><![CDATA[ COL]]></text>
 				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="359"
+						y="308"
+						width="25"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
 				<staticText>
 					<reportElement
-						x="0"
-						y="589"
-						width="552"
-						height="14"
+						x="384"
+						y="298"
+						width="25"
+						height="10"
 						forecolor="#000000"
 						backcolor="#FFFFFF"
 						key="staticText-54"
 						positionType="Float"/>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ PPD]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="308"
+						width="25"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="384"
+						y="288"
+						width="50"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-55"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[OTHER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="409"
+						y="298"
+						width="25"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-56"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ COL]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="409"
+						y="308"
+						width="25"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-42"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="493"
+						y="298"
+						width="59"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-57"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Top">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[ FOR CUSTOMS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="493"
+						y="308"
+						width="59"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="493"
+						y="288"
+						width="59"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-58"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="6"/>
+					</textElement>
+				<text><![CDATA[ DECLARED VALUE CARRIAGE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="320"
+						width="133"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-59"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ AIRPORT OF DESTINATION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="133"
+						y="330"
+						width="58"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-62"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ FLIGHT/DATE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="330"
+						width="133"
+						height="27"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-45"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<text><![CDATA[PARTICULARS FURNISHED BY SHIPPER]]></text>
-				</staticText>
-				<subreport  isUsingCache="true">
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						mode="Transparent"
+						mode="Opaque"
+						x="133"
+						y="340"
+						width="58"
+						height="17"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-46"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="249"
+						y="330"
+						width="85"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-66"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="249"
+						y="340"
+						width="85"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-50"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="249"
+						y="320"
+						width="85"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-69"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ AMOUNT OF INSURANCE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="510"
+						y="340"
+						width="42"
+						height="17"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-57"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="510"
+						y="320"
+						width="42"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-79"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[TC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="133"
+						y="320"
+						width="116"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-80"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ FOR CARRIER USE ONLY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="191"
+						y="330"
+						width="58"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-81"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ FLIGHT/DATE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="MM/dd/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="191"
+						y="340"
+						width="58"
+						height="17"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-58"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="334"
+						y="320"
+						width="176"
+						height="37"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-82"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[iNSURANCE - if shipper requests insurance in accor-dance with conditions on reverse hereof, indicate amount to be insured in figures in box marked amount of insurance]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
 						x="0"
+						y="357"
+						width="98"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-83"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ HANDLING INFORMATION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="98"
+						y="357"
+						width="236"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-84"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[these comodities licensed by US for ultimate destination]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="334"
+						y="357"
+						width="218"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-85"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[Diversion contrary US law is provided ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="367"
+						width="552"
+						height="27"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-59"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="312"
+						y="394"
+						width="71"
+						height="30"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-107"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[ TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="384"
+						y="394"
+						width="168"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-108"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ NATURE AND QUANTITY OF GOODS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="249"
+						y="394"
+						width="62"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-110"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ RATE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="249"
+						y="409"
+						width="62"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-111"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[CHARGES ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="186"
+						y="394"
+						width="62"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-112"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[CHARGEABLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="186"
+						y="409"
+						width="62"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-113"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[WEIGHT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="36"
+						y="394"
+						width="62"
+						height="30"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-114"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[GROSS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="36"
+						y="409"
+						width="62"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-117"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[WEIGHT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="394"
+						width="35"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-118"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[NO. OF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="404"
+						width="35"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-119"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[PIECES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="414"
+						width="35"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-120"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[RCP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="384"
+						y="409"
+						width="168"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-121"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[(INCL. DIMENSION OR VOLUME)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="123"
+						y="394"
+						width="62"
+						height="30"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-123"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[RATE CLASS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="123"
+						y="404"
+						width="62"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-124"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[COMMODITY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="123"
+						y="414"
+						width="62"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-125"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[ITEM NO.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="424"
+						width="35"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-60"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="36"
+						y="424"
+						width="62"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-61"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="123"
+						y="424"
+						width="62"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-62"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="186"
+						y="424"
+						width="62"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-63"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="249"
+						y="424"
+						width="62"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-64"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="312"
+						y="424"
+						width="71"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-65"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="424"
+						width="168"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-66"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="111"
+						y="404"
+						width="12"
+						height="187"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-67"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="98"
+						y="424"
+						width="12"
+						height="167"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-68"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="98"
+						y="394"
+						width="12"
+						height="30"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-126"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="111"
+						y="394"
+						width="12"
+						height="30"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-127"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="591"
+						width="166"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-128"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[WEIGHT CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="601"
+						width="86"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-129"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PREPAID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="86"
+						y="601"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-130"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[COLLECT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="189"
+						y="591"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-131"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PICUP CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="268"
+						y="591"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-132"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ORIGIN ADVANCE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="347"
+						y="591"
+						width="134"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-133"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DESCRIPTION OF ORIGIN ADVANCE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="481"
+						y="591"
+						width="71"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-134"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ITEMS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="591"
+						width="23"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-135"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[P-UP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="189"
+						y="601"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-136"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="268"
+						y="601"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-137"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="347"
+						y="601"
+						width="134"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-138"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="481"
+						y="601"
+						width="71"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-139"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PREPAID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="601"
+						width="23"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-140"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ZONE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="611"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="611"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="166"
+						y="611"
+						width="23"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-71"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="189"
+						y="611"
+						width="79"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-72"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="611"
+						width="79"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-73"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="347"
+						y="611"
+						width="134"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-74"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="481"
+						y="611"
+						width="71"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-75"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="623"
+						width="166"
+						height="20"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-141"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[VALUATION CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="189"
+						y="623"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-144"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DELIVERY CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="268"
+						y="623"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-145"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DEST. ADVANCE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="347"
+						y="623"
+						width="134"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-146"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DESCRIPTION OF DEST. ADVANCE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="481"
+						y="623"
+						width="71"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-147"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ITEMS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="623"
+						width="23"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-148"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DEL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="189"
+						y="633"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-149"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="268"
+						y="633"
+						width="79"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-150"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CHARGES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="347"
+						y="633"
+						width="134"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-151"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="481"
+						y="633"
+						width="71"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-152"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[COLLECT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="633"
+						width="23"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-153"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ZONE]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="643"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-76"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="643"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-77"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="166"
+						y="643"
+						width="23"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-78"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="189"
+						y="643"
+						width="79"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-79"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="643"
+						width="79"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="347"
+						y="643"
+						width="134"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-81"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="481"
+						y="643"
+						width="71"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-82"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="655"
+						width="166"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-154"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TAX]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="655"
+						width="102"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-157"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ SHIPPERS R.F.C]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="667"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="667"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="166"
+						y="667"
+						width="102"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-86"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="268"
+						y="655"
+						width="284"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-158"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[OTHER CHARGES AND DESCRIPTIONS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="268"
+						y="667"
+						width="284"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-87"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="679"
+						width="166"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-159"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL OTHER CHARGES DUE AGENT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="691"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-88"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="691"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="703"
+						width="166"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-160"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL OTHER CHARGES DUE CARRIER]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="715"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="715"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-91"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="46"
+						y="739"
+						width="40"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-92"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="727"
+						width="80"
+						height="24"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-93"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="46"
+						y="727"
+						width="40"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-162"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CURRENCY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="0"
+						y="727"
+						width="46"
+						height="24"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-163"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ COD]]></text>
+				</staticText>
+				<elementGroup><!--  Start: 1 !-->
+				<image  scaleImage="FillFrame" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="30"
+						y="735"
+						width="15"
+						height="11"
+						key="image-1"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\images\\RightArrow.jpg"]]></imageExpression>
+				</image>
+				</elementGroup><!-- End 1 !-->
+				<staticText>
+					<reportElement
+						x="0"
+						y="751"
+						width="86"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-164"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL PREPAID]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="761"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-94"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="86"
+						y="751"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-165"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL COLLECT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="761"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-95"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="773"
+						width="86"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-166"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CURRENCY CONVERSATION]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="793"
+						width="86"
+						height="31"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-96"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="86"
+						y="773"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-167"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL COLLECTION IN]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="86"
+						y="793"
+						width="80"
+						height="31"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-97"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="783"
+						width="86"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-168"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[RATES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="86"
+						y="783"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-169"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DESTINATION CURRENCY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="824"
+						width="86"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-170"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FOR CARRIERS USE ONLY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="86"
+						y="824"
+						width="80"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-171"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CHARGES AT DESTINATION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="834"
+						width="86"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-172"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[AT DESTINATION]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="86"
+						y="834"
+						width="80"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-98"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="166"
+						y="824"
+						width="102"
+						height="10"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="staticText-173"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL COLLECT CHARGES]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="166"
+						y="834"
+						width="102"
+						height="12"
+						forecolor="#000000"
+						backcolor="#E7E1E1"
+						key="textField-99"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="166"
+						y="679"
+						width="386"
+						height="60"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-174"
+						positionType="Float"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ Shipper certifies that the particulars on the face hereof are correct and that insofar as any part of the consignment contains restricted articles, such part is properly described by name and is in proper condition for carriage by air according to applicable national government regulations, and for international shipments, the current international Air Transport Association's Restricted Articles regulations]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="737"
+						width="386"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-175"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SIGNATURE OF SHIPPER OR HIS AGENT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="166"
+						y="723"
+						width="386"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-100"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="166"
+						y="751"
+						width="386"
+						height="10"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-176"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ EXECUTED ON]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="166"
+						y="761"
+						width="386"
+						height="32"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-101"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="394"
+						y="793"
+						width="158"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-177"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SIGNATURE OF ISSUING CARRIER OR ITS AGENT ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="166"
+						y="793"
+						width="54"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-178"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[(Date)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="220"
+						y="793"
+						width="54"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-179"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[(Time)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="274"
+						y="793"
+						width="22"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-180"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[at]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="296"
+						y="793"
+						width="98"
+						height="14"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-181"
+						positionType="Float"/>
+					<box topBorder="Dotted" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[(Place)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="249"
 						y="158"
-						width="195"
+						width="303"
 						height="58"
-						key="subreport-4"/>
-					<subreportParameter  name="PARAM_participant">
-						<subreportParameterExpression><![CDATA[$F{awb_consignee}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\ParticipantSubReport.jasper"]]></subreportExpression>
-				</subreport>
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-182"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="249"
+						y="230"
+						width="303"
+						height="58"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="staticText-183"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="7"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>

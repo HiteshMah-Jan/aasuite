@@ -53,7 +53,8 @@
      awb.`placeOfReceiptByPreCarrier` AS awb_placeOfReceiptByPreCarrier,
      awb.`placeOfDelivery` AS awb_placeOfDelivery,
      awb.`vesselNumber` AS awb_vesselNumber,
-     awb.`voyageNumber` AS awb_voyageNumber
+     awb.`voyageNumber` AS awb_voyageNumber,
+     awb.`forDeliveryOfTheGoodsApplyTo` AS awb_forDeliveryOfTheGoodsApplyTo
 FROM
      `airport` airport INNER JOIN `awb` awb ON airport.`code` = awb.`origin`
      INNER JOIN `country` country ON airport.`country` = country.`code`,
@@ -88,6 +89,7 @@ WHERE
 	<field name="awb_placeOfDelivery" class="java.lang.String"/>
 	<field name="awb_vesselNumber" class="java.lang.String"/>
 	<field name="awb_voyageNumber" class="java.lang.String"/>
+	<field name="awb_forDeliveryOfTheGoodsApplyTo" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -374,7 +376,7 @@ WHERE
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awb_forDeliveryOfTheGoodsApplyTo}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
