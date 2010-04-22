@@ -25,7 +25,7 @@ import util.PanelUtil;
 import bean.admin.AppConfig;
 import bean.admin.AppMenu;
 
-import component.reportdesigner.ReportDesigner;
+//import component.reportdesigner.ReportDesigner;
 
 /**
  * The main class of the application.
@@ -110,7 +110,7 @@ public class Common2App extends SingleFrameApplication {
             new AppMenu().runSetup();
 //            PanelUtil.showMessage(null, "Complete setup of menu. Please restart application.");
         }
-        ReportDesigner.setupReportResources();
+//        ReportDesigner.setupReportResources();
         try {
             Thread.sleep(3000);
         }

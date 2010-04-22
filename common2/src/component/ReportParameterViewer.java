@@ -8,7 +8,7 @@ package component;
 
 import component.*;
 import component.AbstractReport;
-import component.reportdesigner.ReportDesigner;
+//import component.reportdesigner.ReportDesigner;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
@@ -124,7 +124,7 @@ private void btnShowReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         }
     }
     AbstractReport.displayReportToPanel(reportViewer, report, mapParam);
-    ReportDesigner.showMe(file);
+//    ReportDesigner.showMe(file);
 }//GEN-LAST:event_btnShowReportActionPerformed
     
     
