@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="AirBLDimensionSubReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     awbdimension.`seq` AS awbdimension_seq,
+     awbdimension.`height` AS awbdimension_height,
+     awbdimension.`volume` AS awbdimension_volume,
+     awbdimension.`weight` AS awbdimension_weight,
+     awbdimension.`pieces` AS awbdimension_pieces,
+     awbdimension.`width` AS awbdimension_width,
+     awbdimension.`awbSeq` AS awbdimension_awbSeq,
+     awbdimension.`dimlength` AS awbdimension_dimlength,
+     awbdimension.`kgLb` AS awbdimension_kgLb,
+     awbdimension.`length` AS awbdimension_length,
+     awbdimension.`marksNumber` AS awbdimension_marksNumber,
+     awbdimension.`description` AS awbdimension_description
+FROM
+     `awbdimension` awbdimension
+WHERE
+     awbdimension.`awbSeq` = $P{REPORT_ADD_WHERE}]]></queryString>
+
+	<field name="awbdimension_seq" class="java.lang.Integer"/>
+	<field name="awbdimension_height" class="java.lang.Integer"/>
+	<field name="awbdimension_volume" class="java.lang.Double"/>
+	<field name="awbdimension_weight" class="java.lang.Double"/>
+	<field name="awbdimension_pieces" class="java.lang.Integer"/>
+	<field name="awbdimension_width" class="java.lang.Integer"/>
+	<field name="awbdimension_awbSeq" class="java.lang.Integer"/>
+	<field name="awbdimension_dimlength" class="java.lang.Integer"/>
+	<field name="awbdimension_kgLb" class="java.lang.String"/>
+	<field name="awbdimension_length" class="java.lang.Integer"/>
+	<field name="awbdimension_marksNumber" class="java.lang.String"/>
+	<field name="awbdimension_description" class="java.lang.String"/>
+
+	<variable name="TotalPieces" class="java.lang.Integer" resetType="Group" resetGroup="awbdimension_awbSeq" calculation="Sum">
+		<variableExpression><![CDATA[$F{awbdimension_pieces}]]></variableExpression>
+	</variable>
+	<variable name="totalVolume" class="java.lang.Double" resetType="Group" resetGroup="awbdimension_awbSeq" calculation="Sum">
+		<variableExpression><![CDATA[$F{awbdimension_volume}]]></variableExpression>
+	</variable>
+	<variable name="TotalWeight" class="java.lang.Double" resetType="Group" resetGroup="awbdimension_awbSeq" calculation="Sum">
+		<variableExpression><![CDATA[$F{awbdimension_weight}]]></variableExpression>
+	</variable>
+
+		<group  name="awbdimension_awbSeq" >
+			<groupExpression><![CDATA[$F{awbdimension_awbSeq}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="11"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="35"
+						height="11"
+						key="textField-10"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{TotalPieces}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="36"
+						y="0"
+						width="62"
+						height="11"
+						key="textField-19"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{TotalWeight}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="12"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="35"
+						height="11"
+						key="textField-3"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{awbdimension_pieces}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="36"
+						y="1"
+						width="62"
+						height="11"
+						key="textField-4"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{awbdimension_weight}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="384"
+						y="1"
+						width="168"
+						height="11"
+						key="textField-12"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awbdimension_description}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="98"
+						y="1"
+						width="12"
+						height="11"
+						key="textField-13"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="111"
+						y="1"
+						width="12"
+						height="11"
+						key="textField-14"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="123"
+						y="1"
+						width="62"
+						height="11"
+						key="textField-15"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="186"
+						y="1"
+						width="62"
+						height="11"
+						key="textField-16"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="249"
+						y="1"
+						width="62"
+						height="11"
+						key="textField-17"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="312"
+						y="1"
+						width="71"
+						height="11"
+						key="textField-18"
+						positionType="Float"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left">
+						<font fontName="Times-Roman" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

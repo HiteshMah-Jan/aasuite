@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="AirBLChargesSubReport"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+if     (awbcharges.`prepaid`!=1,0,( awbcharges.`amount`)) AS PrepaidAmount,
+if     (awbcharges.`prepaid`=0,( awbcharges.`amount`),0) AS CollectAmount,
+     awbcharges.`seq` AS awbcharges_seq,
+     awbcharges.`awbSeq` AS awbcharges_awbSeq,
+     awbcharges.`chargeType` AS awbcharges_chargeType,
+     awbcharges.`chargeCode` AS awbcharges_chargeCode,
+     awbcharges.`cassIndicator` AS awbcharges_cassIndicator,
+     awbcharges.`amount` AS awbcharges_amount,
+     awbcharges.`rateExchange` AS awbcharges_rateExchange,
+     awbcharges.`reason` AS awbcharges_reason,
+     awbcharges.`paid` AS awbcharges_paid,
+     awbcharges.`discount` AS awbcharges_discount,
+     awbcharges.`prepaid` AS awbcharges_prepaid
+FROM
+     `awbcharges` awbcharges
+WHERE
+     awbcharges.`awbSeq` = $P{REPORT_ADD_WHERE}]]></queryString>
+
+	<field name="PrepaidAmount" class="java.lang.Double"/>
+	<field name="CollectAmount" class="java.lang.Double"/>
+	<field name="awbcharges_seq" class="java.lang.Integer"/>
+	<field name="awbcharges_awbSeq" class="java.lang.Integer"/>
+	<field name="awbcharges_chargeType" class="java.lang.String"/>
+	<field name="awbcharges_chargeCode" class="java.lang.String"/>
+	<field name="awbcharges_cassIndicator" class="java.lang.String"/>
+	<field name="awbcharges_amount" class="java.lang.Double"/>
+	<field name="awbcharges_rateExchange" class="java.lang.Double"/>
+	<field name="awbcharges_reason" class="java.lang.String"/>
+	<field name="awbcharges_paid" class="java.lang.Boolean"/>
+	<field name="awbcharges_discount" class="java.lang.Double"/>
+	<field name="awbcharges_prepaid" class="java.lang.String"/>
+
+	<variable name="TotalPrepaidAmount" class="java.lang.Double" resetType="Group" resetGroup="awbcharges_awbSeq" calculation="Sum">
+		<variableExpression><![CDATA[$F{PrepaidAmount}]]></variableExpression>
+	</variable>
+	<variable name="TotalCollectAmount" class="java.lang.Double" resetType="Group" resetGroup="awbcharges_awbSeq" calculation="Sum">
+		<variableExpression><![CDATA[$F{CollectAmount}]]></variableExpression>
+	</variable>
+
+		<group  name="awbcharges_awbSeq" >
+			<groupExpression><![CDATA[$F{awbcharges_awbSeq}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="86"
+						height="11"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{PrepaidAmount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="86"
+						y="0"
+						width="80"
+						height="11"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times-Roman" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{CollectAmount}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
