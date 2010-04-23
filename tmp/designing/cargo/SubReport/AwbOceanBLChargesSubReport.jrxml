@@ -148,7 +148,7 @@ WHERE
 					<textElement textAlignment="Left">
 						<font fontName="Times-Roman" size="8"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{awbcharges_chargeCode}+" - "+$F{awbcharges_chargeType}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($F{awbcharges_chargeCode}==null && $F{awbcharges_chargeType} == null)?"":($F{awbcharges_chargeCode}!= null && $F{awbcharges_chargeType} == null)?$F{awbcharges_chargeCode}:($F{awbcharges_chargeCode}== null && $F{awbcharges_chargeType} != null)?$F{awbcharges_chargeType}:$F{awbcharges_chargeCode}+" - "+$F{awbcharges_chargeType}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

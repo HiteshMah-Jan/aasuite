@@ -160,7 +160,7 @@ WHERE
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="661"  isSplitAllowed="true" >
+			<band height="659"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="0"
@@ -876,7 +876,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="0"
-						y="417"
+						y="415"
 						width="98"
 						height="14"
 						forecolor="#000000"
@@ -892,7 +892,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="226"
-						y="417"
+						y="415"
 						width="131"
 						height="14"
 						forecolor="#000000"
@@ -908,7 +908,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="357"
-						y="417"
+						y="415"
 						width="195"
 						height="14"
 						forecolor="#000000"
@@ -924,7 +924,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="98"
-						y="417"
+						y="415"
 						width="128"
 						height="14"
 						forecolor="#000000"
@@ -940,7 +940,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="431"
+						y="429"
 						width="192"
 						height="91"
 						forecolor="#000000"
@@ -956,7 +956,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="522"
+						y="520"
 						width="192"
 						height="40"
 						forecolor="#000000"
@@ -972,7 +972,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="562"
+						y="560"
 						width="192"
 						height="43"
 						forecolor="#000000"
@@ -988,7 +988,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="605"
+						y="603"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1004,7 +1004,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="360"
-						y="619"
+						y="617"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1020,7 +1020,7 @@ WHERE
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="360"
-						y="633"
+						y="631"
 						width="192"
 						height="14"
 						key="textField-25"/>
@@ -1033,7 +1033,7 @@ WHERE
 				<textField isStretchWithOverflow="false" pattern="MMMMM dd, yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="360"
-						y="605"
+						y="603"
 						width="192"
 						height="14"
 						forecolor="#000000"
@@ -1048,7 +1048,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="357"
-						y="647"
+						y="645"
 						width="195"
 						height="14"
 						forecolor="#000000"
@@ -1064,7 +1064,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="0"
-						y="403"
+						y="401"
 						width="552"
 						height="14"
 						forecolor="#000000"
@@ -1081,21 +1081,7 @@ WHERE
 					<reportElement
 						mode="Transparent"
 						x="0"
-						y="158"
-						width="195"
-						height="58"
-						key="subreport-4"/>
-					<subreportParameter  name="PARAM_participant">
-						<subreportParameterExpression><![CDATA[$F{awb_consignee}]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\ParticipantSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<subreport  isUsingCache="true">
-					<reportElement
-						mode="Transparent"
-						x="0"
-						y="430"
+						y="428"
 						width="195"
 						height="16"
 						key="subreport-5"
@@ -1112,7 +1098,7 @@ WHERE
 						x="0"
 						y="387"
 						width="552"
-						height="16"
+						height="14"
 						key="subreport-6"
 						positionType="Float"/>
 					<subreportParameter  name="REPORT_ADD_WHERE">
@@ -1120,6 +1106,108 @@ WHERE
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\AwbOceanBLDimensionSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="158"
+						width="195"
+						height="9"
+						key="subreport-7"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT code as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="167"
+						width="195"
+						height="9"
+						key="subreport-8"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT name as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="176"
+						width="195"
+						height="9"
+						key="subreport-9"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT streetAddress as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="185"
+						width="195"
+						height="9"
+						key="subreport-10"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT contactPhone as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="194"
+						width="195"
+						height="9"
+						key="subreport-11"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT country as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="203"
+						width="195"
+						height="9"
+						key="subreport-12"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT airportCode as any1 "+
+"FROM AwbParticipant "+
+"WHERE "+
+"	awbSeq="+$P{REPORT_ADD_WHERE}+" AND "+
+" identifier = 'NOTIFY'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\cargo\\SubReport\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>
