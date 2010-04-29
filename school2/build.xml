@@ -72,13 +72,6 @@
 
     -->
 <!-- Create a webstart tree -->
-    <target name="-post-jar">
-        <delete dir="${webstart.dist.dir}"/>
-        <mkdir dir="${webstart.dist.dir}/packed"/>
-        <copy todir="${webstart.dist.dir}/packed" flatten="true">
-            <fileset dir="${dist.dir}" includes="**/*.jar"/>
-        </copy>
-    </target>
     <target name="-sign-jars" depends="-jnlp-init-keystore,-check-signing-possible" if="jnlp.signed.true+signjarstask.available">
         <apply executable="nbproject/packinit.bat" type="file"
           resolveexecutable="true" failonerror="true" ignoremissing="false">
