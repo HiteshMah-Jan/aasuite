@@ -1,0 +1,1 @@
+java -Xms64m -Xmx1024m -jar hospital2.jar
