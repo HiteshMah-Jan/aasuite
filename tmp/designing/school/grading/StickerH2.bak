@@ -89,7 +89,8 @@
      studentvaluesgrading.`present` AS studentvaluesgrading_present,
      studentvaluesgrading.`present2` AS studentvaluesgrading_present2,
      studentvaluesgrading.`present3` AS studentvaluesgrading_present3,
-     studentvaluesgrading.`present4` AS studentvaluesgrading_present4
+     studentvaluesgrading.`present4` AS studentvaluesgrading_present4,
+     enrollment.`gradeLevel` AS enrollment_gradeLevel
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
@@ -155,10 +156,11 @@ WHERE
 	<field name="studentvaluesgrading_present2" class="java.lang.Integer"/>
 	<field name="studentvaluesgrading_present3" class="java.lang.Integer"/>
 	<field name="studentvaluesgrading_present4" class="java.lang.Integer"/>
+	<field name="enrollment_gradeLevel" class="java.lang.String"/>
 
 
 		<group  name="GradeLevel" >
-			<groupExpression><![CDATA[$F{person_gradeLevel}]]></groupExpression>
+			<groupExpression><![CDATA[$F{enrollment_gradeLevel}]]></groupExpression>
 			<groupHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -219,7 +221,7 @@ WHERE
 					<textElement>
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_gradeLevel}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gradeLevel}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -715,7 +717,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -873,7 +875,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -896,7 +898,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -919,7 +921,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -942,7 +944,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -965,7 +967,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -988,7 +990,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -1011,7 +1013,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -1034,7 +1036,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -1056,7 +1058,7 @@ new Double($F{studentvaluesgrading_valuesPromotedAverageFinal}.doubleValue()+.5)
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%FIL%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1105,7 +1107,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%ENG%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1122,7 +1124,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%SCI%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1139,7 +1141,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%MAT%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1156,7 +1158,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%RELIGION%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1173,7 +1175,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%TLE%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1190,7 +1192,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%COM%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1207,7 +1209,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT SUM(s.`unit`) AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' "+
 "GROUP BY s.gradeLevel "]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1224,7 +1226,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT SUM(s.`unit`) AS Any "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "(s.subject LIKE '%PE%' OR s.subject LIKE '%MUSIC%')"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1241,7 +1243,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						<subreportParameterExpression><![CDATA["SELECT s.`unit` AS Any, s.`studentId` AS StudentId, s.`preferredYear` AS SchoolYear, s.`subject` AS Subject "+
 "FROM studentsubject s "+
 "WHERE s.studentId = '"+$F{person_personId}+"' AND "+
-"s.gradeLevel = '"+$F{person_gradeLevel}+"' AND "+
+"s.gradeLevel = '"+$F{enrollment_gradeLevel}+"' AND "+
 "s.`subject` LIKE '%MK AP%'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -1255,8 +1257,8 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						height="23"
 						key="textField-6"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
-						<font fontName="Times-Roman" pdfFontName="Helvetica" size="16" isBold="false"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times-Roman" pdfFontName="Helvetica" size="12" isBold="false"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_lastName}+" , "+ $F{person_firstName}+" "+$F{person_middleInitial}]]></textFieldExpression>
 				</textField>
@@ -1268,8 +1270,8 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 						height="23"
 						key="textField-7"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Left">
-						<font fontName="Times-Roman" size="16"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Times-Roman" size="12"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_studentNumber}]]></textFieldExpression>
 				</textField>

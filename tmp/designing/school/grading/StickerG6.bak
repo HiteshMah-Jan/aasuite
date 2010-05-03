@@ -89,7 +89,8 @@
      studentvaluesgrading.`present` AS studentvaluesgrading_present,
      studentvaluesgrading.`present2` AS studentvaluesgrading_present2,
      studentvaluesgrading.`present3` AS studentvaluesgrading_present3,
-     studentvaluesgrading.`present4` AS studentvaluesgrading_present4
+     studentvaluesgrading.`present4` AS studentvaluesgrading_present4,
+     enrollment.`gradeLevel` AS enrollment_gradeLevel
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
@@ -155,10 +156,11 @@ WHERE
 	<field name="studentvaluesgrading_present2" class="java.lang.Integer"/>
 	<field name="studentvaluesgrading_present3" class="java.lang.Integer"/>
 	<field name="studentvaluesgrading_present4" class="java.lang.Integer"/>
+	<field name="enrollment_gradeLevel" class="java.lang.String"/>
 
 
 		<group  name="GradeLevel" >
-			<groupExpression><![CDATA[$F{person_gradeLevel}]]></groupExpression>
+			<groupExpression><![CDATA[$F{enrollment_gradeLevel}]]></groupExpression>
 			<groupHeader>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -569,7 +571,7 @@ WHERE
 					<textElement>
 						<font fontName="Times-Roman" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_gradeLevel}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{enrollment_gradeLevel}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -651,7 +653,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -674,7 +676,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -697,7 +699,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -720,7 +722,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -743,7 +745,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -766,7 +768,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -789,7 +791,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -812,7 +814,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -835,7 +837,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -858,7 +860,7 @@ WHERE
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
@@ -1130,7 +1132,7 @@ $F{studentvaluesgrading_present4}.intValue())]]></textFieldExpression>
 "FROM Enrollment "+
 "WHERE "+
 "	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
-"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+"	gradeLevel='"+$F{enrollment_gradeLevel}+"'"]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter  name="REPORT_ADD_WHERE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
