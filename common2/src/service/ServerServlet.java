@@ -69,7 +69,7 @@ public class ServerServlet extends HttpServlet {
         ReturnStruct ret = service.callService(param);
 
         response.setContentType("application/octet-stream");
-        if (ret!=null) response.setContentLength(ret.size());
+//        if (ret!=null) response.setContentLength(ret.size());
 
 //        System.out.println("SERVLET OK2.");
         ParamStruct.write(response.getOutputStream(), ret);

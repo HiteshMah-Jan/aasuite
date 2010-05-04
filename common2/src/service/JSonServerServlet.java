@@ -59,7 +59,7 @@ public class JSonServerServlet extends HttpServlet {
         ReturnStruct ret = service.callService(param);
 
         response.setContentType("application/octet-stream");
-        response.setContentLength(ret.size());
+//        response.setContentLength(ret.size());
 
         System.out.println("SERVLET OK2.");
         ParamStruct.write(response.getOutputStream(), ret);

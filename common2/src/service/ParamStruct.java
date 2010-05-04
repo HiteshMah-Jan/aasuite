@@ -18,6 +18,10 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import constants.Constants;
+
+import util.ZipUtil;
+
 /**
  *
  * @author Budoy Entokwa
@@ -30,6 +34,15 @@ public class ParamStruct implements Serializable {
     private String helperSQL;
     private String station;
     private String macAddress;
+    private int status = Constants.FAIL;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getStation() {
         return station;
@@ -106,7 +119,7 @@ public class ParamStruct implements Serializable {
         ObjectInputStream ois = null;
         try {
             ois = new ObjectInputStream(is);
-            ParamStruct param = (ParamStruct) ois.readObject();
+            ParamStruct param = (ParamStruct) ZipUtil.getUnzipObject((byte[])ois.readObject());
             return param;
         } catch (Exception ex) {
 //            System.out.println("READ EXCEPTION."+ex.getMessage());
@@ -127,7 +140,7 @@ public class ParamStruct implements Serializable {
         ObjectOutputStream oos = null;
         try {
             oos = new ObjectOutputStream(os);
-            oos.writeObject(param);
+            oos.writeObject(ZipUtil.getZipBytes(param));
         } catch (IOException ex) {
 //            System.out.println("WRITE EXCEPTION."+ex.getMessage());
             Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);

@@ -61,7 +61,7 @@ public class ServiceAdapter {
                     hpcon.setDoOutput(true);
                     hpcon.setReadTimeout(600000);
                     hpcon.setRequestProperty("Content-Type", "application/octet-stream");
-                    hpcon.setRequestProperty("Content-Length", param.size()+"");
+//                    hpcon.setRequestProperty("Content-Length", param.size()+"");
 
                     ParamStruct.write(hpcon.getOutputStream(), param);
                     ret = (ReturnStruct) ParamStruct.read(hpcon.getInputStream());
