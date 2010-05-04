@@ -1,37 +1,25 @@
 package springbean;
 
-import bean.Services;
-import bean.reference.Department;
-import common2.Common2App;
-
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-/*
- * AAAConfig.java
- *
- * Created on Dec 21, 2007, 9:38:32 PM
- *
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-import service.ParamStruct;
-import service.ReturnStruct;
-//import test.ExcelReader;
-import component.SpringCall;
-import java.io.File;
-import java.lang.reflect.Field;
 
 import javax.persistence.Column;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import service.IService;
+import service.ParamStruct;
+import service.ReturnStruct;
 import service.util.AbstractIBean;
 import service.util.CallService;
-import util.*;
+import util.DBClient;
+import util.DateUtil;
+import util.PanelUtil;
+import bean.Services;
+import bean.reference.Department;
 
 /**
  *
@@ -259,6 +247,7 @@ public class AAAConfig implements IService {
     public static void runTableAlter(final String bean) {
     	outSQL(bean);
         Class cls = PanelUtil.getBeanClass(bean);
+        List<String> lst = new ArrayList<String>();
         try {
         	StringBuffer sb = new StringBuffer();
             AbstractIBean b = (AbstractIBean) cls.newInstance();
@@ -301,11 +290,11 @@ public class AAAConfig implements IService {
                     }
                     System.out.println("RUN "+sql);
 //                    sb.append(sql).append("\n");
-                    DBClient.runSQLNative(sql);
+                    lst.add(sql);
                     if (type==boolean.class) {
                         sql = "UPDATE "+table+" SET "+fname+"=0 WHERE "+fname+" is null;";
 //                        sb.append(sql).append("\n");
-                        DBClient.runSQLNative(sql);
+                        lst.add(sql);
                     }
                 } catch (Exception ex) {
                 	ex.printStackTrace();
@@ -316,6 +305,7 @@ public class AAAConfig implements IService {
 //        	e.printStackTrace();
             System.out.println("ERROR "+e.getMessage());
         }
+        DBClient.runBatchNative(lst);
     }
 
     private String module;

@@ -54,7 +54,7 @@ public class ServiceAdapter {
                 }
             } else {
                 try {
-//                    System.out.println("CONNECT TO SERVER.....\n"+param.getData());
+                    System.out.println("CONNECT TO SERVER.....\n"+param.getActionCommand()+":"+param.getHelperSQL()+":"+param.getData());
                     URL hp = new URL(Constants.host);
                     URLConnection hpcon = hp.openConnection();
                     hpcon.setDoInput(true);
