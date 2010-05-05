@@ -42,6 +42,7 @@ import template.TemplateReader;
 import template.screen.AbstractTemplatePanel;
 import template.screen.TemplateDefault;
 import template.screen.TransactionPanel;
+import ui.TestDBForm;
 import ui.WelcomePanel;
 import ui.admin.ChangeLogo;
 import util.PanelUtil;
@@ -231,6 +232,7 @@ public class Common2View extends FrameView {
         mnuServices = new javax.swing.JMenuItem();
         mnuUserStation = new javax.swing.JMenuItem();
         mnuDataAnalyzer = new javax.swing.JMenuItem();
+        mnuTestDB = new javax.swing.JMenuItem();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
@@ -451,8 +453,17 @@ public class Common2View extends FrameView {
                 mnuDataAnalyzerActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuDataAnalyzer);
-
+        jMenu1.add(mnuTestDB);
+        mnuTestDB.setFont(new java.awt.Font("Tahoma", 0, 12));
+        mnuTestDB.setText("Test DB"); // NOI18N
+        mnuTestDB.setName("mnuTestDB"); // NOI18N
+        mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTestDBActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuTestDB);
+        
         helpMenu.add(jMenu1);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getActionMap(Common2View.class, this);
@@ -1143,6 +1154,10 @@ private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     PanelUtil.showPanel2("Data Analyzer", OlapRunner.reportViewer.getMainPanel());
 }//GEN-LAST:event_mnuDataAnalyzerActionPerformed
+
+private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDataAnalyzerActionPerformed
+    PanelUtil.showPanel2("Test DB", new TestDBForm());
+}//GEN-LAST:event_mnuDataAnalyzerActionPerformed
     public static Map<String, JPanel> mapPanels = new HashMap<String, JPanel>();
     public static List<String> lstPanel = new ArrayList<String>();
 
@@ -1358,6 +1373,7 @@ private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JMenuItem mnuCompanyConfig;
     private javax.swing.JMenuItem mnuConfig;
     private javax.swing.JMenuItem mnuDataAnalyzer;
+    private javax.swing.JMenuItem mnuTestDB;
     public javax.swing.JMenuItem mnuLogin;
     private javax.swing.JMenuItem mnuModules;
     private javax.swing.JMenuItem mnuRuleEngine;

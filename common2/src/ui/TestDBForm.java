@@ -7,10 +7,14 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.JTable;
+
 import util.DBClient;
+import util.DateUtil;
 import util.PanelUtil;
-import util.PerfUtil;
 
 /**
  *
@@ -18,6 +22,8 @@ import util.PerfUtil;
  */
 public class TestDBForm extends javax.swing.JPanel {
     private static boolean stop;
+    Object[] columnNames = {"Computer","Start","End","Time"};
+    Object[][] data = new Object[100][4];
     
     /** Creates new form TestDBForm */
     public TestDBForm() {
@@ -35,8 +41,6 @@ public class TestDBForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtSQL = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         btnClearLog = new javax.swing.JButton();
         btnStartCollect = new javax.swing.JButton();
@@ -44,17 +48,14 @@ public class TestDBForm extends javax.swing.JPanel {
         cboTestCount = new javax.swing.JComboBox();
         btnTest = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSQL = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtLog = new javax.swing.JTextArea();
+        tbl = new JTable(data, columnNames);
+        tbl.setAutoCreateRowSorter(true);
 
         setName("Form"); // NOI18N
-
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        txtSQL.setColumns(20);
-        txtSQL.setRows(5);
-        txtSQL.setName("txtSQL"); // NOI18N
-        jScrollPane1.setViewportView(txtSQL);
 
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -103,12 +104,27 @@ public class TestDBForm extends javax.swing.JPanel {
         });
         jPanel1.add(btnStop);
 
+        jSplitPane1.setDividerLocation(200);
+        jSplitPane1.setDividerSize(10);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setName("jSplitPane1"); // NOI18N
+        jSplitPane1.setOneTouchExpandable(true);
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        txtSQL.setColumns(20);
+        txtSQL.setRows(5);
+        txtSQL.setName("txtSQL"); // NOI18N
+        jScrollPane1.setViewportView(txtSQL);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
-        txtLog.setColumns(20);
-        txtLog.setRows(5);
-        txtLog.setName("txtLog"); // NOI18N
-        jScrollPane2.setViewportView(txtLog);
+        tbl.setName("tbl"); // NOI18N
+        jScrollPane2.setViewportView(tbl);
+
+        jSplitPane1.setRightComponent(jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,8 +133,7 @@ public class TestDBForm extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                    .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -126,9 +141,7 @@ public class TestDBForm extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -153,29 +166,20 @@ private void testThread() {
     for (String sql : arr) {
         sqlList.add(sql);
     }
-    PerfUtil p = new PerfUtil(Thread.currentThread().getName());
-    p.start();
-    StringBuffer sb = new StringBuffer();
-    DBClient.batchQueryNoCache(sqlList);
     btnTest.setEnabled(false);
+    Date d = new Date();
+    
     DBClient.batchQueryNoCache(sqlList);
-    btnTest.setEnabled(false);
-    sb.append(p.spanMessage()).append("\n");
+    DBClient.batchQueryNoCache(sqlList);
+    DBClient.batchQueryNoCache(sqlList);
 
-    for (String sql : arr) {
-        if (stop) return;
-        btnTest.setEnabled(false);
-        DBClient.getList(sql);
-        Thread.yield();
-    }
-    sb.append(p.spanMessageComplete());
-    addLog(sb.toString());
+    int i = Integer.parseInt(Thread.currentThread().getName())-1;
+    Date d2 = new Date();
+    data[i][0] = "PC "+(i+1);
+    data[i][1] = DateUtil.formatDate(d, "hh:mm:ss");
+    data[i][2] = DateUtil.formatDate(d2, "hh:mm:ss");
+    data[i][3] = d2.getTime()-d.getTime();
     btnTest.setEnabled(true);
-}
-
-private synchronized void addLog(String txt) {
-    String tmp = txtLog.getText();
-    txtLog.setText(tmp+"\n\n"+txt);
 }
 
 private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
@@ -190,13 +194,18 @@ private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 testThread();
             }
         });
-        t.setName("Virtual Computer "+i);
+        t.setName(i+"");
         t.start();
     }
 }//GEN-LAST:event_btnTestActionPerformed
 
 private void btnClearLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLogActionPerformed
-    txtLog.setText("");
+	for (int i=0; i<data.length; i++) {
+		data[i][0] = "";
+		data[i][1] = "";
+		data[i][2] = "";
+		data[i][3] = 1;
+	}
 }//GEN-LAST:event_btnClearLogActionPerformed
 
 private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
@@ -214,7 +223,8 @@ private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtLog;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTable tbl;
     private javax.swing.JTextArea txtSQL;
     // End of variables declaration//GEN-END:variables
 
