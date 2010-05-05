@@ -11,6 +11,7 @@ package service;
 import component.SpringCall;
 import constants.Constants;
 
+import java.beans.XMLEncoder;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 import springbean.AAAConfig;
 import util.BeanUtil;
 import util.PanelUtil;
+import util.ZipUtil;
 
 /**
  *
@@ -61,11 +63,11 @@ public class ServiceAdapter {
                     hpcon.setDoOutput(true);
                     hpcon.setReadTimeout(600000);
                     hpcon.setRequestProperty("Content-Type", "application/octet-stream");
-//                    hpcon.setRequestProperty("Content-Length", param.size()+"");
 
                     ParamStruct.write(hpcon.getOutputStream(), param);
                     ret = (ReturnStruct) ParamStruct.read(hpcon.getInputStream());
                     Logger.getLogger("global").log(Level.FINE, "SETUP OK - "+Constants.host);
+//                    logSizes(param, ret);
                 } catch (MalformedURLException ex) {
                     PanelUtil.showError(null, "URL NOT FOUND "+Constants.host+" TRY TO USE LOCAL.");
                 } catch (IOException ex) {
@@ -80,5 +82,41 @@ public class ServiceAdapter {
     public int getUseService() {
         //Need some manipulation
         return USE_SERVLET;
+    }
+    
+    private void logSizes(ParamStruct p, ParamStruct p2) {
+    	StringBuffer sb = new StringBuffer();
+    	try {
+        	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        	XMLEncoder e = new XMLEncoder(baos);
+        	e.writeObject(p);
+			baos.close();
+	    	e.close();
+        	byte[] b = baos.toByteArray();
+	    	
+	    	byte[] bold = ZipUtil.getZipBytes(p);
+//	    	System.out.println(new String(b));
+	    	b = ZipUtil.getZipBytes(b);
+	    	sb.append("REQUEST XML:OBJ == "+b.length+":"+bold.length);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+    	try {
+        	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        	XMLEncoder e = new XMLEncoder(baos);
+        	e.writeObject(p2);
+			baos.close();
+	    	e.close();
+        	byte[] b = baos.toByteArray();
+	    	
+	    	byte[] bold = ZipUtil.getZipBytes(p2);
+	    	System.out.println(new String(b));
+	    	b = ZipUtil.getZipBytes(b);
+	    	
+	    	sb.append(" ------  RESPONSE XML:OBJ == "+b.length+":"+bold.length);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		System.out.println(sb.toString());
     }
 }
