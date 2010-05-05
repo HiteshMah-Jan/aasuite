@@ -9,12 +9,17 @@ package ui;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import util.DBClient;
 import util.DateUtil;
 import util.PanelUtil;
+import util.ZipUtil;
 
 /**
  *
@@ -22,11 +27,16 @@ import util.PanelUtil;
  */
 public class TestDBForm extends javax.swing.JPanel {
     private static boolean stop;
-    Object[] columnNames = {"Computer","Start","End","Time"};
-    Object[][] data = new Object[100][4];
+    Vector columnNames = new Vector();
+    Vector data = new Vector();
     
     /** Creates new form TestDBForm */
     public TestDBForm() {
+    	columnNames.add("Computer");
+    	columnNames.add("Start");
+    	columnNames.add("End");
+    	columnNames.add("Time");
+    	columnNames.add("Size");
         initComponents();
         DBClient.collectSQL = true;
         PanelUtil.showMessage(this, "Please do your work and this will collect the SQL you issued.");
@@ -82,8 +92,10 @@ public class TestDBForm extends javax.swing.JPanel {
         jLabel1.setName("jLabel1"); // NOI18N
         jPanel1.add(jLabel1);
 
-        cboTestCount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10", "20", "50", "100" }));
+        cboTestCount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "50","75","100","150","200" }));
         cboTestCount.setName("cboTestCount"); // NOI18N
+        txtThread = new JTextField(3);
+        jPanel1.add(txtThread);
         jPanel1.add(cboTestCount);
 
         btnTest.setText(resourceMap.getString("btnTest.text")); // NOI18N
@@ -158,7 +170,7 @@ private void btnStartCollectActionPerformed(java.awt.event.ActionEvent evt) {//G
     DBClient.collectedSQL.clear();
 }//GEN-LAST:event_btnStartCollectActionPerformed
 
-private void testThread() {
+private void testThread(int i) {
     btnTest.setEnabled(false);
     String txt = txtSQL.getText();
     List<String> sqlList = new ArrayList();
@@ -169,16 +181,17 @@ private void testThread() {
     btnTest.setEnabled(false);
     Date d = new Date();
     
-    DBClient.batchQueryNoCache(sqlList);
-    DBClient.batchQueryNoCache(sqlList);
-    DBClient.batchQueryNoCache(sqlList);
+    Object obj = DBClient.batchQueryNoCache(sqlList);
 
-    int i = Integer.parseInt(Thread.currentThread().getName())-1;
+//    int i = Integer.parseInt(Thread.currentThread().getName())-1;
     Date d2 = new Date();
-    data[i][0] = "PC "+(i+1);
-    data[i][1] = DateUtil.formatDate(d, "hh:mm:ss");
-    data[i][2] = DateUtil.formatDate(d2, "hh:mm:ss");
-    data[i][3] = d2.getTime()-d.getTime();
+    Vector vec = new Vector();
+    vec.add("PC "+(i+1));
+    vec.add(DateUtil.formatDate(d, "hh:mm:ss"));
+    vec.add(DateUtil.formatDate(d2, "hh:mm:ss"));
+    vec.add(d2.getTime()-d.getTime());
+    vec.add(ZipUtil.getBytes(obj).length);
+    data.add(vec);
     btnTest.setEnabled(true);
 }
 
@@ -187,25 +200,36 @@ private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     PanelUtil.showMessage(btnTest, "The process will use batch then do single sql sending.");
     int count = PanelUtil.getIntValue(cboTestCount.getSelectedItem().toString());
     btnTest.setEnabled(false);
-    for (int i = 1; i < count+1; i++) {
-        Thread t = new Thread(new Runnable() {
+    data.clear();
+    int t = Integer.parseInt(txtThread.getText());
+    ExecutorService e = Executors.newFixedThreadPool(count);
+    for (int i = 0; i < t; i++) {
+    	e.execute(new run(i) {
             @Override
             public void run() {
-                testThread();
+                testThread(getI());
             }
         });
-        t.setName(i+"");
-        t.start();
     }
 }//GEN-LAST:event_btnTestActionPerformed
 
-private void btnClearLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLogActionPerformed
-	for (int i=0; i<data.length; i++) {
-		data[i][0] = "";
-		data[i][1] = "";
-		data[i][2] = "";
-		data[i][3] = 1;
+private static class run implements Runnable {
+	int i;
+	private run(int i) {
+		this.i = i;
 	}
+	
+	public int getI() {
+		return i;
+	}
+
+	@Override
+	public void run() {
+	}
+}
+
+private void btnClearLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearLogActionPerformed
+	data.clear();
 }//GEN-LAST:event_btnClearLogActionPerformed
 
 private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
@@ -226,6 +250,7 @@ private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable tbl;
     private javax.swing.JTextArea txtSQL;
+    private javax.swing.JTextField txtThread;
     // End of variables declaration//GEN-END:variables
 
 }
