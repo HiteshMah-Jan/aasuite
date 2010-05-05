@@ -94,7 +94,7 @@ public class TestDBForm extends javax.swing.JPanel {
 
         cboTestCount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "50","75","100","150","200" }));
         cboTestCount.setName("cboTestCount"); // NOI18N
-        txtThread = new JTextField(3);
+        txtThread = new JTextField(5);
         jPanel1.add(txtThread);
         jPanel1.add(cboTestCount);
 
