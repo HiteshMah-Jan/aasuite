@@ -8,7 +8,10 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,6 +29,7 @@ import util.ZipUtil;
  * @author  alex
  */
 public class TestDBForm extends javax.swing.JPanel {
+	Map<Integer, Integer> map = new Hashtable<Integer, Integer>();
     private static boolean stop;
     Vector columnNames = new Vector();
     Vector data = new Vector();
@@ -37,6 +41,8 @@ public class TestDBForm extends javax.swing.JPanel {
     	columnNames.add("End");
     	columnNames.add("Time");
     	columnNames.add("Size");
+    	columnNames.add("Total Memory");
+    	columnNames.add("Used Memory");
         initComponents();
         DBClient.collectSQL = true;
         PanelUtil.showMessage(this, "Please do your work and this will collect the SQL you issued.");
@@ -107,7 +113,7 @@ public class TestDBForm extends javax.swing.JPanel {
         });
         jPanel1.add(btnTest);
 
-        btnStop.setText(resourceMap.getString("btnStop.text")); // NOI18N
+        btnStop.setText("Query Sizes"); // NOI18N
         btnStop.setName("btnStop"); // NOI18N
         btnStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +176,7 @@ private void btnStartCollectActionPerformed(java.awt.event.ActionEvent evt) {//G
     DBClient.collectedSQL.clear();
 }//GEN-LAST:event_btnStartCollectActionPerformed
 
-private void testThread(int i) {
+private void testThread() {
     btnTest.setEnabled(false);
     String txt = txtSQL.getText();
     List<String> sqlList = new ArrayList();
@@ -183,15 +189,24 @@ private void testThread(int i) {
     
     Object obj = DBClient.batchQueryNoCache(sqlList);
 
-//    int i = Integer.parseInt(Thread.currentThread().getName())-1;
+    int i = data.size();
+    int size = ZipUtil.getBytes(obj).length;
     Date d2 = new Date();
     Vector vec = new Vector();
     vec.add("PC "+(i+1));
     vec.add(DateUtil.formatDate(d, "hh:mm:ss"));
     vec.add(DateUtil.formatDate(d2, "hh:mm:ss"));
     vec.add(d2.getTime()-d.getTime());
-    vec.add(ZipUtil.getBytes(obj).length);
+    vec.add(size);
+    vec.add((int) (Runtime.getRuntime().totalMemory()/1000000));
+    vec.add((int) ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1000000));
     data.add(vec);
+    System.out.println("PC "+(i+1));
+    if (map.get(size) == null) {
+    	map.put(size, 0);
+    }
+    int count = map.get(size);
+    map.put(size, count+1);
     btnTest.setEnabled(true);
 }
 
@@ -207,11 +222,21 @@ private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     	e.execute(new run(i) {
             @Override
             public void run() {
-                testThread(getI());
+                testThread();
             }
         });
     }
 }//GEN-LAST:event_btnTestActionPerformed
+
+private void displaySizes() {
+	txtSQL.append("\nSIZES ------ \n");
+	Iterator iter = map.keySet().iterator();
+	while (iter.hasNext()) {
+		Object key = iter.next();
+		int value = map.get((Integer) key);
+		txtSQL.append(key.toString()+" - "+value+"\n");
+	}
+}
 
 private static class run implements Runnable {
 	int i;
@@ -233,7 +258,7 @@ private void btnClearLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_btnClearLogActionPerformed
 
 private void btnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStopActionPerformed
-    stop = true;
+    displaySizes();
 }//GEN-LAST:event_btnStopActionPerformed
 
 
