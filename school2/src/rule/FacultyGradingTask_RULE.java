@@ -226,9 +226,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			tlist.add(s);
 		}
 		CalculateGradeService.calculateGrade(quarter, task, tlist);
-		
 		redisplayRecord();
-		task.save();
 		PanelUtil.hideWaitFrame();
 	}
 
