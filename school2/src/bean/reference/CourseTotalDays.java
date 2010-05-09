@@ -90,6 +90,11 @@ public class CourseTotalDays extends AbstractIBean implements Serializable {
     public int q3;
     @Column(name = "q4")
     public int q4;
+	
+	@Override
+	public boolean cacheClient() {
+		return true;
+	}
     
 	public Integer getSeq() {
 		return seq;

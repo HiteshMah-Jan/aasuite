@@ -52,8 +52,7 @@ public class BookSaleRef extends AbstractIBean {
     @Column(name="amount")
     public double amount;
 
-
-    @Override
+	@Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria, "code","title","gradeLevel");
     }

@@ -39,7 +39,6 @@ public class College extends AbstractIBean implements Serializable {
     @Column(name = "head")
     public String head;
 
-
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria);

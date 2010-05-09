@@ -69,6 +69,11 @@ public class SubjectGradingCriteria extends AbstractIBean implements Serializabl
         if (isEmptyKey()) return "";
         return subject+" - "+criteria+" "+percentage;
     }
+	
+	@Override
+	public boolean cacheClient() {
+		return true;
+	}
 
     @Id
     @Column(name = "seq", nullable = false)

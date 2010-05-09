@@ -80,7 +80,7 @@ public class GradeLevel extends AbstractIBean implements Serializable {
 		}
 		return false;
 	}
-	
+
 	@Id
     @Column(name = "code", nullable = false)
     public String code;

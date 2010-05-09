@@ -55,6 +55,11 @@ import template.UITemplate;
         
 })
 public class ValuesSubjectGradingCriteria extends AbstractIBean implements Serializable {
+	
+	@Override
+	public boolean cacheClient() {
+		return true;
+	}
 
     public static void main(String[] args) {
         view(ValuesSubjectGradingCriteria.class);

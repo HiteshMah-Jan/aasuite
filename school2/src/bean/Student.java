@@ -929,11 +929,6 @@ public class Student extends Customer implements Serializable {
 	}
 
 	@Override
-	public boolean canCache() {
-		return true;
-	}
-
-	@Override
 	protected void runSetup() {
 		createStudentObj("Estabillo", "Bong", "H3_ASSUMPTION", "H4_ASSUMPTION",
 				"H3", null).save();

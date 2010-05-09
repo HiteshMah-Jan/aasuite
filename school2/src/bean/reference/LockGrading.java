@@ -64,6 +64,11 @@ public class LockGrading extends AbstractIBean implements Serializable {
 		super.save();
 		lock = null;
 	}
+	
+	@Override
+	public boolean cacheClient() {
+		return true;
+	}
 
 	public LockGrading() {
 		schoolYear = AppConfig.getSchoolYear();

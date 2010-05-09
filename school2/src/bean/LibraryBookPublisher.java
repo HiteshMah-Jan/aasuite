@@ -45,6 +45,11 @@ public class LibraryBookPublisher extends AbstractIBean implements Serializable 
     public String address;
     @Column(name = "remarks")
     public String remarks;
+	
+	@Override
+	public boolean cacheClient() {
+		return true;
+	}
 
     @Override
     public String popupSearch(String criteria) {
