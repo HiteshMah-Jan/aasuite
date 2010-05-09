@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import service.util.AbstractIBean;
 import service.util.IBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.ClientCache;
 import util.PanelUtil;
 
 /**
@@ -29,6 +30,10 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
     public LookupTable lookup;
     static Map<String, AbstractIBean> mapKey = new HashMap<String, AbstractIBean>();
 
+    private LookupTableFieldPallete getMe() {
+    	return this;
+    }
+    
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
@@ -140,38 +145,68 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
         lookup = new LookupTable();
         lookup.txt.addValueChangeListener(new ValueChangeListener() {
             public void valueChanged(component.listener.ValueChangeEvent evt) {
-                AbstractIBean ibean = null;
-                if (mapKey.containsKey(bean+"-"+lookup.txt.getText())) {
-                    ibean = mapKey.get(bean+"-"+lookup.txt.getText());
-                }
-                else {
-                    String txt = lookup.txt.getText();
-                    if (txt==null || txt.trim().isEmpty() || txt.trim().equals("0")) {
-                        try {
-                            java.lang.Class cls = PanelUtil.getBeanClass(getBean());
-                            cls = AbstractIBean.extractBeanClass(cls);
-                            mapKey.put(bean+"-"+lookup.txt.getText(), (AbstractIBean) cls.newInstance());
-                        } catch (Exception ex) {
-                        }
-                    }
-                    else {
-                        System.out.println("...................EXTRACT LINK "+bean+":"+lookup.txt.getText());
-                        ibean = lookup.getFromBeans(lookup.txt.getText());
-                        if (ibean==null) ibean = AbstractIBean.extractObject(bean, lookup.txt.getText());
-                        mapKey.put(bean+"-"+lookup.txt.getText(), ibean);
-                    }
-                }
-                if (ibean==null) {
-                    lblDisplay.setText("");
-                }
-                else {
-                    lblDisplay.setText(ibean.toString());
-                }
-                lblDisplay.setCaretPosition(0);
+                Thread t = new Thread(new ThreadRunner(getMe()));
+                t.start();
             }
         });
     }
 
+    private static class ThreadRunner implements Runnable {
+    	LookupTableFieldPallete pallete;
+    	ThreadRunner(LookupTableFieldPallete pallete) {
+    		this.pallete = pallete;
+    	}
+    	
+		@Override
+		public void run() {
+            AbstractIBean ibean = null;
+            if (mapKey.containsKey(pallete.bean+"-"+pallete.lookup.txt.getText())) {
+                ibean = mapKey.get(pallete.bean+"-"+pallete.lookup.txt.getText());
+            }
+            else {
+                String txt = pallete.lookup.txt.getText();
+                if (txt==null || txt.trim().isEmpty() || txt.trim().equals("0")) {
+                    try {
+                        java.lang.Class cls = PanelUtil.getBeanClass(pallete.getBean());
+                        cls = AbstractIBean.extractBeanClass(cls);
+                        mapKey.put(pallete.bean+"-"+pallete.lookup.txt.getText(), (AbstractIBean) cls.newInstance());
+                    } catch (Exception ex) {
+                    }
+                }
+                else {
+                    System.out.println("...................EXTRACT LINK "+pallete.bean+":"+pallete.lookup.txt.getText());
+                    ibean = pallete.lookup.getFromBeans(pallete.lookup.txt.getText());
+                    if (ibean==null) {
+//                    	check to see if this is cache in the DB Call, if not there must be a cache in this component because this is lookup
+                        java.lang.Class cls = PanelUtil.getBeanClass(pallete.getBean());
+                        try {
+                            AbstractIBean tmp = (AbstractIBean) cls.newInstance();
+                            if (!tmp.cacheClient()) {
+                            	String id = pallete.bean+"-"+pallete.lookup.txt.getText();
+                            	ibean = (AbstractIBean) ClientCache.getCache(id);
+                            	if (ibean==null) {
+                                	ibean = (AbstractIBean) ClientCache.resetCache(id, AbstractIBean.extractObject(pallete.bean, pallete.lookup.txt.getText()));
+                            	}
+                            }
+                            else {
+                            	ibean = AbstractIBean.extractObject(pallete.bean, pallete.lookup.txt.getText());
+                            }
+                        }
+                        catch (Exception e) {
+                        }
+                    }
+                    mapKey.put(pallete.bean+"-"+pallete.lookup.txt.getText(), ibean);
+                }
+            }
+            if (ibean==null) {
+            	pallete.lblDisplay.setText("");
+            }
+            else {
+            	pallete.lblDisplay.setText(ibean.toString());
+            }
+            pallete.lblDisplay.setCaretPosition(0);
+		}
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
