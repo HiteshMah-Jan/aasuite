@@ -34,6 +34,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "active")
 })
 public class State extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 2)
     public String code;

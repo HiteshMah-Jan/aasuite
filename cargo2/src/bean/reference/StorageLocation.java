@@ -37,6 +37,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "productCode", gridFieldWidth=3, width=-1)
 })
 public class StorageLocation extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 3)
     public String code;

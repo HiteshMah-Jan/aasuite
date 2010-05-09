@@ -34,6 +34,12 @@ import template.*;
     @Display(name = "reason", width=-1, gridFieldWidth=7)
 })
 public class Charges extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length=5)
     public String code;

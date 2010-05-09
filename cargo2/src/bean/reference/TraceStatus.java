@@ -36,6 +36,12 @@ import util.DBClient;
     @Display(name = "description", width=200)
 })
 public class TraceStatus extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 5)
     public String code;

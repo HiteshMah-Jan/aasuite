@@ -46,6 +46,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "amountPerKg")
 })
 public class ChargesRule extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;

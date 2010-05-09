@@ -35,6 +35,12 @@ import util.DBClient;
     @Display(name = "country", width=70, type="PopSearch", linktoBean=Country.class)
 })
 public class Airport extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 3)
     public String code;

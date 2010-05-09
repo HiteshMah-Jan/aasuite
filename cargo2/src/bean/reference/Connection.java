@@ -37,6 +37,12 @@ import template.*;
     @Display(name = "airport5", label="5", width=60, type="PopSearch", linktoBean=Airport.class)
 })
 public class Connection extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
 	public static void main(String[] args) {
 		view(Connection.class);
 	}

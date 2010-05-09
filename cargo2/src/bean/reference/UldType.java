@@ -33,6 +33,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "name", width = 250)
 })
 public class UldType extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", length=5)
     public String code;

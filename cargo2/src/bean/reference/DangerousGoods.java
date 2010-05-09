@@ -34,6 +34,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "description", gridFieldWidth=3, width=-1)
 })
 public class DangerousGoods extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;

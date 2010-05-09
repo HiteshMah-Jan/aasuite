@@ -32,6 +32,12 @@ import util.DBClient;
     @Display(name = "currency", width=60, linktoBean=Currency.class, type="PopSearch")
 })
 public class Country extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 3)
     public String code;

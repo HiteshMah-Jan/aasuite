@@ -43,6 +43,12 @@ import template.screen.TemplateSinglePage;
     @Display(name = "shc", type="PopSearch", linktoBean=SpecialHandling.class)
 })
 public class CarrierEmbargo extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;

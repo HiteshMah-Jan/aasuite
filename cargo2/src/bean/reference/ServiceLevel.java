@@ -41,6 +41,12 @@ import template.*;
     @Display(name = "chargeCode5", type="PopSearch", width=50, hideLabel=true, linktoBean=Charges.class)
 })
 public class ServiceLevel extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+    
     @Id
     @Column(name = "code", nullable = false, length = 6)
     public String code;

@@ -15,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.extension.BreakdownULDExt;
 import service.util.AbstractIBean;
 import template.screen.TemplateSinglePage;
 import template.*;
@@ -40,6 +39,12 @@ import template.*;
     @Display(name = "lc", width=30, label="LC")
 })
 public class AircraftType extends AbstractIBean implements Serializable {
+
+    @Override
+    public boolean cacheClient() {
+        return true;
+    }
+
 	public static void main(String[] args) {
 		view(AircraftType.class);
 	}
