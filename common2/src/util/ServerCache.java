@@ -32,11 +32,15 @@ public class ServerCache {
     	return value;
     }
     
+    public static synchronized void cleanCache() {
+		cache.clear();
+    }
+    
     private static class RunCleaner extends TimerTask {
 		@Override
 		public void run() {
 			System.out.println("\n\n\n\n\n\n\nCLEANING SERVER CACHE\n\n\n\n\n\n");
-			cache.clear();
+			cleanCache();
 		}
     }
 }
