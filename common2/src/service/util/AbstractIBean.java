@@ -49,6 +49,7 @@ import template.ChildRecord;
 import template.ChildRecords;
 import test.TemplateViewer;
 import util.BeanUtil;
+import util.ClientCache;
 import util.DBClient;
 import util.DBUtil;
 import util.DataUtil;
@@ -306,11 +307,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
                 return true;
             }
         }
-        return false;
-    }
-
-    @Override
-    public boolean canCache() {
         return false;
     }
 
@@ -1026,7 +1022,18 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         List bean = mapListBeans.get(b.getSimpleName());
         if (bean==null || bean.isEmpty()) {
             try {
-                List lst = DBClient.getList("SELECT a FROM "+b.getSimpleName()+" a",0,1000);
+            	AbstractIBean tmp = (AbstractIBean) b.newInstance();
+        		String sql = "SELECT a FROM "+b.getSimpleName()+" a";
+                List lst = null;
+            	if (tmp.cacheClient()) {
+            		lst = (List) ClientCache.getCache(sql.toLowerCase());
+            		if (lst == null) {
+                        lst = (List) ClientCache.resetCache(sql.toLowerCase(), DBClient.getListServerCache(sql,0,1000));
+            		}
+            	}
+            	else {
+                    lst = DBClient.getList(sql,0,1000);
+            	}
 //                System.out.println("CACHE BEANS: "+b.getSimpleName()+" SIZE: "+lst.size());
                 mapListBeans.put(b.getSimpleName(), lst);
                 bean = mapListBeans.get(b.getSimpleName());

@@ -9,8 +9,7 @@
 
 package util;
 
-import bean.Person;
-import constants.Constants;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +22,8 @@ import javax.persistence.Query;
 import javax.swing.JLabel;
 
 import service.util.IBean;
-import service.util.AbstractIBean;
-
-import java.util.ArrayList;
-
 import springbean.AAAConfig;
+import constants.Constants;
 
 /**
  *

@@ -145,7 +145,7 @@ public class UserInfo implements Serializable, IService {
         lst.add("SELECT a FROM AclUserDuty a WHERE a.userid='" + user.userid + "'");
         lst.add("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
         lst.add("SELECT a FROM AclUserGroup a WHERE a.userid='" + user.userid + "'");
-        Map map = DBClient.batchQuery(lst);
+        Map map = DBClient.batchQueryServerCache(lst);
         duties = (List<AclUserDuty>) map.get("SELECT a FROM AclUserDuty a WHERE a.userid='" + user.userid + "'");
         groups = (List<AclUserGroup>) map.get("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
         modules = (List<AclUserModule>) map.get("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
@@ -196,7 +196,7 @@ public class UserInfo implements Serializable, IService {
         if (dutyLst==null) {
 //            need to call the server first
             CallService.callService("", 1, UserInfo.class.getName());
-            dutyLst = DBClient.getList("SELECT a FROM AclUserDuty a WHERE a.userid='"+loginUser.user.userid+"'");
+            dutyLst = DBClient.getListServerCache("SELECT a FROM AclUserDuty a WHERE a.userid='"+loginUser.user.userid+"'");
         }
         if (loginUser.isSuperAAA()) {
             return true;

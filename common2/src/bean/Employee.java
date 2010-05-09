@@ -383,10 +383,6 @@ public class Employee extends Person implements Serializable {
         return (Employee) AbstractIBean.firstRecord("SELECT a FROM Employee a WHERE a.personId="+personId);
     }
 
-    @Override
-    public boolean canCache() {
-        return true;
-    }
     @Transient
     List<PersonDependent> lstDependents;
 

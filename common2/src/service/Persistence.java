@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.BeanUtil;
 import util.DBUtil;
+import util.ServerCache;
 import service.util.AbstractIBean;
 import service.util.IBean;
 
@@ -45,10 +46,14 @@ public class Persistence implements IService {
             ret = this.delete(param);
         } else if (action == Constants.SELECT) {
             ret = this.select(param);
+        } else if (action == Constants.SELECT_LIST_SERVERCACHE) {
+            ret = this.selectListServerCache(param);
         } else if (action == Constants.SELECT_LIST) {
             ret = this.selectList(param);
         } else if (action == Constants.SELECT_BATCH) {
             ret = this.selectBatch(param);
+        } else if (action == Constants.SELECT_BATCH_SERVERCACHE) {
+            ret = this.selectBatchServerCache(param);
         } else if (action == Constants.SELECT_BATCH_NOCACHE) {
             ret = this.selectBatchNoCache(param);
         } else if (action == Constants.SELECT_AND_UPDATE_BATCH) {
@@ -196,6 +201,42 @@ public class Persistence implements IService {
         return ret;
     }
 
+    private ReturnStruct selectBatchServerCache(ParamStruct param) {
+        ReturnStruct ret = new ReturnStruct();
+        Map map = new HashMap();
+        if (param.getData() == null) {
+//            DBUtil.getInstance().selectBean(param.getHelperSQL(), null);
+        } else {
+            int start = 0;
+            int recSize = 200;
+            List<String> lstPage = (List) param.getData();
+            for (String str : lstPage) {
+                if (str.startsWith("NATIVE")) {
+                    String sql = str.substring("NATIVE-".length());
+                    List lst = (List) ServerCache.getCache(sql.trim().toLowerCase());
+                    if (lst == null) {
+                        lst = (List) ServerCache.resetCache(sql.trim().toLowerCase(), DBUtil.getInstance().selectBeanNative(sql, null));
+                    }
+                    map.put(str, lst);
+                }
+                else {
+                	String id = str;
+                	if (start > 0) {
+                		id = start+"-"+str;
+                	}
+                    List lst = (List) ServerCache.getCache(id.trim().toLowerCase());
+                    if (lst == null) {
+                    	lst = (List) ServerCache.resetCache(id.trim().toLowerCase(), DBUtil.getInstance().selectBean(str, null, start, recSize));
+                    }
+                    map.put(str, lst);
+                }
+            }
+        }
+        ret.setData(map);
+        ret.setStatus(Constants.SUCCESS);
+        return ret;
+    }
+    
     private boolean beanExist(Object bean, List lst) {
         Object beanKey = BeanUtil.getKeyValue((IBean) bean);
         for (Object obj : lst) {
@@ -297,6 +338,32 @@ public class Persistence implements IService {
             bean = (IBean) BeanUtil.toObject((byte[]) param.getData());
         }
         List lst = DBUtil.getInstance().selectBean(bean, param.getHelperSQL(), param.getActionCommand(), null);
+        ret.setData(lst);
+        ret.setStatus(Constants.SUCCESS);
+        return ret;
+    }
+
+    protected ReturnStruct selectListServerCache(ParamStruct param) {
+        ReturnStruct ret = new ReturnStruct();
+        List lst = null;
+        if (param.getData() == null) {
+        	lst = (List) ServerCache.getCache(param.getHelperSQL().trim().toLowerCase());
+        	if (lst==null) {
+                lst = (List) ServerCache.resetCache(param.getHelperSQL().trim().toLowerCase(), DBUtil.getInstance().selectBean(param.getHelperSQL(), null));
+        	}
+        } else {
+            List lstPage = (List) param.getData();
+            int start = (Integer) lstPage.get(0);
+            int recSize = (Integer) lstPage.get(1);
+            String id = param.getHelperSQL();
+            if (start > 0) {
+            	id = start+"-"+param.getHelperSQL();
+            }
+        	lst = (List) ServerCache.getCache(id.trim().toLowerCase());
+        	if (lst==null) {
+                lst = (List) ServerCache.resetCache(id.trim().toLowerCase(), DBUtil.getInstance().selectBean(param.getHelperSQL(), null, start, recSize));
+        	}
+        }
         ret.setData(lst);
         ret.setStatus(Constants.SUCCESS);
         return ret;

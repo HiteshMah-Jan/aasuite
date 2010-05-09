@@ -150,7 +150,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
             tmp.add("SELECT a FROM AppConfig a");
             tmp.add("SELECT a FROM AppMenu a ORDER BY a.sortNum");
             tmp.add("SELECT a FROM AclModule a");
-            Map map = DBClient.batchQuery(tmp);
+            Map map = DBClient.batchQueryServerCache(tmp);
             lst = (List) map.get("SELECT a FROM AppConfig a");
             lstMenu = (List) map.get("SELECT a FROM AppMenu a ORDER BY a.sortNum");
             lstModule = (List) map.get("SELECT a FROM AclModule a");

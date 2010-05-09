@@ -60,7 +60,9 @@ public class Constants {
     public static final int UPDATE = 3;
     public static final int SELECT = 14;
     public static final int SELECT_LIST = 41;
+    public static final int SELECT_LIST_SERVERCACHE = 10041;
     public static final int SELECT_BATCH = 419;
+    public static final int SELECT_BATCH_SERVERCACHE = 100419;
     public static final int SELECT_AND_UPDATE_BATCH = 491;
     public static final int SELECT_BATCH_NOCACHE = 429;
     public static final int SELECT_NATIVE = 5;

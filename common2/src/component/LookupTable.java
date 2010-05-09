@@ -6,7 +6,6 @@
 
 package component;
 
-import component.JTextFieldPallete;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -21,16 +20,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import template.screen.component.JTableReadOnly;
+
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.observablecollections.ObservableCollections;
+
 import service.util.AbstractIBean;
-import template.UITemplate;
 import template.screen.TemplateParserUtil;
-import util.BeanUtil;
+import template.screen.component.JTableReadOnly;
+import util.ClientCache;
 import util.DBClient;
 import util.PanelUtil;
 import util.PerfUtil;
@@ -106,13 +107,55 @@ public class LookupTable extends javax.swing.JPanel {
         txtPageSize.setText(pageSize+"");
     }
     
+    private List getList(String bean, int more, int page) {
+        List l = null;
+    	Class cls = PanelUtil.getBeanClass(bean);
+    	try {
+			AbstractIBean b = (AbstractIBean) cls.newInstance();
+	        String sql = PanelUtil.constructSql(PanelUtil.getBeanClass(bean));
+	        if (b.cacheClient()) {
+		        String id = sql.trim();
+		        if (more > 0) {
+		        	id = sql.trim()+"-"+more;
+		        }
+		        l = (List) ClientCache.getCache(id.toLowerCase());
+		        if (l==null) {
+		        	l = (List) ClientCache.resetCache(id.toLowerCase(), DBClient.getListServerCache(sql.trim(), more, page));
+		        }
+	        }
+	        else {
+		        l = DBClient.getList(sql, more, page);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return l;
+    }
+    
+    private List getList(String bean, String sql) {
+        List l = null;
+    	Class cls = PanelUtil.getBeanClass(bean);
+    	try {
+			AbstractIBean b = (AbstractIBean) cls.newInstance();
+			if (b.cacheClient()) {
+		        l = (List) ClientCache.getCache(sql.trim().toLowerCase());
+		        if (l==null) {
+		        	l = (List) ClientCache.resetCache(sql.trim().toLowerCase(), DBClient.getListServerCache(sql));
+		        }
+			}
+			else {
+		        l = DBClient.getList(sql);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return l;
+    }
+
     boolean firstCall = true;
-    String sql = null;
     public void showSearch() {
         if (firstCall) {
-            sql = PanelUtil.constructSql(PanelUtil.getBeanClass(bean));
-            List l = DBClient.getList(sql, moreField, pageSize);
-            list.addAll(l);
+            list.addAll(getList(bean, moreField, pageSize));
             origList.clear();
             origList.addAll(list);
             generateCriteria();
@@ -187,7 +230,7 @@ public class LookupTable extends javax.swing.JPanel {
             AbstractIBean ibean = (AbstractIBean) cls.newInstance();
             String isql = ibean.popupSearch(txtCriteria.getText());
             lblStatus.setText("Searching please wait...");
-            l = DBClient.getList(isql);
+            l = getList(bean, isql);
         } catch (InstantiationException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (IllegalAccessException e) {
@@ -535,7 +578,7 @@ private void btnSelectRecordActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void btnMoreRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoreRecordsActionPerformed
     lblStatus.setText("SEARCHING...");
     moreField += pageSize;
-    List l = DBClient.getList(sql, moreField, pageSize);
+    List l = getList(bean, moreField, pageSize);
     list.addAll(l);
     origList.addAll(l);
     tblRecords.updateUI();
@@ -546,7 +589,7 @@ private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     lblStatus.setText("SEARCHING...");
     clearCriteria();
     moreField = 0;
-    List l = DBClient.getList(sql, moreField, pageSize);
+    List l = getList(bean, moreField, pageSize);
     list.clear();
     list.addAll(l);
     origList.clear();

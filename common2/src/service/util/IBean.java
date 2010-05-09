@@ -26,6 +26,6 @@ public interface IBean extends Serializable {
 	IBean getMe(javax.persistence.EntityManager entityManager);
         boolean canSet(String field);
         void serverCache();
-        boolean canCache();
+//        boolean canCache();
         void runIncludeSave();
 }

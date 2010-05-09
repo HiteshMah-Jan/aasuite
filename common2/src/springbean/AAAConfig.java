@@ -74,7 +74,7 @@ public class AAAConfig implements IService {
             config = new springbean.AAAConfig();
             if (args!=null) config.setHost(args[0]);
 //            call all services here
-            List<Services> lst = DBClient.getList("SELECT a FROM Services a");
+            List<Services> lst = DBClient.getListServerCache("SELECT a FROM Services a");
             if (lst!=null) {
                 for (Services serv:lst) {
                 	if (serv.code.contains(".")) {

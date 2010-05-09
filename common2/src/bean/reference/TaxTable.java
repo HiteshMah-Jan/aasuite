@@ -70,7 +70,7 @@ public class TaxTable extends AbstractIBean implements Serializable {
     }
 
     @Override
-    public boolean canCache() {
+    public boolean cacheClient() {
         return true;
     }
 

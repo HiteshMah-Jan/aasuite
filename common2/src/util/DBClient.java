@@ -75,6 +75,17 @@ public class DBClient {
         return (Map) ret.getData();
     }
 
+    public static Map batchQueryServerCache(List<String> sql) {
+//      System.out.println("...BATCH CALL...");
+      for (String str : sql) {
+//          System.out.println("\t"+str);
+      }
+      ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.SELECT_BATCH_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
+      collectSql(sql);
+      if (ret==null || ret.getData()==null) return new HashMap();
+      return (Map) ret.getData();
+  }
+
     public static Map batchQueryNoCache(List<AbstractIBean> lst, List<String> sql) {
 //        System.out.println("...BATCH NO CACHE CALL...");
         for (String str : sql) {
@@ -183,6 +194,13 @@ public class DBClient {
         return (List) ret.getData();
     }
 
+    public static List getListServerCache(String sql) {
+        ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
+        if (ret==null || ret.getData()==null) return new ArrayList();
+        collectSql(sql);
+        return (List) ret.getData();
+    }
+
     public static List getList(Object... sql) {
         collectSql(BeanUtil.concat(sql));
         return getList(BeanUtil.concat(sql));
@@ -194,6 +212,17 @@ public class DBClient {
         lst.add(start);
         lst.add(recSize);
         ReturnStruct ret = CallService.callService(lst, sql, constants.Constants.SELECT_LIST, constants.Constants.PERSISTENCE_SERVICE);
+        collectSql(sql);
+        if (ret==null || ret.getData()==null) return new ArrayList();
+        return (List) ret.getData();
+    }
+
+    public static List getListServerCache(String sql, int start, int recSize) {
+        List lst = new ArrayList();
+        if (start==1) start=0;
+        lst.add(start);
+        lst.add(recSize);
+        ReturnStruct ret = CallService.callService(lst, sql.trim(), constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
         collectSql(sql);
         if (ret==null || ret.getData()==null) return new ArrayList();
         return (List) ret.getData();
