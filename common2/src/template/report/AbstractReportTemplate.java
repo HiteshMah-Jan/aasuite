@@ -4,27 +4,13 @@
  */
 package template.report;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.StyleBuilder;
-import bean.Person;
-import bean.admin.AppConfig;
-import common2.Common2View;
-import component.AbstractReport;
-import component.ReportParamDialog;
-import constants.Constants;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,9 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
@@ -45,7 +33,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+
 import org.jdesktop.beansbinding.ELProperty;
+
 import service.IService;
 import service.ParamStruct;
 import service.ReturnStruct;
@@ -54,10 +44,27 @@ import service.util.CallService;
 import service.util.IBean;
 import template.Report;
 import template.UITemplate;
+import util.BeanUtil;
 import util.DataUtil;
 import util.DateUtil;
+import util.NetworkUtil;
 import util.PanelUtil;
-import util.BeanUtil;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import bean.Person;
+import bean.admin.AppConfig;
+
+import common2.Common2View;
+import component.AbstractReport;
+import component.ReportParamDialog;
+
+import constants.Constants;
 
 /**
  *
@@ -244,11 +251,16 @@ public class AbstractReportTemplate implements Serializable, IService {
     public JasperReport getJasperReport(String file) {
         JasperReport rep = clientJasperCache.get(file);
         if (rep==null) {
-            ReturnStruct ret = CallService.callService(file, 1, "template.report.AbstractReportTemplate");
-            if (ret!=null && ret.getData()!=null && ret.getData() instanceof JasperReport) {
-                rep = (JasperReport) ret.getData();
-                clientJasperCache.put(file, rep);
-            }
+        	String cacheId = "REPORT-"+file;
+        	rep = (JasperReport) NetworkUtil.requestCache(cacheId, null);
+        	if (rep == null) {
+            	ReturnStruct ret = CallService.callService(file, 1, "template.report.AbstractReportTemplate");
+                if (ret!=null && ret.getData()!=null && ret.getData() instanceof JasperReport) {
+                    rep = (JasperReport) ret.getData();
+                    NetworkUtil.requestCache(cacheId, rep);
+                    clientJasperCache.put(file, rep);
+                }
+        	}
         }
         return rep;
     }
