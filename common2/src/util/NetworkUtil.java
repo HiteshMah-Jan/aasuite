@@ -82,6 +82,9 @@ public class NetworkUtil {
     }
     
     public static Object requestCache(String key, Object data) {
+    	if (Constants.cachehost == null || Constants.cachehost.length() < 10) {
+    		return null;
+    	}
     	List lst = new ArrayList();
     	lst.add(Constants.host);
     	lst.add(key);
@@ -92,6 +95,9 @@ public class NetworkUtil {
     }
     
     public synchronized static Object requestCache(List lst) {
+    	if (Constants.cachehost == null || Constants.cachehost.length() < 10) {
+    		return null;
+    	}
     	Object retlst = null;
         try {
             URL hp = new URL(Constants.cachehost);
