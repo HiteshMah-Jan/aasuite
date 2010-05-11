@@ -43,6 +43,7 @@ public class Constants {
     public static boolean IS_SINGLE_USER = false;
     public static String appTitle = "CargoSoft";
     public static String host = System.getProperty("host");
+    public static String cachehost;
     public static String module = "";
 
     public static String REPORT_ADD_WHERE = "REPORT_ADD_WHERE";

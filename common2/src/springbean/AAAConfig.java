@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.swing.JLabel;
 
+import constants.Constants;
+
 import service.IService;
 import service.ParamStruct;
 import service.ReturnStruct;
@@ -72,7 +74,12 @@ public class AAAConfig implements IService {
     public static AAAConfig getInstance(String[] args) {
         if (config==null) {
             config = new springbean.AAAConfig();
-            if (args!=null) config.setHost(args[0]);
+            if (args!=null) {
+            	config.setHost(args[0]);
+            }
+            if (args.length>1 && args[0].length() > 10) {
+            	Constants.cachehost = args[1];
+            }
 //            call all services here
             List<Services> lst = DBClient.getListServerCache("SELECT a FROM Services a");
             if (lst!=null) {

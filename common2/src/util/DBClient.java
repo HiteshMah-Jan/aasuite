@@ -195,10 +195,17 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql) {
-        ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
-        if (ret==null || ret.getData()==null) return new ArrayList();
-        collectSql(sql);
-        return (List) ret.getData();
+    	List retlst = (List) NetworkUtil.requestCache(sql, null);
+    	if (retlst == null || retlst.isEmpty()) {
+            ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
+            if (ret==null || ret.getData()==null) {
+            	return new ArrayList();
+            }
+            collectSql(sql);
+            retlst = (List) ret.getData();
+            NetworkUtil.requestCache(sql, retlst);
+    	}
+    	return retlst;
     }
 
     public static List getList(Object... sql) {
@@ -218,14 +225,21 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql, int start, int recSize) {
-        List lst = new ArrayList();
-        if (start==1) start=0;
-        lst.add(start);
-        lst.add(recSize);
-        ReturnStruct ret = CallService.callService(lst, sql.trim(), constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
-        collectSql(sql);
-        if (ret==null || ret.getData()==null) return new ArrayList();
-        return (List) ret.getData();
+    	List retlst = (List) NetworkUtil.requestCache(sql, null);
+    	if (retlst == null || retlst.isEmpty()) {
+            List lst = new ArrayList();
+            if (start==1) start=0;
+            lst.add(start);
+            lst.add(recSize);
+            ReturnStruct ret = CallService.callService(lst, sql.trim(), constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
+            collectSql(sql);
+            if (ret==null || ret.getData()==null) {
+            	return new ArrayList();
+            }
+            retlst = (List) ret.getData();
+            NetworkUtil.requestCache(sql+":"+start, retlst);
+    	}
+    	return retlst;
     }
 
     public static List getListNative(String sql) {

@@ -9,11 +9,19 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 public class ZipUtil {
+	public static Object getObject(byte[] b) {
+		Object object = null;
+		try {
+			object = new java.io.ObjectInputStream(new ByteArrayInputStream(b)).readObject();
+		} catch (Exception ioe) {
+		}
+		return object;
+	}
+
 	public static Object getUnzipObject(byte[] b) {
 		Object object = null;
 		try {
-			object = new java.io.ObjectInputStream(new ByteArrayInputStream(
-					unzip(b))).readObject();
+			object = new java.io.ObjectInputStream(new ByteArrayInputStream(unzip(b))).readObject();
 		} catch (Exception ioe) {
 		}
 		return object;

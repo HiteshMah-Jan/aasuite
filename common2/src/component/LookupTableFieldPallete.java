@@ -145,8 +145,8 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
         lookup = new LookupTable();
         lookup.txt.addValueChangeListener(new ValueChangeListener() {
             public void valueChanged(component.listener.ValueChangeEvent evt) {
-                Thread t = new Thread(new ThreadRunner(getMe()));
-                t.start();
+                ThreadRunner t = new ThreadRunner(getMe());
+                t.run();
             }
         });
     }
