@@ -118,7 +118,7 @@ public class NetworkUtil {
             	retlst = ZipUtil.getObject((byte[])retlst);
             }
         } catch (MalformedURLException ex) {
-            PanelUtil.showError(null, "URL NOT FOUND "+Constants.cachehost+" TRY TO USE LOCAL.");
+            PanelUtil.showError(null, "CACHE URL NOT FOUND "+Constants.cachehost+" TRY TO USE LOCAL.");
         } catch (IOException ex) {
         	ex.printStackTrace();
             Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()+" - "+Constants.host);
