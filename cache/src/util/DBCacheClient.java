@@ -61,14 +61,14 @@ public class DBCacheClient {
     }
 
     public static void setupDB() {
-        Connection con = getConnection();
-        try {
-            con.createStatement().execute(create);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection(con);
-        }
+//        Connection con = getConnection();
+//        try {
+//            con.createStatement().execute(create);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            closeConnection(con);
+//        }
     }
 
     public static byte[] getCache(CacheStruct cache) {
