@@ -18,7 +18,7 @@ import javax.servlet.http.*;
  *
  * @author Budoy Entokwa
  */
-public class CacheServlet extends HttpServlet {
+public class CacheListServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
