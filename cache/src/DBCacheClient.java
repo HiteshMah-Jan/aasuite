@@ -92,9 +92,9 @@ public class DBCacheClient {
                     PreparedStatement pstmt2 = con.prepareStatement("INSERT INTO cache VALUES (?,?,?)");
                     pstmt2.setString(1, cache.getServiceName());
                     pstmt2.setString(2, cache.getKey());
-                    obj = ZipUtil.getBytes(cache.getData());
+                    byte[] b = obj = ZipUtil.getBytes(cache.getData());
                     InputStream is = new ByteArrayInputStream(obj);
-                    pstmt2.setBlob(3, is);
+                    pstmt2.setBinaryStream(3, is, b.length);
                     pstmt2.execute();
                     is.close();
                 }
