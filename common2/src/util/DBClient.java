@@ -203,7 +203,9 @@ public class DBClient {
             }
             collectSql(sql);
             retlst = (List) ret.getData();
-            NetworkUtil.requestCache(sql, retlst);
+            if (!retlst.isEmpty()) {
+                NetworkUtil.requestCache(sql, retlst);
+            }
     	}
     	return retlst;
     }
@@ -225,7 +227,7 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql, int start, int recSize) {
-    	List retlst = (List) NetworkUtil.requestCache(sql, null);
+    	List retlst = (List) NetworkUtil.requestCache(sql+":"+start, null);
     	if (retlst == null || retlst.isEmpty()) {
             List lst = new ArrayList();
             if (start==1) start=0;
@@ -237,7 +239,9 @@ public class DBClient {
             	return new ArrayList();
             }
             retlst = (List) ret.getData();
-            NetworkUtil.requestCache(sql+":"+start, retlst);
+            if (!retlst.isEmpty()) {
+                NetworkUtil.requestCache(sql+":"+start, retlst);
+            }
     	}
     	return retlst;
     }
