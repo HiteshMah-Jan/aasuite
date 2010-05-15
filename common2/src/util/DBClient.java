@@ -195,7 +195,7 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql) {
-    	List retlst = (List) NetworkUtil.requestCache(sql, null);
+    	List retlst = (List) NetworkUtil.requestCache(sql+":0", null);
     	if (retlst == null || retlst.isEmpty()) {
             ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
             if (ret==null || ret.getData()==null) {
@@ -204,7 +204,7 @@ public class DBClient {
             collectSql(sql);
             retlst = (List) ret.getData();
             if (!retlst.isEmpty()) {
-                NetworkUtil.requestCache(sql, retlst);
+                NetworkUtil.requestCache(sql+":0", retlst);
             }
     	}
     	return retlst;
