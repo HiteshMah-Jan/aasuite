@@ -29,9 +29,6 @@
 	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="PARAM_sample" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
-	</parameter>
 	<queryString><![CDATA[SELECT
      person.`gradeLevel` AS person_gradeLevel,
      person.`section` AS person_section,
@@ -44,8 +41,8 @@ WHERE enrollment.gradeLevel = $P{PARAM_gradeLevel}
      and enrollment.schoolYear = $P{PARAM_schoolYear}
 ORDER BY
      enrollment.gradeLevel ASC,
-     person.section ASC,
-     enrollment.gender DESC,
+     enrollment.section ASC,
+     person.gender DESC,
      person.lastname ASC,
      person.firstname ASC]]></queryString>
 
