@@ -33,23 +33,28 @@
      person.`personId` AS person_personId,
      person.`gradeLevel` AS person_gradeLevel,
      person.`section` AS person_section,
-     enrollment.`schoolYear` AS enrollment_schoolYear
+     enrollment.`schoolYear` AS enrollment_schoolYear,
+     enrollment.`gradeLevel` AS enrollment_gradeLevel
 FROM
      `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
 WHERE
      person.status = 'ENROLLED'
  AND person.gradeLevel IS NOT null
  AND person.section IS NOT null
- 
- AND person.gradeLevel = $P{PARAM_gradeLevel}
+ AND enrollment.gradeLevel = $P{PARAM_gradeLevel}
      and enrollment.schoolYear = $P{PARAM_schoolYear}
 ORDER BY
-    person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
+     enrollment.gradeLevel ASC,
+     person.section ASC,
+     person.gender DESC,
+     person.lastname ASC,
+     person.firstname ASC]]></queryString>
 
 	<field name="person_personId" class="java.lang.Integer"/>
 	<field name="person_gradeLevel" class="java.lang.String"/>
 	<field name="person_section" class="java.lang.String"/>
 	<field name="enrollment_schoolYear" class="java.lang.String"/>
+	<field name="enrollment_gradeLevel" class="java.lang.String"/>
 
 
 		<group  name="G_Gender" >
