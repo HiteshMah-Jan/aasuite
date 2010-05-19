@@ -29,25 +29,9 @@
 	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
-	</parameter>
 	<queryString><![CDATA[SELECT
-     person.`firstName` AS person_firstName,
-     person.`lastName` AS person_lastName,
-     person.`schoolYear` AS person_schoolYear,
-     person.`section` AS person_section,
-     person.`middleInitial` AS person_middleInitial,
-     person.`gradeLevel` AS person_gradeLevel,
-     section.`facultyId` AS section_facultyId,
-     person.`personId` AS person_personId,
-     person.`studentNumber` AS person_studentNumber,
-     person.`toSection` AS person_toSection,
-     person.`gradeLevelDesc` AS person_gradeLevelDesc,
      enrollment.`schoolYear` AS enrollment_schoolYear,
-     section.`faculty` AS section_faculty,
      enrollment.`gpaFinal` AS enrollment_gpaFinal,
-     studentvaluesgrading.`status` AS studentvaluesgrading_status,
      enrollment.`qallAP` AS enrollment_qallAP,
      enrollment.`qallArts` AS enrollment_qallArts,
      enrollment.`qallCCF` AS enrollment_qallCCF,
@@ -72,32 +56,12 @@
      enrollment.`qallVP` AS enrollment_qallVP,
      enrollment.`qallWriting` AS enrollment_qallWriting,
      enrollment.`qallZL` AS enrollment_qallZL,
-     studentvaluesgrading.`megaskillAverageFinal` AS studentvaluesgrading_megaskillAverageFinal,
-     studentvaluesgrading.`affectiveAverageFinal` AS studentvaluesgrading_affectiveAverageFinal,
-     studentvaluesgrading.`comment1` AS studentvaluesgrading_comment1,
-     studentvaluesgrading.`comment2` AS studentvaluesgrading_comment2,
-     studentvaluesgrading.`comment3` AS studentvaluesgrading_comment3,
-     studentvaluesgrading.`comment4` AS studentvaluesgrading_comment4,
-     studentvaluesgrading.`psychomotorAverageFinal` AS studentvaluesgrading_psychomotorAverageFinal,
-     studentvaluesgrading.`valuesPromotedAverageFinal` AS studentvaluesgrading_valuesPromotedAverageFinal,
-     studentvaluesgrading.`zl2AverageFinal` AS studentvaluesgrading_zl2AverageFinal,
-     person.`gender` AS person_gender,
-     studentvaluesgrading.`totalDays` AS studentvaluesgrading_totalDays,
-     studentvaluesgrading.`totalDays2` AS studentvaluesgrading_totalDays2,
-     studentvaluesgrading.`totalDays3` AS studentvaluesgrading_totalDays3,
-     studentvaluesgrading.`totalDays4` AS studentvaluesgrading_totalDays4,
-     studentvaluesgrading.`present` AS studentvaluesgrading_present,
-     studentvaluesgrading.`present2` AS studentvaluesgrading_present2,
-     studentvaluesgrading.`present3` AS studentvaluesgrading_present3,
-     studentvaluesgrading.`present4` AS studentvaluesgrading_present4,
-     enrollment.`gradeLevel` AS enrollment_gradeLevel
+     enrollment.`gradeLevel` AS enrollment_gradeLevel,
+     enrollment.`student` AS enrollment_student
 FROM
-     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
-     INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
-     INNER JOIN `studentvaluesgrading` studentvaluesgrading ON enrollment.`studentId` = studentvaluesgrading.`studentId`
+     `enrollment` enrollment
 WHERE
-     person.personId = $P{REPORT_ADD_WHERE}
- AND enrollment.schoolYear = $P{PARAM_schoolYear}]]></queryString>
+ AND enrollment.seq = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
 	<field name="person_lastName" class="java.lang.String"/>

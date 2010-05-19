@@ -34,7 +34,8 @@
 	<queryString><![CDATA[SELECT
      enrollment.`studentId` AS enrollment_studentId,
      enrollment.`gradeLevel` AS enrollment_gradeLevel,
-     enrollment.`section` AS enrollment_section
+     enrollment.`section` AS enrollment_section,
+     enrollment.`seq` AS enrollment_seq
 FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
 WHERE
@@ -44,6 +45,7 @@ WHERE
 	<field name="enrollment_studentId" class="java.lang.Integer"/>
 	<field name="enrollment_gradeLevel" class="java.lang.String"/>
 	<field name="enrollment_section" class="java.lang.String"/>
+	<field name="enrollment_seq" class="java.lang.Integer"/>
 
 
 		<group  name="G_Gender" >
@@ -84,10 +86,7 @@ WHERE
 						height="19"
 						key="subreport-1"/>
 					<subreportParameter  name="REPORT_ADD_WHERE">
-						<subreportParameterExpression><![CDATA[$F{enrollment_studentId}+""]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter  name="PARAM_schoolYear">
-						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+						<subreportParameterExpression><![CDATA[$F{enrollment_seq}+""]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\school\\grading\\Sticker"+$P{PARAM_gradeLevel}+".jasper"]]></subreportExpression>
