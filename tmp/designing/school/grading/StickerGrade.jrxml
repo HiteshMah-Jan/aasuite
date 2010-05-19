@@ -40,16 +40,12 @@
      enrollment.`seq` AS enrollment_seq
 FROM
      `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
-WHERE
-     person.status = 'ENROLLED'
- AND person.gradeLevel IS NOT null
- AND person.section IS NOT null
- AND enrollment.gradeLevel = $P{PARAM_gradeLevel}
+WHERE enrollment.gradeLevel = $P{PARAM_gradeLevel}
      and enrollment.schoolYear = $P{PARAM_schoolYear}
 ORDER BY
      enrollment.gradeLevel ASC,
      person.section ASC,
-     person.gender DESC,
+     enrollment.gender DESC,
      person.lastname ASC,
      person.firstname ASC]]></queryString>
 
