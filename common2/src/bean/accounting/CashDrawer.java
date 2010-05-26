@@ -174,7 +174,6 @@ public class CashDrawer extends AbstractIBean implements Serializable {
 
     public static List<Invoice> extractDailyTransaction(Date d) {
         String cashier = UserInfo.getUserName();
-//        String sql = "SELECT a FROM Invoice a WHERE a.cashier='"+cashier+"' AND a.orDate='"+DateUtil.formatDateToSql(d)+"'";
         return DBClient.getList("SELECT a FROM Invoice a WHERE a.cashier='",cashier,"' AND a.orDate='",DateUtil.formatDateToSql(d),"'");
     }
     
