@@ -3,6 +3,7 @@ package bean.extension;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
+import util.BeanUtil;
 import bean.reference.OtherPaymentReference;
 
 @UITemplate(gridCount = 6, columnSearch = {"code","description","amount","orType"}, 
@@ -26,7 +27,7 @@ public class OtherPaymentReferenceAccount2Ext extends OtherPaymentReference {
 
 	@Override
 	public String popupSearch(String criteria) {
-		return "SELECT a FROM OtherPaymentReference a "+addWhere();
+		return BeanUtil.concat("SELECT a FROM OtherPaymentReference a ",addWhere());
 	}
 	
 }

@@ -26,7 +26,7 @@ public abstract class PersonAttribute extends AbstractIBean {
         if (getPersonId() == 0) {
             return "";
         }
-        Person p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+getPersonId());
+        Person p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",getPersonId());
         return p.getFormattedTitle();
     }
 

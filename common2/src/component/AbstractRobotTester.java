@@ -34,6 +34,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
+
+import util.BeanUtil;
 import util.DataUtil;
 import util.PanelUtil;
 
@@ -110,7 +112,7 @@ public class AbstractRobotTester implements Runnable {
                     boolean b = true;
                     while (b) {
                         Point p = MouseInfo.getPointerInfo().getLocation();
-                        lbl.setText((int) p.getX() + ":" + (int) p.getY());
+                        lbl.setText(BeanUtil.concat((int) p.getX(),":",(int) p.getY()));
                         lbl.updateUI();
                         waitMilliSec(100);
                     }
@@ -217,7 +219,7 @@ public class AbstractRobotTester implements Runnable {
             }
         }
         if (menu == null) {
-            PanelUtil.showMessageToScreen("Cannot find menu with mnemonic == " + mnemonic);
+            PanelUtil.showMessageToScreen(BeanUtil.concat("Cannot find menu with mnemonic == ",mnemonic));
             return;
         }
         expandMenu(mnemonic);
@@ -259,7 +261,7 @@ public class AbstractRobotTester implements Runnable {
             }
         }
         if (menu == null) {
-            PanelUtil.showMessageToScreen("Cannot find menu with mnemonic == " + mnemonic);
+            PanelUtil.showMessageToScreen(BeanUtil.concat("Cannot find menu with mnemonic == ",mnemonic));
             return;
         }
         count = menu.getItemCount();
@@ -422,7 +424,7 @@ i = 0;          break;
     }
 
     public void displayTestNumber(int testNum, String detail) {
-        MainWindow.mainwindow.getLabelMessage().setText("                  Test #" + testNum + " - " + detail);
+        MainWindow.mainwindow.getLabelMessage().setText(BeanUtil.concat("                  Test #",testNum," - ",detail));
         waitMilliSec(1000);
     }
 

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import util.BeanUtil;
+
 /**
  *
  * @author  Entokwaa
@@ -67,7 +69,7 @@ public class GroupPanel extends javax.swing.JPanel {
         pnl.lblGroupName.setText(name);
         pnl.pnlMain.add(newPanel);
         if (AppConfig.isGroupWithTitle()) {
-            pnl.pnlMain.setBorder(javax.swing.BorderFactory.createTitledBorder(name+":"));
+            pnl.pnlMain.setBorder(javax.swing.BorderFactory.createTitledBorder(BeanUtil.concat(name,":")));
             pnl.setBorder(null);
             pnl.pnlHeader.setVisible(false);
             TitledBorder b = (TitledBorder) pnl.pnlMain.getBorder();

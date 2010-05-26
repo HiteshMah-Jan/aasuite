@@ -18,6 +18,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.Reports;
+import util.BeanUtil;
 /**
  *
  * @author pogi
@@ -120,7 +121,7 @@ public class AccountChart extends AbstractIBean implements Serializable {
         if (chart==null) {
             AccountChart c = new AccountChart();
             c.accountName = accountName;
-            c.accountNumber = accountName+" PLS CHANGE";
+            c.accountNumber = BeanUtil.concat(accountName," PLS CHANGE");
             c.save();
             return c.accountNumber;
         }
@@ -130,7 +131,7 @@ public class AccountChart extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return accountNumber+" - "+accountName;
+        return BeanUtil.concat(accountNumber," - ",accountName);
     }   
     
 

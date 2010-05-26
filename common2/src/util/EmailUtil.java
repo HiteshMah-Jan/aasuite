@@ -62,7 +62,7 @@ public class EmailUtil {
                     javax.mail.Multipart multipart = new javax.mail.internet.MimeMultipart();
                     multipart.addBodyPart(messageBodyPart);
 
-                    Logger.getLogger("global").log(Level.INFO, "FILE SIZE == " + f.length());
+                    Log.info("FILE SIZE == ",f.length());
                     // Part two is attachment
                     messageBodyPart = new javax.mail.internet.MimeBodyPart();
                     javax.activation.DataSource source = new javax.activation.FileDataSource(f);

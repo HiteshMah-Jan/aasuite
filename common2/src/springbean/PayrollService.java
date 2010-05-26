@@ -20,9 +20,11 @@ import java.util.Date;
 import java.util.List;
 import service.ParamStruct;
 import service.ReturnStruct;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.DateUtil;
+import util.Log;
 
 /**
  *
@@ -92,7 +94,7 @@ public class PayrollService extends AttendanceService {
     public static void createPayroll() {
         List lst = new ArrayList();
         int year = DateUtil.getYear();
-        System.out.println("YEAR = "+year);
+        Log.out("YEAR = ",year);
         for (int i=1; i<=12; i++) {
             lst.add(newPayroll(year, i, Payroll.FIRST_HALF));
             lst.add(newPayroll(year, i, Payroll.SECOND_HALF));
@@ -103,14 +105,14 @@ public class PayrollService extends AttendanceService {
     private static Payroll newPayroll(int year, int month, int half) {
         Payroll p = new Payroll();
         if (half==Payroll.FIRST_HALF) {
-            p.startDate = DateUtil.readDate(year+"-"+month+"-01", "yyyy-MM-dd");
-            p.endDate = DateUtil.readDate(year+"-"+month+"-15", "yyyy-MM-dd");
-            p.payrollName = DateUtil.formatDate(p.endDate, "MM-yyyy ") + "01-15 " + DateUtil.formatDate(p.endDate, "(MMM)");
+            p.startDate = DateUtil.readDate(BeanUtil.concat(year,"-",month,"-01"), "yyyy-MM-dd");
+            p.endDate = DateUtil.readDate(BeanUtil.concat(year,"-",month,"-15"), "yyyy-MM-dd");
+            p.payrollName = BeanUtil.concat(DateUtil.formatDate(p.endDate, "MM-yyyy "),"01-15 ",DateUtil.formatDate(p.endDate, "(MMM)"));
         }
         else {
-            p.startDate = DateUtil.readDate(year+"-"+month+"-16", "yyyy-MM-dd");
+            p.startDate = DateUtil.readDate(BeanUtil.concat(year,"-",month,"-16"), "yyyy-MM-dd");
             p.endDate = DateUtil.getEndOfMonth(p.startDate);
-            p.payrollName = DateUtil.formatDate(p.endDate, "MM-yyyy ") + "16-" + DateUtil.formatDate(p.endDate, "d") + DateUtil.formatDate(p.endDate, " (MMM)");
+            p.payrollName = BeanUtil.concat(DateUtil.formatDate(p.endDate, "MM-yyyy "),"16-",DateUtil.formatDate(p.endDate, "d"),DateUtil.formatDate(p.endDate, " (MMM)"));
         }
         return p;
     }
@@ -123,7 +125,7 @@ public class PayrollService extends AttendanceService {
     private void createEmployeePayroll(Payroll pay, int employeeId) {
         Employee e = (Employee) pay.extractPerson(employeeId);
         if (e.basicPay <= 0 && e.perHourPay <= 0) {
-        	System.out.println("EMPLOYEE HAS NO BASIC PAY OR PER HOUR PAY ["+e.lastName+", "+e.firstName+"]");
+        	Log.out("EMPLOYEE HAS NO BASIC PAY OR PER HOUR PAY [",e.lastName,", ",e.firstName,"]");
         	return;
         }
 
@@ -132,10 +134,10 @@ public class PayrollService extends AttendanceService {
         p.employeeId = employeeId;
         p.startDate = pay.startDate;
         p.endDate = pay.endDate;
-        p.employeeName = e.lastName+", "+e.firstName+" "+e.middleInitial;
+        p.employeeName = BeanUtil.concat(e.lastName,", ",e.firstName," ",e.middleInitial);
 
 //        calculate total hours
-        List<PersonAttendance> lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId="+employeeId+" AND a.attendanceDate BETWEEN '"+DateUtil.formatDateToSql(pay.startDate)+"' AND '"+DateUtil.formatDateToSql(pay.endDate)+"'");
+        List<PersonAttendance> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PersonAttendance a WHERE a.personId=",employeeId," AND a.attendanceDate BETWEEN '",DateUtil.formatDateToSql(pay.startDate),"' AND '",DateUtil.formatDateToSql(pay.endDate),"'"));
         for (PersonAttendance pa : lst) {
             p.totalHours += pa.totalHours;
             p.totalNDHours += pa.nightHours;
@@ -148,18 +150,18 @@ public class PayrollService extends AttendanceService {
         }
         double overallBasicHours = p.totalHours + p.totalAbsentHours + p.totalUTHours;
         if (overallBasicHours <= 0) {
-        	System.out.println("EMPLOYEE HAS NO BILLABLE HOURS ["+e.lastName+", "+e.firstName+"]");
+        	Log.out("EMPLOYEE HAS NO BILLABLE HOURS [",e.lastName,", ",e.firstName,"]");
         	return;
         }
         if (e.basicPay > 0) {
             p.basicPay = DataUtil.getMoneyFormat(e.basicPay/2);
             p.perHourSalary = p.basicPay / overallBasicHours;
-        	System.out.println("1 ["+e.lastName+", "+e.firstName+"] "+p.basicPay+"-"+p.perHourSalary);
+        	Log.out("1 [",e.lastName,", ",e.firstName,"] ",p.basicPay,"-",p.perHourSalary);
         }
         else {
             p.basicPay = DataUtil.getMoneyFormat(e.perHourPay * overallBasicHours);
             p.perHourSalary = e.perHourPay;
-        	System.out.println("2 ["+e.lastName+", "+e.firstName+"] "+p.basicPay+"-"+p.perHourSalary);
+        	Log.out("2 [",e.lastName,", ",e.firstName,"] ",p.basicPay,"-",p.perHourSalary);
         }
         p.save();
 
@@ -189,7 +191,7 @@ public class PayrollService extends AttendanceService {
     private void calculatePayroll(EmployeePayroll p) {
         p.totalGrossPay = p.totalNetAmount = p.basicPay;
 
-        List<PersonAttendance> lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId="+p.employeeId+" AND a.attendanceDate BETWEEN '"+DateUtil.formatDateToSql(p.startDate)+"' AND '"+DateUtil.formatDateToSql(p.endDate)+"'");
+        List<PersonAttendance> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PersonAttendance a WHERE a.personId=",p.employeeId," AND a.attendanceDate BETWEEN '",DateUtil.formatDateToSql(p.startDate),"' AND '",DateUtil.formatDateToSql(p.endDate),"'"));
         double percentage = 100;
         for (PersonAttendance pa : lst) {
             EventHoliday e = EventHoliday.extractHoliday(pa.attendanceDate);
@@ -203,7 +205,7 @@ public class PayrollService extends AttendanceService {
         p.totalNetAmount = p.totalNetAmount = p.basicPay;
 
         p.totalAdjustmentAmount = p.totalAllowanceAmount = p.totalDeductionAmount = p.totalLoanAmount = p.totalTaxAmount = 0;
-        List<EmployeePayrollAdjustment> adjustments = DBClient.getList("SELECT a FROM EmployeePayrollAdjustment a WHERE a.employeePayrollId="+p.seq);
+        List<EmployeePayrollAdjustment> adjustments = DBClient.getList(BeanUtil.concat("SELECT a FROM EmployeePayrollAdjustment a WHERE a.employeePayrollId=",p.seq));
         for (EmployeePayrollAdjustment ad:adjustments) {
             double amount = ad.amount;
             if (ad.deduct) {
@@ -280,9 +282,9 @@ public class PayrollService extends AttendanceService {
         e.prevTaxSalaries = 0;
         e.prevUnionAmount = 0;
 
-        String sql = "SELECT a FROM EmployeePayrollAdjustment a, EmployeePayroll b " +
-                "WHERE a.employeeId="+e.employeeId+" AND a.employeePayrollId=b.seq AND " +
-                "b.startDate BETWEEN '"+a.year+"-01-01' AND '"+a.year+"-12-31'";
+        String sql = BeanUtil.concat("SELECT a FROM EmployeePayrollAdjustment a, EmployeePayroll b ",
+                "WHERE a.employeeId=",e.employeeId," AND a.employeePayrollId=b.seq AND ",
+                "b.startDate BETWEEN '",a.year,"-01-01' AND '",a.year,"-12-31'");
         List<EmployeePayrollAdjustment> adjustments = DBClient.getList(sql);
 
 //        extract from employee payroll adjustments
@@ -326,9 +328,9 @@ public class PayrollService extends AttendanceService {
             }
         }
 
-        sql = "SELECT a FROM EmployeePayroll a " +
-                "WHERE a.employeeId="+e.employeeId+" AND " +
-                "a.startDate BETWEEN '"+a.year+"-01-01' AND '"+a.year+"-12-31'";
+        sql = BeanUtil.concat("SELECT a FROM EmployeePayroll a ",
+                "WHERE a.employeeId=",e.employeeId," AND ",
+                "a.startDate BETWEEN '",a.year,"-01-01' AND '",a.year,"-12-31'");
         List<EmployeePayroll> payrolls = DBClient.getList(sql);
         for (EmployeePayroll pay : payrolls) {
 //        extract from emplyoee payroll
@@ -403,7 +405,7 @@ public class PayrollService extends AttendanceService {
         }
         else if (param.getActionCommand() == STEP3) {
             Payroll pay = (Payroll) param.getData();
-            List<EmployeePayroll> lste = DBClient.getList("SELECT a FROM EmployeePayroll a WHERE a.payrollId="+pay.seq);
+            List<EmployeePayroll> lste = DBClient.getList(BeanUtil.concat("SELECT a FROM EmployeePayroll a WHERE a.payrollId=",pay.seq));
 
             List<Employee> lst = DBClient.getList("SELECT a FROM Employee a WHERE a.isActive=true");
             for (Employee e:lst) {

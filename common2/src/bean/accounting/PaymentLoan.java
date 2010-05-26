@@ -54,7 +54,7 @@ public class PaymentLoan extends Payment implements Serializable {
     public int payrollId;
 
     public String getLoanType() {
-        bean.person.EmployeeLoan loanType = (EmployeeLoan) AbstractIBean.firstRecord("SELECT a FROM EmployeeLoan a WHERE a.seq="+employeeLoanId);
+        bean.person.EmployeeLoan loanType = (EmployeeLoan) AbstractIBean.firstRecord("SELECT a FROM EmployeeLoan a WHERE a.seq=",employeeLoanId);
         if (loanType==null) return "";
         return loanType.toString();
     }

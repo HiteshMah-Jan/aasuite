@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import template.ChildRecord;
 import template.ChildRecords;
 import template.ParentAddInfo;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -93,7 +94,7 @@ public class TemplateScrollableSinglePage extends TemplateTabPage {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         dim.width = screenSize.width - 100;
         pnl.setPreferredSize(dim);
-        System.out.println("ADDING " + title);
+        Log.out("ADDING ",title);
         if (title!=null && !title.trim().isEmpty()) {
             GroupPanel pnlGroup = GroupPanel.construct(title, pnl, 1);
             pnlCenter.add(pnlGroup, cons);

@@ -57,7 +57,7 @@ public class AclGroupDuty extends AbstractIBean implements Serializable {
     }
 
     public String getDutyDescription() {
-        bean.admin.AclDuty duty = (AclDuty) this.selectFirstCache("SELECT a FROM AclDuty a WHERE a.code='" + this.dutyCode + "'");
+        bean.admin.AclDuty duty = (AclDuty) this.selectFirstCache("SELECT a FROM AclDuty a WHERE a.code='",this.dutyCode,"'");
         if (duty == null) {
             return "";
         }

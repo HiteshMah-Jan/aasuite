@@ -16,6 +16,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -111,6 +112,6 @@ public class InvoiceDetail extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return seq+"";
+        return BeanUtil.concat(seq,"");
     }
 }

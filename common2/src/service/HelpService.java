@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import service.IService;
 import service.ReturnStruct;
 import service.util.AbstractIBean;
+import util.BeanUtil;
+import util.Log;
 
 /**
  *
@@ -34,7 +36,7 @@ public class HelpService implements IService {
             createHelpFile(hlp);
         } else {
             String helpName = (String) param.getData();
-            Help hlp = (Help) AbstractIBean.firstRecord("SELECT a FROM Help a WHERE a.name='"+helpName+"'");
+            Help hlp = (Help) AbstractIBean.firstRecord("SELECT a FROM Help a WHERE a.name='",helpName,"'");
             ret.setData(hlp);
         }
         ret.setStatus(Constants.SUCCESS);
@@ -43,12 +45,12 @@ public class HelpService implements IService {
 
     private void createHelpFile(Help hlp) {
         String helpName = hlp.getName();
-        File f = new File(Constants.HELP_DIR, helpName + ".html");
-        System.out.println("HELP FILE === " + f.getAbsolutePath());
+        File f = new File(Constants.HELP_DIR, BeanUtil.concat(helpName,".html"));
+        Log.out("HELP FILE === ",f.getAbsolutePath());
         if (!f.exists()) {
             try {
                 RandomAccessFile raf = new RandomAccessFile(f, "rw");
-                raf.writeBytes("<html><h2>" + helpName + "</h2></html>");
+                raf.writeBytes(BeanUtil.concat("<html><h2>",helpName,"</h2></html>"));
                 raf.close();
             } catch (Exception ex) {
                 Logger.getLogger("global").log(Level.SEVERE, null, ex);

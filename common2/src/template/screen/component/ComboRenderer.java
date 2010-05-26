@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.ELProperty;
 import service.util.AbstractIBean;
+import util.BeanUtil;
 
 /**
  *
@@ -130,7 +131,7 @@ public class ComboRenderer extends AbstractComponentRenderer {
         }
         else {
             try {
-                ELProperty.create("${"+name+"}").setValue(tbl, value);
+                ELProperty.create(BeanUtil.concat("${",name,"}")).setValue(tbl, value);
             }
             catch (Exception e) {
             }
@@ -195,9 +196,9 @@ public class ComboRenderer extends AbstractComponentRenderer {
 		public String toString() {
 			if (other==null) return text;
 			if (dvalue>0) {
-				return text+" - "+other+" ["+dvalue+"]";
+				return BeanUtil.concat(text," - ",other," [",dvalue,"]");
 			}
-			return text+" - "+other;
+			return BeanUtil.concat(text," - ",other);
 		}
     }
 }

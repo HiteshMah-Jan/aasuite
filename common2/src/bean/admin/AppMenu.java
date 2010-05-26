@@ -18,6 +18,7 @@ import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import template.*;
 import template.screen.TemplateSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -99,7 +100,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return moduleName + " - " + moduleLabel;
+        return BeanUtil.concat(moduleName," - ",moduleLabel);
     }
 
     public int getSortNum() {

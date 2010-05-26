@@ -8,20 +8,23 @@
  */
 package bean.accounting;
 
-import bean.reference.Department;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import bean.reference.Department;
 
 /**
  *
@@ -125,10 +128,10 @@ public class ManualGL extends AbstractIBean implements Serializable, IGL {
     
     public boolean hardcodePosting() {
         if (this.posted) {
-            Logger.getLogger("global").log(Level.INFO, "GL is already posted for "+this.extractGLType().toUpperCase()+"-"+seq+".");
+            util.Log.info("GL is already posted for ",this.extractGLType().toUpperCase(),"-",seq,".");
             return true;
         }
-        List<ManualGLDetail> details = list("SELECT a FROM ManualGLDetail a WHERE a.manualGLId="+seq);
+        List<ManualGLDetail> details = list("SELECT a FROM ManualGLDetail a WHERE a.manualGLId=",seq);
         if (details!=null && details.size()>1 && isBalanced(details)) {
             for (ManualGLDetail mgl : details) {
                 GL gl = new GL();
@@ -160,7 +163,7 @@ public class ManualGL extends AbstractIBean implements Serializable, IGL {
     }
 
     public boolean isBalanced() {
-        List<ManualGLDetail> details = list("SELECT a FROM ManualGLDetail a WHERE a.manualGLId="+seq);
+        List<ManualGLDetail> details = list("SELECT a FROM ManualGLDetail a WHERE a.manualGLId=",seq);
         return isBalanced(details);
     }
 

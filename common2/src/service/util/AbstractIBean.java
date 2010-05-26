@@ -243,7 +243,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         if ("seq".equals(key) || "personId".equals(key)) {
         	Integer i = keyMap.get(_Table());
         	if (!keyMap.containsKey(_Table())) {
-                int id = (int) DBClient.getSingleColumnDouble("SELECT MAX("+_Key()+") FROM "+_Table());
+                int id = (int) DBClient.getSingleColumnDouble("SELECT MAX(",_Key(),") FROM ",_Table());
                 BeanUtil.setPropertyValue(this, _Key(), id+1);
                 keyMap.put(_Table(), id+1);
         	}
@@ -315,7 +315,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     }
 
     public String _DataDisplay() {
-        return this._Table() + "-" + keyVal();
+        return BeanUtil.concat(this._Table(),"-",keyVal());
     }
 
     public String getComboDisplay() {
@@ -363,7 +363,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
                 }
 
                 //create the file here
-                java.io.File fDir = new java.io.File(Constants.ROOT_FOLDER + "images");
+                java.io.File fDir = new java.io.File(BeanUtil.concat(Constants.ROOT_FOLDER,"images"));
                 if (!fDir.exists() || !fDir.isDirectory()) {
                     fDir.mkdir();
                 }
@@ -457,7 +457,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     }
 
     public String getKeyVal() {
-        return this.keyVal() + "";
+        return BeanUtil.concat(this.keyVal(),"");
     }
 
     public void setKeyVal(String key) {
@@ -575,7 +575,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
             BeanUtil.setPropertyValue(this, field, newValue);
         } catch (Exception e) {
         	e.printStackTrace();
-            warning("Change value of " + field+" - "+this.getClass().getName());
+            warning("Change value of ",field," - ",this.getClass().getName());
         }
     }
 
@@ -743,13 +743,13 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
                 for (ChartBean b : vec) {
                     if (b.useNative) {
                         if (b.sql instanceof String) {
-                            lstSql.add("NATIVE-"+b.sql.toString());
+                            lstSql.add(BeanUtil.concat("NATIVE-",b.sql.toString()));
                         }
                         else if (b.sql instanceof String[]) {
                             String[] tmp = (String[]) b.sql;
                             if (tmp!=null) {
                                 for (String t : tmp) {
-                                    lstSql.add("NATIVE-"+t);
+                                    lstSql.add(BeanUtil.concat("NATIVE-",t));
                                 }
                             }
                         }
@@ -772,11 +772,11 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         }
 //        for images
         if (showImages) {
-            lstSql.add("SELECT a FROM ImageTable a WHERE a.recTable=\'" + this._Table() + "\' AND a.recordId=\'" + this.keyVal() + "\'");
+            lstSql.add(BeanUtil.concat("SELECT a FROM ImageTable a WHERE a.recTable=\'",this._Table(),"\' AND a.recordId=\'",this.keyVal(),"\'"));
         }
 //        for files
         if (showFile) {
-            lstSql.add("SELECT a FROM DocumentTable a WHERE a.recTable=\'" + this._Table() + "\' AND a.recordId=\'" + this.keyVal() + "\'");
+            lstSql.add(BeanUtil.concat("SELECT a FROM DocumentTable a WHERE a.recTable=\'",this._Table(),"\' AND a.recordId=\'",this.keyVal(),"\'"));
         }
         if (lstSql!=null && !lstSql.isEmpty()) {
             Map<String, Object> map = DBClient.batchQuery(lstSql);
@@ -786,19 +786,19 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 
     public List<ImageTable> extractImages() {
     	if (AAAConfig.server) {
-            return DBClient.getList("SELECT a FROM ImageTable a WHERE a.recTable='" + this._Table() + "' AND a.recordId='" + this.keyVal() + "'");
+            return DBClient.getList(BeanUtil.concat("SELECT a FROM ImageTable a WHERE a.recTable='",this._Table(),"' AND a.recordId='",this.keyVal(),"'"));
     	}
     	else {
-            return (List) cacheMap.get("SELECT a FROM ImageTable a WHERE a.recTable='" + this._Table() + "' AND a.recordId='" + this.keyVal() + "'");
+            return (List) cacheMap.get(BeanUtil.concat("SELECT a FROM ImageTable a WHERE a.recTable='",this._Table(),"' AND a.recordId='",this.keyVal(),"'"));
     	}
     }
 
     public List<DocumentTable> extractFiles() {
     	if (AAAConfig.server) {
-            return DBClient.getList("SELECT a FROM DocumentTable a WHERE a.recTable='" + this._Table() + "' AND a.recordId='" + this.keyVal() + "'");
+            return DBClient.getList(BeanUtil.concat("SELECT a FROM DocumentTable a WHERE a.recTable='",this._Table(),"' AND a.recordId='",this.keyVal(),"'"));
     	}
     	else {
-            return (List) cacheMap.get("SELECT a FROM DocumentTable a WHERE a.recTable='" + this._Table() + "' AND a.recordId='" + this.keyVal() + "'");
+            return (List) cacheMap.get(BeanUtil.concat("SELECT a FROM DocumentTable a WHERE a.recTable='",this._Table(),"' AND a.recordId='",this.keyVal(),"'"));
     	}
     }
 
@@ -896,12 +896,12 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         DBClient.saveSubRecords(saveRecords, origRecords);
     }
 
-    public static AbstractIBean firstRecord(String... obj) {
+    public static AbstractIBean firstRecord(Object... obj) {
         return (AbstractIBean) DBClient.getFirstRecord(obj);
     }
 
     public static List list(Object... obj) {
-        return DBClient.getList(obj);
+        return DBClient.getList(BeanUtil.concat(obj));
     }
 
     public static List nativeList(String obj) {
@@ -949,7 +949,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 
     public final void setup() {
         Class cls = extractBeanClass();
-        AbstractIBean bean = (AbstractIBean) DBClient.getFirstRecord("SELECT a FROM " + cls.getSimpleName() + " a");
+        AbstractIBean bean = (AbstractIBean) DBClient.getFirstRecord("SELECT a FROM ",cls.getSimpleName()," a");
         if (bean == null) {
             runSetup();
         }
@@ -1005,14 +1005,14 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 
     static Map<String, AbstractIBean> mapBeans = new HashMap();
     private static AbstractIBean extractCacheBeans(Class b, String code) {
-        AbstractIBean bean = mapBeans.get(b.getSimpleName()+code);
+        AbstractIBean bean = mapBeans.get(BeanUtil.concat(b.getSimpleName(),code));
         if (bean==null) {
             List<AbstractIBean> lst = extractCacheListBeans(b);
             for (AbstractIBean ib : lst) {
                 String c = ib.keyVal().toString();
-                mapBeans.put(b.getSimpleName()+c, ib);
+                mapBeans.put(BeanUtil.concat(b.getSimpleName(),c), ib);
             }
-            bean = mapBeans.get(b.getSimpleName()+code);
+            bean = mapBeans.get(BeanUtil.concat(b.getSimpleName(),code));
         }
         return bean;
     }
@@ -1023,7 +1023,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         if (bean==null || bean.isEmpty()) {
             try {
             	AbstractIBean tmp = (AbstractIBean) b.newInstance();
-        		String sql = "SELECT a FROM "+b.getSimpleName()+" a";
+        		String sql = BeanUtil.concat("SELECT a FROM ",b.getSimpleName()," a");
                 List lst = null;
             	if (tmp.cacheClient()) {
             		lst = (List) ClientCache.getCache(sql.toLowerCase());
@@ -1034,7 +1034,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
             	else {
                     lst = DBClient.getList(sql,0,1000);
             	}
-//                System.out.println("CACHE BEANS: "+b.getSimpleName()+" SIZE: "+lst.size());
                 mapListBeans.put(b.getSimpleName(), lst);
                 bean = mapListBeans.get(b.getSimpleName());
             }
@@ -1127,7 +1126,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     
     public String extractPersonName(int personId) {
     	if (personId>0) {
-        	Person p = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId="+personId);
+        	Person p = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",personId);
         	if (p!=null) return p.toString();
     	}
     	return null;
@@ -1135,7 +1134,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 
     public Person extractPerson(int personId) {
     	if (personId>0) {
-        	return (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId="+personId);
+        	return (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",personId);
     	}
     	return null;
     }

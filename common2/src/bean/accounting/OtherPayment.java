@@ -103,7 +103,7 @@ public class OtherPayment extends AbstractIBean {
 //        setup complete description
         StringBuffer sb = new StringBuffer();
         for (int i=1; i<=10; i++) {
-            Object obj = BeanUtil.getPropertyValue(this, "paymentCode"+i);
+            Object obj = BeanUtil.getPropertyValue(this, BeanUtil.concat("paymentCode",i));
             if (obj==null) continue;
             OtherPaymentReference ref = (OtherPaymentReference) OtherPaymentReference.extractObject(OtherPaymentReference.class.getSimpleName(), obj.toString());
             if (ref!=null && !ref.isEmptyKey()) {
@@ -113,7 +113,7 @@ public class OtherPayment extends AbstractIBean {
         if (isEmptyKey()) {
             String str = sb.toString().trim();
             String strC = completeDesc==null?"":completeDesc;
-            completeDesc = str + " " + strC;
+            completeDesc = BeanUtil.concat(str," ",strC);
         }
         try {
         	Person stud = extractPerson(personId);
@@ -738,7 +738,7 @@ public class OtherPayment extends AbstractIBean {
             inv.payer = payer;
             Person cust = Person.extractObject(personId);
             if (cust != null) {
-                inv.billTo = cust.personId+"";
+                inv.billTo = BeanUtil.concat(cust.personId,"");
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
@@ -758,8 +758,8 @@ public class OtherPayment extends AbstractIBean {
             invoiceId = inv.seq;
             save();
             for (int i=1; i<=10; i++) {
-                Object obj = BeanUtil.getPropertyValue(this, "paymentCode"+i);
-                double d = BeanUtil.getDoubleValue(this, "paymentAmount"+i);
+                Object obj = BeanUtil.getPropertyValue(this, BeanUtil.concat("paymentCode",i));
+                double d = BeanUtil.getDoubleValue(this, BeanUtil.concat("paymentAmount",i));
                 if (obj==null) continue;
                 OtherPaymentReference ref = (OtherPaymentReference) OtherPaymentReference.extractObject(OtherPaymentReference.class.getSimpleName(), obj.toString());
                 if (ref!=null && !ref.isEmptyKey() && d>0) {
@@ -772,7 +772,7 @@ public class OtherPayment extends AbstractIBean {
             }
         }
         else {
-            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=" + this.invoiceId);
+            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=",this.invoiceId);
         }
         return inv;
     }
@@ -814,13 +814,13 @@ public class OtherPayment extends AbstractIBean {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(invoiceId+"", map);
+        ins.getReportParameter(BeanUtil.concat(invoiceId,""), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }
     
     public Person extractStudent() {
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+personId);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",personId);
     }
      
     public double extractTotalAmount() {

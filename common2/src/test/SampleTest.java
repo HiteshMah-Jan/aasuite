@@ -4,6 +4,8 @@
  */
 package test;
 
+import util.Log;
+
 /**
  *
  * @author Charliemagne Mark
@@ -41,8 +43,8 @@ public class SampleTest {
         S2 S2=new S3();
         S2.display ();
         S1 S1=new S1();
-        System.out.println("Print S1 " + S1.gets());
-        System.out.println("Print S2 " + S2.gets());
+        Log.out("Print S1 ",S1.gets());
+        Log.out("Print S2 ",S2.gets());
     }
 
     static class S1 {
@@ -51,7 +53,7 @@ public class SampleTest {
             return S;
         }
         void display() {
-            System.out.println("Display in S1 " + S);
+            Log.out("Display in S1 ",S);
         }
     }
 
@@ -59,7 +61,7 @@ public class SampleTest {
         String S = "S2";
         void display() {
             super.display();
-            System.out.println("Display in S2 " + S);
+            Log.out("Display in S2 ",S);
         }
     }
     
@@ -67,7 +69,7 @@ public class SampleTest {
         String S = "S3";
         void display() {
             super.display();
-            System.out.println("Display in S3 " + S);
+            Log.out("Display in S3 ",S);
         }
     }
 }

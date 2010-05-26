@@ -120,7 +120,7 @@ public class SentEmail extends AbstractIBean implements Serializable {
 
     public String getCustomer() {
         if (customer == null) {
-            customer = (Customer) AbstractIBean.firstRecord("SELECT a FROM Customer a WHERE a.personId=" + customerId);
+            customer = (Customer) AbstractIBean.firstRecord("SELECT a FROM Customer a WHERE a.personId=" , customerId);
         }
         if (customer == null) {
             return "";

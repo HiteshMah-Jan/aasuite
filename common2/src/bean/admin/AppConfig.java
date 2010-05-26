@@ -23,6 +23,7 @@ import springbean.AAAConfig;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.DateUtil;
@@ -329,7 +330,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
         for (int i = 0; i < 10; i++) {
             String schoolYear = "";
             if (schoolYear==null || schoolYear.isEmpty()) {
-                schoolYear = yyyy+"-"+(yyyy+1);
+                schoolYear = BeanUtil.concat(yyyy,"-",(yyyy+1));
             }
             yyyy++;
             sylst.add(schoolYear);
@@ -356,7 +357,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
     }
     public static int monthInstallment() {
         try {
-            return Integer.parseInt(AppConfig.getAppValue("MONTH INSTALLMENT", 10+""));
+            return Integer.parseInt(AppConfig.getAppValue("MONTH INSTALLMENT", BeanUtil.concat(10,"")));
         }
         catch (Exception e) {
             return 10;

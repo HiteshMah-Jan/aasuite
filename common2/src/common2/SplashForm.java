@@ -10,6 +10,8 @@ import bean.admin.AppConfig;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 
+import util.BeanUtil;
+
 /**
  *
  * @author  Entokwaa
@@ -22,7 +24,7 @@ public class SplashForm extends javax.swing.JFrame {
         String image = AppConfig.extractLoadingImage();
         if (image==null || image.isEmpty()) return;
         image = image.toLowerCase();
-        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/icons/" + image));
+        ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource(BeanUtil.concat("/icons/",image)));
         int height = icon.getIconHeight();
         int width = icon.getIconWidth();
         lblImage.setMaximumSize(new Dimension(width, height));

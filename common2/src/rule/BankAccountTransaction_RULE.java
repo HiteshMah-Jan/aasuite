@@ -65,7 +65,7 @@ public class BankAccountTransaction_RULE extends BusinessRuleWrapper {
                     return;
                 }
             }
-            PanelUtil.showMessage(null, "Please put the check to the printer ["+tran.accountNumber+" - "+tran.checkNumber+"].");
+            PanelUtil.showMessage(null, "Please put the check to the printer [",tran.accountNumber," - ",tran.checkNumber,"].");
             //print the check
             tran.checkPrinted = true;
             tran.save();

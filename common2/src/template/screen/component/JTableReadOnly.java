@@ -121,7 +121,7 @@ public class JTableReadOnly extends JTable {
 
     public void setEditableCol(String editableCol) {
     	if (editableCol==null || editableCol.trim().isEmpty()) return;
-        this.editableCol = ","+editableCol+",";
+        this.editableCol = BeanUtil.concat(",",editableCol,",");
     }
     protected ListModel listModel = new AbstractListModel() {
 

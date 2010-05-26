@@ -56,7 +56,7 @@ public class AclUserDuty extends AbstractIBean implements Serializable {
     }
 
     public String getDutyDescription() {
-        bean.admin.AclDuty duty = (AclDuty) this.selectFirstCache("SELECT a FROM AclDuty a WHERE a.seq='" + this.seq + "'");
+        bean.admin.AclDuty duty = (AclDuty) this.selectFirstCache("SELECT a FROM AclDuty a WHERE a.seq='" , this.seq , "'");
         if (duty == null) {
             return "";
         }

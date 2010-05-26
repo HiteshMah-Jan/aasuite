@@ -52,7 +52,7 @@ public class EmployeeLoan_RULE extends BusinessRuleWrapper {
         EmployeeLoan loan = (EmployeeLoan) getBean();
         double totalAmount = loan.loanAmount + (loan.loanAmount * loan.loanInterest/100);
         if (totalAmount < loan.totalPaidAmount) {
-            if (!showPrompt("Total payment of "+loan.totalPaidAmount+" is less than the calculated amount of "+totalAmount+". Would you still like to complete this loan?")) {
+            if (!showPrompt("Total payment of ",loan.totalPaidAmount," is less than the calculated amount of ",totalAmount,". Would you still like to complete this loan?")) {
                 return;
             }
         }

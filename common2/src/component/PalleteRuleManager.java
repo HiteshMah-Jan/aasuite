@@ -15,6 +15,7 @@ import constants.UserInfo;
 import java.util.List;
 import javax.swing.JComponent;
 import rule.BusinessRuleWrapper;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.ScriptRunner;
 
@@ -90,7 +91,7 @@ public class PalleteRuleManager {
         String duty = null;
         List<AclUserDuty> lstDuties = constants.UserInfo.loginUser.getDuties();
         for (AclUserDuty aclUserDuty : lstDuties) {
-            duty = aclUserDuty.getDutyCode()+"|";
+            duty = BeanUtil.concat(aclUserDuty.getDutyCode(),"|");
             if (duties.contains(duty)) return true;
         }
         return false;
@@ -101,14 +102,14 @@ public class PalleteRuleManager {
         String group = null;
         List<AclUserGroup> lstGrops = constants.UserInfo.loginUser.getGroups();
         for (AclUserGroup aclUserDuty : lstGrops) {
-            group = aclUserDuty.getGroupCode()+"|";
+            group = BeanUtil.concat(aclUserDuty.getGroupCode(),"|");
             if (groups.contains(group)) return true;
         }
         return false;
     }
 
     private static boolean isAllowedUser(String users) {
-        String username = constants.UserInfo.loginUser.getUser().getUserid()+"|";
+        String username = BeanUtil.concat(constants.UserInfo.loginUser.getUser().getUserid(),"|");
         if (users.contains(username)) return true;
         return false;
     }

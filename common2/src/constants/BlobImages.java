@@ -29,6 +29,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
+import util.Log;
+
 /**
  *
  * @author Budoy Entokwa
@@ -89,7 +91,7 @@ public class BlobImages implements Serializable {
             java.io.ByteArrayOutputStream bas = new java.io.ByteArrayOutputStream();
             javax.imageio.ImageIO.write(img, "jpg", bas);
             byte[] data = bas.toByteArray();
-            Logger.getLogger("global").log(Level.INFO, "BYTE SIZE == " + data.length);
+            Log.info("BYTE SIZE == ",data.length);
             return data;
         } catch (IOException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);

@@ -16,6 +16,7 @@ import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import ui.DynamicAccessForm;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -60,7 +61,7 @@ public class TimeRendererPallete extends javax.swing.JPanel implements IRule, IG
     }
 
     public void setTime(String time) {
-    	System.out.println("TIME = "+time);
+    	Log.out("TIME = ",time);
         this.time = time;
         if (time != null) {
             try {
@@ -144,7 +145,7 @@ private void changeTime() {
         }
     }
     changeSupport.firePropertyChange("time", "", time);
-    Logger.getLogger("global").log(Level.INFO, "TIME IS " + time);
+    Log.info("TIME IS ",time);
 }
 	
     // Variables declaration - do not modify//GEN-BEGIN:variables

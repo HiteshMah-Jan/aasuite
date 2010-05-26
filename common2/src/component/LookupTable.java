@@ -31,8 +31,10 @@ import org.jdesktop.observablecollections.ObservableCollections;
 import service.util.AbstractIBean;
 import template.screen.TemplateParserUtil;
 import template.screen.component.JTableReadOnly;
+import util.BeanUtil;
 import util.ClientCache;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 import util.PerfUtil;
 
@@ -104,7 +106,7 @@ public class LookupTable extends javax.swing.JPanel {
     /** Creates new form LookupTable */
     public LookupTable() {
         initComponents();
-        txtPageSize.setText(pageSize+"");
+        txtPageSize.setText(BeanUtil.concat(pageSize,""));
     }
     
     private List getList(String bean, int more, int page) {
@@ -116,7 +118,7 @@ public class LookupTable extends javax.swing.JPanel {
 	        if (b.cacheClient()) {
 		        String id = sql.trim();
 		        if (more > 0) {
-		        	id = sql.trim()+"-"+more;
+		        	id = BeanUtil.concat(sql.trim(),"-",more);
 		        }
 		        l = (List) ClientCache.getCache(id.toLowerCase());
 		        if (l==null) {
@@ -337,7 +339,7 @@ public class LookupTable extends javax.swing.JPanel {
         lblStatus.setText("Filtering... Please wait.");
         int size = origList.size();
         int total = size/chunk;
-        System.out.println("TOTAL == "+total);
+        Log.out("TOTAL == ",total);
         for (int i = 0; i < chunk; i++) {
             if (i+1==chunk) {
                 threadFilter(i, i*total, size);
@@ -370,7 +372,7 @@ public class LookupTable extends javax.swing.JPanel {
             if (!b) {
                 try {
                     Thread.sleep(500);
-                    System.out.println("WAITING...."+(++iwait));
+                    Log.out("WAITING....",(++iwait));
                     waitWhenReady();
                     break;
                 } catch (Exception ex) {
@@ -603,7 +605,7 @@ private void txtPageSizeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
         pageSize = Integer.parseInt(txtPageSize.getText());
     }
     catch (Exception e) {
-        txtPageSize.setText(pageSize+"");
+        txtPageSize.setText(BeanUtil.concat(pageSize,""));
     }
 }//GEN-LAST:event_txtPageSizeFocusLost
 

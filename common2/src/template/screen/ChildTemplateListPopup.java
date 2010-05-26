@@ -49,6 +49,7 @@ import template.UITemplate;
 import template.screen.component.JTableReadOnly;
 import util.BeanUtil;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -106,7 +107,7 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
                 }
             }
             catch (Exception e) {
-                System.err.println("CHILD SQL EXCEPTION =="+sql);
+                Log.out("CHILD SQL EXCEPTION ==",sql);
 //                e.printStackTrace();
             }
         }
@@ -324,17 +325,16 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-//        System.out.println("TOTAL:COL=="+total+":"+col);
-        lbl.setText(DataUtil.getCurrencyFormat(total)+"");
+        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total),""));
     }
     
     String sumFooter;
     private boolean withSumFooter(int i) {
         if (sumFooter==null) {
-        	sumFooter = ","+template.sumFooter()+",";
+        	sumFooter = BeanUtil.concat(",",template.sumFooter(),",");
         }
         if (sumFooter==null) return false;
-        return sumFooter.contains(","+i+",");
+        return sumFooter.contains(BeanUtil.concat(",",i,","));
     }
 
     @Override

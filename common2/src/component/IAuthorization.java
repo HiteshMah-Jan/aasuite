@@ -101,16 +101,16 @@ public interface IAuthorization {
             }
         }
         public void removeDuty(String dutyCode) {
-            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a WHERE a.userid='"+bean.getUserid()+"' AND a.dutyCode='"+dutyCode+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a WHERE a.userid='",bean.getUserid(),"' AND a.dutyCode='",dutyCode,"'");
         }
         public void removeModule(String module) {
-            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a, AclDutyModule b WHERE a.dutyCode=b.dutyCode AND a.userid='"+bean.getUserid()+"' AND b.moduleName='"+module+"'");
-            AbstractIBean.runSQL("DELETE a FROM AclUserModule a WHERE a.userid="+bean.getUserid()+" AND a.moduleName='"+module+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a, AclDutyModule b WHERE a.dutyCode=b.dutyCode AND a.userid='",bean.getUserid(),"' AND b.moduleName='",module,"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserModule a WHERE a.userid=",bean.getUserid()," AND a.moduleName='",module,"'");
         }
         public void removeGroup(String groupCode) {
-            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a, AclGroupDuty b WHERE a.dutyCode=b.dutyCode AND a.userid='"+bean.getUserid()+"' AND b.groupCode='"+groupCode+"'");
-            AbstractIBean.runSQL("DELETE a FROM AclUserModule a, AclGroupModule b WHERE a.moduleName=b.moduleName AND a.userid="+bean.getUserid()+" AND b.groupCode='"+groupCode+"'");
-            AbstractIBean.runSQL("DELETE a FROM AclUserGroup a WHERE a.userid="+bean.getUserid()+" AND a.groupCode='"+groupCode+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserDuty a, AclGroupDuty b WHERE a.dutyCode=b.dutyCode AND a.userid='",bean.getUserid(),"' AND b.groupCode='",groupCode,"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserModule a, AclGroupModule b WHERE a.moduleName=b.moduleName AND a.userid=",bean.getUserid()," AND b.groupCode='",groupCode,"'");
+            AbstractIBean.runSQL("DELETE a FROM AclUserGroup a WHERE a.userid=",bean.getUserid()," AND a.groupCode='",groupCode,"'");
         }
     }
 
@@ -140,7 +140,7 @@ public interface IAuthorization {
             //no implementation
         }
         public void removeDuty(String dutyCode) {
-            AbstractIBean.runSQL("DELETE a FROM AclDutyModule a WHERE a.moduleName='"+bean.getModuleName()+"' AND a.dutyCode='"+dutyCode+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclDutyModule a WHERE a.moduleName='",bean.getModuleName(),"' AND a.dutyCode='",dutyCode,"'");
         }
         public void removeModule(String module) {
             //no implementaion
@@ -187,11 +187,11 @@ public interface IAuthorization {
             //no implementation
         }
         public void removeDuty(String dutyCode) {
-            AbstractIBean.runSQL("DELETE a FROM AclGroupDuty a WHERE a.groupCode='"+bean.getCode()+"' AND a.dutyCode='"+dutyCode+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclGroupDuty a WHERE a.groupCode='",bean.getCode(),"' AND a.dutyCode='",dutyCode,"'");
         }
         public void removeModule(String module) {
-            AbstractIBean.runSQL("DELETE a FROM AclGroupDuty a, AclDutyModule b WHERE a.dutyCode=b.dutyCode AND a.groupCode='"+bean.getCode()+"' AND b.moduleName='"+module+"'");
-            AbstractIBean.runSQL("DELETE a FROM AclGroupModule a WHERE a.groupCode="+bean.getCode()+" AND a.moduleName='"+module+"'");
+            AbstractIBean.runSQL("DELETE a FROM AclGroupDuty a, AclDutyModule b WHERE a.dutyCode=b.dutyCode AND a.groupCode='",bean.getCode(),"' AND b.moduleName='",module,"'");
+            AbstractIBean.runSQL("DELETE a FROM AclGroupModule a WHERE a.groupCode=",bean.getCode()," AND a.moduleName='",module,"'");
         }
         public void removeGroup(String groupCode) {
             //no implementation

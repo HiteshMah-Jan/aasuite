@@ -231,7 +231,7 @@ public class ImageUtil {
 				BufferedImage img = ImageIO.read(new ByteArrayInputStream(out.toByteArray()));
 				int orig = ImageUtil.getImageBytes(image).length;
 				int compress = ImageUtil.getImageBytes(img).length;
-				System.out.println("RATIO = "+orig+":"+compress);
+				Log.out("RATIO = ",orig,":",compress);
 				if (orig<compress+5000) {
 					return false;
 				}

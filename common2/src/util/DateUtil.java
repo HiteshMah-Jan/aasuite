@@ -58,17 +58,17 @@ public class DateUtil {
     
     public static Date getDateOfMonth(int month, int day) {
         String year = DateUtil.formatDate(constants.Constants.useDate, "yyyy-");
-        return DateUtil.readDate(year + month + "-" + day, "yyyy-MM-dd");
+        return DateUtil.readDate(BeanUtil.concat(year,month,"-",day), "yyyy-MM-dd");
     }
 
     public static Date getDateOfMonth(int day) {
         String yearMonth = DateUtil.formatDate(constants.Constants.useDate, "yyyy-MM-");
-        return DateUtil.readDate(yearMonth + day, "yyyy-MM-dd");
+        return DateUtil.readDate(BeanUtil.concat(yearMonth,day), "yyyy-MM-dd");
     }
 
     public static Date addMonth(Date d, int months) {
         int month = DateUtil.getMonth(d);
-        return DateUtil.readDate(DateUtil.formatDate(d, "yyyy-dd-") + (month + months), "yyyy-dd-MM");
+        return DateUtil.readDate(BeanUtil.concat(DateUtil.formatDate(d, "yyyy-dd-"),(month + months)), "yyyy-dd-MM");
     }
 
     public static Date getEndOfMonth() {
@@ -230,11 +230,11 @@ public class DateUtil {
         try {
             java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyyMMdd");
             if (dateStr.length() == 4) {
-                dateStr = formatDate(constants.Constants.useDate, "yyyy") + dateStr;
+                dateStr = BeanUtil.concat(formatDate(constants.Constants.useDate, "yyyy"),dateStr);
             } else if (dateStr.length() == 2) {
-                dateStr = formatDate(constants.Constants.useDate, "yyyyMM") + dateStr;
+                dateStr = BeanUtil.concat(formatDate(constants.Constants.useDate, "yyyyMM"),dateStr);
             } else if (dateStr.length() == 1) {
-                dateStr = formatDate(constants.Constants.useDate, "yyyyMM") + "0" + dateStr;
+                dateStr = BeanUtil.concat(formatDate(constants.Constants.useDate, "yyyyMM"),"0",dateStr);
             }
             return format.parse(dateStr);
         } catch (ParseException ex) {
@@ -246,8 +246,8 @@ public class DateUtil {
     public static List<Date> getAllDates(String dayOfWeek) {
         List<Date> lst = new ArrayList<Date>();
         String year = formatDate(constants.Constants.useDate, "yyyy");
-        Date firstDayOfYear = readDate(year + "0101");
-        Date lastDayOfYear = readDate(year + "1231");
+        Date firstDayOfYear = readDate(BeanUtil.concat(year,"0101"));
+        Date lastDayOfYear = readDate(BeanUtil.concat(year,"1231"));
 
         long timeLast = lastDayOfYear.getTime();
         long timeFirst = firstDayOfYear.getTime();
@@ -265,7 +265,7 @@ public class DateUtil {
     public static Date readDateNoYear(String dateStr) {
         try {
             java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("ddMMMyyyy");
-            return format.parse((dateStr + "      ").substring(0, 5) + formatDate(constants.Constants.useDate, "yyyy"));
+            return format.parse(BeanUtil.concat(dateStr,"      ").substring(0, 5) + formatDate(constants.Constants.useDate, "yyyy"));
         } catch (ParseException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
@@ -275,7 +275,7 @@ public class DateUtil {
     public static boolean isDateNoYear(String dateStr) {
         try {
             java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("ddMMMyyyy");
-            format.parse((dateStr + "       ").substring(0, 5) + formatDate(constants.Constants.useDate, "yyyy"));
+            format.parse(BeanUtil.concat(dateStr,"       ").substring(0, 5) + formatDate(constants.Constants.useDate, "yyyy"));
             return true;
         } catch (ParseException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
@@ -286,7 +286,7 @@ public class DateUtil {
     public static Date readDateNoYearNoMonth(String dateStr) {
         try {
             java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("ddMMMyyyy");
-            return format.parse(dateStr + formatDate(constants.Constants.useDate, "MMyyyy"));
+            return format.parse(BeanUtil.concat(dateStr,formatDate(constants.Constants.useDate, "MMyyyy")));
         } catch (ParseException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
@@ -308,7 +308,7 @@ public class DateUtil {
         Date from = readDate("20070801", "yyyyMMdd");
         Date to = readDate("20070901", "yyyyMMdd");
 
-        System.out.println("COUNT DAYS === " + countDaySpan(from, to));
+        Log.out("COUNT DAYS === ",countDaySpan(from, to));
     }
 
     public static int countDaySpan(Date from, Date to) {
@@ -325,7 +325,7 @@ public class DateUtil {
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
         int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        return readDate(getYear()+"-"+getMonth(startDate)+"-"+maxDay, "yyyy-MM-dd");
+        return readDate(BeanUtil.concat(getYear(),"-",getMonth(startDate),"-",maxDay), "yyyy-MM-dd");
     }
 
     public static class Days {
@@ -367,7 +367,6 @@ public class DateUtil {
 
     public static int getDayOfMonth() {
         int d = Integer.parseInt(formatDate(constants.Constants.useDate, "d"));
-        Logger.getLogger("global").info("DAY === " + d);
         return d;
     }
 
@@ -381,7 +380,7 @@ public class DateUtil {
     }
 
     public static boolean isHoliday(Date date) {
-        EventHoliday hol = (EventHoliday) AbstractIBean.firstRecord("SELECT a FROM EventHoliday a WHERE a.eventDate='" + DateUtil.formatDateToSql(date) + "'");
+        EventHoliday hol = (EventHoliday) AbstractIBean.firstRecord("SELECT a FROM EventHoliday a WHERE a.eventDate='" , DateUtil.formatDateToSql(date) , "'");
         if (hol == null || hol.getEventDate() == null) {
             return false;
         }
@@ -418,19 +417,19 @@ public class DateUtil {
     public static String getSQLDayName(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " DAYNAME(" + field + ") ";
+        return BeanUtil.concat(" DAYNAME(",field,") ");
     }
 
     public static String getSQLMonthName(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " MONTHNAME(" + field + ") ";
+        return BeanUtil.concat(" MONTHNAME(",field,") ");
     }
 
     public static String getSQLYear(String field) {
         //note: this must create the sql using any database, use only for native sql
         //this is for MySQL only
-        return " YEAR(" + field + ") ";
+        return BeanUtil.concat(" YEAR(",field,") ");
     }
 
     public static int getHour() {
@@ -439,13 +438,11 @@ public class DateUtil {
     }
 
     public static double getTotalHours(String start, String end) {
-//    	System.out.println("TIME = "+start+" "+end);
         try {
             double shours = DataUtil.getIntValue(start.substring(0, 2)) + DataUtil.getIntValue(start.substring(2)) / 60;
             double ehours = DataUtil.getIntValue(end.substring(0, 2)) + DataUtil.getIntValue(end.substring(2)) / 60;
             return DataUtil.getDoubleValue(ehours - shours);
         } catch (Exception e) {
-//            e.printStackTrace();
         }
         return 0;
     }

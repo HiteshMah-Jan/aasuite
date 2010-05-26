@@ -25,6 +25,7 @@ import template.ActionButton;
 import template.ActionButtons;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DateUtil;
 import template.ChildRecord;
 import template.ChildRecords;
@@ -320,7 +321,7 @@ public class Expense extends AbstractIBean implements Serializable, IGL {
     @Override
     public java.util.Vector allChart() {
         java.util.Vector vec = new java.util.Vector();
-        vec.add(ChartBean.getNativeBarInstance(this, "Expense", "SELECT" + DateUtil.getSQLYear("a.expenseDate") + ", a.chargeDepartment, SUM(a.amount) FROM Expense a GROUP BY a.chargeDepartment," + DateUtil.getSQLYear("a.expenseDate")));
+        vec.add(ChartBean.getNativeBarInstance(this, "Expense", "SELECT",DateUtil.getSQLYear("a.expenseDate"),", a.chargeDepartment, SUM(a.amount) FROM Expense a GROUP BY a.chargeDepartment,",DateUtil.getSQLYear("a.expenseDate")));
         return vec;
     }
     
@@ -329,10 +330,10 @@ public class Expense extends AbstractIBean implements Serializable, IGL {
     }
 
     public String extractDefaultFormula() {
-        return 
-                "GL.debit EXPENSE, now, EXPENSE.expenseType+\"\", EXPENSE.amount, EXPENSE.getAccountName();" +
-                "\nGL.credit EXPENSE, now, \"103\", EXPENSE.amountPaid, \"CASH / CASH ON HAND\";" +
-                "\nGL.credit EXPENSE, now, \"201\", EXPENSE.amount - EXPENSE.amountPaid, \"ACCOUNTS PAYABLE\";";
+        return BeanUtil.concat(
+                "GL.debit EXPENSE, now, EXPENSE.expenseType+\"\", EXPENSE.amount, EXPENSE.getAccountName();",
+                "\nGL.credit EXPENSE, now, \"103\", EXPENSE.amountPaid, \"CASH / CASH ON HAND\";",
+                "\nGL.credit EXPENSE, now, \"201\", EXPENSE.amount - EXPENSE.amountPaid, \"ACCOUNTS PAYABLE\";");
     }
 
     public String extractChargeDepartment() {

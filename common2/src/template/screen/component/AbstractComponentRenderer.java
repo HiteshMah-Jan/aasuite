@@ -45,6 +45,7 @@ import ui.BusinessRuleForm;
 import ui.BusinessRuleServiceForm;
 import ui.DynamicAccessForm;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -97,7 +98,7 @@ public abstract class AbstractComponentRenderer {
                     }
                 }
             }
-            AbstractComponentRenderer comp = (AbstractComponentRenderer) Class.forName("template.screen.component."+type+"Renderer").newInstance();
+            AbstractComponentRenderer comp = (AbstractComponentRenderer) Class.forName(BeanUtil.concat("template.screen.component.",type,"Renderer")).newInstance();
             comp.bindingGroup = bindingGroup;
             comp.setField(field);
             comp.setObject(tbl);
@@ -146,7 +147,7 @@ public abstract class AbstractComponentRenderer {
                     }
                 }
             }
-            AbstractComponentRenderer comp = (AbstractComponentRenderer) Class.forName("template.screen.component."+type+"Renderer").newInstance();
+            AbstractComponentRenderer comp = (AbstractComponentRenderer) Class.forName(BeanUtil.concat("template.screen.component.",type,"Renderer")).newInstance();
             comp.forSearch = true;
             comp.bindingGroup = bindingGroup;
             comp.setField(field);
@@ -179,7 +180,7 @@ public abstract class AbstractComponentRenderer {
         		((JComponent) obj).setEnabled(field.display.enabled());
 //        	}
         }
-        JLinkLabelPallete lbl = new JLinkLabelPallete(label+":", (IGetText) obj); 
+        JLinkLabelPallete lbl = new JLinkLabelPallete(BeanUtil.concat(label,":"), (IGetText) obj); 
         if (this.field.display.linktoBean()!=String.class) {
             if (obj!=null && obj instanceof IGetText) {
                 lbl.addLinkBean(this.field.display.linktoBean());
@@ -187,7 +188,7 @@ public abstract class AbstractComponentRenderer {
         }
         if (this.field.display.labelWidth()>0) setSize(lbl, this.field.display.labelWidth());
         if (constants.Constants.font!=null) lbl.setFont(constants.Constants.font);
-        lbl.setName("lbl_"+label);
+        lbl.setName(BeanUtil.concat("lbl_",label));
         if (this.field.display.withHelp()) {
             lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/help.png")));
         }
@@ -196,7 +197,7 @@ public abstract class AbstractComponentRenderer {
             if (tbl!=null) {
                 if (constants.Constants.labelColor!=null) {
                     lbl.setForeground(constants.Constants.labelColor);
-                    lbl.superText("*"+label+":");
+                    lbl.superText(BeanUtil.concat("*",label,":"));
                 }
                 else {
                     lbl.setForeground(PanelUtil.MANDATORY_COLOR);
@@ -211,7 +212,7 @@ public abstract class AbstractComponentRenderer {
         String label = PanelUtil.getSearchLabel(field);
         obj = getRenderedListeningField();
 		((JComponent) obj).setEnabled(true);
-        JLinkLabelPallete lbl = new JLinkLabelPallete(label+":", (IGetText) obj); 
+        JLinkLabelPallete lbl = new JLinkLabelPallete(BeanUtil.concat(label,":"), (IGetText) obj); 
         if (this.field.display.linktoBean()!=String.class) {
             if (obj!=null && obj instanceof IGetText) {
                 lbl.addLinkBean(this.field.display.linktoBean());
@@ -346,7 +347,7 @@ public abstract class AbstractComponentRenderer {
         PanelUtil.setupCursor(obj);
         String[] duties = field.display.duties();
         if (!UserInfo.hasDuty(duties)) {
-        	System.out.println(field.display.name()+" not allowed "+BeanUtil.concat(duties));
+        	Log.out(field.display.name()," not allowed ",BeanUtil.concat(duties));
             String[] viewOnDuties = field.display.viewOnDuties();
             if (!UserInfo.hasDuty(viewOnDuties)) {
             	return new SecuredField(duties, "<<Secured>>");
@@ -380,10 +381,8 @@ public abstract class AbstractComponentRenderer {
                 if (objTmp instanceof IParentComp) {
                     objTmp = ((IParentComp) objTmp).getTrueTxt();
                 }
-//                System.out.println("VALUE = "+((IGetText)objTmp).getValue());
                 if (bean!=null && objTmp!=null) {
                     bean.changeValue(name, ((IGetText)objTmp).getValue());
-//                    bean.changeValue(name, ((IGetText)objTmp).getValue());
                 }
             }
         }
@@ -474,7 +473,7 @@ public abstract class AbstractComponentRenderer {
         String name = this.field.field.getName();
         if (tbl!=null) {
             if (tbl instanceof JTable) {
-                org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, tbl, ELProperty.create("${selectedElement."+name+"}"), obj, BeanProperty.create(property));
+                org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, tbl, ELProperty.create(BeanUtil.concat("${selectedElement.",name,"}")), obj, BeanProperty.create(property));
                 if (sourceUnreadable) 
                     binding.setSourceUnreadableValue(null);
                 bindingGroup.addBinding(binding);
@@ -482,7 +481,7 @@ public abstract class AbstractComponentRenderer {
                 binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, tbl, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), obj, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
             }
             else {
-                org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, tbl, ELProperty.create("${"+name+"}"), obj, BeanProperty.create(property));
+                org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, tbl, ELProperty.create(BeanUtil.concat("${",name,"}")), obj, BeanProperty.create(property));
                 bindingGroup.addBinding(binding);
             }
         }

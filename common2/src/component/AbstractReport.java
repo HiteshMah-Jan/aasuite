@@ -43,6 +43,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import oracle.toplink.essentials.sessions.DatabaseLogin;
 import service.ReturnStruct;
 import service.util.CallService;
+import util.BeanUtil;
 import util.DataUtil;
 
 /**
@@ -55,7 +56,7 @@ public abstract class AbstractReport {
 
     public AbstractReportParameterViewer getParamViewer() {
         try {
-            java.lang.String viewer = "report.viewer." + this.getClass().getSimpleName() + "Viewer";
+            String viewer = BeanUtil.concat("report.viewer.",this.getClass().getSimpleName(),"Viewer");
             return (AbstractReportParameterViewer) java.lang.Class.forName(viewer).newInstance();
         } catch (Exception ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
@@ -188,7 +189,7 @@ public abstract class AbstractReport {
             if (displayOnly) {
                 JLabel lbl = new JLabel("<< >>");
                 if (param.getDefaultValueExpression()!=null) {
-                    lbl.setText("<< "+param.getDefaultValueExpression().getText()+" >>");
+                    lbl.setText(BeanUtil.concat("<< ",param.getDefaultValueExpression().getText()," >>"));
                 }
                 pnlParameter.add(lbl, gridBagConstraints);
             }

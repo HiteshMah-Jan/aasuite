@@ -18,6 +18,7 @@ import template.Displays;
 import template.UITemplate;
 import template.ActionButtons;
 import template.ActionButton;
+import util.BeanUtil;
 
 /**
  *
@@ -168,7 +169,7 @@ public class AccountPayable extends AbstractIBean implements Serializable, IGL {
 
     @Override
     public String toString() {
-        return invoiceId + " - " + amount;
+        return BeanUtil.concat(invoiceId," - ",amount);
     }
 
     public String extractGLSubType() {
@@ -181,7 +182,7 @@ public class AccountPayable extends AbstractIBean implements Serializable, IGL {
 
     public String extractChargeDepartment() {
         if (isEmptyKey() || expenseId==0) return "";
-        Expense exp = (Expense) AbstractIBean.firstRecord("SELECT a FROM Expense a WHERE a.seq="+expenseId);
+        Expense exp = (Expense) AbstractIBean.firstRecord("SELECT a FROM Expense a WHERE a.seq=",expenseId);
         if (exp==null) return "";
         return exp.chargeDepartment;
     }
@@ -192,14 +193,14 @@ public class AccountPayable extends AbstractIBean implements Serializable, IGL {
     }
 
     public String extractAccount() {
-        Expense exp = (Expense) AbstractIBean.firstRecord("SELECT a FROM Expense a WHERE a.seq="+expenseId);
+        Expense exp = (Expense) AbstractIBean.firstRecord("SELECT a FROM Expense a WHERE a.seq=",expenseId);
         if (exp!=null) return exp.accountType;
         return "";
     }
     
     public String extractDefaultFormula() {
-        return 
-                "GL.debit ACCOUNTPAYABLE, now, ACCOUNTPAYABLE.extractAccount(), ACCOUNTPAYABLE.totalAmount, ACCOUNTPAYABLE.remarks;" +
-                "\nGL.credit ACCOUNTPAYABLE, now, \"102\", ACCOUNTPAYABLE.totalAmount, \"CASH\";";
+        return BeanUtil.concat(
+                "GL.debit ACCOUNTPAYABLE, now, ACCOUNTPAYABLE.extractAccount(), ACCOUNTPAYABLE.totalAmount, ACCOUNTPAYABLE.remarks;",
+                "\nGL.credit ACCOUNTPAYABLE, now, \"102\", ACCOUNTPAYABLE.totalAmount, \"CASH\";");
     }
 }

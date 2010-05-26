@@ -523,17 +523,17 @@ private void txtViewORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     if (or.contains("-")) {
     	String orType = or.substring(0, or.indexOf("-")).toUpperCase();
     	or = or.substring(or.indexOf("-")+1).trim();
-        Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orType='"+orType+"' AND a.orNumber="+or);
+        Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orType='",orType,"' AND a.orNumber=",or);
         if (inv==null) {
-            PanelUtil.showError(txtViewOR, "OR #"+or+" not found.");
+            PanelUtil.showError(txtViewOR, "OR #",or," not found.");
             return;
         }
         AbstractReportTemplate.getInstance().showReportFromFileTemplateDialog("OfficialReceipt", inv.seq, "Print Invoice", null);
     }
     else {
-        Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orType='N' AND a.orNumber="+or);
+        Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orType='N' AND a.orNumber=",or);
         if (inv==null) {
-            PanelUtil.showError(txtViewOR, "OR #"+or+" not found.");
+            PanelUtil.showError(txtViewOR, "OR #",or," not found.");
             return;
         }
         AbstractReportTemplate.getInstance().showReportFromFileTemplateDialog("OfficialReceipt", inv.seq, "Print Invoice", null);

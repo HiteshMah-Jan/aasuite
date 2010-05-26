@@ -165,9 +165,9 @@ public class BeanUtil {
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];
             String methodName = method.getName();
-            if (("get" + properName).equalsIgnoreCase(methodName)) {
+            if (BeanUtil.concat("get",properName).equalsIgnoreCase(methodName)) {
                 methodName = methodName.substring("get".length());
-                methodName = Character.toLowerCase(methodName.charAt(0)) + methodName.substring(1);
+                methodName = BeanUtil.concat(Character.toLowerCase(methodName.charAt(0)),methodName.substring(1));
                 return methodName;
             }
         }
@@ -304,7 +304,7 @@ public class BeanUtil {
     public static String concatFromTo(AbstractIBean b, String fieldName, int start, int end) {
         StringBuffer sb = new StringBuffer();
         for (int i=start; i<end; i++) {
-            sb.append(BeanUtil.getPropertyValue(b, fieldName+i)).append(",");
+            sb.append(BeanUtil.getPropertyValue(b, BeanUtil.concat(fieldName,i))).append(",");
         }
         return sb.toString();
     }

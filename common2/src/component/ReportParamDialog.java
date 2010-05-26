@@ -22,6 +22,7 @@ import javax.swing.*;
 
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperReport;
+import util.BeanUtil;
 import util.PanelUtil;
 import template.UITemplate;
 
@@ -148,7 +149,7 @@ public class ReportParamDialog extends javax.swing.JDialog {
     private void showReport() {
         //put all values inside the parameters variable, then hide the dialog
         for (JComponent comp : lstComp) {
-            String name = "PARAM_"+comp.getName();
+            String name = BeanUtil.concat("PARAM_",comp.getName());
             if (comp instanceof JCalendarPallete) {
                 Date d = ((JCalendarPallete) comp).getDate();
                 this.parameters.put(name, d);

@@ -144,7 +144,7 @@ public class Supplier extends Person implements Serializable {
     }
 
     public List getItemList() {
-        return this.list("SELECT a FROM Supplier a WHERE a.personId=" + personId);
+        return this.list("SELECT a FROM Supplier a WHERE a.personId=" , personId);
     }
 
     public void setShortName(java.lang.String shortName) {

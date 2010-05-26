@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.swing.JLabel;
 
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.BeanUtil;
 import util.DataUtil;
 import util.DateUtil;
 import util.PanelUtil;
@@ -22,7 +23,7 @@ public class LabelPallete extends JLabel  implements component.IGetText {
 	public void setTxt(String arg0) {
 		this.txt = arg0;
 		if (arg0!=null && maxChar>0 && maxChar<arg0.length()) {
-			arg0 = arg0.substring(0, maxChar)+"...";
+			arg0 = BeanUtil.concat(arg0.substring(0, maxChar),"...");
 		}
         if (this.field.field.getType()==double.class) {
         	double d = PanelUtil.getDoubleValue(arg0);
@@ -34,7 +35,7 @@ public class LabelPallete extends JLabel  implements component.IGetText {
 	}
 
 	public void setDoubleTxt(double d) {
-		this.txt = d+"";
+		this.txt = BeanUtil.concat(d,"");
 		super.setText(DataUtil.getCurrencyFormat(d));
 	}
 

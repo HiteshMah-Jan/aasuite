@@ -233,7 +233,7 @@ public class DataUtil {
 			String tmp = st.nextToken();
 			if (tmp.startsWith("/")) {
 				String ts = lst.get(lst.size() - 1);
-				ts += "\n" + tmp;
+				ts += BeanUtil.concat("\n",tmp);
 				lst.set(lst.size() - 1, ts);
 			} else {
 				lst.add(tmp);
@@ -399,8 +399,7 @@ public class DataUtil {
 					tmp.mkdir();
 					continue;
 				}
-				writeToFile(zipFile.getInputStream(entry), directory + "/"
-						+ entry.getName());
+				writeToFile(zipFile.getInputStream(entry), BeanUtil.concat(directory,"/",entry.getName()));
 			}
 			zipFile.close();
 		} catch (IOException ex) {
@@ -468,17 +467,13 @@ public class DataUtil {
 
 	private static void recordMovieNow() {
 		try {
-			java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit()
-					.getScreenSize();
-			// java.lang.System.out.println("DIM " + dim.height + ":" +
-			// dim.width);
+			java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 			java.util.Vector<java.lang.String> vec = new java.util.Vector<java.lang.String>();
 			vec.addAll(imageFiles);
 			java.lang.Thread.sleep(1000);
 			long newtime = (new java.util.Date()).getTime();
 
-			MovieMaker.writeAudioToFile(constants.Constants.ROOT_FOLDER
-					+ "tmp/" + newtime + ".wav");
+			MovieMaker.writeAudioToFile(BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/" , newtime , ".wav"));
 
 			// MovieMaker movMaker = new MovieMaker(dim.width, dim.height,
 			// framerate + 1, new File(constants.Constants.ROOT_FOLDER + "tmp/"
@@ -777,10 +772,10 @@ public class DataUtil {
 			sb.append(padChar);
 		}
 		if (!isStart) {
-			String tmp = sb.toString() + str;
+			String tmp = BeanUtil.concat(sb.toString(),str);
 			return tmp.substring(tmp.length() - length, tmp.length());
 		} else {
-			String tmp = str + sb.toString();
+			String tmp = BeanUtil.concat(str,sb.toString());
 			return tmp.substring(0, length);
 		}
 	}
@@ -790,29 +785,29 @@ public class DataUtil {
 		if (reportDir==null || reportDir.isEmpty()) {
 			reportDir = "ESS";
 		}
-		String filename = constants.Constants.ROOT_FOLDER + "tmp/designing/clients/" + reportDir.toUpperCase() + "/" + file + ".jrxml";
+		String filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/clients/",reportDir.toUpperCase(),"/",file,".jrxml");
 		File f = new File(filename);
 		if (f == null || !f.exists()) {
-			filename = constants.Constants.ROOT_FOLDER + "tmp/designing/" + AAAConfig.getInstance().getModule().toLowerCase() + "/grading/" + file + ".jrxml";
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",AAAConfig.getInstance().getModule().toLowerCase(),"/grading/",file,".jrxml");
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = constants.Constants.ROOT_FOLDER + "tmp/designing/" + constants.Constants.module.toLowerCase() + "/" + file + ".jrxml";
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",constants.Constants.module.toLowerCase(),"/",file,".jrxml");
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = constants.Constants.ROOT_FOLDER + "tmp/designing/gov/" + file + ".jrxml";
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/gov/",file,".jrxml");
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = constants.Constants.ROOT_FOLDER + "tmp/designing/acct/" + file + ".jrxml";
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/acct/",file,".jrxml");
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = constants.Constants.ROOT_FOLDER + "tmp/designing/" + file + ".jrxml";
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",file,".jrxml");
 			f = new File(filename);
 		}
-		System.out.println("FILENAME == "+filename);
+		Log.out("FILENAME == ",filename);
 		return f;
 	}
 
@@ -828,7 +823,7 @@ public class DataUtil {
 			}
 		}
 		if (is == null) {
-			is = DataUtil.getResource("reports/" + file + ".jrxml");
+			is = DataUtil.getResource(BeanUtil.concat("reports/",file,".jrxml"));
 		}
 		if (is != null) {
 			try {

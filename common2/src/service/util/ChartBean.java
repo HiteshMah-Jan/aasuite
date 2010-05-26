@@ -16,7 +16,10 @@ import org.jfree.data.gantt.TaskSeries;
 import org.jfree.data.gantt.TaskSeriesCollection;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.time.SimpleTimePeriod;
+
+import util.BeanUtil;
 import util.DateUtil;
+import util.Log;
 
 /**
  *
@@ -35,10 +38,10 @@ public class ChartBean {
     public static final int BAR = 2;
     public static final int GANTT = 3;
 
-    public static ChartBean getPieInstance(AbstractIBean ibean, String title, String sql) {
+    public static ChartBean getPieInstance(AbstractIBean ibean, String title, String... sql) {
         ChartBean bean = new ChartBean();
         bean.bean = ibean;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
         bean.type = PIE;
         bean.title = title;
 //        bean.setupPie(title, sql);
@@ -49,50 +52,50 @@ public class ChartBean {
         ChartBean bean = new ChartBean();
         bean.title = title;
         bean.bean = ibean;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
         bean.type = GANTT;
 //        bean.setupGantt(title, sql);
         return bean;
     }
 
-    public static ChartBean getBarInstance(AbstractIBean ibean, String title, String sql) {
+    public static ChartBean getBarInstance(AbstractIBean ibean, String title, String... sql) {
         ChartBean bean = new ChartBean();
         bean.title = title;
         bean.bean = ibean;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
         bean.type = BAR;
 //        bean.setupBar(title, sql);
         return bean;
     }
 
-    public static ChartBean getNativePieInstance(AbstractIBean ibean, String title, String sql) {
+    public static ChartBean getNativePieInstance(AbstractIBean ibean, String title, String... sql) {
         ChartBean bean = new ChartBean();
         bean.title = title;
         bean.bean = ibean;
         bean.useNative = true;
         bean.type = PIE;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
 //        bean.setupPie(title, sql);
         return bean;
     }
 
-    public static ChartBean getNativeGanttInstance(AbstractIBean ibean, String title, String sql) {
+    public static ChartBean getNativeGanttInstance(AbstractIBean ibean, String title, String... sql) {
         ChartBean bean = new ChartBean();
         bean.title = title;
         bean.bean = ibean;
         bean.useNative = true;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
         bean.type = GANTT;
 //        bean.setupGantt(title, sql);
         return bean;
     }
 
-    public static ChartBean getNativeBarInstance(AbstractIBean ibean, String title, String sql) {
+    public static ChartBean getNativeBarInstance(AbstractIBean ibean, String title, String... sql) {
         ChartBean bean = new ChartBean();
         bean.title = title;
         bean.bean = ibean;
         bean.useNative = true;
-        bean.sql = sql;
+        bean.sql = BeanUtil.concat(sql);
         bean.type = BAR;
 //        bean.setupBar(title, sql);
         return bean;
@@ -156,7 +159,7 @@ public class ChartBean {
             this.dataset = data;
         } catch (Exception e) {
 //            e.printStackTrace();
-            Logger.getLogger("global").log(Level.SEVERE, "PIE CHART SQL = " + sql);
+            Log.severe("PIE CHART SQL = ",sql);
         }
     }
 
@@ -200,7 +203,7 @@ public class ChartBean {
             }
         } catch (Exception e) {
 //                e.printStackTrace();
-            Logger.getLogger("global").log(Level.SEVERE, "GANT CHART SQL = " + sql);
+            Log.severe("GANT CHART SQL = ",sql);
         }
     }
 
@@ -235,7 +238,7 @@ public class ChartBean {
             dataset = data;
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.getLogger("global").log(Level.SEVERE, "BAR CHART SQL = " + sql);
+            Log.severe("BAR CHART SQL = ",sql);
         }
     }
 

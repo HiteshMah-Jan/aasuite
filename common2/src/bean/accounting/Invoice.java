@@ -1088,7 +1088,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
 
     @Override
     public String toString() {
-        return "Invoice[" + seq + "]";
+        return BeanUtil.concat("Invoice[",seq,"]");
     }
 
     public String extractGLSubType() {
@@ -1106,14 +1106,14 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
     public void extractCheck(AbstractIBean bean) {
     	for (int i=1; i<=10; i++) {
     		try {
-            	Object objChk = BeanUtil.getPropertyValue(bean, "accountNumber"+i);
-            	BeanUtil.setPropertyValue(this, "accountNumber"+i, objChk);
+            	Object objChk = BeanUtil.getPropertyValue(bean, BeanUtil.concat("accountNumber",i));
+            	BeanUtil.setPropertyValue(this, BeanUtil.concat("accountNumber",i), objChk);
     		}
     		catch (Exception e) {
     		}
     		try {
-            	Object objAmount = BeanUtil.getPropertyValue(bean, "amount"+i);
-            	BeanUtil.setPropertyValue(this, "amount"+i, objAmount);
+            	Object objAmount = BeanUtil.getPropertyValue(bean, BeanUtil.concat("amount",i));
+            	BeanUtil.setPropertyValue(this, BeanUtil.concat("amount",i), objAmount);
     		}
     		catch (Exception e) {
     		}
@@ -1141,34 +1141,34 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
     
     public String extractDefaultFormula() {
         if ("ENROLLMENT".equals(accountType)) {
-            return 
-                    "//Note: change the account numbers" +
-                    "\nif (INVOICE.paymentTerms.equals(\"CASH\")) {" +
-                    "\n GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";" +
-                    "\n GL.credit INVOICE, now, \"401\", INVOICE.totalAmount, \"TUITION FEES\";" +
-                    "\n}" +
-                    "\nelse { " +
-                    "\n if (INVOICE.balance>0 && INVOICE.totalAmount+INVOICE.balance==INVOICE.allAmount) {" +
-                    "\n //this is the first payment" +
-                    "\n     GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";" +
-                    "\n     GL.debit INVOICE, now, \"121\", INVOICE.balance, \"TUITION AND OTHER FEES RECEIVABLE\";" +
-                    "\n     GL.credit INVOICE, now, \"401\", INVOICE.allAmount, \"TUITION FEES\";" +
-                    "\n }" +
-                    "\n else {" +
-                    "\n     GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";" +
-                    "\n     GL.credit INVOICE, now, \"401\", INVOICE.totalAmount, \"TUITION AND OTHER FEES RECEIVABLE\";" +
-                    "\n }" +
-                    "\n}" +
-                    "\n";
+            return BeanUtil.concat(
+                    "//Note: change the account numbers",
+                    "\nif (INVOICE.paymentTerms.equals(\"CASH\")) {",
+                    "\n GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";",
+                    "\n GL.credit INVOICE, now, \"401\", INVOICE.totalAmount, \"TUITION FEES\";",
+                    "\n}",
+                    "\nelse { ",
+                    "\n if (INVOICE.balance>0 && INVOICE.totalAmount+INVOICE.balance==INVOICE.allAmount) {",
+                    "\n //this is the first payment",
+                    "\n     GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";",
+                    "\n     GL.debit INVOICE, now, \"121\", INVOICE.balance, \"TUITION AND OTHER FEES RECEIVABLE\";",
+                    "\n     GL.credit INVOICE, now, \"401\", INVOICE.allAmount, \"TUITION FEES\";",
+                    "\n }",
+                    "\n else {",
+                    "\n     GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ENROLLMENT\";",
+                    "\n     GL.credit INVOICE, now, \"401\", INVOICE.totalAmount, \"TUITION AND OTHER FEES RECEIVABLE\";",
+                    "\n }",
+                    "\n}",
+                    "\n");
         }
         else if ("ADMISSION".equals(accountType)) {
-            return 
-                    "GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ADMISSION\";" +
-                    "\nGL.credit INVOICE, now, \"402.1\", INVOICE.totalAmount, \"REGISTRATION FEES\";";
+            return BeanUtil.concat(
+                    "GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, \"ADMISSION\";",
+                    "\nGL.credit INVOICE, now, \"402.1\", INVOICE.totalAmount, \"REGISTRATION FEES\";");
         }
-        return 
-                "GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, INVOICE.description;" +
-                "\nGL.credit INVOICE, now, \"411.4\", INVOICE.totalAmount, INVOICE.description;";
+        return BeanUtil.concat(
+                "GL.debit INVOICE, now, INVOICE.accountNumber, INVOICE.totalAmount, INVOICE.description;",
+                "\nGL.credit INVOICE, now, \"411.4\", INVOICE.totalAmount, INVOICE.description;");
     }
     
     
@@ -1192,7 +1192,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
         amountInWord = NumberToWordConverter.convertMoney(totalAmount, currencyWord, centavoWord);
 		super.save();
 		if (orNumber.equals("-1")) {
-			DBClient.runBatchNative("DELETE FROM Payment WHERE invoiceId="+seq, "DELETE FROM OtherPayment WHERE invoiceId="+seq, "DELETE FROM BookSold WHERE invoiceId="+seq, "DELETE FROM Invoice WHERE seq="+seq);
+			DBClient.runBatchNative(BeanUtil.concat("DELETE FROM Payment WHERE invoiceId=",seq), BeanUtil.concat("DELETE FROM OtherPayment WHERE invoiceId=",seq), BeanUtil.concat("DELETE FROM BookSold WHERE invoiceId=",seq), BeanUtil.concat("DELETE FROM Invoice WHERE seq=",seq));
 		}
 	}
 
@@ -1266,7 +1266,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(seq+"", map);
+        ins.getReportParameter(BeanUtil.concat(seq,""), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }
@@ -1277,7 +1277,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
     	save();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(seq+"", map);
+        ins.getReportParameter(BeanUtil.concat(seq,""), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }

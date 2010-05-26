@@ -10,6 +10,10 @@ import javax.media.format.*;
 import javax.media.protocol.*;
 import javax.media.util.*;
 import javax.media.control.*;
+
+import util.BeanUtil;
+import util.Log;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.image.*;
@@ -100,10 +104,10 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 
         if (cams.length > 0) {
             if (cams.length == 1) {
-                System.out.println("Note : 1 web cam detected");
+//                System.out.println("Note : 1 web cam detected");
                 return initialise(cams[0].capDevInfo);
             } else {
-                System.out.println("Note : " + cams.length + " web cams detected");
+//                System.out.println("Note : " + cams.length + " web cams detected");
                 Object selected = JOptionPane.showInputDialog(this, "Select Video format", "Capture format selection", JOptionPane.INFORMATION_MESSAGE, null, cams, cams[0]);
                 if (selected != null) {
                     return initialise(((MyCaptureDeviceInfo) selected).capDevInfo);
@@ -128,7 +132,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
         webCamDeviceInfo = _deviceInfo;
 
         if (webCamDeviceInfo != null) {
-            statusBar.setText("Connecting to : " + webCamDeviceInfo.getName());
+            statusBar.setText(BeanUtil.concat("Connecting to : ",webCamDeviceInfo.getName()));
 
             try {
                 setUpToolBar();
@@ -175,15 +179,11 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                         return false;
                     }
                 } else {
-                    System.err.println("Error : Cannot create player" + webCamDeviceInfo.getName());
-                    statusBar.setText("Cannot create player" + webCamDeviceInfo.getName());
+                    statusBar.setText(BeanUtil.concat("Cannot create player",webCamDeviceInfo.getName()));
                     return false;
                 }
             } catch (IOException ioEx) {
-                System.err.println("Error : No MediaLocator for " + webCamDeviceInfo.getName() + "] : " + ioEx.getMessage());
-
-                statusBar.setText("No Media Locator for : " + webCamDeviceInfo.getName());
-
+                statusBar.setText(BeanUtil.concat("No Media Locator for : ",webCamDeviceInfo.getName()));
                 return false;
             } catch (NoPlayerException npex) {
                 statusBar.setText("Cannot create player");
@@ -216,11 +216,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
             imageSize = currentFormat.getSize();
             visualContainer.setPreferredSize(imageSize);
 
-            statusBar.setText("Format : " + currentFormat);
-
-            System.out.println("Format : " + currentFormat);
-
-
+            statusBar.setText(BeanUtil.concat("Format : ",currentFormat));
             formatControl.setFormat(currentFormat);
 
             // player.start();  // not needed and big performance hit
@@ -302,7 +298,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                 name = devInfo.getName();
 
                 if (name.startsWith("vfw:")) {
-                    System.out.println("DeviceManager List : " + name);
+                    Log.out("DeviceManager List : ",name);
                     capDevices.addElement(new MyCaptureDeviceInfo(devInfo));
                 }
             }
@@ -313,16 +309,14 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                     if (name != null && name.length() > 1) {
                         devInfo = com.sun.media.protocol.vfw.VFWSourceStream.autoDetect(i);
                         if (devInfo != null) {
-                            System.out.println("VFW Autodetect List : " + name);
+                            Log.out("VFW Autodetect List : ",name);
                             capDevices.addElement(new MyCaptureDeviceInfo(devInfo));
                         }
                     }
                 } catch (Exception ioEx) {
-
-                    System.err.println("Error connecting to [" + webCamDeviceInfo.getName() + "] : " + ioEx.getMessage());
-
+                    Log.out("Error connecting to [",webCamDeviceInfo.getName(),"] : ",ioEx.getMessage());
                     // ignore errors detecting device
-                    statusBar.setText("AutoDetect failed : " + ioEx.getMessage());
+                    statusBar.setText(BeanUtil.concat("AutoDetect failed : ",ioEx.getMessage()));
                 }
             }
             if (capDevices.isEmpty()) {
@@ -512,7 +506,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 
         public String toString() {
             Dimension dim = format.getSize();
-            return format.getEncoding() + " [ " + dim.width + " x " + dim.height + " ]";
+            return BeanUtil.concat(format.getEncoding()," [ ",dim.width," x ",dim.height," ]");
         }
     }
     {
@@ -541,7 +535,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
         public MySnapshot(Image grabbedFrame, Dimension imageSize) {
 
             shotNumber = shotCounter++;
-            setTitle("Photo" + shotNumber);
+            setTitle(BeanUtil.concat("Photo",shotNumber));
 
             photo = grabbedFrame;
 
@@ -554,7 +548,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 
             final FileDialog saveDialog = new FileDialog(this, "Save JPEG", FileDialog.SAVE);
             final JFrame thisCopy = this;
-            saveDialog.setFile("Photo" + shotNumber);
+            saveDialog.setFile(BeanUtil.concat("Photo",shotNumber));
 
             addWindowListener(new WindowAdapter() {
 
@@ -565,11 +559,11 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 
                     if (filename != null) {
                         if (saveJPEG(filename)) {
-                            JOptionPane.showMessageDialog(thisCopy, "Error saving " + filename);
+                            JOptionPane.showMessageDialog(thisCopy, BeanUtil.concat("Error saving ",filename));
                             setVisible(false);
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(thisCopy, "Error saving " + filename);
+                            JOptionPane.showMessageDialog(thisCopy, BeanUtil.concat("Error saving ",filename));
                         }
                     } else {
                         setVisible(false);
@@ -614,7 +608,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                 out.close();
                 saved = true;
             } catch (Exception ex) {
-                System.out.println("Error saving JPEG : " + ex.getMessage());
+                Log.out("Error saving JPEG : ",ex.getMessage());
             }
 
             return saved;

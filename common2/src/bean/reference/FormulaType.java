@@ -58,7 +58,7 @@ public class FormulaType extends ComboTypes implements Serializable {
     }
 
     public static double getCalculatedAmount(String type, String code, Object param) {
-        FormulaType form = (FormulaType) AbstractIBean.firstRecord("SELECT a FROM FormulaType a WHERE a.cod='"+code+"'");
+        FormulaType form = (FormulaType) AbstractIBean.firstRecord("SELECT a FROM FormulaType a WHERE a.cod='",code,"'");
         if (form == null) {
             form = new FormulaType();
             form.setCode(code);

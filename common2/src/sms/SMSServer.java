@@ -23,6 +23,8 @@ import javax.comm.SerialPortEventListener;
  * and open the template in the editor.
  */
 import sms.service.AbstractSMSProcessor;
+import util.BeanUtil;
+import util.Log;
 
 /**
  *
@@ -38,9 +40,9 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
 
     public void callbackReadMessage(SMSMessageBean bean) {
         if (ignoreCallback) return;
-        System.out.println("COUNTER=="+(++counter));
-        System.out.println("PHONE=="+bean.getPhoneNumber());
-        System.out.println("MESSAGE=="+bean.getMessage());
+        Log.out("COUNTER==",(++counter));
+        Log.out("PHONE==",bean.getPhoneNumber());
+        Log.out("MESSAGE==",bean.getMessage());
         String[] arr = bean.message.split(" ");
         String code = arr[0];
         AbstractSMSProcessor.getInstance(this, code, bean);
@@ -115,7 +117,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
             try {
                 os.write((int) newCharacter);
             } catch (IOException e) {
-                System.err.println("OutputStream write error: " + e);
+                Log.out("OutputStream write error: ",e);
             }
         }
     }
@@ -124,7 +126,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
         try {
             os.write((char)26);
         } catch (IOException e) {
-            System.err.println("OutputStream write error: " + e);
+            Log.out("OutputStream write error: ",e);
         }
     }
 
@@ -139,7 +141,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
         ignoreCallback = false;
         counter = 0;
         send("AT+CMGF=1");
-        System.out.println("RUN SERVICE");
+        Log.out("RUN SERVICE");
         send("AT+CMGL=\"ALL\"");
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -162,7 +164,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
     }
     
     private void sendMessage(String phone, String message) {
-        send("AT+CMGS=\""+phone+"\"\n"+message);
+        send(BeanUtil.concat("AT+CMGS=\"",phone,"\"\n",message));
         sendControlZ();
     }
     

@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 
 import springbean.SuccessfulLogin;
 import template.report.AbstractReportTemplate;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Employee;
@@ -75,7 +76,7 @@ public class Employee_RULE extends Person_RULE {
 
 	protected void autoLogin() {
 		Employee emp = (Employee) this.getBean();
-		AclUser u = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='"+emp.getUserid()+"'");
+		AclUser u = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='",emp.getUserid(),"'");
 		String user = u.userid;
 		String pass = u.password;
 		UserInfo.clear();
@@ -94,7 +95,7 @@ public class Employee_RULE extends Person_RULE {
 
 	protected void addModule(String module) {
 	    Person p = (Person) this.getBean();
-    	AclUser user = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='"+p.userid+"'");
+    	AclUser user = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='",p.userid,"'");
     	if (user==null || user.isEmptyKey()) {
     		PanelUtil.showMessage(null, "User does not have account yet.");
     		return;
@@ -113,9 +114,9 @@ public class Employee_RULE extends Person_RULE {
 	    Person p = (Person) this.getBean();
 	    if (p.userid!=null && p.userid.startsWith("T")) {
 //	    	check if userid exist
-	    	AclUser b = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='"+p.userid+"'");
+	    	AclUser b = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='",p.userid,"'");
 	    	if (b!=null && !b.isEmptyKey()) {
-		    	PanelUtil.showMessage(usedComp, p.toString()+" already has userid "+p.userid+" - "+b.password);
+		    	PanelUtil.showMessage(usedComp, p.toString()," already has userid ",p.userid," - ",b.password);
 			    if (UserInfo.loginUser.isSuperAAA()) {
 			    	boolean b1 = PanelUtil.showPrompt(null, "Would you like to view all the users?");
 			    	if (b1) {
@@ -125,10 +126,10 @@ public class Employee_RULE extends Person_RULE {
 		    	return;
 	    	}
 	    }
-	    p.setUserid("T"+p.personId);
+	    p.setUserid(BeanUtil.concat("T",p.personId));
 	    p.save();
 	    
-        String password = "PASSWORD"+((int)(Math.random()*1000));
+        String password = BeanUtil.concat("PASSWORD",((int)(Math.random()*1000)));
 
         AclUser user = new AclUser();
 	    user.setFirstname(p.getFirstName());
@@ -139,7 +140,7 @@ public class Employee_RULE extends Person_RULE {
 	    
 	    IAuthorization intr = IAuthorization.AuthorizationImpl.getInstance(user);
 	    intr.addGroup(group);
-	    PanelUtil.showMessage(usedComp, "Username is ["+p.userid+"] and password is ["+password+"] for "+p.toString());
+	    PanelUtil.showMessage(usedComp, "Username is [",p.userid,"] and password is [",password,"] for ",p.toString());
 	    if (UserInfo.loginUser.isSuperAAA()) {
 	    	boolean b = PanelUtil.showPrompt(null, "Would you like to view all the users?");
 	    	if (b) {
@@ -150,15 +151,15 @@ public class Employee_RULE extends Person_RULE {
 
 	protected void resetPassword() {
 	    Person p = (Person) this.getBean();
-		AclUser usr = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='"+p.userid+"'");
+		AclUser usr = (AclUser) DBClient.getFirstRecord("SELECT a FROM AclUser a WHERE a.userid='",p.userid,"'");
         if (usr==null || usr.getUserid()==null) {
         	PanelUtil.showError(null, "Employee does not seem to have userid and password.");
         	return;
         }
         String userId = usr.getUserid();
 
-        String password = "PASSWORD"+((int)(Math.random()*1000));
-        PanelUtil.showMessage(usedComp, "Password reset to ["+password+"]");
+        String password = BeanUtil.concat("PASSWORD",((int)(Math.random()*1000)));
+        PanelUtil.showMessage(usedComp, "Password reset to [",password,"]");
         usr.setUserid(userId);
         usr.setPassword(password);
         usr.save();

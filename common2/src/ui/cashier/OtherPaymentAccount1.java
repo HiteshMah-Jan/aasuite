@@ -11,6 +11,7 @@ import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Invoice;
 import bean.extension.OtherPaymentReferenceAccount1Ext;
 
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -30,7 +31,7 @@ public class OtherPaymentAccount1 extends OtherPayment {
 	            return;
 	        }
 	        acceptCheck(pay);
-	        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", booklet.extractNextOR("N")+"");
+	        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(booklet.extractNextOR("N"),""));
 	        if (or==null || or.isEmpty()) return;
 
 
@@ -41,9 +42,9 @@ public class OtherPaymentAccount1 extends OtherPayment {
 				}
 			}
 //			check or if exist in invoice
-			Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+or+" AND a.orType='N'");
+			Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",or," AND a.orType='N'");
 			if (inv!=null && !inv.isEmptyKey()) {
-				PanelUtil.showError(this, "OR# ["+or+"] is already used, please check");
+				PanelUtil.showError(this, "OR# [",or,"] is already used, please check");
 				return;
 			}
 	        
@@ -71,7 +72,7 @@ public class OtherPaymentAccount1 extends OtherPayment {
 	        lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='N' ORDER BY a.seq DESC");
 	    }
 	    else {
-	        lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='N' AND a.payer LIKE '%"+txt+"%' OR a.studentNumber = '"+txt+"' ORDER BY a.seq DESC");
+	        lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='N' AND a.payer LIKE '%",txt,"%' OR a.studentNumber = '",txt,"' ORDER BY a.seq DESC");
 	    }
 	    beanSoldBooks.setList(lst);
 	}

@@ -37,6 +37,7 @@ import template.screen.AbstractChildTemplatePanel;
 import template.screen.ITemplate;
 import template.screen.TransactionPanel;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -116,16 +117,16 @@ public abstract class BusinessRuleWrapper {
             UITemplate template = panel.getUITemplate();
             if (template==null || template.rule().isEmpty()) {
                 String simpleName = panel.getCurrentClass().getSimpleName();
-                wrapper = (BusinessRuleWrapper) Class.forName("rule."+simpleName+"_RULE").newInstance();
+                wrapper = (BusinessRuleWrapper) Class.forName(BeanUtil.concat("rule.",simpleName,"_RULE")).newInstance();
             }
             else {
                 String simpleName = template.rule();
-                wrapper = (BusinessRuleWrapper) Class.forName("rule."+simpleName+"_RULE").newInstance();
+                wrapper = (BusinessRuleWrapper) Class.forName(BeanUtil.concat("rule.",simpleName,"_RULE")).newInstance();
             }
             wrapper.panel = panel;
             return wrapper;
         } catch (Exception ex) {
-            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
+//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
             BusinessRuleWrapper rule = new BusinessRuleWrapper() {
                 @Override
                 public void runFocusLost(JComponent comp) {
@@ -143,10 +144,10 @@ public abstract class BusinessRuleWrapper {
         try {
             BusinessRuleWrapper wrapper = null;
             String simpleName = template.rule();
-            wrapper = (BusinessRuleWrapper) Class.forName("rule."+simpleName+"_RULE").newInstance();
+            wrapper = (BusinessRuleWrapper) Class.forName(BeanUtil.concat("rule.",simpleName,"_RULE")).newInstance();
             return wrapper;
         } catch (Exception ex) {
-            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
+//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
             BusinessRuleWrapper rule = new BusinessRuleWrapper() {
                 @Override
                 public void runFocusLost(JComponent comp) {
@@ -242,7 +243,7 @@ public abstract class BusinessRuleWrapper {
                         FieldCompose f = ((IGetText) elem).getFieldCompose();
                         Column col = f.field.getAnnotation(Column.class);
                         if ( (!col.nullable() || f.display.mandatory()) && !f.display.overrideMandatory()){
-                            PanelUtil.showError(elem, PanelUtil.getLabel(f)+" is mandatory."); 
+                            PanelUtil.showError(elem, PanelUtil.getLabel(f)," is mandatory."); 
                             return false;
                         }
                     } catch (Exception ex) {
@@ -265,7 +266,7 @@ public abstract class BusinessRuleWrapper {
                         if (col.length()>0) {
                             String txt = ((IGetText) elem).getText();
                             if (txt.length() > col.length()) {
-                                PanelUtil.showError(elem, PanelUtil.getLabel(f)+" is more than "+col.length()+" characters."); 
+                                PanelUtil.showError(elem, PanelUtil.getLabel(f)," is more than ",col.length()," characters."); 
                                 return false;
                             }
                         }
@@ -339,13 +340,13 @@ public abstract class BusinessRuleWrapper {
     public void showMessage(String message) {
         PanelUtil.showMessage(null, message);
     }
-    public boolean showPrompt(String message) {
+    public boolean showPrompt(Object... message) {
         return PanelUtil.showPrompt(null, message);
     }
-    public void showError(String message) {
+    public void showError(String... message) {
         PanelUtil.showError(null, message);
     }
-    public void showErrorMessageToScreen(String message) {
+    public void showErrorMessageToScreen(String... message) {
         PanelUtil.showErrorMessageToScreen(message);
     }
     public void focus(String comp) {
@@ -378,7 +379,7 @@ public abstract class BusinessRuleWrapper {
 		        	getComponent(comp).setEnabled(false);
 		    	}
 		    	catch (Exception e) {
-		    		System.out.println("Problem for component = "+comp+" - "+e.getMessage());
+		    		Log.out("Problem for component = ",comp," - ",e.getMessage());
 		    	}
 			}
 		});

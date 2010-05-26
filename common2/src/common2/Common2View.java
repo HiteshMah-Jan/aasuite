@@ -45,6 +45,8 @@ import template.screen.TransactionPanel;
 import ui.TestDBForm;
 import ui.WelcomePanel;
 import ui.admin.ChangeLogo;
+import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -132,7 +134,7 @@ public class Common2View extends FrameView {
         messageTimer.setRepeats(false);
         int busyAnimationRate = resourceMap.getInteger("StatusBar.busyAnimationRate");
         for (int i = 0; i < busyIcons.length; i++) {
-            busyIcons[i] = resourceMap.getIcon("StatusBar.busyIcons[" + i + "]");
+            busyIcons[i] = resourceMap.getIcon(BeanUtil.concat("StatusBar.busyIcons[" ,i,"]"));
         }
         busyIconTimer = new Timer(busyAnimationRate, new ActionListener() {
 
@@ -1207,7 +1209,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     public final static void showBeanPanel(String bean, String txt, boolean add, String sql) {
         if (add) {
-            lstPanel.add(bean + "|" + txt);
+            lstPanel.add(BeanUtil.concat(bean,"|",txt));
         }
         try {
             if (bean == null || bean.trim().isEmpty()) {
@@ -1253,7 +1255,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             tmp.ruleWrapper.onLoad();
             tmp.loadSql(sql);
         } catch (Exception ex) {
-            System.out.println("BEAN == " + bean);
+            Log.info("BEAN == ",bean);
             Logger.getLogger(Common2View.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -1270,7 +1272,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
         @Override
         public String toString() {
-            return "    " + title;
+            return BeanUtil.concat("    ",title);
         }
 
         @Override

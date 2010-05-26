@@ -24,6 +24,8 @@ import javax.swing.SwingUtilities;
 import org.jdesktop.application.FrameView;
 import org.jdesktop.application.SingleFrameApplication;
 //import ui.ManagerLicenceDialog;
+import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -108,7 +110,7 @@ public abstract class MainWindow extends FrameView {
                         if (constants.Constants.isLicenced()) {
                             mainwindow.getDisplayedModule().print();
                         } else {
-                            PanelUtil.showMessage(getBtnPrint(), "Cannot use print button for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                            PanelUtil.showMessage(getBtnPrint(), "Cannot use print button for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                         }
                     }
                 });
@@ -118,7 +120,7 @@ public abstract class MainWindow extends FrameView {
                         if (constants.Constants.isLicenced()) {
                             mainwindow.getDisplayedModule().report();
                         } else {
-                            PanelUtil.showMessage(getBtnReport(), "Cannot use report button for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                            PanelUtil.showMessage(getBtnReport(), "Cannot use report button for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                         }
                     }
                 });
@@ -142,14 +144,14 @@ public abstract class MainWindow extends FrameView {
                 try {
                     component.MainWindow pnl = getMe();
                     java.lang.String simpleName = pnl.getClass().getSimpleName();
-                    component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName("ui.robottester."+simpleName+"RobotTester").newInstance();
+                    component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName(BeanUtil.concat("ui.robottester.",simpleName,"RobotTester")).newInstance();
                     setTester(tester);
                 } catch (Exception ex) {
-                    Logger.getLogger("global").log(Level.SEVERE, "CLASS NOT FOUND " + ex.getMessage());
+                    Log.severe("CLASS NOT FOUND ",ex.getMessage());
                 }
                 focusButton(mainwindow.getBtnSave());
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(mainwindow.getMainPanel(), "Please obtain licence from our sales at " + constants.Constants.SALES_EMAIL + " to use all the features. \nFor corporate or bulk licence ask our sales for special pricing and discounts.");
+                    PanelUtil.showMessage(mainwindow.getMainPanel(), "Please obtain licence from our sales at " , constants.Constants.SALES_EMAIL , " to use all the features. \nFor corporate or bulk licence ask our sales for special pricing and discounts.");
                 }
                 getMessageSender().setVisible(false);
             }

@@ -27,6 +27,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DataUtil;
 import util.NumberToWordConverter;
 import bean.admin.AppConfig;
@@ -372,10 +373,10 @@ public class BankAccountTransaction extends AbstractIBean implements IGL {
     
     public boolean hardcodePosting() {
         if (this.posted) {
-            Logger.getLogger("global").log(Level.INFO, "GL is already posted for "+this.extractGLType().toUpperCase()+"-"+seq+".");
+            Logger.getLogger("global").log(Level.INFO, BeanUtil.concat("GL is already posted for ",this.extractGLType().toUpperCase(),"-",seq,"."));
             return true;
         }
-        List<BankAccountTransactionDetail> details = list("SELECT a FROM BankAccountTransactionDetail a WHERE a.bankAccountTransactionId="+seq);
+        List<BankAccountTransactionDetail> details = list("SELECT a FROM BankAccountTransactionDetail a WHERE a.bankAccountTransactionId=",seq);
         if (details!=null && details.size()>1 && isBalanced(details)) {
             for (BankAccountTransactionDetail mgl : details) {
                 GL gl = new GL();
@@ -407,7 +408,7 @@ public class BankAccountTransaction extends AbstractIBean implements IGL {
     }
 
     public boolean isBalanced() {
-        List<BankAccountTransactionDetail> details = list("SELECT a FROM BankAccountTransactionDetail a WHERE a.manualGLId="+seq);
+        List<BankAccountTransactionDetail> details = list("SELECT a FROM BankAccountTransactionDetail a WHERE a.manualGLId=",seq);
         return isBalanced(details);
     }
 

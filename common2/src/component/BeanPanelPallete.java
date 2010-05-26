@@ -190,7 +190,7 @@ public class BeanPanelPallete extends javax.swing.JPanel {
             this.updateUI();
         } catch (Exception ex) {
         	ex.printStackTrace();
-            util.Log.severe("BEAN PANEL EXCEPTION:["+beanName+"]");
+            util.Log.severe("BEAN PANEL EXCEPTION:[",beanName,"]");
         }
     }
     

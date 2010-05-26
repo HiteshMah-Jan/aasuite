@@ -30,6 +30,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 
 /**
  *
@@ -143,7 +144,7 @@ public class Product extends AbstractIBean implements Serializable {
     }
 
     public List getItemList() {
-        return list("SELECT p FROM PurchaseOrderItem p WHERE p.product='" + code + "'");
+        return list("SELECT p FROM PurchaseOrderItem p WHERE p.product='" , code , "'");
     }
 
     @Override
@@ -316,14 +317,14 @@ public class Product extends AbstractIBean implements Serializable {
    
 
     public List getSuppliers() {
-        return list("SELECT a FROM Supplier a, SupplierProduct b, Product c WHERE a.personId=b.supplierId AND b.productCode=c.code AND c.code='" + code + "'");
+        return list("SELECT a FROM Supplier a, SupplierProduct b, Product c WHERE a.personId=b.supplierId AND b.productCode=c.code AND c.code='" , code , "'");
     }
 
     public String getNextOrderSupplier() {
         if (nextOrderSupplierId == 0) {
             return "";
         }
-        Person person = (Person) AbstractIBean.firstRecord("SELECT a FROM Supplier a WHERE a.personId=" + this.nextOrderSupplierId);
+        Person person = (Person) AbstractIBean.firstRecord("SELECT a FROM Supplier a WHERE a.personId=" , this.nextOrderSupplierId);
         return person.toString();
     }
 
@@ -362,14 +363,14 @@ public class Product extends AbstractIBean implements Serializable {
 
     public String getMinMaxPrice(int customerId) {
         if (customerId == 0) {
-            return this.getPricePerUnit() + "";
+            return BeanUtil.concat(this.getPricePerUnit() , "");
         } else {
             //get min max value for customer
-            CustomerPricing price = (CustomerPricing) AbstractIBean.firstRecord("SELECT a FROM CustomerPricing a WHERE a.customerId=" + customerId + " AND a.productCode='" + this.code + "'");
+            CustomerPricing price = (CustomerPricing) AbstractIBean.firstRecord("SELECT a FROM CustomerPricing a WHERE a.customerId=" , customerId , " AND a.productCode='" , this.code , "'");
             if (price == null || price.seq == null || price.seq == 0) {
-                return this.getPricePerUnit() + "";
+                return BeanUtil.concat(this.getPricePerUnit() , "");
             } else {
-                return price.getMinPricePerUnit() + " - " + price.getMaxPricePerUnit();
+                return BeanUtil.concat(price.getMinPricePerUnit() , " - " , price.getMaxPricePerUnit());
             }
         }
     }

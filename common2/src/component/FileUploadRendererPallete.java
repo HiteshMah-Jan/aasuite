@@ -30,6 +30,7 @@ import org.jdesktop.jdic.desktop.Desktop;
 import service.util.AbstractIBean;
 import util.BeanUtil;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -258,7 +259,7 @@ private void tblFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 	}
         try {
                 byte[] b = mapFiles.get(file);
-                File dir = new File(Constants.ROOT_FOLDER+"tmp");
+                File dir = new File(BeanUtil.concat(Constants.ROOT_FOLDER,"tmp"));
                 if (!dir.exists() || !dir.isDirectory()) {
                     dir.mkdir();
                 }
@@ -266,7 +267,7 @@ private void tblFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
                 RandomAccessFile raf = new RandomAccessFile(f, "rw");
                 raf.write(b);
                 raf.close();
-                System.out.println("filename === "+f.getPath());
+                Log.out("filename === ",f.getPath());
                 
                 Desktop.open(f);
         } catch (Exception ex) {
@@ -300,7 +301,7 @@ private void lblDownloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST
 		try {
 			byte[] b = mapFiles.get(file);
 			f = dlgSave.getSelectedFile();
-			System.out.println("filename === "+f.getPath());
+			Log.out("filename === ",f.getPath());
 			RandomAccessFile raf = new RandomAccessFile(f, "rw");
 			raf.write(b);
 			raf.close();
@@ -403,7 +404,7 @@ private void lblUploadFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     
         // Ensure all the bytes have been read in
         if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
+            throw new IOException(BeanUtil.concat("Could not completely read file ",file.getName()));
         }
     
         // Close the input stream and return bytes

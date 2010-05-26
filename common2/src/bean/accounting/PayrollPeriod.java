@@ -23,6 +23,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
+import util.BeanUtil;
 
 /**
  *
@@ -912,7 +913,7 @@ public class PayrollPeriod extends AbstractIBean implements Serializable, IGL, I
 
     public List<Payroll> getListPayroll() {
         if (listPayroll==null) {
-            listPayroll = this.list("SELECT a FROM Payroll a WHERE a.payrollPeriodId="+seq);
+            listPayroll = this.list("SELECT a FROM Payroll a WHERE a.payrollPeriodId=",seq);
             for (Payroll payroll : listPayroll) {
                 payroll.extractBreakdownList();
             }
@@ -928,7 +929,7 @@ public class PayrollPeriod extends AbstractIBean implements Serializable, IGL, I
         boolean hardPost = AppConfig.isHardcodePayrollPosting();
         boolean b = AppConfig.isDetailPayrollPosting();
         if (b) {
-            List<Payroll> lstPayroll = list("SELECT a FROM Payroll a WHERE a.payrollPeriodId="+seq);
+            List<Payroll> lstPayroll = list("SELECT a FROM Payroll a WHERE a.payrollPeriodId=",seq);
             for (Payroll payroll : lstPayroll) {
                 if (hardPost) {
                     hardPost(payroll);
@@ -982,32 +983,32 @@ public class PayrollPeriod extends AbstractIBean implements Serializable, IGL, I
     }
 
     public String extractDefaultFormula() {
-        return 
-                "GL.debit PAYROLLPERIOD, now, \"701\", PAYROLLPERIOD.grossPay, \"SALARIES - ACADEMIC PERSONNEL\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"804\", PAYROLLPERIOD.tax, \"TAXES, FEES, AND LICENSE\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"204\", PAYROLLPERIOD.withholdingTax, \"WITHHOLDING TAX PAYABLE - COMPENSATION\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.9\", PAYROLLPERIOD.mealAllowance, \"FOOD ALLOWANCE\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.5\", PAYROLLPERIOD.pagibig, \"PAG-IBIG FUND PREMIUM\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.4\", PAYROLLPERIOD.philhealth, \"PHILHEALTH PREMIUM\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.3\", PAYROLLPERIOD.sss, \"SSS PREMIUM\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.1\", PAYROLLPERIOD.m13, \"13TH MONTH PAY\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.2\", PAYROLLPERIOD.teachersDayBonus, \"BONUS\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"703.2\", PAYROLLPERIOD.chineseNewYearBonus, \"BONUS\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"207\", PAYROLLPERIOD.sssLoan, \"SSS LOAN PAYABLE\";" +
-                "\nGL.debit PAYROLLPERIOD, now, \"206\", PAYROLLPERIOD.pagibigLoan, \"PAG-IBIG LOAN PAYABLE\";" +
-                "\ndouble d = " +
-                "PAYROLLPERIOD.grossPay" +
-                "+PAYROLLPERIOD.tax" +
-                "+PAYROLLPERIOD.withholdingTax" +
-                "+PAYROLLPERIOD.mealAllowance" +
-                "+PAYROLLPERIOD.pagibig" +
-                "+PAYROLLPERIOD.philhealth" +
-                "+PAYROLLPERIOD.sss" +
-                "+PAYROLLPERIOD.m13" +
-                "+PAYROLLPERIOD.teachersDayBonus" +
-                "+PAYROLLPERIOD.chineseNewYearBonus" +
-                "+PAYROLLPERIOD.sssLoan" +
-                "+PAYROLLPERIOD.pagibigLoan;" +
-                "\nGL.credit PAYROLLPERIOD, now, \"102\", d, \"TOTAL SALARY EXPENSE\";";
+        return BeanUtil.concat(
+                "GL.debit PAYROLLPERIOD, now, \"701\", PAYROLLPERIOD.grossPay, \"SALARIES - ACADEMIC PERSONNEL\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"804\", PAYROLLPERIOD.tax, \"TAXES, FEES, AND LICENSE\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"204\", PAYROLLPERIOD.withholdingTax, \"WITHHOLDING TAX PAYABLE - COMPENSATION\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.9\", PAYROLLPERIOD.mealAllowance, \"FOOD ALLOWANCE\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.5\", PAYROLLPERIOD.pagibig, \"PAG-IBIG FUND PREMIUM\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.4\", PAYROLLPERIOD.philhealth, \"PHILHEALTH PREMIUM\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.3\", PAYROLLPERIOD.sss, \"SSS PREMIUM\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.1\", PAYROLLPERIOD.m13, \"13TH MONTH PAY\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.2\", PAYROLLPERIOD.teachersDayBonus, \"BONUS\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"703.2\", PAYROLLPERIOD.chineseNewYearBonus, \"BONUS\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"207\", PAYROLLPERIOD.sssLoan, \"SSS LOAN PAYABLE\";",
+                "\nGL.debit PAYROLLPERIOD, now, \"206\", PAYROLLPERIOD.pagibigLoan, \"PAG-IBIG LOAN PAYABLE\";",
+                "\ndouble d = ",
+                "PAYROLLPERIOD.grossPay",
+                "+PAYROLLPERIOD.tax",
+                "+PAYROLLPERIOD.withholdingTax",
+                "+PAYROLLPERIOD.mealAllowance",
+                "+PAYROLLPERIOD.pagibig",
+                "+PAYROLLPERIOD.philhealth",
+                "+PAYROLLPERIOD.sss",
+                "+PAYROLLPERIOD.m13",
+                "+PAYROLLPERIOD.teachersDayBonus",
+                "+PAYROLLPERIOD.chineseNewYearBonus",
+                "+PAYROLLPERIOD.sssLoan",
+                "+PAYROLLPERIOD.pagibigLoan;",
+                "\nGL.credit PAYROLLPERIOD, now, \"102\", d, \"TOTAL SALARY EXPENSE\";");
     }
 }

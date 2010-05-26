@@ -122,14 +122,12 @@ public class ParamStruct implements Serializable {
             ParamStruct param = (ParamStruct) ZipUtil.getUnzipObject((byte[])ois.readObject());
             return param;
         } catch (Exception ex) {
-//            System.out.println("READ EXCEPTION."+ex.getMessage());
             Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 ois.close();
                 is.close();
             } catch (Exception ex) {
-//                System.out.println("READ EXCEPTION."+ex.getMessage());
                 Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -142,7 +140,6 @@ public class ParamStruct implements Serializable {
             oos = new ObjectOutputStream(os);
             oos.writeObject(ZipUtil.getZipBytes(param));
         } catch (IOException ex) {
-//            System.out.println("WRITE EXCEPTION."+ex.getMessage());
             Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -151,7 +148,6 @@ public class ParamStruct implements Serializable {
                 os.flush();
                 os.close();
             } catch (Exception ex) {
-//                System.out.println("WRITE EXCEPTION."+ex.getMessage());
                 Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

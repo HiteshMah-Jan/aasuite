@@ -41,7 +41,6 @@ public class Report implements IService {
                 ret.setData(ret);
                 return ret;
             }
-//            System.out.println("XML == " + xml);
             java.io.InputStream is = DataUtil.getResource(xml);
             JasperReport jasperReport = JasperCompileManager.compileReport(is);
             ret.setData(jasperReport);

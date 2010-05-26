@@ -62,11 +62,10 @@ public class ImageSelect extends JFrame {
 		}
 
 		protected void clicked(MouseEvent e) {
-			System.out.println("POINT IS "+e.getPoint());
 			this.copy = ImageUtil.copy(img);
 			ImageMagicWand img = ImageMagicWand.getInstance();
 			img.processMarkedRegion(copy, e.getPoint(), 45, Color.RED, true);
-			System.out.println("DIM "+img.getWidth()+":"+img.getHeight()+" - "+img.getX()+":"+img.getY());
+			Log.out("DIM ",img.getWidth(),":",img.getHeight()," - ",img.getX(),":",img.getY());
 			this.repaint();
 		}
 

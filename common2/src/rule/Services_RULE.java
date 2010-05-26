@@ -4,6 +4,7 @@ import javax.swing.JComponent;
 
 import service.IService;
 import service.util.CallService;
+import util.BeanUtil;
 
 import bean.Services;
 
@@ -24,7 +25,7 @@ public class Services_RULE extends BusinessRuleWrapper {
 
 	private void runService() {
 		Services serv = (Services) this.getBean();
-		String s = "springbean."+serv.code;
+		String s = BeanUtil.concat("springbean.",serv.code);
 		CallService.callService("", 1, s);
 	}
 

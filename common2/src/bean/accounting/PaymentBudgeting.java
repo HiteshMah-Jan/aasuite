@@ -19,6 +19,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -123,7 +124,7 @@ public class PaymentBudgeting extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return "seq[" + seq + "]";
+        return BeanUtil.concat("seq[",seq,"]");
     }
 
     public java.util.Date getPurchaseDate() {

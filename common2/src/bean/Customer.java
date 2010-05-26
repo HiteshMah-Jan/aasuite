@@ -171,7 +171,7 @@ public class Customer extends Person implements Serializable {
             return "";
         }
         if (salesPerson == null) {
-            salesPerson = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+salesPersonId1);
+            salesPerson = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",salesPersonId1);
         }
         if (salesPerson == null) {
             return "";

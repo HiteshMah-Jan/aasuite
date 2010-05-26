@@ -35,6 +35,7 @@ import template.UITemplate;
 import template.report.AbstractReportTemplate;
 import test.TemplateViewer;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -123,7 +124,7 @@ public class TransactionPanel extends JPanel implements ITransactionPanel {
         if (help==null || help.isEmpty()) {
             help = parentPanel.getBean().getClass().getSimpleName();
         }
-        System.out.println("HELP NAME = "+help);
+        Log.out("HELP NAME = ",help);
         return help;
     }
 

@@ -26,6 +26,8 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
+import util.Log;
 
 /**
  *
@@ -109,7 +111,7 @@ public class GLPostingScript extends AbstractIBean implements Serializable {
     
     public static boolean isPosted(IGL gl) {
         if (gl.isPosted()) {
-            Logger.getLogger("global").log(Level.INFO, "GL is already posted for "+gl.extractGLType().toUpperCase()+"-"+gl.extractGLRecordId()+".");
+            Logger.getLogger("global").log(Level.INFO, BeanUtil.concat("GL is already posted for ",gl.extractGLType().toUpperCase(),"-",gl.extractGLRecordId(),"."));
             return true;
         }
         return false;
@@ -119,7 +121,7 @@ public class GLPostingScript extends AbstractIBean implements Serializable {
         String type = gl.extractGLType().toUpperCase();
         String subType = gl.extractGLSubType();
         if (gl.hardcodePosting()) {
-            Logger.getLogger("global").log(Level.INFO, "Hard code posting for GL["+type+"].");
+        	Log.info("Hard code posting for GL[",type,"].");
             return;
         }
 //        remove and repost
@@ -127,7 +129,7 @@ public class GLPostingScript extends AbstractIBean implements Serializable {
             runSQL("DELETE FROM GL a WHERE a.form LIKE '",gl.extractGLSubType().toUpperCase(),"' AND a.recordId=",gl.extractGLRecordId());
         }
         if (gl.isPosted()) {
-            Logger.getLogger("global").log(Level.INFO, "GL is already posted for "+type+"-"+gl.extractGLRecordId()+".");
+        	Log.info("GL is already posted for ",type,"-",gl.extractGLRecordId(),".");
             return;
         }
         GLPostingScript scr = null;
@@ -146,7 +148,7 @@ public class GLPostingScript extends AbstractIBean implements Serializable {
             scr.save();
         }
         if (scr.script==null || scr.script.trim().length()<10) {
-            Logger.getLogger("global").log(Level.INFO, "GL script not defined for "+type+"-"+gl.extractGLRecordId()+".");
+        	Log.info("GL script not defined for ",type,"-",gl.extractGLRecordId(),".");
             return;
         }
         util.ScriptRunner.runGroovy(scr.script, type, gl);
@@ -159,7 +161,7 @@ public class GLPostingScript extends AbstractIBean implements Serializable {
             credit += l.credit;
         }
         if (debit!=credit || debit==0) {
-            Logger.getLogger("global").log(Level.SEVERE, "GL is not balance for "+type+"-"+gl.extractGLRecordId()+". Removing entries.");
+        	Log.severe("GL is not balance for ",type,"-",gl.extractGLRecordId(),". Removing entries.");
             runSQL("DELETE FROM GL a WHERE a.form='",type,"' AND a.recordId=",gl.extractGLRecordId());
         }
         else {

@@ -165,7 +165,7 @@ private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         Person p = getPerson(txt);
         if (p!=null) {
             Date date = constants.Constants.useDate;
-            PersonAttendance att = (PersonAttendance) p.firstRecord("SELECT a FROM PersonAttendance a WHERE a.personId=",p.personId+""," AND a.attendanceDate='",DateUtil.formatDateToSql(date),"'");
+            PersonAttendance att = (PersonAttendance) p.firstRecord("SELECT a FROM PersonAttendance a WHERE a.personId=",p.personId,""," AND a.attendanceDate='",DateUtil.formatDateToSql(date),"'");
             if (att==null) {
                 att = new PersonAttendance();
                 att.attendanceDate = date;

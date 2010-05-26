@@ -17,6 +17,7 @@ import javax.swing.SwingUtilities;
 import org.jdesktop.beansbinding.ELProperty;
 import service.util.WSPersistenceEntityManager;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
 
 /**
  *
@@ -55,7 +56,7 @@ public class SendEmailDialog extends javax.swing.JPanel {
         dialog.datSentEmail.setSeq(0);
         dialog.datSentEmail.setSubject(subject);
         
-        dialog.cboCustomer.setText(customerId+"");
+        dialog.cboCustomer.setText(BeanUtil.concat(customerId,""));
         dialog.txtSentTo.setText(recipient);
         dialog.txtSubject.setText(subject);
         dialog.dlgNewEmail.pack();
@@ -329,7 +330,7 @@ private void btnChooseFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     fileChooser.showOpenDialog(btnChooseFile);
     File f = fileChooser.getSelectedFile();
     if (f!=null && f.exists()) {
-        String txt = txtAttachment.getText()+";"+f.getPath();
+        String txt = BeanUtil.concat(txtAttachment.getText(),";",f.getPath());
         txtAttachment.setText(txt);
     }
 }//GEN-LAST:event_btnChooseFileActionPerformed

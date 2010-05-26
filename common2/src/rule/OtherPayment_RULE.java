@@ -11,6 +11,8 @@ import bean.reference.OtherPaymentReference;
 
 import javax.swing.JComponent;
 
+import util.BeanUtil;
+
 /**
  *
  * @author alex
@@ -23,10 +25,10 @@ public class OtherPayment_RULE extends BusinessRuleWrapper {
     		changeCategory();
     	}
     	for (int i=1; i<=10; i++) {
-        	if (comp.getName().equals("paymentCode"+i)) {
-        		JComponent p = getComponent("paymentCode"+i);
+        	if (comp.getName().equals(BeanUtil.concat("paymentCode",i))) {
+        		JComponent p = getComponent(BeanUtil.concat("paymentCode",i));
         		OtherPaymentReference ref = (OtherPaymentReference) ((component.LookupTableFieldPallete) p).getSelectedBean();
-        		setValue("paymentAmount"+i, ref.amount);
+        		setValue(BeanUtil.concat("paymentAmount",i), ref.amount);
         	}
     	}
         calculateTotal();

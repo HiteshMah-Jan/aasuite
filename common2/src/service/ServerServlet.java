@@ -20,6 +20,7 @@ import javax.servlet.http.*;
 
 import service.util.CallService;
 import springbean.AAAConfig;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -48,7 +49,7 @@ public class ServerServlet extends HttpServlet {
                 	CallService.callService("", 1, serv.code);
             	}
             	else {
-                	CallService.callService("", 1, "springbean."+serv.code);
+                	CallService.callService("", 1, BeanUtil.concat("springbean.",serv.code));
             	}
             }
         }

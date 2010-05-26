@@ -17,6 +17,7 @@ import bean.accounting.Invoice;
 import bean.accounting.PaymentPlan;
 import template.report.AbstractReportTemplate;
 import ui.AbstractCashierForm;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.PanelUtil;
@@ -295,7 +296,7 @@ protected void changeSelectedRecord() {
     	btnUnlockInvoice.setEnabled(false);
     }
     if (inv.cancelled) {
-        lblStatus.setText(lblStatus.getText()+"-CANCELLED");
+        lblStatus.setText(BeanUtil.concat(lblStatus.getText(),"-CANCELLED"));
         btnCancelOR.setEnabled(false);
     } 
     if (!UserInfo.canLockInvoice()) {
@@ -344,9 +345,9 @@ private void btnCancelORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     }
     inv.save();
 //        need to change all the payment to cancelled
-    DBClient.runSQLNative("UPDATE Payment SET orNumber=-1, orAmount=0, amountPaid=0, oldPaymentFor=paymentFor , paymentFor='"+constants.Constants.CANCELLED+"' WHERE invoiceId="+inv.seq);
+    DBClient.runSQLNative("UPDATE Payment SET orNumber=-1, orAmount=0, amountPaid=0, oldPaymentFor=paymentFor , paymentFor='",constants.Constants.CANCELLED,"' WHERE invoiceId=",inv.seq);
 //    need to revert the payment back from assessment
-    List lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='"+inv.schoolYear+"' AND a.paidBy="+billTo+" AND a.paid=false");
+    List lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='",inv.schoolYear,"' AND a.paidBy=",billTo+" AND a.paid=false");
     DBClient.persistBean(lst);
     txtORNumberActionPerformed(null);
 }//GEN-LAST:event_btnCancelORActionPerformed

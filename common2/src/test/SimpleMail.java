@@ -21,6 +21,9 @@ import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 
+import util.BeanUtil;
+import util.Log;
+
 public class SimpleMail {
 
     private static String POP3_HOST_NAME = "pop.secureserver.net";
@@ -100,7 +103,7 @@ public class SimpleMail {
                     thisLine = reader.readLine();
                     sb.append(thisLine).append("\n");
                 }
-                System.out.println("MESSAGE CONTENT = " + sb.toString());
+                Log.out("MESSAGE CONTENT = ",sb.toString());
                 return sb.toString().getBytes();
             }
         } catch (Exception ex) {
@@ -114,7 +117,7 @@ public class SimpleMail {
         for (Address address : addrs) {
             sb.append(address.toString()).append(";");
         }
-        System.out.println("ADDRESS == " + sb.toString());
+        Log.out("ADDRESS == ",sb.toString());
         return sb.toString();
     }
 
@@ -123,7 +126,7 @@ public class SimpleMail {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.host", SMTP_HOST_NAME);
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", smtp_port + "");
+        props.put("mail.smtp.port", BeanUtil.concat(smtp_port,""));
         props.put("mail.smtp.starttls.enable", "true");
         return props;
     }
@@ -133,7 +136,7 @@ public class SimpleMail {
         props.setProperty("mail.transport.protocol", "pop3");
         props.setProperty("mail.host", POP3_HOST_NAME);
         props.put("mail.pop3.auth", "true");
-        props.put("mail.pop3.port", pop3_port + "");
+        props.put("mail.pop3.port", BeanUtil.concat(pop3_port,""));
         return props;
     }
 

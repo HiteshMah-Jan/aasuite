@@ -17,6 +17,9 @@ import javax.media.*;
 import javax.media.protocol.*;
 import javax.media.format.*;
 import javax.media.control.*;
+
+import util.Log;
+
 import java.util.Vector;
 import java.awt.*;
 import com.sun.media.ui.PlayerWindow;
@@ -71,7 +74,7 @@ public class CaptureUtil  {
 	// Find devices for format
 	devices = CaptureDeviceManager.getDeviceList(format);
 	if (devices.size() < 1) {
-	    System.err.println("! No Devices for " + format);
+	    Log.out("! No Devices for ",format);
 	    return null;
 	}
 	// Pick the first device
@@ -102,7 +105,7 @@ public class CaptureUtil  {
 	for (int i = 0; i < formats.length; i++) {
 	    if (formats[i].matches(format)) {
 		format = formats[i].intersects(format);
-		System.out.println("Setting format " + format);
+		Log.out("Setting format ",format);
 		fc.setFormat(format);
 		break;
 	    }

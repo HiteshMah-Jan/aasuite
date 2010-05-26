@@ -212,7 +212,7 @@ public class EmployeeLoan extends PersonAttribute implements Serializable {
 
     @SuppressWarnings("unchecked")
     public List<PaymentLoan> getPayments() {
-        return list("SELECT a FROM PaymentLoan a WHERE a.employeeId="+personId+" AND a.employeeLoanId="+seq);
+        return list("SELECT a FROM PaymentLoan a WHERE a.employeeId=",personId," AND a.employeeLoanId=",seq);
     }
 
     public PaymentLoan getNextLoanPayment() {

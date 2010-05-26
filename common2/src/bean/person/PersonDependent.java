@@ -16,6 +16,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -265,6 +266,6 @@ public class PersonDependent extends PersonAttribute implements Serializable {
     }
 
     public String getFullname() {
-        return lastName + ", " + firstName + ", " + middleInitial;
+        return BeanUtil.concat(lastName,", ",firstName,", ",middleInitial);
     }
 }

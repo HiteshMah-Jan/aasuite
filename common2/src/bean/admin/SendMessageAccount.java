@@ -166,7 +166,7 @@ public class SendMessageAccount extends AbstractIBean implements Serializable {
     }
 
     public static AbstractIBean getObject(String code) {
-        return (SendMessageAccount) AbstractIBean.firstRecord("SELECT a FROM SendMessageAccount a WHERE a.code='" + code + "'");
+        return (SendMessageAccount) AbstractIBean.firstRecord("SELECT a FROM SendMessageAccount a WHERE a.code='" , code , "'");
     }
 
     public static SendMessageAccount getGoogleAccount() {

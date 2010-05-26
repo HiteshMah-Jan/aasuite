@@ -19,6 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
 
+import org.jfree.util.Log;
+
 import service.util.AbstractIBean;
 import service.util.IBean;
 import template.Display;
@@ -108,7 +110,6 @@ public class DocumentTable extends AbstractIBean implements Serializable {
             Logger.getLogger("global").log(Level.INFO, "SOURCE NULL");
             return new HashMap<String, byte[]>();
         } else {
-            Logger.getLogger("global").log(Level.INFO, "Bean is AbstractIBean " + (source instanceof AbstractIBean));
             if (source instanceof AbstractIBean) {
                 Map<String, byte[]> retList = new HashMap<String, byte[]>();
                 List lst = source.extractFiles();
@@ -131,7 +132,7 @@ public class DocumentTable extends AbstractIBean implements Serializable {
         String beanCls = bean.getClass().getSimpleName();
         String key = bean.keyVal().toString();
         //remove all the images from the database
-        bean.runSQL("DELETE FROM DocumentTable a WHERE a.recTable=\'" + beanCls + "\' AND a.recordId=\'" + key + "\'");
+        bean.runSQL("DELETE FROM DocumentTable a WHERE a.recTable=\'",beanCls,"\' AND a.recordId=\'",key,"\'");
 
         List<IBean> images = new ArrayList<IBean>();
         for (String str : lstDocuments.keySet()) {

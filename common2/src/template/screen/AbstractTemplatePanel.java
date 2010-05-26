@@ -68,6 +68,7 @@ import template.screen.component.JTableReadOnly;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 
 import common2.Common2View;
@@ -138,7 +139,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
     }
 
     public String getTitle() {
-        return constants.Constants.appTitle+" - "+(template.title().isEmpty()?PanelUtil.getTitle(currentClass):template.title());
+        return BeanUtil.concat(constants.Constants.appTitle," - ",(template.title().isEmpty()?PanelUtil.getTitle(currentClass):template.title()));
     }
 
     public String getSimpleTitle() {
@@ -239,7 +240,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
             for (DisplayGroup displayGroup : groups) {
                 if (displayGroup.addInfoOnly()) continue;
                 JPanel tmp = templateParser.constructGroupPanel(bindingGroup, displayGroup);
-                tmp.setName("grp"+displayGroup.title());
+                tmp.setName(BeanUtil.concat("grp",displayGroup.title()));
                 tmp.setToolTipText(tmp.getName());
                 addFieldComponent(tmp);
                 cons.gridy++;
@@ -371,10 +372,10 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                         tmp.add(pnl);
                         if (UserInfo.hasDuty(childRecord.duties())) {
                             if (childRecord.title().isEmpty()) {
-                                tabChildren.addTab(PanelUtil.getTitle(childRecord.entity()), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
+                                tabChildren.addTab(PanelUtil.getTitle(childRecord.entity()), null, tmp, BeanUtil.concat(childRecord.entity().getSimpleName()," - ",childRecord.sql()));
                             }
                             else {
-                                tabChildren.addTab(childRecord.title(), null, tmp, childRecord.entity().getSimpleName()+" - "+childRecord.sql());
+                                tabChildren.addTab(childRecord.title(), null, tmp, BeanUtil.concat(childRecord.entity().getSimpleName()," - ",childRecord.sql()));
                             }
                         }
                     }
@@ -508,7 +509,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 		                        pnl.pnlCriteria.setToolTipText(pnl.currentClass.getSimpleName());
 		                    }
 		                    else {
-		                        pnl.pnlCriteria.setToolTipText(pnl.currentClass.getSimpleName()+" - "+pnl.currentObject.keyVal());
+		                        pnl.pnlCriteria.setToolTipText(BeanUtil.concat(pnl.currentClass.getSimpleName()," - ",pnl.currentObject.keyVal()));
 		                        System.out.println(pnl.getToolTipText());
 		                    }
 						}
@@ -604,7 +605,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
     public JComboBox getSearchCriteria(Field f) {
         String[] str = {"=", ">", "<"};
         JComboBox box = new JComboBox(str);
-        box.setName("CRITERIA_"+f.getName());
+        box.setName(BeanUtil.concat("CRITERIA_",f.getName()));
         return box;
     }
 
@@ -643,7 +644,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         String select = template.select();
         StringBuffer sql = new StringBuffer();
         if (select.isEmpty()) {
-            sql.append("SELECT a FROM "+simpleName+" a ");
+            sql.append(BeanUtil.concat("SELECT a FROM ",simpleName," a "));
         }
         else {
             sql.append(select);
@@ -657,7 +658,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 if (text!=null && !text.trim().isEmpty()) {
                 	if ("searchStr".equalsIgnoreCase(fieldSearch.field.getName())) {
                 		System.out.println("USING searchStr field, search will insert '%' before the string.");
-                        lst.add(createCriteriaEntry(fieldSearch.field, boxEqual.getSelectedItem().toString(), "%"+text));
+                        lst.add(createCriteriaEntry(fieldSearch.field, boxEqual.getSelectedItem().toString(), BeanUtil.concat("%",text)));
                 	}
                 	else {
                         lst.add(createCriteriaEntry(fieldSearch.field, boxEqual.getSelectedItem().toString(), text));
@@ -685,7 +686,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         if (orderBy!=null && !orderBy.isEmpty()) {
             sql.append(" ORDER BY ").append(orderBy);
         }
-        System.out.println("SQL=="+sql);
+        Log.out("SQL==",sql);
         AbstractIBean bean = (AbstractIBean) BeanUtil.getBeanInstance(currentClass);
         if (bean.orderBy()!=null && !bean.orderBy().isEmpty()) {
             if (sql.indexOf("ORDER BY")!=-1) {
@@ -1063,17 +1064,16 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-//        System.out.println("TOTAL:COL=="+total+":"+col);
-        lbl.setText(DataUtil.getCurrencyFormat(total)+"");
+        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total),""));
     }
     
     String sumFooter;
     private boolean withSumFooter(int i) {
         if (sumFooter==null) {
-        	sumFooter = ","+template.sumFooter()+",";
+        	sumFooter = BeanUtil.concat(",",template.sumFooter(),",");
         }
         if (sumFooter==null) return false;
-        return sumFooter.contains(","+i+",");
+        return sumFooter.contains(BeanUtil.concat(",",i,","));
     }
 
     public List getRecordList() {

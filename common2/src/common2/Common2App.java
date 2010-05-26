@@ -21,6 +21,7 @@ import org.jdesktop.application.SingleFrameApplication;
 
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.admin.AppConfig;
 import bean.admin.AppMenu;
@@ -143,7 +144,7 @@ public class Common2App extends SingleFrameApplication {
 						Thread.currentThread().sleep(1000*5);
 						b = service.HeartBeat.isAlive();
 						if (!b) {
-							System.out.println("CONNECTION PROBLEM == "+DateUtil.getTime());
+							Log.out("CONNECTION PROBLEM == ",DateUtil.getTime());
 							if (AppConfig.alwaysCheckConnection()) {
 								PanelUtil.showMessage(null, "PLEASE CHECK CONNECTION!!!");
 							}

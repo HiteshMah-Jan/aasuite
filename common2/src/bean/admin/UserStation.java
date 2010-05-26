@@ -55,7 +55,7 @@ public class UserStation extends AbstractIBean {
 
     public static String extractStationName() {
         String macAddress = NetworkUtil.macAddress();
-        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='"+macAddress+"'");
+        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='",macAddress,"'");
         if (st==null) return "";
         return st.station;
     }

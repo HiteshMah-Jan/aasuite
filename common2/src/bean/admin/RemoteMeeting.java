@@ -17,6 +17,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.DateUtil;
 import util.NetworkUtil;
 import template.Display;
@@ -68,7 +69,7 @@ public class RemoteMeeting extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return userid + " [" + seq + "]";
+        return BeanUtil.concat(userid," [",seq,"]");
     }
 
     public java.lang.Integer getSeq() {
@@ -151,7 +152,7 @@ public class RemoteMeeting extends AbstractIBean implements Serializable {
     }
 
     public static void endMeeting(int seq) {
-        RemoteMeeting meeting = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq="+seq);
+        RemoteMeeting meeting = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq=",seq);
         meeting.setOnGoing(false);
         meeting.setTimeEnd(DateUtil.getTime());
 

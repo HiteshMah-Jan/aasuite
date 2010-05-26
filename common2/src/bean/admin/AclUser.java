@@ -23,6 +23,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -103,11 +104,11 @@ public class AclUser extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return userid + " [" + lastname + ", " + firstname + "]";
+        return BeanUtil.concat(userid," [",lastname,", ",firstname,"]");
     }
 
     public Person getPerson() {
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Employee a WHERE a.userid='" + userid + "'");
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Employee a WHERE a.userid='",userid,"'");
     }
 
     @Override
@@ -126,7 +127,7 @@ public class AclUser extends AbstractIBean implements Serializable {
             //get all modules for this user
             DefaultMutableTreeNode moduleSon = new DefaultMutableTreeNode("Modules");
             @SuppressWarnings("unchecked")
-            List<AclUserModule> modules = this.list("SELECT a FROM AclUserModule a WHERE a.userid='" + user.getUserid() + "' ORDER BY a.moduleName");
+            List<AclUserModule> modules = this.list("SELECT a FROM AclUserModule a WHERE a.userid='",user.getUserid(),"' ORDER BY a.moduleName");
             for (AclUserModule module : modules) {
                 moduleSon.add(new DefaultMutableTreeNode(module));
             }
@@ -134,7 +135,7 @@ public class AclUser extends AbstractIBean implements Serializable {
             //get all duties for this user
             DefaultMutableTreeNode dutySon = new DefaultMutableTreeNode("Duties");
             @SuppressWarnings("unchecked")
-            List<AclUserDuty> duties = this.list("SELECT a FROM AclUserDuty a WHERE a.userid='" + user.getUserid() + "' ORDER BY a.dutyCode");
+            List<AclUserDuty> duties = this.list("SELECT a FROM AclUserDuty a WHERE a.userid='",user.getUserid(),"' ORDER BY a.dutyCode");
             for (AclUserDuty duty : duties) {
                 dutySon.add(new DefaultMutableTreeNode(duty));
             }
@@ -142,7 +143,7 @@ public class AclUser extends AbstractIBean implements Serializable {
             //get all groups for this user
             DefaultMutableTreeNode groupSon = new DefaultMutableTreeNode("Groups");
             @SuppressWarnings("unchecked")
-            List<AclUserGroup> groups = this.list("SELECT a FROM AclUserGroup a WHERE a.userid='" + user.getUserid() + "' ORDER BY a.groupCode");
+            List<AclUserGroup> groups = this.list("SELECT a FROM AclUserGroup a WHERE a.userid='",user.getUserid(),"' ORDER BY a.groupCode");
             for (AclUserGroup group : groups) {
                 groupSon.add(new DefaultMutableTreeNode(group));
             }
@@ -156,31 +157,31 @@ public class AclUser extends AbstractIBean implements Serializable {
     }
 
     public static AbstractIBean getObject(String userid) {
-        return (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM AclUser a WHERE a.userid='" + userid + "'");
+        return (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM AclUser a WHERE a.userid='" , userid , "'");
     }
 
     public AclUserDuty getDutyObj(String dutyCode) {
-        return (AclUserDuty) this.selectFirstCache("SELECT a FROM AclUserDuty a WHERE a.userid='" + userid + "' AND a.dutyCode='" + dutyCode + "'");
+        return (AclUserDuty) this.selectFirstCache("SELECT a FROM AclUserDuty a WHERE a.userid='" , userid , "' AND a.dutyCode='" , dutyCode , "'");
     }
 
     public AclUserModule getModuleObj(String moduleName) {
-        return (AclUserModule) this.selectFirstCache("SELECT a FROM AclUserModule a WHERE a.userid='" + userid + "' AND a.moduleName='" + moduleName + "'");
+        return (AclUserModule) this.selectFirstCache("SELECT a FROM AclUserModule a WHERE a.userid='" , userid , "' AND a.moduleName='" , moduleName , "'");
     }
 
     public AclUserGroup getGroupObj(String group) {
-        return (AclUserGroup) this.selectFirstCache("SELECT a FROM AclUserGroup a WHERE a.userid='" + userid + "' AND a.groupCode='" + group + "'");
+        return (AclUserGroup) this.selectFirstCache("SELECT a FROM AclUserGroup a WHERE a.userid='" , userid , "' AND a.groupCode='" , group , "'");
     }
 
     public List<AclUserDuty> getDuties() {
-        return this.list("SELECT a FROM AclUserDuty a WHERE a.userid='" + userid + "'");
+        return this.list("SELECT a FROM AclUserDuty a WHERE a.userid='" , userid , "'");
     }
 
     public List<AclUserModule> getModules() {
-        return this.list("SELECT a FROM AclUserModule a WHERE a.userid='" + userid + "'");
+        return this.list("SELECT a FROM AclUserModule a WHERE a.userid='" , userid , "'");
     }
 
     public List<AclUserGroup> getGroups() {
-        return this.list("SELECT a FROM AclUserGroup a WHERE a.userid='" + userid + "'");
+        return this.list("SELECT a FROM AclUserGroup a WHERE a.userid='" , userid , "'");
     }
 
     public boolean isEmployee() {

@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import java.awt.Cursor;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -34,14 +36,14 @@ public class JLinkLabelPallete extends JLabel {
     public void setText(String text) {
         String fontSize = "";
         if (getFont() != null) {
-            fontSize = getFont().getSize() + "";
+            fontSize = BeanUtil.concat(getFont().getSize(),"");
         }
         this.text = text;
         if (constants.Constants.labelColor!=null) {
-            text = "<html><u><font " + fontSize + ">" + text + "</font></u></html>";
+            text = BeanUtil.concat("<html><u><font ",fontSize,">",text,"</font></u></html>");
         }
         else {
-            text = "<html><u><font color=blue" + fontSize + ">" + text + "</font></u></html>";
+            text = BeanUtil.concat("<html><u><font color=blue",fontSize,">",text,"</font></u></html>");
         }
         super.setText(text);
     }
@@ -64,7 +66,7 @@ public class JLinkLabelPallete extends JLabel {
     public void addLinkBean(Class lbean) {
         this.bean = lbean;
         setText(text);
-        setToolTipText("<html>Link to "+PanelUtil.getTitle(bean)+"<br>"+linkFor.getFieldCompose().display.tooltip()+"</html>");
+        setToolTipText(BeanUtil.concat("<html>Link to ",PanelUtil.getTitle(bean),"<br>",linkFor.getFieldCompose().display.tooltip(),"</html>"));
         try {
             this.addMouseListener(new MouseAdapter() {
                 @Override

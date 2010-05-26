@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.Column;
 import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.BeanUtil;
 
 /**
  *
@@ -213,7 +214,7 @@ public class DisplayWrapper {
 
     public String getName() {
         if (prefix!=null) {
-            return prefix+"_"+f.field.getName();
+            return BeanUtil.concat(prefix,"_",f.field.getName());
         }
         return f.field.getName();
     }
@@ -268,7 +269,7 @@ public class DisplayWrapper {
                 else if (display.type().startsWith("textarea")) {
                     return "100%";
                 }
-                return display.width()+"";
+                return BeanUtil.concat(display.width(),"");
             }
         }
     }
@@ -280,7 +281,7 @@ public class DisplayWrapper {
     public String getSize() {
         Column col = f.field.getAnnotation(Column.class);
         if (col!=null && col.length()>0 && col.length()<20) {
-            return col.length()+"";
+            return BeanUtil.concat(col.length(),"");
         }
         if (f.field.getType()==int.class || f.field.getType()==double.class) {
             return "10";

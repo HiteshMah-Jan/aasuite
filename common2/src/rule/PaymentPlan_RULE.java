@@ -37,7 +37,7 @@ public class PaymentPlan_RULE extends BusinessRuleWrapper {
             PanelUtil.showError(this.usedComp, "Cannot use same year.");
         }
         else {
-            List<PaymentPlan> plans = DBClient.getList("SELECT a FROM PaymentPlan a WHERE a.useYear='"+useYear+"'");
+            List<PaymentPlan> plans = DBClient.getList("SELECT a FROM PaymentPlan a WHERE a.useYear='",useYear,"'");
             for (PaymentPlan p : plans) {
                 p.seq = null;
                 p.useYear = syear;

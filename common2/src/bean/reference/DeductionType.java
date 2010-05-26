@@ -228,7 +228,7 @@ public class DeductionType extends CompensationType implements Serializable {
 	}
 	
 	public static DeductionType getDeduction(String deduction, String category) {
-        DeductionType dec = (DeductionType) DBClient.getFirstRecord("SELECT a FROM DeductionType a WHERE a.code='"+deduction+"'");
+        DeductionType dec = (DeductionType) DBClient.getFirstRecord("SELECT a FROM DeductionType a WHERE a.code='",deduction,"'");
         if (dec==null) {
             dec = new DeductionType();
             dec.code = deduction;

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.ScriptRunner;
 import template.Display;
 import template.Displays;
@@ -160,7 +161,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
    
     @Override
     public String toString() {
-        return "Sales order[" + salesOrderId + "]";
+        return BeanUtil.concat("Sales order[" , salesOrderId , "]");
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -231,7 +232,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
         if (this.invoiceId == 0) {
             return false;
         }
-        Invoice inv = (Invoice) this.firstRecord("SELECT a FROM Invoice a WHERE a.salesOrderId=" + this.salesOrderId);
+        Invoice inv = (Invoice) this.firstRecord("SELECT a FROM Invoice a WHERE a.salesOrderId=" , this.salesOrderId);
         return inv != null;
     }
 
@@ -239,7 +240,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
         if (this.invoiceId == 0) {
             return null;
         }
-        Invoice inv = (Invoice) this.firstRecord("SELECT a FROM Invoice a WHERE a.salesOrderId=" + this.salesOrderId);
+        Invoice inv = (Invoice) this.firstRecord("SELECT a FROM Invoice a WHERE a.salesOrderId=" , this.salesOrderId);
         return inv;
     }
 
@@ -247,18 +248,18 @@ public class SalesOrder extends AbstractIBean implements Serializable {
         if (this.soldTo == 0) {
             return null;
         }
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + this.soldTo);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" , this.soldTo);
     }
 
     public Person getSeller() {
         if (this.soldBy == 0) {
             return null;
         }
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + this.soldBy);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" , this.soldBy);
     }
 
     public List getItemList() {
-        return this.list("SELECT a FROM Salesorderitem a WHERE a.salesOrderId=" + salesOrderId);
+        return this.list("SELECT a FROM Salesorderitem a WHERE a.salesOrderId=" , salesOrderId);
     }
 
     public int getInvoiceId() {

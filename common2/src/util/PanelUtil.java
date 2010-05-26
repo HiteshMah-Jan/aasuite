@@ -391,12 +391,12 @@ public class PanelUtil {
         return isEmpty(text);
     }
 
-    public static void showMessage(JComponent comp, String message) {
+    public static void showMessage(JComponent comp, Object... message) {
         JOptionPane.showMessageDialog(comp, message);
     }
 
-    public static boolean showPrompt(JComponent comp, String message) {
-        int i = JOptionPane.showConfirmDialog(comp, message, "Close Application", JOptionPane.YES_NO_OPTION);
+    public static boolean showPrompt(JComponent comp, Object... message) {
+        int i = JOptionPane.showConfirmDialog(comp, BeanUtil.concat(message), "Close Application", JOptionPane.YES_NO_OPTION);
         return i == JOptionPane.OK_OPTION;
     }
 
@@ -429,12 +429,12 @@ public class PanelUtil {
         return JOptionPane.showInputDialog(comp, message, def, JOptionPane.QUESTION_MESSAGE, null, lst.toArray(), init);
     }
 
-    public static void showError(JComponent comp, String message) {
+    public static void showError(JComponent comp, Object... message) {
     	if (Common2View.mainView!=null){
             if (comp!=null) {
             	comp.requestFocus();
             }
-            JOptionPane.showMessageDialog(comp, message, "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(comp, BeanUtil.concat(message), "", JOptionPane.ERROR_MESSAGE);
     	}
     	else {
     		util.Log.info(message);
@@ -505,12 +505,12 @@ public class PanelUtil {
         t.start();
     }
 
-    public static void showErrorMessageToScreen(final String message) {
+    public static void showErrorMessageToScreen(final String... message) {
         Thread t = new Thread(new Runnable() {
             public void run() {
                 if (Common2View.mainView==null) return;
                 Common2View.mainView.lblClearCache.setForeground(Color.RED);
-                Common2View.mainView.lblClearCache.setText(message);
+                Common2View.mainView.lblClearCache.setText(BeanUtil.concat(message));
                 Common2View.mainView.lblClearCache.updateUI();
             }
         });

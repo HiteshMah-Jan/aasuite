@@ -9,6 +9,8 @@ import component.TimeRendererPallete;
 import javax.swing.JTable;
 import org.jdesktop.beansbinding.ELProperty;
 
+import util.BeanUtil;
+
 /**
  *
  * @author Entokwaa
@@ -31,10 +33,10 @@ public class TimeRenderer extends AbstractComponentRenderer {
         String value = f.getTime();
         String name = this.field.field.getName();
         if (tbl instanceof JTable) {
-            ELProperty.create("${selectedElement."+name+"}").setValue(tbl, value);
+            ELProperty.create(BeanUtil.concat("${selectedElement.",name,"}")).setValue(tbl, value);
         }
         else {
-            ELProperty.create("${"+name+"}").setValue(tbl, value);
+            ELProperty.create(BeanUtil.concat("${",name,"}")).setValue(tbl, value);
         }
     }
 }

@@ -75,7 +75,7 @@ public class DynamicReportCategory extends AbstractIBean implements Serializable
         if (category == null || category.isEmpty()) {
             return this.list("SELECT a FROM DynamicReport a WHERE a.category IS NULL");
         } else {
-            return this.list("SELECT a FROM DynamicReport a WHERE a.category='" + category + "'");
+            return this.list("SELECT a FROM DynamicReport a WHERE a.category='" , category , "'");
         }
     }
 

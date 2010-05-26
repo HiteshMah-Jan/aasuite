@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.ELProperty;
 
+import util.BeanUtil;
+
 /**
  *
  * @author Entokwaa
@@ -35,10 +37,10 @@ public class CalendarRenderer extends AbstractComponentRenderer {
         Date value = f.getDate();
         String name = this.field.field.getName();
         if (tbl instanceof JTable) {
-            ELProperty.create("${selectedElement."+name+"}").setValue(tbl, value);
+            ELProperty.create(BeanUtil.concat("${selectedElement.",name,"}")).setValue(tbl, value);
         }
         else {
-            ELProperty.create("${"+name+"}").setValue(tbl, value);
+            ELProperty.create(BeanUtil.concat("${",name,"}")).setValue(tbl, value);
         }
     }
 }

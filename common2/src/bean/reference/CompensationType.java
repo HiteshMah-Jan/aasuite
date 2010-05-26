@@ -109,7 +109,7 @@ public class CompensationType extends AbstractIBean implements Serializable {
 
     public double getCalculatedValue(Employee emp) {
         double retVal = 0;
-        List<DeductionConfigTable> lstConfig = selectListCache("SELECT a FROM DeductionConfigTable a WHERE a.code='"+code+"' ORDER BY a.fromAmount");
+        List<DeductionConfigTable> lstConfig = selectListCache("SELECT a FROM DeductionConfigTable a WHERE a.code='",code,"' ORDER BY a.fromAmount");
         if (lstConfig!=null) {
             DeductionConfigTable aconf = new DeductionConfigTable();
             for (DeductionConfigTable conf : lstConfig) {

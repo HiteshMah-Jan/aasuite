@@ -823,7 +823,7 @@ public class Person extends AbstractIBean implements Serializable {
             if (lastName.equals("XXX")) {
                 return shortName;
             }
-            return lastName + ", " + firstName;
+            return BeanUtil.concat(lastName,", ",firstName);
         }
     }
 
@@ -939,7 +939,7 @@ public class Person extends AbstractIBean implements Serializable {
     }
 
     public static Person extractObject(Object personId) {
-        return (Person) firstRecord("SELECT a FROM Person a WHERE a.personId="+personId);
+        return (Person) firstRecord("SELECT a FROM Person a WHERE a.personId=",personId);
     }
 
     public java.lang.String getZipCode() {
@@ -1113,7 +1113,7 @@ public class Person extends AbstractIBean implements Serializable {
     }  
     
     public String extractEmailSubject() {
-        return "TO: "+toString();
+        return BeanUtil.concat("TO: ",toString());
     }
     public String extractEmailContent() {
         StringBuffer sb = new StringBuffer();
@@ -1143,11 +1143,11 @@ public class Person extends AbstractIBean implements Serializable {
         	if (middleInitial!=null && !middleInitial.isEmpty()) {
                 if (middleInitial.contains(" ")) {
                     String[] arr = middleInitial.split(" ");
-                    mIName = arr[0].substring(0, 1)+". ";
-                    mIName += arr[1].substring(0, 1)+".";
+                    mIName = BeanUtil.concat(arr[0].substring(0, 1),". ");
+                    mIName += BeanUtil.concat(arr[1].substring(0, 1),".");
                 }
                 else {
-                	mIName = middleInitial.substring(0, 1)+".";
+                	mIName = BeanUtil.concat(middleInitial.substring(0, 1),".");
                 }
         	}
         	else {
@@ -1157,7 +1157,7 @@ public class Person extends AbstractIBean implements Serializable {
         catch (Exception e) {
         }
         super.save();
-        PersonInformation info = (PersonInformation) AbstractIBean.firstRecord("SELECT a FROM PersonInformation a WHERE a.personId="+personId);
+        PersonInformation info = (PersonInformation) AbstractIBean.firstRecord("SELECT a FROM PersonInformation a WHERE a.personId=",personId);
         if (info==null) {
             info = new PersonInformation();
             info.personId = personId;
@@ -1168,7 +1168,7 @@ public class Person extends AbstractIBean implements Serializable {
     }
     
     public PersonDependent extractOrCreateDependent(String relation) {
-        String sql = "SELECT a FROM PersonDependent a WHERE a.relation='"+relation+"' AND a.personId="+personId;
+        String sql = BeanUtil.concat("SELECT a FROM PersonDependent a WHERE a.relation='",relation,"' AND a.personId=",personId);
         PersonDependent dep = (PersonDependent) AbstractIBean.firstRecord(sql);
         if (dep==null || dep.isEmptyKey()) {
             dep = new PersonDependent();
@@ -1195,8 +1195,7 @@ public class Person extends AbstractIBean implements Serializable {
 	}
 	
     public List<Payment> extractPayments(String schoolYear) {
-//      return list("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=" + personId + " AND a.schoolYear='"+schoolYear+"' ORDER BY a.line");
-      return list("SELECT a FROM Payment a WHERE a.schoolYear='"+schoolYear+"' AND a.paidBy="+personId+" ORDER BY a.dueDate");
+      return list("SELECT a FROM Payment a WHERE a.schoolYear='",schoolYear,"' AND a.paidBy=",personId," ORDER BY a.dueDate");
   }
 
 }

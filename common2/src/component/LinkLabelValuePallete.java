@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import service.util.AbstractIBean;
 import util.BeanUtil;
+import util.Log;
 
 /**
  *
@@ -134,7 +135,7 @@ public class LinkLabelValuePallete extends JLabel {
 
 //    @Override
     public void setCode(String text) {
-        System.out.println("CODE === "+text);
+        Log.info("CODE === ",text);
         this.code = text;
         if (entityName!=null && !entityName.isEmpty()) {
             try {

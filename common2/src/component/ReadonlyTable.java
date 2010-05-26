@@ -35,6 +35,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import service.util.AbstractIBean;
 import ui.DynamicAccessForm;
+import util.BeanUtil;
 import util.DateUtil;
 import util.PanelUtil;
 import util.ScriptRunner;
@@ -112,7 +113,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
         mnuPrintTable.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                     return;
                 }
                 printTable();
@@ -121,7 +122,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
         mnuPrintRecord.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                     return;
                 }
                 JTable tbl = getMe();
@@ -137,7 +138,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
 
             public void actionPerformed(ActionEvent e) {
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                    PanelUtil.showMessage(getMe(), "Cannot use print menu for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                     return;
                 }
                 JTable tbl = getMe();
@@ -153,7 +154,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
 
             public void actionPerformed(ActionEvent e) {
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(getMe(), "Cannot use save to xml for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                    PanelUtil.showMessage(getMe(), "Cannot use save to xml for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                     return;
                 }
                 saveTableToXML();
@@ -162,7 +163,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
         mnuUseTemplate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (!constants.Constants.isLicenced()) {
-                    PanelUtil.showMessage(getMe(), "Cannot use template for trial version. For licence please email our sales at " + constants.Constants.SALES_EMAIL);
+                    PanelUtil.showMessage(getMe(), "Cannot use template for trial version. For licence please email our sales at " , constants.Constants.SALES_EMAIL);
                     return;
                 }
                 JTable tbl = getMe();
@@ -200,7 +201,7 @@ public class ReadonlyTable extends JTable implements IComponentDND, IRule {
         }
         sb.append("</XML>");
         JFileChooser fChooser = new JFileChooser();
-        fChooser.setSelectedFile(new File(pnl.getTitle()+".xml"));
+        fChooser.setSelectedFile(new File(BeanUtil.concat(pnl.getTitle(),".xml")));
         int i = fChooser.showSaveDialog(this);
         if (i==fChooser.APPROVE_OPTION) {
             try {

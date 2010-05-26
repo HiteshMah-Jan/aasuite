@@ -41,10 +41,6 @@ public class DBClient {
     }
     
     public static void runBatch(List<String> sql) {
-//        System.out.println("...BATCH CALL...");
-        for (String str : sql) {
-//            System.out.println("\t"+str);
-        }
         ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.RUN_BATCH, constants.Constants.PERSISTENCE_SERVICE);
     }
 
@@ -57,18 +53,10 @@ public class DBClient {
     }
     
     public static void runBatchNative(List<String> sql) {
-//        System.out.println("...BATCH CALL...");
-        for (String str : sql) {
-//            System.out.println("\t"+str);
-        }
         ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.RUN_BATCH_NATIVE, constants.Constants.PERSISTENCE_SERVICE);
     }
     
     public static Map batchQuery(List<String> sql) {
-//        System.out.println("...BATCH CALL...");
-        for (String str : sql) {
-//            System.out.println("\t"+str);
-        }
         ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.SELECT_BATCH, constants.Constants.PERSISTENCE_SERVICE);
         collectSql(sql);
         if (ret==null || ret.getData()==null) return new HashMap();
@@ -76,10 +64,6 @@ public class DBClient {
     }
 
     public static Map batchQueryServerCache(List<String> sql) {
-//      System.out.println("...BATCH CALL...");
-      for (String str : sql) {
-//          System.out.println("\t"+str);
-      }
       ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.SELECT_BATCH_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
       collectSql(sql);
       if (ret==null || ret.getData()==null) return new HashMap();
@@ -87,10 +71,6 @@ public class DBClient {
   }
 
     public static Map batchQueryNoCache(List<AbstractIBean> lst, List<String> sql) {
-//        System.out.println("...BATCH NO CACHE CALL...");
-        for (String str : sql) {
-//            System.out.println("\t"+str);
-        }
         List tmp = new ArrayList();
         tmp.add(lst);
         tmp.add(sql);
@@ -114,10 +94,6 @@ public class DBClient {
     }
 
     public static Map batchQueryNoCache(List<String> sql) {
-//        System.out.println("...BATCH NO CACHE CALL...");
-        for (String str : sql) {
-//            System.out.println("\t"+str);
-        }
         ReturnStruct ret = CallService.callService(sql, "BATCH", constants.Constants.SELECT_BATCH_NOCACHE, constants.Constants.PERSISTENCE_SERVICE);
         collectSql(sql);
         if (ret==null || ret.getData()==null) return new HashMap();
@@ -195,7 +171,7 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql) {
-    	List retlst = (List) NetworkUtil.requestCache(sql+":0", null);
+    	List retlst = (List) NetworkUtil.requestCache(BeanUtil.concat(sql,":0"), null);
     	if (retlst == null || retlst.isEmpty()) {
             ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_LIST_SERVERCACHE, constants.Constants.PERSISTENCE_SERVICE);
             if (ret==null || ret.getData()==null) {
@@ -204,13 +180,13 @@ public class DBClient {
             collectSql(sql);
             retlst = (List) ret.getData();
             if (!retlst.isEmpty()) {
-                NetworkUtil.requestCache(sql+":0", retlst);
+                NetworkUtil.requestCache(BeanUtil.concat(sql,":0"), retlst);
             }
     	}
     	return retlst;
     }
 
-    public static List getList(Object... sql) {
+    public static List getList(String... sql) {
         collectSql(BeanUtil.concat(sql));
         return getList(BeanUtil.concat(sql));
     }
@@ -227,7 +203,7 @@ public class DBClient {
     }
 
     public static List getListServerCache(String sql, int start, int recSize) {
-    	List retlst = (List) NetworkUtil.requestCache(sql+":"+start, null);
+    	List retlst = (List) NetworkUtil.requestCache(BeanUtil.concat(sql,":",start), null);
     	if (retlst == null || retlst.isEmpty()) {
             List lst = new ArrayList();
             if (start==1) start=0;
@@ -240,7 +216,7 @@ public class DBClient {
             }
             retlst = (List) ret.getData();
             if (!retlst.isEmpty()) {
-                NetworkUtil.requestCache(sql+":"+start, retlst);
+                NetworkUtil.requestCache(BeanUtil.concat(sql,":",start), retlst);
             }
     	}
     	return retlst;
@@ -269,7 +245,7 @@ public class DBClient {
         return ret.getData();
     }
 
-    public static boolean exist(String sql) {
+    public static boolean exist(String... sql) {
         AbstractIBean b = (AbstractIBean) getFirstRecord(sql);
         if (b==null || b.isEmptyKey()) return false;
         return true;
@@ -281,7 +257,7 @@ public class DBClient {
         return true;
     }
 
-    public static Object getFirstRecord(String... sqlArr) {
+    public static Object getFirstRecord(Object... sqlArr) {
         String sql = BeanUtil.concat(sqlArr);
         collectSql(sql);
         return getFirstRecord(sql);
@@ -320,7 +296,8 @@ public class DBClient {
         return ret.getData();
     }
 
-    public static double getSingleColumnDouble(String sql) {
+    public static double getSingleColumnDouble(Object... sqlArr) {
+        String sql = BeanUtil.concat(sqlArr);
         ReturnStruct ret = CallService.callService(null, sql, constants.Constants.SELECT_SINGLE_COLUMN, constants.Constants.PERSISTENCE_SERVICE);
         collectSql(sql);
         try {

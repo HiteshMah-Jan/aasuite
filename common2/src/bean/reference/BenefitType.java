@@ -35,7 +35,7 @@ import util.DBClient;
 })
 public class BenefitType extends CompensationType implements Serializable {
     public static BenefitType getBenefit(String benefit, String category) {
-        BenefitType ben = (BenefitType) DBClient.getFirstRecord("SELECT a FROM BenefitType a WHERE a.code='"+benefit+"'");
+        BenefitType ben = (BenefitType) DBClient.getFirstRecord("SELECT a FROM BenefitType a WHERE a.code='",benefit,"'");
         if (ben==null) {
             ben = new BenefitType();
             ben.code = benefit;

@@ -15,6 +15,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -66,6 +67,6 @@ public class PersonNotes extends PersonAttribute implements Serializable {
 
     @Override
     public String toString() {
-        return "Person Notes[" + seq + "]";
+        return BeanUtil.concat("Person Notes[",seq,"]");
     }
 }

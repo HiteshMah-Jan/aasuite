@@ -14,6 +14,7 @@ import service.util.AbstractIBean;
 import template.*;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 
@@ -774,7 +775,7 @@ public class PaymentPlan extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return code+" - "+description;
+        return BeanUtil.concat(code," - ",description);
     }
     
     @Override

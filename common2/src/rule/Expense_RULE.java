@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JComponent;
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
+import util.BeanUtil;
 import util.DateUtil;
 
 /**
@@ -77,7 +78,7 @@ public class Expense_RULE extends BusinessRuleWrapper {
                 pay.dueDate = DateUtil.addMonth(exp.expenseDate,1);
                 pay.company = exp.chargeDepartment;
                 pay.expenseId = exp.seq;
-                pay.remarks = "PAYABLE FOR "+exp.reason;
+                pay.remarks = BeanUtil.concat("PAYABLE FOR ",exp.reason);
                 pay.paid = false;
                 pay.save();
             }

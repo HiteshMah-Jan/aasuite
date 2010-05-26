@@ -17,6 +17,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -440,7 +441,7 @@ public class EmployeeAnnualSummary extends PersonAttribute implements Serializab
 
     @Override
     public String toString() {
-        return year+"";
+        return BeanUtil.concat(year,"");
     }
 
     public java.util.Date getStartDate() {

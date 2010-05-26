@@ -93,7 +93,7 @@ public class Services extends AbstractIBean implements Serializable {
     }
 
     public static void logRun(String service, int count) {
-		Services serv = (Services) DBClient.getFirstRecord("SELECT a FROM Services a WHERE a.code='"+service+"'");
+		Services serv = (Services) DBClient.getFirstRecord("SELECT a FROM Services a WHERE a.code='",service,"'");
 		serv.lastRunCount = count;
 		serv.lastRunDate = new Date();
 		serv.lastRunTime = DateUtil.getTime();

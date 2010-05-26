@@ -56,10 +56,10 @@ public class CheckerBean {
         this.promptOnSave = promptOnSave;
     }  
     
-    public static void info(String message) {
+    public static void info(String... message) {
         Log.info(message);
     }
-    public static void warning(String message) {
+    public static void warning(String... message) {
         Log.warning(message);
     }
     public static void severe(String message, Exception e) {

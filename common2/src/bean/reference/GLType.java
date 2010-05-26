@@ -18,6 +18,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -83,7 +84,7 @@ public class GLType extends AbstractIBean implements Serializable {
         if (glCode == null) {
             return "";
         } else {
-            return glCode + " - " + accountNumber;
+            return BeanUtil.concat(glCode," - ",accountNumber);
         }
     }
 

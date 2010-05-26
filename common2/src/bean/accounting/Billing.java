@@ -216,16 +216,16 @@ public class Billing extends AbstractIBean implements Serializable {
     }
 
     public Person getCustomer() {
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + paidBy);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",paidBy);
     }
     public Person getSeller() {
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + paidTo);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",paidTo);
     }
     public Invoice extractInvoice() {
         if (this.invoiceId == 0) {
             return null;
         }
-        Invoice inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=" + this.invoiceId);
+        Invoice inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=",this.invoiceId);
         return inv;
     }
 

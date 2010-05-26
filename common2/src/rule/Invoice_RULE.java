@@ -56,9 +56,9 @@ public class Invoice_RULE extends BusinessRuleWrapper {
     private void computeCheckPayment(JComponent comp) {
     	Invoice pay = (Invoice) this.getBean();
         for (int i = 1; i <= 10; i++) {
-            if (comp.getName().equals("accountNumber"+i)) {
-                String val = getValue("accountNumber"+i);
-                changeAmount(pay, "amount"+i, val);
+            if (comp.getName().equals(BeanUtil.concat("accountNumber",i))) {
+                String val = getValue(BeanUtil.concat("accountNumber",i));
+                changeAmount(pay, BeanUtil.concat("amount",i), val);
             }
         }
     }
@@ -72,8 +72,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
                     JTextField f = (JTextField) getComponent(amountName);
                     String txt = f.getText();
                     if (txt==null || txt.trim().isEmpty() || txt.trim().equals("0") || txt.trim().equals("0.0")) {
-//                        System.out.println("SET TEXT FOR "+amountName+" VALUE:"+useAmount);
-                        f.setText(useAmount+"");
+                        f.setText(BeanUtil.concat(useAmount,""));
                         f.updateUI();
                     }
                 }
@@ -87,7 +86,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
     	boolean canlock = UserInfo.canLockInvoice();
 
         for (int i=1; i<=10; i++) {
-            JCheckBox box = (JCheckBox) getComponent("bounceCheck"+i);
+            JCheckBox box = (JCheckBox) getComponent(BeanUtil.concat("bounceCheck",i));
             if (box!=null) {
             	box.setEnabled(canlock);
             }
@@ -96,7 +95,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
         firstTime = true;
         if (canlock) {
             for (int i=1; i<=10; i++) {
-                JCheckBox box = (JCheckBox) getComponent("bounceCheck"+i);
+                JCheckBox box = (JCheckBox) getComponent(BeanUtil.concat("bounceCheck",i));
                 if (box!=null) {
                     if (box!=null) box.addMouseListener(new MouseAdapter() {
                         @Override
@@ -116,7 +115,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
             if (e) {
 //            get the student then change the payment status to NOT ALLOWED
             	Invoice pay = (Invoice) this.getBean();
-                DBClient.runSQLNative("UPDATE Person SET paymentStatus='NOT ALLOWED' WHERE personId="+pay.billTo);
+                DBClient.runSQLNative("UPDATE Person SET paymentStatus='NOT ALLOWED' WHERE personId=",pay.billTo);
                 addPaymentPenalty(pay, b.getName());
             }
             adjustBounceCheck(b.getName());
@@ -126,7 +125,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
             if (e) {
 //              get the student then change the payment status to NOT ALLOWED
             	Invoice pay = (Invoice) this.getBean();
-                DBClient.runSQLNative("UPDATE Person SET paymentStatus='ALLOWED' WHERE personId="+pay.billTo);
+                DBClient.runSQLNative("UPDATE Person SET paymentStatus='ALLOWED' WHERE personId=",pay.billTo);
             }
             else {
                 PanelUtil.showMessage(b, "Check unmarked but the student still not allowed to pay in check.");
@@ -140,7 +139,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
     	try {
         	Invoice pay = (Invoice) this.getBean();
         	int index = PanelUtil.getIntValue(chkIndex.replace("bounceCheck", ""));
-        	String check = (String) BeanUtil.getPropertyValue(pay, "accountNumber"+index);
+        	String check = (String) BeanUtil.getPropertyValue(pay, BeanUtil.concat("accountNumber",index));
 //        	double amount = (Double) BeanUtil.getPropertyValue(pay, "amount"+index);
         	
         	StringBuffer sb = new StringBuffer("SELECT a FROM Payment a WHERE a.oldPaymentFor='").append(check).append("'");
@@ -153,7 +152,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
         		clearBounceCheck(p, check);
         		p.save();
 
-        		Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='"+p.schoolYear+"' AND a.paidBy="+p.paidBy+" AND a.paymentFor='"+p.paymentFor+"' AND a.paid=false");
+        		Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='",p.schoolYear,"' AND a.paidBy=",p.paidBy," AND a.paymentFor='",p.paymentFor,"' AND a.paid=false");
         		tmp.save();
         	}
         	pay.save();
@@ -168,12 +167,12 @@ public class Invoice_RULE extends BusinessRuleWrapper {
     	try {
         	Invoice pay = (Invoice) this.getBean();
         	int index = PanelUtil.getIntValue(chkIndex.replace("bounceCheck", ""));
-        	String check = (String) BeanUtil.getPropertyValue(pay, "accountNumber"+index);
+        	String check = (String) BeanUtil.getPropertyValue(pay, BeanUtil.concat("accountNumber",index));
 
-        	if (DBClient.exist("SELECT a FROM Payment a WHERE a.oldPaymentFor='"+check+"' AND a.paid=true")) {
+        	if (DBClient.exist("SELECT a FROM Payment a WHERE a.oldPaymentFor='",check,"' AND a.paid=true")) {
 //        		delete all payment with 0 amount
 //        		PanelUtil.showPrompt(usedComp, "Payment is already posted before, would you like to repost ");
-        		DBClient.runSQLNative("DELETE FROM Payment WHERE oldPaymentFor='"+check+"' AND paid=1 AND amountPaid=0");
+        		DBClient.runSQLNative("DELETE FROM Payment WHERE oldPaymentFor='",check,"' AND paid=1 AND amountPaid=0");
         	}
         	
         	StringBuffer sb = new StringBuffer("SELECT a FROM Payment a WHERE a.paid=true AND ");
@@ -198,7 +197,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
         		newp.amountPaid = getCheckAmount(p, check)*-1;
         		newp.save();
 
-        		Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='"+p.schoolYear+"' AND a.paidBy="+p.paidBy+" AND a.paymentFor='"+p.paymentFor+"' AND a.paid=false");
+        		Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='",p.schoolYear,"' AND a.paidBy=",p.paidBy," AND a.paymentFor='",p.paymentFor,"' AND a.paid=false");
         		tmp.save();
         	}
         	pay.save();
@@ -257,13 +256,13 @@ public class Invoice_RULE extends BusinessRuleWrapper {
 
 	protected void addPaymentPenalty(Invoice p, String chkIndex) {
     	int index = PanelUtil.getIntValue(chkIndex.replace("bounceCheck", ""));
-    	String check = (String) BeanUtil.getPropertyValue(p, "accountNumber"+index);
-    	if (DBClient.exist("SELECT a FROM Payment a WHERE a.oldPaymentFor='"+check+"' AND a.paid=false")) {
+    	String check = (String) BeanUtil.getPropertyValue(p, BeanUtil.concat("accountNumber",index));
+    	if (DBClient.exist("SELECT a FROM Payment a WHERE a.oldPaymentFor='",check,"' AND a.paid=false")) {
     		util.Log.warning("PENALTY FOR CHECK ALREADY INSERTED.");
     		return;
     	}
     	
-    	Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.invoiceId="+p.seq);
+    	Payment tmp = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.invoiceId=",p.seq);
 		if (tmp==null) return;
 
 		String amt = PanelUtil.showPromptDefaultMessage(usedComp, "Would you like to add penalty?", "2000");

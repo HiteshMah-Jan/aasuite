@@ -16,6 +16,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -122,7 +123,7 @@ public class EmployeeEarnings extends PersonAttribute implements Serializable {
 
     @Override
     public String toString() {
-        return basicSalary+"";
+        return BeanUtil.concat(basicSalary,"");
     }
 
     public double getSumEarning() {

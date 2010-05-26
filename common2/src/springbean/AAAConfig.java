@@ -17,8 +17,10 @@ import service.ParamStruct;
 import service.ReturnStruct;
 import service.util.AbstractIBean;
 import service.util.CallService;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.Services;
 import bean.reference.Department;
@@ -88,7 +90,7 @@ public class AAAConfig implements IService {
                     	CallService.callService("", 1, serv.code);
                 	}
                 	else {
-                    	CallService.callService("", 1, "springbean."+serv.code);
+                    	CallService.callService("", 1, BeanUtil.concat("springbean.",serv.code));
                 	}
                 }
             }
@@ -124,7 +126,7 @@ public class AAAConfig implements IService {
             AbstractIBean b = (AbstractIBean) PanelUtil.getBeanClass(table).newInstance();
             if ("seq".equals(b._Key()) || "personId".equals(b._Key())) {
             	if (b.isSuperBean()) {
-                    DBClient.runSQLNative("ALTER TABLE "+b._Table()+" MODIFY COLUMN "+b._Key()+" INTEGER NOT NULL DEFAULT NULL AUTO_INCREMENT;");
+                    DBClient.runSQLNative("ALTER TABLE ",b._Table()," MODIFY COLUMN ",b._Key()," INTEGER NOT NULL DEFAULT NULL AUTO_INCREMENT;");
             	}
             }
             runTableAlter(b.getClass().getSimpleName());
@@ -144,7 +146,7 @@ public class AAAConfig implements IService {
 		            setupDB(string);
 		        }
 		        for (String string : lst) {
-		            DBClient.getFirstRecord("SELECT a FROM "+string+" a");
+		            DBClient.getFirstRecord("SELECT a FROM ",string," a");
 		        }
 		        lbl.setText("SETUP FINISH");
 			}
@@ -213,7 +215,7 @@ public class AAAConfig implements IService {
 
                     Column col = f.getAnnotation(Column.class);
                     if (col==null) {
-//                    	System.out.println("FIELD PROBLEM for "+f.getName());
+                    	Log.out("FIELD PROBLEM for ",f.getName());
                     	continue;
                     }
                     if (type == double.class || type == Double.class) {
@@ -229,24 +231,22 @@ public class AAAConfig implements IService {
                     if (len == 0) {
                         len = 50;
                     }
-                    sql = "ALTER TABLE " + table + " ADD (" + fname + " " + dtype + "(" + len + "));";
+                    sql = BeanUtil.concat("ALTER TABLE ",table," ADD (",fname," ",dtype,"(",len,"));");
                     if (type==boolean.class || type==Date.class || type==double.class || type==int.class) {
-                        sql = "ALTER TABLE " + table + " ADD (" + fname + " " + dtype + ");";
+                        sql = BeanUtil.concat("ALTER TABLE ",table," ADD (",fname," ",dtype,");");
                     }
                     sb.append(sql).append("\n");
                     if (type==boolean.class) {
-                        sql = "UPDATE "+table+" SET "+fname+"=0 WHERE "+fname+" is null;";
+                        sql = BeanUtil.concat("UPDATE ",table," SET ",fname,"=0 WHERE ",fname," is null;");
                         sb.append(sql).append("\n");
                     }
                 } catch (Exception ex) {
                 	ex.printStackTrace();
-//                    System.out.println("ERROR "+sql);
+                	Log.out("ERROR ",sql);
                 }
             }
-//            System.out.println(sb.toString());
         } catch (Exception e) {
-//        	e.printStackTrace();
-//            System.out.println("ERROR "+e.getMessage());
+        	Log.out("ERROR ",e.getMessage());
         }
     }
 
@@ -262,11 +262,11 @@ public class AAAConfig implements IService {
             Field[] flds = cls.getFields();
             String sql = "";
             for (Field f : flds) {
-            	if (lstAlter.contains(table+"-"+f.getName())) {
-//            		System.out.println("ALREADY RUN "+table+"-"+f.getName());
+            	if (lstAlter.contains(BeanUtil.concat(table,"-",f.getName()))) {
+            		Log.out("ALREADY RUN ",table,"-",f.getName());
             		continue;
             	}
-            	lstAlter.add(table+"-"+f.getName());
+            	lstAlter.add(BeanUtil.concat(table,"-",f.getName()));
                 try {
                     //check existence of field
                     String fname = f.getName();
@@ -275,7 +275,7 @@ public class AAAConfig implements IService {
 
                     Column col = f.getAnnotation(Column.class);
                     if (col==null) {
-                    	System.out.println("FIELD PROBLEM for "+f.getName());
+                    	Log.out("FIELD PROBLEM for ",f.getName());
                     	continue;
                     }
                     if (type == double.class || type == Double.class) {
@@ -291,26 +291,24 @@ public class AAAConfig implements IService {
                     if (len == 0) {
                         len = 50;
                     }
-                    sql = "ALTER TABLE " + table + " ADD (" + fname + " " + dtype + "(" + len + "));";
+                    sql = BeanUtil.concat("ALTER TABLE ",table," ADD (",fname," ",dtype,"(",len,"));");
                     if (type==boolean.class || type==Date.class || type==double.class || type==int.class) {
-                        sql = "ALTER TABLE " + table + " ADD (" + fname + " " + dtype + ");";
+                        sql = BeanUtil.concat("ALTER TABLE ",table," ADD (",fname," ",dtype,");");
                     }
-                    System.out.println("RUN "+sql);
+                    Log.out("RUN ",sql);
 //                    sb.append(sql).append("\n");
                     lst.add(sql);
                     if (type==boolean.class) {
-                        sql = "UPDATE "+table+" SET "+fname+"=0 WHERE "+fname+" is null;";
+                        sql = BeanUtil.concat("UPDATE ",table," SET ",fname,"=0 WHERE ",fname," is null;");
 //                        sb.append(sql).append("\n");
                         lst.add(sql);
                     }
                 } catch (Exception ex) {
                 	ex.printStackTrace();
-                    System.out.println("ERROR "+sql);
                 }
             }
         } catch (Exception e) {
-//        	e.printStackTrace();
-            System.out.println("ERROR "+e.getMessage());
+        	e.printStackTrace();
         }
         DBClient.runBatchNative(lst);
     }

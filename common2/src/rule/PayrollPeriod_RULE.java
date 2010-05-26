@@ -12,6 +12,8 @@ import bean.accounting.PayrollPeriod;
 import bean.person.EmployeeLoan;
 import java.util.List;
 import javax.swing.JComponent;
+
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.PanelUtil;
@@ -109,7 +111,7 @@ public class PayrollPeriod_RULE extends BusinessRuleWrapper {
 
     private void generatePayroll() {
         PayrollPeriod p = (PayrollPeriod) this.getBean();
-        List<Payroll> lstp = DBClient.getList("SELECT a FROM Payroll a WHERE a.payrollPeriodId="+p.seq);
+        List<Payroll> lstp = DBClient.getList(BeanUtil.concat("SELECT a FROM Payroll a WHERE a.payrollPeriodId=",p.seq));
         List<Employee> lst = DBClient.getList("SELECT a FROM Employee a");
         for (Employee e : lst) {
             if (alreadyHasPayroll(e, lstp)) continue;
@@ -127,7 +129,7 @@ public class PayrollPeriod_RULE extends BusinessRuleWrapper {
         pay.payrollPeriodId = p.seq;
 
         Employee emp = pay.extractEmployee();
-        pay.jobType = emp.position+"";
+        pay.jobType = BeanUtil.concat(emp.position,"");
         pay.employeeType = emp.position;
         pay.department = emp.department;
         pay.employeeStatus = emp.status;
@@ -161,7 +163,7 @@ public class PayrollPeriod_RULE extends BusinessRuleWrapper {
             pay.salaryLoan = DataUtil.getMoneyFormat(salaryLoan);
         }
         else {
-            showErrorMessageToScreen("No basic pay for employee "+emp.toString());
+            showErrorMessageToScreen("No basic pay for employee ",emp.toString());
         }
         pay.save();
         //below are totals only, will be set upon saving
@@ -171,7 +173,7 @@ public class PayrollPeriod_RULE extends BusinessRuleWrapper {
     }
 
     private EmployeeLoan getEmployeeLoanObj(String loanType, Payroll pay) {
-        List<EmployeeLoan> lstLoans = pay.list("SELECT a FROM EmployeeLoan a WHERE a.personId="+pay.employeeId);
+        List<EmployeeLoan> lstLoans = pay.list("SELECT a FROM EmployeeLoan a WHERE a.personId=",pay.employeeId);
         for (EmployeeLoan employeeLoan : lstLoans) {
             if (employeeLoan.completed) continue;
             if (loanType.equals(employeeLoan.loanType)) {

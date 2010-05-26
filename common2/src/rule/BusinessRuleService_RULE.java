@@ -6,6 +6,8 @@ package rule;
 
 import bean.admin.BusinessRuleService;
 import javax.swing.JComponent;
+
+import util.BeanUtil;
 import util.ScriptRunner;
 
 /**
@@ -43,9 +45,9 @@ public class BusinessRuleService_RULE extends BusinessRuleWrapper {
         }
     }
 
-    private void insertCode(String str) {
+    private void insertCode(Object... str) {
         String oldRule = getValue("rule");
-        setValue("rule", oldRule + "\n" + str);
+        setValue("rule", BeanUtil.concat(oldRule,"\n",BeanUtil.concat(str)));
     }
 
     private void appendFor() {
@@ -60,7 +62,7 @@ public class BusinessRuleService_RULE extends BusinessRuleWrapper {
     private void appendFore() {
         String beanName = "Department";
         StringBuffer sb = new StringBuffer();
-        sb.append("for (" + beanName + " bean : lst) {\n");
+        sb.append(BeanUtil.concat("for (",beanName," bean : lst) {\n"));
         sb.append("\t//code here");
         sb.append("}");
         insertCode(sb.toString());
@@ -93,12 +95,12 @@ public class BusinessRuleService_RULE extends BusinessRuleWrapper {
         String beanName = "Department";
         String key = "department";
         Object keyVal = "ACCOUNTING";
-        insertCode(beanName + " bean = DBClient.getFirstRecord(\"SELECT a FROM " + beanName + " a WHERE a." + key + "=" + keyVal + "\");");
+        insertCode(beanName," bean = DBClient.getFirstRecord(\"SELECT a FROM ",beanName," a WHERE a.",key,"=",keyVal,"\");");
     }
 
     private void appendSelectList() {
         String beanName = "Department";
-        insertCode("\nList<" + beanName + "> lst = DBClient.getList(\"SELECT a FROM " + beanName + " a\");");
+        insertCode("\nList<",beanName,"> lst = DBClient.getList(\"SELECT a FROM ",beanName," a\");");
     }
 
     private void appendTest() {

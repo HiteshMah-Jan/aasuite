@@ -13,6 +13,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.DateUtil;
 import util.NetworkUtil;
 import template.Display;
@@ -63,7 +64,7 @@ public class RemoteMeetingInvitation extends AbstractIBean implements Serializab
 
     @Override
     public String toString() {
-        return userid + " [" + seq + "]";
+        return BeanUtil.concat(userid," [",seq,"]");
     }
 
     public java.lang.Integer getSeq() {
@@ -134,7 +135,7 @@ public class RemoteMeetingInvitation extends AbstractIBean implements Serializab
         if (this.remoteMeetingId == 0) {
             return "";
         }
-        RemoteMeeting meet = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq="+remoteMeetingId);
+        RemoteMeeting meet = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq=",remoteMeetingId);
         return meet.getMeetingName();
     }
 
@@ -142,7 +143,7 @@ public class RemoteMeetingInvitation extends AbstractIBean implements Serializab
         if (this.remoteMeetingId == 0) {
             return "";
         }
-        RemoteMeeting meet = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq="+remoteMeetingId);
+        RemoteMeeting meet = (RemoteMeeting) AbstractIBean.firstRecord("SELECT a FROM RemoteMeeting a WHERE a.seq=",remoteMeetingId);
         String userId = meet.getUserid();
         Person p = (Person) this.selectFirstCache("SELECT a FROM Person a WHERE a.userid='",userId,"'");
         if (p == null) {

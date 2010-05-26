@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import service.util.IBean;
 import springbean.AAAConfig;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -39,11 +40,11 @@ public class ExcelWriter {
 
     public void writeBeanData(String bean) {
         if (!PanelUtil.canBackup(bean)) {
-            System.out.println("CANNOT BACKUP BEAN!!!! [" + bean + "]");
+            Log.out("CANNOT BACKUP BEAN!!!! [",bean,"]");
             return;
         }
         HSSFSheet sheet = wb.createSheet(bean);
-        List lst = util.DBClient.getList("SELECT a FROM " + bean + " a",0,10000);
+        List lst = util.DBClient.getList(BeanUtil.concat("SELECT a FROM ",bean," a"), 0,10000);
         HSSFRow row;
         HSSFCell cell;
         for (int i = 0; lst != null && i < lst.size(); i++) {
@@ -84,7 +85,7 @@ public class ExcelWriter {
 
     public void writeBeanData(String bean, String filename) {
         HSSFSheet sheet = wb.createSheet(bean);
-        List lst = util.DBClient.getList("SELECT a FROM " + bean + " a",0,10000);
+        List lst = util.DBClient.getList(BeanUtil.concat("SELECT a FROM " , bean , " a"),0,10000);
         HSSFRow row;
         HSSFCell cell;
         for (int i = 0; lst != null && i < lst.size(); i++) {

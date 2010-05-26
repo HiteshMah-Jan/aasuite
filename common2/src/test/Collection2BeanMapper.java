@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import service.util.IBean;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -51,16 +52,15 @@ public class Collection2BeanMapper {
                     if (value!=null && value instanceof String) {
                         value = value.toString().toUpperCase();
                     }
-//                    System.out.println("BIND "+field+":"+value);
                     BeanUtil.setPropertyValue((IBean)bean, field, value);
                 }
                 catch (Exception e) {
-//                    System.out.println("...MAPPING EXCEPTION "+"-"+field+":"+value);
+                	Log.out("...MAPPING EXCEPTION ","-",field,":",value);
                 }
             }
             return bean;
         } catch (Exception ex) {
-            System.out.println("EXCEPTION "+ex.getMessage());
+            Log.out("EXCEPTION ",ex.getMessage());
         }
         return null;
     }
@@ -100,7 +100,7 @@ public class Collection2BeanMapper {
                     }
                     catch (Exception e) {
                         lstCls.add(String.class);
-                        System.err.println("FIELD EXCEPTION - "+string1);
+                        Log.out("FIELD EXCEPTION - ",string1);
                     }
                 }
             }

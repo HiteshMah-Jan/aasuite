@@ -26,6 +26,7 @@ import template.UITemplate;
 import template.screen.TemplateDefault;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 import util.ThreadPoolUtil;
 import bean.Employee;
@@ -308,7 +309,7 @@ public class PersonAttendance extends PersonAttribute implements Serializable {
 		boolean b = PanelUtil.showPrompt(null, "Attendance Check will take several minutes, would you like to continue.");
 		if (b) {
 			List<Employee> lst = DBClient.getList("SELECT a FROM Employee a");
-			b = PanelUtil.showPrompt(null, "Total Employee Count ["+lst.size()+"].\nWould you like to continue?");
+			b = PanelUtil.showPrompt(null, "Total Employee Count [",lst.size(),"].\nWould you like to continue?");
 			if (b) {
 				for (Employee emp:lst) {
 					if (emp.isActive) {
@@ -356,7 +357,7 @@ public class PersonAttendance extends PersonAttribute implements Serializable {
 			}
 			insert(l);
 			l.clear();
-			System.out.println("RUN ATTENDANCE FOR "+e.toString());
+			Log.out("RUN ATTENDANCE FOR ",e.toString());
     		PanelUtil.hideWaitFrame();
 		}
 		

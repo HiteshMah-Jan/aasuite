@@ -39,6 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jdesktop.beansbinding.ELProperty;
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.ScriptRunner;
 import util.PanelUtil;
 
@@ -126,7 +127,7 @@ public abstract class AbstractPanel extends JPanel implements IPanelNavigator {
 
                     component.AbstractPanel pnl = getMe();
                     java.lang.String simpleName = pnl.getClass().getSimpleName();
-                    component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName("ui.robottester."+simpleName+"RobotTester").newInstance();
+                    component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName(BeanUtil.concat("ui.robottester.",simpleName,"RobotTester")).newInstance();
                     setTester(tester);
                 } catch (Exception ex) {
 //                    Logger.getLogger("global").log(Level.SEVERE, null, ex);
@@ -152,7 +153,7 @@ public abstract class AbstractPanel extends JPanel implements IPanelNavigator {
         java.lang.String simpleName = pnl.getClass().getSimpleName();
         component.AbstractRobotTester.setENABLE_ROBOT(true);
         try {
-            component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName("ui.robottester."+simpleName+"RobotTester").newInstance();
+            component.AbstractRobotTester tester = (component.AbstractRobotTester) Class.forName(BeanUtil.concat("ui.robottester.",simpleName,"RobotTester")).newInstance();
             pnl.setTester(tester);
         } catch (Exception ex) {
             Logger.getLogger("global").log(Level.INFO, "Using override method for Robot");
@@ -454,7 +455,7 @@ public abstract class AbstractPanel extends JPanel implements IPanelNavigator {
     
     public void initRules() {
         String formName = getTitle();
-        populatedRules = AbstractIBean.list("SELECT a FROM BusinessRule a WHERE a.formName=\'" + formName + "\'");
+        populatedRules = AbstractIBean.list("SELECT a FROM BusinessRule a WHERE a.formName=\'",formName,"\'");
         if (populatedRules != null && populatedRules.size() == 0) {
 //            populatedRules.add(new BusinessRule(0, formName, constants.Constants.DEFAULT_EVENT_RULE.DELETE));
 //            populatedRules.add(new BusinessRule(0, formName, constants.Constants.DEFAULT_EVENT_RULE.NEW));
@@ -469,7 +470,7 @@ public abstract class AbstractPanel extends JPanel implements IPanelNavigator {
         if (PanelUtil.isEmpty(linkFor)) {
             return usedTitle;
         } else {
-            return usedTitle + " - " + linkFor.getText();
+            return BeanUtil.concat(usedTitle," - ",linkFor.getText());
         }
     }
 

@@ -82,7 +82,6 @@ public class ImageMagicWand {
 		lst.add(p);
 		int x = p.x;
 		int y = p.y;
-//		System.out.println("COOR "+x+":"+y);
 		try {
 //			process top left
 			if (!isToleranceOk(rgb, img.getRGB(x + 1, y + 1), tolerance)) {
@@ -166,7 +165,6 @@ public class ImageMagicWand {
 			}
 		}
 		catch (Exception e) {
-			System.out.println("POINT = "+p);
 			e.printStackTrace();
 		}
 	}
@@ -198,7 +196,6 @@ public class ImageMagicWand {
 			}
 		}
 		catch (Exception e) {
-			System.out.println("POINT = "+p);
 			e.printStackTrace();
 		}
 	}

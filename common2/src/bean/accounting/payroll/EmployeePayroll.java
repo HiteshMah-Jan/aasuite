@@ -47,7 +47,7 @@ public class EmployeePayroll extends AbstractIBean {
 
     @Override
 	public void delete() {
-    	DBClient.runSQLNative("DELETE FROM EmployeePayrollAdjustment WHERE employeePayrollId="+seq);
+    	DBClient.runSQLNative("DELETE FROM EmployeePayrollAdjustment WHERE employeePayrollId=",seq);
 		super.delete();
 	}
 

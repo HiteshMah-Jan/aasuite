@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -37,7 +39,7 @@ public class ProcessImpl extends AccountingImpl implements IProcess {
 
     public List<PersonAttendance> getAttendance(Person person) {
         getAbsent(person);
-        List<PersonAttendance> lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId="+person.personId+" ORDER BY a.attendanceDate DESC", 0, 32);
+        List<PersonAttendance> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PersonAttendance a WHERE a.personId=",person.personId," ORDER BY a.attendanceDate DESC"), 0, 32);
         Iterator iter = lst.iterator();
         while (iter.hasNext()) {
             PersonAttendance att = (PersonAttendance) iter.next();
@@ -50,7 +52,7 @@ public class ProcessImpl extends AccountingImpl implements IProcess {
 
     public List<Date> getAbsent(Person person) {
         List<Date> lstDate = new ArrayList<Date>();
-        List<PersonAttendance> lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId="+person.personId+" ORDER BY a.attendanceDate DESC", 0, 32);
+        List<PersonAttendance> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PersonAttendance a WHERE a.personId=",person.personId," ORDER BY a.attendanceDate DESC"), 0, 32);
         if (lst!=null) {
             //check for 32 days
             Date fromDate = util.DateUtil.addDay(constants.Constants.useDate, -32);
@@ -101,7 +103,7 @@ public class ProcessImpl extends AccountingImpl implements IProcess {
     List<EmployeeLeaveApplication> lstLeave;
     private boolean isOnLeave(Person p, Date d) {
         if (lstLeave==null) {
-            lstLeave = DBClient.getList("SELECT a FROM EmployeeLeaveApplication a WHERE a.personId="+p.personId);
+            lstLeave = DBClient.getList(BeanUtil.concat("SELECT a FROM EmployeeLeaveApplication a WHERE a.personId=",p.personId));
         }
         for (EmployeeLeaveApplication leave : lstLeave) {
             if (util.DateUtil.isBetween(d, leave.startDate, leave.endDate)) {
@@ -113,7 +115,7 @@ public class ProcessImpl extends AccountingImpl implements IProcess {
     
     private String getLeave(Person p, Date d) {
         if (lstLeave==null) {
-            lstLeave = DBClient.getList("SELECT a FROM EmployeeLeaveApplication a WHERE a.personId="+p.personId);
+            lstLeave = DBClient.getList(BeanUtil.concat("SELECT a FROM EmployeeLeaveApplication a WHERE a.personId=",p.personId));
         }
         for (EmployeeLeaveApplication leave : lstLeave) {
             if (util.DateUtil.isBetween(d, leave.startDate, leave.endDate)) {

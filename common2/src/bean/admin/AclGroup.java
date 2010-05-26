@@ -23,6 +23,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.BeanUtil;
 
 /**
  *
@@ -54,7 +55,7 @@ public class AclGroup extends AbstractIBean implements Serializable {
     }
 
     public AclGroupModule getModuleObj(String module) {
-        return (AclGroupModule) this.selectFirstCache("SELECT a FROM AclGroupModule a WHERE a.moduleName='" + module + "' AND a.groupCode='" + code + "'");
+        return (AclGroupModule) this.selectFirstCache("SELECT a FROM AclGroupModule a WHERE a.moduleName='",module,"' AND a.groupCode='", code,"'");
     }
 
     public String getGroupName() {
@@ -91,11 +92,11 @@ public class AclGroup extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return code + " - " + groupName;
+        return BeanUtil.concat(code," - ",groupName);
     }
 
     public static AbstractIBean getObject(String code) {
-        return (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM AclGroup a WHERE a.code='" + code + "'");
+        return (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM AclGroup a WHERE a.code='",code,"'");
     }
 
     @Override
@@ -111,7 +112,7 @@ public class AclGroup extends AbstractIBean implements Serializable {
             //get all modules for this user
             DefaultMutableTreeNode moduleSon = new DefaultMutableTreeNode("Modules");
             @SuppressWarnings("unchecked")
-            List<AclGroupModule> modules = this.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='" + group.getCode() + "' ORDER BY a.moduleName");
+            List<AclGroupModule> modules = this.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='",group.getCode(),"' ORDER BY a.moduleName");
             for (AclGroupModule module : modules) {
                 moduleSon.add(new DefaultMutableTreeNode(module));
             }
@@ -119,7 +120,7 @@ public class AclGroup extends AbstractIBean implements Serializable {
             //get all duties for this user
             DefaultMutableTreeNode dutySon = new DefaultMutableTreeNode("Duties");
             @SuppressWarnings("unchecked")
-            List<AclGroupDuty> duties = this.list("SELECT a FROM AclGroupDuty a WHERE a.groupCode='" + group.getCode() + "' ORDER BY a.seq");
+            List<AclGroupDuty> duties = this.list("SELECT a FROM AclGroupDuty a WHERE a.groupCode='",group.getCode(),"' ORDER BY a.seq");
             for (AclGroupDuty duty : duties) {
                 dutySon.add(new DefaultMutableTreeNode(duty));
             }
@@ -132,12 +133,12 @@ public class AclGroup extends AbstractIBean implements Serializable {
     }
 
     public AclGroupDuty getDutyObj(String seq) {
-        return (AclGroupDuty) this.selectFirstCache("SELECT a FROM AclGroupDuty a WHERE a.seq='" + seq + "' AND a.groupCode='" + code + "'");
+        return (AclGroupDuty) this.selectFirstCache("SELECT a FROM AclGroupDuty a WHERE a.seq='",seq,"' AND a.groupCode='",code,"'");
     }
 
     public List<String> getDutyList() {
         List<String> lstReturn = new ArrayList<String>();
-        List lst = list("SELECT a FROM AclGroupDuty a WHERE a.groupCode='" + code + "'");
+        List lst = list("SELECT a FROM AclGroupDuty a WHERE a.groupCode='",code,"'");
         for (Object bean : lst) {
             AclGroupDuty mod = (AclGroupDuty) bean;
             lstReturn.add(mod.getDutyCode());
@@ -147,7 +148,7 @@ public class AclGroup extends AbstractIBean implements Serializable {
 
     public List<String> getModuleList() {
         List<String> lstReturn = new ArrayList<String>();
-        List lst = this.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='" + code + "'");
+        List lst = this.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='",code,"'");
         for (Object bean : lst) {
             AclGroupModule mod = (AclGroupModule) bean;
             lstReturn.add(mod.getModuleName());

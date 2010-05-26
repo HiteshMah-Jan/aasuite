@@ -37,6 +37,7 @@ import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.component.AbstractComponentRenderer;
 import template.screen.component.JTableReadOnly;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -110,7 +111,7 @@ public class TemplateParserUtil {
                 if (fieldCompose.display.button().isEmpty()) {
                     pnlMerge.add(field, mergeCons);
                 } else {
-                    JButtonPallete btn = new JButtonPallete(fieldCompose.display.button(), "btn" + fieldCompose.field.getName());
+                    JButtonPallete btn = new JButtonPallete(fieldCompose.display.button(), BeanUtil.concat("btn",fieldCompose.field.getName()));
                     btn.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             BusinessRuleWrapper ruleWrapper = templatePanel.getRuleWrapper();
@@ -179,7 +180,7 @@ public class TemplateParserUtil {
                         pnlGroup.add(field, cons);
                     }
                 } else {
-                    JButtonPallete btn = new JButtonPallete(fieldCompose.display.button(), "btn" + fieldCompose.field.getName());
+                    JButtonPallete btn = new JButtonPallete(fieldCompose.display.button(), BeanUtil.concat("btn",fieldCompose.field.getName()));
                     templatePanel.addFieldComponent(field);
                     JPanel pnl = new JPanel(new GridBagLayout());
                     PanelUtil.updateColor(pnl);
@@ -328,7 +329,7 @@ public class TemplateParserUtil {
                 d.display = display;
                 lst.add(d);
             } catch (Exception e) {
-            	util.Log.warning(e.getMessage()+": "+cls.getSimpleName()+":"+name);
+            	util.Log.warning(e.getMessage(),": ",cls.getSimpleName(),":",name);
 //                e.printStackTrace();
             }
         }
@@ -355,7 +356,6 @@ public class TemplateParserUtil {
                 d.display = display;
                 lst.add(d);
             } catch (Exception e) {
-                System.out.println(templatePanel.getCurrentClass().getSimpleName() + "." + display.name());
                 e.printStackTrace();
             }
         }
@@ -436,7 +436,7 @@ public class TemplateParserUtil {
     private String getHTML(String label) {
         if (label.contains("\n")) {
             label = label.replace("\n", "<br>");
-            return "<html><center>"+label+"</center></html>";
+            return BeanUtil.concat("<html><center>",label,"</center></html>");
         }
         return label;
     }
@@ -455,7 +455,7 @@ public class TemplateParserUtil {
         JTableBinding jTableBinding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ_WRITE, list, tblResult);
 
         for (String column : columnSearch) {
-            JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(ELProperty.create("${" + column + "}"));
+            JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(ELProperty.create(BeanUtil.concat("${",column,"}")));
 
             String lbl = getColumnLabel(column);
             if (lbl.contains("<br>")) {
@@ -471,12 +471,12 @@ public class TemplateParserUtil {
                     if (simpleName.equals("int")) {
                         simpleName = "Integer";
                     }
-                    simpleName = Character.toUpperCase(simpleName.charAt(0)) + simpleName.substring(1);
-                    columnBinding.setColumnClass(Class.forName("java.lang." + simpleName));
+                    simpleName = BeanUtil.concat(Character.toUpperCase(simpleName.charAt(0)),simpleName.substring(1));
+                    columnBinding.setColumnClass(Class.forName(BeanUtil.concat("java.lang.",simpleName)));
                 }
             } catch (Exception e) {
                 columnBinding.setColumnClass(String.class);
-                System.out.println("EXCEPTION " + e.getMessage());
+                Log.out("EXCEPTION ",e.getMessage());
             }
         }
         bindingGroup.addBinding(jTableBinding);
@@ -486,7 +486,7 @@ public class TemplateParserUtil {
         JTableBinding jTableBinding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ_WRITE, list, tblResult);
 
         for (String column : columnSearch) {
-            JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(ELProperty.create("${" + column + "}"));
+            JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(ELProperty.create(BeanUtil.concat("${",column,"}")));
 
             String lbl = getColumnLabel(column, currentClass);
             if (lbl.contains("<br>")) {
@@ -502,12 +502,12 @@ public class TemplateParserUtil {
                     if (simpleName.equals("int")) {
                         simpleName = "Integer";
                     }
-                    simpleName = Character.toUpperCase(simpleName.charAt(0)) + simpleName.substring(1);
-                    columnBinding.setColumnClass(Class.forName("java.lang." + simpleName));
+                    simpleName = BeanUtil.concat(Character.toUpperCase(simpleName.charAt(0)),simpleName.substring(1));
+                    columnBinding.setColumnClass(Class.forName(BeanUtil.concat("java.lang.",simpleName)));
                 }
             } catch (Exception e) {
                 columnBinding.setColumnClass(String.class);
-                System.out.println("EXCEPTION " + e.getMessage());
+                Log.out("EXCEPTION ",e.getMessage());
             }
         }
         bindingGroup.addBinding(jTableBinding);

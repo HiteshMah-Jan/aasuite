@@ -16,8 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import util.BeanUtil;
 import util.DBUtil;
+import util.Log;
 import util.ServerCache;
 import service.util.AbstractIBean;
 import service.util.IBean;
@@ -213,21 +215,15 @@ public class Persistence implements IService {
             for (String str : lstPage) {
                 if (str.startsWith("NATIVE")) {
                     String sql = str.substring("NATIVE-".length());
-                    List lst = (List) ServerCache.getCache(sql.trim().toLowerCase());
-                    if (lst == null) {
-                        lst = (List) ServerCache.resetCache(sql.trim().toLowerCase(), DBUtil.getInstance().selectBeanNative(sql, null));
-                    }
+                    List lst = DBUtil.getInstance().selectBeanNative(sql, null);
                     map.put(str, lst);
                 }
                 else {
                 	String id = str;
                 	if (start > 0) {
-                		id = start+"-"+str;
+                		id = BeanUtil.concat(start,"-",str);
                 	}
-                    List lst = (List) ServerCache.getCache(id.trim().toLowerCase());
-                    if (lst == null) {
-                    	lst = (List) ServerCache.resetCache(id.trim().toLowerCase(), DBUtil.getInstance().selectBean(str, null, start, recSize));
-                    }
+                    List lst = DBUtil.getInstance().selectBean(str, null, start, recSize);
                     map.put(str, lst);
                 }
             }
@@ -258,9 +254,9 @@ public class Persistence implements IService {
         List lstForDelete = new ArrayList();
 
         for (Object bean : origRecords) {
-            Logger.getLogger("global").log(Level.INFO, "ORIG BEAN === " + bean);
+            Log.info("ORIG BEAN === ",bean);
             if (!beanExist(bean, savedRecords)) {
-                Logger.getLogger("global").log(Level.INFO, "DELETE BEAN === " + bean);
+                Log.info("DELETE BEAN === ",bean);
                 lstForDelete.add(bean);
             }
         }
@@ -347,22 +343,16 @@ public class Persistence implements IService {
         ReturnStruct ret = new ReturnStruct();
         List lst = null;
         if (param.getData() == null) {
-        	lst = (List) ServerCache.getCache(param.getHelperSQL().trim().toLowerCase());
-        	if (lst==null) {
-                lst = (List) ServerCache.resetCache(param.getHelperSQL().trim().toLowerCase(), DBUtil.getInstance().selectBean(param.getHelperSQL(), null));
-        	}
+        	lst = DBUtil.getInstance().selectBean(param.getHelperSQL(), null);
         } else {
             List lstPage = (List) param.getData();
             int start = (Integer) lstPage.get(0);
             int recSize = (Integer) lstPage.get(1);
             String id = param.getHelperSQL();
             if (start > 0) {
-            	id = start+"-"+param.getHelperSQL();
+            	id = BeanUtil.concat(start,"-",param.getHelperSQL());
             }
-        	lst = (List) ServerCache.getCache(id.trim().toLowerCase());
-        	if (lst==null) {
-                lst = (List) ServerCache.resetCache(id.trim().toLowerCase(), DBUtil.getInstance().selectBean(param.getHelperSQL(), null, start, recSize));
-        	}
+        	lst = DBUtil.getInstance().selectBean(param.getHelperSQL(), null, start, recSize);
         }
         ret.setData(lst);
         ret.setStatus(Constants.SUCCESS);

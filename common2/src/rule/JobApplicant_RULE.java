@@ -16,7 +16,6 @@ import util.DBClient;
 public class JobApplicant_RULE extends Person_RULE {
     @Override
     public void runOnClick(JComponent comp) {
-//        System.out.println("ON CLICK for "+comp.getName());
         if ("btnHire".equals(comp.getName())) {
             hire();
         }
@@ -24,7 +23,7 @@ public class JobApplicant_RULE extends Person_RULE {
 
     protected void hire() {
         JobApplicant a = (JobApplicant) this.getBean();
-        DBClient.runSQL("UPDATE Person SET personType='EMPLOYEE' WHERE personId="+a.personId);
+        DBClient.runSQL("UPDATE Person SET personType='EMPLOYEE' WHERE personId=",a.personId);
         showMessage("Applicant is now hired.");
         this.refreshRecords();
     }

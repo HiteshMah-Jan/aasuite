@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import springbean.AAAConfig;
+import util.BeanUtil;
 
 import com.calipso.reportgenerator.client.ReportManagerService;
 import com.calipso.reportgenerator.common.IReportManager;
@@ -33,7 +34,7 @@ public class OlapRunner {
 	public static ReportViewer reportViewer;
 
 	public OlapRunner(String configPath, String args[]) {
-		configPath = "C:/tmp/olap/"+AAAConfig.getInstance().getModule().toLowerCase();
+		configPath = BeanUtil.concat("C:/tmp/olap/",AAAConfig.getInstance().getModule().toLowerCase());
 		this.configPath = configPath;
 		System.setProperty("ConfigPath", configPath);
 		this.userId = getArg("UserId", args);
@@ -157,7 +158,7 @@ public class OlapRunner {
 
 	public static void main(String args[]) throws InfoException {
 		AAAConfig.getInstance();
-		OlapRunner reportViewerApp = new OlapRunner("C:/tmp/olap/"+AAAConfig.getInstance().getModule().toLowerCase(), args);
+		OlapRunner reportViewerApp = new OlapRunner(BeanUtil.concat("C:/tmp/olap/",AAAConfig.getInstance().getModule().toLowerCase()), args);
 		reportViewerApp.show();
 		ReportViewerToolBar bar = reportViewerApp.reportViewer.getToolBar();
 		JButton btn = new JButton("Freeze");

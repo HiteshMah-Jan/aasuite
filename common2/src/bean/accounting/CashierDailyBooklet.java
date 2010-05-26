@@ -163,7 +163,7 @@ public class CashierDailyBooklet extends AbstractIBean {
     }
     
     private int extractNextOR(String user, String orType) {
-        CashierDailyBooklet booklet = (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='"+user+"' ORDER BY a.seq DESC");
+        CashierDailyBooklet booklet = (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='",user,"' ORDER BY a.seq DESC");
         if (booklet==null) {
             logBooklet(user, 0, 0, 0, 0, "", "EMPTY RANGE");
             return 0;
@@ -177,7 +177,7 @@ public class CashierDailyBooklet extends AbstractIBean {
             start = booklet.startMIS;
             end = booklet.endMIS;
         }
-        int orInvoice = (int) DBClient.getSingleColumnDouble("SELECT MAX(orNumber)+1 FROM Invoice WHERE cashier='"+user+"' AND orType='"+orType+"' AND orNumber BETWEEN "+start+" AND "+end);
+        int orInvoice = (int) DBClient.getSingleColumnDouble("SELECT MAX(orNumber)+1 FROM Invoice WHERE cashier='",user,"' AND orType='",orType,"' AND orNumber BETWEEN ",start," AND ",end);
         if (orInvoice<=1) {
         	orInvoice = start;
         }
@@ -223,7 +223,7 @@ public class CashierDailyBooklet extends AbstractIBean {
     
     public static CashierDailyBooklet getMyBooklet() {
     	String user = UserInfo.getUserName();
-        return (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='"+user+"' ORDER BY a.seq DESC");
+        return (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='",user,"' ORDER BY a.seq DESC");
     }
     
 	@Override

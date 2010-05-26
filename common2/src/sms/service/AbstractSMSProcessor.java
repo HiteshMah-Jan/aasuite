@@ -7,6 +7,7 @@ package sms.service;
 
 import bean.admin.SMSMessageBean;
 import sms.SMSServer;
+import util.BeanUtil;
 import util.Log;
 
 /**
@@ -21,7 +22,7 @@ public abstract class AbstractSMSProcessor {
     public static AbstractSMSProcessor getInstance(SMSServer server, String code, SMSMessageBean bean) {
         AbstractSMSProcessor process = null;
         try {
-            process = (AbstractSMSProcessor) Class.forName("sms.service."+code).newInstance();
+            process = (AbstractSMSProcessor) Class.forName(BeanUtil.concat("sms.service.",code)).newInstance();
             process.bean =  bean;
             process.server = server;
         }

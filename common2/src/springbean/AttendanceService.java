@@ -11,8 +11,10 @@ import java.util.Vector;
 
 import service.ParamStruct;
 import service.ReturnStruct;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.ThreadPoolUtil;
 import bean.Employee;
 import bean.accounting.payroll.PersonAttendance;
@@ -31,15 +33,15 @@ public class AttendanceService extends ServiceWrapper {
         if (!f.exists()) {
             f.mkdir();
         }
-        f = new File(str + "/attendance");
+        f = new File(BeanUtil.concat(str,"/attendance"));
         if (!f.exists()) {
             f.mkdir();
         }
-        File proc = new File(str + "/attendance/processed");
+        File proc = new File(BeanUtil.concat(str,"/attendance/processed"));
         if (!proc.exists()) {
             proc.mkdir();
         }
-        f = new File(str + "/attendance/in");
+        f = new File(BeanUtil.concat(str,"/attendance/in"));
         if (!f.exists()) {
             f.mkdir();
         }
@@ -48,7 +50,7 @@ public class AttendanceService extends ServiceWrapper {
         for (int i = 0; i < lst.length; i++) {
             File file = lst[i];
             if (this.lst.contains(file.getName())) {
-//				System.out.println("\n\n####### Locked file "+file.getName()+" #######\n\n");
+            	Log.out("\n\n####### Locked file ",file.getName()," #######\n\n");
                 continue;
             }
             this.lst.add(file.getName());
@@ -136,7 +138,7 @@ public class AttendanceService extends ServiceWrapper {
                     String timeout = DateUtil.formatTime(cTimeOut);
 
 //					check if same attendance posted
-                    Employee emp = (Employee) DBClient.getFirstRecord("SELECT a FROM Employee a WHERE a.employeeNumber='" + cid + "'");
+                    Employee emp = (Employee) DBClient.getFirstRecord("SELECT a FROM Employee a WHERE a.employeeNumber='",cid,"'");
                     if (emp == null) {
                         emp = new Employee();
                         emp.personType = "FACULTY";
@@ -149,7 +151,7 @@ public class AttendanceService extends ServiceWrapper {
                         emp.employeeNumber = cid;
                         emp.save();
                     }
-                    PersonAttendance att = (PersonAttendance) DBClient.getFirstRecord("SELECT a FROM PersonAttendance a WHERE a.personId=" + emp.personId + " AND a.attendanceDate='" + DateUtil.formatDateToSql(date) + "'");
+                    PersonAttendance att = (PersonAttendance) DBClient.getFirstRecord("SELECT a FROM PersonAttendance a WHERE a.personId=" , emp.personId," AND a.attendanceDate='" ,DateUtil.formatDateToSql(date) , "'");
                     if (att == null || att.isEmptyKey()) {
                         att = new PersonAttendance();
                     }

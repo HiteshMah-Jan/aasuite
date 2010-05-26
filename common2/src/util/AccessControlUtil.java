@@ -165,7 +165,7 @@ public class AccessControlUtil {
                 String txt = item.getText();
 
                 module = new bean.admin.AclModule();
-                module.setModuleName(txtMenu + " - " + txt);
+                module.setModuleName(BeanUtil.concat(txtMenu," - ",txt));
                 module.setDescription(txt);
                 lstTmp.add(module);
                 item.setVisible(true);
@@ -212,7 +212,7 @@ public class AccessControlUtil {
         }
         if (!user.isTemporary()) {
             @SuppressWarnings(value = "unchecked")
-            List<AclUserModule> lst = AbstractIBean.list("SELECT a FROM AclUserModule a WHERE a.userid='" + user.getUser().getUserid() + "'");
+            List<AclUserModule> lst = AbstractIBean.list("SELECT a FROM AclUserModule a WHERE a.userid='" , user.getUser().getUserid() , "'");
             if (lst!=null && lst.size()>0) menuBar.setVisible(true);
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
@@ -232,14 +232,14 @@ public class AccessControlUtil {
                     JMenuItem item = menu.getItem(j);
                     item.setFont(font);
                     String text = item.getText();
-                    boolean b = withAccess(txt + " - " + text, lst);
+                    boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst);
                     item.setVisible(b);
                 }
             }
         }
         else {
             @SuppressWarnings(value = "unchecked")
-            List<AclGroupModule> lst = AbstractIBean.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='" + user.getPersonType().toUpperCase() + "'");
+            List<AclGroupModule> lst = AbstractIBean.list("SELECT a FROM AclGroupModule a WHERE a.groupCode='" , user.getPersonType().toUpperCase() , "'");
             if (lst!=null && lst.size()>0) menuBar.setVisible(true);
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
@@ -259,7 +259,7 @@ public class AccessControlUtil {
                     JMenuItem item = menu.getItem(j);
                     item.setFont(font);
                     String text = item.getText();
-                    boolean b = withAccess(txt + " - " + text, lst, true);
+                    boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst, true);
                     item.setVisible(b);
                 }
             }
@@ -273,7 +273,7 @@ public class AccessControlUtil {
     public static boolean withAccess(String menu, List<AclUserModule> lst) {
         for (AclUserModule duty : lst) {
             String module = duty.moduleName;
-            if (module.equalsIgnoreCase(menu) || module.startsWith(menu+" -")) {
+            if (module.equalsIgnoreCase(menu) || module.startsWith(BeanUtil.concat(menu," -"))) {
                 return true;
             }
         }
@@ -283,7 +283,7 @@ public class AccessControlUtil {
     public static boolean withAccess(String menu, List<AclGroupModule> lst, boolean b) {
         for (AclGroupModule duty : lst) {
             String module = duty.moduleName;
-            if (module.equalsIgnoreCase(menu) || module.startsWith(menu+" -")) {
+            if (module.equalsIgnoreCase(menu) || module.startsWith(BeanUtil.concat(menu," -"))) {
                 return true;
             }
         }
@@ -407,7 +407,7 @@ public class AccessControlUtil {
                     JMenuItem item = menu.getItem(j);
                     item.setFont(font);
                     String text = item.getText();
-                    boolean b = withAccess(txt + " - " + text, lst);
+                    boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst);
                     JButton btn = map.get(item);
                     if (!b) {
                         if (tmp!=null) tmp.remove(btn);

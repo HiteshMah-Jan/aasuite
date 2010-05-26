@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -81,7 +83,7 @@ public class ButtonPopupPallete extends JButton {
         if (PanelUtil.isEmpty(linkFor)) {
             dialog.setTitle(name);
         } else {
-            dialog.setTitle(name + " - " + linkFor.getText());
+            dialog.setTitle(BeanUtil.concat(name," - ",linkFor.getText()));
         }
         dialog.getContentPane().removeAll();
         dialog.getContentPane().add(pnl);

@@ -20,8 +20,10 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+
 import service.util.AbstractIBean;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -97,10 +99,9 @@ public class ExcelReader {
                                 if (value!=null) BeanUtil.setShowPropertyValue(ibean, fieldName, value);
                             }
                             else {
-//                                System.out.println(fieldName+"="+cell.getStringCellValue());
+                            	Log.out(fieldName,"=",cell.getStringCellValue());
                             }
                         } catch (Exception e) {
-//                            System.out.println("EXCEPTION ["+fieldName+"] - "+value);
                             Logger.getLogger("global").log(Level.SEVERE, e.getMessage());
                         }
                     }
@@ -148,7 +149,7 @@ public class ExcelReader {
                 List lst = new ArrayList();
                 lstRow.add(lst);
                 HSSFRow row = (HSSFRow) rows.next();
-                Logger.getLogger("global").log(Level.INFO, "Row #" + row.getRowNum());
+                Log.info("Row #",row.getRowNum());
 
                 // Iterate over each cell in the row and print out the cell's content
                 for (int j = 0; j <

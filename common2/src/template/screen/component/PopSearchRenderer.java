@@ -17,8 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 import org.jdesktop.beansbinding.ELProperty;
+
 import service.util.AbstractIBean;
 import template.UITemplate;
+import util.Log;
 
 /**
  *
@@ -32,7 +34,7 @@ public class PopSearchRenderer extends AbstractComponentRenderer {
         if (cols==null || cols.length==0 || (cols.length==1 && (cols[0]==null || cols[0].isEmpty())) ) {
             UITemplate temp = (UITemplate) this.field.display.linktoBean().getAnnotation(UITemplate.class);
             if (temp==null) {
-                Logger.getLogger("global").log(Level.INFO, "Null link for field "+this.field.display.name());
+                Log.info("Null link for field ",this.field.display.name());
             }
             return temp.columnSearch();
         }
@@ -69,7 +71,7 @@ public class PopSearchRenderer extends AbstractComponentRenderer {
                         }
                         catch (Exception e) {
                         	if (bean!=null) {
-                                util.Log.warning("PopSearch Set Value Error - "+field.field.getName()+"->"+bean.getClass().getSimpleName());
+                                util.Log.warning("PopSearch Set Value Error - ",field.field.getName(),"->",bean.getClass().getSimpleName());
                         	}
 //                        	else {
 //                                util.Log.warning("PopSearch Set Value Error - "+field.field.getName()+"->"+e.getMessage());
@@ -88,7 +90,7 @@ public class PopSearchRenderer extends AbstractComponentRenderer {
                                 	bean.changeValuePop(field.field.getName(), f.lookup.txt.getValue());
                         		}
                         		catch (Exception e) {
-                                    util.Log.warning("Change value of " + field.field.getName()+" - "+bean.getClass().getName());
+                                    util.Log.warning("Change value of " , field.field.getName()," - ",bean.getClass().getName());
 //                        			e.printStackTrace();
                         		}
                         	}
@@ -126,13 +128,13 @@ public class PopSearchRenderer extends AbstractComponentRenderer {
         }
         if (where==null || where.isEmpty()) {
             String col = getLinkColumns()[0];
-            AbstractIBean obj1 = (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM "+bean+" a WHERE a."+col+" like '"+value+"%' ORDER BY a."+col);
+            AbstractIBean obj1 = (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM ",bean," a WHERE a.",col," like '",value,"%' ORDER BY a.",col);
             f.lblDisplay.setText(obj1.toString());
             f.lookup.txt.setText(obj1.keyVal().toString());
         }
         else {
             where = where.replaceAll("?", value);
-            AbstractIBean obj1 = (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM "+bean+" a WHERE "+where);
+            AbstractIBean obj1 = (AbstractIBean) AbstractIBean.firstRecord("SELECT a FROM ",bean," a WHERE ",where);
             f.lblDisplay.setText(obj1.toString());
             f.lookup.txt.setText(obj1.keyVal().toString());
         }

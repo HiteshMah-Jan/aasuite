@@ -18,8 +18,10 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePageLeftRight;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.reference.EmployeePositionRef;
 import bean.reference.EmployeeTaxStatus;
@@ -55,7 +57,7 @@ public class PayrollAdjustmentRef extends AbstractIBean {
     	if (isEmptyKey()) {
     		return "-------";
     	}
-		return adjustmentName + "["+position+"-"+employeeTaxStatus+"]";
+		return BeanUtil.concat(adjustmentName,"[",position,"-",employeeTaxStatus,"]");
 	}
 
 	public static void main(String[] args) {
@@ -151,20 +153,20 @@ public class PayrollAdjustmentRef extends AbstractIBean {
         	map = new HashMap<String, PayrollAdjustmentRef>();
             lst = DBClient.getList("SELECT a FROM PayrollAdjustmentRef a");
             for (PayrollAdjustmentRef p : lst) {
-                map.put(p.adjustmentName+p.position+p.employeeTaxStatus, p);
+                map.put(BeanUtil.concat(p.adjustmentName,p.position,p.employeeTaxStatus), p);
             }
         }
     }
 
     public static double extractCalculateValue(String ref, String position, String taxStatus, double amount) {
         cacheRef();
-        PayrollAdjustmentRef p = map.get(ref+position+taxStatus);
+        PayrollAdjustmentRef p = map.get(BeanUtil.concat(ref,position,taxStatus));
         if (p == null) {
-            p = map.get(ref+EmployeePositionRef.ANY+taxStatus);
+            p = map.get(BeanUtil.concat(ref,EmployeePositionRef.ANY,taxStatus));
             if (p == null) {
-                p = map.get(ref+position+EmployeePositionRef.ANY); 
+                p = map.get(BeanUtil.concat(ref,position,EmployeePositionRef.ANY)); 
                 if (p == null) {
-                    p = map.get(ref+EmployeePositionRef.ANY+EmployeePositionRef.ANY);
+                    p = map.get(BeanUtil.concat(ref,EmployeePositionRef.ANY,EmployeePositionRef.ANY));
                 }
             }
         }
@@ -173,7 +175,7 @@ public class PayrollAdjustmentRef extends AbstractIBean {
 
     public static double extractCalculateValue(PayrollAdjustmentRef ref, double amount) {
         double d = 0;
-        List<PayrollAdjustmentRefConfigTable> lst = DBClient.getList("SELECT a FROM PayrollAdjustmentRefConfigTable a WHERE a.payrollAdjustmentId="+ref.seq+" ORDER BY a.line");
+        List<PayrollAdjustmentRefConfigTable> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PayrollAdjustmentRefConfigTable a WHERE a.payrollAdjustmentId=",ref.seq," ORDER BY a.line"));
         for (PayrollAdjustmentRefConfigTable a:lst) {
             if (DataUtil.isBetween(a.fromAmount, a.toAmount, amount)) {
                 if (a.percentageAfterFromAmount > 0) {
@@ -190,13 +192,13 @@ public class PayrollAdjustmentRef extends AbstractIBean {
 
     public static List<PayrollAdjustmentRef> extractAll(String position, String taxStatus) {
         cacheRef();
-        String bothAny = EmployeePositionRef.ANY + EmployeePositionRef.ANY;
-        String staAny = EmployeePositionRef.ANY + taxStatus;
-        String posAny = position + taxStatus;
+        String bothAny = BeanUtil.concat(EmployeePositionRef.ANY,EmployeePositionRef.ANY);
+        String staAny = BeanUtil.concat(EmployeePositionRef.ANY,taxStatus);
+        String posAny = BeanUtil.concat(position,taxStatus);
         List<PayrollAdjustmentRef> reflst = new ArrayList<PayrollAdjustmentRef>();
         for (PayrollAdjustmentRef p : lst) {
-        	System.out.println("ADJUSTMENT == "+p);
-            String combine = p.position+p.employeeTaxStatus;
+        	Log.out("ADJUSTMENT == ",p);
+            String combine = BeanUtil.concat(p.position,p.employeeTaxStatus);
             if (combine.equals(bothAny) || combine.equals(staAny) || combine.equals(posAny)) {
                 reflst.add(p);
             }
@@ -211,6 +213,6 @@ public class PayrollAdjustmentRef extends AbstractIBean {
             return;
         }
         s = extractCalculateValue(this, s);
-        PanelUtil.showMessage(null, "Value is "+s);
+        PanelUtil.showMessage(null, BeanUtil.concat("Value is ",s));
     }
 }

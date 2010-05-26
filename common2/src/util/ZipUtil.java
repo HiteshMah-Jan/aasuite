@@ -65,7 +65,7 @@ public class ZipUtil {
 		} catch (IOException e) {
 		}
 		byte[] b = bos.toByteArray();
-		System.out.println("SIZE INPUT:ZIP == " + input.length + ":" + b.length);
+		Log.out("SIZE INPUT:ZIP == ",input.length,":",b.length);
 		return b;
 	}
 

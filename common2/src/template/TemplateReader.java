@@ -55,7 +55,7 @@ public class TemplateReader {
             tmp.ruleWrapper = BusinessRuleWrapper.getInstance(tmp);
             return tmp;
         } catch (Exception ex) {
-        	util.Log.warning(bean.getName()+"\n"+ex.getMessage());
+        	util.Log.warning(bean.getName(),"\n",ex.getMessage());
         }
         return null;
     }

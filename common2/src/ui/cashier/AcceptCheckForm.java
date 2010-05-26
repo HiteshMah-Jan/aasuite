@@ -266,7 +266,7 @@ private void txtAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void btnPrintOrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintOrActionPerformed
 	double amountToPay = pay.amount - pay.discount;
 	if (pay.extractCheckAmount()>amountToPay) {
-		PanelUtil.showError(btnPrintOr, "Check amount ["+pay.extractCheckAmount()+"] is more than the amount to pay ["+amountToPay+"]");
+		PanelUtil.showError(btnPrintOr, "Check amount [",pay.extractCheckAmount(),"] is more than the amount to pay [",amountToPay,"]");
 		return;
 	}
 	dlg.setVisible(false);

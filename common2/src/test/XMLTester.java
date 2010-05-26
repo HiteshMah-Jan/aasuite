@@ -25,7 +25,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -36,7 +38,7 @@ public class XMLTester {
     public static void main(String[] args) {
 //        new XMLTester();
 //        exportToFile(new File("d:/exportFile.mig"));
-        importFromFile(new File(constants.Constants.module+".mig"));
+        importFromFile(new File(BeanUtil.concat(constants.Constants.module,".mig")));
     }
     
     public XMLTester() {
@@ -108,11 +110,11 @@ public class XMLTester {
             XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
             for (String string : lstStr) {
                 if (!PanelUtil.canBackup(string)) {
-                    System.out.println("CANNOT BACKUP BEAN!!!! ["+string+"]");
+                    Log.out("CANNOT BACKUP BEAN!!!! [",string,"]");
                     continue;
                 }
                 try {
-                    List lst = AbstractIBean.list("SELECT a FROM "+string+" a"); 
+                    List lst = AbstractIBean.list("SELECT a FROM ",string," a"); 
                     encoder.writeObject(lst); 
                 }
                 catch (Exception e) {
@@ -131,11 +133,11 @@ public class XMLTester {
             XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
             for (String string : lstBeans) {
                 if (!PanelUtil.canBackup(string)) {
-                    System.out.println("CANNOT BACKUP BEAN!!!! ["+string+"]");
+                    Log.out("CANNOT BACKUP BEAN!!!! [",string,"]");
                     continue;
                 }
                 try {
-                    List lst = AbstractIBean.list("SELECT a FROM "+string+" a"); 
+                    List lst = AbstractIBean.list("SELECT a FROM ",string," a"); 
                     encoder.writeObject(lst); 
                 }
                 catch (Exception e) {
@@ -150,14 +152,14 @@ public class XMLTester {
 
     public static void exportToFile(File f, String beanName) { 
         if (!PanelUtil.canBackup(beanName)) {
-            System.out.println("CANNOT BACKUP BEAN!!!! ["+beanName+"]");
+            Log.out("CANNOT BACKUP BEAN!!!! [",beanName,"]");
             return;
         }
         // Serialize object into XML
         try {
             XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
             try {
-                List lst = AbstractIBean.list("SELECT a FROM "+beanName+" a"); 
+                List lst = AbstractIBean.list("SELECT a FROM ",beanName," a"); 
                 encoder.writeObject(lst); 
             }
             catch (Exception e) {
@@ -204,7 +206,7 @@ public class XMLTester {
             XMLDecoder decoder = new XMLDecoder(is);
             for (String string : lstStr) {
                 if (!PanelUtil.canBackup(string)) {
-                    System.out.println("CANNOT BACKUP BEAN!!!! ["+string+"]");
+                    Log.out("CANNOT BACKUP BEAN!!!! [",string,"]");
                     continue;
                 }
                 try {
@@ -230,8 +232,8 @@ public class XMLTester {
         System.out.println("...... START DELETE AND IMPORT PROCESS ......");
         List<String> lstStr = getAllBeanNames();
         for (String string : lstStr) {
-            System.out.println("\t\tDELETING "+string+"............");
-            AbstractIBean.runSQL("DELETE FROM "+string+" a"); 
+            Log.out("\t\tDELETING ",string,"............");
+            AbstractIBean.runSQL("DELETE FROM ",string," a"); 
         }
         importFromFile(f);
     }

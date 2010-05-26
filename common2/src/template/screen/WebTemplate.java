@@ -33,7 +33,7 @@ public class WebTemplate implements ITemplate {
             web.obj = web.bean.newInstance();
         }
         catch (Exception e) {
-            util.Log.severe("Web Template cannot find "+bean, e);
+            util.Log.severe("Web Template cannot find ",bean, e);
         }
         return web;
     }

@@ -19,6 +19,7 @@ import service.ParamStruct;
 import service.ReturnStruct;
 import service.util.AbstractIBean;
 import service.util.CallService;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Person;
@@ -49,14 +50,14 @@ public class UserInfo implements Serializable, IService {
     		return -1;
     	}
         if (loginUser.p==null) {
-        	loginUser.p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.userid='"+loginUser.user.getUserid()+"'");
+        	loginUser.p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.userid='",loginUser.user.getUserid(),"'");
         }
         if (loginUser.p==null || loginUser.p.getPersonId()==null) return 0;
         return loginUser.p.getPersonId();
     }
     
     public String getPersonName() {
-        if (p==null) p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.userid='"+user.getUserid()+"'");
+        if (p==null) p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.userid='",user.getUserid(),"'");
         if (p==null || p.getPersonId()==null) return "";
         return p.toString();
     }
@@ -142,13 +143,13 @@ public class UserInfo implements Serializable, IService {
     public void setUser(AclUser user) {
         this.user = user;
         List<String> lst = new ArrayList();
-        lst.add("SELECT a FROM AclUserDuty a WHERE a.userid='" + user.userid + "'");
-        lst.add("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
-        lst.add("SELECT a FROM AclUserGroup a WHERE a.userid='" + user.userid + "'");
+        lst.add(BeanUtil.concat("SELECT a FROM AclUserDuty a WHERE a.userid='",user.userid,"'"));
+        lst.add(BeanUtil.concat("SELECT a FROM AclUserModule a WHERE a.userid='",user.userid,"'"));
+        lst.add(BeanUtil.concat("SELECT a FROM AclUserGroup a WHERE a.userid='",user.userid,"'"));
         Map map = DBClient.batchQueryServerCache(lst);
-        duties = (List<AclUserDuty>) map.get("SELECT a FROM AclUserDuty a WHERE a.userid='" + user.userid + "'");
-        groups = (List<AclUserGroup>) map.get("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
-        modules = (List<AclUserModule>) map.get("SELECT a FROM AclUserModule a WHERE a.userid='" + user.userid + "'");
+        duties = (List<AclUserDuty>) map.get(BeanUtil.concat("SELECT a FROM AclUserDuty a WHERE a.userid='",user.userid,"'"));
+        groups = (List<AclUserGroup>) map.get(BeanUtil.concat("SELECT a FROM AclUserModule a WHERE a.userid='",user.userid,"'"));
+        modules = (List<AclUserModule>) map.get(BeanUtil.concat("SELECT a FROM AclUserModule a WHERE a.userid='",user.userid,"'"));
     }
 
     public List<AclUserDuty> getDuties() {
@@ -196,7 +197,7 @@ public class UserInfo implements Serializable, IService {
         if (dutyLst==null) {
 //            need to call the server first
             CallService.callService("", 1, UserInfo.class.getName());
-            dutyLst = DBClient.getListServerCache("SELECT a FROM AclUserDuty a WHERE a.userid='"+loginUser.user.userid+"'");
+            dutyLst = DBClient.getListServerCache(BeanUtil.concat("SELECT a FROM AclUserDuty a WHERE a.userid='",loginUser.user.userid,"'"));
         }
         if (loginUser.isSuperAAA()) {
             return true;

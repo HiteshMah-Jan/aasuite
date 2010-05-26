@@ -215,7 +215,6 @@ public class DBUtil {
     	}
     	catch (Exception e) {
     		cleanFailedConnection(entityManager, e);
-//			System.out.println("ERROR = "+e.getMessage());
     	}
     }
 
@@ -276,7 +275,6 @@ public class DBUtil {
     }
     
     public static void cleanFailedConnection(javax.persistence.EntityManager entityManager, Exception e) {
-//    	System.out.println("EXCEPTION "+e.getMessage());
 		if (entityManager!=null) {
 			EntityTransaction tran = entityManager.getTransaction();
 			if (tran.isActive()) {

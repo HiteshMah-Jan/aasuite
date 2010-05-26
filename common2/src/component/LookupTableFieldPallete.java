@@ -13,7 +13,9 @@ import javax.swing.JLabel;
 import service.util.AbstractIBean;
 import service.util.IBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.BeanUtil;
 import util.ClientCache;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -49,8 +51,8 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
 
     public AbstractIBean getSelectedBean() {
         AbstractIBean ibean = null;
-        if (mapKey.containsKey(bean+"-"+lookup.txt.getText())) {
-            ibean = mapKey.get(bean+"-"+lookup.txt.getText());
+        if (mapKey.containsKey(BeanUtil.concat(bean,"-",lookup.txt.getText()))) {
+            ibean = mapKey.get(BeanUtil.concat(bean,"-",lookup.txt.getText()));
         }
         else {
             String txt = lookup.txt.getText();
@@ -58,18 +60,18 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
                 try {
                     java.lang.Class cls = PanelUtil.getBeanClass(getBean());
                     cls = AbstractIBean.extractBeanClass(cls);
-                    mapKey.put(bean+"-"+lookup.txt.getText(), (AbstractIBean) cls.newInstance());
+                    mapKey.put(BeanUtil.concat(bean,"-",lookup.txt.getText()), (AbstractIBean) cls.newInstance());
                 } catch (Exception ex) {
                 }
             }
             else {
-                System.out.println("................EXTRACT LINK "+bean+":"+lookup.txt.getText());
+                Log.out("................EXTRACT LINK ",bean,":",lookup.txt.getText());
 //                check first from the lookup
                 ibean = lookup.getFromBeans(lookup.txt.getText());
                 if (ibean==null) {
                 	ibean = AbstractIBean.extractObject(bean, lookup.txt.getText());
                 }
-                mapKey.put(bean+"-"+lookup.txt.getText(), ibean);
+                mapKey.put(BeanUtil.concat(bean,"-",lookup.txt.getText()), ibean);
             }
         }
         return ibean;
@@ -160,8 +162,8 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
 		@Override
 		public void run() {
             AbstractIBean ibean = null;
-            if (mapKey.containsKey(pallete.bean+"-"+pallete.lookup.txt.getText())) {
-                ibean = mapKey.get(pallete.bean+"-"+pallete.lookup.txt.getText());
+            if (mapKey.containsKey(BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText()))) {
+                ibean = mapKey.get(BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText()));
             }
             else {
                 String txt = pallete.lookup.txt.getText();
@@ -169,12 +171,12 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
                     try {
                         java.lang.Class cls = PanelUtil.getBeanClass(pallete.getBean());
                         cls = AbstractIBean.extractBeanClass(cls);
-                        mapKey.put(pallete.bean+"-"+pallete.lookup.txt.getText(), (AbstractIBean) cls.newInstance());
+                        mapKey.put(BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText()), (AbstractIBean) cls.newInstance());
                     } catch (Exception ex) {
                     }
                 }
                 else {
-                    System.out.println("...................EXTRACT LINK "+pallete.bean+":"+pallete.lookup.txt.getText());
+                    Log.out("...................EXTRACT LINK ",pallete.bean,":",pallete.lookup.txt.getText());
                     ibean = pallete.lookup.getFromBeans(pallete.lookup.txt.getText());
                     if (ibean==null) {
 //                    	check to see if this is cache in the DB Call, if not there must be a cache in this component because this is lookup
@@ -182,7 +184,7 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
                         try {
                             AbstractIBean tmp = (AbstractIBean) cls.newInstance();
                             if (!tmp.cacheClient()) {
-                            	String id = pallete.bean+"-"+pallete.lookup.txt.getText();
+                            	String id = BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText());
                             	ibean = (AbstractIBean) ClientCache.getCache(id);
                             	if (ibean==null) {
                                 	ibean = (AbstractIBean) ClientCache.resetCache(id, AbstractIBean.extractObject(pallete.bean, pallete.lookup.txt.getText()));
@@ -195,7 +197,7 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
                         catch (Exception e) {
                         }
                     }
-                    mapKey.put(pallete.bean+"-"+pallete.lookup.txt.getText(), ibean);
+                    mapKey.put(BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText()), ibean);
                 }
             }
             if (ibean==null) {

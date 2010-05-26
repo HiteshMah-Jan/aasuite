@@ -18,6 +18,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 import service.IService;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -30,7 +31,7 @@ public abstract class SpringCall {
 			return Class.forName(beanName).newInstance();
 		}
 		catch (Exception e) {
-            Logger.getLogger("global").log(Level.SEVERE, "CLASS NOT FOUND "+e.getMessage());
+            Log.severe("CLASS NOT FOUND ",e.getMessage());
 			return null;
 		}
 	}
@@ -88,14 +89,14 @@ public abstract class SpringCall {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("test", "testvalue");
 		for (String str : map.keySet()) {
-			System.out.println("STR == "+map.get(str));
+			Log.out("STR == ",map.get(str));
 		}	
 		
 		test:
 			for (int i=0; i<10; i++) {
-				System.out.println("test i = "+i);
+				Log.out("test i = ",i);
 				for (int j=0; j<5; j++) {
-					System.out.println("test j = "+j);
+					Log.out("test j = ",j);
 					if (j==3) {
 						break test;
 					}

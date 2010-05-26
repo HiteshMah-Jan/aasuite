@@ -9,6 +9,8 @@ package ui.cashier;
 import bean.accounting.CashierDailyBooklet;
 import constants.UserInfo;
 import java.util.List;
+
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -25,7 +27,7 @@ public class ORSeries extends javax.swing.JPanel {
         try {
             System.out.println("OR SERIES INIT SERVER CALL");
             String user = UserInfo.getUserName();
-            CashierDailyBooklet b = (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='"+user+"' ORDER BY a.seq DESC");
+            CashierDailyBooklet b = (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='",user,"' ORDER BY a.seq DESC");
             pnlSeries.setBean(b);
             updateSeries();
         }
@@ -36,7 +38,7 @@ public class ORSeries extends javax.swing.JPanel {
     public void updateSeries() {
         int nextOR = new CashierDailyBooklet().extractNextOR("N");
         int nextOR2 = new CashierDailyBooklet().extractNextOR("A");
-        btnUpdateSeries.setText("["+nextOR+" - "+nextOR2+"]");
+        btnUpdateSeries.setText(BeanUtil.concat("[",nextOR," - ",nextOR2,"]"));
     }
     
     /** This method is called from within the constructor to
@@ -130,7 +132,7 @@ private void btnUpdateSeriesActionPerformed(java.awt.event.ActionEvent evt) {//G
     b.save();
     pnlSeries.setBean(b);
     int or = new CashierDailyBooklet().extractNextOR("N");
-    btnUpdateSeries.setText("Edit Series ["+or+"]");
+    btnUpdateSeries.setText(BeanUtil.concat("Edit Series [",or,"]"));
 }//GEN-LAST:event_btnUpdateSeriesActionPerformed
 
 

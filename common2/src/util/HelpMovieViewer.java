@@ -48,17 +48,17 @@ public class HelpMovieViewer extends javax.swing.JPanel implements ActionListene
                 new util.HelpMovieViewer();
             }
             viewer.moviePath = null;
-            java.io.InputStream is = util.DataUtil.getResource("help/movie/" + movie + ".mov");
-            java.io.File f = new java.io.File(constants.Constants.ROOT_FOLDER+"tmp/" + movie + ".mov");
+            java.io.InputStream is = util.DataUtil.getResource(BeanUtil.concat("help/movie/",movie,".mov"));
+            java.io.File f = new java.io.File(BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/" , movie , ".mov"));
             if (!f.exists()) {
-                DataUtil.writeToFile(is, constants.Constants.ROOT_FOLDER+"tmp/" + movie + ".mov");
+                DataUtil.writeToFile(is, BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/" , movie , ".mov"));
             }
             viewer.moviePath = f.toURL();
             if (viewer.moviePath == null) {
                 util.PanelUtil.showError(pnl, "Help not set for this form.");
                 return;
             }
-            viewer.dlgShowMovie.setTitle("Help for "+pnl.getTitle());
+            viewer.dlgShowMovie.setTitle(BeanUtil.concat("Help for ",pnl.getTitle()));
             viewer.showDialogMovie();
         } catch (IOException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
@@ -180,7 +180,7 @@ public class HelpMovieViewer extends javax.swing.JPanel implements ActionListene
     public static void main(String[] args) {
         try {
             util.HelpMovieViewer pnl = new util.HelpMovieViewer();
-            java.io.File f = new java.io.File(constants.Constants.ROOT_FOLDER+"tmp/AdmissionForm.mov");
+            java.io.File f = new java.io.File(BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/AdmissionForm.mov"));
             pnl.moviePath = f.toURL();
             pnl.showDialogMovie();
         } catch (MalformedURLException ex) {

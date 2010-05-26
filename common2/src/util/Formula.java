@@ -75,7 +75,7 @@ public class Formula {
 		            if (y.length>i) {
 			            reg.residuals[i] = y[i]-tmp;
 		            }
-		            System.out.println(xtmp+"="+reg.forecast[i]+":"+reg.residuals[i]);
+		            Log.out(xtmp,"=",reg.forecast[i],":",reg.residuals[i]);
 		        }
 	        }
 
@@ -97,15 +97,15 @@ public class Formula {
 	        reg.interceptTStat = reg.interceptCoefficient/reg.interceptStandardError;
 	        reg.xTStat = reg.xCoefficient/reg.xStandardError;
 	        reg.regressionF = reg.regressionMS/reg.residualMS;
-	        System.out.println("R^2 = " + reg.r2);
-	        System.out.println("std error of M = " + reg.xStandardError);
-	        System.out.println("std error of B = " + reg.interceptStandardError);
+	        Log.out("R^2 = ",reg.r2);
+	        Log.out("std error of M = ",reg.xStandardError);
+	        Log.out("std error of B = ",reg.interceptStandardError);
 	        svar0 = reg.residualMS * sumx2 / (n * xxbar);
-	        System.out.println("std error of M = " + reg.xStandardError);
+	        Log.out("std error of M = " , reg.xStandardError);
 
-	        System.out.println("SSTO = " + reg.totalSS);
-	        System.out.println("SSE  = " + reg.rss);
-	        System.out.println("SSR  = " + reg.regressionMS);
+	        Log.out("SSTO = " , reg.totalSS);
+	        Log.out("SSE  = " , reg.rss);
+	        Log.out("SSR  = " , reg.regressionMS);
 	        return reg;
 		}
 	}

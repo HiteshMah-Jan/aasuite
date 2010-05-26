@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.event.ComponentListener;
 import java.awt.event.ActionListener;
 
+import util.BeanUtil;
 import util.PanelUtil;
 import common2.Common2View;
 
@@ -39,9 +40,9 @@ public class SuccessfulLogin extends SpringCall {
     }
 
     public Object call(Object obj) {
-        String welcomeTxt = "Welcome to " + constants.Constants.appTitle;
+        String welcomeTxt = BeanUtil.concat("Welcome to ",constants.Constants.appTitle);
         if (!constants.Constants.IS_SINGLE_USER) {
-            welcomeTxt = "Welcome to " + constants.Constants.appTitle + " " + UserInfo.getUserName();
+            welcomeTxt = BeanUtil.concat("Welcome to ",constants.Constants.appTitle," ",UserInfo.getUserName());
         }
         ui.WelcomePanel welcome = new ui.WelcomePanel(); 
 //        welcome.getLblWelcome().setText(welcomeTxt);

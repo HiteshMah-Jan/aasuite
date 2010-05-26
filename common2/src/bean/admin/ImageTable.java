@@ -71,7 +71,7 @@ public class ImageTable extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return "Image Table[" + seq + "]";
+        return BeanUtil.concat("Image Table[",seq,"]");
     }
 
     public byte[] getImage() {
@@ -123,11 +123,10 @@ public class ImageTable extends AbstractIBean implements Serializable {
         String beanCls = bean.getClass().getSimpleName();
         String key = bean.keyVal().toString();
         //remove all the images from the database
-        bean.runSQL("DELETE FROM ImageTable a WHERE a.recTable='" + bean._Table() + "' AND a.recordId='" + key + "'");
+        bean.runSQL("DELETE FROM ImageTable a WHERE a.recTable='",bean._Table(),"' AND a.recordId='",key,"'");
 
         List<IBean> images = new ArrayList<IBean>();
         for (byte[] image : lstImages) {
-            Logger.getLogger("global").log(Level.INFO, "BYTE SIZE == " + image.length);
             ImageTable img = new ImageTable();
             img.setImage(image);
             img.setRecTable(bean._Table());

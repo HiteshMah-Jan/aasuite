@@ -47,6 +47,7 @@ import template.UITemplate;
 import util.BeanUtil;
 import util.DataUtil;
 import util.DateUtil;
+import util.Log;
 import util.NetworkUtil;
 import util.PanelUtil;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -120,7 +121,7 @@ public class AbstractReportTemplate implements Serializable, IService {
                 for (Object elem : lst) {
                     AbstractIBean b = (AbstractIBean) elem;
                 }
-//                System.out.println("LIST == " + lst.size());
+                Log.out("LIST == ",lst.size());
                 JRDataSource ds = new MyJRDSCls(lst);
                 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(getBuildReport(), new ClassicLayoutManager(), ds);
                 JasperViewer.viewReport(jp, false); //finally display the report
@@ -134,7 +135,7 @@ public class AbstractReportTemplate implements Serializable, IService {
     }
 
     public byte[] getAllRecordReport() {
-        String reportDest = "r" + constants.Constants.useDate.getTime() + ".pdf";
+        String reportDest = BeanUtil.concat("r",constants.Constants.useDate.getTime(),".pdf");
         try {
             List lst = AbstractIBean.list(getSql());
             if (lst == null || lst.size() == 0) {
@@ -145,7 +146,7 @@ public class AbstractReportTemplate implements Serializable, IService {
             for (Object elem : lst) {
                 AbstractIBean b = (AbstractIBean) elem;
             }
-//            System.out.println("LIST == " + lst.size());
+            Log.out("LIST == ",lst.size());
             JRDataSource ds = new MyJRDSCls(lst);
             JasperPrint jp = DynamicJasperHelper.generateJasperPrint(getBuildReport(), new ClassicLayoutManager(), ds);
             JasperExportManager.exportReportToPdfFile(jp, reportDest);
@@ -180,7 +181,7 @@ public class AbstractReportTemplate implements Serializable, IService {
                 for (Object elem : lst) {
                     AbstractIBean b = (AbstractIBean) elem;
                 }
-//                System.out.println("LIST == " + lst.size());
+                Log.out("LIST == ",lst.size());
                 JRDataSource ds = new MyJRDSCls(lst);
                 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(getBuildReport(), new ClassicLayoutManager(), ds);
                 AbstractReport.displayReportToPanel(pnl, jp);
@@ -202,7 +203,7 @@ public class AbstractReportTemplate implements Serializable, IService {
                 for (Object elem : lst) {
                     AbstractIBean b = (AbstractIBean) elem;
                 }
-//                System.out.println("LIST == " + lst.size());
+                Log.out("LIST == ",lst.size());
                 JRDataSource ds = new MyJRDSCls(lst);
                 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(getBuildReport(), new ClassicLayoutManager(), ds);
                 JasperViewer.viewReport(jp, false); //finally display the report
@@ -225,7 +226,7 @@ public class AbstractReportTemplate implements Serializable, IService {
                 for (Object elem : lst) {
                     AbstractIBean b = (AbstractIBean) elem;
                 }
-//                System.out.println("LIST == " + lst.size());
+                Log.out("LIST == ",lst.size());
                 JRDataSource ds = new MyJRDSCls(lst);
                 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(getBuildReport(), new ClassicLayoutManager(), ds);
                 AbstractReport.displayReportToPanel(pnl, jp);
@@ -242,7 +243,7 @@ public class AbstractReportTemplate implements Serializable, IService {
     	if (addWhere!=null) {
     		map.put("REPORT_ADD_WHERE", addWhere.trim());
     	}
-    	System.out.println("ADD WHERE == "+addWhere);
+    	Log.out("ADD WHERE == ",addWhere);
         return map;
     }
 
@@ -251,7 +252,7 @@ public class AbstractReportTemplate implements Serializable, IService {
     public JasperReport getJasperReport(String file) {
         JasperReport rep = clientJasperCache.get(file);
         if (rep==null) {
-        	String cacheId = "REPORT-"+file;
+        	String cacheId = BeanUtil.concat("REPORT-",file);
         	rep = (JasperReport) NetworkUtil.requestCache(cacheId, null);
         	if (rep == null) {
             	ReturnStruct ret = CallService.callService(file, 1, "template.report.AbstractReportTemplate");
@@ -273,7 +274,7 @@ public class AbstractReportTemplate implements Serializable, IService {
         	PanelUtil.hideWaitFrame();
             if (ret!=null && ret.getData()!=null && ret.getData() instanceof JasperPrint) {
             	JasperPrint print = (JasperPrint) ret.getData();
-//            	System.out.println("SIZE=="+ret.size());
+            	Log.out("SIZE==",ret.size());
             	return print;
             }
     	}
@@ -312,7 +313,7 @@ public class AbstractReportTemplate implements Serializable, IService {
         Map map = new HashMap();
         ReportParamDialog.displayParameters(rep, map);
         String addWhere = null;
-        String reportDest = "r" + constants.Constants.useDate.getTime() + ".pdf";
+        String reportDest = BeanUtil.concat("r",constants.Constants.useDate.getTime(),".pdf");
         try {
             Object mybean = bean;
             addWhere = ELProperty.create(report.reportSql()).getValue(mybean).toString();
@@ -475,7 +476,6 @@ public class AbstractReportTemplate implements Serializable, IService {
                     drb = drb.addGroups(template.reportGroups());
                 }
                 drb.addTitle(getTitle());
-                //            drb.addSubtitle("This report was generateed at" + new Date());
                 drb.addUseFullPageWidth(true);
                 drb.setPrintColumnNames(true);
                 drb.setIgnorePagination(true);
@@ -492,7 +492,6 @@ public class AbstractReportTemplate implements Serializable, IService {
                     drb = drb.addGroups(report.reportGroups());
                 }
                 drb.addTitle(getTitle());
-                //            drb.addSubtitle("This report was generateed at" + new Date());
                 drb.addUseFullPageWidth(true);
                 DynamicReport dr = drb.build();
                 return dr;
@@ -508,7 +507,7 @@ public class AbstractReportTemplate implements Serializable, IService {
         if (template != null) {
             title = template.reportTitle();
             if (title.isEmpty()) {
-                title = PanelUtil.getTitle(bean) + " Report";
+                title = BeanUtil.concat(PanelUtil.getTitle(bean)," Report");
             }
         } else {
             title = report.reportTitle();
@@ -577,7 +576,6 @@ public class AbstractReportTemplate implements Serializable, IService {
             }
             ret.setData(rep);
             ret.setStatus(Constants.SUCCESS);
-//            System.out.println("SERIALIZE REPORT "+file);
         }
         else if (param.getActionCommand()==2) {
 //            get jasperprint

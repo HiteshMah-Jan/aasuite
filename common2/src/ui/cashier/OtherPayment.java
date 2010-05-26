@@ -13,6 +13,7 @@ import java.util.List;
 
 import springbean.AAAConfig;
 import ui.AbstractCashierForm;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.DBClient;
 import bean.accounting.CashierDailyBooklet;
@@ -239,7 +240,7 @@ protected void printOR() {
             return;
         }
         acceptCheck(pay);
-        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", new CashierDailyBooklet().extractNextOR("A")+"");
+        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(new CashierDailyBooklet().extractNextOR("A"),""));
         if (or==null || or.isEmpty()) return;
 //    pay.extractInvoice();
         pay.orNumber = or;
@@ -277,7 +278,7 @@ protected void search() {
         lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='A' ORDER BY a.seq DESC");
     }
     else {
-        lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='A' AND a.payer LIKE '%"+txt+"%' ORDER BY a.seq DESC");
+        lst = DBClient.getList("SELECT a FROM OtherPayment a WHERE a.orType='A' AND a.payer LIKE '%",txt,"%' ORDER BY a.seq DESC");
     }
     beanSoldBooks.setList(lst);
 }
@@ -313,7 +314,7 @@ protected void search() {
     }
     
     protected void acceptCheck(bean.accounting.OtherPayment p) {
-        Person stud = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId="+p.personId);
+        Person stud = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",p.personId);
         if (stud!=null && "NOT ALLOWED".equals(stud.paymentStatus)) {
             if (!PanelUtil.showPrompt(btnPrintOr, "Cannot pay in check, would you like to continue?")) {
                 return;

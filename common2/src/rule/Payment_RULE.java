@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
 import template.screen.TablePopup;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -70,9 +71,9 @@ public class Payment_RULE extends BusinessRuleWrapper {
     private void computeCheckPayment(JComponent comp) {
         Payment pay = (Payment) this.getBean();
         for (int i = 1; i <= 10; i++) {
-            if (comp.getName().equals("accountNumber"+i)) {
-                String val = getValue("accountNumber"+i);
-                changeAmount(pay, "amount"+i, val);
+            if (comp.getName().equals(BeanUtil.concat("accountNumber",i))) {
+                String val = getValue(BeanUtil.concat("accountNumber",i));
+                changeAmount(pay, BeanUtil.concat("amount",i), val);
             }
         }
     }
@@ -86,8 +87,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
                     JTextField f = (JTextField) getComponent(amountName);
                     String txt = f.getText();
                     if (txt==null || txt.trim().isEmpty() || txt.trim().equals("0") || txt.trim().equals("0.0")) {
-//                        System.out.println("SET TEXT FOR "+amountName+" VALUE:"+useAmount);
-                        f.setText(useAmount+"");
+                        f.setText(BeanUtil.concat(useAmount,""));
                         f.updateUI();
                     }
                 }
@@ -97,7 +97,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
     
     protected void viewParticulars() {
         Payment p = (Payment) this.getBean();
-        List lst = AbstractIBean.list("SELECT a FROM PaymentLineItem a WHERE a.paymentId="+p.seq);
+        List lst = AbstractIBean.list("SELECT a FROM PaymentLineItem a WHERE a.paymentId=",p.seq);
         TablePopup.showRecords("Payment Particulars", lst, PaymentLineItem.class, "code", "description", "charges", "netSurcharge", "discount", "totalPaidAmount");
     }
     
@@ -110,7 +110,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
         isAllowedToLiftCheckStatus = true;
 
         for (int i=1; i<=10; i++) {
-            JCheckBox box = (JCheckBox) getComponent("bounceCheck"+i);
+            JCheckBox box = (JCheckBox) getComponent(BeanUtil.concat("bounceCheck",i));
             if (box!=null) box.setEnabled(isAllowedToMarkBounce);
         }
         if (firstTime) return;
@@ -119,7 +119,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
 //        isAllowedToLiftCheckStatus = UserInfo.canLiftSatusForBounceCheck();
         if (isAllowedToMarkBounce) {
             for (int i=1; i<=10; i++) {
-                JCheckBox box = (JCheckBox) getComponent("bounceCheck"+i);
+                JCheckBox box = (JCheckBox) getComponent(BeanUtil.concat("bounceCheck",i));
                 if (box!=null) {
                     if (box!=null) box.addMouseListener(new MouseAdapter() {
                         @Override
@@ -143,7 +143,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
             if (e) {
 //            get the student then change the payment status to NOT ALLOWED
                 Payment pay = (Payment) this.getBean();
-                DBClient.runSQLNative("UPDATE Person SET paymentStatus='NOT ALLOWED' WHERE personId="+pay.paidBy);
+                DBClient.runSQLNative("UPDATE Person SET paymentStatus='NOT ALLOWED' WHERE personId=",pay.paidBy);
                 addPaymentPenalty(pay);
             }
         }
@@ -152,7 +152,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
             if (e) {
 //              get the student then change the payment status to NOT ALLOWED
                 Payment pay = (Payment) this.getBean();
-                DBClient.runSQLNative("UPDATE Person SET paymentStatus='ALLOWED' WHERE personId="+pay.paidBy);
+                DBClient.runSQLNative("UPDATE Person SET paymentStatus='ALLOWED' WHERE personId=",pay.paidBy);
             }
             else {
                 PanelUtil.showMessage(b, "Check unmarked but the student still not allowed to pay in check.");

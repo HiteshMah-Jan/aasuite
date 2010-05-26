@@ -34,6 +34,7 @@ import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.component.AbstractComponentRenderer;
+import util.BeanUtil;
 
 /**
  *
@@ -113,7 +114,7 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
                 pnlMain.add(field, cons);
             }
             else {
-                JButton btn = new JButtonPallete(fieldCompose.display.button(), "btn"+fieldCompose.field.getName());
+                JButton btn = new JButtonPallete(fieldCompose.display.button(), BeanUtil.concat("btn",fieldCompose.field.getName()));
                 btn.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         BusinessRuleWrapper ruleWrapper = panel.getRuleWrapper();
@@ -135,7 +136,7 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
             for (int i=0; i<groups.length; i++) {
                 DisplayGroup displayGroup = groups[i];
                 if (!displayGroup.addInfoOnly()) continue;
-                if (this.parentInfo.hideGroup().contains(i+"")) continue;
+                if (this.parentInfo.hideGroup().contains(BeanUtil.concat(i,""))) continue;
                 JPanel tmp = templateParser.constructGroupPanel(getBinding(), displayGroup);
                 c.gridy++;
                 this.add(tmp, c);

@@ -36,8 +36,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import service.util.AbstractIBean;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -569,7 +571,7 @@ private void btnCaptureFromClipboardActionPerformed(java.awt.event.ActionEvent e
 private void pnlLargeImageMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLargeImageMouseDragged
     x = evt.getX();
     y = evt.getY();
-    Logger.getLogger("global").log(Level.INFO, "DRAG RECT " + oldX + ":" + oldY + ":" + x + ":" + y);
+    Log.info("DRAG RECT ",oldX,":",oldY,":",x,":",y);
     pnlLargeImage.repaint();
     SwingUtilities.invokeLater(new Runnable() {
 
@@ -1007,11 +1009,9 @@ private void pnlImageRendererMouseEntered(java.awt.event.MouseEvent evt) {//GEN-
     }
 
     public void setBean(AbstractIBean source) {
-        Logger.getLogger("global").log(Level.INFO, source == null ? "bean is null" : "bean is " + source.toString());
         this.bean = source;
         List<byte[]> lst = ImageTable.getImageList(source);
         if (lst != null) {
-            Logger.getLogger("global").log(Level.INFO, "LIST size is " + lst.size());
             blob.setLst(lst);
         }
         displayImage();

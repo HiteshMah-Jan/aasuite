@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import springbean.AAAConfig;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 import util.ZipUtil;
 
@@ -56,7 +57,7 @@ public class ServiceAdapter {
                 }
             } else {
                 try {
-                    System.out.println("CONNECT TO SERVER.....\n"+param.getActionCommand()+":"+param.getHelperSQL()+":"+param.getData());
+                    Log.out("CONNECT TO SERVER.....\n",param.getActionCommand(),":",param.getHelperSQL(),":",param.getData());
                     URL hp = new URL(Constants.host);
                     URLConnection hpcon = hp.openConnection();
                     hpcon.setDoInput(true);
@@ -66,13 +67,13 @@ public class ServiceAdapter {
 
                     ParamStruct.write(hpcon.getOutputStream(), param);
                     ret = (ReturnStruct) ParamStruct.read(hpcon.getInputStream());
-                    Logger.getLogger("global").log(Level.FINE, "SETUP OK - "+Constants.host);
+                    Log.info("SETUP OK - ",Constants.host);
 //                    logSizes(param, ret);
                 } catch (MalformedURLException ex) {
-                    PanelUtil.showError(null, "URL NOT FOUND "+Constants.host+" TRY TO USE LOCAL.");
+                    PanelUtil.showError(null, "URL NOT FOUND ",Constants.host," TRY TO USE LOCAL.");
                 } catch (IOException ex) {
                 	ex.printStackTrace();
-                    Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()+" - "+Constants.host);
+                    Log.severe(ex.getMessage()," - ",Constants.host);
                 }
             }
         }
@@ -97,7 +98,7 @@ public class ServiceAdapter {
 	    	byte[] bold = ZipUtil.getZipBytes(p);
 //	    	System.out.println(new String(b));
 	    	b = ZipUtil.getZipBytes(b);
-	    	sb.append("REQUEST XML:OBJ == "+b.length+":"+bold.length);
+	    	sb.append(BeanUtil.concat("REQUEST XML:OBJ == ",b.length,":",bold.length));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -113,7 +114,7 @@ public class ServiceAdapter {
 	    	System.out.println(new String(b));
 	    	b = ZipUtil.getZipBytes(b);
 	    	
-	    	sb.append(" ------  RESPONSE XML:OBJ == "+b.length+":"+bold.length);
+	    	sb.append(BeanUtil.concat(" ------  RESPONSE XML:OBJ == ",b.length,":",bold.length));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

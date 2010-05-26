@@ -20,6 +20,8 @@ import java.util.Map;
  */
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import util.BeanUtil;
 import util.DataUtil;
 
 /**
@@ -127,7 +129,7 @@ public class Constants {
             if (!f.exists()) {
                 return null;
             }
-            util.Log.info("Licence path == "+f.getAbsolutePath());
+            util.Log.info("Licence path == ",f.getAbsolutePath());
             fis = new java.io.FileInputStream(f);
             java.io.ObjectInputStream ois = new java.io.ObjectInputStream(fis);
             licenceMap = (java.util.Map) ois.readObject();
@@ -162,7 +164,7 @@ public class Constants {
             Map map = getLicenceMap();
             return (String) map.get("customerName");
         }
-        return "Corporate licence [" + SALES_EMAIL;
+        return BeanUtil.concat("Corporate licence [",SALES_EMAIL);
     }
 
     public static String getCompanyName() {
@@ -170,7 +172,7 @@ public class Constants {
             Map map = getLicenceMap();
             return (String) map.get("companyName");
         }
-        return "Please email " + SALES_EMAIL;
+        return BeanUtil.concat("Please email ",SALES_EMAIL);
     }
 
     public static String getPackageType() {
@@ -178,7 +180,7 @@ public class Constants {
             Map map = getLicenceMap();
             return (String) map.get("packageType");
         }
-        return "Please email " + SALES_EMAIL;
+        return BeanUtil.concat("Please email ",SALES_EMAIL);
     }
 
     public static String getLicenceType() {
@@ -188,10 +190,10 @@ public class Constants {
             if (i == 1) {
                 return "Single User Licence";
             } else {
-                return "Corporate licence [" + i + " users]";
+                return BeanUtil.concat("Corporate licence [",i," users]");
             }
         }
-        return "Please email " + SALES_EMAIL;
+        return BeanUtil.concat("Please email ",SALES_EMAIL);
     }
 
     
@@ -225,11 +227,11 @@ public class Constants {
             java.io.FileOutputStream fout = new java.io.FileOutputStream(f);
             java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fout);
             Map<String, String> map = new HashMap<String, String>();
-            map.put("host", host+"");
-            map.put("user", user+"");
-            map.put("password", password+"");
-            map.put("url", url+"");
-            map.put("driver", driver+"");
+            map.put("host", BeanUtil.concat(host,""));
+            map.put("user", BeanUtil.concat(user,""));
+            map.put("password", BeanUtil.concat(password,""));
+            map.put("url", BeanUtil.concat(url,""));
+            map.put("driver", BeanUtil.concat(driver,""));
             oos.writeObject(map);
             oos.close();
         } catch (java.lang.Exception e) {

@@ -310,7 +310,7 @@ private void txtPayAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 protected void newPayment() {
     //this must check and setup the payor
     String id = txtScan.getText();
-    Person p = (Person) util.DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId="+id);
+    Person p = (Person) util.DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",id);
     if (p==null || p.isEmptyKey()) {
         util.PanelUtil.showError(txtScan, "Not found");
         return;

@@ -10,15 +10,15 @@ public class ServerCache {
 	
     private static Map cache = new Hashtable();
 
-    public static Object getCache(Object key) {
+    public static Object getCache_old(Object key) {
     	if (cache.containsKey(key)) {
-    		System.out.println("**SERVER CACHE EXTRACT === "+key);
+    		Log.out("**SERVER CACHE EXTRACT === ",key);
     		return cache.get(key);
     	}
     	return null;
     }
     
-    public static synchronized Object resetCache(Object key, Object value) {
+    public static synchronized Object resetCache_old(Object key, Object value) {
     	if (!started) {
     		started = true;
 //    		do the threading here, every hour need to clear the cache.
@@ -27,7 +27,7 @@ public class ServerCache {
 //    	    this is per hour
     	    timer.scheduleAtFixedRate(cleaner, 1, 1000*60*60);
     	}
-		System.out.println("** SERVER CACHE RESET === "+key);
+		Log.out("** SERVER CACHE RESET === ",key);
     	cache.put(key, value);
     	return value;
     }

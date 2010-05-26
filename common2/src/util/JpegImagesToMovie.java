@@ -19,7 +19,6 @@ import java.awt.Dimension;
 import javax.media.*;
 import javax.media.control.*;
 import javax.media.protocol.*;
-import javax.media.protocol.DataSource;
 import javax.media.datasink.*;
 import javax.media.format.VideoFormat;
 
@@ -60,40 +59,40 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
         TrackControl[] tcs = p.getTrackControls();
         Format[] f = tcs[0].getSupportedFormats();
         if (f == null || f.length <= 0) {
-            System.err.println("The mux does not support the input format: " + tcs[0].getFormat());
+            Log.out("The mux does not support the input format: " + tcs[0].getFormat());
             return false;
         }
 
         tcs[0].setFormat(f[0]);
 
-        System.err.println("Setting the track format to: " + f[0]);
+        Log.out("Setting the track format to: " , f[0]);
 
         // We are done with programming the processor.  Let's just
         // realize it.
         p.realize();
         if (!waitForState(p, p.Realized)) {
-            System.err.println("Failed to realize the processor.");
+            Log.out("Failed to realize the processor.");
             return false;
         }
 
         // Now, we'll need to create a DataSink.
         DataSink dsink;
         if ((dsink = createDataSink(p, outML)) == null) {
-            System.err.println("Failed to create a DataSink for the given output MediaLocator: " + outML);
+            Log.out("Failed to create a DataSink for the given output MediaLocator: " , outML);
             return false;
         }
 
         dsink.addDataSinkListener(this);
         fileDone = false;
 
-        System.err.println("start processing...");
+        Log.out("start processing...");
 
         // OK, we can now start the actual transcoding.
         try {
             p.start();
             dsink.start();
         } catch (IOException e) {
-            System.err.println("IO error during processing");
+            Log.out("IO error during processing");
             return false;
         }
 
@@ -107,7 +106,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
         }
         p.removeControllerListener(this);
 
-        System.err.println("...done processing.");
+        Log.out("...done processing.");
 
         return true;
     }
@@ -120,18 +119,18 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
         DataSource ds;
 
         if ((ds = p.getDataOutput()) == null) {
-            System.err.println("Something is really wrong: the processor does not have an output DataSource");
+            Log.out("Something is really wrong: the processor does not have an output DataSource");
             return null;
         }
 
         DataSink dsink;
 
         try {
-            System.err.println("- create DataSink for: " + outML);
+            Log.out("- create DataSink for: " , outML);
             dsink = Manager.createDataSink(ds, outML);
             dsink.open();
         } catch (Exception e) {
-            System.err.println("Cannot create the DataSink: " + e);
+            Log.out("Cannot create the DataSink: " , e);
             return null;
         }
 
@@ -266,12 +265,12 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
         }
         // Check for output file extension.
         if (!outputURL.endsWith("-h") && !outputURL.endsWith("-f")) {
-            System.err.println("-o");
+            Log.out("-o");
             prUsage();
         }
 
         if (width < 0 || height < 0) {
-            System.err.println("Please specify the correct image size.");
+            Log.out("Please specify the correct image size.");
             prUsage();
         }
 
@@ -283,7 +282,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
         MediaLocator oml;
 
         if ((oml = createMediaLocator(outputURL)) == null) {
-            System.err.println("Please specify the correct image size." + outputURL);
+            Log.out("Please specify the correct image size." , outputURL);
             System.exit(0);
         }
 
@@ -294,7 +293,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
     }
 
     static void prUsage() {
-        System.err.println("Usage: java JpegImagesToMovie -w <width> -h <height> -f <frame rate> -o <output URL> <input JPEG file 1> <input JPEG file 2> ...");
+        Log.out("Usage: java JpegImagesToMovie -w <width> -h <height> -f <frame rate> -o <output URL> <input JPEG file 1> <input JPEG file 2> ...");
         System.exit(-1);
     }
 
@@ -313,7 +312,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
                 return ml;
             }
         } else {
-            String file = "file:" + System.getProperty("user.dir") + File.separator + url;
+            String file = BeanUtil.concat("file:" , System.getProperty("user.dir") , File.separator , url);
             if ((ml = new MediaLocator(file)) != null) {
                 return ml;
             }
@@ -425,7 +424,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
             // Check if we've finished all the frames.
             if (nextImage >= images.size()) {
                 // We are done.  Set EndOfMedia.
-                System.err.println("Done reading all images.");
+                Log.out("Done reading all images.");
                 buf.setEOM(true);
                 buf.setOffset(0);
                 buf.setLength(0);
@@ -436,7 +435,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
             String imageFile = (String) images.elementAt(nextImage);
             nextImage++;
 
-            System.err.println("  - reading image file: " + imageFile);
+            Log.out("  - reading image file: " , imageFile);
 
             // Open a random access file for the next image.
             RandomAccessFile raFile;
@@ -449,7 +448,7 @@ public class JpegImagesToMovie implements ControllerListener, DataSinkListener {
             // Read the entire JPEG image from the file.
             raFile.readFully(data, 0, (int) raFile.length());
 
-            System.err.println("    read " + raFile.length() + " bytes.");
+            Log.out("    read ",raFile.length()," bytes.");
 
             buf.setOffset(0);
             buf.setLength((int) raFile.length());

@@ -6,6 +6,7 @@ import java.util.List;
 import bean.reference.EmployeePositionRef;
 import bean.reference.EmployeeTaxStatus;
 
+import util.BeanUtil;
 import util.DBClient;
 
 public class PayrollAdjustmentHelper {
@@ -27,7 +28,7 @@ public class PayrollAdjustmentHelper {
 		d.toAmount = toAmount;
 		d.fixedAmount = fixedAmount;
 		d.percentageAfterFromAmount = percentageAfterFromAmount;
-		d.description = t.adjustmentName + " " + t.position + " " + t.employeeTaxStatus;
+		d.description = BeanUtil.concat(t.adjustmentName," ",t.position," ",t.employeeTaxStatus);
 		return d;
 	}
 

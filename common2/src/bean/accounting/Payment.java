@@ -30,6 +30,7 @@ import template.screen.TemplateTabPage;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.NumberToWordConverter;
 import util.PanelUtil;
 
@@ -567,47 +568,47 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
     public void save() {
     	double chk = extractCheckAmount();
     	if (chk>0) {
-            if (accountNumber1!=null) this.allCheck = accountNumber1+",";
-            if (accountNumber2!=null) this.allCheck += accountNumber2+",";
-            if (accountNumber3!=null) this.allCheck += accountNumber3+",";
-            if (accountNumber4!=null) this.allCheck += accountNumber4+",";
-            if (accountNumber5!=null) this.allCheck += accountNumber5+",";
-            if (accountNumber6!=null) this.allCheck += accountNumber6+",";
-            if (accountNumber7!=null) this.allCheck += accountNumber7+",";
-            if (accountNumber8!=null) this.allCheck += accountNumber8+",";
-            if (accountNumber9!=null) this.allCheck += accountNumber9+",";
-            if (accountNumber10!=null) this.allCheck += accountNumber10+",";
+            if (accountNumber1!=null) this.allCheck = BeanUtil.concat(accountNumber1,",");
+            if (accountNumber2!=null) this.allCheck += BeanUtil.concat(accountNumber2,",");
+            if (accountNumber3!=null) this.allCheck += BeanUtil.concat(accountNumber3,",");
+            if (accountNumber4!=null) this.allCheck += BeanUtil.concat(accountNumber4,",");
+            if (accountNumber5!=null) this.allCheck += BeanUtil.concat(accountNumber5,",");
+            if (accountNumber6!=null) this.allCheck += BeanUtil.concat(accountNumber6,",");
+            if (accountNumber7!=null) this.allCheck += BeanUtil.concat(accountNumber7,",");
+            if (accountNumber8!=null) this.allCheck += BeanUtil.concat(accountNumber8,",");
+            if (accountNumber9!=null) this.allCheck += BeanUtil.concat(accountNumber9,",");
+            if (accountNumber10!=null) this.allCheck += BeanUtil.concat(accountNumber10,",");
     	}
         this.allBounceCheck = "";
         if (this.bounceCheck1) {
-            this.allBounceCheck += this.accountNumber1+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber1,",");
         }
         if (this.bounceCheck2) {
-            this.allBounceCheck += this.accountNumber2+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber2,",");
         }
         if (this.bounceCheck3) {
-            this.allBounceCheck += this.accountNumber3+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber3,",");
         }
         if (this.bounceCheck4) {
-            this.allBounceCheck += this.accountNumber4+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber4,",");
         }
         if (this.bounceCheck5) {
-            this.allBounceCheck += this.accountNumber5+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber5,",");
         }
         if (this.bounceCheck6) {
-            this.allBounceCheck += this.accountNumber6+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber6,",");
         }
         if (this.bounceCheck7) {
-            this.allBounceCheck += this.accountNumber7+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber7,",");
         }
         if (this.bounceCheck8) {
-            this.allBounceCheck += this.accountNumber8+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber8,",");
         }
         if (this.bounceCheck9) {
-            this.allBounceCheck += this.accountNumber9+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber9,",");
         }
         if (this.bounceCheck10) {
-            this.allBounceCheck += this.accountNumber10+",";
+            this.allBounceCheck += BeanUtil.concat(this.accountNumber10,",");
         }
         payer = extractPersonName(paidBy);
         if (paid) {
@@ -628,7 +629,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
         else {
 //        	this is for assessment
             overallAmountPaid = surchargePaid = 0;
-        	List<Payment> lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='"+schoolYear+"' AND a.paidBy="+paidBy+" AND a.paid=true ORDER BY a.paymentDate DESC");
+        	List<Payment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Payment a WHERE a.schoolYear='",schoolYear,"' AND a.paidBy=",paidBy," AND a.paid=true ORDER BY a.paymentDate DESC"));
         	for (int i=0; i<lst.size(); i++) {
         		Payment p = lst.get(i);
         		if (p.paymentFor.equals(paymentFor)) {
@@ -1170,11 +1171,11 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
 
     public Person extractCustomer() {
         if (paidBy==0) return null;
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + paidBy);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",paidBy);
     }
     public Person extractSeller() {
         if (paidTo==0) return null;
-        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=" + paidTo);
+        return (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",paidTo);
     }
     
     private String checkDisplay() {
@@ -1221,12 +1222,12 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             double totalCheck = 0;
             double totalSurchargePaid = 0;
             double totalSurchargeDiscount = 0;
-            List<Payment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber='"+orNumber+"' AND a.orType='"+orType+"'");
+            List<Payment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber='",orNumber,"' AND a.orType='",orType,"'");
             for (Payment p:lst) {
             	totalAmount += DataUtil.getMoneyFormat(p.orAmount);
             	totalSurchargePaid += DataUtil.getMoneyFormat(p.surchargePaid);
             	totalSurchargeDiscount += DataUtil.getMoneyFormat(p.discountSurcharge);
-            	System.out.println("p.overallAmountPaid = "+p.overallAmountPaid);
+            	Log.out("p.overallAmountPaid = ",p.overallAmountPaid);
             	p.overallAmountPaid = DataUtil.getMoneyFormat(p.overallAmountPaid);
             	if (p.overallAmountPaid > 0.2) {
                 	desc.append(p.paymentForLongDesc()).append(" - ").append(p.overallAmountPaid).append("   ");
@@ -1271,15 +1272,15 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             inv.recordId = recordId;
             inv.plan = plan;
             if ("A".equals(orType)) {
-                inv.description = "MISCELLANEOUS FEE "+desc.toString();
+                inv.description = BeanUtil.concat("MISCELLANEOUS FEE ",desc.toString());
             }
             else {
-                inv.description = "TUITION FEE "+desc.toString();
+                inv.description = BeanUtil.concat("TUITION FEE ",desc.toString());
             }
             inv.description = inv.description.replace("- -", "-");
             inv.discount = discount+discountSurcharge;
             if (discount>0 && inv.discountReason!=null && !inv.discountReason.trim().isEmpty()) {
-            	inv.description += " less "+inv.discountReason.toLowerCase()+" discount of "+DataUtil.getCurrencyFormat(inv.discount);
+            	inv.description += BeanUtil.concat(" less ",inv.discountReason.toLowerCase()," discount of ",DataUtil.getCurrencyFormat(inv.discount));
             }
             try {
         		inv.description = PanelUtil.showPromptDefaultMessage(null, "Change OR Description. [Note: This cannot cancel transaction.]", inv.description);
@@ -1307,7 +1308,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             }
             Person cust = extractCustomer();
             if (cust != null) {
-                inv.billTo = cust.personId+"";
+                inv.billTo = BeanUtil.concat(cust.personId,"");
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
@@ -1319,10 +1320,10 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             invoiceId = inv.seq;
             paid = true;
             save();
-            DBClient.runSQLNative("UPDATE Payment SET invoiceId="+invoiceId+" WHERE orNumber='"+orNumber+"' AND orType='"+orType+"'");
+            DBClient.runSQLNative("UPDATE Payment SET invoiceId=",invoiceId," WHERE orNumber='",orNumber,"' AND orType='",orType,"'");
         }
         else {
-            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=" + this.invoiceId);
+            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=",this.invoiceId);
         }
         return inv;
     }
@@ -1419,7 +1420,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
     
     private void dynamicPutCheck(int index, Payment check) {
     	if (check==null) return;
-    	double chkamt = BeanUtil.getDoubleValue(check, "amount"+index);
+    	double chkamt = BeanUtil.getDoubleValue(check, BeanUtil.concat("amount",index));
     	if (chkamt<=0) return;
     	
 //    	if (this.paymentFor.contains("MISC")) {
@@ -1432,7 +1433,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
 //        	}
 //	    }
 //    	else {
-        	BeanUtil.setPropertyValue(this, "amount"+index, chkamt);
+        	BeanUtil.setPropertyValue(this, BeanUtil.concat("amount",index), chkamt);
 //        	BeanUtil.setPropertyValue(check, "amount"+index, 0);
 //    	}
     }
@@ -1461,7 +1462,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(invoiceId+"", map);
+        ins.getReportParameter(BeanUtil.concat(invoiceId,""), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }
@@ -1570,8 +1571,8 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
 
 	@Override
 	public String extractDefaultFormula() {
-        return "GL.debit PAYMENT, now, \"102\", PAYMENT.amount, PAYMENT.paymentFor;" +
-        "\nGL.credit PAYMENT, now, \"402.1\", PAYMENT.amount, PAYMENT.paymentFor;";
+        return BeanUtil.concat("GL.debit PAYMENT, now, \"102\", PAYMENT.amount, PAYMENT.paymentFor;",
+        "\nGL.credit PAYMENT, now, \"402.1\", PAYMENT.amount, PAYMENT.paymentFor;");
 	}
 
 	@Override

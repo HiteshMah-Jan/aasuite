@@ -275,9 +275,9 @@ public class GL extends AbstractIBean implements Serializable {
     @Override
     public java.util.Vector allChart() {
         java.util.Vector vec = new java.util.Vector();
-        vec.add(ChartBean.getNativeBarInstance(this, "General Ledger","SELECT" +DateUtil.getSQLYear("a.dateInput")+", a.accountNumber, SUM(a.debit-a.credit) FROM GL a GROUP BY "+DateUtil.getSQLYear("a.dateInput")+",a.accountNumber"));
-        vec.add(ChartBean.getNativePieInstance(this, "Cash Posting Per Month","SELECT" +DateUtil.getSQLMonthName("a.dateInput")+", SUM(a.debit) FROM GL a WHERE a.accountNumber='1001' GROUP BY "+DateUtil.getSQLMonthName("a.dateInput")));
-        vec.add(ChartBean.getNativePieInstance(this, "Expense Posting Per Month","SELECT" +DateUtil.getSQLMonthName("a.dateInput")+", SUM(a.debit) FROM GL a, AccountChart b WHERE a.accountNumber=b.accountNumber AND b.category='EXPENSE' GROUP BY "+DateUtil.getSQLMonthName("a.dateInput")));
+        vec.add(ChartBean.getNativeBarInstance(this, "General Ledger","SELECT",DateUtil.getSQLYear("a.dateInput"),", a.accountNumber, SUM(a.debit-a.credit) FROM GL a GROUP BY ",DateUtil.getSQLYear("a.dateInput"),",a.accountNumber"));
+        vec.add(ChartBean.getNativePieInstance(this, "Cash Posting Per Month","SELECT",DateUtil.getSQLMonthName("a.dateInput"),", SUM(a.debit) FROM GL a WHERE a.accountNumber='1001' GROUP BY ",DateUtil.getSQLMonthName("a.dateInput")));
+        vec.add(ChartBean.getNativePieInstance(this, "Expense Posting Per Month","SELECT",DateUtil.getSQLMonthName("a.dateInput"),", SUM(a.debit) FROM GL a, AccountChart b WHERE a.accountNumber=b.accountNumber AND b.category='EXPENSE' GROUP BY ",DateUtil.getSQLMonthName("a.dateInput")));
         vec.add(ChartBean.getNativePieInstance(this, "Expense Posting Per Department","SELECT a.chargeDepartment, SUM(a.debit) FROM GL a, AccountChart b WHERE a.accountNumber=b.accountNumber AND b.category='EXPENSE' GROUP BY chargeDepartment"));
         return vec;
     }

@@ -13,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -30,9 +31,9 @@ public class ReportServlet extends HttpServlet {
         String bean = request.getParameter("bean");
         String title = request.getParameter("title");
         Class cls = PanelUtil.getBeanClass(bean);
-        util.Log.info("Report -> "+bean+":"+title+":"+cls.getSimpleName());
-        Object obj = request.getSession().getAttribute(bean + "-" + title);
-        AbstractIBean ibean = (AbstractIBean) request.getSession().getAttribute(bean+"Obj");
+        util.Log.info("Report -> ",bean,":",title,":",cls.getSimpleName());
+        Object obj = request.getSession().getAttribute(BeanUtil.concat(bean,"-",title));
+        AbstractIBean ibean = (AbstractIBean) request.getSession().getAttribute(BeanUtil.concat(bean,"Obj"));
         byte[] b = null;
         if (obj instanceof template.Report) {
             template.Report rep = (template.Report) obj;

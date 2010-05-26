@@ -17,7 +17,7 @@ public class SecuredField extends JLabel implements IGetText {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				PanelUtil.showMessage(null, "This field is secured.\nOnly login with appropriate duty codes can change this field.\nDuty codes ["+BeanUtil.concat(duties)+"].");
+				PanelUtil.showMessage(null, "This field is secured.\nOnly login with appropriate duty codes can change this field.\nDuty codes [",BeanUtil.concat(duties),"].");
 			}
 		});
 	}

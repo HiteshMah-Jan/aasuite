@@ -161,7 +161,6 @@ public class JTreeTablePallete extends JTable implements IComponentDND {
         int[] allRows = this.getSelectedRows();
         for (int rowIndex : allRows) {
             Object str = this.getValueAt(rowIndex, 0);
-            Logger.getLogger("global").log(Level.INFO, "SELECTED === " + str + " - " + str.getClass().getName());
             data.add(str);
         }
         return data;

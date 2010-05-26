@@ -31,7 +31,7 @@ public class AccountingImpl implements IAccounting {
     }
 
     public List<Employee> getAllEmployee(String contractType) {
-        return AbstractIBean.list("SELECT a FROM Employee a WHERE a.contractType='"+contractType+"'");
+        return AbstractIBean.list("SELECT a FROM Employee a WHERE a.contractType='",contractType,"'");
     }
 
     public void createAP(IGL gl, double amount) {

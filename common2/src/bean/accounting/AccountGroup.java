@@ -21,6 +21,7 @@ import template.Displays;
 import template.UITemplate;
 import template.Reports;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 /**
  *
  * @author pogi
@@ -90,7 +91,7 @@ public class AccountGroup extends AbstractIBean implements Serializable {
      @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return category+" - "+groupName;
+        return BeanUtil.concat(category," - ",groupName);
     }   
     
     public static AccountGroup createAccountGroupObj(String groupName, String category, String sortNumber) {

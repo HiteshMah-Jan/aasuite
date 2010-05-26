@@ -38,8 +38,8 @@ public class NetworkUtil {
     private static String ipAddress;
 
     public static void main(String[] args) {
-        System.out.println("HOST = "+getHostname());
-        System.out.println("MAC = "+macAddress());
+        Log.out("HOST = ",getHostname());
+        Log.out("MAC = ",macAddress());
     }
 
     public static String macAddress() {
@@ -118,10 +118,10 @@ public class NetworkUtil {
             	retlst = ZipUtil.getObject((byte[])retlst);
             }
         } catch (MalformedURLException ex) {
-            PanelUtil.showError(null, "CACHE URL NOT FOUND "+Constants.cachehost+" TRY TO USE LOCAL.");
+            PanelUtil.showError(null, "CACHE URL NOT FOUND ",Constants.cachehost," TRY TO USE LOCAL.");
         } catch (IOException ex) {
         	ex.printStackTrace();
-            Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()+" - "+Constants.host);
+//            Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()+" - "+Constants.host);
         }
         return retlst;
     }

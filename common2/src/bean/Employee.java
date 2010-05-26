@@ -35,6 +35,7 @@ import template.ParentAddInfo;
 import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateTabPage; 
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -242,13 +243,13 @@ public class Employee extends Person implements Serializable {
 
     @SuppressWarnings("unchecked")
     public List<EmployeeDeduction> extractDeductions() { 
-        return list("SELECT a FROM EmployeeDeduction a WHERE a.personId=" + getPersonId());
+        return list("SELECT a FROM EmployeeDeduction a WHERE a.personId=" , getPersonId());
     }
 
     @SuppressWarnings("unchecked")
     public List<EmployeeLoan> extractLoans() {
         List<EmployeeLoan> retLoans = new ArrayList<EmployeeLoan>();
-        List<EmployeeLoan> loans = list("SELECT a FROM EmployeeLoan a WHERE a.personId=" + getPersonId());
+        List<EmployeeLoan> loans = list("SELECT a FROM EmployeeLoan a WHERE a.personId=" , getPersonId());
         for (EmployeeLoan loan : loans) {
             if (loan.isFinishedLoan()) {
                 continue;
@@ -260,7 +261,7 @@ public class Employee extends Person implements Serializable {
 
     @SuppressWarnings("unchecked")
     public List<EmployeeBenefit> extractBenefits() {
-        return list("SELECT a FROM EmployeeBenefit a WHERE a.personId=" + getPersonId());
+        return list("SELECT a FROM EmployeeBenefit a WHERE a.personId=" , getPersonId());
     }
 
 //    @PostPersist
@@ -292,7 +293,7 @@ public class Employee extends Person implements Serializable {
         @SuppressWarnings("unchecked")
         List<EmployeeBenefit> benList = new ArrayList<EmployeeBenefit>();
         if (benefit == null || benefit.isEmpty()) {
-            benList = list("SELECT a FROM EmployeeBenefit a WHERE a.personId=" + personId);
+            benList = list("SELECT a FROM EmployeeBenefit a WHERE a.personId=" , personId);
         }
         for (EmployeeBenefit ben : benList) {
             if (ben.getBenefitCode().indexOf(benefit) != -1) {
@@ -329,7 +330,7 @@ public class Employee extends Person implements Serializable {
         @SuppressWarnings("unchecked")
         List<EmployeeDeduction> decList = new ArrayList<EmployeeDeduction>();
         if (deduction == null || deduction.isEmpty()) {
-            decList = list("SELECT a FROM EmployeeDeduction a WHERE a.employeeId=" + personId);
+            decList = list("SELECT a FROM EmployeeDeduction a WHERE a.employeeId=" , personId);
         }
         for (EmployeeDeduction ben : decList) {
             if (ben.getDeductionCode().indexOf(deduction) != -1) {
@@ -354,9 +355,9 @@ public class Employee extends Person implements Serializable {
             return "";
         }
         if (getLastName().equals("XXX")) {
-            return getPersonId() + " - " + getShortName();
+            return BeanUtil.concat(getPersonId() , " - " , getShortName());
         } else {
-            return getLastName() + ", " + getFirstName() + "   " + getMiddleInitial();
+            return BeanUtil.concat(getLastName() , ", " , getFirstName() , "   " , getMiddleInitial());
         }
     }
 
@@ -365,7 +366,7 @@ public class Employee extends Person implements Serializable {
         if (personId == null || personId == 0) {
             return null;
         }
-        return list("SELECT a FROM EmployeeLoan a WHERE a.employeeId=" + personId);
+        return list("SELECT a FROM EmployeeLoan a WHERE a.employeeId=" , personId);
     }
 
     public double extractTaxExcemption() {
@@ -380,7 +381,7 @@ public class Employee extends Person implements Serializable {
     }
 
     public static Employee getObject(Object personId) {
-        return (Employee) AbstractIBean.firstRecord("SELECT a FROM Employee a WHERE a.personId="+personId);
+        return (Employee) AbstractIBean.firstRecord("SELECT a FROM Employee a WHERE a.personId=",personId);
     }
 
     @Transient
@@ -388,7 +389,7 @@ public class Employee extends Person implements Serializable {
 
     public PersonDependent extractDependent(int index) {
         if (lstDependents == null) {
-            lstDependents = list("SELECT a FROM PersonDependent a WHERE a.personId=" + personId);
+            lstDependents = list("SELECT a FROM PersonDependent a WHERE a.personId=" , personId);
         }
         if (lstDependents.size() < index + 1) {
             lstDependents = new ArrayList();
@@ -398,7 +399,7 @@ public class Employee extends Person implements Serializable {
     }
     public int extractDependentCount() {
         if (lstDependents == null) {
-            lstDependents = list("SELECT a FROM PersonDependent a WHERE a.personId=" + personId);
+            lstDependents = list("SELECT a FROM PersonDependent a WHERE a.personId=" , personId);
         }
         return lstDependents.size();
     }
@@ -411,7 +412,7 @@ public class Employee extends Person implements Serializable {
         } else {
             if (annualSummary == null) {
                 annualSummary = new ArrayList<EmployeeAnnualSummary>();
-                annualSummary.addAll(list("SELECT a FROM EmployeeAnnualSummary a WHERE a.personId=" + personId));
+                annualSummary.addAll(list("SELECT a FROM EmployeeAnnualSummary a WHERE a.personId=" , personId));
             }
             //get the summary with respect to the year
             for (EmployeeAnnualSummary annual : annualSummary) {

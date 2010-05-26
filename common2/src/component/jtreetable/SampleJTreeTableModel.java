@@ -12,6 +12,8 @@ package component.jtreetable;
 import java.io.File;
 import javax.swing.table.TableModel;
 
+import util.BeanUtil;
+
 
 /**
  * FileSystemModel is a TreeTableModel representing a hierarchical file 
@@ -47,7 +49,7 @@ public class SampleJTreeTableModel extends AbstractTreeTableModel implements Tre
 
     public String getColumnName(int column) {
         if (model!=null) return model.getColumnName(column);
-	return "Column "+column;
+	return BeanUtil.concat("Column ",column);
     }
 
     public Object getValueAt(Object node, int column) {

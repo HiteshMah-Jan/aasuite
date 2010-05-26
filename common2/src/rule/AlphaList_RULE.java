@@ -35,7 +35,7 @@ public class AlphaList_RULE extends BusinessRuleWrapper {
             bean.year = DateUtil.getYear();
             saveRecord();
         }
-        if (showPrompt("Would you like to create the employee list and summary for year "+bean.year)) {
+        if (showPrompt("Would you like to create the employee list and summary for year ",bean.year)) {
             new PayrollService().createAlphaList(bean);
         }
         redisplayRecord();

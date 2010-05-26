@@ -29,7 +29,6 @@ public class FileUtil {
         try {
             java.io.RandomAccessFile raf = new java.io.RandomAccessFile(f, "r");
             byte[] b = new byte[(int)f.length()];
-//            System.out.println("FILE SIZE = "+f.length());
             raf.readFully(b);
             return b;
         } catch (Exception ex) {
@@ -39,7 +38,7 @@ public class FileUtil {
     }
 
     public static String readDefaultFormula(String formula) {
-        return readResourceFile("test/formula/"+formula+".formula");
+        return readResourceFile(BeanUtil.concat("test/formula/",formula,".formula"));
     }
     
     public static String readResourceFile(String fileSource) {
@@ -114,7 +113,7 @@ public class FileUtil {
             // TODO code application logic here
             FileUtil util = FileUtil.getInstance();
             java.lang.String str = util.readFile("D:/ROUTE_DATA.SQL.sql");
-            java.lang.System.out.println("STRING == " + str);
+            Log.out("STRING == ",str);
 
             util.writeFile("D:/sample.txt", str.trim());
         } catch (Exception ex) {

@@ -70,7 +70,7 @@ public class CustomerPricing extends AbstractIBean implements Serializable {
         if (productCode == null || productCode.trim().length() == 0) {
             return "";
         }
-        Product prod = (Product) AbstractIBean.firstRecord("SELECT a FROM Product a WHERE a.code='" + productCode + "'");
+        Product prod = (Product) AbstractIBean.firstRecord("SELECT a FROM Product a WHERE a.code='" , productCode , "'");
         if (prod != null) {
             return prod.getProductName();
         }

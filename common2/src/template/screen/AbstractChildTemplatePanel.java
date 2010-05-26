@@ -45,6 +45,7 @@ import template.UITemplate;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.component.JTableReadOnly;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -188,7 +189,7 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
                 }
             }
             catch (Exception e) {
-                System.err.println("CHILD SQL EXCEPTION =="+sql);
+                Log.out(BeanUtil.concat("CHILD SQL EXCEPTION ==",sql));
 //                e.printStackTrace();
             }
         }
@@ -500,11 +501,11 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
                     if (parObj!=null) BeanProperty.create(chi).setValue(obj, parObj);
                 }
                 catch (Exception e) {
-                    util.Log.severe("MAPPING ERROR "+chi+":"+par);
+                    util.Log.severe("MAPPING ERROR ",chi,":",par);
                 }
             }
         } catch (Exception ex) {
-            util.Log.severe("MAPPING ERROR "+chi+":"+par);
+            util.Log.severe("MAPPING ERROR ",chi,":",par);
         }
     }
     
@@ -633,7 +634,7 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     protected void saveRecord() {
         AbstractIBean bean = (AbstractIBean) getCurrentObject();
         String beanName = currentClass.getSimpleName();
-        System.out.println("BEAN == "+beanName);
+        Log.out("BEAN == ",beanName);
         if (bean==null) {
         	return;
         }
@@ -657,11 +658,11 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                         FieldCompose f = ((IGetText) elem).getFieldCompose();
                         Column col = f.field.getAnnotation(Column.class);
                         if (col!=null && !col.nullable()){
-                            PanelUtil.showError(elem, PanelUtil.getLabel(f)+" is mandatory."); 
+                            PanelUtil.showError(elem, PanelUtil.getLabel(f)," is mandatory."); 
                             return false;
                         }
                         if (f.display!=null && f.display.mandatory()){
-                            PanelUtil.showError(elem, PanelUtil.getLabel(f)+" is mandatory."); 
+                            PanelUtil.showError(elem, PanelUtil.getLabel(f)," is mandatory."); 
                             return false;
                         }
                     } catch (Exception ex) {

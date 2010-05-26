@@ -8,6 +8,7 @@ package rule;
 import bean.Person;
 import javax.swing.JComponent;
 
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -27,7 +28,6 @@ public class Person_RULE extends BusinessRuleWrapper {
 
     @Override
     public void runOnClick(JComponent comp) {
-//        System.out.println("ON CLICK for "+comp.getName());
         if ("btnInactive".equals(comp.getName())) {
             setInactive();
         }
@@ -52,11 +52,11 @@ public class Person_RULE extends BusinessRuleWrapper {
         Person p = (Person) this.getBean();
         p.setIsActive(false);
         p.save();
-        String sql1 = "DELETE FROM AclUser WHERE userId='"+p.userid+"'";
-        String sql2 = "DELETE FROM AclUserDuty WHERE userId='"+p.userid+"'";
-        String sql3 = "DELETE FROM AclUserGroup WHERE userId='"+p.userid+"'";
-        String sql4 = "DELETE FROM AclUserModule WHERE userId='"+p.userid+"'";
-        String sql5 = "UPDATE Person SET userId=null WHERE userId='"+p.userid+"'";
+        String sql1 = BeanUtil.concat("DELETE FROM AclUser WHERE userId='",p.userid,"'");
+        String sql2 = BeanUtil.concat("DELETE FROM AclUserDuty WHERE userId='",p.userid,"'");
+        String sql3 = BeanUtil.concat("DELETE FROM AclUserGroup WHERE userId='",p.userid,"'");
+        String sql4 = BeanUtil.concat("DELETE FROM AclUserModule WHERE userId='",p.userid,"'");
+        String sql5 = BeanUtil.concat("UPDATE Person SET userId=null WHERE userId='",p.userid,"'");
         DBClient.runBatchNative(sql1, sql2, sql3, sql4, sql5);
         showMessage("Selected record is now inactive, please refresh.");
     }

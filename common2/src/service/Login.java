@@ -14,6 +14,7 @@ import bean.admin.AclGroup;
 import bean.admin.AclUser;
 import constants.UserInfo;
 import service.util.AbstractIBean;
+import util.BeanUtil;
 import util.Log;
 
 /**
@@ -26,10 +27,10 @@ public class Login implements IService {
     public ReturnStruct callService(ParamStruct param) {
         ReturnStruct ret = new ReturnStruct();
         AclUser user = (AclUser) param.getData();
-        String sql = "SELECT a FROM AclUser a WHERE a.userid='" + user.getUserid() + "' AND a.password='" + user.getPassword() + "'";
+        String sql = BeanUtil.concat("SELECT a FROM AclUser a WHERE a.userid='",user.getUserid(),"' AND a.password='",user.getPassword(),"'");
         AclUser userNew = (AclUser) AbstractIBean.firstRecord(sql);
         if (userNew != null) {
-//        	System.out.println("USER "+userNew.userid);
+        	Log.out("USER ",userNew.userid);
             UserInfo userInfo = new UserInfo();
             userInfo.setUser(userNew);
             userInfo.setTemporary(false);
@@ -37,7 +38,7 @@ public class Login implements IService {
             ret.setData(userInfo);
         }
         else {
-            sql = "SELECT a FROM Person a WHERE a.userid='" + user.getUserid() + "' AND a.tempPass='" + user.getPassword() + "'";
+            sql = BeanUtil.concat("SELECT a FROM Person a WHERE a.userid='",user.getUserid(),"' AND a.tempPass='",user.getPassword(),"'");
             Person p = (Person) AbstractIBean.firstRecord(sql);
             if (p!=null && !p.isEmptyKey()) {
                 user = new AclUser();

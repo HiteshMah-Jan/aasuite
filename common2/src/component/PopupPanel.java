@@ -62,7 +62,6 @@ public class PopupPanel extends javax.swing.JDialog {
 //            });
 //            t.start();
         } catch (Exception ex) {
-            System.out.println("BEAN == " + bean);
             Logger.getLogger(PopupPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
