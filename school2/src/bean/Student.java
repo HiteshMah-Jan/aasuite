@@ -789,10 +789,10 @@ public class Student extends Customer implements Serializable {
 					}
 				}
 				if (count > 1000) {
-					studentNumber = yy + "-" + (count + 1);
+					studentNumber = BeanUtil.concat(yy , "-" , (count + 1));
 				}
 				else {
-					studentNumber = yy + "-" + (count + 1 + 1000);
+					studentNumber = BeanUtil.concat(yy , "-" , (count + 1 + 1000));
 				}
 			}
 			userid = studentNumber;
@@ -955,17 +955,17 @@ public class Student extends Customer implements Serializable {
 			return null;
 		return (Enrollment) AbstractIBean
 				.firstRecord("SELECT a FROM Enrollment a WHERE a.studentId="
-						+ personId + " AND a.schoolYear='" + schoolYear
-						+ "' ORDER BY a.seq DESC");
+						, personId , " AND a.schoolYear='" , schoolYear
+						, "' ORDER BY a.seq DESC");
 	}
 
 	public List extractBackAccount(String beforeSchoolYear) {
 		List<PaymentEnrollment> lst = DBClient
-				.getList("SELECT a FROM PaymentEnrollment a WHERE a.schoolYear<'"
-						+ beforeSchoolYear
-						+ "' AND a.paidBy="
-						+ personId
-						+ " ORDER BY a.schoolYear DESC");
+				.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.schoolYear<'"
+						, beforeSchoolYear
+						, "' AND a.paidBy="
+						, personId
+						, " ORDER BY a.schoolYear DESC"));
 		List lstBack = new ArrayList();
 		double totalBack = 0;
 		String useYear = "";
@@ -985,8 +985,8 @@ public class Student extends Customer implements Serializable {
 
 	public void assessStudent(String schoolYear, GradeLevel lvl, String plan, double backAccount) {
 		SchoolDefaultProcess s = new SchoolDefaultProcess();
-		String sql = "SELECT a FROM Enrollment a WHERE a.studentId=" + personId
-				+ " AND a.gradeLevel='" + lvl.code + "'";
+		String sql = BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=" , personId
+				, " AND a.gradeLevel='" , lvl.code , "'");
 		Enrollment e = (Enrollment) DBClient.getFirstRecord(sql);
 		if (e==null) {
 			e = new Enrollment();
@@ -1002,7 +1002,7 @@ public class Student extends Customer implements Serializable {
 		
         PaymentPlan cal = s.extractPaymentPlan(e);
 		if (cal==null) {
-			PanelUtil.showError(null, "Payment Plan for "+e.gradeLevel + "-" + plan + " not found.");
+			PanelUtil.showError(null, "Payment Plan for ",e.gradeLevel , "-" , plan , " not found.");
 			return;
 		}
 		s.setupMisc(e, cal);
@@ -1017,8 +1017,8 @@ public class Student extends Customer implements Serializable {
 
 	public void assessStudentNoPayment(String schoolYear, String section) {
 		SchoolDefaultProcess s = new SchoolDefaultProcess();
-		String sql = "SELECT a FROM Enrollment a WHERE a.studentId=" + personId
-				+ " AND a.schoolYear='" + schoolYear + "'";
+		String sql = BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=" , personId
+				, " AND a.schoolYear='" , schoolYear , "'");
 		Enrollment e = (Enrollment) DBClient.getFirstRecord(sql);
 		if (e == null || e.isEmptyKey()) {
 			e = new Enrollment();
@@ -1057,7 +1057,7 @@ public class Student extends Customer implements Serializable {
 //			we can get the latest enrollment schoolyear
 			try {
 				if ("ENROLLED".equals(status)) {
-					String sc = DBClient.getSingleColumn("SELECT a.schoolYear FROM Enrollment a WHERE a.studentId="+personId+" ORDER BY a.schoolYear DESC").toString();
+					String sc = DBClient.getSingleColumn(BeanUtil.concat("SELECT a.schoolYear FROM Enrollment a WHERE a.studentId=",personId," ORDER BY a.schoolYear DESC")).toString();
 					latestSchoolYear = sc;
 				}
 			}
@@ -1073,7 +1073,7 @@ public class Student extends Customer implements Serializable {
 
 	public void updateEnrollmentSection() {
 		Enrollment e = (Enrollment) firstRecord("SELECT a FROM Enrollment a WHERE a.studentId="
-				+ personId + " AND a.gradeLevel='"+gradeLevel+"'");
+				, personId , " AND a.gradeLevel='",gradeLevel,"'");
 		if (e != null) {
 			e.section = section;
 			e.save();
@@ -1166,10 +1166,10 @@ public class Student extends Customer implements Serializable {
 			List<Course> ls = Course.extractCacheListBeans(Course.class);
 			List<CourseSubject> lstSub = new ArrayList<CourseSubject>();
 			for (Course c : ls) {
-				List<Subject> lstCur = selectListCache("SELECT a FROM Subject a WHERE a.course='"+ c.code + "'");
+				List<Subject> lstCur = selectListCache("SELECT a FROM Subject a WHERE a.course='", c.code , "'");
 				for (Subject subject : lstCur) {
 					for (int i = 1; i <= 6; i++) {
-						if (subject.gradeLevel.contains(i + "")) {
+						if (subject.gradeLevel.contains(BeanUtil.concat(i,""))) {
 							CourseSubject cs = new CourseSubject();
 							cs.course = c.code;
 							cs.subject = subject.code;

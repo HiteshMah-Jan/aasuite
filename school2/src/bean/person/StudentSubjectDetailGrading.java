@@ -1700,7 +1700,7 @@ public class StudentSubjectDetailGrading extends AbstractIBean implements Serial
             	}
     		}
     		else {
-        		FacultyGradingTask fac = (FacultyGradingTask) AbstractIBean.firstRecord("SELECT a FROM FacultyGradingTask a WHERE a.seq="+facultyGradingTaskId);
+        		FacultyGradingTask fac = (FacultyGradingTask) AbstractIBean.firstRecord("SELECT a FROM FacultyGradingTask a WHERE a.seq=",facultyGradingTaskId);
             	if (fac!=null) {
             		Integer seqt = seq;
             		if (!isEmptyKey()) {
@@ -1717,13 +1717,13 @@ public class StudentSubjectDetailGrading extends AbstractIBean implements Serial
     		}
     	}
     	if (studentId>0 && (studentName==null || studentName.trim().isEmpty())) {
-        	Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId="+studentId);
+        	Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId=",studentId);
         	if (stud!=null) {
         		studentName = stud.toString();
         	}
     	}
     	if (facultyId>0 && (facultyName==null || facultyName.trim().isEmpty())) {
-        	EmployeeFaculty fac = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId="+facultyId);
+        	EmployeeFaculty fac = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId=",facultyId);
         	if (fac!=null) {
         		facultyName = fac.toString();
         	}

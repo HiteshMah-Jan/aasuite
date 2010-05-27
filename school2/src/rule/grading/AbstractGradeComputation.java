@@ -3,6 +3,7 @@ package rule.grading;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.BeanUtil;
 import util.DBClient;
 
 import bean.Student;
@@ -29,7 +30,7 @@ public abstract class AbstractGradeComputation {
 	
 	private List<StudentSubjectDetailGrading> getDetail(int quarter, String subject, String criteria) {
 		if (allDetail==null) {
-			allDetail = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.schoolYear='"+schoolYear+"' AND a.studentId="+stud.personId);
+			allDetail = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubjectDetailGrading a WHERE a.schoolYear='",schoolYear,"' AND a.studentId=",stud.personId));
 		}
 		List<StudentSubjectDetailGrading> tmp = new ArrayList();
 		for (StudentSubjectDetailGrading sub:allDetail) {

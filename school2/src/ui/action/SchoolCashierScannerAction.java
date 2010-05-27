@@ -16,6 +16,7 @@ import java.util.List;
 import rule.Payment_RULE;
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -32,7 +33,7 @@ public class SchoolCashierScannerAction extends CashierScannerAction {
         //this must check and setup the payor
         String id = txtScan.getText();
         studentNumber = id;
-        Person p = (Person) util.DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.studentNumber='"+id+"'");
+        Person p = (Person) util.DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.studentNumber='",id,"'");
         if (p == null || p.isEmptyKey()) {
             util.PanelUtil.showError(txtScan, "Not found");
             return;
@@ -49,10 +50,10 @@ public class SchoolCashierScannerAction extends CashierScannerAction {
         String str = (String) this.cboPaymentFor.getSelectedItem();
         if ("ENROLLMENT".equals(str)) {
             //get the next amount due
-            pay = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a, Enrollment b, Student c WHERE a.recordId=b.seq AND a.paid=false AND b.studentId=c.personId AND c.studentNumber='"+studentNumber+"' ORDER BY a.seq");
+            pay = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a, Enrollment b, Student c WHERE a.recordId=b.seq AND a.paid=false AND b.studentId=c.personId AND c.studentNumber='",studentNumber,"' ORDER BY a.seq");
             if (pay!=null) {
-                txtAmountDue.setText(pay.overallAmountDue+"");
-                txtPayAmount.setText(pay.overallAmountDue+"");
+                txtAmountDue.setText(BeanUtil.concat(pay.overallAmountDue,""));
+                txtPayAmount.setText(BeanUtil.concat(pay.overallAmountDue,""));
                 txtDescription.setText(pay.description);
             }
         }
@@ -60,7 +61,7 @@ public class SchoolCashierScannerAction extends CashierScannerAction {
             String val = "0";
             txtAmountDue.setText(val);
             txtPayAmount.setText(val);
-            txtDescription.setText("PAYMENT FOR "+str);
+            txtDescription.setText(BeanUtil.concat("PAYMENT FOR ",str));
         }
     }
 

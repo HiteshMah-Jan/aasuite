@@ -129,7 +129,7 @@ public class AdmissionExamSchedule extends AbstractIBean {
         for (Date d : lst) {
             if (now > d.getTime()) continue;
 //            check if exist
-            boolean b = DBClient.exist("SELECT a FROM AdmissionExamSchedule a WHERE a.scheduleDate='"+DateUtil.formatDateToSql(d)+"'");
+            boolean b = DBClient.exist("SELECT a FROM AdmissionExamSchedule a WHERE a.scheduleDate='",DateUtil.formatDateToSql(d),"'");
             if (b) continue;
 
             AdmissionExamSchedule sched = new AdmissionExamSchedule();

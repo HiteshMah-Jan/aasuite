@@ -22,6 +22,7 @@ import service.ParamStruct;
 import service.ReturnStruct;
 import service.util.AbstractIBean;
 import service.util.CallService;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 import util.PanelUtil;
@@ -100,9 +101,9 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         if (enrollmentId == null || enrollmentId == 0) {
             return;
         }
-        List<StudentSubject> lst = AbstractIBean.list("SELECT a FROM StudentSubject a WHERE a.gradeLevel='"+enroll.gradeLevel+"%' AND a.studentId="+enroll.studentId);
+        List<StudentSubject> lst = AbstractIBean.list("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",enroll.gradeLevel,"%' AND a.studentId=",enroll.studentId);
         if (lst!=null) {
-            List<Schedule> scheds = appCache.selectListCache("SELECT a FROM Schedule a WHERE a.section='"+enroll.getSection()+"'");
+            List<Schedule> scheds = appCache.selectListCache("SELECT a FROM Schedule a WHERE a.section='",enroll.getSection(),"'");
             for (StudentSubject sub : lst) {
             	sub.enrollmentId = enroll.seq;
             	sub.section = enroll.section;
@@ -128,13 +129,13 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     }
     
     public void updateFWB(Payment pay) {
-    	List<PaymentEnrollment> allPayments = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+pay.paidBy+" AND a.schoolYear='"+pay.schoolYear+"'");
+    	List<PaymentEnrollment> allPayments = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",pay.paidBy," AND a.schoolYear='",pay.schoolYear,"'"));
         double totalBack = 0;
         String useYear = pay.schoolYear;
         for (PaymentEnrollment p:allPayments) {
             totalBack += p.balance;
         }
-        PaymentEnrollment p = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+pay.paidBy+" AND a.description LIKE '%"+useYear+"%'");
+        PaymentEnrollment p = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",pay.paidBy," AND a.description LIKE '%",useYear,"%'");
 		updateFWB(p, totalBack);
     }
 
@@ -155,7 +156,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         payment.paid = false;
         payment.recordId=enroll.seq;
         payment.paidBy=enroll.studentId;
-        payment.description="SY: "+useYear+" FORWARDED BALANCE";
+        payment.description=BeanUtil.concat("SY: ",useYear," FORWARDED BALANCE");
         payment.orType = "N";
         payment.paymentFor=fwb;
         payment.save();
@@ -176,7 +177,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.schoolYear = enroll.schoolYear;
             payment.dueDate = payment.paymentDate = cal.date1;
             createOrUpdateFWB(payment, enroll, backAccount, useYear, "FWB");
-            addPaymentLineItem(payment, "FWB", "SY: "+useYear+" FORWARDED BALANCE", backAccount);
+            addPaymentLineItem(payment, "FWB", BeanUtil.concat("SY: ",useYear," FORWARDED BALANCE"), backAccount);
         }
         if (enroll.miscellaneousFee > 0) {
             PaymentEnrollment payment = new PaymentEnrollment();
@@ -193,7 +194,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.paymentDate=cal.date1;
             payment.recordId=enroll.seq;
             payment.paidBy=enroll.studentId;
-            payment.paymentFor=enroll.gradeLevel+"-MISC";
+            payment.paymentFor=BeanUtil.concat(enroll.gradeLevel,"-MISC");
             payment.description="MISC";
             payment.orType = "A";
             payment.plan = enroll.paymentPlanType;
@@ -219,10 +220,10 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.description="TUITION";
             payment.plan = enroll.paymentPlanType;
             if ("A".equals(cal.code)) {
-                payment.paymentFor=enroll.gradeLevel+"-TFEE";
+                payment.paymentFor=BeanUtil.concat(enroll.gradeLevel,"-TFEE");
             }
             else {
-                payment.setPaymentFor(enroll.gradeLevel+"-"+cal.code + (i+1));
+                payment.setPaymentFor(BeanUtil.concat(enroll.gradeLevel,"-",cal.code + (i+1)));
             }
             payment.save();
             addPaymentLineItem(payment, "TFEE", "TUITION FEE", payment.balance);
@@ -243,7 +244,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.schoolYear = enroll.schoolYear;
             payment.dueDate = payment.paymentDate = cal.date1;
             createOrUpdateFWB(payment, enroll, backAccount, useYear, "FWB");
-            addPaymentLineItem(payment, "FWB", "SY: "+useYear+" FORWARDED BALANCE", backAccount);
+            addPaymentLineItem(payment, "FWB", BeanUtil.concat("SY: ",useYear," FORWARDED BALANCE"), backAccount);
         }
         if (miscFee > 0) {
             PaymentEnrollment payment = new PaymentEnrollment();
@@ -260,7 +261,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.paymentDate=cal.date1;
             payment.recordId=enroll.seq;
             payment.paidBy=enroll.studentId;
-            payment.paymentFor=enroll.gradeLevel+"-MISC";
+            payment.paymentFor=BeanUtil.concat(enroll.gradeLevel,"-MISC");
             payment.description="MISC";
             payment.orType = "A";
             payment.plan = enroll.paymentPlanType;
@@ -292,10 +293,10 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             payment.description="TUITION";
             payment.plan = enroll.paymentPlanType;
             if ("A".equals(cal.code)) {
-                payment.paymentFor=enroll.gradeLevel+"-TFEE";
+                payment.paymentFor=BeanUtil.concat(enroll.gradeLevel,"-TFEE");
             }
             else {
-                payment.setPaymentFor(enroll.gradeLevel+"-"+cal.code + (i+1));
+                payment.setPaymentFor(BeanUtil.concat(enroll.gradeLevel,"-",cal.code + (i+1)));
             }
             payment.save();
             addPaymentLineItem(payment, "TFEE", "TUITION FEE", payment.balance);
@@ -439,7 +440,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
      
     public boolean hasPayment(Enrollment enroll) {
         if (enroll != null) {
-            PaymentEnrollment p = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.schoolYear=" + enroll.schoolYear+" AND a.paidBy="+enroll.studentId+" ORDER BY a.paidBy");
+            PaymentEnrollment p = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.schoolYear=" + enroll.schoolYear," AND a.paidBy=",enroll.studentId," ORDER BY a.paidBy");
             return !(p==null || p.isEmptyKey());
         }
         return false;
@@ -531,7 +532,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     }
 
     public PaymentPlan extractPaymentPlan(Enrollment enroll) {
-        return (PaymentPlan) enroll.selectFirstCache("SELECT a FROM PaymentPlan a WHERE a.code='" + enroll.paymentPlanType + "' AND a.gradeLevel='"+enroll.gradeLevel+"'");
+        return (PaymentPlan) enroll.selectFirstCache("SELECT a FROM PaymentPlan a WHERE a.code='" + enroll.paymentPlanType + "' AND a.gradeLevel='",enroll.gradeLevel,"'");
     }
 
     public double getDuePayments(Enrollment enroll) {
@@ -598,7 +599,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 
     	protected Enrollment newEnrollment(String level) {
     		if (enrolls==null) {
-    			enrolls = DBClient.getList("SELECT a FROM Enrollment a WHERE a.studentId="+student.personId);
+    			enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=",student.personId));
     		}
     		if (enrolls != null) {
     			for (Enrollment e : enrolls) {

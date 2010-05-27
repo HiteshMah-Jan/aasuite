@@ -23,6 +23,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Employee;
@@ -167,7 +168,7 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
 			if (b) {
 				b = PanelUtil.showPrompt(null, "Some students already have grade for 1st quarter, do you want to continue?");
 				if (b) {
-					DBClient.runSQLNative("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId="+seq);
+					DBClient.runSQLNative("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId=",seq);
 					super.delete();
 				}
 			}
@@ -795,7 +796,7 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
     }
     
     public String getFaculty() {
-        EmployeeFaculty fac = (EmployeeFaculty) EmployeeFaculty.extractObject(EmployeeFaculty.class.getSimpleName(), facultyId+"");
+        EmployeeFaculty fac = (EmployeeFaculty) EmployeeFaculty.extractObject(EmployeeFaculty.class.getSimpleName(), BeanUtil.concat(facultyId,""));
         if (fac==null) return "";
         return fac.toString();
     }
@@ -824,10 +825,10 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
 
 	@Override
 	public Map<String, String> extractReportParameter() {
-		List<FacultyGradingTask> tasks = DBClient.getList("SELECT a FROM FacultyGradingTask a WHERE a.scheduleId="+scheduleId);
+		List<FacultyGradingTask> tasks = DBClient.getList(BeanUtil.concat("SELECT a FROM FacultyGradingTask a WHERE a.scheduleId=",scheduleId));
 		Map<String, String> map = new HashMap<String, String>();
 		for (int i=1; i<=tasks.size(); i++) {
-			map.put("component"+i, tasks.get(i-1).getComponent());
+			map.put(BeanUtil.concat("component",i), tasks.get(i-1).getComponent());
 		}
 		return map;
 	}

@@ -1,5 +1,8 @@
 package test;
 
+import util.BeanUtil;
+import util.Log;
+
 public class TestJonelSubClass extends TestJonel {
 	public static void main(String[] arg) {
 		TestJonelSubClass j = new TestJonelSubClass();
@@ -10,29 +13,29 @@ public class TestJonelSubClass extends TestJonel {
 	
 	public void runNow() {
 		super.runNow();
-		System.out.println(" 2");
+		Log.out(" 2");
 	}
 
 	public void runNow(int i) {
 		runNow();
-		runNow(i+"");
+		runNow(BeanUtil.concat(i,""));
 	}
 
 	public void runNow(String i) {
 		super.runNow();
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
-		System.out.println(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
+		Log.out(i);
 	}
 }

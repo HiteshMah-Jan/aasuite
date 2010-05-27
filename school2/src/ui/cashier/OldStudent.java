@@ -29,6 +29,7 @@ import template.report.AbstractReportTemplate;
 import ui.AbstractCashierForm;
 import ui.CashierTransactionForm;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 import util.BeanUtil;
 import constants.UserInfo;
@@ -510,13 +511,13 @@ private void txtSearchOldStudentActionPerformed(java.awt.event.ActionEvent evt) 
 
 protected void searchOldStudent() {
     String txt = txtSearchOldStudent.getText();
-    System.out.println("SEARCH STUDENT SERVER CALL");
+    Log.out("SEARCH STUDENT SERVER CALL");
     List lst = null;
     if (txt==null || txt.isEmpty()) {
         lst = DBClient.getList("SELECT a FROM Student a ORDER BY a.lastName, a.firstName, a.middleInitial");
     }
     else {
-        lst = DBClient.getList("SELECT a FROM Student a WHERE a.lastName LIKE '" + txt + "%' OR a.firstName LIKE '" + txt + "%' OR a.studentNumber LIKE '" + txt + "%' ORDER BY a.lastName, a.firstName, a.middleInitial");
+        lst = DBClient.getList("SELECT a FROM Student a WHERE a.lastName LIKE '",txt,"%' OR a.firstName LIKE '",txt,"%' OR a.studentNumber LIKE '",txt,"%' ORDER BY a.lastName, a.firstName, a.middleInitial");
     }
     pnlStudentList.setList(lst);
 }
@@ -549,7 +550,7 @@ private void btnPrintStatementOfAccountActionPerformed(java.awt.event.ActionEven
     }
     else {
 //        check if enrollment exist for this record
-        if (p.recordId==0 || !DBClient.exist("SELECT a FROM Enrollment a WHERE a.seq="+p.recordId)) {
+        if (p.recordId==0 || !DBClient.exist(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.seq=",p.recordId))) {
 //            create enrollment object
             Enrollment e = new Enrollment();
             e.studentId = p.paidBy;
@@ -557,7 +558,7 @@ private void btnPrintStatementOfAccountActionPerformed(java.awt.event.ActionEven
             e.dateEnrolled = p.paymentDate;
             e.save();
 //            update all id of payment records
-            DBClient.runSQLNative("UPDATE Payment SET recordId="+e.seq+" WHERE form='ENROLLMENT' AND paidBy="+e.studentId+" AND schoolYear='"+p.schoolYear+"'");
+            DBClient.runSQLNative("UPDATE Payment SET recordId=",e.seq," WHERE form='ENROLLMENT' AND paidBy=",e.studentId," AND schoolYear='",p.schoolYear,"'");
             AbstractReportTemplate.getInstance().showReportFromFileTemplateDialog("StatementOfAccount", e.studentId, "Statement of Account", null);
         }
         else {
@@ -641,7 +642,7 @@ private void btnRequestDiscountActionPerformed(java.awt.event.ActionEvent evt) {
     }
     else {
 //      get the enrollment for the selected schoolYear
-        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId="+stud.personId+" AND a.schoolYear='"+ AppConfig.getSchoolYear()+"'");
+        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stud.personId," AND a.schoolYear='", AppConfig.getSchoolYear(),"'");
         e.requestedDiscountAmount = amount;
         e.requestedDiscountBy = UserInfo.getUserName();
         e.requestedDiscountDate = constants.Constants.useDate;
@@ -743,9 +744,9 @@ private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 if (st == null || st.isEmptyKey()) {
                     return;
                 }
-                System.out.println("EXTRACT STUDENT PAYMENT SERVER CALL");
+                Log.out("EXTRACT STUDENT PAYMENT SERVER CALL");
                 lstPayments = extractPayments();
-                System.out.println("COUNT = "+lstPayments.size());
+                Log.out("COUNT = ",lstPayments.size());
 //                only the distinct payments here
                 List orig = new ArrayList();
                 for (Payment p : lstPayments) {
@@ -813,7 +814,7 @@ private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
 
     public void loadOR(String or) {
-        String sql = "SELECT a FROM Student a, PaymentEnrollment b WHERE a.personId=b.paidBy AND b.orNumber='"+or+"'";
+        String sql = BeanUtil.concat("SELECT a FROM Student a, PaymentEnrollment b WHERE a.personId=b.paidBy AND b.orNumber='",or,"'");
         Student stud = (Student) DBClient.getFirstRecord(sql);
         if (stud!=null) {
             pnlPayment.view.list.clear();

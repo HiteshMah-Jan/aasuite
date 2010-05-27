@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import service.util.AbstractIBean;
 import template.*;
 import template.screen.TemplateTabPage;
+import util.BeanUtil;
 import util.DBClient;
 import bean.admin.AppConfig;
 import bean.reference.Course;
@@ -68,7 +69,7 @@ public class GradeLevelCollegeExt extends GradeLevel {
 	
 	@Override
 	public String popupSearch(String criteria) {
-		return "SELECT a FROM GradeLevel a "+addWhere();
+		return BeanUtil.concat("SELECT a FROM GradeLevel a ",addWhere());
 	}
 
 	@Override

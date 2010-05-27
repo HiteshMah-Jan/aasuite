@@ -137,7 +137,7 @@ showChart = false, orderBy="a.student")
 public class Enrollment extends AbstractIBean implements Serializable {
 	@Override
 	public void delete() {
-		int count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Payment WHERE recordId="+seq);
+		int count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Payment WHERE recordId=",seq);
 		if (count>0) {
 			PanelUtil.showError(null, "Cannot delete record, this record has payment.");
 		}
@@ -150,7 +150,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		if (isEmpty(gradeLevel) && notEmpty(section)) {
 			save();
 		}
-		return DBClient.getList("SELECT a FROM StudentSubject a WHERE a.gradeLevel='"+gradeLevel+"' AND a.studentId="+studentId);
+		return DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",gradeLevel,"' AND a.studentId=",studentId));
 	}
 	
 	public void calculateQ1() {
@@ -3252,7 +3252,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
                 stud.save();
         	}
             if (college) {
-            	if (AppConfig.getSchoolYear().equals(schoolYear) && !(stud.section+"").equals(section)) {
+            	if (AppConfig.getSchoolYear().equals(schoolYear) && !(BeanUtil.concat(stud.section,"")).equals(section)) {
             		stud.section = section;
             		stud.save();
             	}
@@ -3282,7 +3282,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"ZL",
 				"MC");
 //		check merit for final
-		String meritAll = "|"+meritQ1+"|"+meritQ2+"|"+meritQ3+"|"+meritQ4+"|";
+		String meritAll = BeanUtil.concat("|",meritQ1,"|",meritQ2,"|",meritQ3,"|",meritQ4,"|");
 		if (meritAll.contains("||") || meritAll.contains("|null|")) {
 			meritFinal = "";
 		}
@@ -3300,10 +3300,10 @@ public class Enrollment extends AbstractIBean implements Serializable {
 
     private void setFinalGrade(String... string) {
     	for (String s:string) {
-    		double val1 = BeanUtil.getDoubleValue(this, "q1"+s);
-    		double val2 = BeanUtil.getDoubleValue(this, "q2"+s);
-    		double val3 = BeanUtil.getDoubleValue(this, "q3"+s);
-    		double val4 = BeanUtil.getDoubleValue(this, "q4"+s);
+    		double val1 = BeanUtil.getDoubleValue(this, BeanUtil.concat("q1",s));
+    		double val2 = BeanUtil.getDoubleValue(this, BeanUtil.concat("q2",s));
+    		double val3 = BeanUtil.getDoubleValue(this, BeanUtil.concat("q3",s));
+    		double val4 = BeanUtil.getDoubleValue(this, BeanUtil.concat("q4",s));
     		int counter = 0;
     		double total = 0;
     		if (val1 > 60) {
@@ -3324,10 +3324,10 @@ public class Enrollment extends AbstractIBean implements Serializable {
     		}
     		if (total > 50) {
         		double d = DataUtil.getMoneyFormat(total/counter);
-        		BeanUtil.setPropertyValue(this, "qall"+s, d);
+        		BeanUtil.setPropertyValue(this, BeanUtil.concat("qall",s), d);
     		}
     		else {
-        		BeanUtil.setPropertyValue(this, "qall"+s, 0);
+        		BeanUtil.setPropertyValue(this, BeanUtil.concat("qall",s), 0);
     		}
     	}
 	}
@@ -4060,7 +4060,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 	public boolean noConflict() {
 		List<Integer> duplicateLst = new ArrayList();
 		for (int i=1; i<=15; i++) {
-			Integer val = (Integer) BeanUtil.getPropertyValue(this, "schedule"+i);
+			Integer val = (Integer) BeanUtil.getPropertyValue(this, BeanUtil.concat("schedule",i));
 			if (val==0) continue;
 			if (duplicateLst.contains(val)) {
 				return false;
@@ -4084,17 +4084,17 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		sb.append(schedule13).append(",");
 		sb.append(schedule14).append(",");
 		sb.append(schedule15);
-		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.seq IN ("+sb.toString()+")");
+		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.seq IN (",sb.toString(),")");
 		return Schedule.noConflict(lst);
 	}
 	
 	public void linkSubjects() {
 		for (int i=1; i<=15; i++) {
-			Object sub = BeanUtil.getPropertyValue(this, "subject"+i);
+			Object sub = BeanUtil.getPropertyValue(this, BeanUtil.concat("subject",i));
 			if (sub==null) {
 				continue;
 			}
-			StudentSubject s = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId="+studentId+" AND a.subject='"+sub.toString()+"'");
+			StudentSubject s = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",studentId," AND a.subject='",sub.toString(),"'");
 			if (s!=null) {
 				s.schoolYear = schoolYear;
 				s.preferredSemester = semester;

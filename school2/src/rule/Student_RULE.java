@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
 import ui.action.StudentAction;
+import util.BeanUtil;
 import util.PerfUtil;
 import bean.Student;
 import bean.admin.AppConfig;
@@ -96,7 +97,7 @@ public class Student_RULE extends Person_RULE {
 
     private String getSchoolYear() {
         int yr = util.DateUtil.getYear();
-        return yr+"-"+(yr+1);
+        return BeanUtil.concat(yr,"-",(yr+1));
     }
 
     @Override

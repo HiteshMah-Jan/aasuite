@@ -25,6 +25,8 @@ import template.UITemplate;
 import bean.Employee;
 import constants.UserInfo;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
+import util.Log;
 
 /**
  *
@@ -73,9 +75,9 @@ import template.screen.TemplateTabSinglePage;
 public class GradeLevel extends AbstractIBean implements Serializable {
 	public static boolean checkLock(String gradeLevel) {
 		GradeLevel l = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), gradeLevel);
-		System.out.println("RECORD 11 "+l);
+		Log.out("RECORD 11 ",l);
 		if (l!=null) {
-			System.out.println("GRADE "+l+" - "+l.isLocked());
+			Log.out("GRADE ",l," - ",l.isLocked());
 			return l.isLocked();
 		}
 		return false;
@@ -441,7 +443,7 @@ public class GradeLevel extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return course+"-"+code;
+        return BeanUtil.concat(course,"-",code);
     }
 
     public static GradeLevel createGradeLevelObj(String gradeLevel, String course, double tuition, double miscFee, double otherFee) {

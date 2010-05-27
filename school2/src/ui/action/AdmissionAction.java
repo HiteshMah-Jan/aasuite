@@ -9,6 +9,7 @@ import bean.Admission;
 import service.util.AbstractIBean;
 import service.util.WSPersistenceEntityManager;
 import springbean.SchoolDefaultProcess;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -24,7 +25,7 @@ public class AdmissionAction extends javax.swing.JPanel {
             action = new AdmissionAction();
         }
         action.ad = ad;
-        action.lblStudent.setText(ad.lastName+", "+ad.firstName+" "+ad.middleInitial);
+        action.lblStudent.setText(BeanUtil.concat(ad.lastName,", ",ad.firstName," ",ad.middleInitial));
         action.btnRegisterActionPerformed(null);
     }
     
@@ -38,7 +39,7 @@ public class AdmissionAction extends javax.swing.JPanel {
             dlgRegister.pack();
             dlgRegister.setVisible(true);
         } else {
-            PanelUtil.showMessage(btnContinueRegister, "Student already registered for "+studTmp.getCourse());
+            PanelUtil.showMessage(btnContinueRegister, "Student already registered for ",studTmp.getCourse());
         }
     }
 

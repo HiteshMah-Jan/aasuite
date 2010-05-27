@@ -161,7 +161,7 @@ public class LibraryBorrowedBooks extends AbstractIBean implements Serializable 
             return null;
         }
         if (person == null) {
-            person = (Person) firstRecord("SELECT a FROM Person a WHERE a.personId=" + this.personId);
+            person = (Person) firstRecord("SELECT a FROM Person a WHERE a.personId=" , this.personId);
             if (person==null) return "";
         }
         return person.toString();

@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import springbean.AAAConfig;
 import template.report.AbstractReportTemplate;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -37,7 +38,7 @@ public class NewStudent extends OldStudent {
                 return;
             }
             ad.register();
-            List lst = DBClient.getList("SELECT a FROM Admission a WHERE a.studentNumber='"+ad.studentNumber+"'");
+            List lst = DBClient.getList("SELECT a FROM Admission a WHERE a.studentNumber='",ad.studentNumber,"'");
             pnlAdmission.setList(lst);
         }
         super.assessStudent();
@@ -52,7 +53,7 @@ public class NewStudent extends OldStudent {
             lst = DBClient.getList("SELECT a FROM Admission a");
         }
         else {
-            lst = DBClient.getList("SELECT a FROM Admission a WHERE a.lastName LIKE '" + txt + "%' OR a.firstName LIKE '" + txt + "%'");
+            lst = DBClient.getList("SELECT a FROM Admission a WHERE a.lastName LIKE '",txt,"%' OR a.firstName LIKE '",txt,"%'");
         }
         pnlAdmission.setList(lst);
         try {
@@ -69,7 +70,7 @@ public class NewStudent extends OldStudent {
             pnlStudentList.setList(new ArrayList());
         }
         else {
-            List lst = DBClient.getList("SELECT a FROM Student a WHERE a.personId="+adm.personId);
+            List lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a WHERE a.personId=",adm.personId));
             pnlStudentList.setList(lst);
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -200,10 +201,10 @@ public class NewStudent extends OldStudent {
 private void btnSaveAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAdmissionActionPerformed
 //    check if existing student
     Admission b = (Admission) pnlAcceptAdmission.getBean();
-    Admission a = (Admission) DBClient.getFirstRecord("SELECT a FROM Admission a WHERE a.lastName='"+b.lastName+"' AND a.firstName='"+b.firstName+"' AND a.middleInitial='"+b.middleInitial+"'");
+    Admission a = (Admission) DBClient.getFirstRecord("SELECT a FROM Admission a WHERE a.lastName='",b.lastName,"' AND a.firstName='",b.firstName,"' AND a.middleInitial='",b.middleInitial,"'");
 //    ask cashier if continue accept
     if (a!=null && !a.isEmptyKey()) {
-        if (!PanelUtil.showPrompt(this, "Student exist with name ["+b.lastName+", "+b.firstName+" "+b.middleInitial+"]. Would you like to continue?")) {
+        if (!PanelUtil.showPrompt(this, "Student exist with name [",b.lastName,", ",b.firstName," ",b.middleInitial,"]. Would you like to continue?")) {
             dlg.setVisible(false);
             return;
         }

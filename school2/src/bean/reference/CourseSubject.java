@@ -67,7 +67,7 @@ public class CourseSubject extends AbstractIBean implements Serializable {
 			super.delete();
 			boolean b = PanelUtil.showPrompt(null, "Curriculum Subjects is already deleted, would you like to delete Student Curriculum?");
 			if (b) {
-				DBClient.runSQLNative("DELETE FROM StudentSubject WHERE course='"+oldCourse+"' AND subject='"+oldCode+"' AND grade1<=0");
+				DBClient.runSQLNative("DELETE FROM StudentSubject WHERE course='",oldCourse,"' AND subject='",oldCode,"' AND grade1<=0");
 			}
 		}
 		else {
@@ -201,7 +201,7 @@ public class CourseSubject extends AbstractIBean implements Serializable {
 			return;
 		}
 		if (weight==0) {
-			Subject sub = (Subject) DBClient.getFirstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+			Subject sub = (Subject) DBClient.getFirstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
 			if (sub!=null) weight = sub.unit;
 		}
 		super.save();
@@ -285,7 +285,7 @@ public class CourseSubject extends AbstractIBean implements Serializable {
         if (course == null) {
             return null;
         }
-        return (Course) firstRecord("SELECT a FROM Course a WHERE a.code='"+course+"'");
+        return (Course) firstRecord("SELECT a FROM Course a WHERE a.code='",course,"'");
     }
 
     public static CourseSubject createCourseSubjectObj(String course, String subject) {

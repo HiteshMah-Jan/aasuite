@@ -7,14 +7,14 @@ import bean.person.StudentValuesGrading;
 
 public class StudentValuesToEnrollmentGrade {
 	public void setupEnrollmentGrade(StudentSubject subject) {
-		StudentValuesGrading e = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='"+subject.schoolYear+"' AND a.studentId="+subject.studentId);
+		StudentValuesGrading e = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='",subject.schoolYear,"' AND a.studentId=",subject.studentId);
 		if (e!=null) {
 			setupEnrollmentGrade(e);
 		}
 	}
 	
 	public void setupEnrollmentGrade(StudentValuesGrading subject) {
-        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.gradeLevel='"+subject.gradeLevel+"' AND a.studentId="+subject.studentId);
+        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.gradeLevel='",subject.gradeLevel,"' AND a.studentId=",subject.studentId);
         if (e==null) {
         	e = new Enrollment();
         	e.schoolYear = subject.schoolYear;

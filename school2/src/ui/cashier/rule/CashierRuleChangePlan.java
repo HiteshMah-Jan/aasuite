@@ -12,6 +12,7 @@ import bean.accounting.PaymentPlan;
 import bean.reference.GradeLevel;
 import springbean.SchoolDefaultProcess;
 import ui.cashier.OldStudent;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -44,13 +45,13 @@ public class CashierRuleChangePlan {
             if (plan==null) {
             	throw new Exception("CANCEL CHANGE PLAN");
             }
-            PaymentPlan p = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='"+plan.toUpperCase()+"'");
+            PaymentPlan p = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan.toUpperCase(),"'");
             if (p==null) {
             	PanelUtil.showError(old, "Plan not found");
             	return;
             }
 //          reassess student
-            Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId="+stTmp.personId+" AND a.schoolYear='"+schoolYear+"'");
+            Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stTmp.personId," AND a.schoolYear='",schoolYear,"'");
             if (lvl!=null) {
             	e.gradeLevel = lvl.code;
             }
@@ -69,12 +70,12 @@ public class CashierRuleChangePlan {
             e.paymentPlanType = plan.toUpperCase();
             if (!hasPayment) {
                 e.save();
-                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy="+stTmp.personId+" AND a.schoolYear='"+schoolYear+"' AND a.paid=false");
+                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.personId," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
                 proc.createPayment(e);
             }
             else {
                 e.save();
-                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy="+stTmp.personId+" AND a.schoolYear='"+schoolYear+"' AND a.paid=false");
+                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.personId," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
                 proc.createPayment(e);
                 updateOldPayment(e);
             }
@@ -85,8 +86,8 @@ public class CashierRuleChangePlan {
 	}
 	
 	private void updateOldPayment(Enrollment e) {
-        PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='"+e.paymentPlanType+"' AND a.gradeLevel='"+e.gradeLevel+"'");
-        List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+e.studentId+" AND a.schoolYear='"+e.schoolYear+"' AND a.paid=true");
+        PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",e.paymentPlanType,"' AND a.gradeLevel='",e.gradeLevel,"'");
+        List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",e.studentId," AND a.schoolYear='",e.schoolYear,"' AND a.paid=true"));
         for (PaymentEnrollment pay:lst) {
         	if (pay.paymentFor.contains("FWB")) {
         		continue;
@@ -96,10 +97,10 @@ public class CashierRuleChangePlan {
         	}
         	if (pay.oldPaymentFor==null) pay.oldPaymentFor = pay.paymentFor;
         	if (e.paymentPlanType.equals("A")) {
-            	pay.paymentFor = e.gradeLevel+"-TFEE";
+            	pay.paymentFor = BeanUtil.concat(e.gradeLevel,"-TFEE");
         	}
         	else {
-            	pay.paymentFor = e.gradeLevel+"-"+e.paymentPlanType+1;
+            	pay.paymentFor = BeanUtil.concat(e.gradeLevel,"-",e.paymentPlanType+1);
         	}
         	if (pay.overallAmountPaid > pl.amount1) {
         		double overall = pay.overallAmountPaid;
@@ -107,7 +108,7 @@ public class CashierRuleChangePlan {
             	pay.save();
 
 //            	create another entry
-            	pay.paymentFor = e.gradeLevel+"-"+e.paymentPlanType+2;
+            	pay.paymentFor = BeanUtil.concat(e.gradeLevel,"-",e.paymentPlanType+2);
             	pay.seq = null;
             	pay.overallAmountPaid = pay.amountPaid = overall-pl.amount1;
             	pay.save();
@@ -117,7 +118,7 @@ public class CashierRuleChangePlan {
         	}
         }
 
-        lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+e.studentId+" AND a.schoolYear='"+e.schoolYear+"' AND a.paid=false");
+        lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",e.studentId," AND a.schoolYear='",e.schoolYear,"' AND a.paid=false"));
         for (PaymentEnrollment pay:lst) {
         	pay.save();
         }

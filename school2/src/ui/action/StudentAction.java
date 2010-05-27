@@ -102,7 +102,7 @@ private void btnChangeGradeActionPerformed(java.awt.event.ActionEvent evt) {//GE
     List<Student> lst = AbstractIBean.list("SELECT a FROM Student a WHERE a.personId=",student.personId," AND a.parentId=",student.personId);
     for (Student stud : lst) {
         if (cboCourse.getCode().equalsIgnoreCase(stud.course)) {
-            PanelUtil.showErrorMessageToScreen("Course ["+cboCourse.getCode()+"] already taken.");
+            PanelUtil.showErrorMessageToScreen("Course [",cboCourse.getCode(),"] already taken.");
             return;
         }
     }

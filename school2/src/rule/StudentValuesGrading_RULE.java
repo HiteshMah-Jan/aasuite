@@ -7,7 +7,9 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import springbean.GradingProcess;
+import util.BeanUtil;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 import util.ThreadPoolUtil;
 import bean.Student;
@@ -82,13 +84,13 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			boolean b = PanelUtil.showPrompt(null, "If you are AAA then you will see this, would you like to save all records first, this will take several minutes.");
 			if (b) {
 				PanelUtil.showWaitFrame("Saving all records.");
-				List<StudentValuesGrading> lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='"+AppConfig.getSchoolYear()+"' ORDER BY a.seq DESC",0,10000);
-				System.out.println("COUNT IS "+lst.size());
+				List<StudentValuesGrading> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='",AppConfig.getSchoolYear(),"' ORDER BY a.seq DESC"),0,10000);
+				Log.out("COUNT IS ",lst.size());
 				for (StudentValuesGrading g:lst) {
 					ThreadPoolUtil.execute(new Runner(g));
 				}
-//				List lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='"+AppConfig.getSchoolYear()+"' ORDER BY a.seq",0,10000);
-//				System.out.println("Count is "+lst.size());
+//				List lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='",AppConfig.getSchoolYear(),"' ORDER BY a.seq",0,10000);
+//				Log.out("Count is ",lst.size());
 //				DBClient.persistBean(lst);
 				PanelUtil.hideWaitFrame();
 			}
@@ -108,16 +110,16 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 
 		@Override
 		public void run() {
-//			System.out.println("VALUES "+g.seq);
+//			Log.out("VALUES ",g.seq);
 			g.save();
 		}
 	}
 	
 	private void generateRecords() {
 		List lst = new ArrayList();
-		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a, Section b WHERE a.section=b.code AND b.facultyId="+UserInfo.getPersonId()+" AND a.status='ENROLLED'",0,10000);
+		List<Student> lstStud = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a, Section b WHERE a.section=b.code AND b.facultyId=",UserInfo.getPersonId()," AND a.status='ENROLLED'"),0,10000);
 		for (Student stud:lstStud) {
-			StudentValuesGrading val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId="+stud.personId+" AND a.gradeLevel='"+stud.gradeLevel+"'");
+			StudentValuesGrading val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",stud.personId," AND a.gradeLevel='",stud.gradeLevel,"'");
 			if (val==null) {
 				val = new StudentValuesGrading();
 			}
@@ -176,11 +178,11 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			lock("4", true);
 		}
 		hideAllTabs();
-		if ("|P1|P2|N1|N2|K1|K2|".contains(t.gradeLevel+"|")) {
+		if ("|P1|P2|N1|N2|K1|K2|".contains(BeanUtil.concat(t.gradeLevel,"|"))) {
 			displayTab(0);
 			displayTab(1);
 		}
-		else if ("|G1|G2|G3|G4|".contains(t.gradeLevel+"|")) {
+		else if ("|G1|G2|G3|G4|".contains(BeanUtil.concat(t.gradeLevel,"|"))) {
 			displayTab(2);
 		}
 		else {
@@ -195,62 +197,62 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 	
 	private void lock(String quarter, boolean b) {
 		String qStr = quarter;
-		enable("kp"+qStr,!b);
-		enable("fh"+qStr,!b);
-		enable("fr"+qStr,!b);
-		enable("aw"+qStr,!b);
-		enable("ft"+qStr,!b);
-		enable("ic"+qStr,!b);
-		enable("ih"+qStr,!b);
-		enable("wi"+qStr,!b);
-		enable("id"+qStr,!b);
-		enable("neatAndOrganize"+qStr,!b);
-		enable("de"+qStr,!b);
-		enable("wp"+qStr,!b);
-		enable("hs"+qStr,!b);
-		enable("ir"+qStr,!b);
-		enable("ls"+qStr,!b);
-		enable("ap"+qStr,!b);
-		enable("ce"+qStr,!b);
-		enable("tc"+qStr,!b);
-		enable("cfp"+qStr,!b);
-		enable("df"+qStr,!b);
-		enable("wlr"+qStr,!b);
-		enable("cst"+qStr,!b);
-		enable("ocs"+qStr,!b);
-		enable("cwp"+qStr,!b);
-		enable("cp"+qStr,!b);
-		enable("pa"+qStr,!b);
-		enable("con"+qStr,!b);
-		enable("mot"+qStr,!b);
-		enable("eff"+qStr,!b);
-		enable("res"+qStr,!b);
-		enable("ini"+qStr,!b);
-		enable("per"+qStr,!b);
-		enable("car"+qStr,!b);
-		enable("tea"+qStr,!b);
-		enable("com"+qStr,!b);
-		enable("pro"+qStr,!b);
-		enable("els"+qStr,!b);
-		enable("wfr"+qStr,!b);
-		enable("apgw"+qStr,!b);
-		enable("spaa"+qStr,!b);
-		enable("iva"+qStr,!b);
-		enable("isl"+qStr,!b);
-		enable("aspvi"+qStr,!b);
-		enable("hspd"+qStr,!b);
-		enable("sd"+qStr,!b);
-		enable("put"+qStr,!b);
-		enable("hlew"+qStr,!b);
-		enable("prs"+qStr,!b);
-		enable("cr"+qStr,!b);
-		enable("cws"+qStr,!b);
-		enable("pfe"+qStr,!b);
-		enable("cra"+qStr,!b);
-		enable("ca"+qStr,!b);
-		enable("kin"+qStr,!b);
-		enable("ec1"+qStr,!b);
-		enable("ec2"+qStr,!b);
+		enable(!b, "kp",qStr);
+		enable(!b, "fh",qStr);
+		enable(!b, "fr",qStr);
+		enable(!b, "aw",qStr);
+		enable(!b, "ft",qStr);
+		enable(!b, "ic",qStr);
+		enable(!b, "ih",qStr);
+		enable(!b, "wi",qStr);
+		enable(!b, "id",qStr);
+		enable(!b, "neatAndOrganize",qStr);
+		enable(!b, "de",qStr);
+		enable(!b, "wp",qStr);
+		enable(!b, "hs",qStr);
+		enable(!b, "ir",qStr);
+		enable(!b, "ls",qStr);
+		enable(!b, "ap",qStr);
+		enable(!b, "ce",qStr);
+		enable(!b, "tc",qStr);
+		enable(!b, "cfp",qStr);
+		enable(!b, "df",qStr);
+		enable(!b, "wlr",qStr);
+		enable(!b, "cst",qStr);
+		enable(!b, "ocs",qStr);
+		enable(!b, "cwp",qStr);
+		enable(!b, "cp",qStr);
+		enable(!b, "pa",qStr);
+		enable(!b, "con",qStr);
+		enable(!b, "mot",qStr);
+		enable(!b, "eff",qStr);
+		enable(!b, "res",qStr);
+		enable(!b, "ini",qStr);
+		enable(!b, "per",qStr);
+		enable(!b, "car",qStr);
+		enable(!b, "tea",qStr);
+		enable(!b, "com",qStr);
+		enable(!b, "pro",qStr);
+		enable(!b, "els",qStr);
+		enable(!b, "wfr",qStr);
+		enable(!b, "apgw",qStr);
+		enable(!b, "spaa",qStr);
+		enable(!b, "iva",qStr);
+		enable(!b, "isl",qStr);
+		enable(!b, "aspvi",qStr);
+		enable(!b, "hspd",qStr);
+		enable(!b, "sd",qStr);
+		enable(!b, "put",qStr);
+		enable(!b, "hlew",qStr);
+		enable(!b, "prs",qStr);
+		enable(!b, "cr",qStr);
+		enable(!b, "cws",qStr);
+		enable(!b, "pfe",qStr);
+		enable(!b, "cra",qStr);
+		enable(!b, "ca",qStr);
+		enable(!b, "kin",qStr);
+		enable(!b, "ec1",qStr);
+		enable(!b, "ec2",qStr);
 		
 //		AbstractChildTemplatePanel tab = this.panel.getTabs().get(quarter-1);
 //		tab.setEnabled(!b);

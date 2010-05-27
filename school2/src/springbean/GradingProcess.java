@@ -7,6 +7,7 @@ import service.util.AbstractIBean;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 import util.ThreadPoolUtil;
 import bean.Enrollment;
@@ -49,21 +50,21 @@ public class GradingProcess implements Runnable {
 	}
 	
 	public void setupRank() {
-		String gpaStr = "gpa"+quarter;
+		String gpaStr = BeanUtil.concat("gpa",quarter);
 		if (quarter==5) {
 			gpaStr = "gpaFinal";
 		}
 		String level = "";
 		List sql = new ArrayList();
 		int counter = 1;
-		String s1 = "SELECT distinct round("+gpaStr+",2) from enrollment where schoolyear='"+schoolYear+"' and section='"+section+"' and "+gpaStr+" is not null order by "+gpaStr+" desc";
+		String s1 = BeanUtil.concat("SELECT distinct round(",gpaStr,",2) from enrollment where schoolyear='",schoolYear,"' and section='",section,"' and ",gpaStr," is not null order by ",gpaStr," desc");
 		List lst = DBClient.getListNative(s1);
-		System.out.println(s1);
+		Log.out(s1);
 		for (Object obj:lst) {
 			List l = (List) obj;
 			double gpa = DataUtil.getDoubleValue(l.get(0).toString());
-			String s = "UPDATE Enrollment set rankQ"+quarter+"="+counter+" WHERE schoolYear='"+schoolYear+"' AND section='"+section+"' AND round("+gpaStr+",2)="+gpa;
-			System.out.println(s);
+			String s = BeanUtil.concat("UPDATE Enrollment set rankQ",quarter,"=",counter," WHERE schoolYear='",schoolYear,"' AND section='",section,"' AND round(",gpaStr,",2)=",gpa);
+			Log.out(s);
 			sql.add(s);
 			counter++;
 		}
@@ -72,14 +73,14 @@ public class GradingProcess implements Runnable {
 
 //		final ranking
 		counter = 1;
-		s1 = "SELECT distinct round(gpaFinal,2) from enrollment where schoolyear='"+schoolYear+"' and section='"+section+"' and gpaFinal is not null order by gpaFinal desc";
+		s1 = BeanUtil.concat("SELECT distinct round(gpaFinal,2) from enrollment where schoolyear='",schoolYear,"' and section='",section,"' and gpaFinal is not null order by gpaFinal desc");
 		lst = DBClient.getListNative(s1);
-		System.out.println(s1);
+		Log.out(s1);
 		for (Object obj:lst) {
 			List l = (List) obj;
 			double gpa = DataUtil.getDoubleValue(l.get(0).toString());
-			String s = "UPDATE Enrollment set rankFinal="+counter+" WHERE schoolYear='"+schoolYear+"' AND section='"+section+"' AND round(gpaFinal,2)="+gpa;
-			System.out.println(s);
+			String s = BeanUtil.concat("UPDATE Enrollment set rankFinal=",counter," WHERE schoolYear='",schoolYear,"' AND section='",section,"' AND round(gpaFinal,2)=",gpa);
+			Log.out(s);
 			sql.add(s);
 			counter++;
 		}
@@ -113,15 +114,15 @@ public class GradingProcess implements Runnable {
 
 	public void setHonors() {
 		PanelUtil.showWaitFrame("Check student merit.");
-		System.out.println("Check student merit.");
-		Section sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='"+section+"'");
-		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='"+sec.gradeLevel+"'");
-		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a WHERE a.gradeLevel='"+sec.gradeLevel+"'");
+		Log.out("Check student merit.");
+		Section sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",section,"'");
+		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",sec.gradeLevel,"'");
+		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a WHERE a.gradeLevel='",sec.gradeLevel,"'");
 		
 //		1. get all enrolled students
-		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='"+section+"'");
+		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",section,"'");
 		for (Student s:lst) {
-			String sql = "UPDATE Enrollment SET meritQ"+quarter+"='' WHERE studentId="+s.personId+" AND gradeLevel='"+s.gradeLevel+"'";
+			String sql = BeanUtil.concat("UPDATE Enrollment SET meritQ",quarter,"='' WHERE studentId=",s.personId," AND gradeLevel='",s.gradeLevel,"'");
 	    	DBClient.runSQLNative(sql);
 			StudentValuesGrading val = getValues(vallst, s.personId);
 			Enrollment e = getEnrollment(elst, s.personId);
@@ -146,7 +147,7 @@ public class GradingProcess implements Runnable {
 	protected void checkH1toH4(Student s, StudentValuesGrading val, int quarter, Enrollment e) {
 		String[] grades = {"OpMath","Math","Science","English","Filipino","Reading","Writing","Computer","CCF","AP","Hekasi","TLE","CE","ME","MAPEH","ChineseA","ChineseB"};
 		AveLow ave = isHonor(s, 89, 85, quarter, grades, e);
-		System.out.println(ave.average);
+		Log.out(ave.average);
 		if (ave.isHonor) {
 //			check values
 			AveLow values2 = isValuesHonor(s, val, 4, 3, quarter, "pfe","cra","ca","kin","ec1","ec2");
@@ -166,7 +167,7 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				e.changeValue("meritQ"+quarter, honorType);
+				e.changeValue(BeanUtil.concat("meritQ",quarter), honorType);
 				e.save();
 			}
 		}
@@ -194,7 +195,7 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				e.changeValue("meritQ"+quarter, honorType);
+				e.changeValue(BeanUtil.concat("meritQ",quarter), honorType);
 				e.save();
 			}
 		}
@@ -218,7 +219,7 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				e.changeValue("meritQ"+quarter, honorType);
+				e.changeValue(BeanUtil.concat("meritQ",quarter), honorType);
 				e.save();
 			}
 		}
@@ -246,7 +247,7 @@ public class GradingProcess implements Runnable {
 				else {
 					honorType = "WHITE";
 				}
-				e.changeValue("meritQ"+quarter, honorType);
+				e.changeValue(BeanUtil.concat("meritQ",quarter), honorType);
 				e.save();
 			}
 		}
@@ -254,7 +255,7 @@ public class GradingProcess implements Runnable {
 
 	protected AveLow isValuesHonor(Student s, StudentValuesGrading val, int average, int lowest, int quarter, String... fields) {
 		AveLow avelow = new AveLow();
-		String suffix = quarter+"";
+		String suffix = BeanUtil.concat(quarter,"");
 		if (quarter==1) {
 			suffix = "";
 		}
@@ -300,9 +301,9 @@ public class GradingProcess implements Runnable {
 //		check lowest, use enrollment
 		double lowGrade = -1;
 		for (String sub:grades) {
-			System.out.println("SUBJECT = "+sub);
+			Log.out("SUBJECT = ",sub);
 			try {
-				int grade = (int) (BeanUtil.getDoubleValue(e, "q"+quarter+sub)+.5);
+				int grade = (int) (BeanUtil.getDoubleValue(e, "q",quarter+sub)+.5);
 				if (grade<=60) {
 					continue;
 				}
@@ -321,7 +322,7 @@ public class GradingProcess implements Runnable {
 			}
 		}
 		try {
-			double total = BeanUtil.getDoubleValue(e, "gpa"+quarter);
+			double total = BeanUtil.getDoubleValue(e, BeanUtil.concat("gpa",quarter));
 			if (total>=average) {
 				avelow.average = total;
 				avelow.lowest = lowGrade;

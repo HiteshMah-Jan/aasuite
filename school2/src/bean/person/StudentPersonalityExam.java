@@ -19,6 +19,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.Reports;
+import util.BeanUtil;
 
 /**
  *
@@ -121,9 +122,9 @@ public class StudentPersonalityExam extends AbstractIBean implements Serializabl
     }
 
     public String getStudentName() {
-        Student stud = (Student) firstRecord("SELECT a FROM Student a WHERE a.personId="+studentId);
+        Student stud = (Student) firstRecord("SELECT a FROM Student a WHERE a.personId=",studentId);
         if (stud==null) return "";
-        return stud.getLastName()+", "+stud.getFirstName();
+        return BeanUtil.concat(stud.getLastName(),", ",stud.getFirstName());
     }
 
     public static void main(String[] args) {

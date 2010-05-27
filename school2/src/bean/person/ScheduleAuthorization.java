@@ -41,7 +41,7 @@ public class ScheduleAuthorization extends AbstractIBean implements Serializable
     @Override
 	public void save() {
     	if (scheduleId>0) {
-    		Schedule s = (Schedule) DBClient.getFirstRecord("SELECT a FROM Schedule a WHERE a.seq="+scheduleId);
+    		Schedule s = (Schedule) DBClient.getFirstRecord("SELECT a FROM Schedule a WHERE a.seq=",scheduleId);
     		if (s!=null) {
     			section = s.section;
     			subject = s.subject;

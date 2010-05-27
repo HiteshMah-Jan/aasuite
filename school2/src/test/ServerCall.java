@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import util.Log;
+
 /**
  *
  * @author alex
@@ -26,7 +28,7 @@ public class ServerCall {
         addCall("test.ServerCall","multiCall3", "");
         List lst1 = serveCall(lst);
         for (Object object : lst1) {
-            System.out.println("RETURN === "+object);
+            Log.out("RETURN === ",object);
         }
     }
     
@@ -60,15 +62,15 @@ public class ServerCall {
     }
     
     public String multiCall1(Object obj) {
-        System.out.println("multicall1");
+        Log.out("multicall1");
         return "Test OK";
     }
     public int multiCall2(Object obj) {
-        System.out.println("multicall2");
+        Log.out("multicall2");
         return 2;
     }
     public double multiCall3(Object obj) {
-        System.out.println("multicall3");
+        Log.out("multicall3");
         return 2.5;
     }
     

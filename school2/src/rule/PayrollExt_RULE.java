@@ -43,7 +43,7 @@ public class PayrollExt_RULE extends Payroll_RULE {
 //            return;
 //        }
 //        if (stud==null) {
-//            stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.personId="+p.paidBy);
+//            stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.personId=",p.paidBy);
 //        }
 //        new SchoolDefaultProcess().autoAssessNoEnrollment(stud);
 //    }

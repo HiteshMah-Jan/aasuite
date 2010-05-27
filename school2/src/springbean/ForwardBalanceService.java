@@ -3,6 +3,7 @@ package springbean;
 import service.IService;
 import service.ReturnStruct;
 import service.ParamStruct;
+import util.BeanUtil;
 import util.DBClient;
 import bean.accounting.PaymentEnrollment;
 import bean.Student;
@@ -46,7 +47,7 @@ public class ForwardBalanceService implements IService {
     		return;
     	}
 //            get the sum of balance
-        double d = DBClient.getSingleColumnDouble("SELECT SUM(a.balance) FROM Payment a WHERE a.shoolYear='"+schoolYear+"' AND a.paidBy="+s.personId+" AND a.paid=0");
+        double d = DBClient.getSingleColumnDouble("SELECT SUM(a.balance) FROM Payment a WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.personId," AND a.paid=0");
 //            create a forward balance for this year
         PaymentEnrollment p = new PaymentEnrollment();
         p.paidBy = s.personId;
@@ -55,11 +56,11 @@ public class ForwardBalanceService implements IService {
         p.schoolYear = AppConfig.getSchoolYear();
         p.accountNumber = "102";
         p.paymentFor = "FWB";
-        p.description = "FORWARD BALANCE FROM "+schoolYear;
+        p.description = BeanUtil.concat("FORWARD BALANCE FROM ",schoolYear);
         p.amount = p.overallAmountDue = p.balance = p.overallBalance = d;
         p.save();
 //            update all the balance make it zero
-        DBClient.runSQLNative("UPDATE Payment a SET a.balance=0 WHERE a.shoolYear='"+schoolYear+"' AND a.paidBy="+s.personId+" AND a.paid=0");
+        DBClient.runSQLNative("UPDATE Payment a SET a.balance=0 WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.personId," AND a.paid=0");
     }
 
     public static void main(String[] args) {

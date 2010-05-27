@@ -25,7 +25,7 @@ public class Course_RULE extends BusinessRuleWrapper {
 
     @Override
     public void runOnClick(JComponent comp) {
-//        System.out.println("ON CLICK for "+comp.getName());
+//        Log.out("ON CLICK for ",comp.getName());
         if ("btnGenerateCurriculum".equals(comp.getName())) {
             generateCurriculum();
         }

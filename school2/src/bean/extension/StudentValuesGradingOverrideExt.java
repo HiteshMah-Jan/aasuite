@@ -14,6 +14,7 @@ import template.Displays;
 import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.TemplateLeftRight;
+import util.BeanUtil;
 import util.PanelUtil;
 import bean.EmployeeFaculty;
 import bean.Student;
@@ -484,7 +485,7 @@ public class StudentValuesGradingOverrideExt extends StudentValuesGrading {
 	public void save() {
 		String r = PanelUtil.showPromptDefaultMessage(null, "Please type your reason for changing grade of student?", "");
 		if (r!=null && !r.isEmpty()) {
-			AuditTrail.addTrail(this, "Change values grade of ["+this.student+"-"+this.gradeLevel+"]", r);
+			AuditTrail.addTrail(this, BeanUtil.concat("Change values grade of [",this.student,"-",this.gradeLevel,"]"), r);
 			super.save();
 			LockGrading lock = LockGrading.extractGrading(schoolYear);
 			GradingProcess proc = new GradingProcess(schoolYear, section, lock.useQuarter());

@@ -10,6 +10,8 @@ import service.util.AbstractIBean;
 import springbean.SchoolDefaultProcess;
 import template.report.AbstractReportTemplate;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.Admission;
 import bean.accounting.GLPostingScript;
@@ -56,7 +58,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
             } else {
                 rate = "FAILED";
             }
-            setValue("remarks", rate + "");
+            setValue("remarks", BeanUtil.concat(rate,""));
         }
         if ("birthDate".equalsIgnoreCase(comp.getName())) {
             setAge(admission);
@@ -85,18 +87,18 @@ public class Admission_RULE extends BusinessRuleWrapper {
         int itemCount = 0;
         int itemScore = 0;
     	for (String a:arr) {
-    		System.out.println(a+"Count");
-    		if (getIntValue(a+"Count", 0)<=0) {
-    			setValue(a+"Score", "0");
-    			setValue(a+"Percentage", "0");
-    			setValue(a+"Remarks", "");
+    		Log.out(a,"Count");
+    		if (getIntValue(BeanUtil.concat(a,"Count"), 0)<=0) {
+    			setValue(BeanUtil.concat(a,"Score"), "0");
+    			setValue(BeanUtil.concat(a,"Percentage"), "0");
+    			setValue(BeanUtil.concat(a,"Remarks"), "");
     			continue;
     		}
         	changePercentageRemarks(a);        	
-        	double percent = getIntValue(a+"Percentage", 0);
+        	double percent = getIntValue(BeanUtil.concat(a,"Percentage"), 0);
         	if (percent <= 0.1) continue;
-        	itemCount += getIntValue(a+"Count", 0);
-        	itemScore += getIntValue(a+"Score", 0);
+        	itemCount += getIntValue(BeanUtil.concat(a,"Count"), 0);
+        	itemScore += getIntValue(BeanUtil.concat(a,"Score"), 0);
         	if (percent < 50) {
 //        		failed
         		if (percent < 40) {
@@ -140,7 +142,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
                         setValue("recommendationCondition", "NOT ACCEPTED");
                     }
                     else {
-                        setValue("recommendationCondition", "REMEDIAL ON "+s);
+                        setValue("recommendationCondition", BeanUtil.concat("REMEDIAL ON ",s));
                     }
         		}
         	}
@@ -157,17 +159,17 @@ public class Admission_RULE extends BusinessRuleWrapper {
             count = getIntValue("itemTotal", 0);
     	}
     	else {
-            count = getIntValue(examName+"Count", 0);
+            count = getIntValue(BeanUtil.concat(examName,"Count"), 0);
     	}
-        int score = getIntValue(examName+"Score", 0);
+        int score = getIntValue(BeanUtil.concat(examName,"Score"), 0);
         if (count>0 && score>0) {
-        	setValue(examName+"Percentage", getPercentage(count,score));
-        	double percent = getDoubleValue(examName+"Percentage", 0);
+        	setValue(BeanUtil.concat(examName,"Percentage"), getPercentage(count,score));
+        	double percent = getDoubleValue(BeanUtil.concat(examName,"Percentage"), 0);
         	if (examName.equals("item")) {
                 setValue("totalRemarks", percent>=50?"PASSED":"FAILED");
         	}
         	else {
-                setValue(examName+"Remarks", percent>=50?"PASSED":"FAILED");
+                setValue(BeanUtil.concat(examName,"Remarks"), percent>=50?"PASSED":"FAILED");
         	}
         }
     }
@@ -227,7 +229,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
         if (ad.seq == null || ad.seq == 0) {
             TransactionPanel.getCurrentPanel().saveRecord();
         }
-        bean.Student studTmp = (bean.Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.lastName='" + ad.lastName + "' AND a.firstName='" + ad.firstName + "' AND a.middleInitial='" + ad.middleInitial + "'");
+        bean.Student studTmp = (bean.Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.lastName='" , ad.lastName , "' AND a.firstName='" , ad.firstName , "' AND a.middleInitial='" , ad.middleInitial , "'");
         if (studTmp==null || studTmp.isEmptyKey()) {
             ad.register();
         } else {
@@ -235,7 +237,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
                 ad.register();
             }
             else {
-                PanelUtil.showMessage(usedComp, "Student already registered for "+studTmp.course);
+                PanelUtil.showMessage(usedComp, "Student already registered for ",studTmp.course);
             }
         }
     }
@@ -254,7 +256,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
         if (ad.invoiceId==0) {
             createInvoice();
         }
-        Invoice inv = (Invoice) ad.firstRecord("SELECT a FROM Invoice a WHERE a.seq="+ad.invoiceId);
+        Invoice inv = (Invoice) ad.firstRecord("SELECT a FROM Invoice a WHERE a.seq=",ad.invoiceId);
         springbean.IProcess.Process.getInstance().showGL(inv);
     }
     

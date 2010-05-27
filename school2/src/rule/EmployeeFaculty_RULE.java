@@ -15,7 +15,7 @@ public class EmployeeFaculty_RULE extends Employee_RULE {
     @Override
     public void runOnClick(JComponent comp) {
     	super.runOnClick(comp);
-//        System.out.println("ON CLICK for "+comp.getName());
+//        Log.out("ON CLICK for ",comp.getName());
         if ("btnAddFacultyAccount".equals(comp.getName())) {
             addToGroup("FACULTY");
         }

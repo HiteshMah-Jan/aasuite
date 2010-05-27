@@ -49,25 +49,25 @@ public class FacultyFilterGradingTaskQ1Ext_RULE extends FacultyGradingTask_RULE 
 		JComponent comp3 = getComponent("q3ItemCount1");
 		if (comp1!=null) {
 			for (int i=1; i<=12; i++) {
-				if (i<=k) show("q1ItemCount"+i);
-				else hide("q1ItemCount"+i);
+				if (i<=k) show("q1ItemCount",i);
+				else hide("q1ItemCount",i);
 			}
 		}
 		if (comp2!=null) {
 			for (int i=1; i<=12; i++) {
-				if (i<=k) show("q2ItemCount"+i);
-				else hide("q2ItemCount"+i);
+				if (i<=k) show("q2ItemCount",i);
+				else hide("q2ItemCount",i);
 			}
 		}
 		if (comp3!=null) {
 			for (int i=1; i<=12; i++) {
-				if (i<=k) show("q3ItemCount"+i);
-				else hide("q3ItemCount"+i);
+				if (i<=k) show("q3ItemCount",i);
+				else hide("q3ItemCount",i);
 			}
 		}
 		for (int i=1; i<=12; i++) {
-			if (i<=k) show("q4ItemCount"+i);
-			else hide("q4ItemCount"+i);
+			if (i<=k) show("q4ItemCount",i);
+			else hide("q4ItemCount",i);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class FacultyFilterGradingTaskQ1Ext_RULE extends FacultyGradingTask_RULE 
 		int quarter = DataUtil.getIntValue(qtr);
 		int itemNumber = DataUtil.getIntValue(arr[1]);
 		int itemCount = getIntValue(name, 0);
-		String scoreName = "q"+quarter+"Score"+itemNumber;
+		String scoreName = BeanUtil.concat("q",quarter,"Score",itemNumber);
 			
 		FacultyGradingTask task = (FacultyGradingTask) this.getBean();
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
@@ -106,7 +106,7 @@ public class FacultyFilterGradingTaskQ1Ext_RULE extends FacultyGradingTask_RULE 
 				int score = (int) BeanUtil.getDoubleValue(s, scoreName);
 				if (score>itemCount) {
 					changed = true;
-					PanelUtil.showMessage(null, "Score "+score+" is more than item count "+itemCount+". System will replace value to 0.");
+					PanelUtil.showMessage(null, "Score ",score," is more than item count ",itemCount,". System will replace value to 0.");
 					s.changeValue(scoreName, 0);
 					s.changeValue(scoreName, 0);
 				}

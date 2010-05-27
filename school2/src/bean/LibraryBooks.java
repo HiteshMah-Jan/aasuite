@@ -32,6 +32,7 @@ import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 
@@ -81,7 +82,7 @@ import util.DateUtil;
 public class LibraryBooks extends AbstractIBean implements Serializable {
 	@Override
 	public void save() {
-		searchStr = callNumber+" "+isbn+" "+title+" "+subtitle+" "+shelfOrGroup+" "+author;
+		searchStr = BeanUtil.concat(callNumber," ",isbn," ",title," ",subtitle," ",shelfOrGroup," ",author);
 		super.save();
 	}
 
@@ -277,13 +278,13 @@ public class LibraryBooks extends AbstractIBean implements Serializable {
     }
     
     public int extractAvailablePieces() {
-        List lst = list("SELECT a FROM LibraryBorrowedBooks a WHERE a.isbn='"+isbn+"' AND (a.isReturned IS null OR a.isReturned='false')");
+        List lst = list("SELECT a FROM LibraryBorrowedBooks a WHERE a.isbn='",isbn,"' AND (a.isReturned IS null OR a.isReturned='false')");
         if (lst==null || lst.isEmpty()) return pieces;
         return pieces - lst.size();
     }
     
     public List extractStudentBorrowThisBook() {
-        List lst = list("SELECT a FROM Person a, LibraryBorrowedBooks b WHERE a.personId=b.personId AND b.isbn='"+isbn+"' AND (b.isReturned IS null OR b.isReturned='false')");
+        List lst = list("SELECT a FROM Person a, LibraryBorrowedBooks b WHERE a.personId=b.personId AND b.isbn='",isbn,"' AND (b.isReturned IS null OR b.isReturned='false')");
         return lst;
     }
     
@@ -299,7 +300,7 @@ public class LibraryBooks extends AbstractIBean implements Serializable {
     }
     
     public void returnBook(int personId, double penalty) {
-        LibraryBorrowedBooks book = (LibraryBorrowedBooks) firstRecord("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId="+personId+" AND a.isbn='"+isbn+"' AND (a.isReturned IS null OR a.isReturned='false')");
+        LibraryBorrowedBooks book = (LibraryBorrowedBooks) firstRecord("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=",personId," AND a.isbn='",isbn,"' AND (a.isReturned IS null OR a.isReturned='false')");
         book.setDateReturned(constants.Constants.useDate);
         book.setIsReturned(true);
         book.penalty = penalty;
@@ -309,7 +310,7 @@ public class LibraryBooks extends AbstractIBean implements Serializable {
     }
 
     public void updateAvailPieces() {
-        int borrowedCount = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM LibraryBorrowedBooks WHERE isbn='"+isbn+"' AND isReturned=0");
+        int borrowedCount = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM LibraryBorrowedBooks WHERE isbn='",isbn,"' AND isReturned=0");
         availPieces = pieces-borrowedCount;
 		save();
     }
@@ -325,9 +326,9 @@ public class LibraryBooks extends AbstractIBean implements Serializable {
     @Override
     public Vector allChart() {
         java.util.Vector vec = new java.util.Vector();
-        vec.add(ChartBean.getPieInstance(this, "Borrowing Performance By Subject/Shelf","SELECT a.shelfOrGroup, COUNT(b.isbn) FROM LibraryBooks a, LibraryBorrowedBooks b WHERE a.isbn=b.isbn GROUP BY a.shelfOrGroup"));
-        vec.add(ChartBean.getPieInstance(this, "Count By Subject/Shelf","SELECT a.shelfOrGroup, COUNT(a.pieces) FROM LibraryBooks a GROUP BY a.shelfOrGroup"));
-        vec.add(ChartBean.getNativeBarInstance(this, "Borrow Per Month", "SELECT "+DateUtil.getSQLYear("a.dateBorrowed")+","+DateUtil.getSQLMonthName("a.dateBorrowed")+", COUNT(a.isbn) FROM LibraryBorrowedBooks a WHERE a.isbn='"+isbn+"' GROUP BY "+DateUtil.getSQLYear("a.dateBorrowed")+","+DateUtil.getSQLMonthName("a.dateBorrowed")));
+        vec.add(ChartBean.getPieInstance(this, "Borrowing Performance By Subject/Shelf",BeanUtil.concat("SELECT a.shelfOrGroup, COUNT(b.isbn) FROM LibraryBooks a, LibraryBorrowedBooks b WHERE a.isbn=b.isbn GROUP BY a.shelfOrGroup")));
+        vec.add(ChartBean.getPieInstance(this, "Count By Subject/Shelf",BeanUtil.concat("SELECT a.shelfOrGroup, COUNT(a.pieces) FROM LibraryBooks a GROUP BY a.shelfOrGroup")));
+        vec.add(ChartBean.getNativeBarInstance(this, "Borrow Per Month",BeanUtil.concat("SELECT ",DateUtil.getSQLYear("a.dateBorrowed"),",",DateUtil.getSQLMonthName("a.dateBorrowed"),", COUNT(a.isbn) FROM LibraryBorrowedBooks a WHERE a.isbn='",isbn,"' GROUP BY ",DateUtil.getSQLYear("a.dateBorrowed"),",",DateUtil.getSQLMonthName("a.dateBorrowed"))));
         return vec;
     }
 

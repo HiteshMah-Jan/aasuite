@@ -15,7 +15,7 @@ import util.DBClient;
 public class SchoolEmployeeApplicantExt_RULE extends JobApplicant_RULE {
     protected void hire() {
         JobApplicant a = (JobApplicant) this.getBean();
-        DBClient.runSQL("UPDATE Person SET personType='FACULTY' WHERE personId="+a.personId);
+        DBClient.runSQL("UPDATE Person SET personType='FACULTY' WHERE personId=",a.personId);
         showMessage("Applicant is now hired.");
         this.refreshRecords();
     }

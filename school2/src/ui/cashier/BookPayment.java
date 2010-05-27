@@ -13,6 +13,7 @@ import java.util.List;
 import springbean.AAAConfig;
 import ui.AbstractCashierForm;
 import ui.CashierTransactionForm;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.DBClient;
 import bean.Student;
@@ -243,7 +244,7 @@ private void btnPrintOrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 //        return;
 //    }
     acceptCheck(pay);
-    String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", booklet.extractNextOR("A")+"");
+    String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(booklet.extractNextOR("A"),""));
     if (or==null || or.isEmpty()) return;
     
 
@@ -254,9 +255,9 @@ private void btnPrintOrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 		}
 	}
 //	check or if exist in invoice
-	Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+or+" AND a.orType='A'");
+	Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",or," AND a.orType='A'");
 	if (inv!=null && !inv.isEmptyKey()) {
-		PanelUtil.showError(this, "OR# ["+or+"] is already used, please check");
+		PanelUtil.showError(this, "OR# [",or,"] is already used, please check");
 		return;
 	}
     
@@ -298,7 +299,7 @@ private void btnSearchNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         lst = DBClient.getList("SELECT a FROM BookSold a ORDER BY a.seq DESC");
     }
     else {
-        lst = DBClient.getList("SELECT a FROM BookSold a WHERE a.payer LIKE '%"+txt+"%' OR a.studentNumber = '"+txt+"' ORDER BY a.seq DESC");
+        lst = DBClient.getList("SELECT a FROM BookSold a WHERE a.payer LIKE '%",txt,"%' OR a.studentNumber = '",txt,"' ORDER BY a.seq DESC");
     }
     beanSoldBooks.setList(lst);
 }//GEN-LAST:event_btnSearchNowActionPerformed
@@ -328,7 +329,7 @@ private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     // End of variables declaration//GEN-END:variables
 
     protected void acceptCheck(bean.accounting.BookSold p) {
-        Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.personId="+p.personId);
+        Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.personId=",p.personId);
         if (stud!=null && "NOT ALLOWED".equals(stud.paymentStatus)) {
             if (!PanelUtil.showPrompt(btnPrintOr, "Student cannot pay in check, would you like to continue?")) {
                 return;

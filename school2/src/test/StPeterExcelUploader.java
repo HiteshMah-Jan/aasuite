@@ -16,6 +16,7 @@ import java.util.List;
 import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -53,7 +54,7 @@ public class StPeterExcelUploader {
             PersonDependent father = (PersonDependent) list.get(2);
             PersonDependent mother = (PersonDependent) list.get(3);
             
-            System.out.println("#"+(i+1)+" Loading "+stud.firstName+" "+stud.lastName);
+            Log.out("#",(i+1)," Loading ",stud.firstName," ",stud.lastName);
             
             stud.father = father.lastName;
             stud.mother = mother.lastName;
@@ -111,7 +112,7 @@ public class StPeterExcelUploader {
             level.course = courseCode;
 //            level.save();
         }
-        System.out.println("FIN PRESCHOOL.");
+        Log.out("FIN PRESCHOOL.");
     }
     
     private static void uploadHSElem() {
@@ -124,7 +125,7 @@ public class StPeterExcelUploader {
         
         Class[] clsArr = Collection2BeanMapper.getClassFromMapping(beanMapping);
         List<List> lst = ExcelReader.getInstance(filename, clsArr).getMapping(beanMapping);
-        System.out.println("LIST SIZE == "+lst);
+        Log.out("LIST SIZE == ",lst);
         for (int i=0; i<lst.size(); i++) {
             List list = lst.get(i);
             Student stud = (Student) list.get(0);
@@ -135,11 +136,11 @@ public class StPeterExcelUploader {
             if (stud.lastName==null || stud.lastName.isEmpty()) continue;
             if (stud.firstName==null || stud.firstName.isEmpty()) continue;
             
-            System.out.println("#"+(i+1)+" Loading "+stud.firstName+" "+stud.lastName);
+            Log.out("#",(i+1)," Loading ",stud.firstName," ",stud.lastName);
             stud.setStudentNumber(Student.getDefaultStudentNumber(studentNumber++));
             stud.save();
         }
-        System.out.println("FIN.");
+        Log.out("FIN.");
     }
 
     private static String getName(String name, int position) {
@@ -164,8 +165,8 @@ public class StPeterExcelUploader {
         uploadPreSchool();
         uploadHSElem();
 //        String str = "Aguilar, Darren Vedder M.";
-//        System.out.println(getName(str, 0));
-//        System.out.println(getName(str, 1));
-//        System.out.println(getName(str, 2));
+//        Log.out(getName(str, 0));
+//        Log.out(getName(str, 1));
+//        Log.out(getName(str, 2));
     }
 }

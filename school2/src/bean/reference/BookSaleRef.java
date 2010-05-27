@@ -12,6 +12,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateSinglePage;
+import util.BeanUtil;
 
 /**
  *
@@ -60,7 +61,7 @@ public class BookSaleRef extends AbstractIBean {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return code.trim()+"-"+title.trim();
+        return BeanUtil.concat(code.trim(),"-",title.trim());
     }
 
     public double getAmount() {

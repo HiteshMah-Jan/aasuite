@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 
 import springbean.SchoolDefaultProcess;
 import template.screen.TablePopup;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Enrollment;
@@ -34,8 +35,8 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
     public void runOnClick(JComponent comp) {
         if ("btnViewPossibleSched".equals(comp.getName())) {
             Enrollment enrollment = (Enrollment) getBean();
-            List lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.blockOrSection='"+enrollment.section+"'");
-            TablePopup.showRecords("Possible Schedule For "+enrollment.section, lst, Schedule.class, 
+            List lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.blockOrSection='",enrollment.section,"'");
+            TablePopup.showRecords(BeanUtil.concat("Possible Schedule For ",enrollment.section), lst, Schedule.class, 
                     "subject", "schedDay", "blockOrSection", "schedTime", "schedTimeEnd", "faculty");
         }
         else if ("btnCreateSchedules".equals(comp.getName())) {
@@ -70,10 +71,10 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 		PanelUtil.showWaitFrame("Please wait, deleting duplicate entries.");
 		List<Enrollment> lst = this.panel.getRecordList();
 		for (Enrollment e:lst) {
-			int count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Payment WHERE recordId="+e.seq);
+			int count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Payment WHERE recordId=",e.seq);
 			if (count==0) {
 //				check if really duplicate or just no payment
-				count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Enrollment WHERE gradeLevel='"+e.gradeLevel+"' AND studentId="+e.studentId);
+				count = (int) DBClient.getSingleColumnDouble("SELECT COUNT(*) FROM Enrollment WHERE gradeLevel='",e.gradeLevel,"' AND studentId=",e.studentId);
 				if (count>=2) {
 					e.delete();
 				}
@@ -81,10 +82,10 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //					check if gradelevel is valid per section
 					Section sec = map.get(e.section);
 					if (sec==null) {
-						sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='"+e.section+"'");
+						sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",e.section,"'");
 						map.put(e.section, sec);
 					}
-					if (!(e.gradeLevel+"").equals(sec.gradeLevel)) {
+					if (!(BeanUtil.concat(e.gradeLevel,"")).equals(sec.gradeLevel)) {
 						e.delete();
 					}
 				}
@@ -100,7 +101,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //				"from studentsubject, subject where studentsubject.subject=subject.code AND " +
 //				"studentsubject.gradelevel=enrollment.gradelevel AND " +
 //				"studentsubject.studentId=enrollment.studentId AND grade1>0) " +
-//				"where enrollment.schoolYear='"+schoolYear+"'");
+//				"where enrollment.schoolYear='",schoolYear,"'");
 //		Enrollment.setupRank(schoolYear, 1);
 //		refreshRecords();
 	}
@@ -111,7 +112,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //				"from studentsubject, subject where studentsubject.subject=subject.code AND " +
 //				"studentsubject.gradelevel=enrollment.gradelevel AND " +
 //				"studentsubject.studentId=enrollment.studentId AND grade2>0) " +
-//				"where enrollment.schoolYear='"+schoolYear+"'");
+//				"where enrollment.schoolYear='",schoolYear,"'");
 //		Enrollment.setupRank(schoolYear, 2);
 //		refreshRecords();
 	}
@@ -122,7 +123,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //				"from studentsubject, subject where studentsubject.subject=subject.code AND " +
 //				"studentsubject.gradelevel=enrollment.gradelevel AND " +
 //				"studentsubject.studentId=enrollment.studentId AND grade3>0) " +
-//				"where enrollment.schoolYear='"+schoolYear+"'");
+//				"where enrollment.schoolYear='",schoolYear,"'");
 //		Enrollment.setupRank(schoolYear, 3);
 //		refreshRecords();
 	}
@@ -133,7 +134,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //				"from studentsubject, subject where studentsubject.subject=subject.code AND " +
 //				"studentsubject.gradelevel=enrollment.gradelevel AND " +
 //				"studentsubject.studentId=enrollment.studentId AND grade4>0) " +
-//				"where enrollment.schoolYear='"+schoolYear+"'");
+//				"where enrollment.schoolYear='",schoolYear,"'");
 //		Enrollment.setupRank(schoolYear, 4);
 //		refreshRecords();
 	}
@@ -143,7 +144,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 //				"select sum(unitShareFinal) from studentsubject where " +
 //				"studentsubject.gradelevel LIKE enrollment.gradelevel AND " +
 //				"studentsubject.studentId=enrollment.studentId) " +
-//				"where enrollment.schoolYear='"+schoolYear+"'");
+//				"where enrollment.schoolYear='",schoolYear,"'");
 //		Enrollment.setupRank(schoolYear, 5);
 //		refreshRecords();
 	}

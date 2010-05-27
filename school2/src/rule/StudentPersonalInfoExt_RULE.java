@@ -15,7 +15,7 @@ public class StudentPersonalInfoExt_RULE extends BusinessRuleWrapper {
 
     @Override
     public void runFocusLost(JComponent comp) {
-//        System.out.println("FOCUS LOST StudentPersonalInfoExt_RULE "+comp.getName());
+//        Log.out("FOCUS LOST StudentPersonalInfoExt_RULE ",comp.getName());
 //        throw new UnsupportedOperationException("Not supported yet.");
     }
 

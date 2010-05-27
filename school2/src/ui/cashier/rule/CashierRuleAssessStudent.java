@@ -3,7 +3,9 @@ package ui.cashier.rule;
 import java.util.List;
 
 import ui.cashier.OldStudent;
+import util.BeanUtil;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 import bean.Student;
 import bean.accounting.PaymentEnrollment;
@@ -36,7 +38,7 @@ public class CashierRuleAssessStudent {
 //                check if already assess in the chosen gradeLevel
                 if (!canStudentAssessToLevel(stud, lvl)) return;
                 String plan = PanelUtil.showPromptDefaultMessage(old, "To assess student, please select the plan", "A").toString();
-                PaymentPlan p = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='"+plan.toUpperCase()+"'");
+                PaymentPlan p = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan.toUpperCase(),"'");
                 if (p==null) {
                 	PanelUtil.showError(old, "Plan not found");
                 	return;
@@ -51,10 +53,10 @@ public class CashierRuleAssessStudent {
 
     private boolean canStudentAssessToLevel(Student stud, GradeLevel lvl) {
         PaymentEnrollment lastEnroll = null;
-        List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+stud.personId+" AND a.paymentFor LIKE '%-MISC' ORDER BY a.seq");
+        List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",stud.personId," AND a.paymentFor LIKE '%-MISC' ORDER BY a.seq"));
         for (PaymentEnrollment e: lst) {
             if (e.paymentFor.startsWith(lvl.code)) {
-                PanelUtil.showMessage(old, "Student already assess in the grade level in school year ["+e.schoolYear+"].");
+                PanelUtil.showMessage(old, "Student already assess in the grade level in school year [",e.schoolYear,"].");
                 return false;
             }
             lastEnroll = e;
@@ -62,12 +64,12 @@ public class CashierRuleAssessStudent {
         if (lastEnroll!=null) {
             String grd = lastEnroll.paymentFor;
             String gcode = lvl.code.substring(0,1);
-            System.out.println("GCODE == "+gcode);
+            Log.out("GCODE == ",gcode);
             if (grd.startsWith("H") && "KPG".contains(gcode)) {
-                if (!PanelUtil.showPrompt(old, "Student already enrolled in High School ["+lastEnroll.schoolYear+"], are you sure you want to continue?")) return false;
+                if (!PanelUtil.showPrompt(old, "Student already enrolled in High School [",lastEnroll.schoolYear,"], are you sure you want to continue?")) return false;
             }
             if (grd.startsWith("G") && "KP".contains(gcode)) {
-                if (!PanelUtil.showPrompt(old, "Student already enrolled in Grade School ["+lastEnroll.schoolYear+"], are you sure you want to continue?")) return false;
+                if (!PanelUtil.showPrompt(old, "Student already enrolled in Grade School [",lastEnroll.schoolYear,"], are you sure you want to continue?")) return false;
             }
         }
         return true;

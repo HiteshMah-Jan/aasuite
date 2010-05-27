@@ -7,8 +7,10 @@ import service.IService;
 import service.ParamStruct;
 import service.ReturnStruct;
 import service.util.CallService;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.ThreadPoolUtil;
 import bean.Enrollment;
 import bean.person.FacultyGradingTask;
@@ -21,7 +23,7 @@ public class CalculateGradeService implements IService {
 		List<Object> l = new ArrayList<Object>();
 		l.add(task);
 		l.add(subjects);
-		System.out.println("TEST");
+		Log.out("TEST");
 		CallService.callService(l, quarter, CalculateGradeService.class.getName());
 	}
 	
@@ -40,13 +42,13 @@ public class CalculateGradeService implements IService {
 			det.save();
 			
 //			update student subject
-			System.out.println("SUBJECT TO USE " + det.subject);
-			StudentSubject subject = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId="+det.studentId+" AND a.subject='"+det.subject+"'");
-			subject.changeValue("grade"+quarter, getTotalShares(quarter, det.studentId, subject.subject));
+			Log.out("SUBJECT TO USE " + det.subject);
+			StudentSubject subject = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",det.studentId," AND a.subject='",det.subject,"'");
+			subject.changeValue(BeanUtil.concat("grade",quarter), getTotalShares(quarter, det.studentId, subject.subject));
 			subject.save();
 			
 //			update enrollment
-			Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId="+det.studentId+" AND a.gradeLevel='"+task.gradeLevel+"'");
+			Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",det.studentId," AND a.gradeLevel='",task.gradeLevel,"'");
 			if (e != null) {
 				e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
 				e.save();
@@ -57,7 +59,7 @@ public class CalculateGradeService implements IService {
 	}
 
 	private double getTotalShares(int quarter, int studentId, String subject) {
-		double val = DBClient.getSingleColumnDouble("SELECT SUM(gradeShareQ"+quarter+") FROM StudentSubjectDetailGrading WHERE studentId="+studentId+" AND subject='"+subject+"'");
+		double val = DBClient.getSingleColumnDouble("SELECT SUM(gradeShareQ",quarter,") FROM StudentSubjectDetailGrading WHERE studentId=",studentId," AND subject='",subject,"'");
 		if (val < 70 && val > 60) {
 			val = 70;
 		}

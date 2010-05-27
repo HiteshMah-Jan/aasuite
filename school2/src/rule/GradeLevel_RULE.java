@@ -19,7 +19,7 @@ public class GradeLevel_RULE extends BusinessRuleWrapper {
     public void runFocusLost(JComponent comp) {
         GradeLevel level = (GradeLevel) this.getBean();
         if (SchoolConfig.isAlwaysComputeMisc()) {
-//            System.out.println("RECOMPUTE MISC FEE.");
+//            Log.out("RECOMPUTE MISC FEE.");
             setValue("miscFee", level.getComputedMiscFee());
         }
     }

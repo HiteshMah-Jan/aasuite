@@ -9,6 +9,7 @@ import java.util.Timer;
 
 import service.ParamStruct;
 import service.ReturnStruct;
+import util.Log;
 
 
 /**
@@ -24,11 +25,11 @@ public class SurChargeService2 extends SurChargeService {
 	
 	public ReturnStruct callService(ParamStruct param) {
 		if (serviceRunning2) {
-			System.out.println("SURCHARGE SERVICE 2 IS ALREADY RUNNING."+" - "+constants.Constants.useDate);
+			Log.out("SURCHARGE SERVICE 2 IS ALREADY RUNNING."," - ",constants.Constants.useDate);
 			return null;
 		}
 		if (AAAConfig.server) {
-			System.out.println("SURCHARGE SERVICE 2 CALLED."+" - "+constants.Constants.useDate);
+			Log.out("SURCHARGE SERVICE 2 CALLED."," - ",constants.Constants.useDate);
 //			every hour
 			Timer timer = new Timer();
 			timer.scheduleAtFixedRate(this, 1000*10, 1000 * 60 * 60);

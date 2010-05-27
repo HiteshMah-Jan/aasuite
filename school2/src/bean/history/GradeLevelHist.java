@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import service.util.AbstractIBean;
 import template.*;
+import util.BeanUtil;
 import bean.reference.Course;
 
 /**
@@ -311,7 +312,7 @@ public class GradeLevelHist extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return course+"-"+code;
+        return BeanUtil.concat(course,"-",code);
     }
 
     public String getCode() {

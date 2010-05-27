@@ -79,7 +79,7 @@ public class LockGrading extends AbstractIBean implements Serializable {
 		if (lock!=null) {
 			return lock;
 		}
-		lock = (LockGrading) DBClient.getFirstRecord("SELECT a FROM LockGrading a WHERE a.schoolYear='"+schoolYear+"'");
+		lock = (LockGrading) DBClient.getFirstRecord("SELECT a FROM LockGrading a WHERE a.schoolYear='",schoolYear,"'");
 		if (lock==null) {
 			lock = new LockGrading();
 			lock.schoolYear = schoolYear;
@@ -124,7 +124,7 @@ public class LockGrading extends AbstractIBean implements Serializable {
 		lock(b, 4);
 	}
 	private void lock(boolean b, int quarter) {
-		String qname = "q"+quarter+"LockBy";
+		String qname = BeanUtil.concat("q",quarter,"LockBy");
 		if (b) {
 			BeanUtil.setPropertyValue(this, qname, UserInfo.getUserName());
 		}
@@ -132,7 +132,7 @@ public class LockGrading extends AbstractIBean implements Serializable {
 			BeanUtil.setPropertyValue(this, qname, null);
 		}
 
-		qname = "q"+quarter+"LockDate";
+		qname = BeanUtil.concat("q",quarter,"LockDate");
 		if (b) {
 			BeanUtil.setPropertyValue(this, qname, new Date());
 		}

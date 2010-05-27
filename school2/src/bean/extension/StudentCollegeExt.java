@@ -38,6 +38,7 @@ import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateLeftRight;
 import template.screen.TemplateTabPage;
+import util.BeanUtil;
 
 /**
  *
@@ -277,7 +278,7 @@ public class StudentCollegeExt extends bean.Student implements Serializable {
 	
 	@Override
 	public String popupSearch(String criteria) {
-		return "SELECT a FROM Student a "+addWhere();
+		return BeanUtil.concat("SELECT a FROM Student a ",addWhere());
 	}
 
 	@Override

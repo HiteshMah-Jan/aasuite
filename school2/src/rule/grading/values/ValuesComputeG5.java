@@ -10,7 +10,7 @@ public class ValuesComputeG5 extends AbstractGradeComputation {
 	
 	public ValuesComputeG5(Student stud, String schoolYear) {
 		super(stud, schoolYear);
-		val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId="+stud.personId+" AND a.schoolYear='"+schoolYear+"'");
+		val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",stud.personId," AND a.schoolYear='",schoolYear,"'");
 
 //		values promoted
 		val.elsFinal = (val.els+val.els2+val.els3+val.els4)/4;

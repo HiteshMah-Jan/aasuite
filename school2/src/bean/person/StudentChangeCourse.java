@@ -16,6 +16,7 @@ import javax.persistence.*;
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
+import util.BeanUtil;
 
 /**
  *
@@ -70,7 +71,7 @@ public class StudentChangeCourse extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return "StudentChangeCourse[" + seq + "]";
+        return BeanUtil.concat("StudentChangeCourse[",seq,"]");
     }
 
     public java.lang.Integer getSeq() {

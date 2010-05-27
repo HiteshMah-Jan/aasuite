@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 import ui.cashier.AcceptCheckForm;
 import ui.cashier.OldStudent;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.PanelUtil;
@@ -20,7 +21,7 @@ public class ORExtractorUtil {
 	public static String getMiscOR(OldStudent old, CashierDailyBooklet booklet) throws Exception {
 		String miscOR = null;
 		if (miscOR==null) {
-			miscOR = PanelUtil.showPromptDefaultMessage(old, "Print OR for MISC?", booklet.extractNextOR("A") + "");
+			miscOR = PanelUtil.showPromptDefaultMessage(old, "Print OR for MISC?", BeanUtil.concat(booklet.extractNextOR("A"),""));
 			if (miscOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}
@@ -33,9 +34,9 @@ public class ORExtractorUtil {
 					}
 				}
 //				check or if exist in invoice
-				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+miscOR+" AND a.orType='A'");
+				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",miscOR," AND a.orType='A'");
 				if (inv!=null && !inv.isEmptyKey()) {
-					PanelUtil.showError(old, "OR# ["+miscOR+"] is already used, please check");
+					PanelUtil.showError(old, "OR# [",miscOR,"] is already used, please check");
 					throw new Exception("OR already used.");
 				}
 			}
@@ -46,7 +47,7 @@ public class ORExtractorUtil {
 	public static String getTuitionOR(OldStudent old, CashierDailyBooklet booklet) throws Exception {
 		String normOR = null;
 		if (normOR==null) {
-			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", booklet.extractNextOR("N") + "");
+			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N"),""));
 			if (normOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}
@@ -59,9 +60,9 @@ public class ORExtractorUtil {
 					}
 				}
 //				check or if exist in invoice
-				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+normOR+" AND a.orType='N'");
+				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",normOR," AND a.orType='N'");
 				if (inv!=null && !inv.isEmptyKey()) {
-					PanelUtil.showError(old, "OR# ["+normOR+"] is already used by cashier ["+inv.cashier+"], please check");
+					PanelUtil.showError(old, "OR# [",normOR,"] is already used by cashier [",inv.cashier,"], please check");
 					throw new Exception("OR already used.");
 				}
 			}
@@ -100,16 +101,16 @@ public class ORExtractorUtil {
 	public static void mergeSameOR(String or) {
 //		merge records only for surcharge
 		Map<String, PaymentEnrollment> map = new TreeMap();
-		List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber="+or+" AND a.paid=true");
+		List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber=",or," AND a.paid=true");
 		for (PaymentEnrollment e:lst) {
 			if (e.paymentFor.contains("MISC")) {
 //				only surcharge was paid here
 				if (e.amountPaid==0) {
-					e.paymentFor = e.paymentFor.replace("MISC", e.plan+"1");
+					e.paymentFor = e.paymentFor.replace("MISC", BeanUtil.concat(e.plan,"1"));
 				}
 			}
 			if (map.containsKey(e.paymentFor+e.orNumber)) {
-				PaymentEnrollment tmp = map.get(e.paymentFor+e.orNumber);
+				PaymentEnrollment tmp = map.get(BeanUtil.concat(e.paymentFor,e.orNumber));
 				tmp.amountPaid += e.amountPaid;
 				tmp.surchargePaid += e.surchargePaid;
 				tmp.discount += e.discount;
@@ -117,7 +118,7 @@ public class ORExtractorUtil {
 				e.delete();
 			}
 			else {
-				map.put(e.paymentFor+e.orNumber, e);
+				map.put(BeanUtil.concat(e.paymentFor,e.orNumber), e);
 			}
 		}
 		

@@ -197,7 +197,7 @@ public class EmployeeFaculty extends EmployeeSchool implements Serializable {
     public void setLastName(String lastName) {
         super.setLastName(lastName);
 //        if (personId==null || personId==0) {
-//            Employee emp = (Employee) firstRecord("SELECT a FROM Employee a WHERE a.lastName LIKE '"+getLastName()+"'");
+//            Employee emp = (Employee) firstRecord("SELECT a FROM Employee a WHERE a.lastName LIKE '",getLastName(),"'");
 //            if (emp==null || emp.getPersonId()==null || emp.getPersonId()==0) {
 //                setUserid(getLastName());
 //            }

@@ -30,6 +30,7 @@ import template.UITemplate;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.admin.AppConfig;
 import bean.reference.GradeLevel;
@@ -113,7 +114,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 		lock(b, 4);
 	}
 	private void lock(boolean b, int quarter) {
-		String qname = "q"+quarter+"LockedBy";
+		String qname = BeanUtil.concat("q",quarter,"LockedBy");
 		if (b) {
 			BeanUtil.setPropertyValue(this, qname, UserInfo.getUserName());
 		}
@@ -372,7 +373,7 @@ public class Schedule extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return section+" - "+subject+" - "+day1+" - "+schedTime1;
+        return BeanUtil.concat(section," - ",subject," - ",day1," - ",schedTime1);
     }   
 
     public String getCourse() {
@@ -455,30 +456,30 @@ public class Schedule extends AbstractIBean implements Serializable {
     		return;
     	}
     	if (facultyId>0) {
-            EmployeeFaculty person = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId="+this.facultyId);
+            EmployeeFaculty person = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId=",this.facultyId);
             if (person!=null) faculty = person.toString();
     	}
-		Section sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='"+section+"'");
+		Section sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",section,"'");
     	if (gradeLevel==null) {
     		if (sec!=null) {
     			gradeLevel = sec.gradeLevel;
     		}
     	}
     	if (course==null) {
-			GradeLevel lvl = (GradeLevel) DBClient.getFirstRecord("SELECT a FROM GradeLevel a WHERE a.code='"+gradeLevel+"'");
+			GradeLevel lvl = (GradeLevel) DBClient.getFirstRecord("SELECT a FROM GradeLevel a WHERE a.code='",gradeLevel,"'");
 			if (lvl!=null) {
 				course = lvl.course;
 			}
     	}
 //    	check if subject is college
-    	Subject sub = (Subject) DBClient.getFirstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+    	Subject sub = (Subject) DBClient.getFirstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
     	if (sub!=null) {
     		unit = sub.unit;
     		college = sub.college;
     	}
     	if (sec!=null && sub!=null) {
         	if (!sub.gradeLevel.equalsIgnoreCase(sec.gradeLevel)) {
-        		PanelUtil.showError(null, "Section and Subject ["+sub.code+"-"+sec.gradeLevel+" "+sec.code+"] is not same level, please check.");
+        		PanelUtil.showError(null, "Section and Subject [",sub.code,"-",sec.gradeLevel," ",sec.code,"] is not same level, please check.");
         		return;
         	}
     	}
@@ -502,16 +503,16 @@ public class Schedule extends AbstractIBean implements Serializable {
 			public void run() {
 				if (UserInfo.canModifyReference()) {
 //		    		get all faculty task
-					String sql1 = "UPDATE FacultyGradingTask SET facultyId="+facultyId+", faculty='"+faculty+"', subject='"+subject+"' WHERE scheduleId="+seq+" AND schoolYear='"+AppConfig.getSchoolYear()+"'";
+					String sql1 = BeanUtil.concat("UPDATE FacultyGradingTask SET facultyId=",facultyId,", faculty='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    		DBClient.runSQLNative(sql1);
 //		    		get all student subject detail grades
-					String sql2 = "UPDATE StudentSubjectDetailGrading SET facultyId="+facultyId+", facultyName='"+faculty+"', subject='"+subject+"' WHERE scheduleId="+seq+" AND schoolYear='"+AppConfig.getSchoolYear()+"'";
+					String sql2 = BeanUtil.concat("UPDATE StudentSubjectDetailGrading SET facultyId=",facultyId,", facultyName='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    		DBClient.runSQLNative(sql2);
-					String sql3 = "UPDATE StudentSubject SET facultyId="+facultyId+", facultyName='"+faculty+"', subject='"+subject+"' WHERE scheduleId="+seq+" AND schoolYear='"+AppConfig.getSchoolYear()+"'";
+					String sql3 = BeanUtil.concat("UPDATE StudentSubject SET facultyId=",facultyId,", facultyName='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    		DBClient.runSQLNative(sql3);
-		    		System.out.println(sql1);
-		    		System.out.println(sql2);
-		    		System.out.println(sql3);
+		    		Log.out(sql1);
+		    		Log.out(sql2);
+		    		Log.out(sql3);
 				}
 			}
 		});
@@ -533,28 +534,28 @@ public class Schedule extends AbstractIBean implements Serializable {
 //    public java.util.Vector allChart() {
 //        java.util.Vector vec = new java.util.Vector();
 //        vec.add(ChartBean.getGanttInstance(this, 
-//                    "Room "+room+" Schedule;M;T;W;TH;F", 
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='"+room+"' AND a.schedDay LIKE 'M%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='"+room+"' AND a.schedDay LIKE '%T%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='"+room+"' AND a.schedDay LIKE '%W%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='"+room+"' AND a.schedDay LIKE '%H%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='"+room+"' AND a.schedDay LIKE '%F%'"
+//                    "Room ",room," Schedule;M;T;W;TH;F", 
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='",room,"' AND a.schedDay LIKE 'M%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='",room,"' AND a.schedDay LIKE '%T%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='",room,"' AND a.schedDay LIKE '%W%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='",room,"' AND a.schedDay LIKE '%H%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.room='",room,"' AND a.schedDay LIKE '%F%'"
 //                ));
 //        vec.add(ChartBean.getGanttInstance(this, 
-//                    "Faculty "+getFaculty()+" Schedule;M;T;W;TH;F", 
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId="+facultyId+" AND a.schedDay LIKE 'M%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId="+facultyId+" AND a.schedDay LIKE '%T%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId="+facultyId+" AND a.schedDay LIKE '%W%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId="+facultyId+" AND a.schedDay LIKE '%H%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId="+facultyId+" AND a.schedDay LIKE '%F%'"
+//                    "Faculty ",getFaculty()," Schedule;M;T;W;TH;F", 
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId=",facultyId," AND a.schedDay LIKE 'M%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId=",facultyId," AND a.schedDay LIKE '%T%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId=",facultyId," AND a.schedDay LIKE '%W%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId=",facultyId," AND a.schedDay LIKE '%H%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.facultyId=",facultyId," AND a.schedDay LIKE '%F%'"
 //                ));
 //        vec.add(ChartBean.getGanttInstance(this, 
-//                    "Section "+blockOrSection+" Schedule;M;T;W;TH;F", 
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='"+blockOrSection+"' AND a.schedDay LIKE 'M%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='"+blockOrSection+"' AND a.schedDay LIKE '%T%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='"+blockOrSection+"' AND a.schedDay LIKE '%W%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='"+blockOrSection+"' AND a.schedDay LIKE '%H%'",
-//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='"+blockOrSection+"' AND a.schedDay LIKE '%F%'"
+//                    "Section ",blockOrSection," Schedule;M;T;W;TH;F", 
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='",blockOrSection,"' AND a.schedDay LIKE 'M%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='",blockOrSection,"' AND a.schedDay LIKE '%T%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='",blockOrSection,"' AND a.schedDay LIKE '%W%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='",blockOrSection,"' AND a.schedDay LIKE '%H%'",
+//                    "SELECT a.subject, a.schedTime, a.schedTimeEnd FROM Schedule a WHERE a.blockOrSection='",blockOrSection,"' AND a.schedDay LIKE '%F%'"
 //                ));
 //        return vec;
  //   }    
@@ -602,7 +603,7 @@ public class Schedule extends AbstractIBean implements Serializable {
             List<GradeLevel> lst = GradeLevel.extractCacheListBeans(GradeLevel.class);
             for (GradeLevel lvl : lst) {
                 for (int i = 0; i < 3; i++) {    
-                sec.add(Section.createSectionObj("S"+lvl.code,lvl.code+"",1));
+                sec.add(Section.createSectionObj(BeanUtil.concat("S",lvl.code),BeanUtil.concat(lvl.code,""),1));
              
                }
             DBClient.persistBean((List)sec);
@@ -617,10 +618,10 @@ public class Schedule extends AbstractIBean implements Serializable {
             List<Schedule> sched = new ArrayList<Schedule>();
             for (Subject subj : lst) {
 //                for (int i = 0; i < 10; i++) {
-                sched.add(Schedule.createScheduleObj(1,"",subj.code+"","",""));
-                sched.add(Schedule.createScheduleObj(1,"",subj.code+"","",""));
-                sched.add(Schedule.createScheduleObj(1,"",subj.code+"","",""));
-                sched.add(Schedule.createScheduleObj(1,"",subj.code+"","",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
    
                 DBClient.persistBean((List)sched);
             }
@@ -706,7 +707,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 	}
 	
 	public static boolean noConflictEmployee(int emp) {
-		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.facultyId="+emp);
+		List<Schedule> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Schedule a WHERE a.facultyId=",emp));
 		for (Schedule sc:lst) {
 			TimeConflictChecker conflict = new TimeConflictChecker(sc);
 			if (conflict.hasConflict(lst)) {
@@ -721,7 +722,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 	}
 
 	public static boolean noConflictRoom(String room) {
-		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.room1='"+room+"' OR a.room2='"+room+"' OR a.room3='"+room+"'");
+		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.room1='",room,"' OR a.room2='",room,"' OR a.room3='",room,"'");
 		for (Schedule sc:lst) {
 			TimeConflictChecker conflict = new TimeConflictChecker(sc);
 			if (conflict.hasConflict(lst)) {
@@ -736,7 +737,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 	}
 	
 	public static boolean noConflictSection(String sec) {
-		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='"+sec+"'");
+		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='",sec,"'");
 		for (Schedule sc:lst) {
 			TimeConflictChecker conflict = new TimeConflictChecker(sc);
 			if (conflict.hasConflict(lst)) {
@@ -768,10 +769,10 @@ public class Schedule extends AbstractIBean implements Serializable {
 			lst[1] = ttimeEndLst;
 			
 			for (int i=1; i<=3; i++) {
-				String room = (String) BeanUtil.getPropertyValue(tsched, "room"+i);
-				String day = (String) BeanUtil.getPropertyValue(tsched, "day"+i);
-				String start = (String) BeanUtil.getPropertyValue(tsched, "schedTime"+i);
-				String end = (String) BeanUtil.getPropertyValue(tsched, "schedTimeEnd"+i);
+				String room = (String) BeanUtil.getPropertyValue(tsched, BeanUtil.concat("room",i));
+				String day = (String) BeanUtil.getPropertyValue(tsched, BeanUtil.concat("day",i));
+				String start = (String) BeanUtil.getPropertyValue(tsched, BeanUtil.concat("schedTime",i));
+				String end = (String) BeanUtil.getPropertyValue(tsched, BeanUtil.concat("schedTimeEnd",i));
 				if (room==null || room.isEmpty()) {
 					continue;
 				}
@@ -848,7 +849,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 						int iend = tmpend.get(j);
 						
 						if (DataUtil.isIntersecting(start, end, istart, iend)) {
-							PanelUtil.showError(null, "Conflict with \n"+sched.displayString()+" and \n"+sc.displayString());
+							PanelUtil.showError(null, "Conflict with \n",sched.displayString()," and \n",sc.displayString());
 							return true;
 						}
 					}
@@ -859,6 +860,6 @@ public class Schedule extends AbstractIBean implements Serializable {
 	}
 	
 	public String displayString() {
-		return subject+" "+section+" "+room1+" "+schedTime1+"-"+schedTimeEnd1+" "+faculty;
+		return BeanUtil.concat(subject," ",section," ",room1," ",schedTime1,"-",schedTimeEnd1," ",faculty);
 	}
 }

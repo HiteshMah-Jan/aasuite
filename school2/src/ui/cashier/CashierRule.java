@@ -50,7 +50,7 @@ public class CashierRule {
                 PanelUtil.showMessage(old, "Student not yet assessed.");
                 return;
             }
-            String amount = PanelUtil.showPromptDefaultMessage(old, "Please type amount.", old.getCandidateAmount()+"");
+            String amount = PanelUtil.showPromptDefaultMessage(old, "Please type amount.", BeanUtil.concat(old.getCandidateAmount(),""));
             if (amount == null) {
                 return;
             }
@@ -59,7 +59,7 @@ public class CashierRule {
             double unpaid = DataUtil.getMoneyFormat(getTotalUnpaid());
             //.5 can be negligible
             if (damount>unpaid+.5) {
-                PanelUtil.showMessage(old, "More than unpaid amount ["+unpaid+"], please type another.");
+                PanelUtil.showMessage(old, "More than unpaid amount [",unpaid,"], please type another.");
                 runAcceptPayment();
                 return;
             }
@@ -181,7 +181,7 @@ public class CashierRule {
     	}
         double amount = 0;
 		try {
-	        amount = PanelUtil.getDoubleValue(PanelUtil.showPromptDefaultMessage(old, "Surcharge Discount Amount", getTotalSurcharge()+"").toString());
+	        amount = PanelUtil.getDoubleValue(PanelUtil.showPromptDefaultMessage(old, "Surcharge Discount Amount", BeanUtil.concat(getTotalSurcharge(),"")).toString());
 		}
 		catch (Exception e) {
 			throw e;

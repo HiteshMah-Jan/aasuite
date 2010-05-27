@@ -23,7 +23,9 @@ import constants.UserInfo;
 
 import template.report.AbstractReportTemplate;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -56,31 +58,31 @@ public class FacultyAdminForm extends TransactionPanel {
     	}
     	else {
         	int personId = UserInfo.getPersonId();
-            sql = "SELECT a FROM Course a WHERE a.headId="+personId;
-            System.out.println("TEST = 1"+sql);
+            sql = BeanUtil.concat("SELECT a FROM Course a WHERE a.headId=",personId);
+            Log.out("TEST = 1",sql);
         	List<Course> courses = DBClient.getList(sql);
         	if (courses!=null && !courses.isEmpty()) {
             	for (Course c:courses) {
-                    sql = "SELECT a FROM Section a, GradeLevel b WHERE a.gradeLevel=b.code AND b.course='"+c.code+"' ORDER BY a.gradeLevel, a.code";
-                    System.out.println("TEST = 2"+sql);
+                    sql = BeanUtil.concat("SELECT a FROM Section a, GradeLevel b WHERE a.gradeLevel=b.code AND b.course='",c.code,"' ORDER BY a.gradeLevel, a.code");
+                    Log.out("TEST = 2",sql);
                 	List sections = DBClient.getList(sql);
                 	lst.addAll(sections);
             	}
             	return lst;
         	}
-            sql = "SELECT a FROM GradeLevel a WHERE a.headId="+personId;
-            System.out.println("TEST = 3"+sql);
+            sql = BeanUtil.concat("SELECT a FROM GradeLevel a WHERE a.headId=",personId);
+            Log.out("TEST = 3",sql);
         	List<GradeLevel> levels = DBClient.getList(sql);
         	if (levels!=null && !levels.isEmpty()) {
             	for (GradeLevel c:levels) {
-                    sql = "SELECT a FROM Section a WHERE a.gradeLevel='"+c.code+"' ORDER BY a.gradeLevel, a.code";
+                    sql = BeanUtil.concat("SELECT a FROM Section a WHERE a.gradeLevel='",c.code,"' ORDER BY a.gradeLevel, a.code");
                 	List sections = DBClient.getList(sql);
                 	lst.addAll(sections);
             	}
             	return lst;
         	}
-            sql = "SELECT a FROM Section a WHERE a.headId="+personId+" ORDER BY a.gradeLevel, a.code";
-            System.out.println("TEST = 4"+sql);
+            sql = BeanUtil.concat("SELECT a FROM Section a WHERE a.headId=",personId," ORDER BY a.gradeLevel, a.code");
+            Log.out("TEST = 4",sql);
         	lst = DBClient.getList(sql);
         	return lst;
     	}
@@ -177,18 +179,18 @@ public class FacultyAdminForm extends TransactionPanel {
     protected void btnShowValuesGradesActionPerformed(ActionEvent evt) {
     	Section s = (Section) cboSection.getSelectedItem();
     	if (s!=null && !s.isEmptyKey()) {
-    		AbstractReportTemplate.getInstance().showReportFromFileTemplate("Q"+getQuarter()+"_ValuesGrades", s.code, pnlReportViewer);
+    		AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("Q",getQuarter(),"_ValuesGrades"), s.code, pnlReportViewer);
     	}
 	}
 
 	private void btnShowClassRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowClassRecordsActionPerformed
     	Section s = (Section) cboSection.getSelectedItem();
     	if (s!=null && !s.isEmptyKey()) {
-    		List<Schedule> l = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='"+s.code+"'");
+    		List<Schedule> l = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='",s.code,"'");
     		Schedule sc = (Schedule) PanelUtil.showPromptMessage(null, "Select subject to display", "", l, "");
         	if (sc!=null && !sc.isEmptyKey()) {
-        		FacultyGradingTask task = (FacultyGradingTask) DBClient.getFirstRecord("SELECT a FROM FacultyGradingTask a WHERE a.scheduleId="+sc.seq);
-        		AbstractReportTemplate.getInstance().showReportFromFileTemplate("Q"+getQuarter()+"_ClassRecord", sc.seq, pnlReportViewer, task);
+        		FacultyGradingTask task = (FacultyGradingTask) DBClient.getFirstRecord("SELECT a FROM FacultyGradingTask a WHERE a.scheduleId=",sc.seq);
+        		AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("Q",getQuarter(),"_ClassRecord"), sc.seq, pnlReportViewer, task);
         	}
     	}
     }//GEN-LAST:event_btnShowClassRecordsActionPerformed
@@ -196,14 +198,14 @@ public class FacultyAdminForm extends TransactionPanel {
     private void btnShowSummarySheetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowSummarySheetActionPerformed
     	Section s = (Section) cboSection.getSelectedItem();
     	if (s!=null && !s.isEmptyKey()) {
-    		AbstractReportTemplate.getInstance().showReportFromFileTemplate("Q"+getQuarter()+"_Grades", s.code, pnlReportViewer);
+    		AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("Q",getQuarter(),"_Grades"), s.code, pnlReportViewer);
     	}
     }//GEN-LAST:event_btnShowSummarySheetActionPerformed
 
     private void btnShowReportCardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowReportCardsActionPerformed
     	Section s = (Section) cboSection.getSelectedItem();
     	if (s!=null && !s.isEmptyKey()) {
-    		AbstractReportTemplate.getInstance().showReportFromFileTemplate("SectionReportCardQuarter"+getQuarter(), s.code, pnlReportViewer);
+    		AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("SectionReportCardQuarter",getQuarter()), s.code, pnlReportViewer);
     	}
     }//GEN-LAST:event_btnShowReportCardsActionPerformed
     

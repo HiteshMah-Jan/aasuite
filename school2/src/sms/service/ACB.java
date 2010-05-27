@@ -7,6 +7,7 @@ package sms.service;
 
 import bean.admin.AppConfig;
 import bean.admin.SMSMessageBean;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -35,7 +36,7 @@ public class ACB extends AbstractSMSProcessor {
         this.bean.code1 = code;
         this.bean.code3 = refNumber;
         //check if this has been sent already
-        String sql = "SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='"+this.bean.phoneNumber+"' AND a.code1='"+this.bean.code1+"' AND a.code3='"+this.bean.code3+"'";
+        String sql = BeanUtil.concat("SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='",this.bean.phoneNumber,"' AND a.code1='",this.bean.code1,"' AND a.code3='",this.bean.code3,"'");
         this.bean = (SMSMessageBean) DBClient.getFirstRecord(sql);
         this.bean.code2 = billType;
         this.bean.code4 = amt;

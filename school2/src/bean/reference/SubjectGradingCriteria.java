@@ -17,6 +17,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateSinglePage;
+import util.BeanUtil;
 import util.PanelUtil;
 import bean.admin.AppConfig;
 
@@ -67,7 +68,7 @@ public class SubjectGradingCriteria extends AbstractIBean implements Serializabl
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return subject+" - "+criteria+" "+percentage;
+        return BeanUtil.concat(subject," - ",criteria," ",percentage);
     }
 	
 	@Override

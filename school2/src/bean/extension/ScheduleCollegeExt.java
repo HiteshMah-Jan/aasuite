@@ -28,6 +28,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateNoForm;
 import template.screen.TemplateSinglePage;
+import util.BeanUtil;
 
 /**
  *
@@ -85,7 +86,7 @@ public class ScheduleCollegeExt extends bean.Schedule implements Serializable {
 	
 	@Override
 	public String popupSearch(String criteria) {
-		return "SELECT a FROM Schedule a "+addWhere();
+		return BeanUtil.concat("SELECT a FROM Schedule a ",addWhere());
 	}
 
 	@Override

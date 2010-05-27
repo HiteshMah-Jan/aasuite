@@ -7,6 +7,7 @@ package sms.service;
 
 import bean.admin.AppConfig;
 import bean.admin.SMSMessageBean;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -31,7 +32,7 @@ public class ASG extends AbstractSMSProcessor {
         this.bean.code1 = code;
         this.bean.code2 = email;
         //check if this has been sent already
-        String sql = "SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='"+this.bean.phoneNumber+"' AND a.code1='"+this.bean.code1+"'";
+        String sql = BeanUtil.concat("SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='",this.bean.phoneNumber,"' AND a.code1='",this.bean.code1,"'");
         this.bean = (SMSMessageBean) DBClient.getFirstRecord(sql);
         this.bean.save();
         //this may acknowledge the message

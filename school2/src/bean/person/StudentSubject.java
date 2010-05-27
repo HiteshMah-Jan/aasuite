@@ -605,11 +605,11 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 	@Override
 	public void save() {
 		if (studentName==null) {
-	        Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId="+studentId);
+	        Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId=",studentId);
 	        if (stud!=null) studentName = stud.toString();
 		}
 		if (faculty==null && facultyId>0) {
-	        Person f = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+facultyId);
+	        Person f = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",facultyId);
 	        if (f!=null) faculty = f.toString();
 		}
 		double totalCount = 0;
@@ -637,7 +637,7 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 		else {
 			actionTaken = "FAILED";
 		}
-        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub!=null) {
         	gradeLevel = sub.gradeLevel;
         	unit = sub.getUnit();
@@ -658,7 +658,7 @@ public class StudentSubject extends AbstractIBean implements Serializable {
     }
 
     public String getSubjectName() {
-        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub==null) return "";
         return sub.getSubject();
     }

@@ -39,6 +39,7 @@ import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -75,7 +76,7 @@ public class SectionCollegeExt extends Section implements Serializable {
 	
 	@Override
 	public String popupSearch(String criteria) {
-		return "SELECT a FROM Section a "+addWhere();
+		return BeanUtil.concat("SELECT a FROM Section a ",addWhere());
 	}
 
 	@Override

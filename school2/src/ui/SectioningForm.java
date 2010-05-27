@@ -21,6 +21,7 @@ import service.util.WSPersistenceEntityManager;
 import springbean.AAAConfig;
 import template.report.AbstractReportTemplate;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -70,7 +71,7 @@ public class SectioningForm extends TransactionPanel {
     
      protected void btnShowPromotionReportActionPerformed(ActionEvent evt) {
     	 bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
-    	 AbstractReportTemplate.getInstance().showReportFromFileTemplate("Promotion"+sec.gradeLevel, "");
+    	 AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("Promotion",sec.gradeLevel), "");
 	}
 
 	public static void main(String[] args) {
@@ -365,7 +366,7 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
             p.section = sec.code;
             p.gradeLevel = sec.gradeLevel;
             if (p.course!=null && !p.course.equals(sec.getCourse())) {
-            	if (!PanelUtil.showPrompt(btnPutToSection, p.toString()+" in "+p.course+" has conflict curriculum with "+sec.getCourse()+" \nWould you like to continue?\nNote: This will need to regenerate curriculum in Student Info.")) {
+            	if (!PanelUtil.showPrompt(btnPutToSection, p.toString()," in ",p.course," has conflict curriculum with ",sec.getCourse()," \nWould you like to continue?\nNote: This will need to regenerate curriculum in Student Info.")) {
             		return;
             	}
             }
@@ -425,7 +426,7 @@ private void btnRefreshListActionPerformed(java.awt.event.ActionEvent evt) {//GE
         PanelUtil.setListData(lstStudentWithoutSection, lst2); 
     }
     else {
-        List lst2 = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND (a.section IS NULL OR a.section='') AND a.gradeLevel='"+grd+"' ORDER BY a.lastName, a.firstName, a.middleInitial", 0, 10000);
+        List lst2 = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a WHERE a.status='ENROLLED' AND (a.section IS NULL OR a.section='') AND a.gradeLevel='",grd,"' ORDER BY a.lastName, a.firstName, a.middleInitial"), 0, 10000);
         PanelUtil.setListData(lstStudentWithoutSection, lst2); 
     }    
 }//GEN-LAST:event_btnRefreshListActionPerformed
@@ -457,7 +458,7 @@ protected void updateList() {
 protected void refreshSectionStudent() {
     bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
     if (sec==null) return;
-    List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='"+sec.code+"' ORDER BY a.gradeLevel, a.lastName, a.middleInitial, a.firstName",0,100);
+    List<Student> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",sec.code,"' ORDER BY a.gradeLevel, a.lastName, a.middleInitial, a.firstName"),0,100);
     PanelUtil.setListData(lstStudentWithSection, lst);
     
     int boys = 0;
@@ -470,9 +471,9 @@ protected void refreshSectionStudent() {
             girls++;
         }
     }
-    txtBoys.setText(boys+"");
-    txtGirls.setText(girls+"");
-    txtTotal.setText((boys+girls)+"");
+    txtBoys.setText(BeanUtil.concat(boys,""));
+    txtGirls.setText(BeanUtil.concat(girls,""));
+    txtTotal.setText(BeanUtil.concat((boys+girls),""));
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

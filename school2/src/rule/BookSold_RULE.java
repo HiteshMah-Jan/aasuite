@@ -46,7 +46,7 @@ public class BookSold_RULE extends BusinessRuleWrapper {
             else {
                 BookSold book = (BookSold) this.getBean();
                 int bookId = (int) BeanUtil.getDoubleValue(book, comp.getName());
-                BookSaleRef b = (BookSaleRef) AbstractIBean.extractObject(BookSaleRef.class.getSimpleName(), bookId+"");
+                BookSaleRef b = (BookSaleRef) AbstractIBean.extractObject(BookSaleRef.class.getSimpleName(), BeanUtil.concat(bookId,""));
                 String amt = comp.getName().replace("book", "bookAmount");
                 setValue(amt, b.amount);
             }
@@ -92,13 +92,13 @@ public class BookSold_RULE extends BusinessRuleWrapper {
             List lst = lvl.extractCacheListBeans(GradeLevel.class);
             lvl = (GradeLevel) PanelUtil.showPromptMessage(null, "Choose grade level", "", lst, lvl);
 
-//            List<BookSaleRef> lstBooks = DBClient.getList("SELECT a FROM BookSaleRef a WHERE a.schoolYear='"+ AppConfig.getSchoolYear()+"' AND a.gradeLevel='"+lvl.code+"'");
+//            List<BookSaleRef> lstBooks = DBClient.getList("SELECT a FROM BookSaleRef a WHERE a.schoolYear='", AppConfig.getSchoolYear(),"' AND a.gradeLevel='",lvl.code,"'");
             b.gradeLevel = lvl.code;
-            List<BookSaleRef> lstBooks = DBClient.getList("SELECT a FROM BookSaleRef a WHERE a.gradeLevel='"+lvl.code+"'");
+            List<BookSaleRef> lstBooks = DBClient.getList("SELECT a FROM BookSaleRef a WHERE a.gradeLevel='",lvl.code,"'");
             for (int i=0; lstBooks!=null && i<lstBooks.size(); i++) {
                 BookSaleRef book = lstBooks.get(i);
-                setValue("book"+(i+1), book.seq);
-                setValue("bookAmount"+(i+1), book.amount);
+                setValue(BeanUtil.concat("book",(i+1)), book.seq);
+                setValue(BeanUtil.concat("bookAmount",(i+1)), book.amount);
             }
         }
     }

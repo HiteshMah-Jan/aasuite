@@ -26,14 +26,14 @@ public class Section_RULE extends BusinessRuleWrapper {
 	private void checkSchedule() {
 		Section sec = (Section) this.getBean();
 		if (Schedule.noConflictSection(sec)) {
-			List<Schedule> sc = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='"+sec.code+"'");
+			List<Schedule> sc = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='",sec.code,"'");
 			for (Schedule sched:sc) {
 				if (sched.hasFacultyConflict()) {
-//					PanelUtil.showError(null, "Conflict in schedule found, please check faculty ["+sched.faculty+"].");
+//					PanelUtil.showError(null, "Conflict in schedule found, please check faculty [",sched.faculty,"].");
 					return;
 				}
 				if (sched.hasRoomConflict()) {
-//					PanelUtil.showError(null, "Conflict in schedule found, please check room ["+sched.room1+"|"+sched.room2+"|"+sched.room3+"].");
+//					PanelUtil.showError(null, "Conflict in schedule found, please check room [",sched.room1,"|",sched.room2,"|",sched.room3,"].");
 					return;
 				}
 			}

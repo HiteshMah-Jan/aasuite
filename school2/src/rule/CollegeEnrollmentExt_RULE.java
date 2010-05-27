@@ -46,13 +46,13 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 			String val = getValue("section");
 			Section sec = (Section) Section.extractObject(Section.class.getSimpleName(), val);
 			if(sec!=null || !sec.isEmptyKey()) {
-				List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='"+sec.code+"'");
+				List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section='",sec.code,"'");
 				for (int i=0; i<lst.size(); i++) {
 					int index = i+1;
-					String scname = "schedule"+index;
+					String scname = BeanUtil.concat("schedule",index);
 					Schedule sched = lst.get(i);
-					((LookupTableFieldPallete)getComponent(scname)).setText(sched.seq+"");
-					updateSchedule("schedule"+index);
+					((LookupTableFieldPallete)getComponent(scname)).setText(BeanUtil.concat(sched.seq,""));
+					updateSchedule(BeanUtil.concat("schedule",index));
 				}
 			}
 		}
@@ -106,13 +106,13 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 		Enrollment col = (Enrollment) this.getBean();
 		Student stud = (Student) col.extractPerson(col.studentId);
 		String plan = col.paymentPlanType;
-		PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='"+plan+"' AND a.gradeLevel='"+stud.gradeLevel+"'");
+		PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan,"' AND a.gradeLevel='",stud.gradeLevel,"'");
 		if (pl==null || pl.isEmptyKey()) {
-			pl = PaymentPlan.createPlan(plan, "Plan "+plan+" for "+stud.gradeLevel, 1, col.schoolYear, stud.gradeLevel, 0);
+			pl = PaymentPlan.createPlan(plan, BeanUtil.concat("Plan ",plan," for ",stud.gradeLevel), 1, col.schoolYear, stud.gradeLevel, 0);
 			pl.save();
 		}
 		if (pl==null || pl.amount1==0) {
-			PanelUtil.showError(null, "Payment calendar not yet set for plan "+plan+" : "+stud.gradeLevel);
+			PanelUtil.showError(null, "Payment calendar not yet set for plan ",plan," : ",stud.gradeLevel);
 			return;
 		}
 		new SchoolDefaultProcess().setupMisc(col, pl);
@@ -167,9 +167,9 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 
 		col.overAllAmount = col.getComputedOverallMisc() + col.totalAmount;
 		setValue("miscellaneousFee",col.getComputedOverallMisc());
-		setValue("totalAmount",col.totalAmount+"");
+		setValue("totalAmount",BeanUtil.concat(col.totalAmount,""));
 		setValue("totalUnits",col.totalUnits);
-		setValue("overAllAmount",col.overAllAmount+"");
+		setValue("overAllAmount",BeanUtil.concat(col.overAllAmount,""));
 	}
 	
 	protected boolean validSchedule() {
@@ -185,9 +185,9 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 	protected boolean validPrerequisite() {
 		Enrollment col = (Enrollment) this.getBean();
 //		get student subject
-		List<StudentSubject> lst = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.studentId="+col.studentId);
+		List<StudentSubject> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.studentId=",col.studentId));
 		for (int i=1; i<=15; i++) {
-			String sub = (String) BeanUtil.getPropertyValue(col, "subject"+i);
+			String sub = (String) BeanUtil.getPropertyValue(col, BeanUtil.concat("subject",i));
 			if (sub!=null && !sub.isEmpty()) {
 				Subject subject = (Subject) Subject.extractObject(Subject.class.getSimpleName(), sub);
 				if (subject!=null) {
@@ -195,15 +195,15 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 					String preSubject = null;
 					for (StudentSubject s:lst) {
 						if (sub.equals(s.subject)) {
-							preSubject = "|"+s.preSubject1+"|"+s.preSubject2+"|"+s.preSubject3+"|"+s.preSubject4+"|"+s.preSubject5+"|";
+							preSubject =BeanUtil.concat( "|",s.preSubject1,"|",s.preSubject2,"|",s.preSubject3,"|",s.preSubject4,"|",s.preSubject5,"|");
 						}
 					}
 					if (preSubject!=null) {
 //						check if pre subject is already passed and taken
 						for (StudentSubject s:lst) {
-							if (preSubject.contains("|"+s.subject+"|")) {
+							if (preSubject.contains(BeanUtil.concat("|",s.subject,"|"))) {
 								if (!s.passed) {
-									PanelUtil.showError(null, "Subject ["+sub+"] has pre requisite ["+preSubject+"]. You need to pass the pre requisite subject first.");
+									PanelUtil.showError(null, "Subject [",sub,"] has pre requisite [",preSubject,"]. You need to pass the pre requisite subject first.");
 									return false;
 								}
 							}
@@ -218,7 +218,7 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 	protected boolean hasSubject(String subject) {
 		Enrollment col = (Enrollment) this.getBean();
 		for (int i=1; i<=15; i++) {
-			String sub = (String) BeanUtil.getPropertyValue(col, "subject"+i);
+			String sub = (String) BeanUtil.getPropertyValue(col, BeanUtil.concat("subject",i));
 			if (sub.equals(subject)) return true;
 		}
 		return false;
@@ -227,9 +227,9 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 	protected boolean validCorequisite() {
 		Enrollment col = (Enrollment) this.getBean();
 //		get student subject
-		List<StudentSubject> lst = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.studentId="+col.studentId);
+		List<StudentSubject> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.studentId=",col.studentId));
 		for (int i=1; i<=15; i++) {
-			String sub = (String) BeanUtil.getPropertyValue(col, "subject"+i);
+			String sub = (String) BeanUtil.getPropertyValue(col, "subject",i);
 			if (sub!=null && !sub.isEmpty()) {
 				Subject subject = (Subject) Subject.extractObject(Subject.class.getSimpleName(), sub);
 				if (subject!=null) {
@@ -238,28 +238,28 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 					for (StudentSubject s:lst) {
 						if (sub.equals(s.subject)) {
 							if (s.coSubject1!=null && !s.coSubject1.isEmpty() && !hasSubject(s.coSubject1)) {
-								coSubject = "|"+s.coSubject1+"|";
+								coSubject = BeanUtil.concat("|",s.coSubject1,"|");
 							}
 							if (s.coSubject2!=null && !s.coSubject2.isEmpty() && !hasSubject(s.coSubject2)) {
-								coSubject = "|"+s.coSubject2+"|";
+								coSubject = BeanUtil.concat("|",s.coSubject2,"|");
 							}
 							if (s.coSubject3!=null && !s.coSubject3.isEmpty() && !hasSubject(s.coSubject3)) {
-								coSubject = "|"+s.coSubject3+"|";
+								coSubject = BeanUtil.concat("|",s.coSubject3,"|");
 							}
 							if (s.coSubject4!=null && !s.coSubject4.isEmpty() && !hasSubject(s.coSubject4)) {
-								coSubject = "|"+s.coSubject4+"|";
+								coSubject = BeanUtil.concat("|",s.coSubject4,"|");
 							}
 							if (s.coSubject5!=null && !s.coSubject5.isEmpty() && !hasSubject(s.coSubject5)) {
-								coSubject = "|"+s.coSubject5+"|";
+								coSubject = BeanUtil.concat("|",s.coSubject5,"|");
 							}
 						}
 					}
 					if (coSubject!=null) {
 //						check if co subject is already passed and taken
 						for (StudentSubject s:lst) {
-							if (coSubject.contains("|"+s.subject+"|")) {
+							if (coSubject.contains(BeanUtil.concat("|",s.subject,"|"))) {
 								if (!s.passed) {
-									PanelUtil.showError(null, "Subject ["+sub+"] has co requisite ["+coSubject+"]. You need to pass or take the co requisite.");
+									PanelUtil.showError(null, "Subject [",sub,"] has co requisite [",coSubject,"]. You need to pass or take the co requisite.");
 									return false;
 								}
 							}
@@ -279,13 +279,13 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 		Enrollment col = (Enrollment) this.getBean();
 		if (col.paymentPlanType!=null && !col.paymentPlanType.isEmpty()) {
 //			check if there are payments already
-			Payment p = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='"+col.schoolYear+"' AND a.paidBy="+col.studentId+" AND a.paid=true");
+			Payment p = (Payment) DBClient.getFirstRecord("SELECT a FROM Payment a WHERE a.schoolYear='",col.schoolYear,"' AND a.paidBy=",col.studentId," AND a.paid=true");
 			if (p!=null) {
 				PanelUtil.showMessage(null, "Student already has payment, cannot assess.");
 				return;
 			}
 			else {
-				DBClient.runSQLNative("DELETE FROM Payment WHERE schoolYear='"+col.schoolYear+"' AND paidBy="+col.studentId);
+				DBClient.runSQLNative("DELETE FROM Payment WHERE schoolYear='",col.schoolYear,"' AND paidBy=",col.studentId);
 			}
 		}
 		
@@ -293,13 +293,13 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 		if (plan!=null) {
 			Student stud = (Student) col.extractPerson(col.studentId);
 			
-			PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='"+plan+"' AND a.gradeLevel='"+stud.gradeLevel+"'");
+			PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan,"' AND a.gradeLevel='",stud.gradeLevel,"'");
 			if (pl==null || pl.isEmptyKey()) {
-				pl = PaymentPlan.createPlan(plan, "Plan "+plan+" for "+stud.gradeLevel, 1, col.schoolYear, stud.gradeLevel, 0);
+				pl = PaymentPlan.createPlan(plan, BeanUtil.concat("Plan ",plan," for ",stud.gradeLevel), 1, col.schoolYear, stud.gradeLevel, 0);
 				pl.save();
 			}
 			if (pl==null || pl.amount1==0) {
-				PanelUtil.showError(null, "Payment calendar not yet set for plan "+plan+" : "+stud.gradeLevel);
+				PanelUtil.showError(null, "Payment calendar not yet set for plan ",plan," : ",stud.gradeLevel);
 				return;
 			}
 			col.paymentPlanType = pl.code;

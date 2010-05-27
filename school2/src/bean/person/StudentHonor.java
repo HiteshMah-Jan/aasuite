@@ -24,6 +24,7 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePage;
 import template.screen.TemplateTabSinglePageLeftRight;
+import util.BeanUtil;
 import util.DBClient;
 import bean.Person;
 import bean.Student;
@@ -113,7 +114,7 @@ public class StudentHonor extends AbstractIBean implements Serializable {
     		studentName = p.toString();
     		section = p.section;
     	}
-    	String sql = "UPDATE Enrollment SET meritQ1='"+q1Honor+"', meritQ2='"+q2Honor+"', meritQ3='"+q3Honor+"', meritQ4='"+q4Honor+"', meritFinal='"+finalHonor+"' WHERE studentId="+studentId+" AND gradeLevel='"+gradeLevel+"'";
+    	String sql = BeanUtil.concat("UPDATE Enrollment SET meritQ1='",q1Honor,"', meritQ2='",q2Honor,"', meritQ3='",q3Honor,"', meritQ4='",q4Honor,"', meritFinal='",finalHonor,"' WHERE studentId=",studentId," AND gradeLevel='",gradeLevel,"'");
     	DBClient.runSQLNative(sql);
 		super.save();
 	}

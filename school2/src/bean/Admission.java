@@ -268,7 +268,7 @@ public class Admission extends AbstractIBean implements Serializable {
         accountNumber = "102";
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR()+"";
+//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
         schoolYear = springbean.SchoolConfig.getSchoolYear();
     }
 
@@ -1808,7 +1808,7 @@ public class Admission extends AbstractIBean implements Serializable {
 
 	public boolean isAlreadyRegistered() {
         if (seq != null && seq > 0) {
-            Student student = (Student) firstRecord("SELECT a FROM Student a WHERE a.lastName='"+this.lastName+"' AND a.firstName='"+this.firstName+"'");
+            Student student = (Student) firstRecord("SELECT a FROM Student a WHERE a.lastName='",this.lastName,"' AND a.firstName='",this.firstName,"'");
             return student != null;
         }
         return true;
@@ -1817,7 +1817,7 @@ public class Admission extends AbstractIBean implements Serializable {
         if (this.invoiceId == 0) {
             return null;
         }
-        Invoice inv = (Invoice) firstRecord("SELECT a FROM Invoice a WHERE a.seq="+this.invoiceId);
+        Invoice inv = (Invoice) firstRecord("SELECT a FROM Invoice a WHERE a.seq=",this.invoiceId);
         return inv;
     }
     public Person extractCustomer() {
@@ -1841,9 +1841,9 @@ public class Admission extends AbstractIBean implements Serializable {
     @Override
     public Vector allChart() {
         java.util.Vector vec = new java.util.Vector();
-        vec.add(ChartBean.getNativeBarInstance(this, "Total Passed/Failed Per Year","SELECT "+DateUtil.getSQLYear("a.examinationDate")+",a.remarks, COUNT(a.seq) FROM Admission a GROUP BY "+DateUtil.getSQLYear("a.examinationDate")+",a.remarks"));
-        vec.add(ChartBean.getNativePieInstance(this, "Ave. Rating Per Year","SELECT "+DateUtil.getSQLYear("a.examinationDate")+", AVG(a.rating) FROM Admission a GROUP BY "+DateUtil.getSQLYear("a.examinationDate")));
-        vec.add(ChartBean.getNativePieInstance(this, "Exam. Fee Per Year", "SELECT "+DateUtil.getSQLYear("a.examinationDate")+", SUM(a.examinationFee) FROM Admission a GROUP BY "+DateUtil.getSQLYear("a.examinationDate")));
+        vec.add(ChartBean.getNativeBarInstance(this, "Total Passed/Failed Per Year",BeanUtil.concat("SELECT ",DateUtil.getSQLYear("a.examinationDate"),",a.remarks, COUNT(a.seq) FROM Admission a GROUP BY ",DateUtil.getSQLYear("a.examinationDate"),",a.remarks")));
+        vec.add(ChartBean.getNativePieInstance(this, "Ave. Rating Per Year",BeanUtil.concat("SELECT ",DateUtil.getSQLYear("a.examinationDate"),", AVG(a.rating) FROM Admission a GROUP BY ",DateUtil.getSQLYear("a.examinationDate"))));
+        vec.add(ChartBean.getNativePieInstance(this, "Exam. Fee Per Year", BeanUtil.concat("SELECT ",DateUtil.getSQLYear("a.examinationDate"),", SUM(a.examinationFee) FROM Admission a GROUP BY ",DateUtil.getSQLYear("a.examinationDate"))));
         return vec;
     }
     
@@ -1857,7 +1857,7 @@ public class Admission extends AbstractIBean implements Serializable {
     
     private void serverRegister() {
     	Admission admission = this;
-        bean.Student studTmp = (bean.Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.lastName='" + admission.getLastName() + "' AND a.firstName='" + admission.getFirstName() + "' AND a.middleInitial='" + admission.getMiddleInitial() + "'");
+        bean.Student studTmp = (bean.Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.lastName='" , admission.getLastName() , "' AND a.firstName='" , admission.getFirstName() , "' AND a.middleInitial='" , admission.getMiddleInitial() , "'");
         if (studTmp == null || studTmp.getPersonId() == null || studTmp.getPersonId() == 0) {
             Student student = new Student();
             student.copyFrom(admission);

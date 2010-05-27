@@ -6,8 +6,10 @@ import constants.UserInfo;
 
 import ui.cashier.AcceptCheckForm;
 import ui.cashier.OldStudent;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 
 import bean.accounting.CashierDailyBooklet;
@@ -49,7 +51,7 @@ public class CashierRulePaymentDistribution {
 		for (PaymentEnrollment p:allAssess) {
 			p.outstandingSurcharge = p.surcharge = p.surchargeBalance = p.surchargePaid = 0;
 		}
-		System.out.println("OUT = "+amount);
+		Log.out("OUT = ",amount);
 		if (totalOutstanding > markedAmount) {
 //			clear all surcharges
 			PaymentEnrollment lastp = allAssess.get(allAssess.size()-1);
@@ -57,14 +59,14 @@ public class CashierRulePaymentDistribution {
 			if (lastp.outstandingSurcharge < 0) {
 				lastp.outstandingSurcharge = 0;
 			}
-			System.out.println("OUT = "+lastp.outstandingSurcharge);
+			Log.out("OUT = ",lastp.outstandingSurcharge);
 		}
 		processMisc();
 		processFee();
 		putOR(normOR, "N");
 		
 		Payment t = allAssess.get(0);
-    	List<Payment> lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='"+t.schoolYear+"' AND a.paidBy="+t.paidBy+" AND a.paid=true ORDER BY a.paymentDate DESC");
+    	List<Payment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Payment a WHERE a.schoolYear='",t.schoolYear,"' AND a.paidBy=",t.paidBy," AND a.paid=true ORDER BY a.paymentDate DESC"));
 		for (PaymentEnrollment p:allAssess) {
 			p.paymentDate = d;
 	    	for (int i=0; i<lst.size(); i++) {
@@ -118,12 +120,12 @@ public class CashierRulePaymentDistribution {
 //		merge records only for surcharge
 		Map<String, PaymentEnrollment> map = new TreeMap();
 		PaymentEnrollment p = (PaymentEnrollment) allAssess.get(0);
-		List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+p.paidBy+" AND a.schoolYear='"+p.schoolYear+"' AND a.paid=true");
+		List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",p.paidBy," AND a.schoolYear='",p.schoolYear,"' AND a.paid=true"));
 		for (PaymentEnrollment e:lst) {
 			if (e.paymentFor.contains("MISC")) {
 //				only surcharge was paid here
 				if (e.amountPaid==0) {
-					e.paymentFor = e.paymentFor.replace("MISC", e.plan+"1");
+					e.paymentFor = e.paymentFor.replace("MISC", BeanUtil.concat(e.plan,"1"));
 				}
 			}
 			if (map.containsKey(e.paymentFor+e.orNumber)) {
@@ -148,10 +150,10 @@ public class CashierRulePaymentDistribution {
 	}
 	
 	protected void updateFWB(PaymentEnrollment p) {
-		PaymentEnrollment fwb = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+p.paidBy+" AND a.paymentFor='FWB' AND a.description LIKE '%"+p.schoolYear+"%'");
+		PaymentEnrollment fwb = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",p.paidBy," AND a.paymentFor='FWB' AND a.description LIKE '%",p.schoolYear,"%'");
 		if (fwb!=null && !fwb.isEmptyKey()) {
 			double amount = 0;
-			List<PaymentEnrollment> lst = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.paidBy="+fwb.paidBy+" AND a.schoolYear='"+p.schoolYear+"'");
+			List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",fwb.paidBy," AND a.schoolYear='",p.schoolYear,"'"));
 			for (PaymentEnrollment tmp : lst) {
 				amount += tmp.overallAmountDue;
 			}
@@ -288,9 +290,9 @@ public class CashierRulePaymentDistribution {
 					}
 				}
 //				check or if exist in invoice
-				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+miscOR+" AND a.orType='A'");
+				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",miscOR," AND a.orType='A'");
 				if (inv!=null && !inv.isEmptyKey()) {
-					PanelUtil.showError(old, "OR# ["+miscOR+"] is already used, please check");
+					PanelUtil.showError(old, "OR# [",miscOR,"] is already used, please check");
 					throw new Exception("OR already used.");
 				}
 			}
@@ -300,7 +302,7 @@ public class CashierRulePaymentDistribution {
 	
 	protected String getTuitionOR() throws Exception {
 		if (normOR==null) {
-			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", booklet.extractNextOR("N") + "");
+			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N"),""));
 			if (normOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}
@@ -313,9 +315,9 @@ public class CashierRulePaymentDistribution {
 					}
 				}
 //				check or if exist in invoice
-				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber="+normOR+" AND a.orType='N'");
+				Invoice inv = (Invoice) DBClient.getFirstRecord("SELECT a FROM Invoice a WHERE a.orNumber=",normOR," AND a.orType='N'");
 				if (inv!=null && !inv.isEmptyKey()) {
-					PanelUtil.showError(old, "OR# ["+normOR+"] is already used by cashier ["+inv.cashier+"], please check");
+					PanelUtil.showError(old, "OR# [",normOR,"] is already used by cashier [",inv.cashier,"], please check");
 					throw new Exception("OR already used.");
 				}
 			}
@@ -325,7 +327,7 @@ public class CashierRulePaymentDistribution {
 
 	private void putOR(String or, String orType) {
 		if (or==null || or.isEmpty()) return;
-		List<PaymentEnrollment> all = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber="+or+" AND a.orType='"+orType+"'");
+		List<PaymentEnrollment> all = DBClient.getList("SELECT a FROM PaymentEnrollment a WHERE a.orNumber=",or," AND a.orType='",orType,"'");
 		double totalOR = 0;
 		for (PaymentEnrollment e:all) {
 			totalOR += e.orAmount;

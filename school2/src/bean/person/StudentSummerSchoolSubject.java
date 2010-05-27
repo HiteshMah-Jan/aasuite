@@ -238,18 +238,18 @@ public class StudentSummerSchoolSubject extends AbstractIBean implements Seriali
         if (studentId == 0) {
             return "";
         }
-        Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId="+studentId);
+        Student stud = (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId=",studentId);
         return stud.getFormattedTitle();
     }
 
     public double getUnit() {
-        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub==null) return 0;
         return sub.getUnit();
     }
 
     public String getSubjectName() {
-        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='"+subject+"'");
+        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub==null) return "";
         return sub.getSubject();
     }

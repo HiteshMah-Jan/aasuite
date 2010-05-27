@@ -27,6 +27,7 @@ import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.extension.SectionScheduleExt;
@@ -98,10 +99,10 @@ public class Subject extends AbstractIBean implements Serializable {
 			super.delete();
 			boolean b = PanelUtil.showPrompt(null, "Subject is already deleted, would you like to delete records from Curriculum?");
 			if (b) {
-				DBClient.runSQLNative("DELETE FROM CourseSubject WHERE subject='"+oldCode+"'");
+				DBClient.runSQLNative("DELETE FROM CourseSubject WHERE subject='",oldCode,"'");
 				b = PanelUtil.showPrompt(null, "Curriculum Subjects is already deleted, would you like to delete Student Curriculum?");
 				if (b) {
-					DBClient.runSQLNative("DELETE FROM StudentSubject WHERE subject='"+oldCode+"' AND grade1<=0");
+					DBClient.runSQLNative("DELETE FROM StudentSubject WHERE subject='",oldCode,"' AND grade1<=0");
 				}
 			}
 		}
@@ -116,10 +117,10 @@ public class Subject extends AbstractIBean implements Serializable {
 			PanelUtil.showError(null, "Only Administrator or 'HAS REFERENCE ACCESS' duty code can update Subject records.");
 			return;
 		}
-		if (!"|PRESCHOOL|GRADE SCHOOL|HIGH SCHOOL|".contains("|"+course+"|")) {
+		if (!"|PRESCHOOL|GRADE SCHOOL|HIGH SCHOOL|".contains(BeanUtil.concat("|",course,"|"))) {
 			college = true;
 		}
-		DBClient.runSQLNative("UPDATE StudentSubject SET gradeLevel='"+gradeLevel+"', unit="+unit+" WHERE subject='"+code+"'");
+		DBClient.runSQLNative("UPDATE StudentSubject SET gradeLevel='",gradeLevel,"', unit=",unit," WHERE subject='",code,"'");
     	head = extractPersonName(headId);
 		super.save();
 	}
@@ -172,7 +173,7 @@ public class Subject extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
     	if (isEmptyKey()) return "";
-        return code+"_"+subject;
+        return BeanUtil.concat(code,"_",subject);
     }
 
     public double getUnit() {
@@ -186,9 +187,9 @@ public class Subject extends AbstractIBean implements Serializable {
     public static Subject createSubjectObj(String course, String code, String gradeLevel, int unit) {
         Subject sec = new Subject();
         sec.course = course;
-        sec.code = gradeLevel+unit+"_"+code;
+        sec.code = BeanUtil.concat(gradeLevel,unit,"_",code);
         sec.subject = code;
-        sec.gradeLevel = gradeLevel+unit;
+        sec.gradeLevel = BeanUtil.concat(gradeLevel,unit);
         sec.unit = 1;
         return sec;
     }

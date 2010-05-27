@@ -25,6 +25,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateLeftRight;
 import util.BeanUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.EmployeeFaculty;
 import bean.Person;
@@ -2266,12 +2267,12 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	}
 
 	private void putFinalAverage(String str) {
-		System.out.println(str);
+		Log.out(str);
 		try {
 			double val1 = BeanUtil.getDoubleValue(this, str);
-			double val2 = BeanUtil.getDoubleValue(this, str+"2");
-			double val3 = BeanUtil.getDoubleValue(this, str+"3");
-			double val4 = BeanUtil.getDoubleValue(this, str+"4");
+			double val2 = BeanUtil.getDoubleValue(this, BeanUtil.concat(str,"2"));
+			double val3 = BeanUtil.getDoubleValue(this, BeanUtil.concat(str,"3"));
+			double val4 = BeanUtil.getDoubleValue(this, BeanUtil.concat(str,"4"));
 			double v = 0;
 			int count = 0;
 			if (val1>0) {
@@ -2291,7 +2292,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 				count++;
 			}
 			double ave = v/count;
-			BeanUtil.setPropertyValue(this, str+"Final", (int) (ave+.5));
+			BeanUtil.setPropertyValue(this, BeanUtil.concat(str,"Final"), (int) (ave+.5));
 		}
 		catch (Exception e) {
 		}
@@ -2301,7 +2302,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		double totalScore = 0;
 		double totalCount = 0;
 		for (String s:str) {
-			double val = BeanUtil.getDoubleValue(this, s+quarter);
+			double val = BeanUtil.getDoubleValue(this, BeanUtil.concat(s,quarter));
 			if (val>0) {
 				totalScore += val;
 				totalCount++;
@@ -2320,7 +2321,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		double totalScore = 0;
 		double totalCount = 0;
 		for (String s:str) {
-			double val = BeanUtil.getDoubleValue(this, s+quarter);
+			double val = BeanUtil.getDoubleValue(this, BeanUtil.concat(s,quarter));
 			if (val>0) {
 				totalScore += val;
 				totalCount++;

@@ -16,6 +16,7 @@ import service.ReturnStruct;
 import util.DBClient;
 import util.DataUtil;
 import util.DateUtil;
+import util.Log;
 import util.PerfUtil;
 import bean.Services;
 import bean.accounting.Payment;
@@ -34,13 +35,13 @@ public class SurChargeService extends TimerTask implements IService {
 	}
 
 	public void run() {
-		System.out.println("SURCHARGE PROCESS..."+DateUtil.getHour()+" - "+constants.Constants.useDate);		
+		Log.out("SURCHARGE PROCESS...",DateUtil.getHour()," - ",constants.Constants.useDate);		
 		if (DateUtil.getHour()==getHour()) {
 			constants.Constants.useDate = new Date();
 			process();
 		}
 		else {
-			System.out.println("SURCHARGE RUN ONLY AT "+getHour()+" am");		
+			Log.out("SURCHARGE RUN ONLY AT ",getHour()," am");		
 		}
 	}
 
@@ -51,11 +52,11 @@ public class SurChargeService extends TimerTask implements IService {
 
 	public ReturnStruct callService(ParamStruct param) {
 		if (serviceRunning) {
-			System.out.println("SURCHARGE SERVICE IS ALREADY RUNNING."+" - "+constants.Constants.useDate);
+			Log.out("SURCHARGE SERVICE IS ALREADY RUNNING."," - ",constants.Constants.useDate);
 			return null;
 		}
 		if (AAAConfig.server) {
-			System.out.println("SURCHARGE SERVICE CALLED."+" - "+constants.Constants.useDate);
+			Log.out("SURCHARGE SERVICE CALLED."," - ",constants.Constants.useDate);
 ////			every hour
 			Timer timer = new Timer();
 			timer.scheduleAtFixedRate(this, 1000*10, 1000 * 60 * 60);
@@ -66,16 +67,16 @@ public class SurChargeService extends TimerTask implements IService {
 	}
 	
 	private void process2() {
-//		System.out.println("SURCHARGE PROCESS..."+DateUtil.getIntTime());
+//		Log.out("SURCHARGE PROCESS...",DateUtil.getIntTime());
 	}
 	
 	protected void process() {
 		if (isRunning) {
-			System.out.println("SURCHARGE PROCESS STILL RUNNING..."+DateUtil.getIntTime()+" - "+constants.Constants.useDate);
+			Log.out("SURCHARGE PROCESS STILL RUNNING...",DateUtil.getIntTime()," - ",constants.Constants.useDate);
 			return;
 		}
 		isRunning = true;
-		System.out.println("SURCHARGE PROCESS..."+DateUtil.getIntTime()+" - "+constants.Constants.useDate);
+		Log.out("SURCHARGE PROCESS...",DateUtil.getIntTime()," - ",constants.Constants.useDate);
 		PerfUtil perf = new PerfUtil("Clean Up Surcharge Resources");
 		perf.start();
 		AAAConfig.getInstance();
@@ -105,7 +106,7 @@ public class SurChargeService extends TimerTask implements IService {
 		    	p.surchargeBalance = p.surcharge - p.discountSurcharge - p.surchargePaid;
 				p.overallAmountDue = p.overallBalance + p.surchargeBalance;
 				p.save();
-				System.out.println(DateUtil.formatDate(tmp)+"\t"+count+"\t"+p.paymentFor+"\t\t"+DataUtil.getMoneyFormat(p.balance)+"\t\t"+DataUtil.getMoneyFormat(p.surcharge)+"\t\t"+DataUtil.getMoneyFormat(p.surchargePaid)+"\t\t"+DataUtil.getMoneyFormat(p.surchargeBalance)+"\t"+p.payer);
+				Log.out(DateUtil.formatDate(tmp),"\t",count,"\t",p.paymentFor,"\t\t",DataUtil.getMoneyFormat(p.balance),"\t\t",DataUtil.getMoneyFormat(p.surcharge),"\t\t",DataUtil.getMoneyFormat(p.surchargePaid),"\t\t",DataUtil.getMoneyFormat(p.surchargeBalance),"\t",p.payer);
 			}
 			catch (Exception e) {
 			}

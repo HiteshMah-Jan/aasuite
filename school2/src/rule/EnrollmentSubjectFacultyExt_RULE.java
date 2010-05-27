@@ -50,10 +50,10 @@ public class EnrollmentSubjectFacultyExt_RULE extends BusinessRuleWrapper {
 //        //computation for all records
 //        Schedule sc = (Schedule) TransactionPanel.getCurrentPanel().getBean();
 //        //get all the records under this schedule
-//        List<StudentSubject> lst = sc.selectListCache("SELECT a FROM StudentSubject a WHERE a.scheduleId="+sc.seq);
+//        List<StudentSubject> lst = sc.selectListCache("SELECT a FROM StudentSubject a WHERE a.scheduleId=",sc.seq);
 //        for (StudentSubject sub : lst) {
-//            System.out.println("SUBJECT "+sub.subject+" STUDENT="+sub.getStudent());
-//            List<EnrolledSubjectDetailGrading> tmp = sub.list("SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId="+sub.getSeq());
+//            Log.out("SUBJECT ",sub.subject," STUDENT=",sub.getStudent());
+//            List<EnrolledSubjectDetailGrading> tmp = sub.list("SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId=",sub.getSeq());
 //            sub.grade1 = calculate(tmp, "1");
 //            sub.grade2 = calculate(tmp, "2");
 //            sub.grade3 = calculate(tmp, "3");
@@ -78,7 +78,7 @@ public class EnrollmentSubjectFacultyExt_RULE extends BusinessRuleWrapper {
 //            double percentage = det.percentage;
 //            double grade = det.grade;
 //            det.gradeShare = (int)(grade * (percentage/100));
-//            System.out.println("GRADE for "+det.name+" = "+grade+":"+percentage+" -> "+det.gradeShare);
+//            Log.out("GRADE for ",det.name," = ",grade,":",percentage," -> ",det.gradeShare);
 //            totalGrade += det.gradeShare;
 //        }
 //        DBClient.persistBean((List)tmp);
@@ -93,9 +93,9 @@ public class EnrollmentSubjectFacultyExt_RULE extends BusinessRuleWrapper {
 //            return;
 //        }
 //        //do not get from cache
-//        boolean b = subject.recordExist("SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId="+subject.getSeq()+" AND a.period="+period);
+//        boolean b = subject.recordExist("SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId=",subject.getSeq()," AND a.period=",period);
 //        if (!b) {
-//            List<SubjectDetailGrading> lst = subject.selectListCache("SELECT a FROM SubjectDetailGrading a WHERE a.subjectCode='"+subject.subject+"'");
+//            List<SubjectDetailGrading> lst = subject.selectListCache("SELECT a FROM SubjectDetailGrading a WHERE a.subjectCode='",subject.subject,"'");
 //            if (lst!=null) {
 //                for (SubjectDetailGrading sub : lst) {
 //                    EnrolledSubjectDetailGrading e = new EnrolledSubjectDetailGrading();
@@ -108,7 +108,7 @@ public class EnrollmentSubjectFacultyExt_RULE extends BusinessRuleWrapper {
 //                }
 //            }
 //        }
-//        PopupPanel pnl = PopupPanel.getPanel("EnrolledSubjectDetailGrading", "SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId="+subject.getSeq()+" AND a.period="+period);
+//        PopupPanel pnl = PopupPanel.getPanel("EnrolledSubjectDetailGrading", "SELECT a FROM EnrolledSubjectDetailGrading a WHERE a.enrollmentSubjectId=",subject.getSeq()," AND a.period=",period);
 //        pnl.pnl.hideSearchCriteria();
 //        pnl.pack();
 //        pnl.setVisible(true);

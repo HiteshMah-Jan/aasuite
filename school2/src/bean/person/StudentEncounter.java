@@ -170,7 +170,7 @@ public class StudentEncounter extends AbstractIBean implements Serializable {
 
     @Override
 	public void save() {
-        Student stud = (Student) firstRecord("SELECT a FROM Student a WHERE a.personId="+studentId);
+        Student stud = (Student) firstRecord("SELECT a FROM Student a WHERE a.personId=",studentId);
         if (stud!=null) studentName = stud.toString();
 		super.save();
 	}

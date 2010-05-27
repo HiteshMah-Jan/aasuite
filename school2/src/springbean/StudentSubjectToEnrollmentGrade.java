@@ -2,8 +2,10 @@ package springbean;
 
 import java.util.List;
 
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import bean.Enrollment;
 import bean.person.StudentSubject;
 import bean.reference.Subject;
@@ -191,12 +193,12 @@ public class StudentSubjectToEnrollmentGrade {
 		for (StudentSubject s:l) {
 			Subject subject = getSubject(s.subject);
 			if (subject == null) {
-				System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+				Log.out("NULL SUBJECT == ",s.subject," -> ",s.studentName);
 			}
 			if (subject != null && subject.unit>0) {
 				if (s.grade1>60) {
 					totalUnits1 += subject.unit;
-					System.out.println(e.student + " - " + e.gpa1+":"+e.gpa2+":"+e.gpa3+":"+e.gpa4);
+					Log.out(e.student + " - " + e.gpa1,":",e.gpa2,":",e.gpa3,":",e.gpa4);
 					totalGPA1 += ((int) (s.grade1+.5)) * subject.unit;
 				}
 				if (s.grade2>60) {
@@ -227,7 +229,7 @@ public class StudentSubjectToEnrollmentGrade {
 			for (StudentSubject s:l) {
 				Subject subject = getSubject(s.subject);
 				if (subject == null) {
-					System.out.println("NULL SUBJECT == "+s.subject+" -> "+s.studentName);
+					Log.out("NULL SUBJECT == ",s.subject," -> ",s.studentName);
 				}
 				if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
 			        String mysub = s.subject.toUpperCase();
@@ -235,23 +237,23 @@ public class StudentSubjectToEnrollmentGrade {
 			        mysub = mysub.replaceAll("MK", "");
 					if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
 //						this is mapeh, which is causing the discrepancy
-						System.out.println("MAPEH SUBJECT " + s.subject);
+						Log.out("MAPEH SUBJECT " + s.subject);
 						continue;
 					}
 				}
 				if (subject != null && subject.unit>0) {
 					totalUnits += subject.unit;
 					totalGPAFinal += s.finalRating * subject.unit;
-					System.out.println(subject.code+"\t"+s.finalRating+"\t"+subject.unit);
+					Log.out(subject.code,"\t",s.finalRating,"\t",subject.unit);
 				}
 			}
 			if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
 				double totalMapehUnit = getMapehUnit(l);
 				totalGPAFinal += e.qallMAPEH * totalMapehUnit;
 				totalUnits += totalMapehUnit;
-				System.out.println("MAPEH\t"+e.qallMAPEH+"\t"+totalMapehUnit);
+				Log.out("MAPEH\t",e.qallMAPEH,"\t",totalMapehUnit);
 			}
-			System.out.println(e.student+"\t"+totalGPAFinal+"\t/"+totalUnits+"\t="+(totalGPAFinal / totalUnits));
+			Log.out(e.student,"\t",totalGPAFinal,"\t/",totalUnits,"\t=",(totalGPAFinal / totalUnits));
 			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 		}
 	}
@@ -274,10 +276,10 @@ public class StudentSubjectToEnrollmentGrade {
 	
 	public Enrollment setupEnrollmentGrade(StudentSubject subject, Enrollment e, int quarter) {
         if (e == null || e.studentId!=subject.studentId) {
-        	System.out.println("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT "+subject.studentName+".");
+        	Log.out("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT ",subject.studentName,".");
         	return e;
         }
-		List<StudentSubject> allStudSubjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.schoolYear='"+e.schoolYear+"' AND a.gradeLevel='"+e.gradeLevel+"' AND a.studentId="+e.studentId);
+		List<StudentSubject> allStudSubjects = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.schoolYear='",e.schoolYear,"' AND a.gradeLevel='",e.gradeLevel,"' AND a.studentId=",e.studentId));
 		putAllMapeh(e, allStudSubjects);
 		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);
@@ -286,7 +288,7 @@ public class StudentSubjectToEnrollmentGrade {
         String mysub = subject.subject.toUpperCase();
         mysub = mysub.replaceAll("MAPEH", "");
         mysub = mysub.replaceAll("MK", "");
-    	System.out.println(mysub);
+    	Log.out(mysub);
         if (mysub.contains("ENGLISH3") || mysub.contains("ENGLISHC")) {
         	setGrades(e, subject, "English3", quarter);
         }

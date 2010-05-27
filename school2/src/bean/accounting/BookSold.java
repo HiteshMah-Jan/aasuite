@@ -132,7 +132,7 @@ public class BookSold extends AbstractIBean {
     public BookSold() {
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR()+"";
+//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
         orType = "N";
         schoolYear = springbean.SchoolConfig.getSchoolYear();
     }
@@ -143,14 +143,14 @@ public class BookSold extends AbstractIBean {
 //        setup complete description
         StringBuffer sb = new StringBuffer();
         for (int i=1; i<=20; i++) {
-            Object obj = BeanUtil.getPropertyValue(this, "book"+i);
+            Object obj = BeanUtil.getPropertyValue(this, BeanUtil.concat("book",i));
             BookSaleRef ref = (BookSaleRef) BookSaleRef.extractObject(BookSaleRef.class.getSimpleName(), obj.toString());
             if (ref!=null && !ref.isEmptyKey() && ref.title!=null && !ref.title.isEmpty()) {
                 sb.append(ref.title).append(", ");
             }
         }
         if (this.isCompleteSet()) {
-        	completeDesc = "1 SET BOOK - "+gradeLevelDesc();
+        	completeDesc = BeanUtil.concat("1 SET BOOK - ",gradeLevelDesc());
         }
         else {
             completeDesc = sb.toString().trim();
@@ -1030,7 +1030,7 @@ public class BookSold extends AbstractIBean {
             inv.payer = payer;
             Person cust = Person.extractObject(personId);
             if (cust != null) {
-                inv.billTo = cust.personId+"";
+                inv.billTo = BeanUtil.concat(cust.personId,"");
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
@@ -1050,8 +1050,8 @@ public class BookSold extends AbstractIBean {
             invoiceId = inv.seq;
             save();
             for (int i=1; i<=20; i++) {
-                Object obj = BeanUtil.getPropertyValue(this, "book"+i);
-                double d = BeanUtil.getDoubleValue(this, "bookAmount"+i);
+                Object obj = BeanUtil.getPropertyValue(this, BeanUtil.concat("book",i));
+                double d = BeanUtil.getDoubleValue(this, BeanUtil.concat("bookAmount",i));
                 if (obj==null) continue;
                 OtherPaymentReference ref = (OtherPaymentReference) OtherPaymentReference.extractObject(OtherPaymentReference.class.getSimpleName(), obj.toString());
                 if (ref!=null && !ref.isEmptyKey() && d>0) {
@@ -1064,7 +1064,7 @@ public class BookSold extends AbstractIBean {
             }
         }
         else {
-            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=" + this.invoiceId);
+            inv = (Invoice) AbstractIBean.firstRecord("SELECT a FROM Invoice a WHERE a.seq=" , this.invoiceId);
         }
         return inv;
     }
@@ -1075,7 +1075,7 @@ public class BookSold extends AbstractIBean {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(invoiceId+"", map);
+        ins.getReportParameter(BeanUtil.concat(invoiceId,""), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }
@@ -1105,7 +1105,7 @@ public class BookSold extends AbstractIBean {
     }
 
     public Student extractStudent() {
-        return (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId="+personId);
+        return (Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.personId=",personId);
     }
     public double extractTotalCheckAmount() {
         return

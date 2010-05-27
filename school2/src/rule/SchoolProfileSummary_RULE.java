@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 import bean.reference.SchoolProfileSummary;
 
@@ -18,7 +19,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 
 	@Override
 	public void runOnClick(JComponent comp) {
-		System.out.println("PROFILE");
+		Log.out("PROFILE");
 		if ("btnExtractEnrollment".equals(comp.getName())) {
 			SchoolProfileSummary sum = (SchoolProfileSummary) this.getBean();
 			extractAgeProfile(sum);
@@ -39,12 +40,12 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 			}
 			int count = DataUtil.getIntValue(l.get(2).toString());
 			if ("FEMALE".equals(gender)) {
-				String f = "pre"+age+"Male";
+				String f = BeanUtil.concat("pre",age,"Male");
 				sum.changeValue(f, 0);
 				sum.changeValue(f, 0);
 			}
 			else {
-				String f = "pre"+age+"Female";
+				String f = BeanUtil.concat("pre",age,"Female");
 				sum.changeValue(f, 0);
 				sum.changeValue(f, 0);
 			}
@@ -59,13 +60,13 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 			}
 			int count = DataUtil.getIntValue(l.get(2).toString());
 			if ("FEMALE".equals(gender)) {
-				String f = "pre"+age+"Male";
+				String f = BeanUtil.concat("pre",age,"Male");
 				int val = DataUtil.getIntValue(BeanUtil.getPropertyValue(sum, f));
 				sum.changeValue(f, count+val);
 				sum.changeValue(f, count+val);
 			}
 			else {
-				String f = "pre"+age+"Female";
+				String f = BeanUtil.concat("pre",age,"Female");
 				int val = DataUtil.getIntValue(BeanUtil.getPropertyValue(sum, f));
 				sum.changeValue(f, count+val);
 				sum.changeValue(f, count+val);
@@ -83,12 +84,12 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 				continue;
 			}
 			if ("FEMALE".equals(gender)) {
-				String f = grade.toLowerCase()+age+"Male";
+				String f = BeanUtil.concat(grade.toLowerCase()+age,"Male");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}
 			else {
-				String f = grade.toLowerCase()+age+"Female";
+				String f = BeanUtil.concat(grade.toLowerCase()+age,"Female");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}
@@ -120,12 +121,12 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 				continue;
 			}
 			if ("FEMALE".equals(gender)) {
-				String f = grade.toLowerCase()+"Male";
+				String f = BeanUtil.concat(grade.toLowerCase(),"Male");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}
 			else {
-				String f = grade.toLowerCase()+"Female";
+				String f = BeanUtil.concat(grade.toLowerCase(),"Female");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}
@@ -138,7 +139,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = "pre";
 			String gender = l.get(0).toString();
-			String addStatus = l.get(1)+"";
+			String addStatus = BeanUtil.concat(l.get(1),"");
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}
@@ -161,12 +162,12 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 				continue;
 			}
 			if ("FEMALE".equals(gender)) {
-				String f = grade+addStatus+"Male";
+				String f = BeanUtil.concat(grade+addStatus,"Male");
 				sum.changeValue(f, 0);
 				sum.changeValue(f, 0);
 			}
 			else {
-				String f = grade+addStatus+"Female";
+				String f = BeanUtil.concat(grade+addStatus,"Female");
 				sum.changeValue(f, 0);
 				sum.changeValue(f, 0);
 			}
@@ -176,7 +177,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = "pre";
 			String gender = l.get(0).toString();
-			String addStatus = l.get(1)+"";
+			String addStatus = BeanUtil.concat(l.get(1),"");
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}
@@ -200,13 +201,13 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 			}
 			int count = DataUtil.getIntValue(l.get(2).toString());
 			if ("FEMALE".equals(gender)) {
-				String f = grade+addStatus+"Male";
+				String f = BeanUtil.concat(grade+addStatus,"Male");
 				int val = DataUtil.getIntValue(BeanUtil.getPropertyValue(sum, f));
 				sum.changeValue(f, count+val);
 				sum.changeValue(f, count+val);
 			}
 			else {
-				String f = grade+addStatus+"Female";
+				String f = BeanUtil.concat(grade+addStatus,"Female");
 				int val = DataUtil.getIntValue(BeanUtil.getPropertyValue(sum, f));
 				sum.changeValue(f, count+val);
 				sum.changeValue(f, count+val);
@@ -218,7 +219,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = l.get(0).toString();
 			String gender = l.get(1).toString();
-			String addStatus = l.get(2)+"";
+			String addStatus = BeanUtil.concat(l.get(2),"");
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}
@@ -230,8 +231,8 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 			}
 			else if (addStatus.toUpperCase().contains("MUSL")) {
 				addStatus = "Muslim";
-				String f = grade.toLowerCase()+addStatus+"Male";
-				System.out.println("MUSLIM CALLED - "+f);
+				String f = BeanUtil.concat(grade.toLowerCase()+addStatus,"Male");
+				Log.out("MUSLIM CALLED - ",f);
 			}
 			else if (addStatus.toUpperCase().contains("REPE")) {
 				addStatus = "Repeat";
@@ -247,12 +248,12 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 				continue;
 			}
 			if ("FEMALE".equals(gender)) {
-				String f = grade.toLowerCase()+addStatus+"Male";
+				String f = BeanUtil.concat(grade.toLowerCase()+addStatus,"Male");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}
 			else {
-				String f = grade.toLowerCase()+addStatus+"Female";
+				String f = BeanUtil.concat(grade.toLowerCase()+addStatus,"Female");
 				sum.changeValue(f, count);
 				sum.changeValue(f, count);
 			}

@@ -7,6 +7,7 @@ package sms.service;
 
 import bean.admin.AppConfig;
 import bean.admin.SMSMessageBean;
+import util.BeanUtil;
 import util.DBClient;
 
 /**
@@ -30,7 +31,7 @@ public class EVT extends AbstractSMSProcessor {
 
         this.bean.code1 = code;
         //check if this has been sent already
-        String sql = "SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='"+this.bean.phoneNumber+"'";
+        String sql = BeanUtil.concat("SELECT a FROM SMSMessageBean a WHERE a.phoneNumber='",this.bean.phoneNumber,"'");
         this.bean = (SMSMessageBean) DBClient.getFirstRecord(sql);
         this.bean.save();
         //this may acknowledge the message

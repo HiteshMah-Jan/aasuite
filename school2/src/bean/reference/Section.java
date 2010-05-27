@@ -31,6 +31,7 @@ import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePage;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Employee;
@@ -177,7 +178,7 @@ public class Section extends AbstractIBean implements Serializable {
     		return;
     	}
         if (facultyId>0) {
-            EmployeeFaculty f = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId="+facultyId);
+            EmployeeFaculty f = (EmployeeFaculty) AbstractIBean.firstRecord("SELECT a FROM EmployeeFaculty a WHERE a.personId=",facultyId);
             if (f==null) faculty = "";
             else faculty = f.toString();
         }
@@ -188,7 +189,7 @@ public class Section extends AbstractIBean implements Serializable {
 			public void run() {
 				if (UserInfo.canModifyReference()) {
 //		    		get all values grades
-		    		DBClient.runSQLNative("UPDATE StudentValuesGrading SET facultyId="+facultyId+", faculty='"+faculty+"' WHERE section='"+code+"' AND schoolYear='"+AppConfig.getSchoolYear()+"'");
+		    		DBClient.runSQLNative("UPDATE StudentValuesGrading SET facultyId=",facultyId,", faculty='",faculty,"' WHERE section='",code,"' AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    	}
 			}
 		});
@@ -256,7 +257,7 @@ public class Section extends AbstractIBean implements Serializable {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return gradeLevel+" - "+code;
+        return BeanUtil.concat(gradeLevel," - ",code);
     }
 
     public static Section createSectionObj(String section, String gradeLevel, int facultyId) {

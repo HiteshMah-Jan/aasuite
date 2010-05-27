@@ -11,8 +11,10 @@ import springbean.GradingProcess;
 import springbean.MultiSavingGradeService;
 import springbean.SchoolDefaultProcess;
 import template.screen.AbstractChildTemplatePanel;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
+import util.Log;
 import util.PanelUtil;
 import util.ThreadPoolUtil;
 import bean.Schedule;
@@ -101,26 +103,26 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		String level = PanelUtil.showPromptDefaultMessage(null, "Please type grade level", "G1");
 		List<String> l = new ArrayList<String>();
 		List<FacultyGradingTask> filtered = new ArrayList<FacultyGradingTask>();
-		List<FacultyGradingTask> alltask = DBClient.getList("SELECT a FROM FacultyGradingTask a WHERE a.gradeLevel='"+level+"' ORDER BY a.faculty, a.section, a.subject",0,5000);
+		List<FacultyGradingTask> alltask = DBClient.getList(BeanUtil.concat("SELECT a FROM FacultyGradingTask a WHERE a.gradeLevel='",level,"' ORDER BY a.faculty, a.section, a.subject"),0,5000);
 		if (alltask == null || alltask.isEmpty()) {
 			PanelUtil.showError(null, "Task not found.");
 			return;
 		}
 		for (FacultyGradingTask task:alltask) {
 			if (task != null && task.weight > 0) {
-				String s = task.faculty + task.gradeLevel + task.section + task.subject;
+				String s = BeanUtil.concat(task.faculty,task.gradeLevel,task.section,task.subject);
 				if (l.contains(s)) {
 					continue;
 				}
 				l.add(s);
 				filtered.add(task);
-				System.out.println(task.faculty+"\t"+task.gradeLevel+"\t"+task.section+"\t"+task.subject);
+				Log.out(task.faculty,"\t",task.gradeLevel,"\t",task.section,"\t",task.subject);
 			}
 		}
-		System.out.println("Total task count = "+filtered.size());
+		Log.out("Total task count = ",filtered.size());
 		for (FacultyGradingTask task:filtered) {
 			if (task != null && task.weight > 0) {
-				System.out.println("RECALCULATE");
+				Log.out("RECALCULATE");
 				ThreadPoolUtil.execute(new newThread(task, quarter));
 				try {
 					Thread.currentThread().sleep(1000);
@@ -143,10 +145,10 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		
 		@Override
 		public void run() {
-			System.out.println("RECALCULATE");
-			List<StudentSubjectDetailGrading> tlist = DBClient.getList("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId="+task.seq,0,500);
+			Log.out("RECALCULATE");
+			List<StudentSubjectDetailGrading> tlist = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId=",task.seq),0,500);
 			if (tlist != null && tlist.size() > 0) {
-				PanelUtil.showWaitFrame("Recalculating grades ["+task.faculty+"-"+task.section+"-"+task.subject+"-"+task.component+"], please wait...");
+				PanelUtil.showWaitFrame("Recalculating grades [",task.faculty,"-",task.section,"-",task.subject,"-",task.component,"], please wait...");
 				MultiSavingGradeService.calculateGrade(quarter, task, tlist);
 				PanelUtil.hideWaitFrame();
 			}
@@ -167,7 +169,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			b = PanelUtil.showPrompt(null, "Some students already have grade for 1st quarter. Continue to remove girls?");
 			if (b) {
 				FacultyGradingTask task = (FacultyGradingTask) this.getBean();
-				String sql = "DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId="+task.seq+" AND studentId IN (SELECT personId FROM Person WHERE gender='FEMALE')";
+				String sql = BeanUtil.concat("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId=",task.seq," AND studentId IN (SELECT personId FROM Person WHERE gender='FEMALE')");
 				DBClient.runSQLNative(sql);
 				redisplayRecord();
 			}
@@ -184,7 +186,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			b = PanelUtil.showPrompt(null, "Some students already have grade for 1st quarter. Continue to remove boys?");
 			if (b) {
 				FacultyGradingTask task = (FacultyGradingTask) this.getBean();
-				String sql = "DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId="+task.seq+" AND studentId IN (SELECT personId FROM Person WHERE gender='MALE')";
+				String sql = BeanUtil.concat("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId=",task.seq," AND studentId IN (SELECT personId FROM Person WHERE gender='MALE')");
 				DBClient.runSQLNative(sql);
 				redisplayRecord();
 			}
@@ -197,7 +199,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		if (b) {
 			b = PanelUtil.showPrompt(null, "Some students already have grade for 1st quarter, do you want to continue?");
 			if (b) {
-				DBClient.runSQLNative("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId="+task.seq);
+				DBClient.runSQLNative("DELETE FROM StudentSubjectDetailGrading WHERE facultyGradingTaskId=",task.seq);
 				task.delete();
 				refreshRecords();
 			}
@@ -216,7 +218,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			return;
 		}
 		PanelUtil.showWaitFrame("Recalculating grades, please wait...");
-		System.out.println("RECALCULATE");
+		Log.out("RECALCULATE");
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 		AbstractChildTemplatePanel tab = tabs.get(0);
 		
@@ -238,12 +240,12 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			return;
 		}
 		PanelUtil.showWaitFrame("Recalculating grades, please wait...");
-		System.out.println("RECALCULATE");
+		Log.out("RECALCULATE");
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 		AbstractChildTemplatePanel tab = tabs.get(0);
 		List lst = tab.list;
 
-		List<StudentSubject> subjects = AbstractIBean.listCache("SELECT a FROM StudentSubject a, StudentSubjectDetailGrading b WHERE a.studentId=b.studentId AND a.subject=b.subject AND a.subject='"+task.subject+"' AND b.facultyGradingTaskId="+task.seq);
+		List<StudentSubject> subjects = AbstractIBean.listCache(BeanUtil.concat("SELECT a FROM StudentSubject a, StudentSubjectDetailGrading b WHERE a.studentId=b.studentId AND a.subject=b.subject AND a.subject='",task.subject,"' AND b.facultyGradingTaskId=",task.seq));
 		for (Object obj:lst) {
 			if (obj instanceof StudentSubjectDetailGrading) {
 				StudentSubjectDetailGrading det = ((StudentSubjectDetailGrading)obj);
@@ -257,12 +259,12 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		}
 		task.save();
 		DBClient.persistBean(lst);
-		System.out.println("SAVE TASK11");
+		Log.out("SAVE TASK11");
 		
 		List allSubjects = new ArrayList();
 //		recalculate final grade
-		List shares = DBClient.getListNative("SELECT studentId, SUM(gradeShareQ"+quarter+") FROM StudentSubjectDetailGrading WHERE section='"+task.section+"' AND subject='"+task.subject+"' GROUP BY studentId");
-		System.out.println("SAVE TASK21"); 
+		List shares = DBClient.getListNative(BeanUtil.concat("SELECT studentId, SUM(gradeShareQ",quarter,") FROM StudentSubjectDetailGrading WHERE section='",task.section,"' AND subject='",task.subject,"' GROUP BY studentId"));
+		Log.out("SAVE TASK21"); 
 		for (Object obj:lst) {
 			if (obj instanceof StudentSubjectDetailGrading) {
 				StudentSubjectDetailGrading det = ((StudentSubjectDetailGrading) obj);
@@ -270,13 +272,13 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 				if (sub!=null) {
 //					get all the grades
 					double d = getGradeShareSum(shares, sub.studentId);
-					sub.changeValue("grade"+quarter, d); 
+					sub.changeValue(BeanUtil.concat("grade",quarter), d); 
 					allSubjects.add(sub);
 				}
 			}
 		}
 		DBClient.persistBean(allSubjects);
-		System.out.println("SAVE SUBJECT GPA");
+		Log.out("SAVE SUBJECT GPA");
 
 //		recalculate final grade
 		ThreadPoolUtil.execute(new GradingProcess(task.schoolYear, task.section, quarter));
@@ -292,7 +294,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 				s.section = det.section;
 				s.schoolYear = det.schoolYear;
 				s.facultyId = det.facultyId;
-				System.out.println("SIZE = "+subjects.size()+" "+s.studentName+" - "+s.subject);
+				Log.out("SIZE = ",subjects.size()," ",s.studentName," - ",s.subject);
 				return s;
 			}
 		}
@@ -338,7 +340,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			PanelUtil.showMessage(null, "Please select component.");
 			return;
 		}
-		SubjectGradingCriteria crit = (SubjectGradingCriteria) DBClient.getFirstRecord("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='"+t.subject+"' AND a.criteria='"+t.component+"'");
+		SubjectGradingCriteria crit = (SubjectGradingCriteria) DBClient.getFirstRecord("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='",t.subject,"' AND a.criteria='",t.component,"'");
 		if (crit!=null) {
 			t.weight= crit.percentage;
 			t.save();
@@ -347,10 +349,10 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		List all = new ArrayList();
 //		select all student from section
 		SchoolDefaultProcess proc = new SchoolDefaultProcess();
-		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='"+t.section+"'");
+		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='",t.section,"'");
 		Section sec = (Section) Section.extractObject(Section.class.getSimpleName(), t.section);
 		GradeLevel lvl = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), sec.gradeLevel);
-		Schedule sched = (Schedule) Schedule.extractObject(Schedule.class.getSimpleName(), t.scheduleId+"");
+		Schedule sched = (Schedule) Schedule.extractObject(Schedule.class.getSimpleName(), BeanUtil.concat(t.scheduleId,""));
 		sched.boysAndGirls += "";
 		for (Student stud:lstStud) {
 //			check if already exist
@@ -373,7 +375,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			}
 			
 //			select subject of student
-			StudentSubject sub = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId="+stud.personId+" AND a.subject='"+t.subject+"'");
+			StudentSubject sub = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",stud.personId," AND a.subject='",t.subject,"'");
 			StudentSubjectDetailGrading det = new StudentSubjectDetailGrading();
 			if (sub==null) {
 				sub = new StudentSubject();
@@ -466,10 +468,10 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			if (t.gradeLevel==null) {
 				t.save();
 			}
-			System.out.println("CHANGE RECORD 11 "+t.gradeLevel);
+			Log.out("CHANGE RECORD 11 ",t.gradeLevel);
 			boolean b = GradeLevel.checkLock(t.gradeLevel);
 			if (b) {
-				System.out.println("CHANGE RECORD 1122");
+				Log.out("CHANGE RECORD 1122");
 				disable("btnSaveAllScore1");
 				disable("btnSaveAllScore2");
 				disable("btnSaveAllScore3");
@@ -504,25 +506,25 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	}
 	
 	protected void lock(int quarter, boolean b) {
-		enable("q"+quarter+"ItemCount1",!b);
-		enable("q"+quarter+"ItemCount2",!b);
-		enable("q"+quarter+"ItemCount3",!b);
-		enable("q"+quarter+"ItemCount4",!b);
-		enable("q"+quarter+"ItemCount5",!b);
-		enable("q"+quarter+"ItemCount6",!b);
-		enable("q"+quarter+"ItemCount7",!b);
-		enable("q"+quarter+"ItemCount8",!b);
-		enable("q"+quarter+"ItemCount9",!b);
-		enable("q"+quarter+"ItemCount10",!b);
-		enable("q"+quarter+"ItemCount11",!b);
-		enable("q"+quarter+"ItemCount12",!b);
+		enable(!b, "q",quarter,"ItemCount1");
+		enable(!b, "q",quarter,"ItemCount2");
+		enable(!b, "q",quarter,"ItemCount3");
+		enable(!b, "q",quarter,"ItemCount4");
+		enable(!b, "q",quarter,"ItemCount5");
+		enable(!b, "q",quarter,"ItemCount6");
+		enable(!b, "q",quarter,"ItemCount7");
+		enable(!b, "q",quarter,"ItemCount8");
+		enable(!b, "q",quarter,"ItemCount9");
+		enable(!b, "q",quarter,"ItemCount10");
+		enable(!b, "q",quarter,"ItemCount11");
+		enable(!b, "q",quarter,"ItemCount12");
 		
-		enable("btnSaveAllScore"+quarter,!b);
+		enable(!b, "btnSaveAllScore",quarter);
 	}
 	
 	private static class RequestRun implements Runnable {
 		private List<SubjectGradingCriteria> getCriteria(String subject) {
-			List<SubjectGradingCriteria> crit = AbstractIBean.listCache("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='"+subject+"'");
+			List<SubjectGradingCriteria> crit = AbstractIBean.listCache(BeanUtil.concat("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='",subject,"'"));
 			return crit;
 		}
 
@@ -535,7 +537,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 				PanelUtil.hideWaitFrame();
 				return;
 			}
-//			System.out.println("SIZE = "+lstSched.size());
+//			Log.out("SIZE = ",lstSched.size());
 			for (Schedule sched:lstSched) {
 				if (sched.facultyId<=0) continue;
 				if (sched.section==null || sched.section.isEmpty()) continue;
@@ -546,12 +548,12 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		}
 		
 		private void createTaskBasedOnFaculty() {
-			List<Schedule> lstSched = AbstractIBean.listCache("SELECT a FROM Schedule a WHERE a.facultyId="+UserInfo.getPersonId());
+			List<Schedule> lstSched = AbstractIBean.listCache(BeanUtil.concat("SELECT a FROM Schedule a WHERE a.facultyId=",UserInfo.getPersonId()));
 			if (lstSched==null) {
 				PanelUtil.hideWaitFrame();
 				return;
 			}
-//			System.out.println("SIZE = "+lstSched.size());
+//			Log.out("SIZE = ",lstSched.size());
 			for (Schedule sched:lstSched) {
 				if (sched.facultyId<=0) continue;
 				if (sched.section==null || sched.section.isEmpty()) continue;

@@ -249,7 +249,7 @@ public class CourseTotalDays extends AbstractIBean implements Serializable {
 	public static CourseTotalDays extractTotalCourseDays(String course) {
 		CourseTotalDays d = map.get(course);
 		if (d==null) {
-			d = (CourseTotalDays) DBClient.getFirstRecord("SELECT a FROM CourseTotalDays a WHERE a.course='"+course+"'");
+			d = (CourseTotalDays) DBClient.getFirstRecord("SELECT a FROM CourseTotalDays a WHERE a.course='",course,"'");
 			if (d==null || d.isEmptyKey()) {
 				d = new CourseTotalDays();
 				d.course = course;
@@ -266,9 +266,9 @@ public class CourseTotalDays extends AbstractIBean implements Serializable {
 		CourseTotalDays d = map.get(gradeLevel);
 //		map.clear();
 		if (d==null) {
-			d = (CourseTotalDays) DBClient.getFirstRecord("SELECT a FROM CourseTotalDays a, GradeLevel b WHERE a.course=b.course AND b.code='"+gradeLevel+"'");
+			d = (CourseTotalDays) DBClient.getFirstRecord("SELECT a FROM CourseTotalDays a, GradeLevel b WHERE a.course=b.course AND b.code='",gradeLevel,"'");
 			if (d==null || d.isEmptyKey()) {
-				Course c = (Course) DBClient.getFirstRecord("SELECT a FROM Course a, GradeLevel b WHERE a.code=b.course AND b.code='"+gradeLevel+"'");
+				Course c = (Course) DBClient.getFirstRecord("SELECT a FROM Course a, GradeLevel b WHERE a.code=b.course AND b.code='",gradeLevel,"'");
 				d = new CourseTotalDays();
 				d.course = c.code;
 //				d.aug = 10;

@@ -156,7 +156,7 @@ public class AdmissionExamReference extends AbstractIBean implements Serializabl
     }
 
     public static void create(String sy, String grd) {
-        boolean b = DBClient.exist("SELECT a FROM AdmissionExamReference a WHERE a.schoolYear='"+sy+"' AND a.gradeLevel='"+grd+"'");
+        boolean b = DBClient.exist("SELECT a FROM AdmissionExamReference a WHERE a.schoolYear='",sy,"' AND a.gradeLevel='",grd,"'");
         if (b) return;
         
         AdmissionExamReference ref = new AdmissionExamReference();

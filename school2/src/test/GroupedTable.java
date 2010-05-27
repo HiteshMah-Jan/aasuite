@@ -20,6 +20,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableColumnModelEvent;
 import javax.swing.event.TableColumnModelListener;
+
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -116,7 +118,7 @@ public class GroupedTable extends javax.swing.JPanel {
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-        lbl.setText(total+"");
+        lbl.setText(BeanUtil.concat(total,""));
     }
     
     private JLabel getFooterLabel(int i) {
@@ -153,7 +155,7 @@ public class GroupedTable extends javax.swing.JPanel {
     }
     private boolean withSumFooter(int i) {
         if (sumFooter==null) return false;
-        return sumFooter.contains(i+"");
+        return sumFooter.contains(BeanUtil.concat(i,""));
     }
 
     /** Creates new form GroupedTable */
