@@ -25,6 +25,7 @@ import template.screen.ChildTemplateListOnly;
 import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 import bean.Employee;
 import bean.EmployeeFaculty;
@@ -141,7 +142,7 @@ import constants.UserInfo;
 	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}")
 })
 @ActionButtons({
-//    @ActionButton(name = "btnGenerateAllComponents", label = "Generate All Components"),
+    @ActionButton(name = "btnGenerateAllComponents", label = "Generate All Components"),
     @ActionButton(name = "btnGenerateTask", label = "Student Component Grade/Score"),
     @ActionButton(name = "btnSaveAllScore1", label = "Save All 1st Qtr."),
     @ActionButton(name = "btnSaveAllScore2", label = "2nd"),
@@ -805,6 +806,10 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
 	public void save() {
 		if (facultyId>0 && faculty==null) {
 			Person f = EmployeeFaculty.extractObject(facultyId);
+			if (f == null) {
+				Log.warning("Not a valid schedule to create task. ",this.toString());
+				return;
+			}
 			faculty = f.toString();
 		}
 		if (section!=null) {
