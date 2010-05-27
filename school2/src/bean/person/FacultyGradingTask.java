@@ -807,7 +807,7 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
 		if (facultyId>0 && faculty==null) {
 			Person f = EmployeeFaculty.extractObject(facultyId);
 			if (f == null) {
-				Log.warning("Not a valid schedule to create task. ",this.toString());
+				Log.warning("Not a valid schedule to create task. ",this.section,"-",this.subject);
 				return;
 			}
 			faculty = f.toString();
