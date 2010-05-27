@@ -590,7 +590,7 @@ public class PurchaseOrder_RULE extends BusinessRuleWrapper {
 				int quantity = (int) BeanUtil
 						.getDoubleValue(po, BeanUtil.concat("quantity",i));
 				if (quantity > 0) {
-					String str = BeanUtil.concat("UPDATE Product SET totalStock=totalStock+",quantity," WHERE code='",product,"'");
+					String str = BeanUtil.concat("UPDATE Product SET totalStock=totalStock,",quantity," WHERE code='",product,"'");
 					lst.add(str);
 
 					double amount = BeanUtil.getDoubleValue(po, BeanUtil.concat("amount",i));

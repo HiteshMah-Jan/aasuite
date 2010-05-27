@@ -27,6 +27,7 @@ import template.screen.TransactionPanel;
 import ui.cashier.IAcceptPaymentWindow;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -615,7 +616,7 @@ private void lblBusinessDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     }
     
     public void updateDrawer() {
-        System.out.println("UPDATE CASH DRAWER SERVER CALL");
+        Log.out("UPDATE CASH DRAWER SERVER CALL");
         CashDrawer d = CashDrawer.updateCashDrawer();
         pnlCashDrawer.setBean(d);
         lblBranchLabel.setText(d.branch);

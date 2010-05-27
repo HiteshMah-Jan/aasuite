@@ -17,6 +17,9 @@ import javax.media.*;
 import javax.media.protocol.*;
 import javax.media.control.*;
 import javax.media.format.*;
+
+import util.Log;
+
 import java.awt.*;
 import com.sun.media.controls.VFlowLayout; // Lays components one below the other
 import java.awt.event.*;
@@ -157,7 +160,7 @@ public class JVidCap extends Frame implements ItemListener, ActionListener {
 	    System.err.println(e);
 	}
 	processor.start();
-	System.out.println("Started saving...");
+	Log.out("Started saving...");
     }
 
     private void pauseCapture() {
@@ -181,7 +184,7 @@ public class JVidCap extends Frame implements ItemListener, ActionListener {
 	startMonitoring();
 	buttonStart.setLabel("Start");
 	enableComponents(true);
-	System.out.println("Done saving.");
+	Log.out("Done saving.");
     }
 
 

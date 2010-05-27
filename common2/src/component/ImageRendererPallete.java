@@ -589,7 +589,7 @@ private void pnlLargeImageMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
 private void pnlLargeImageMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLargeImageMouseMoved
     int x = evt.getX();
     int y = evt.getY();
-//    Logger.getLogger("global").log(Level.INFO, "MOUSE MOVED "+x+":"+y);
+//    Logger.getLogger("global").log(Level.INFO, "MOUSE MOVED ",x,":",y);
 }//GEN-LAST:event_pnlLargeImageMouseMoved
 
 private void pnlLargeImageMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLargeImageMouseReleased
@@ -627,7 +627,7 @@ private void pnlLargeImageMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FI
 private void pnlLargeImageMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlLargeImageMousePressed
     oldX = evt.getX();
     oldY = evt.getY();
-//    Logger.getLogger("global").log(Level.INFO, "MOUSE PRESSED "+oldX+":"+oldY);
+//    Logger.getLogger("global").log(Level.INFO, "MOUSE PRESSED ",oldX,":",oldY);
 }//GEN-LAST:event_pnlLargeImageMousePressed
 
 private void btnWalletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWalletActionPerformed

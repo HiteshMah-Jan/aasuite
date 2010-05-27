@@ -56,7 +56,7 @@ public class SimpleMail {
             // Open the folder
             javax.mail.Folder inbox = store.getFolder("INBOX");
             if (inbox == null) {
-                java.lang.System.out.println("No INBOX");
+                Log.out("No INBOX");
                 java.lang.System.exit(1);
             }
             inbox.open(javax.mail.Folder.READ_ONLY);

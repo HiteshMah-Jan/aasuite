@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import javax.media.*;
 import javax.media.format.*;
 import javax.media.protocol.*;
-import javax.media.protocol.DataSource;
 import javax.media.datasink.*;
 import java.util.Vector;
 
@@ -55,8 +54,8 @@ public class Merge implements ControllerListener, DataSinkListener {
             java.lang.String[] args = new java.lang.String[4];
             args[0] = "-o";
             args[1] = path.toURL().toString();
-            args[2] = "file:/"+constants.Constants.ROOT_FOLDER+"tmp/" + str + ".mov";
-            args[3] = "file:/"+constants.Constants.ROOT_FOLDER+"tmp/MicRecording.wav";
+            args[2] = BeanUtil.concat("file:/",constants.Constants.ROOT_FOLDER,"tmp/" + str + ".mov");
+            args[3] = BeanUtil.concat("file:/",constants.Constants.ROOT_FOLDER,"tmp/MicRecording.wav");
             parseArgs(args);
             if (sourcesURLs.size() < 2) {
                 java.lang.System.err.println("Need at least two source URLs");

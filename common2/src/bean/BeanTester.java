@@ -34,7 +34,7 @@ public class BeanTester {
 		entityManager.getTransaction().begin();
 		Query query = entityManager.createQuery("SELECT a FROM Awb a");
 		List lst = query.getResultList();
-//		System.out.println(lst.size());
+//		Log.out(lst.size());
 		entityManager.getTransaction().commit();
 		
 		entityManager.close();
@@ -56,7 +56,7 @@ public class BeanTester {
                 sb.deleteCharAt(sb.length()-1);
                 sb.deleteCharAt(sb.length()-1);
                 sb.append("\n})\n");
-//                System.out.println(sb.toString());
+//                Log.out(sb.toString());
                 int c = System.in.read();
             } catch (Exception ex) {
                 Logger.getLogger(BeanTester.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,7 +82,7 @@ public class BeanTester {
                 sb.deleteCharAt(sb.length()-1);
                 sb.deleteCharAt(sb.length()-1);
                 sb.append("\n})\n");
-//                System.out.println(sb.toString());
+//                Log.out(sb.toString());
             } catch (Exception ex) {
                 Logger.getLogger(BeanTester.class.getName()).log(Level.SEVERE, null, ex);
             }

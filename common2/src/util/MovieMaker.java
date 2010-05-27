@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import javax.media.*;
 import javax.media.control.*;
 import javax.media.protocol.*;
-import javax.media.protocol.DataSource;
 import javax.media.datasink.*;
 import javax.media.format.VideoFormat;
 import javax.media.util.ImageToBuffer;
@@ -71,7 +70,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
     }
 
     private Processor createProcessor(File outputFile, ImageDataSource ids) throws Exception {
-        System.out.println("- create processor for the image datasource ...");
+        Log.out("- create processor for the image datasource ...");
         Processor p = Manager.createProcessor(ids);
 
         p.addControllerListener(this);
@@ -110,7 +109,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
 
         tcs[0].setFormat(f[0]);
 
-        System.out.println("Setting the track format to: " + f[0]);
+        Log.out("Setting the track format to: " + f[0]);
 
         // We are done with programming the processor. Let's just
         // realize it.
@@ -128,7 +127,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
         dsink.addDataSinkListener(this);
         fileDone = false;
 
-        System.out.println("start processing...");
+        Log.out("start processing...");
 
         // OK, we can now start the actual transcoding.
         processor.start();
@@ -141,7 +140,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
         dsink.close();
         processor.removeControllerListener(this);
 
-        System.out.println("...done processing.");
+        Log.out("...done processing.");
     }
 
     /**
@@ -154,7 +153,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
             throw new IOException("processor does not have an output DataSource");
         }
 
-        System.out.println("- create DataSink for: " + outML);
+        Log.out("- create DataSink for: " + outML);
         DataSink dsink = Manager.createDataSink(ds, outML);
         dsink.open();
 
@@ -229,8 +228,8 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
     public static void writeAudioToFile(String filename) {
         try {
             stopAudioRecord();
-            File audioFile = new File(constants.Constants.ROOT_FOLDER+"tmp/MicRecording.wav");
-            audioFile.renameTo(new File(constants.Constants.ROOT_FOLDER+"tmp/"+filename+".wav"));
+            File audioFile = new File(BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/MicRecording.wav"));
+            audioFile.renameTo(new File(BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/",filename,".wav")));
         } catch (Exception ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
@@ -267,7 +266,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
                     AudioInputStream audioInStream = new javax.sound.sampled.AudioInputStream(targetDataLine);
 
                     // Create the output file
-                    java.io.File outputFile = new java.io.File(constants.Constants.ROOT_FOLDER+"tmp/MicRecording.wav");
+                    java.io.File outputFile = new java.io.File(constants.Constants.ROOT_FOLDER,"tmp/MicRecording.wav");
 
                     // ...
                     // Start acquisition from mic
@@ -416,7 +415,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
                 // Check if we've finished all the frames.
                 if (nextImage >= jpegFiles.length) {
                     // We are done. Set EndOfMedia.
-                    System.out.println("Done reading all images.");
+                    Log.out("Done reading all images.");
                     buf.setEOM(true);
                     buf.setOffset(0);
                     buf.setLength(0);
@@ -427,7 +426,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
                 File imageFile = jpegFiles[nextImage];
                 nextImage++;
 
-                System.out.println(" - reading image file: " + imageFile);
+                Log.out(" - reading image file: " + imageFile);
 
                 // Open a random access file for the next image.
                 RandomAccessFile raFile = new RandomAccessFile(imageFile, "r");
@@ -444,7 +443,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
                 // Read the entire JPEG image from the file.
                 raFile.readFully(data, 0, (int) raFile.length());
 
-                System.out.println(" read " + raFile.length() + " bytes.");
+                Log.out(" read " + raFile.length() + " bytes.");
 
                 // Bug fix for AVI files from Forums ( next 3 lines).
                 long time = (long) (seqNo * (1000 / videoFormat.getFrameRate()) * 1000000);
@@ -536,7 +535,7 @@ public class MovieMaker implements ControllerListener, DataSinkListener {
                 // Check if we've finished all the frames.
                 if (nextImage >= images.length) {
                     // We are done. Set EndOfMedia.
-                    System.out.println("Done reading all images.");
+                    Log.out("Done reading all images.");
                     buf.setEOM(true);
                     buf.setOffset(0);
                     buf.setLength(0);

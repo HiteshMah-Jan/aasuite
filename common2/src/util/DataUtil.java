@@ -326,26 +326,26 @@ public class DataUtil {
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-//		System.out.println(DataUtil.isBetween(1000, 2000, 1001));
-//		System.out.println(DataUtil.isBetween(1000, 2000, 1000));
-//		System.out.println(DataUtil.isBetween(1000, 2000, 999));
-//		System.out.println(DataUtil.isBetween(1000, 2000, 2001));
+//		Log.out(DataUtil.isBetween(1000, 2000, 1001));
+//		Log.out(DataUtil.isBetween(1000, 2000, 1000));
+//		Log.out(DataUtil.isBetween(1000, 2000, 999));
+//		Log.out(DataUtil.isBetween(1000, 2000, 2001));
 		
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 2000, 2002));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 998, 1000));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 2001, 2002));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 998, 999));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 2000, 2002));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 998, 1000));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 2001, 2002));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 998, 999));
 		
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 999, 2001));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 999, 2000));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 1001, 1500));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 1000, 2000));
-		System.out.println(DataUtil.isIntersecting(1000, 2000, 1001, 1999));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 999, 2001));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 999, 2000));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 1001, 1500));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 1000, 2000));
+		Log.out(DataUtil.isIntersecting(1000, 2000, 1001, 1999));
 
-		System.out.println(getMoneyFormat(3.995));
-		System.out.println(getMoneyFormat(3.99));
-		System.out.println(getMoneyFormat(3.994));
-		System.out.println(getMoneyFormat(3.996));
+		Log.out(getMoneyFormat(3.995));
+		Log.out(getMoneyFormat(3.99));
+		Log.out(getMoneyFormat(3.994));
+		Log.out(getMoneyFormat(3.996));
 		splitString("THIS IS A TEST, THIS IS A TEST, THIS IS A TEST", 3, 2, 5,
 				2, 3);
 		splitString("THIS IS A TEST", 3, 2, 5, 2, 3);
@@ -566,7 +566,7 @@ public class DataUtil {
 															.getDefaultToolkit()
 															.getScreenSize()));
 									screenBytes = ImageUtil.getImageBytes(img);
-									// System.out.println("SCREEN SIZE == " +
+									// Log.out("SCREEN SIZE == " +
 									// screenBytes.length);
 									long newTime = (new Date()).getTime();
 									totalTime = (int) ((newTime - time) + timeMilli);
@@ -579,7 +579,7 @@ public class DataUtil {
 															.getDefaultToolkit()
 															.getScreenSize()));
 									screenBytes = ImageUtil.getImageBytes(img);
-									// System.out.println("SCREEN SIZE == " +
+									// Log.out("SCREEN SIZE == " +
 									// screenBytes.length);
 								}
 								java.lang.Thread.currentThread().sleep(
@@ -659,7 +659,7 @@ public class DataUtil {
 
 			File f = new File(constants.Constants.ROOT_FOLDER + resource);
 			String str = directory + "/" + f.getName();
-			// System.out.println("STR === "+str);
+			// Log.out("STR === ",str);
 			f = new File(str);
 			if (!f.exists()) {
 				writeToFile(is, f);

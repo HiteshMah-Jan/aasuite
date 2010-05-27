@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -47,7 +49,7 @@ public class JActiveMenuPallete extends JMenu {
             this.resetAllTitle();
             return this.getMenu(activePanel);
         } else {
-            System.out.println("Only JActiveMenuItemPallete class can be added to this menu");
+            Log.out("Only JActiveMenuItemPallete class can be added to this menu");
             return null;
         }
     }

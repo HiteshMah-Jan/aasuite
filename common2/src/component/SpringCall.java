@@ -102,7 +102,7 @@ public abstract class SpringCall {
 					}
 				}
 			}
-		System.out.println("TEST");
+		Log.out("TEST");
     }
 
 }

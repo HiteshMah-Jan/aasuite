@@ -510,7 +510,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 		                    }
 		                    else {
 		                        pnl.pnlCriteria.setToolTipText(BeanUtil.concat(pnl.currentClass.getSimpleName()," - ",pnl.currentObject.keyVal()));
-		                        System.out.println(pnl.getToolTipText());
+		                        Log.out(pnl.getToolTipText());
 		                    }
 						}
                     });
@@ -657,7 +657,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 String text = ((IGetText) comp).getText();
                 if (text!=null && !text.trim().isEmpty()) {
                 	if ("searchStr".equalsIgnoreCase(fieldSearch.field.getName())) {
-                		System.out.println("USING searchStr field, search will insert '%' before the string.");
+                		Log.out("USING searchStr field, search will insert '%' before the string.");
                         lst.add(createCriteriaEntry(fieldSearch.field, boxEqual.getSelectedItem().toString(), BeanUtil.concat("%",text)));
                 	}
                 	else {

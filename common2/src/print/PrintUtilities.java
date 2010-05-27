@@ -31,7 +31,7 @@ public class PrintUtilities implements Printable {
       try {
         printJob.print();
       } catch(PrinterException pe) {
-//        System.out.println("Error printing: " + pe);
+//        Log.out("Error printing: " + pe);
       }
   }
 

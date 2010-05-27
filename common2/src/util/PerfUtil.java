@@ -28,24 +28,24 @@ public class PerfUtil {
     
     public void printSpan() {
         end = new Date().getTime();
-        System.out.println(str+" SPAN == "+(end-start));
+        Log.out(str," SPAN == ",(end-start));
     }
 
     public void printSpanComplete() {
         end = new Date().getTime();
         long time = end-realStart;
         double minutes = (time*1.0)/(1000*60);
-        System.out.println(str+" COMPLETE == "+time+" IN MINUTES "+minutes+" VAL=="+DataUtil.getMoneyFormat(minutes));
+        Log.out(str," COMPLETE == ",time," IN MINUTES ",minutes," VAL==",DataUtil.getMoneyFormat(minutes));
     }
 
     public String spanMessage() {
         end = new Date().getTime();
-        return str+" SPAN == "+(end-start);
+        return BeanUtil.concat(str," SPAN == ",(end-start));
     }
 
     public String spanMessageComplete() {
         end = new Date().getTime();
-        return str+" COMPLETE == "+((end-realStart)/1000)+" seconds";
+        return BeanUtil.concat(str," COMPLETE == ",((end-realStart)/1000)," seconds");
     }
 
     public void reset(String str) {

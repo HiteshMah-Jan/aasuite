@@ -12,6 +12,7 @@ import java.util.List;
 
 import util.BeanUtil;
 import util.DBClient;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -25,7 +26,7 @@ public class ORSeries extends javax.swing.JPanel {
         initComponents();
         PanelUtil.updateColor(jPanel1);
         try {
-            System.out.println("OR SERIES INIT SERVER CALL");
+            Log.out("OR SERIES INIT SERVER CALL");
             String user = UserInfo.getUserName();
             CashierDailyBooklet b = (CashierDailyBooklet) DBClient.getFirstRecord("SELECT a FROM CashierDailyBooklet a WHERE a.cashier='",user,"' ORDER BY a.seq DESC");
             pnlSeries.setBean(b);

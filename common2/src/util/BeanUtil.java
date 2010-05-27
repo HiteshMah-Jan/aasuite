@@ -43,7 +43,7 @@ public class BeanUtil {
         for (PropertyDescriptor propertyDescriptor : descriptors) {
             fieldName = propertyDescriptor.getName();
             try {
-                if ("|HTMLDocument|class|column1|column2|column3|column4|column5|column6|column7|column8|column9|column10|comboDisplay|config|emptyKey|formattedTitle|formulaValue|imageList|keyVal|me|pictureHTML|tableColumns|".indexOf("|"+fieldName+"|")==-1) {
+                if ("|HTMLDocument|class|column1|column2|column3|column4|column5|column6|column7|column8|column9|column10|comboDisplay|config|emptyKey|formattedTitle|formulaValue|imageList|keyVal|me|pictureHTML|tableColumns|".indexOf(BeanUtil.concat("|",fieldName,"|"))==-1) {
                     fieldValue = getPropertyValue(bean, fieldName);
                     sb.append(fieldName).append("\t=\t").append(fieldValue).append("\n");
                 }
@@ -98,18 +98,18 @@ public class BeanUtil {
         }
     }
 
-    public static Object getPropertyValue(IBean bean, String propertyName) {
-        return BeanProperty.create(propertyName).getValue(bean);
+    public static Object getPropertyValue(IBean bean, Object... propertyName) {
+        return BeanProperty.create(BeanUtil.concat(propertyName)).getValue(bean);
     }
 
-    public static double getDoubleValue(IBean bean, String propertyName) {
-        return Double.parseDouble(BeanProperty.create(propertyName).getValue(bean).toString());
+    public static double getDoubleValue(IBean bean, String... propertyName) {
+        return Double.parseDouble(BeanProperty.create(BeanUtil.concat(propertyName)).getValue(bean).toString());
     }
 
-    public static Class getPropertyType(IBean bean, String propertyName) {
+    public static Class getPropertyType(IBean bean, String... propertyName) {
         BeanWrapper beanWrapper = new BeanWrapperImpl(bean);
-        if (beanWrapper.getPropertyDescriptor(propertyName) != null) {
-            return beanWrapper.getPropertyDescriptor(propertyName).getPropertyType();
+        if (beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName)) != null) {
+            return beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName)).getPropertyType();
         } else {
             return String.class;
         }
@@ -128,7 +128,7 @@ public class BeanUtil {
     }
 
     public static void setShowPropertyValue(IBean bean, String propertyName, Object value) {
-//        System.out.println(propertyName+"-"+value);
+//        Log.out(propertyName,"-",value);
         setPropertyValue(bean, propertyName, value);
     }
 

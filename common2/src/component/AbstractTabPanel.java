@@ -59,7 +59,7 @@ public class AbstractTabPanel extends JTabbedPane {
                     add(transPanel.getTitle(), transPanel);
                 }
                 else {
-//                	System.out.println("BEAN="+string);
+//                	Log.out("BEAN=",string);
                     Class bean = PanelUtil.getBeanClass(string);
                     AbstractTemplatePanel pnl = TemplateReader.getTemplateForTab(bean);
                     TransactionPanel tmp = (TransactionPanel) pnl.getMainForm();

@@ -17,6 +17,7 @@ import javax.servlet.http.*;
 
 import net.sf.json.JSONObject;
 import springbean.AAAConfig;
+import util.Log;
 
 /**
  * 
@@ -51,7 +52,7 @@ public class JSonServerServlet extends HttpServlet {
      *            servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("SERVLET OK1.");
+        Log.out("SERVLET OK1.");
         ParamStruct param = ParamStruct.read(request.getInputStream());
 
         String serviceName = param.getServiceName();
@@ -61,9 +62,9 @@ public class JSonServerServlet extends HttpServlet {
         response.setContentType("application/octet-stream");
 //        response.setContentLength(ret.size());
 
-        System.out.println("SERVLET OK2.");
+        Log.out("SERVLET OK2.");
         ParamStruct.write(response.getOutputStream(), ret);
-        System.out.println("SERVLET OK3.");
+        Log.out("SERVLET OK3.");
     }
 
     // <editor-fold defaultstate="collapsed"

@@ -72,10 +72,10 @@ public class ComboRenderer extends AbstractComponentRenderer {
             }
             String simpleName = this.panel.getCurrentClass().getSimpleName();
             String fieldName = this.field.field.getName();
-//            Logger.getLogger("global").log(Level.INFO, simpleName+":"+fieldName+":"+sb.toString()+":"+arr);
+//            Logger.getLogger("global").log(Level.INFO, simpleName,":",fieldName,":",sb.toString(),":",arr);
             try {
                 if (AppConfig.isDynamicCombo()) {
-//                    String str = AppConfig.getValue("COMBO", simpleName+"."+fieldName, sb.toString());
+//                    String str = AppConfig.getValue("COMBO", simpleName,".",fieldName, sb.toString());
 //                    arr = str.split(",");
                 }
                 else {
@@ -127,7 +127,7 @@ public class ComboRenderer extends AbstractComponentRenderer {
             bean.changeValue(name, "xXx");
             bean.changeValue(name, value);
             bean.changeValue(name, value);
-//            ELProperty.create("${selectedElement."+name+"}").setValue(tbl, value);
+//            ELProperty.create("${selectedElement.",name,"}").setValue(tbl, value);
         }
         else {
             try {

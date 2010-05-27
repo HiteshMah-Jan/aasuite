@@ -103,7 +103,7 @@ public class HelpMovieViewer extends javax.swing.JPanel implements ActionListene
         dlgShowMovie.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("WINDOW");
+                Log.out("WINDOW");
                 if (playerVideo!=null) {
                     playerVideo.stop();
                 }

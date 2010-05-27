@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
 import springbean.AAAConfig;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -55,7 +56,7 @@ public class ChangeThemeForm extends javax.swing.JPanel {
         lblSplashIconView.setMinimumSize(new Dimension(width, height));
         lblSplashIconView.setPreferredSize(new Dimension(width, height));
         lblSplashIconView.setIcon(icon);
-        btnSplashIcon.setText("Change Splash Icon ["+image+"]");
+        btnSplashIcon.setText(BeanUtil.concat("Change Splash Icon [",image,"]"));
     }
 
     /** This method is called from within the constructor to
@@ -237,7 +238,7 @@ private void btnSplashIconActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     lblSplashIconView.setPreferredSize(new Dimension(width, height));
     lblSplashIconView.setIcon(icon);  
     lblSplashIconView.setText(str);
-    btnSplashIcon.setText("Change Splash Icon ["+str+"]");    
+    btnSplashIcon.setText(BeanUtil.concat("Change Splash Icon [",str,"]"));    
 }//GEN-LAST:event_btnSplashIconActionPerformed
 
 private void btnReportFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportFolderActionPerformed

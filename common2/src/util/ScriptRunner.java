@@ -100,7 +100,7 @@ public class ScriptRunner {
         String strCode = "";
         if (obj!=null && name!=null && !name.isEmpty()) {
             currentObject = obj;
-            strCode += "\ndef "+name+" = ScriptRunner.currentObject;\n";
+            strCode += BeanUtil.concat("\ndef ",name," = ScriptRunner.currentObject;\n");
         }
         if (Common2View.mainView!=null) {
             strCode += "\ndef module = Common2View.getTransactionPanel();\n";
@@ -117,7 +117,7 @@ public class ScriptRunner {
                 String strCode = "";
                 if (obj!=null && name!=null && !name.isEmpty()) {
                     currentObject = obj;
-                    strCode += "\ndef "+name+" = ScriptRunner.currentObject;\n";
+                    strCode += BeanUtil.concat("\ndef ",name," = ScriptRunner.currentObject;\n");
                 }
                 if (Common2View.mainView!=null) {
                     strCode += "\ndef module = Common2View.getTransactionPanel();\n";
@@ -189,7 +189,7 @@ public class ScriptRunner {
     static class TemplateLoader extends freemarker.cache.URLTemplateLoader {
         protected URL getURL(String arg0) {
             StringTokenizer st = new StringTokenizer(arg0, "_");
-            String resource = "report/template/"+st.nextToken()+".htm";
+            String resource = BeanUtil.concat("report/template/",st.nextToken(),".htm");
             URL url = this.getClass().getClassLoader().getResource(resource);
             return url;
         }
@@ -198,8 +198,8 @@ public class ScriptRunner {
     static class WebTemplateLoader extends freemarker.cache.URLTemplateLoader {
         protected URL getURL(String arg0) {
             StringTokenizer st = new StringTokenizer(arg0, "_");
-            String resource = "template/screen/web/text/"+st.nextToken()+".txt";
-            Logger.getLogger("global").log(Level.INFO, "Resource = "+resource);
+            String resource = BeanUtil.concat("template/screen/web/text/",st.nextToken(),".txt");
+            Logger.getLogger("global").log(Level.INFO, "Resource = ",resource);
             URL url = this.getClass().getClassLoader().getResource(resource);
             return url;
         }
@@ -216,7 +216,7 @@ public class ScriptRunner {
             }
         }
         else {
-            String txt = comp.getText()+"\n"+str.toString();
+            String txt = BeanUtil.concat(comp.getText(),"\n",str.toString());
             if (comp==null) {
                 Logger.getLogger("global").log(Level.INFO, txt);
             }

@@ -16,13 +16,13 @@ public class SampleTest {
     
 
     static {
-        System.out.println(b);
+        Log.out(b);
         b = 5;
     }
     
 
     static {
-        System.out.println(b);
+        Log.out(b);
         b = 4;
     }
 
@@ -32,13 +32,13 @@ public class SampleTest {
              boolean choice = false;
             if (choice) {
                  while (true) {
-                     System.out.println("t");
+                     Log.out("t");
                  }
             } else {
                 System.exit(1);
             }
         } finally {
-             System.out.println("FINALLY CALLED");
+             Log.out("FINALLY CALLED");
         }
         S2 S2=new S3();
         S2.display ();

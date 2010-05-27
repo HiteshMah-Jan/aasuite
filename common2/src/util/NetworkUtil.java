@@ -121,7 +121,7 @@ public class NetworkUtil {
             PanelUtil.showError(null, "CACHE URL NOT FOUND ",Constants.cachehost," TRY TO USE LOCAL.");
         } catch (IOException ex) {
         	ex.printStackTrace();
-//            Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()+" - "+Constants.host);
+//            Logger.getLogger("global").log(Level.SEVERE, ex.getMessage()," - ",Constants.host);
         }
         return retlst;
     }

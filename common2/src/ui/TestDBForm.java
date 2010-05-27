@@ -19,8 +19,10 @@ import java.util.concurrent.Executors;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 import util.ZipUtil;
 
@@ -193,7 +195,7 @@ private void testThread() {
     int size = ZipUtil.getBytes(obj).length;
     Date d2 = new Date();
     Vector vec = new Vector();
-    vec.add("PC "+(i+1));
+    vec.add(BeanUtil.concat("PC "+(i+1)));
     vec.add(DateUtil.formatDate(d, "hh:mm:ss"));
     vec.add(DateUtil.formatDate(d2, "hh:mm:ss"));
     vec.add(d2.getTime()-d.getTime());
@@ -201,7 +203,7 @@ private void testThread() {
     vec.add((int) (Runtime.getRuntime().totalMemory()/1000000));
     vec.add((int) ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1000000));
     data.add(vec);
-    System.out.println("PC "+(i+1));
+    Log.out("PC "+(i+1));
     if (map.get(size) == null) {
     	map.put(size, 0);
     }
@@ -234,7 +236,7 @@ private void displaySizes() {
 	while (iter.hasNext()) {
 		Object key = iter.next();
 		int value = map.get((Integer) key);
-		txtSQL.append(key.toString()+" - "+value+"\n");
+		txtSQL.append(BeanUtil.concat(key.toString()," - ",value,"\n"));
 	}
 }
 

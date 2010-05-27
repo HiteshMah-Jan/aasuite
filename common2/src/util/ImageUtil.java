@@ -157,7 +157,7 @@ public class ImageUtil {
 		int h = im.getHeight();
 		int type = im.getType();
 		if (type == BufferedImage.TYPE_CUSTOM) {
-			System.out.println("note: not preserving type");
+			Log.out("note: not preserving type");
 			type = im.getColorModel().hasAlpha() ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
 		}
 		BufferedImage result = new BufferedImage(w, h, type);
@@ -209,12 +209,12 @@ public class ImageUtil {
 //				int len1 = ImageUtil.getImageBytes(image).length;
 //				int len2 = ImageUtil.getImageBytes(img).length;
 //				if (len1<len2) {
-//					System.out.println("SIZE RATIO = "+len1+":"+len2+" -> "+quality+" -- return original");
+//					Log.out("SIZE RATIO = ",len1,":",len2," -> ",quality," -- return original");
 //					image.flush();
 //					return image;
 //				}
 //				else {
-//					System.out.println("SIZE RATIO = "+len1+":"+len2+" -> "+quality);
+//					Log.out("SIZE RATIO = ",len1,":",len2," -> ",quality);
 //					img.flush();
 //					return img;
 //				}

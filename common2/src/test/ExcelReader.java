@@ -109,10 +109,10 @@ public class ExcelReader {
                 }
 //                if (lstRow.size()>0) {
 //                    if (PanelUtil.deleteOnUpload(bean)) {
-////                        DBClient.runSQL("DELETE FROM "+bean);
+////                        DBClient.runSQL("DELETE FROM ",bean);
 //                    }
 ////                    DBClient.persistBean(lstRow);
-//                    System.out.println(bean+" FINISHED "+lstRow.size());
+//                    Log.out(bean," FINISHED ",lstRow.size());
 //                }
             }
         } catch (Exception ex) {

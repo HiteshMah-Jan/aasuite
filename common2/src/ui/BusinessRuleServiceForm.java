@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import service.util.AbstractIBean;
 import service.util.WSPersistenceEntityManager;
 import test.XMLTester;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.ScriptRunner;
 
@@ -617,19 +618,19 @@ public class BusinessRuleServiceForm extends AbstractPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnImportFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportFromFileActionPerformed
-    File f = PanelUtil.showOpenFile("Import File to DB", constants.Constants.module+"-service.rul", btnImportFromFile);
+    File f = PanelUtil.showOpenFile("Import File to DB", BeanUtil.concat(constants.Constants.module,"-service.rul"), btnImportFromFile);
     XMLTester.importFromFile(f);
 }//GEN-LAST:event_btnImportFromFileActionPerformed
 
 private void btnExportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportAllActionPerformed
-    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-service.rul", btnExportAll);
+    File f = PanelUtil.showSelectFile("Export DB to File", BeanUtil.concat(constants.Constants.module,"-service.rul"), btnExportAll);
     XMLTester.exportToFile(f, "BusinessRuleService");
 }//GEN-LAST:event_btnExportAllActionPerformed
 
 private void btnExportSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportSingleActionPerformed
     BusinessRuleService acc = (BusinessRuleService) this.getBean();
-    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-service.rul", btnExportAll);
-    XMLTester.exportBeanSQLToFile(f, "SELECT a FROM BusinessRuleService a WHERE a.seq='"+acc.getSeq()+"'");
+    File f = PanelUtil.showSelectFile("Export DB to File", BeanUtil.concat(constants.Constants.module,"-service.rul"), btnExportAll);
+    XMLTester.exportBeanSQLToFile(f, BeanUtil.concat("SELECT a FROM BusinessRuleService a WHERE a.seq='",acc.getSeq(),"'"));
 }//GEN-LAST:event_btnExportSingleActionPerformed
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -647,14 +648,14 @@ private void btnToolPersistActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnToolSelectListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectListActionPerformed
     String beanName = "Department";
-    insertCode("\nList<"+beanName+"> lst = DBClient.getList(\"SELECT a FROM "+beanName+" a\");");
+    insertCode(BeanUtil.concat("\nList<",beanName,"> lst = DBClient.getList(\"SELECT a FROM ",beanName," a\");"));
 }//GEN-LAST:event_btnToolSelectListActionPerformed
 
 private void btnToolSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectActionPerformed
     String beanName = "Department";
     String key = "department";
     Object keyVal = "ACCOUNTING";
-    insertCode("\n"+beanName+" bean = DBClient.getFirstRecord(\"SELECT a FROM "+beanName+" a WHERE a."+key+"="+keyVal+"\");");
+    insertCode(BeanUtil.concat("\n",beanName," bean = DBClient.getFirstRecord(\"SELECT a FROM ",beanName," a WHERE a.",key,"=",keyVal,"\");"));
 }//GEN-LAST:event_btnToolSelectActionPerformed
 
 private void btnToolPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolPrintActionPerformed
@@ -702,7 +703,7 @@ private void btnToolIfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void btnToolForeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolForeActionPerformed
     String beanName = "Department";
     StringBuffer sb = new StringBuffer();
-    sb.append("\nfor ("+beanName+" bean : lst) {\n");
+    sb.append(BeanUtil.concat("\nfor (",beanName," bean : lst) {\n"));
     sb.append("\t//code here\n");
     sb.append("}");
     insertCode(sb.toString());

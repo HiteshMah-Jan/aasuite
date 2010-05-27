@@ -439,7 +439,7 @@ public class Constants {
     }
 
     public static void setupConfig() {
-//        System.out.println(".......................SETUP CONFIG.........................");
+//        Log.out(".......................SETUP CONFIG.........................");
         Map<String, String> map = getConfigData();
         if (map==null) return;
         host = map.get("host");

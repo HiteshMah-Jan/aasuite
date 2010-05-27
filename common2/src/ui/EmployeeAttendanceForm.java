@@ -19,8 +19,10 @@ import bean.person.PersonAttendance;
 import bean.reference.EventHoliday;
 import service.util.WSPersistenceEntityManager;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -51,14 +53,14 @@ public class EmployeeAttendanceForm extends TransactionPanel {
     }
 	
     private void setAttendance() {
-    	String yearmonth = cboYear.getSelectedItem().toString()+"-"+cboMonth.getSelectedItem().toString(); 
-    	String s = yearmonth+"-"+1;
-    	String e = yearmonth+"-"+31;
+    	String yearmonth = BeanUtil.concat(cboYear.getSelectedItem().toString(),"-",cboMonth.getSelectedItem().toString()); 
+    	String s = BeanUtil.concat(yearmonth,"-",1);
+    	String e = BeanUtil.concat(yearmonth,"-",31);
     	
     	String start = DateUtil.formatDateToSql(DateUtil.readDate(s, "yyyy-MMMM-dd"));
     	String end = DateUtil.formatDateToSql(DateUtil.readDate(e, "yyyy-MMMM-dd"));
-    	String sql = "SELECT a FROM PersonAttendance a WHERE a.personId="+emp.personId+" AND a.attendanceDate BETWEEN '"+start+"' AND '"+end+"' ORDER BY a.attendanceDate";
-    	System.out.println(sql);
+    	String sql = BeanUtil.concat("SELECT a FROM PersonAttendance a WHERE a.personId=",emp.personId," AND a.attendanceDate BETWEEN '",start,"' AND '",end,"' ORDER BY a.attendanceDate");
+    	Log.out(sql);
     	List tmp = DBClient.getList(sql);
     	PanelUtil.setListData(personattendanceList, tmp);
     }
@@ -110,7 +112,7 @@ public class EmployeeAttendanceForm extends TransactionPanel {
 			return;
 		}
 		setAttendance();
-//		List lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId="+emp.personId);
+//		List lst = DBClient.getList("SELECT a FROM PersonAttendance a WHERE a.personId=",emp.personId);
 //		PanelUtil.setListData(personattendanceList, lst);
 	}
 
@@ -409,7 +411,7 @@ public class EmployeeAttendanceForm extends TransactionPanel {
 
     private void txtSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchEmployeeActionPerformed
     	String txt = txtSearchEmployee.getText();
-    	String sql = "SELECT a FROM Employee a WHERE a.lastName LIKE '"+txt+"%' OR a.firstName LIKE '"+txt+"%' OR a.department LIKE '"+txt+"%' OR a.position LIKE '"+txt+"%' ORDER BY a.lastName, a.firstName";
+    	String sql = BeanUtil.concat("SELECT a FROM Employee a WHERE a.lastName LIKE '",txt,"%' OR a.firstName LIKE '",txt,"%' OR a.department LIKE '",txt,"%' OR a.position LIKE '",txt,"%' ORDER BY a.lastName, a.firstName");
         List lst = DBClient.getList(sql);
         PanelUtil.setListData(pnlEmployee.view.list, lst);
     }//GEN-LAST:event_txtSearchEmployeeActionPerformed

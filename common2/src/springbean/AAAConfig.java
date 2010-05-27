@@ -66,7 +66,7 @@ public class AAAConfig implements IService {
     
     public static AAAConfig getServerInstance() {
         if (config==null) {
-//        	System.out.println("SERVER CALLED");
+//        	Log.out("SERVER CALLED");
             config = new springbean.AAAConfig();
             server = true;
         }

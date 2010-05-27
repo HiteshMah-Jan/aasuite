@@ -47,7 +47,7 @@ public class ServiceAdapter {
         } else {
             if (AAAConfig.server) {
                 try {
-//                    System.out.println("CONNECT TO LOCAL.....");
+//                    Log.out("CONNECT TO LOCAL.....");
                     String serviceName = param.getServiceName();
                     IService service = SpringCall.getService(serviceName);
                     ret = service.callService(param);
@@ -96,7 +96,7 @@ public class ServiceAdapter {
         	byte[] b = baos.toByteArray();
 	    	
 	    	byte[] bold = ZipUtil.getZipBytes(p);
-//	    	System.out.println(new String(b));
+//	    	Log.out(new String(b));
 	    	b = ZipUtil.getZipBytes(b);
 	    	sb.append(BeanUtil.concat("REQUEST XML:OBJ == ",b.length,":",bold.length));
 		} catch (Exception e1) {
@@ -111,13 +111,13 @@ public class ServiceAdapter {
         	byte[] b = baos.toByteArray();
 	    	
 	    	byte[] bold = ZipUtil.getZipBytes(p2);
-	    	System.out.println(new String(b));
+	    	Log.out(new String(b));
 	    	b = ZipUtil.getZipBytes(b);
 	    	
 	    	sb.append(BeanUtil.concat(" ------  RESPONSE XML:OBJ == ",b.length,":",bold.length));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		System.out.println(sb.toString());
+		Log.out(sb.toString());
     }
 }

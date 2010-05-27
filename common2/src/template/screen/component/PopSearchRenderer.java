@@ -74,7 +74,7 @@ public class PopSearchRenderer extends AbstractComponentRenderer {
                                 util.Log.warning("PopSearch Set Value Error - ",field.field.getName(),"->",bean.getClass().getSimpleName());
                         	}
 //                        	else {
-//                                util.Log.warning("PopSearch Set Value Error - "+field.field.getName()+"->"+e.getMessage());
+//                                util.Log.warning("PopSearch Set Value Error - ",field.field.getName(),"->",e.getMessage());
 //                        	}
                         }
                         if (bean!=null) {

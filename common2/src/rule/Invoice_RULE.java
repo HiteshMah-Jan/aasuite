@@ -140,7 +140,7 @@ public class Invoice_RULE extends BusinessRuleWrapper {
         	Invoice pay = (Invoice) this.getBean();
         	int index = PanelUtil.getIntValue(chkIndex.replace("bounceCheck", ""));
         	String check = (String) BeanUtil.getPropertyValue(pay, BeanUtil.concat("accountNumber",index));
-//        	double amount = (Double) BeanUtil.getPropertyValue(pay, "amount"+index);
+//        	double amount = (Double) BeanUtil.getPropertyValue(pay, "amount",index);
         	
         	StringBuffer sb = new StringBuffer("SELECT a FROM Payment a WHERE a.oldPaymentFor='").append(check).append("'");
         	List<Payment> lst = DBClient.getList(sb.toString());

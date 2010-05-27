@@ -59,7 +59,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
                         if (newData == -1) {
                             break;
                         }
-//                        System.out.println("new data == "+newData);
+//                        Log.out("new data == ",newData);
                         baos.write(newData);
                     } catch (IOException ex) {
                         System.err.println(ex);
@@ -78,7 +78,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
                 }
                 break;
             case SerialPortEvent.BI:
-                System.out.println("\n--- BREAK RECEIVED ---\n");
+                Log.out("\n--- BREAK RECEIVED ---\n");
         }
     }
 
@@ -131,7 +131,7 @@ public class SMSServer extends TimerTask implements SerialPortEventListener {
     }
 
     public void start(int minutes) {
-        System.out.println("Start SERVER");
+        Log.out("Start SERVER");
         Timer t = new Timer();
         t.schedule(this, 500, minutes*60*1000);
     }

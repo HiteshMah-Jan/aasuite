@@ -138,7 +138,7 @@ public abstract class AbstractReport {
     }
 
     public static JasperReport compileReport(String filename) {
-//        File f = new File(constants.Constants.ROOT_FOLDER+"tmp/designing/"+filename+".jrxml");
+//        File f = new File(constants.Constants.ROOT_FOLDER,"tmp/designing/",filename,".jrxml");
         return compileReport(DataUtil.getReportStream(filename));
     }
 
@@ -234,7 +234,7 @@ public abstract class AbstractReport {
                 conn = DriverManager.getConnection(config.getUrl());
             }
             else {
-//                System.out.println("PASSWORD == "+config.getPassword());
+//                Log.out("PASSWORD == ",config.getPassword());
                 try {
                     conn = DriverManager.getConnection(config.getUrl(), config.getUsername(), config.getPassword());
                 }

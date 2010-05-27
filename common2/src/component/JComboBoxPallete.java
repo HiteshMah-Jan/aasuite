@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 //import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -225,7 +226,7 @@ public class JComboBoxPallete extends JComboBox implements IGetText, IHelp, IRul
 
     public AbstractIBean getSelectedBean() {
         if (list == null) {
-            System.out.println("LIST not defined at design time");
+            Log.out("LIST not defined at design time");
             return null;
         }
         if (this.getSelectedIndex()<0) return null;

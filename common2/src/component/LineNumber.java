@@ -93,7 +93,7 @@ public class LineNumber extends JComponent {
         int lineHeight = getLineHeight();
         int startOffset = getStartOffset();
         Rectangle drawHere = g.getClipBounds();
-        // System.out.println( drawHere );
+        // Log.out( drawHere );
         
         // Paint the background
         
@@ -108,7 +108,7 @@ public class LineNumber extends JComponent {
         
         int start = (drawHere.y / lineHeight) * lineHeight + lineHeight - startOffset;
         
-        // System.out.println( startLineNumber + " : " + endLineNumber + " : " + start );
+        // Log.out( startLineNumber + " : " + endLineNumber + " : " + start );
         
         for (int i = startLineNumber; i <= endLineNumber; i++) {
             String lineNumber = String.valueOf(i);

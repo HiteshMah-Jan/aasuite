@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import service.util.AbstractIBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
+import util.Log;
 import util.PanelUtil;
 
 /**
@@ -182,7 +183,7 @@ public class JListPallete extends JList implements IGetText, IHelp {
 
 	public List<String> getAllSelection() {
 		if (list==null) {
-			System.out.println("LIST not defined at designed time");
+			Log.out("LIST not defined at designed time");
 			return null;
 		}
 		List<String> lst = new ArrayList<String>();
@@ -196,7 +197,7 @@ public class JListPallete extends JList implements IGetText, IHelp {
 
 	public List<AbstractIBean> getAllBeanSelection() {
 		if (list==null) {
-			System.out.println("LIST not defined at designed time");
+			Log.out("LIST not defined at designed time");
 			return null;
 		}
 		List<AbstractIBean> lst = new ArrayList<AbstractIBean>();

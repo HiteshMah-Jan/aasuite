@@ -82,7 +82,7 @@ public interface IAuthorization {
         public void addGroup(String groupCode) {
             AclGroup grpObj = (AclGroup) AclGroup.getObject(groupCode);
             if (grpObj==null && grpObj.getCode()==null) {
-//                System.out.println("GROUP "+groupCode+" NOT FOUND.");
+//                Log.out("GROUP ",groupCode," NOT FOUND.");
                 return;
             }
             AclUserGroup group = new AclUserGroup();

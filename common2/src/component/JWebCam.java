@@ -63,7 +63,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 //        try {
 //            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 //        } catch (Exception cnfe) {
-//            System.out.println("Note : Cannot load look and feel settings");
+//            Log.out("Note : Cannot load look and feel settings");
 //        }
 
         setSize(320, 260); // default size...
@@ -104,10 +104,10 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
 
         if (cams.length > 0) {
             if (cams.length == 1) {
-//                System.out.println("Note : 1 web cam detected");
+//                Log.out("Note : 1 web cam detected");
                 return initialise(cams[0].capDevInfo);
             } else {
-//                System.out.println("Note : " + cams.length + " web cams detected");
+//                Log.out("Note : " + cams.length + " web cams detected");
                 Object selected = JOptionPane.showInputDialog(this, "Select Video format", "Capture format selection", JOptionPane.INFORMATION_MESSAGE, null, cams, cams[0]);
                 if (selected != null) {
                     return initialise(((MyCaptureDeviceInfo) selected).capDevInfo);
@@ -228,7 +228,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
             invalidate(); // let the layout manager work out the sizes
             pack();
         } else {
-            System.out.println("Visual component not an instance of FormatControl");
+            Log.out("Visual component not an instance of FormatControl");
             statusBar.setText("Visual component cannot change format");
         }
     }
@@ -351,11 +351,11 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                 Format aFormat = formats[i];
                 if (aFormat instanceof VideoFormat) {
                     Dimension dim = ((VideoFormat) aFormat).getSize();
-                    // System.out.println ("Video Format " + i + " : " + formats[i].getEncoding() + ", " + dim.width + " x " + dim.height );
+                    // Log.out ("Video Format " + i + " : " + formats[i].getEncoding() + ", " + dim.width + " x " + dim.height );
                 }
             }
         } else {
-            System.out.println("Error : No web cam detected");
+            Log.out("Error : No web cam detected");
         }
     }
 
@@ -405,7 +405,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
                 return null;
             }
         } else {
-            System.out.println("Error : cannot create BufferToImage instance");
+            Log.out("Error : cannot create BufferToImage instance");
             return null;
         }
     }
@@ -621,7 +621,7 @@ public class JWebCam extends JFrame implements WindowListener, ComponentListener
             myWebCam.setVisible(true);
 
             if (!myWebCam.initialise()) {
-                System.out.println("Web Cam not detected / initialised");
+                Log.out("Web Cam not detected / initialised");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

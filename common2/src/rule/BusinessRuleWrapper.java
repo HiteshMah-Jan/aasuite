@@ -126,7 +126,7 @@ public abstract class BusinessRuleWrapper {
             wrapper.panel = panel;
             return wrapper;
         } catch (Exception ex) {
-//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
+//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()," - No rule defined.");
             BusinessRuleWrapper rule = new BusinessRuleWrapper() {
                 @Override
                 public void runFocusLost(JComponent comp) {
@@ -147,7 +147,7 @@ public abstract class BusinessRuleWrapper {
             wrapper = (BusinessRuleWrapper) Class.forName(BeanUtil.concat("rule.",simpleName,"_RULE")).newInstance();
             return wrapper;
         } catch (Exception ex) {
-//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()+" - No rule defined.");
+//            Logger.getLogger(BusinessRuleWrapper.class.getName()).log(Level.SEVERE, null, ex.getMessage()," - No rule defined.");
             BusinessRuleWrapper rule = new BusinessRuleWrapper() {
                 @Override
                 public void runFocusLost(JComponent comp) {
@@ -363,9 +363,9 @@ public abstract class BusinessRuleWrapper {
     	catch (Exception e) {
     	}
     }
-    public void enable(String comp, boolean b) {
+    public void enable(boolean b, Object... comp) {
     	try {
-        	getComponent(comp).setEnabled(b);
+        	getComponent(BeanUtil.concat(comp)).setEnabled(b);
     	}
     	catch (Exception e) {
     	}
@@ -385,16 +385,16 @@ public abstract class BusinessRuleWrapper {
 		});
 		t.start();
     }
-    public void hide(String comp) {
+    public void hide(Object... comp) {
     	try {
-        	getComponent(comp).setVisible(false);
+        	getComponent(BeanUtil.concat(comp)).setVisible(false);
     	}
     	catch (Exception e) {
     	}
     }
-    public void show(String comp) {
+    public void show(Object... comp) {
     	try {
-        	getComponent(comp).setVisible(true);
+        	getComponent(BeanUtil.concat(comp)).setVisible(true);
     	}
     	catch (Exception e) {
     	}

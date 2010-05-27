@@ -62,7 +62,7 @@ public class XMLTester {
                 try {
                     bean = Class.forName(bean).getSimpleName();
                     if (!lst.contains(bean)) {
-    //                    System.out.println("CONTENT == "+bean);
+    //                    Log.out("CONTENT == "+bean);
                         lst.add(bean);
                     }
                 }
@@ -92,7 +92,7 @@ public class XMLTester {
                 String bean = node.getTextContent();
                 bean = ClassLoader.getSystemClassLoader().loadClass(bean).getName();
                 if (!lst.contains(bean)) {
-//                    System.out.println("CONTENT == "+bean);
+//                    Log.out("CONTENT == "+bean);
                     lst.add(bean);
                 }
             }
@@ -210,7 +210,7 @@ public class XMLTester {
                     continue;
                 }
                 try {
-//                    System.out.println("Persisting "+string);
+//                    Log.out("Persisting "+string);
                     List tmp = (List) decoder.readObject();
                     AbstractIBean.save(tmp);
                 }
@@ -225,11 +225,11 @@ public class XMLTester {
     }
     
     public static void deleteAndImportAllTableRecords(File f) { 
-        System.out.println("...... START DELETE AND IMPORT PROCESS ......");
-        System.out.println("...... START DELETE AND IMPORT PROCESS ......");
-        System.out.println("...... START DELETE AND IMPORT PROCESS ......");
-        System.out.println("...... START DELETE AND IMPORT PROCESS ......");
-        System.out.println("...... START DELETE AND IMPORT PROCESS ......");
+        Log.out("...... START DELETE AND IMPORT PROCESS ......");
+        Log.out("...... START DELETE AND IMPORT PROCESS ......");
+        Log.out("...... START DELETE AND IMPORT PROCESS ......");
+        Log.out("...... START DELETE AND IMPORT PROCESS ......");
+        Log.out("...... START DELETE AND IMPORT PROCESS ......");
         List<String> lstStr = getAllBeanNames();
         for (String string : lstStr) {
             Log.out("\t\tDELETING ",string,"............");

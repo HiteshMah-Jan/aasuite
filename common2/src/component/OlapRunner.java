@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import springbean.AAAConfig;
 import util.BeanUtil;
+import util.Log;
 
 import com.calipso.reportgenerator.client.ReportManagerService;
 import com.calipso.reportgenerator.common.IReportManager;
@@ -193,7 +194,7 @@ public class OlapRunner {
 			JOptionPane.showMessageDialog(null, LanguageTraslator
 					.traslate("364"), LanguageTraslator.traslate("231"),
 					JOptionPane.ERROR_MESSAGE);
-			System.out.println(LanguageTraslator.traslate("364"));
+			Log.out(LanguageTraslator.traslate("364"));
 			System.exit(0);
 		}
 	}

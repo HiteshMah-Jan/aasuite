@@ -151,7 +151,7 @@ public class Common2App extends SingleFrameApplication {
 						}
 					}
 					else {
-//						System.out.println("HEARTBEAT OK == "+DateUtil.getTime());
+//						Log.out("HEARTBEAT OK == ",DateUtil.getTime());
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

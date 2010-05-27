@@ -12,6 +12,8 @@ import org.jdesktop.jdic.browser.WebBrowser;
 import org.jdesktop.jdic.browser.WebBrowserEvent;
 import org.jdesktop.jdic.browser.WebBrowserListener;
 
+import util.Log;
+
 /**
  *
  * @author  Budoy Entokwa
@@ -134,19 +136,19 @@ private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // End of variables declaration//GEN-END:variables
 	
     public void downloadCompleted(WebBrowserEvent event) {
-        System.out.println("Download Completed");
+        Log.out("Download Completed");
     }
 
     public void downloadError(WebBrowserEvent event) {
-        System.out.println("Download Error");
+        Log.out("Download Error");
     }
 
     public void downloadProgress(WebBrowserEvent event) {
-        System.out.println("Download in Progress");
+        Log.out("Download in Progress");
     }
 
     public void downloadStarted(WebBrowserEvent event) {
-        System.out.println("Download Started");
+        Log.out("Download Started");
     }
 
     public void initializationCompleted(WebBrowserEvent arg0) {
@@ -154,7 +156,7 @@ private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public void documentCompleted(WebBrowserEvent arg0) {
-        System.out.println("Document Completed");
+        Log.out("Document Completed");
         if (autoprint) {
             webBrowser.executeScript("window.print();");
             dlgPanel.setVisible(false);

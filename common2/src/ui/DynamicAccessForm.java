@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import service.util.AbstractIBean;
 import service.util.WSPersistenceEntityManager;
 import template.screen.TransactionPanel;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.ScriptRunner;
 
@@ -554,13 +555,13 @@ private void lblFormTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRS
 private void btnToolLookupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolLookupActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
-    insertCode("\ncomponent.LookupTable.show("+acc.getCode()+", \""+Common2View.getTransactionPanel().getTitle()+"\", \"SELECT a FROM "+beanName+" a\",\"seq\");//Note: You can put as many column here.\n");
+    insertCode(BeanUtil.concat("\ncomponent.LookupTable.show(",acc.getCode(),", \"",Common2View.getTransactionPanel().getTitle(),"\", \"SELECT a FROM ",beanName," a\",\"seq\");//Note: You can put as many column here.\n"));
 }//GEN-LAST:event_btnToolLookupActionPerformed
 
 private void btnToolForeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolForeActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
     StringBuffer sb = new StringBuffer();
-    sb.append("\nfor ("+beanName+" bean : lst) {\n");
+    sb.append(BeanUtil.concat("\nfor (",beanName," bean : lst) {\n"));
     sb.append("\t//code here\n");
     sb.append("}");
     insertCode(sb.toString());     
@@ -593,19 +594,19 @@ private void btnToolPersistActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnToolSelectListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectListActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
-    insertCode("\nList<"+beanName+"> lst = DBClient.getList(\"SELECT a FROM "+beanName+" a\");");    
+    insertCode(BeanUtil.concat("\nList<",beanName,"> lst = DBClient.getList(\"SELECT a FROM ",beanName," a\");"));    
 }//GEN-LAST:event_btnToolSelectListActionPerformed
 
 private void btnToolSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
     String key = ((AbstractIBean) Common2View.getTransactionPanel().getBean())._Key();
     Object keyVal = ((AbstractIBean) Common2View.getTransactionPanel().getBean()).keyVal();
-    insertCode("\n"+beanName+" bean = DBClient.getFirstRecord(\"SELECT a FROM "+beanName+" a WHERE a."+key+"="+keyVal+"\");");    
+    insertCode(BeanUtil.concat("\n",beanName," bean = DBClient.getFirstRecord(\"SELECT a FROM ",beanName," a WHERE a.",key,"=",keyVal,"\");"));    
 }//GEN-LAST:event_btnToolSelectActionPerformed
 
 private void btnToolPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolPrintActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
-    insertCode("\nprintc "+acc.getCode()+";");
+    insertCode(BeanUtil.concat("\nprintc ",acc.getCode(),";"));
 }//GEN-LAST:event_btnToolPrintActionPerformed
 
 private void btnToolTryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolTryActionPerformed
@@ -621,18 +622,18 @@ private void btnToolTryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void btnToolGetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolGetActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
-    insertCode("\ntxt = "+acc.getCode()+";");
+    insertCode(BeanUtil.concat("\ntxt = ",acc.getCode(),";"));
 }//GEN-LAST:event_btnToolGetActionPerformed
 
 private void btnToolSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSetActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
-    insertCode("\n"+acc.getCode()+" = \"txt\";");
+    insertCode(BeanUtil.concat("\n",acc.getCode()," = \"txt\";"));
 }//GEN-LAST:event_btnToolSetActionPerformed
 
 private void btnToolIfElseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolIfElseActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
     StringBuffer sb = new StringBuffer();
-    sb.append("\nif ("+acc.getCode()+".equals(\"sample\")) {\n");
+    sb.append(BeanUtil.concat("\nif (",acc.getCode(),".equals(\"sample\")) {\n"));
     sb.append("\t//code here\n");
     sb.append("}\n");
     sb.append("else {\n");
@@ -644,7 +645,7 @@ private void btnToolIfElseActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void btnToolIfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolIfActionPerformed
     DynamicAccess acc = (DynamicAccess) this.getBean();
     StringBuffer sb = new StringBuffer();
-    sb.append("\nif ("+acc.getCode()+".equals(\"sample\")) {\n");
+    sb.append(BeanUtil.concat("\nif (",acc.getCode(),".equals(\"sample\")) {\n"));
     sb.append("\t//code here\n");
     sb.append("}\n");
     insertCode(sb.toString());
@@ -664,19 +665,19 @@ private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_btnHelpActionPerformed
 
 private void btnImportFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportFromFileActionPerformed
-//    File f = PanelUtil.showOpenFile("Import File to DB", constants.Constants.module+"-dyn.rul", btnImportFromFile);
+//    File f = PanelUtil.showOpenFile("Import File to DB", constants.Constants.module,"-dyn.rul", btnImportFromFile);
 //    XMLTester.importFromFile(f);
 }//GEN-LAST:event_btnImportFromFileActionPerformed
 
 private void btnExportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportAllActionPerformed
-//    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-dyn.rul", btnExportAll);
+//    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module,"-dyn.rul", btnExportAll);
 //    XMLTester.exportToFile(f, "DynamicAccess");
 }//GEN-LAST:event_btnExportAllActionPerformed
 
 private void btnExportSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportSingleActionPerformed
 //    DynamicAccess acc = (DynamicAccess) this.getBean();
-//    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-dyn.rul", btnExportAll);
-//    XMLTester.exportBeanSQLToFile(f, "SELECT a FROM DynamicAccess a WHERE a.seq="+acc.getSeq());
+//    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module,"-dyn.rul", btnExportAll);
+//    XMLTester.exportBeanSQLToFile(f, "SELECT a FROM DynamicAccess a WHERE a.seq=",acc.getSeq());
 }//GEN-LAST:event_btnExportSingleActionPerformed
 
 private void btnTestOnClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestOnClickActionPerformed

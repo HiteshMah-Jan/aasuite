@@ -23,6 +23,7 @@ import service.util.AbstractIBean;
 import service.util.WSPersistenceEntityManager;
 import template.screen.TransactionPanel;
 import test.XMLTester;
+import util.BeanUtil;
 import util.PanelUtil;
 import util.ScriptRunner;
 
@@ -646,12 +647,12 @@ private void btnExportSelectionActionPerformed(java.awt.event.ActionEvent evt) {
 }//GEN-LAST:event_btnExportSelectionActionPerformed
 
 private void btnImportDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportDBActionPerformed
-    File f = PanelUtil.showOpenFile("Import File to DB", constants.Constants.module+".mig", btnImportDB);
+    File f = PanelUtil.showOpenFile("Import File to DB", BeanUtil.concat(constants.Constants.module,".mig"), btnImportDB);
     XMLTester.importFromFile(f);
 }//GEN-LAST:event_btnImportDBActionPerformed
 
 private void btnExportDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportDBActionPerformed
-    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+".mig", btnExportDB);
+    File f = PanelUtil.showSelectFile("Export DB to File", BeanUtil.concat(constants.Constants.module,".mig"), btnExportDB);
     XMLTester.exportToFile(f);
 }//GEN-LAST:event_btnExportDBActionPerformed
 
@@ -707,19 +708,19 @@ private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_btnHelpActionPerformed
 
 private void btnImportFromFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportFromFileActionPerformed
-    File f = PanelUtil.showOpenFile("Import File to DB", constants.Constants.module+"-br.rul", btnImportFromFile);
+    File f = PanelUtil.showOpenFile("Import File to DB", BeanUtil.concat(constants.Constants.module,"-br.rul"), btnImportFromFile);
     XMLTester.importFromFile(f);
 }//GEN-LAST:event_btnImportFromFileActionPerformed
 
 private void btnExportAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportAllActionPerformed
-    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-br.rul", btnExportAll);
+    File f = PanelUtil.showSelectFile("Export DB to File", BeanUtil.concat(constants.Constants.module,"-br.rul"), btnExportAll);
     XMLTester.exportToFile(f, "BusinessRule");
 }//GEN-LAST:event_btnExportAllActionPerformed
 
 private void btnExportSingleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportSingleActionPerformed
     BusinessRule acc = (BusinessRule) this.getBean();
-    File f = PanelUtil.showSelectFile("Export DB to File", constants.Constants.module+"-br.rul", btnExportAll);
-    XMLTester.exportBeanSQLToFile(f, "SELECT a FROM BusinessRule a WHERE a.businessRuleId="+acc.getSeq());
+    File f = PanelUtil.showSelectFile("Export DB to File", BeanUtil.concat(constants.Constants.module,"-br.rul"), btnExportAll);
+    XMLTester.exportBeanSQLToFile(f, BeanUtil.concat("SELECT a FROM BusinessRule a WHERE a.businessRuleId=",acc.getSeq()));
 }//GEN-LAST:event_btnExportSingleActionPerformed
 
 private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -738,7 +739,7 @@ private void btnTestOnClickActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnToolLookupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolLookupActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
-    insertCode("\ncomponent.LookupTable.show(sample, \""+Common2View.getTransactionPanel().getTitle()+"\", \"SELECT a FROM "+beanName+" a\",\"seq\");//Note: You can put as many column here.\n");
+    insertCode(BeanUtil.concat("\ncomponent.LookupTable.show(sample, \"",Common2View.getTransactionPanel().getTitle(),"\", \"SELECT a FROM ",beanName," a\",\"seq\");//Note: You can put as many column here.\n"));
 }//GEN-LAST:event_btnToolLookupActionPerformed
 
 private void btnToolReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolReportActionPerformed
@@ -751,14 +752,14 @@ private void btnToolPersistActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void btnToolSelectListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectListActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
-    insertCode("\nList<"+beanName+"> lst = DBClient.getList(\"SELECT a FROM "+beanName+" a\");");
+    insertCode(BeanUtil.concat("\nList<",beanName,"> lst = DBClient.getList(\"SELECT a FROM ",beanName," a\");"));
 }//GEN-LAST:event_btnToolSelectListActionPerformed
 
 private void btnToolSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolSelectActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
     String key = ((AbstractIBean) Common2View.getTransactionPanel().getBean())._Key();
     Object keyVal = ((AbstractIBean) Common2View.getTransactionPanel().getBean()).keyVal();
-    insertCode("\n"+beanName+" bean = DBClient.getFirstRecord(\"SELECT a FROM "+beanName+" a WHERE a."+key+"="+keyVal+"\");");
+    insertCode(BeanUtil.concat("\n",beanName," bean = DBClient.getFirstRecord(\"SELECT a FROM ",beanName," a WHERE a.",key,"=",keyVal,"\");"));
 }//GEN-LAST:event_btnToolSelectActionPerformed
 
 private void btnToolPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolPrintActionPerformed
@@ -806,7 +807,7 @@ private void btnToolIfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void btnToolForeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToolForeActionPerformed
     String beanName = Common2View.getTransactionPanel().getBean().getClass().getSimpleName();
     StringBuffer sb = new StringBuffer();
-    sb.append("\nfor ("+beanName+" bean : lst) {\n");
+    sb.append(BeanUtil.concat("\nfor (",beanName," bean : lst) {\n"));
     sb.append("\t//code here\n");
     sb.append("}");
     insertCode(sb.toString());
@@ -920,7 +921,7 @@ private void btnToolForActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 	
     public void setForm(TransactionPanel pnl) {
         String formName = pnl.getTitle();
-        List lst = AbstractIBean.list("SELECT a FROM BusinessRule a WHERE a.formName='"+formName+"'");
+        List lst = AbstractIBean.list("SELECT a FROM BusinessRule a WHERE a.formName='",formName,"'");
         PanelUtil.setListData(list, lst);
     }
 
@@ -928,7 +929,7 @@ private void btnToolForActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         String formName = Common2View.getTransactionPanel().getTitle();
         form = new BusinessRuleForm();
         form.setForm((TransactionPanel)Common2View.getTransactionPanel());
-        List lst = AbstractIBean.list("SELECT a FROM DynamicAccess a WHERE a.formTitle='"+formName+"' ORDER BY a.code");
+        List lst = AbstractIBean.list("SELECT a FROM DynamicAccess a WHERE a.formTitle='",formName,"' ORDER BY a.code");
         PanelUtil.setListData(form.dynamicAccessList, lst);
 
 //        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -964,7 +965,7 @@ private void btnToolForActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         JButton btn = new JButton("Export Selected");
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                File f = PanelUtil.showSelectFile("Export Selected Bean to File", constants.Constants.module+"-selection.mig", btnExportAll);
+                File f = PanelUtil.showSelectFile("Export Selected Bean to File", BeanUtil.concat(constants.Constants.module,"-selection.mig"), btnExportAll);
                 List<String> lst = new ArrayList<String>();
                 for (JCheckBox box : boxes) {
                     if (box.isSelected()) {

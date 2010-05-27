@@ -26,6 +26,6 @@ public class Log {
         Logger.getLogger("global").log(Level.SEVERE, BeanUtil.concat("SEVERE: ",BeanUtil.concat(message)));
     }
     public static void out(Object... message) {
-        Logger.getLogger("global").log(Level.SEVERE, "SEVERE: "+BeanUtil.concat(message));
+        Logger.getLogger("global").log(Level.SEVERE, "SEVERE: ",BeanUtil.concat(message));
     }
 }

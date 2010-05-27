@@ -83,12 +83,12 @@ public class UserInfo implements Serializable, IService {
             loginUser = new UserInfo();
             loginUser.setUser(acluser);
         } else {
-//    		System.out.println("CALLED LOGIN");
+//    		Log.out("CALLED LOGIN");
             ReturnStruct ret = CallService.callService(acluser, Constants.ADD_HELP, Constants.LOGIN_SERVICE);
             if (ret!=null) {
-//        		System.out.println("CALLED LOGIN1");
+//        		Log.out("CALLED LOGIN1");
             	loginUser = (UserInfo) ret.getData();
-//        		System.out.println("CALLED LOGIN3");
+//        		Log.out("CALLED LOGIN3");
             }
         }
         JActiveMenuPallete.removeAllFromMemory();
@@ -105,7 +105,7 @@ public class UserInfo implements Serializable, IService {
             loginUser = new UserInfo();
             loginUser.setUser(acluser);
         } else {
-//            System.out.println("LOGIN SERVER CALL....");
+//            Log.out("LOGIN SERVER CALL....");
             ReturnStruct ret = CallService.callService(acluser, Constants.ADD_HELP, Constants.LOGIN_SERVICE);
             loginUser = (UserInfo) ret.getData();
         }
@@ -273,7 +273,7 @@ public class UserInfo implements Serializable, IService {
     @Override
     public ReturnStruct callService(ParamStruct param) {
 //        populate all the duty codes here
-//    	System.out.println("CALLED USERINFO.");
+//    	Log.out("CALLED USERINFO.");
         AclDuty.createDuty("CAN EDIT SALARY", "");
         AclDuty.createDuty("CAN CHANGE STUDENT NUMBER", "");
         AclDuty.createDuty("HAS CREATE ENROLLMENT PAYMENT", "");

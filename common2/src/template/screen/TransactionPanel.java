@@ -57,27 +57,27 @@ public class TransactionPanel extends JPanel implements ITransactionPanel {
 
         @Override
         public void deleteRecord() {
-            System.out.println("DUMMY");
+            Log.out("DUMMY");
         }
 
         @Override
         public void newRecord() {
-            System.out.println("DUMMY");
+            Log.out("DUMMY");
         }
 
         @Override
         public void nextRecord() {
-            System.out.println("DUMMY");
+            Log.out("DUMMY");
         }
 
         @Override
         public void prevRecord() {
-            System.out.println("DUMMY");
+            Log.out("DUMMY");
         }
 
         @Override
         public void saveRecord() {
-            System.out.println("DUMMY");
+            Log.out("DUMMY");
         }
     };
     public AbstractTemplatePanel parentPanel;

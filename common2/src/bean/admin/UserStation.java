@@ -62,12 +62,12 @@ public class UserStation extends AbstractIBean {
 
     public static boolean isCashierAllowed() throws Exception {
 //        String macAddress = NetworkUtil.macAddress();
-//        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='"+macAddress+"'");
+//        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='",macAddress,"'");
 //        if (st==null || st.isEmptyKey()) {
-//            throw new Exception("No station defined for MAC Address = "+macAddress+". Please report this to the administrator.");
+//            throw new Exception("No station defined for MAC Address = ",macAddress,". Please report this to the administrator.");
 //        }
 //        if (!st.allowCashier) {
-//            throw new Exception("Cashier not allowed for station "+st.station+". Please report this to the administrator.");
+//            throw new Exception("Cashier not allowed for station ",st.station,". Please report this to the administrator.");
 //        }
         return true;
     }
@@ -78,12 +78,12 @@ public class UserStation extends AbstractIBean {
 //        	return true;
 //        }
 //        String macAddress = NetworkUtil.macAddress();
-//        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='"+macAddress+"'");
+//        UserStation st = (UserStation) DBClient.getFirstRecord("SELECT a FROM UserStation a WHERE a.macAddress='",macAddress,"'");
 //        if (st==null || st.isEmptyKey()) {
-//            throw new Exception("No station defined for MAC Address = "+macAddress+". Please report this to the administrator.");
+//            throw new Exception("No station defined for MAC Address = ",macAddress,". Please report this to the administrator.");
 //        }
 //        if (!st.allowAAA) {
-//            throw new Exception("AAA not allowed for station "+st.station+". Please report this to the administrator.");
+//            throw new Exception("AAA not allowed for station ",st.station,". Please report this to the administrator.");
 //        }
         return true;
     }

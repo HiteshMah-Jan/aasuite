@@ -39,7 +39,7 @@ public class ServerCache {
     private static class RunCleaner extends TimerTask {
 		@Override
 		public void run() {
-			System.out.println("\n\n\n\n\n\n\nCLEANING SERVER CACHE\n\n\n\n\n\n");
+			Log.out("\n\n\n\n\n\n\nCLEANING SERVER CACHE\n\n\n\n\n\n");
 			cleanCache();
 		}
     }

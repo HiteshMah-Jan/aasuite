@@ -294,7 +294,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
     public Payment() {
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR()+"";
+//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
         orNumber = "";
         orType = "N";
         schoolYear = AppConfig.getSchoolYear();
@@ -1424,17 +1424,17 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
     	if (chkamt<=0) return;
     	
 //    	if (this.paymentFor.contains("MISC")) {
-//        	BeanUtil.setPropertyValue(this, "amount"+index, orAmount);
+//        	BeanUtil.setPropertyValue(this, "amount",index, orAmount);
 //        	if (chkamt<orAmount) {
-//            	BeanUtil.setPropertyValue(check, "amount"+index, 0);
+//            	BeanUtil.setPropertyValue(check, "amount",index, 0);
 //        	}
 //        	else {
-//            	BeanUtil.setPropertyValue(check, "amount"+index, chkamt-orAmount);
+//            	BeanUtil.setPropertyValue(check, "amount",index, chkamt-orAmount);
 //        	}
 //	    }
 //    	else {
         	BeanUtil.setPropertyValue(this, BeanUtil.concat("amount",index), chkamt);
-//        	BeanUtil.setPropertyValue(check, "amount"+index, 0);
+//        	BeanUtil.setPropertyValue(check, "amount",index, 0);
 //    	}
     }
     

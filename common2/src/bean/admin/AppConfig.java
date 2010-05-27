@@ -146,7 +146,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
     public static List<AclModule> lstModule;
     private static AppConfig getConfig(String category, String code, String defValue) {
         if (lst==null) {
-//            System.out.println("CONFIG SERVER CALL...");
+//            Log.out("CONFIG SERVER CALL...");
             List<String> tmp = new ArrayList();
             tmp.add("SELECT a FROM AppConfig a");
             tmp.add("SELECT a FROM AppMenu a ORDER BY a.sortNum");

@@ -12,6 +12,7 @@ import component.IAuthorization;
 import javax.swing.SwingUtilities;
 import service.util.AbstractIBean;
 import service.util.WSPersistenceEntityManager;
+import util.BeanUtil;
 import util.PanelUtil;
 
 /**
@@ -707,9 +708,9 @@ private void btnAddToGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 
 private void btnAddDutyCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDutyCodeActionPerformed
     String dutyCode = txtDutyCode.getText();
-    AclDuty duty = (AclDuty) AbstractIBean.firstRecord("SELECT a FROM AclDuty a WHERE a.code='"+dutyCode+"'");
+    AclDuty duty = (AclDuty) AbstractIBean.firstRecord("SELECT a FROM AclDuty a WHERE a.code='",dutyCode,"'");
     if (duty!=null && duty.getCode()!=null) {
-        PanelUtil.showError(btnAddDutyCode, "Code "+dutyCode+" already inserted.");
+        PanelUtil.showError(btnAddDutyCode, "Code ",dutyCode," already inserted.");
         return;
     }
     duty = new AclDuty();
@@ -727,7 +728,7 @@ private void treeUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 
     @SuppressWarnings("deprecation")
 private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
-    Person p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId="+cboUserAccount.getIntCode());
+    Person p = (Person) AbstractIBean.firstRecord("SELECT a FROM Person a WHERE a.personId=",cboUserAccount.getIntCode());
     p.setUserid(txtUserId.getText());
     p.save();
     
@@ -751,13 +752,13 @@ private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void mnuRemoveDutyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRemoveDutyActionPerformed
         AclUserDuty usr = (AclUserDuty) PanelUtil.getTreeObject(AclUserDuty.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
-        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.seq="+usr.getSeq());
+        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.seq=",usr.getSeq());
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveDutyActionPerformed
 
 private void mnuChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuChangePasswordActionPerformed
-        String password = "PASSWORD"+((int)(Math.random()*1000));
+        String password = BeanUtil.concat("PASSWORD",((int)(Math.random()*1000)));
         AclUser usr = (AclUser) PanelUtil.getTreeObject(AclUser.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
         String userId = usr.getUserid();
@@ -765,14 +766,14 @@ private void mnuChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {/
         usr.setUserid(userId);
         usr.setPassword(password);
         usr.save();
-        PanelUtil.showMessage(treeUser, "Password reset to ["+password+"]");
+        PanelUtil.showMessage(treeUser, "Password reset to [",password,"]");
 }//GEN-LAST:event_mnuChangePasswordActionPerformed
 
 private void mnuRemoveAllDutyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRemoveAllDutyActionPerformed
         AclUser usr = (AclUser) PanelUtil.getTreeObject(AclUser.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
         String userId = usr.getUserid();
-        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.userid='"+userId+"'");
+        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.userid='",userId,"'");
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveAllDutyActionPerformed
@@ -781,7 +782,7 @@ private void mnuRemoveAllModuleActionPerformed(java.awt.event.ActionEvent evt) {
         AclUser usr = (AclUser) PanelUtil.getTreeObject(AclUser.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
         String userId = usr.getUserid();
-        usr.runSQL("DELETE FROM AclUserModule a WHERE a.userid='"+userId+"'");
+        usr.runSQL("DELETE FROM AclUserModule a WHERE a.userid='",userId,"'");
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveAllModuleActionPerformed
@@ -790,7 +791,7 @@ private void mnuRemoveAllGroupActionPerformed(java.awt.event.ActionEvent evt) {/
         AclUser usr = (AclUser) PanelUtil.getTreeObject(AclUser.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
         String userId = usr.getUserid();
-        usr.runSQL("DELETE FROM AclUserGroup a WHERE a.userid='"+userId+"'");
+        usr.runSQL("DELETE FROM AclUserGroup a WHERE a.userid='",userId,"'");
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveAllGroupActionPerformed
@@ -800,11 +801,11 @@ private void mnuRemoveUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         if (usr==null || usr.getUserid()==null) return;
         String userId = usr.getUserid();
         
-        usr.runSQL("DELETE FROM AclUserModule a WHERE a.userid='"+userId+"'");
-        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.userid='"+userId+"'");
-        usr.runSQL("DELETE FROM AclUser a WHERE a.userid='"+userId+"'");
+        usr.runSQL("DELETE FROM AclUserModule a WHERE a.userid='",userId,"'");
+        usr.runSQL("DELETE FROM AclUserDuty a WHERE a.userid='",userId,"'");
+        usr.runSQL("DELETE FROM AclUser a WHERE a.userid='",userId,"'");
         
-        Person p = (Person) usr.selectFirstCache("SELECT a FROM Person a WHERE a.userid='"+userId+"'");
+        Person p = (Person) usr.selectFirstCache("SELECT a FROM Person a WHERE a.userid='",userId,"'");
         p.setUserid(null);
         p.save();
 
@@ -821,7 +822,7 @@ private void mnuAddToGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void mnuGroupRemoveModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGroupRemoveModuleActionPerformed
         AclGroupModule usr = (AclGroupModule) PanelUtil.getTreeObject(AclGroupModule.class, treeGroup);
         if (usr==null || usr.groupCode==null) return;
-        usr.runSQL("DELETE FROM AclGroupModule a WHERE a.seq="+usr.getSeq());
+        usr.runSQL("DELETE FROM AclGroupModule a WHERE a.seq=",usr.getSeq());
         treeGroup.refresh();
         treeGroup.setExpandAll(true);
 }//GEN-LAST:event_mnuGroupRemoveModuleActionPerformed
@@ -829,7 +830,7 @@ private void mnuGroupRemoveModuleActionPerformed(java.awt.event.ActionEvent evt)
 private void mnuGroupRemoveDutyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGroupRemoveDutyActionPerformed
         AclGroupDuty usr = (AclGroupDuty) PanelUtil.getTreeObject(AclGroupDuty.class, treeGroup);
         if (usr==null || usr.groupCode==null) return;
-        usr.runSQL("DELETE FROM AclGroupDuty a WHERE a.seq="+usr.getSeq());
+        usr.runSQL("DELETE FROM AclGroupDuty a WHERE a.seq=",usr.getSeq());
         treeGroup.refresh();
         treeGroup.setExpandAll(true);
 }//GEN-LAST:event_mnuGroupRemoveDutyActionPerformed
@@ -837,7 +838,7 @@ private void mnuGroupRemoveDutyActionPerformed(java.awt.event.ActionEvent evt) {
 private void mnuRemoveModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRemoveModuleActionPerformed
         AclUserModule usr = (AclUserModule) PanelUtil.getTreeObject(AclUserModule.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
-        usr.runSQL("DELETE FROM AclUserModule a WHERE a.seq="+usr.getSeq());
+        usr.runSQL("DELETE FROM AclUserModule a WHERE a.seq=",usr.getSeq());
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveModuleActionPerformed
@@ -845,7 +846,7 @@ private void mnuRemoveModuleActionPerformed(java.awt.event.ActionEvent evt) {//G
 private void mnuRemoveGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRemoveGroupActionPerformed
         AclUserGroup usr = (AclUserGroup) PanelUtil.getTreeObject(AclUserGroup.class, treeUser);
         if (usr==null || usr.getUserid()==null) return;
-        usr.runSQL("DELETE FROM AclUserGroup a WHERE a.seq="+usr.getSeq());
+        usr.runSQL("DELETE FROM AclUserGroup a WHERE a.seq=",usr.getSeq());
         treeUser.refresh();
         treeUser.setExpandAll(true);
 }//GEN-LAST:event_mnuRemoveGroupActionPerformed

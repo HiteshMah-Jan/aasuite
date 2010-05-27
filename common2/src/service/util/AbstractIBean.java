@@ -554,7 +554,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
             } catch (Exception e) {
             }
         }
-//        System.out.println(sb.toString());
+//        Log.out(sb.toString());
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

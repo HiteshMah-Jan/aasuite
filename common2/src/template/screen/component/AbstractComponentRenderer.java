@@ -248,7 +248,7 @@ public abstract class AbstractComponentRenderer {
             else {
                 BeanProperty.create(field.field.getName()).setValue(field.currentObject, obj);
             }
-//            System.out.println("TEST");
+//            Log.out("TEST");
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(AbstractComponentRenderer.class.getName()).log(Level.SEVERE, null, ex);
         }

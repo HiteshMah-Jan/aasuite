@@ -416,7 +416,7 @@ public class PanelUtil {
     }
 
     public static double showPromptMessage(JComponent comp, String message, double d) {
-        String str = JOptionPane.showInputDialog(comp, message, d+"");
+        String str = JOptionPane.showInputDialog(comp, message, BeanUtil.concat(d,""));
         try {
             return Double.parseDouble(str);
         }
@@ -739,7 +739,7 @@ public class PanelUtil {
         if (cls==null) return false;
         UITemplate template = (UITemplate) cls.getAnnotation(UITemplate.class);
         if (template==null) {
-            System.err.println("TEMPLATE NOT SET FOR BEAN "+bean);
+            Log.out("TEMPLATE NOT SET FOR BEAN ",bean);
             return false;
         }
         return template.canBackup();
@@ -749,7 +749,7 @@ public class PanelUtil {
         Class cls = getBeanClass(bean);
         UITemplate template = (UITemplate) cls.getAnnotation(UITemplate.class);
         if (template==null) {
-            System.err.println("TEMPLATE NOT SET FOR BEAN "+bean);
+            Log.out("TEMPLATE NOT SET FOR BEAN ",bean);
             return false;
         }
         return template.deleteOnUpload();
@@ -955,10 +955,10 @@ public class PanelUtil {
 
     public static String getColorStr(Color col) {
         if (col==null) return "";
-        String a = col.getRed()+"";
-        String b = col.getGreen()+"";
-        String c = col.getBlue()+"";
-        return a+" "+b+" "+c;
+        String a = BeanUtil.concat(col.getRed(),"");
+        String b = BeanUtil.concat(col.getGreen(),"");
+        String c = BeanUtil.concat(col.getBlue(),"");
+        return BeanUtil.concat(a," ",b," ",c);
     }
 
     public static void popupBeanTemplate(Class bean, String title, boolean showAdd) {
@@ -1090,7 +1090,7 @@ public class PanelUtil {
     	showWaitFrame("Please wait...");
     }
 
-    public static void showWaitFrame(final String title) {
+    public static void showWaitFrame(final String... title) {
     	if (frWait==null) {
     		frWait = new JDialog();
 	    	frWait.setTitle("Please wait...");
@@ -1105,7 +1105,7 @@ public class PanelUtil {
     	Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
-		    	frWait.setTitle(title);
+		    	frWait.setTitle(BeanUtil.concat(title));
 		    	frWait.setVisible(true);
 			}
     	});

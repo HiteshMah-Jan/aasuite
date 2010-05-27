@@ -14,6 +14,7 @@ import java.awt.Dimension;
 import java.util.List;
 
 import springbean.AAAConfig;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -71,7 +72,7 @@ public class SurchargeCalculator extends javax.swing.JPanel {
 
     public void updateList() {
     	if (stud!=null) {
-            List lst = DBClient.getList("SELECT a FROM Payment a WHERE a.paidBy=",stud.personId+" AND a.schoolYear='",schoolYear,"' AND a.paid=false");
+            List lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Payment a WHERE a.paidBy=",stud.personId," AND a.schoolYear='",schoolYear,"' AND a.paid=false"));
             beanPanelPallete1.setList(lst);
     	}
     }

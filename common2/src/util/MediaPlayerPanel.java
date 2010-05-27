@@ -44,7 +44,7 @@ public class MediaPlayerPanel extends javax.swing.JPanel implements ActionListen
             new util.MediaPlayerPanel();
         }
         viewer.f = movie;
-        viewer.dlgShowMovie.setTitle("You are watching "+movie);
+        viewer.dlgShowMovie.setTitle(BeanUtil.concat("You are watching ",movie));
         viewer.setAllFiles();
         viewer.showDialogMovie();
     }
@@ -111,7 +111,7 @@ public class MediaPlayerPanel extends javax.swing.JPanel implements ActionListen
         dlgShowMovie.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("WINDOW");
+                Log.out("WINDOW");
                 if (playerVideo!=null) {
                     playerVideo.stop();
                 }
@@ -236,7 +236,7 @@ private void btnPlaySelectedMovieActionPerformed(java.awt.event.ActionEvent evt)
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setAlwaysOnTop(true);
         List<File> lst = new ArrayList<File>();
-        File dir = new File(constants.Constants.ROOT_FOLDER+"tmp");
+        File dir = new File(constants.Constants.ROOT_FOLDER,"tmp");
         File[] fList = dir.listFiles();
         for (File f : fList) {
             lst.add(f);
@@ -248,7 +248,7 @@ private void btnPlaySelectedMovieActionPerformed(java.awt.event.ActionEvent evt)
         frame.getContentPane().add(pnl);
         frame.pack();
         frame.setVisible(true);
-//        pnl.setMoviePath(constants.Constants.ROOT_FOLDER+"tmp/1204205017059");
+//        pnl.setMoviePath(constants.Constants.ROOT_FOLDER,"tmp/1204205017059");
         pnl.playMovie();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

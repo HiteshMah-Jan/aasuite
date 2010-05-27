@@ -347,7 +347,7 @@ private void btnCancelORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 //        need to change all the payment to cancelled
     DBClient.runSQLNative("UPDATE Payment SET orNumber=-1, orAmount=0, amountPaid=0, oldPaymentFor=paymentFor , paymentFor='",constants.Constants.CANCELLED,"' WHERE invoiceId=",inv.seq);
 //    need to revert the payment back from assessment
-    List lst = DBClient.getList("SELECT a FROM Payment a WHERE a.schoolYear='",inv.schoolYear,"' AND a.paidBy=",billTo+" AND a.paid=false");
+    List lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Payment a WHERE a.schoolYear='",inv.schoolYear,"' AND a.paidBy=",billTo," AND a.paid=false"));
     DBClient.persistBean(lst);
     txtORNumberActionPerformed(null);
 }//GEN-LAST:event_btnCancelORActionPerformed

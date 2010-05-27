@@ -140,14 +140,14 @@ public class NumberToWordConverter {
         int peso = (int) money;
         int cent = (int) ((money - peso) * 100);
         if (cent == 0) {
-            return convert(peso) +" "+ currencyWord;
+            return BeanUtil.concat(convert(peso) ," ", currencyWord);
         } else {
-            return convert(peso) +" "+currencyWord + " and " + convert(cent) +" "+ centavoWord;
+            return BeanUtil.concat(convert(peso) ," ",currencyWord ," and " + convert(cent) ," ", centavoWord);
         }
     }
 
     public static void main(String[] args) {
-        System.out.println(NumberToWordConverter.convertMoney(300.75, " Pesos", " Centavos"));
+        Log.out(NumberToWordConverter.convertMoney(300.75, " Pesos", " Centavos"));
 
     }
 }
