@@ -1169,7 +1169,7 @@ public class Student extends Customer implements Serializable {
 				List<Subject> lstCur = selectListCache("SELECT a FROM Subject a WHERE a.course='", c.code , "'");
 				for (Subject subject : lstCur) {
 					for (int i = 1; i <= 6; i++) {
-						if (subject.gradeLevel.contains(BeanUtil.concat(i,""))) {
+						if (subject.gradeLevel.contains(BeanUtil.concat(i))) {
 							CourseSubject cs = new CourseSubject();
 							cs.course = c.code;
 							cs.subject = subject.code;

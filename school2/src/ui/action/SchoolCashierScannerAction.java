@@ -52,8 +52,8 @@ public class SchoolCashierScannerAction extends CashierScannerAction {
             //get the next amount due
             pay = (PaymentEnrollment) DBClient.getFirstRecord("SELECT a FROM PaymentEnrollment a, Enrollment b, Student c WHERE a.recordId=b.seq AND a.paid=false AND b.studentId=c.personId AND c.studentNumber='",studentNumber,"' ORDER BY a.seq");
             if (pay!=null) {
-                txtAmountDue.setText(BeanUtil.concat(pay.overallAmountDue,""));
-                txtPayAmount.setText(BeanUtil.concat(pay.overallAmountDue,""));
+                txtAmountDue.setText(BeanUtil.concat(pay.overallAmountDue));
+                txtPayAmount.setText(BeanUtil.concat(pay.overallAmountDue));
                 txtDescription.setText(pay.description);
             }
         }

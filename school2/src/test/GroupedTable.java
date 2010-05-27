@@ -118,7 +118,7 @@ public class GroupedTable extends javax.swing.JPanel {
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-        lbl.setText(BeanUtil.concat(total,""));
+        lbl.setText(BeanUtil.concat(total));
     }
     
     private JLabel getFooterLabel(int i) {
@@ -155,7 +155,7 @@ public class GroupedTable extends javax.swing.JPanel {
     }
     private boolean withSumFooter(int i) {
         if (sumFooter==null) return false;
-        return sumFooter.contains(BeanUtil.concat(i,""));
+        return sumFooter.contains(BeanUtil.concat(i));
     }
 
     /** Creates new form GroupedTable */

@@ -352,7 +352,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='",t.section,"'");
 		Section sec = (Section) Section.extractObject(Section.class.getSimpleName(), t.section);
 		GradeLevel lvl = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), sec.gradeLevel);
-		Schedule sched = (Schedule) Schedule.extractObject(Schedule.class.getSimpleName(), BeanUtil.concat(t.scheduleId,"").trim());
+		Schedule sched = (Schedule) Schedule.extractObject(Schedule.class.getSimpleName(), BeanUtil.concat(t.scheduleId).trim());
 		sched.boysAndGirls += "";
 		for (Student stud:lstStud) {
 //			check if already exist

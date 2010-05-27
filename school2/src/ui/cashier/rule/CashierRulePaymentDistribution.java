@@ -302,7 +302,7 @@ public class CashierRulePaymentDistribution {
 	
 	protected String getTuitionOR() throws Exception {
 		if (normOR==null) {
-			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N"),""));
+			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N")));
 			if (normOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}

@@ -132,7 +132,7 @@ public class BookSold extends AbstractIBean {
     public BookSold() {
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
+//        orNumber = new CashierDailyBooklet().extractNextOR();
         orType = "N";
         schoolYear = springbean.SchoolConfig.getSchoolYear();
     }
@@ -1030,7 +1030,7 @@ public class BookSold extends AbstractIBean {
             inv.payer = payer;
             Person cust = Person.extractObject(personId);
             if (cust != null) {
-                inv.billTo = BeanUtil.concat(cust.personId,"");
+                inv.billTo = BeanUtil.concat(cust.personId);
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
@@ -1075,7 +1075,7 @@ public class BookSold extends AbstractIBean {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(BeanUtil.concat(invoiceId,""), map);
+        ins.getReportParameter(BeanUtil.concat(invoiceId), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }

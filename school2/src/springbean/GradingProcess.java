@@ -255,7 +255,7 @@ public class GradingProcess implements Runnable {
 
 	protected AveLow isValuesHonor(Student s, StudentValuesGrading val, int average, int lowest, int quarter, String... fields) {
 		AveLow avelow = new AveLow();
-		String suffix = BeanUtil.concat(quarter,"");
+		String suffix = BeanUtil.concat(quarter);
 		if (quarter==1) {
 			suffix = "";
 		}

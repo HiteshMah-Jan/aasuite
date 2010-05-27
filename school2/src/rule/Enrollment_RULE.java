@@ -85,7 +85,7 @@ public class Enrollment_RULE extends BusinessRuleWrapper {
 						sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",e.section,"'");
 						map.put(e.section, sec);
 					}
-					if (!(BeanUtil.concat(e.gradeLevel,"")).equals(sec.gradeLevel)) {
+					if (!(BeanUtil.concat(e.gradeLevel)).equals(sec.gradeLevel)) {
 						e.delete();
 					}
 				}

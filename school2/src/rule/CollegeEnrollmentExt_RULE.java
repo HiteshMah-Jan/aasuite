@@ -51,7 +51,7 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 					int index = i+1;
 					String scname = BeanUtil.concat("schedule",index);
 					Schedule sched = lst.get(i);
-					((LookupTableFieldPallete)getComponent(scname)).setText(BeanUtil.concat(sched.seq,""));
+					((LookupTableFieldPallete)getComponent(scname)).setText(BeanUtil.concat(sched.seq));
 					updateSchedule(BeanUtil.concat("schedule",index));
 				}
 			}
@@ -167,9 +167,9 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 
 		col.overAllAmount = col.getComputedOverallMisc() + col.totalAmount;
 		setValue("miscellaneousFee",col.getComputedOverallMisc());
-		setValue("totalAmount",BeanUtil.concat(col.totalAmount,""));
+		setValue("totalAmount",BeanUtil.concat(col.totalAmount));
 		setValue("totalUnits",col.totalUnits);
-		setValue("overAllAmount",BeanUtil.concat(col.overAllAmount,""));
+		setValue("overAllAmount",BeanUtil.concat(col.overAllAmount));
 	}
 	
 	protected boolean validSchedule() {

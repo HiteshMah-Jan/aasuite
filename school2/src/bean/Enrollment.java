@@ -3252,7 +3252,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
                 stud.save();
         	}
             if (college) {
-            	if (AppConfig.getSchoolYear().equals(schoolYear) && !(BeanUtil.concat(stud.section,"")).equals(section)) {
+            	if (AppConfig.getSchoolYear().equals(schoolYear) && !(BeanUtil.concat(stud.section)).equals(section)) {
             		stud.section = section;
             		stud.save();
             	}

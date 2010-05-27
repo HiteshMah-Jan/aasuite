@@ -50,7 +50,7 @@ public class CashierRule {
                 PanelUtil.showMessage(old, "Student not yet assessed.");
                 return;
             }
-            String amount = PanelUtil.showPromptDefaultMessage(old, "Please type amount.", BeanUtil.concat(old.getCandidateAmount(),""));
+            String amount = PanelUtil.showPromptDefaultMessage(old, "Please type amount.", BeanUtil.concat(old.getCandidateAmount()));
             if (amount == null) {
                 return;
             }
@@ -181,7 +181,7 @@ public class CashierRule {
     	}
         double amount = 0;
 		try {
-	        amount = PanelUtil.getDoubleValue(PanelUtil.showPromptDefaultMessage(old, "Surcharge Discount Amount", BeanUtil.concat(getTotalSurcharge(),"")).toString());
+	        amount = PanelUtil.getDoubleValue(PanelUtil.showPromptDefaultMessage(old, "Surcharge Discount Amount", BeanUtil.concat(getTotalSurcharge())).toString());
 		}
 		catch (Exception e) {
 			throw e;

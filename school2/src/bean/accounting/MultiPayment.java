@@ -387,7 +387,7 @@ public class MultiPayment extends AbstractIBean implements java.io.Serializable 
     public MultiPayment() {
         cashier = UserInfo.getUserName();
         paymentDate = constants.Constants.useDate;
-//        or1 = new CashierDailyBooklet().extractNextOR(),"";
+//        or1 = new CashierDailyBooklet().extractNextOR();
         schoolYear = springbean.SchoolConfig.getSchoolYear();
     }
 

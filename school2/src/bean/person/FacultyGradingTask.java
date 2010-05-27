@@ -797,7 +797,7 @@ public class FacultyGradingTask extends AbstractIBean implements Serializable {
     }
     
     public String getFaculty() {
-        EmployeeFaculty fac = (EmployeeFaculty) EmployeeFaculty.extractObject(EmployeeFaculty.class.getSimpleName(), BeanUtil.concat(facultyId,""));
+        EmployeeFaculty fac = (EmployeeFaculty) EmployeeFaculty.extractObject(EmployeeFaculty.class.getSimpleName(), BeanUtil.concat(facultyId));
         if (fac==null) return "";
         return fac.toString();
     }

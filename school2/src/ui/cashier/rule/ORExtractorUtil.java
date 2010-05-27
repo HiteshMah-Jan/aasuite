@@ -21,7 +21,7 @@ public class ORExtractorUtil {
 	public static String getMiscOR(OldStudent old, CashierDailyBooklet booklet) throws Exception {
 		String miscOR = null;
 		if (miscOR==null) {
-			miscOR = PanelUtil.showPromptDefaultMessage(old, "Print OR for MISC?", BeanUtil.concat(booklet.extractNextOR("A"),""));
+			miscOR = PanelUtil.showPromptDefaultMessage(old, "Print OR for MISC?", BeanUtil.concat(booklet.extractNextOR("A")));
 			if (miscOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}
@@ -47,7 +47,7 @@ public class ORExtractorUtil {
 	public static String getTuitionOR(OldStudent old, CashierDailyBooklet booklet) throws Exception {
 		String normOR = null;
 		if (normOR==null) {
-			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N"),""));
+			normOR = PanelUtil.showPromptDefaultMessage(old, "Print OR", BeanUtil.concat(booklet.extractNextOR("N")));
 			if (normOR==null) {
 				throw new Exception(constants.Constants.CANCELLED);
 			}

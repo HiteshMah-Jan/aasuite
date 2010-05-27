@@ -58,7 +58,7 @@ public class Admission_RULE extends BusinessRuleWrapper {
             } else {
                 rate = "FAILED";
             }
-            setValue("remarks", BeanUtil.concat(rate,""));
+            setValue("remarks", BeanUtil.concat(rate));
         }
         if ("birthDate".equalsIgnoreCase(comp.getName())) {
             setAge(admission);

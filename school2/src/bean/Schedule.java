@@ -603,7 +603,7 @@ public class Schedule extends AbstractIBean implements Serializable {
             List<GradeLevel> lst = GradeLevel.extractCacheListBeans(GradeLevel.class);
             for (GradeLevel lvl : lst) {
                 for (int i = 0; i < 3; i++) {    
-                sec.add(Section.createSectionObj(BeanUtil.concat("S",lvl.code),BeanUtil.concat(lvl.code,""),1));
+                sec.add(Section.createSectionObj(BeanUtil.concat("S",lvl.code),BeanUtil.concat(lvl.code),1));
              
                }
             DBClient.persistBean((List)sec);

@@ -139,7 +139,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = "pre";
 			String gender = l.get(0).toString();
-			String addStatus = BeanUtil.concat(l.get(1),"");
+			String addStatus = BeanUtil.concat(l.get(1));
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}
@@ -177,7 +177,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = "pre";
 			String gender = l.get(0).toString();
-			String addStatus = BeanUtil.concat(l.get(1),"");
+			String addStatus = BeanUtil.concat(l.get(1));
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}
@@ -219,7 +219,7 @@ public class SchoolProfileSummary_RULE extends BusinessRuleWrapper {
 		for (List l:lst) {
 			String grade = l.get(0).toString();
 			String gender = l.get(1).toString();
-			String addStatus = BeanUtil.concat(l.get(2),"");
+			String addStatus = BeanUtil.concat(l.get(2));
 			if (addStatus.toUpperCase().contains("TRANS")) {
 				addStatus = "Transfer";
 			}

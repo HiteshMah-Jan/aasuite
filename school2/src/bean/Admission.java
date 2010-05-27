@@ -268,7 +268,7 @@ public class Admission extends AbstractIBean implements Serializable {
         accountNumber = "102";
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
+//        orNumber = new CashierDailyBooklet().extractNextOR();
         schoolYear = springbean.SchoolConfig.getSchoolYear();
     }
 

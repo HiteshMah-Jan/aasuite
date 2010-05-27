@@ -471,9 +471,9 @@ protected void refreshSectionStudent() {
             girls++;
         }
     }
-    txtBoys.setText(BeanUtil.concat(boys,""));
-    txtGirls.setText(BeanUtil.concat(girls,""));
-    txtTotal.setText(BeanUtil.concat((boys+girls),""));
+    txtBoys.setText(BeanUtil.concat(boys));
+    txtGirls.setText(BeanUtil.concat(girls));
+    txtTotal.setText(BeanUtil.concat((boys+girls)));
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,7 +18,7 @@ public class TestJonelSubClass extends TestJonel {
 
 	public void runNow(int i) {
 		runNow();
-		runNow(BeanUtil.concat(i,""));
+		runNow(BeanUtil.concat(i));
 	}
 
 	public void runNow(String i) {

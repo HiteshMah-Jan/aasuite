@@ -46,7 +46,7 @@ public class BookSold_RULE extends BusinessRuleWrapper {
             else {
                 BookSold book = (BookSold) this.getBean();
                 int bookId = (int) BeanUtil.getDoubleValue(book, comp.getName());
-                BookSaleRef b = (BookSaleRef) AbstractIBean.extractObject(BookSaleRef.class.getSimpleName(), BeanUtil.concat(bookId,""));
+                BookSaleRef b = (BookSaleRef) AbstractIBean.extractObject(BookSaleRef.class.getSimpleName(), BeanUtil.concat(bookId));
                 String amt = comp.getName().replace("book", "bookAmount");
                 setValue(amt, b.amount);
             }
