@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -37,6 +38,12 @@ import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 
 import javax.swing.JFileChooser;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 import springbean.AAAConfig;
 import bean.admin.AppConfig;
@@ -781,30 +788,55 @@ public class DataUtil {
 	}
 
 	private static File getReportFile(String file) {
+		return getReportFile(file, ".jrxml");
+	}
+
+	public static JasperReport getReportCompiled(String file) {
+		File f = getReportFile(file, ".jasper");
+		if (f == null || !f.exists()) {
+			try {
+				File xml = getReportFile(file);
+				f = new File(xml.getParent(), BeanUtil.concat(file,".jasper"));
+				JasperCompileManager.compileReportToFile(xml.getAbsolutePath(), f.getAbsolutePath());
+			} catch (JRException e) {
+				e.printStackTrace();
+			}
+		}
+		JasperReport rep = null;
+		try {
+			 rep = JasperManager.loadReport(f.getAbsolutePath());
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rep;
+	}
+	
+	private static File getReportFile(String file, String extension) {
 		String reportDir = AppConfig.getReportFolder();
 		if (reportDir==null || reportDir.isEmpty()) {
 			reportDir = "ESS";
 		}
-		String filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/clients/",reportDir.toUpperCase(),"/",file,".jrxml");
+		String filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/clients/",reportDir.toUpperCase(),"/",file,extension);
 		File f = new File(filename);
 		if (f == null || !f.exists()) {
-			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",AAAConfig.getInstance().getModule().toLowerCase(),"/grading/",file,".jrxml");
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",AAAConfig.getInstance().getModule().toLowerCase(),"/grading/",file,extension);
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",constants.Constants.module.toLowerCase(),"/",file,".jrxml");
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",constants.Constants.module.toLowerCase(),"/",file,extension);
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/gov/",file,".jrxml");
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/gov/",file,extension);
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/acct/",file,".jrxml");
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/acct/",file,extension);
 			f = new File(filename);
 		}
 		if (f == null || !f.exists()) {
-			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",file,".jrxml");
+			filename = BeanUtil.concat(constants.Constants.ROOT_FOLDER,"tmp/designing/",file,extension);
 			f = new File(filename);
 		}
 		Log.out("FILENAME == ",filename);
@@ -818,8 +850,7 @@ public class DataUtil {
 			try {
 				is = new FileInputStream(f);
 			} catch (FileNotFoundException ex) {
-				Logger.getLogger(DataUtil.class.getName()).log(Level.SEVERE,
-						null, ex);
+				Logger.getLogger(DataUtil.class.getName()).log(Level.SEVERE,null, ex);
 			}
 		}
 		if (is == null) {
@@ -829,12 +860,10 @@ public class DataUtil {
 			try {
 				String str = getResourceString(is);
 				str = str.replace("`", "");
-				ByteArrayInputStream bais = new ByteArrayInputStream(str
-						.getBytes());
+				ByteArrayInputStream bais = new ByteArrayInputStream(str.getBytes());
 				is = bais;
 			} catch (IOException ex) {
-				Logger.getLogger(DataUtil.class.getName()).log(Level.SEVERE,
-						null, ex);
+				Logger.getLogger(DataUtil.class.getName()).log(Level.SEVERE,null, ex);
 			}
 		}
 		return is;

@@ -10,11 +10,9 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -59,7 +57,6 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import bean.Person;
-import bean.admin.AppConfig;
 
 import common2.Common2View;
 import component.AbstractReport;
@@ -559,21 +556,13 @@ public class AbstractReportTemplate implements Serializable, IService {
         }
     }
 
-    static Map<String, JasperReport> mapReports = new Hashtable<String, JasperReport>();
-    
     public ReturnStruct callService(ParamStruct param) {
         ReturnStruct ret = new ReturnStruct();
         ret.setStatus(Constants.FAIL);
         if (param.getActionCommand()==1) {
 //            get jasperreport
             String file = param.getData().toString();
-            JasperReport rep = mapReports.get(file);
-            if (rep==null) {
-                rep = AbstractReport.compileReport(DataUtil.getReportStream(file));
-                if (!AppConfig.isAlwaysCompileReport()) {
-                    mapReports.put(file, rep);
-                }
-            }
+        	JasperReport rep = DataUtil.getReportCompiled(file);
             ret.setData(rep);
             ret.setStatus(Constants.SUCCESS);
         }

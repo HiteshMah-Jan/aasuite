@@ -33,7 +33,8 @@ public class PopupReportDisplayer extends javax.swing.JDialog {
             popup = new PopupReportDisplayer(null, true);
             popup.pack();
         }
-        JasperReport rep = component.AbstractReport.compileReport(DataUtil.getReportStream(report));
+//        JasperReport rep = component.AbstractReport.compileReport(DataUtil.getReportStream(report));
+        JasperReport rep = DataUtil.getReportCompiled(report);
         if (map.size()==0) {
             component.AbstractReport.displayReportToPanel(popup.pnlReport, rep);
         }

@@ -139,7 +139,7 @@ public abstract class AbstractReport {
 
     public static JasperReport compileReport(String filename) {
 //        File f = new File(constants.Constants.ROOT_FOLDER,"tmp/designing/",filename,".jrxml");
-        return compileReport(DataUtil.getReportStream(filename));
+        return DataUtil.getReportCompiled(filename);
     }
 
     public static List<JRParameter> getReportParameters(JasperReport report) {
