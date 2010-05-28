@@ -618,10 +618,10 @@ public class Schedule extends AbstractIBean implements Serializable {
             List<Schedule> sched = new ArrayList<Schedule>();
             for (Subject subj : lst) {
 //                for (int i = 0; i < 10; i++) {
-                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
-                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
-                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
-                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code,""),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code),"",""));
+                sched.add(Schedule.createScheduleObj(1,"",BeanUtil.concat(subj.code),"",""));
    
                 DBClient.persistBean((List)sched);
             }
