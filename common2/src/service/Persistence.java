@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 import util.BeanUtil;
 import util.DBUtil;
 import util.Log;
-import util.ServerCache;
 import service.util.AbstractIBean;
 import service.util.IBean;
 
