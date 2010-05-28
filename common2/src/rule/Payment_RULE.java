@@ -87,7 +87,7 @@ public class Payment_RULE extends BusinessRuleWrapper {
                     JTextField f = (JTextField) getComponent(amountName);
                     String txt = f.getText();
                     if (txt==null || txt.trim().isEmpty() || txt.trim().equals("0") || txt.trim().equals("0.0")) {
-                        f.setText(BeanUtil.concat(useAmount,""));
+                        f.setText(BeanUtil.concat(useAmount));
                         f.updateUI();
                     }
                 }

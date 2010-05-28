@@ -269,7 +269,7 @@ public class DisplayWrapper {
                 else if (display.type().startsWith("textarea")) {
                     return "100%";
                 }
-                return BeanUtil.concat(display.width(),"");
+                return BeanUtil.concat(display.width());
             }
         }
     }
@@ -281,7 +281,7 @@ public class DisplayWrapper {
     public String getSize() {
         Column col = f.field.getAnnotation(Column.class);
         if (col!=null && col.length()>0 && col.length()<20) {
-            return BeanUtil.concat(col.length(),"");
+            return BeanUtil.concat(col.length());
         }
         if (f.field.getType()==int.class || f.field.getType()==double.class) {
             return "10";

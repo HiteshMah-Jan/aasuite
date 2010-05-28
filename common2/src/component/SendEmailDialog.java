@@ -56,7 +56,7 @@ public class SendEmailDialog extends javax.swing.JPanel {
         dialog.datSentEmail.setSeq(0);
         dialog.datSentEmail.setSubject(subject);
         
-        dialog.cboCustomer.setText(BeanUtil.concat(customerId,""));
+        dialog.cboCustomer.setText(BeanUtil.concat(customerId));
         dialog.txtSentTo.setText(recipient);
         dialog.txtSubject.setText(subject);
         dialog.dlgNewEmail.pack();

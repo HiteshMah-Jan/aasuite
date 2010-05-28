@@ -129,7 +129,7 @@ public class PayrollPeriod_RULE extends BusinessRuleWrapper {
         pay.payrollPeriodId = p.seq;
 
         Employee emp = pay.extractEmployee();
-        pay.jobType = BeanUtil.concat(emp.position,"");
+        pay.jobType = BeanUtil.concat(emp.position);
         pay.employeeType = emp.position;
         pay.department = emp.department;
         pay.employeeStatus = emp.status;

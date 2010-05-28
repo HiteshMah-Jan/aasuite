@@ -106,7 +106,7 @@ public class LookupTable extends javax.swing.JPanel {
     /** Creates new form LookupTable */
     public LookupTable() {
         initComponents();
-        txtPageSize.setText(BeanUtil.concat(pageSize,""));
+        txtPageSize.setText(BeanUtil.concat(pageSize));
     }
     
     private List getList(String bean, int more, int page) {
@@ -605,7 +605,7 @@ private void txtPageSizeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
         pageSize = Integer.parseInt(txtPageSize.getText());
     }
     catch (Exception e) {
-        txtPageSize.setText(BeanUtil.concat(pageSize,""));
+        txtPageSize.setText(BeanUtil.concat(pageSize));
     }
 }//GEN-LAST:event_txtPageSizeFocusLost
 

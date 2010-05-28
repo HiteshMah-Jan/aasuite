@@ -20,7 +20,7 @@ public class NumberComboRenderer extends ComboRenderer {
     protected List getList() {
         List lst = new ArrayList();
         for (int i = this.field.display.startCount(); i <= this.field.display.endCount(); i++) {
-            lst.add(new DummyBean(BeanUtil.concat(i,"")));
+            lst.add(new DummyBean(BeanUtil.concat(i)));
         }
         return lst;
     }

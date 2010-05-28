@@ -441,7 +441,7 @@ public class EmployeeAnnualSummary extends PersonAttribute implements Serializab
 
     @Override
     public String toString() {
-        return BeanUtil.concat(year,"");
+        return BeanUtil.concat(year);
     }
 
     public java.util.Date getStartDate() {

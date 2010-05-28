@@ -35,7 +35,7 @@ public class LabelPallete extends JLabel  implements component.IGetText {
 	}
 
 	public void setDoubleTxt(double d) {
-		this.txt = BeanUtil.concat(d,"");
+		this.txt = BeanUtil.concat(d);
 		super.setText(DataUtil.getCurrencyFormat(d));
 	}
 

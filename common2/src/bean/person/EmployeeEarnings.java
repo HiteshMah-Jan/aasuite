@@ -123,7 +123,7 @@ public class EmployeeEarnings extends PersonAttribute implements Serializable {
 
     @Override
     public String toString() {
-        return BeanUtil.concat(basicSalary,"");
+        return BeanUtil.concat(basicSalary);
     }
 
     public double getSumEarning() {

@@ -457,7 +457,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     }
 
     public String getKeyVal() {
-        return BeanUtil.concat(this.keyVal(),"");
+        return BeanUtil.concat(this.keyVal());
     }
 
     public void setKeyVal(String key) {

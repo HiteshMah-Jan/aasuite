@@ -31,7 +31,7 @@ public class OtherPaymentAccount1 extends OtherPayment {
 	            return;
 	        }
 	        acceptCheck(pay);
-	        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(booklet.extractNextOR("N"),""));
+	        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(booklet.extractNextOR("N")));
 	        if (or==null || or.isEmpty()) return;
 
 

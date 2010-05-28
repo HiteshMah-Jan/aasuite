@@ -416,7 +416,7 @@ public class PanelUtil {
     }
 
     public static double showPromptMessage(JComponent comp, String message, double d) {
-        String str = JOptionPane.showInputDialog(comp, message, BeanUtil.concat(d,""));
+        String str = JOptionPane.showInputDialog(comp, message, BeanUtil.concat(d));
         try {
             return Double.parseDouble(str);
         }
@@ -955,9 +955,9 @@ public class PanelUtil {
 
     public static String getColorStr(Color col) {
         if (col==null) return "";
-        String a = BeanUtil.concat(col.getRed(),"");
-        String b = BeanUtil.concat(col.getGreen(),"");
-        String c = BeanUtil.concat(col.getBlue(),"");
+        String a = BeanUtil.concat(col.getRed());
+        String b = BeanUtil.concat(col.getGreen());
+        String c = BeanUtil.concat(col.getBlue());
         return BeanUtil.concat(a," ",b," ",c);
     }
 

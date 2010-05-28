@@ -1266,7 +1266,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(BeanUtil.concat(seq,""), map);
+        ins.getReportParameter(BeanUtil.concat(seq), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }
@@ -1277,7 +1277,7 @@ public class Invoice extends AbstractIBean implements Serializable, IGL {
     	save();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(BeanUtil.concat(seq,""), map);
+        ins.getReportParameter(BeanUtil.concat(seq), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }

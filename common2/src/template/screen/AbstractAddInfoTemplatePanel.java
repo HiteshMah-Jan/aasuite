@@ -136,7 +136,7 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
             for (int i=0; i<groups.length; i++) {
                 DisplayGroup displayGroup = groups[i];
                 if (!displayGroup.addInfoOnly()) continue;
-                if (this.parentInfo.hideGroup().contains(BeanUtil.concat(i,""))) continue;
+                if (this.parentInfo.hideGroup().contains(BeanUtil.concat(i))) continue;
                 JPanel tmp = templateParser.constructGroupPanel(getBinding(), displayGroup);
                 c.gridy++;
                 this.add(tmp, c);

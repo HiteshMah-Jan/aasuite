@@ -36,7 +36,7 @@ public class JLinkLabelPallete extends JLabel {
     public void setText(String text) {
         String fontSize = "";
         if (getFont() != null) {
-            fontSize = BeanUtil.concat(getFont().getSize(),"");
+            fontSize = BeanUtil.concat(getFont().getSize());
         }
         this.text = text;
         if (constants.Constants.labelColor!=null) {

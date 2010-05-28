@@ -294,7 +294,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
     public Payment() {
         cashier = UserInfo.getUserName();
         orDate = constants.Constants.useDate;
-//        orNumber = new CashierDailyBooklet().extractNextOR(),"";
+//        orNumber = new CashierDailyBooklet().extractNextOR();
         orNumber = "";
         orType = "N";
         schoolYear = AppConfig.getSchoolYear();
@@ -1308,7 +1308,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
             }
             Person cust = extractCustomer();
             if (cust != null) {
-                inv.billTo = BeanUtil.concat(cust.personId,"");
+                inv.billTo = BeanUtil.concat(cust.personId);
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
@@ -1462,7 +1462,7 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
         AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
         JasperReport rep = ins.getJasperReport("OfficialReceipt");
         Map map = new HashMap();
-        ins.getReportParameter(BeanUtil.concat(invoiceId,""), map);
+        ins.getReportParameter(BeanUtil.concat(invoiceId), map);
         JasperPrint print = ins.getJasperPrint(rep, map);
         ins.showReportFromFileTemplateDialog(print, title, null);
     }

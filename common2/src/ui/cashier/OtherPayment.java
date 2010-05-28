@@ -240,7 +240,7 @@ protected void printOR() {
             return;
         }
         acceptCheck(pay);
-        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(new CashierDailyBooklet().extractNextOR("A"),""));
+        String or = PanelUtil.showPromptDefaultMessage(btnPrintOr, "Print OR, please check if OR number is correct.", BeanUtil.concat(new CashierDailyBooklet().extractNextOR("A")));
         if (or==null || or.isEmpty()) return;
 //    pay.extractInvoice();
         pay.orNumber = or;

@@ -112,6 +112,6 @@ public class InvoiceDetail extends AbstractIBean implements Serializable {
 
     @Override
     public String toString() {
-        return BeanUtil.concat(seq,"");
+        return BeanUtil.concat(seq);
     }
 }

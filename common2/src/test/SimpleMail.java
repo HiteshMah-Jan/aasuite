@@ -126,7 +126,7 @@ public class SimpleMail {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.host", SMTP_HOST_NAME);
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", BeanUtil.concat(smtp_port,""));
+        props.put("mail.smtp.port", BeanUtil.concat(smtp_port));
         props.put("mail.smtp.starttls.enable", "true");
         return props;
     }
@@ -136,7 +136,7 @@ public class SimpleMail {
         props.setProperty("mail.transport.protocol", "pop3");
         props.setProperty("mail.host", POP3_HOST_NAME);
         props.put("mail.pop3.auth", "true");
-        props.put("mail.pop3.port", BeanUtil.concat(pop3_port,""));
+        props.put("mail.pop3.port", BeanUtil.concat(pop3_port));
         return props;
     }
 

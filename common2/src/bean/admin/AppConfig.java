@@ -357,7 +357,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
     }
     public static int monthInstallment() {
         try {
-            return Integer.parseInt(AppConfig.getAppValue("MONTH INSTALLMENT", BeanUtil.concat(10,"")));
+            return Integer.parseInt(AppConfig.getAppValue("MONTH INSTALLMENT", BeanUtil.concat(10)));
         }
         catch (Exception e) {
             return 10;

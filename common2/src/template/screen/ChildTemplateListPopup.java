@@ -325,7 +325,7 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total),""));
+        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total)));
     }
     
     String sumFooter;

@@ -1064,7 +1064,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         }
         JLabel lbl = getFooterLabel(col);
         lbl.setHorizontalAlignment(JLabel.RIGHT);
-        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total),""));
+        lbl.setText(BeanUtil.concat(DataUtil.getCurrencyFormat(total)));
     }
     
     String sumFooter;

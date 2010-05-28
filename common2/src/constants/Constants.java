@@ -227,11 +227,11 @@ public class Constants {
             java.io.FileOutputStream fout = new java.io.FileOutputStream(f);
             java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fout);
             Map<String, String> map = new HashMap<String, String>();
-            map.put("host", BeanUtil.concat(host,""));
-            map.put("user", BeanUtil.concat(user,""));
-            map.put("password", BeanUtil.concat(password,""));
-            map.put("url", BeanUtil.concat(url,""));
-            map.put("driver", BeanUtil.concat(driver,""));
+            map.put("host", BeanUtil.concat(host));
+            map.put("user", BeanUtil.concat(user));
+            map.put("password", BeanUtil.concat(password));
+            map.put("url", BeanUtil.concat(url));
+            map.put("driver", BeanUtil.concat(driver));
             oos.writeObject(map);
             oos.close();
         } catch (java.lang.Exception e) {

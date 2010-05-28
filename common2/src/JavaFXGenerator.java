@@ -150,18 +150,18 @@ public class JavaFXGenerator extends javax.swing.JFrame {
         for (Display d:arr) {
         	if (d.addInfoOnly()) continue;
         	String str = code2.replaceAll("NAME", d.name());
-        	str = str.replaceAll("TOP", BeanUtil.concat(top,""));
+        	str = str.replaceAll("TOP", BeanUtil.concat(top));
             igrid++;
             if (igrid==1 || igrid>grid) {
                 top += 40;
-            	str = str.replaceAll("XPOS", BeanUtil.concat(x1,""));
+            	str = str.replaceAll("XPOS", BeanUtil.concat(x1));
             }
             else {
             	if (igrid==2) {
-                	str = str.replaceAll("XPOS", BeanUtil.concat(x2,""));
+                	str = str.replaceAll("XPOS", BeanUtil.concat(x2));
             	}
             	else {
-                	str = str.replaceAll("XPOS", BeanUtil.concat(x3,""));
+                	str = str.replaceAll("XPOS", BeanUtil.concat(x3));
                 	igrid=0;
             	}
             }

@@ -69,7 +69,7 @@ public class DrawingUtil {
     
     public void setupTool(JButton btn, int usedTool) {
         lstBtn.add(btn);
-        btn.setName(BeanUtil.concat(usedTool,""));
+        btn.setName(BeanUtil.concat(usedTool));
         btn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

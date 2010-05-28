@@ -35,7 +35,7 @@ public abstract class ReferenceType extends AbstractIBean {
 
     @Override
     public String getComboDisplay() {
-        if (getType() == null || getType() == BeanUtil.concat(0,"")) {
+        if (getType() == null || getType() == BeanUtil.concat(0)) {
             return "";
         } else {
             return getType();
