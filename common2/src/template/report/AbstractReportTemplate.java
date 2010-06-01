@@ -46,7 +46,6 @@ import util.BeanUtil;
 import util.DataUtil;
 import util.DateUtil;
 import util.Log;
-import util.NetworkUtil;
 import util.PanelUtil;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -250,15 +249,11 @@ public class AbstractReportTemplate implements Serializable, IService {
         JasperReport rep = clientJasperCache.get(file);
         if (rep==null) {
         	String cacheId = BeanUtil.concat("REPORT-",file);
-        	rep = (JasperReport) NetworkUtil.requestCache(cacheId, null);
-        	if (rep == null) {
-            	ReturnStruct ret = CallService.callService(file, 1, "template.report.AbstractReportTemplate");
-                if (ret!=null && ret.getData()!=null && ret.getData() instanceof JasperReport) {
-                    rep = (JasperReport) ret.getData();
-                    NetworkUtil.requestCache(cacheId, rep);
-                    clientJasperCache.put(file, rep);
-                }
-        	}
+        	ReturnStruct ret = CallService.callService(file, 1, "template.report.AbstractReportTemplate");
+            if (ret!=null && ret.getData()!=null && ret.getData() instanceof JasperReport) {
+                rep = (JasperReport) ret.getData();
+                clientJasperCache.put(file, rep);
+            }
         }
         return rep;
     }

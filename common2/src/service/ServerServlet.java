@@ -56,25 +56,24 @@ public class ServerServlet extends HttpServlet {
         AAAConfig.setup();
     }
 
+    public static ReturnStruct r = new ReturnStruct();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        Log.out("SERVLET OK1.");
+        ReturnStruct ret = r;
         ParamStruct param = ParamStruct.read(request.getInputStream());
-
-        String serviceName = param.getServiceName();
-        IService service = SpringCall.getService(serviceName);
-        ReturnStruct ret = service.callService(param);
-
-        response.setContentType("application/octet-stream");
-//        if (ret!=null) response.setContentLength(ret.size());
-
-//        Log.out("SERVLET OK2.");
+        try {
+            String serviceName = param.getServiceName();
+            IService service = SpringCall.getService(serviceName);
+            ret = service.callService(param);
+            response.setContentType("application/octet-stream");
+        }
+        catch (Exception e) {
+        }
         ParamStruct.write(response.getOutputStream(), ret);
-//        Log.out("SERVLET OK3.");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -126,6 +126,10 @@ public class ParamStruct implements Serializable {
         } finally {
             try {
                 ois.close();
+            } catch (Exception ex) {
+                Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
                 is.close();
             } catch (Exception ex) {
                 Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,9 +147,11 @@ public class ParamStruct implements Serializable {
             Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                oos.flush();
                 oos.close();
-                os.flush();
+            } catch (Exception ex) {
+                Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
                 os.close();
             } catch (Exception ex) {
                 Logger.getLogger(ParamStruct.class.getName()).log(Level.SEVERE, null, ex);
