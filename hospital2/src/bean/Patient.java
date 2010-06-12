@@ -45,13 +45,13 @@ import template.Reports;
 @ChildRecords(
     value={
 //        @ChildRecord(entity = PatientNurseNote.class, fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientNurseNote a WHERE a.patientId=${personId}"),
-        @ChildRecord(entity = PatientMedicalRecord.class, fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientMedicalRecord a WHERE a.patientId=${personId}"),
+        @ChildRecord(entity = PatientMedicalRecord.class, title="Medical Records", fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientMedicalRecord a WHERE a.patientId=${personId}"),
     
-    @ChildRecord(entity = PatientImmunization.class, sql = "SELECT a FROM PatientImmunization a WHERE a.patientId=${personId}"),
-        @ChildRecord(entity = PatientAllergy.class, sql = "SELECT a FROM PatientAllergy a WHERE a.patientId=${personId}"),
+    @ChildRecord(entity = PatientImmunization.class, title="Immunizations", sql = "SELECT a FROM PatientImmunization a WHERE a.patientId=${personId}"),
+        @ChildRecord(entity = PatientAllergy.class, title="Allergies", sql = "SELECT a FROM PatientAllergy a WHERE a.patientId=${personId}"),
 //        @ChildRecord(entity = PatientDoctorRound.class, sql = "SELECT a FROM PatientDoctorRound a WHERE a.patientId=${personId}"),
-        @ChildRecord(entity = PatientMedication.class, fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientMedication a WHERE a.patientId=${personId}"),
- @ChildRecord(entity = PatientInsurance.class, fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientInsurance a WHERE a.patientId=${personId}")
+        @ChildRecord(entity = PatientMedication.class, title="Medications", fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientMedication a WHERE a.patientId=${personId}"),
+ @ChildRecord(entity = PatientInsurance.class, title="Insurance", fieldMapping = {"personId", "patientId"}, sql = "SELECT a FROM PatientInsurance a WHERE a.patientId=${personId}")
     },
    
     info={
@@ -65,8 +65,6 @@ import template.Reports;
     @DisplayGroup(title="Address", fields={"streetNumber","barangay", "townDistrict", "cityProvince", "address"},addInfoOnly=true,gridCount=4)
 })
 @Displays({
-        @Display(name="personId",width=150,label="Patient No.",enabled=false),
-        @Display(name="registrationDate",gridFieldWidth=3,enabled=false),
         @Display(name="lastName",width=150),
         @Display(name="firstName",width=150),
         @Display(name="middleInitial",width=30,label="M.I."),
