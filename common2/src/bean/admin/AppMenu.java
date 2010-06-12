@@ -175,6 +175,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
         }
         else if ("HOSPITAL".equalsIgnoreCase(module)) {
             createAppMenuObj("OutPatient", "Main", "Out Patient", 100).save();
+            createAppMenuObj("OutPatientClinicExt", "Main", "Out Patient", 101).save();
             createAppMenuObj("Emergency", "Main", "Emergency", 110).save();
             createAppMenuObj("AdmissionForm", "Main", "Admission", 120).save();
             createAppMenuObj("RoomHospitalExt", "Main", "Releasing", 120).save();
