@@ -268,6 +268,12 @@ public class AppConfig extends AbstractIBean implements Serializable {
         AppConfig.getCompanyNameOfBank();
         AppConfig.isAutoCreateChargeRule();
         AppConfig.isRawScoreGrading();
+        
+        String[] arrStr = {"H1","H2","H3","H4","G1","G2","G3","G4","G5","G6","K1","K2","N1","N2","P1","P2"};
+        for (String s : arrStr) {
+            AppConfig.isGradingGPAStraightAverage(s);
+            AppConfig.isGradingGPATotalMapehThenAverage(s);
+        }
     }
     
     public static boolean isTrimester() {
@@ -495,4 +501,11 @@ public class AppConfig extends AbstractIBean implements Serializable {
         return AppConfig.isTrue("RAW SCORE GRADING", true);
 	}
 
+    public static boolean isGradingGPAStraightAverage(String gradeLevel) {
+        return AppConfig.isTrue(BeanUtil.concat("GRADING GPA STRAIGHT AVERAGE ", gradeLevel), true);
+    }
+
+    public static boolean isGradingGPATotalMapehThenAverage(String gradeLevel) {
+        return AppConfig.isTrue(BeanUtil.concat("GRADING TOTAL MAPEH THEN AVERAGE ", gradeLevel), true);
+    }
 }
