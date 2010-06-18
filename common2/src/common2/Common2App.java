@@ -9,8 +9,6 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +17,6 @@ import javax.swing.JFrame;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
-import util.DBClient;
 import util.DateUtil;
 import util.Log;
 import util.PanelUtil;
@@ -32,11 +29,12 @@ import bean.admin.AppMenu;
  * The main class of the application.
  */
 public class Common2App extends SingleFrameApplication {
+    public static Common2View view;
     /**
      * At startup create and show the main frame of the application.
      */
-    @Override protected void startup() {
-        Common2View view = new Common2View(this);
+    @Override public void startup() {
+        view = new Common2View(this);
         final JFrame frame = Common2View.mainView.getFrame();
         frame.setUndecorated(true);
         show(view);

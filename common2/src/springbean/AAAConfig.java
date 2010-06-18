@@ -79,7 +79,7 @@ public class AAAConfig implements IService {
             if (args!=null) {
             	config.setHost(args[0]);
             }
-            if (args.length>1 && args[0].length() > 10) {
+            if (args!=null && args.length>1 && args[0].length() > 10) {
             	Constants.cachehost = args[1];
             }
 //            call all services here

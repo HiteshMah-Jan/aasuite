@@ -43,7 +43,6 @@ import template.screen.AbstractTemplatePanel;
 import template.screen.TemplateDefault;
 import template.screen.TransactionPanel;
 import ui.TestDBForm;
-import ui.WelcomePanel;
 import ui.admin.ChangeLogo;
 import util.BeanUtil;
 import util.Log;
@@ -1144,7 +1143,7 @@ private void mnuServicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     showBeanPanel("Services", "");
 }//GEN-LAST:event_mnuServicesActionPerformed
 
-private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDataAnalyzerActionPerformed
+private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {                                                
     if (OlapRunner.reportViewer==null) {
             OlapRunner reportViewerApp = new OlapRunner("", null);
             try {
@@ -1155,7 +1154,7 @@ private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
     }
     PanelUtil.showPanel2("Data Analyzer", OlapRunner.reportViewer.getMainPanel());
-}//GEN-LAST:event_mnuDataAnalyzerActionPerformed
+}                                               
 
 private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDataAnalyzerActionPerformed
     PanelUtil.showPanel2("Test DB", new TestDBForm());

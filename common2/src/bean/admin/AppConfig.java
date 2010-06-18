@@ -267,6 +267,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
         AppConfig.getCompanyZipCode();
         AppConfig.getCompanyNameOfBank();
         AppConfig.isAutoCreateChargeRule();
+        AppConfig.isRawScoreGrading();
     }
     
     public static boolean isTrimester() {
@@ -489,4 +490,9 @@ public class AppConfig extends AbstractIBean implements Serializable {
 	public static boolean isAutoCreateChargeRule() {
         return AppConfig.isTrue("AUTO CREATE CHARGE RULE", true);
 	}
+	
+	public static boolean isRawScoreGrading() {
+        return AppConfig.isTrue("RAW SCORE GRADING", true);
+	}
+
 }
