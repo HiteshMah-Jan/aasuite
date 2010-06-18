@@ -7,6 +7,7 @@ import util.DBClient;
 import util.DataUtil;
 import util.Log;
 import bean.Enrollment;
+import bean.admin.AppConfig;
 import bean.person.StudentSubject;
 import bean.reference.Subject;
 
@@ -219,8 +220,10 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA2>0 && totalUnits2>0) e.gpa2 = DataUtil.getMoneyFormat(totalGPA2/totalUnits2);
 		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
-
-		if ("|P1|P2|K1|K2|N1|N2|".contains(e.gradeLevel)) {
+	}
+	
+	private void calculateGPA(Enrollment e, List<StudentSubject> l) {
+		if (AppConfig.isGradingGPAStraightAverage(e.gradeLevel)) {	//for ESS = "|P1|P2|K1|K2|N1|N2|"
 			e.gpaFinal = DataUtil.getMoneyFormat( (e.gpa1+e.gpa2+e.gpa3+e.gpa4)/4 );
 		}
 		else {
@@ -231,7 +234,7 @@ public class StudentSubjectToEnrollmentGrade {
 				if (subject == null) {
 					Log.out("NULL SUBJECT == ",s.subject," -> ",s.studentName);
 				}
-				if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
+				if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
 			        String mysub = s.subject.toUpperCase();
 			        mysub = mysub.replaceAll("MAPEH", "");
 			        mysub = mysub.replaceAll("MK", "");
@@ -247,7 +250,7 @@ public class StudentSubjectToEnrollmentGrade {
 					Log.out(subject.code,"\t",s.finalRating,"\t",subject.unit);
 				}
 			}
-			if ("|H1|H2|H3|H4|".contains(e.gradeLevel)) {
+			if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
 				double totalMapehUnit = getMapehUnit(l);
 				totalGPAFinal += e.qallMAPEH * totalMapehUnit;
 				totalUnits += totalMapehUnit;
@@ -284,6 +287,7 @@ public class StudentSubjectToEnrollmentGrade {
 		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);
 		putAllSubjects(e, allStudSubjects);
+		calculateGPA(e, allStudSubjects);
 		
         String mysub = subject.subject.toUpperCase();
         mysub = mysub.replaceAll("MAPEH", "");
