@@ -21,18 +21,26 @@ import javax.persistence.Table;
 import service.util.AbstractIBean;
 import template.ActionButton;
 import template.ActionButtons;
+import template.ChildRecord;
+import template.ChildRecords;
 import template.Display;
 import template.DisplayGroup;
 import template.DisplayGroups;
 import template.Displays;
 import template.Reports;
 import template.UITemplate;
+import template.screen.ChildTemplateListOnly;
 import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.Log;
 import util.PanelUtil;
 import bean.admin.AppConfig;
+import bean.extension.StudentSubjectManualGradingExt;
+import bean.extension.StudentSubjectManualGradingQ1Ext;
+import bean.extension.StudentSubjectManualGradingQ2Ext;
+import bean.extension.StudentSubjectManualGradingQ3Ext;
+import bean.extension.StudentSubjectManualGradingQ4Ext;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
 import bean.reference.Room;
@@ -46,16 +54,16 @@ import constants.UserInfo;
  */
 @Entity
 @Table(name = "Schedule")
-@UITemplate(template=template.screen.TemplateSinglePage.class,showChart=false,
+@UITemplate(template=template.screen.TemplateTabSinglePage.class,showChart=false,
 		criteriaSearch={"section","subject","facultyId"},
 		columnSearch={"faculty","subject","section","room1","day1","schedTime1","schedTimeEnd1","room2","day2","schedTime2","schedTimeEnd2","room3","day3","schedTime3","schedTimeEnd3"},gridCount=6)
 @Displays({
         @Display(name="seq", addInfoOnly=true),
-        @Display(name="subject", gridFieldWidth=5, width=-1,linktoBean=Subject.class, type="PopSearch"),
+        @Display(name="subject", enabled=false, gridFieldWidth=5, width=-1,linktoBean=Subject.class, type="PopSearch"),
         @Display(name="boysAndGirls", gridFieldWidth=5, width=-1, type="Combo", modelCombo={"BOTH","BOYS ONLY","GIRLS ONLY"}),
         //@Display(name="course", label="Grade Level", type="PopSearch", linktoBean=Course.class),
-        @Display(name="section",label="Section",linktoBean=Section.class, type="PopSearch"),
-        @Display(name="facultyId", gridFieldWidth=3, width=250, label="Teacher",linktoBean=EmployeeFaculty.class, type="PopSearch"),
+        @Display(name="section", enabled=false,label="Section",linktoBean=Section.class, type="PopSearch"),
+        @Display(name="facultyId", enabled=false, gridFieldWidth=3, width=250, label="Faculty",linktoBean=EmployeeFaculty.class, type="PopSearch"),
         @Display(name="minimumCapacity", addInfoOnly=true),
         @Display(name="maximumCapacity", addInfoOnly=true),
         @Display(name="room1",label = "Room", linktoBean=Room.class, type="PopSearch", labelTop = true, leftLabel="1"),
@@ -89,6 +97,13 @@ import constants.UserInfo;
 	@ActionButton(name = "btnViewRoom3", label = "Room3"),
 	@ActionButton(name = "btnViewFaculty", label = "Faculty"), 
 	@ActionButton(name = "btnCheckSchedules", label = "Check Schedule") 
+})
+@ChildRecords({
+    @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ2Ext.class, template=ChildTemplateListOnly.class, title="Q2", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ3Ext.class, template=ChildTemplateListOnly.class, title="Q3", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ4Ext.class, template=ChildTemplateListOnly.class, title="Q4", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"})
 })
 public class Schedule extends AbstractIBean implements Serializable {
 	public void lockAll(boolean b) {
