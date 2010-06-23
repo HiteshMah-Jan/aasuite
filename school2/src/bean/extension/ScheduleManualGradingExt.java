@@ -38,7 +38,15 @@ import bean.reference.Subject;
         @Display(name="subject", enabled=false, gridFieldWidth=5, width=-1, type="PopSearch", linktoBean=Subject.class)
 })
 @Reports({
-   // @template.Report(reportFile="Schedule", reportTitle="Schedule Report", reportSql="")
+    @template.Report(reportFile = "Q1_Grades", reportTitle = "Summary Q1", reportSql = "${section}"),
+    @template.Report(reportFile = "Q2_Grades", reportTitle = "Q2", reportSql = "${section}"),
+    @template.Report(reportFile = "Q3_Grades", reportTitle = "Q3", reportSql = "${section}"),
+    @template.Report(reportFile = "Q4_Grades", reportTitle = "Q4", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_Grades", reportTitle = "Summary Final", reportSql = "${section}"),
+	@template.Report(reportFile = "SectionReportCardQuarter1", reportTitle = "Card Q1", reportSql = "${section}"),
+    @template.Report(reportFile = "SectionReportCardQuarter2", reportTitle = "Q2", reportSql = "${section}"),
+    @template.Report(reportFile = "SectionReportCardQuarter3", reportTitle = "Q3", reportSql = "${section}"),
+	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}")
 })
 @ChildRecords({
     @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
