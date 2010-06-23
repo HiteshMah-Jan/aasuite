@@ -13,6 +13,7 @@ import util.DataUtil;
 import util.Log;
 import util.ThreadPoolUtil;
 import bean.Enrollment;
+import bean.Schedule;
 import bean.person.FacultyGradingTask;
 import bean.person.StudentSubject;
 import bean.person.StudentSubjectDetailGrading;
@@ -27,34 +28,62 @@ public class CalculateGradeService implements IService {
 		CallService.callService(l, quarter, CalculateGradeService.class.getName());
 	}
 	
+	public static void calculateGrade(int quarter, Schedule sched, List<StudentSubject> subjects) {
+		List<Object> l = new ArrayList<Object>();
+		l.add(sched);
+		l.add(subjects);
+		Log.out("TEST");
+		CallService.callService(l, quarter, CalculateGradeService.class.getName());
+	}
+
 	@Override
 	public ReturnStruct callService(ParamStruct param) {
 		int quarter = param.getActionCommand();
 		List<Object> l = (List<Object>) param.getData();
-		FacultyGradingTask task = (FacultyGradingTask) l.get(0);
-		List<StudentSubjectDetailGrading> subjects = (List<StudentSubjectDetailGrading>) l.get(1);
-		List<Subject> allsubs = DBClient.getList("SELECT a FROM Subject a");
-		for (StudentSubjectDetailGrading det:subjects) {
-			det.scheduleId = task.scheduleId;
-			det.section = task.section;
-			det.subject = task.subject;
-			det.recalculateGrade();
-			det.save();
-			
-//			update student subject
-			Log.out("SUBJECT TO USE " + det.subject);
-			StudentSubject subject = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",det.studentId," AND a.subject='",det.subject,"'");
-			subject.changeValue(BeanUtil.concat("grade",quarter), getTotalShares(quarter, det.studentId, subject.subject));
-			subject.save();
-			
-//			update enrollment
-			Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",det.studentId," AND a.gradeLevel='",task.gradeLevel,"'");
-			if (e != null) {
-				e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
-				e.save();
+		Object obj = l.get(0);
+		if (obj instanceof FacultyGradingTask) {
+			FacultyGradingTask task = (FacultyGradingTask) l.get(0);
+			List<StudentSubjectDetailGrading> subjects = (List<StudentSubjectDetailGrading>) l.get(1);
+			List<Subject> allsubs = DBClient.getList("SELECT a FROM Subject a");
+			for (StudentSubjectDetailGrading det:subjects) {
+				det.scheduleId = task.scheduleId;
+				det.section = task.section;
+				det.subject = task.subject;
+				det.recalculateGrade();
+				det.save();
+				
+//				update student subject
+				Log.out("SUBJECT TO USE " + det.subject);
+				StudentSubject subject = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",det.studentId," AND a.subject='",det.subject,"'");
+				subject.changeValue(BeanUtil.concat("grade",quarter), getTotalShares(quarter, det.studentId, subject.subject));
+				subject.save();
+				
+//				update enrollment
+				Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",det.studentId," AND a.gradeLevel='",task.gradeLevel,"'");
+				if (e != null) {
+					e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
+					e.save();
+				}
 			}
+			ThreadPoolUtil.execute(new GradingProcess(task.schoolYear, task.section, quarter));
 		}
-		ThreadPoolUtil.execute(new GradingProcess(task.schoolYear, task.section, quarter));
+		else {
+			Schedule schedule = (Schedule) l.get(0);
+			List<StudentSubject> subjects = (List<StudentSubject>) l.get(1);
+			List<Subject> allsubs = DBClient.getList("SELECT a FROM Subject a");
+			for (StudentSubject subject:subjects) {
+//				update student subject
+				subject.save();
+				
+//				update enrollment
+				Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",subject.studentId," AND a.gradeLevel='",schedule.gradeLevel,"'");
+				if (e != null) {
+					e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
+					e.save();
+				}
+			}
+			ThreadPoolUtil.execute(new GradingProcess(schedule.schoolYear, schedule.section, quarter));
+		}
 		return null;
 	}
 

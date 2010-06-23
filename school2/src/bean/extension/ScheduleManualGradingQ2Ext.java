@@ -45,7 +45,7 @@ import bean.reference.Subject;
     @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
-    @ActionButton(name="btnVerifyGrade", label="Save Grade")
+    @ActionButton(name="btnSaveGrade2", label="Save Grade")
 })
 public class ScheduleManualGradingQ2Ext extends bean.Schedule implements Serializable {
     public static void main(String[] args) {
