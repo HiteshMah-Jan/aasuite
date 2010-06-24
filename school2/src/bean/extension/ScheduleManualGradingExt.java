@@ -56,6 +56,7 @@ import bean.reference.Subject;
     @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
+    @ActionButton(name="btnGenerate", label="Generate Grading"),
     @ActionButton(name="btnSaveGrade1", label="Save Grade Q1"),
     @ActionButton(name="btnSaveGrade2", label="Q2"),
     @ActionButton(name="btnSaveGrade3", label="Q3"),
