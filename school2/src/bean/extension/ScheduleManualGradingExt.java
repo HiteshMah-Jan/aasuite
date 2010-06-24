@@ -49,11 +49,11 @@ import bean.reference.Subject;
 	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}")
 })
 @ChildRecords({
-    @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingQ2Ext.class, template=ChildTemplateListOnly.class, title="Q2", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingQ3Ext.class, template=ChildTemplateListOnly.class, title="Q3", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingQ4Ext.class, template=ChildTemplateListOnly.class, title="Q4", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"})
+    @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ2Ext.class, template=ChildTemplateListOnly.class, title="Q2", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ3Ext.class, template=ChildTemplateListOnly.class, title="Q3", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ4Ext.class, template=ChildTemplateListOnly.class, title="Q4", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
     @ActionButton(name="btnSaveGrade1", label="Save Grade Q1"),
@@ -62,7 +62,7 @@ import bean.reference.Subject;
     @ActionButton(name="btnSaveGrade4", label="Q4")
 })
 public class ScheduleManualGradingExt extends bean.Schedule implements Serializable {
-    public static void main(String[] args) {
+	public static void main(String[] args) {
     	GlobalBean.getInstance().setPersonId(10967);
         view(ScheduleManualGradingExt.class);
     }

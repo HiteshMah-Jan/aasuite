@@ -41,13 +41,13 @@ import bean.reference.Subject;
    // @template.Report(reportFile="Schedule", reportTitle="Schedule Report", reportSql="")
 })
 @ChildRecords({
-    @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq}", fieldMapping = {"seq", "scheduleId"})
+    @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
     @ActionButton(name="btnSaveGrade1", label="Save Grade")
 })
-public class ScheduleManualGradingQ1Ext extends bean.Schedule implements Serializable {
+public class ScheduleManualGradingQ1Ext extends ScheduleManualGradingExt {
     public static void main(String[] args) {
     	GlobalBean.getInstance().setPersonId(10967);
         view(ScheduleManualGradingQ1Ext.class);
