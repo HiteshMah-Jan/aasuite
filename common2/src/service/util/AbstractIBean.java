@@ -1171,4 +1171,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return lst;
     }
 
+	public String getUseYear() {
+		return UserInfo.getUseYear();
+	}
 }
