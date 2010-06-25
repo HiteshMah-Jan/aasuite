@@ -31,7 +31,7 @@ import bean.reference.Subject;
  * @author Charliemagne Mark
  * Faculty Tool
  */
-@UITemplate(template=TemplateTabSinglePage.class,columnSearch={"subject","course","section"}, gridCount=6, title="Faculty Grading")
+@UITemplate(template=TemplateTabSinglePage.class,columnSearch={"subject","course","section"}, gridCount=6, title="Faculty Grading",canDelete=false,canNew=false)
 @Displays({
         @Display(name="course", enabled=false, label="Grade Level", type="PopSearch", linktoBean=Course.class),
         @Display(name="section", enabled=false,label="Section", gridFieldWidth=3,width=-1, type="PopSearch", linktoBean=Section.class),

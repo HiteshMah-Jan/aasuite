@@ -31,7 +31,7 @@ import bean.reference.Subject;
  * @author Charliemagne Mark
  * Faculty Tool
  */
-@UITemplate(select="SELECT a FROM Schedule a WHERE a.facultyId=${personId} ",template=TemplateTabSinglePageLeftRightNoCriteria.class,columnSearch={"subject","course","section"}, gridCount=6, title="Faculty Grading")
+@UITemplate(select="SELECT a FROM Schedule a WHERE a.facultyId=${personId} ",template=TemplateTabSinglePageLeftRightNoCriteria.class,columnSearch={"subject","course","section"}, gridCount=6, title="Faculty Grading",canDelete=false,canNew=false)
 @Displays({
         @Display(name="course", enabled=false, label="Grade Level", type="PopSearch", linktoBean=Course.class),
         @Display(name="section", enabled=false,label="Section", gridFieldWidth=3,width=-1, type="PopSearch", linktoBean=Section.class),
@@ -41,7 +41,7 @@ import bean.reference.Subject;
    // @template.Report(reportFile="Schedule", reportTitle="Schedule Report", reportSql="")
 })
 @ChildRecords({
-    @ChildRecord(entity = StudentSubjectManualGradingQ2Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingQ2Ext.class, template=ChildTemplateListOnly.class, title="Q2", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
     @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
