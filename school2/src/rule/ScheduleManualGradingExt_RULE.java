@@ -107,7 +107,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 			showError("This is school year is not current.[",UserInfo.getUseYear(),"]");
 			return;
 		}
-		ScheduleManualGradingExt bean = (ScheduleManualGradingExt) this.getBean();
+		Schedule bean = (Schedule) this.getBean();
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 		AbstractChildTemplatePanel tab = tabs.get(0);
 		
