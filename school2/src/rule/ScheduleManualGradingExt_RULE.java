@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import constants.UserInfo;
+
 import springbean.CalculateGradeService;
 import template.screen.AbstractChildTemplatePanel;
 import util.DBClient;
@@ -100,6 +102,11 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 	}
 
 	private void saveAllGrades(int quarter) {
+//		check for schoolyear
+		if (!UserInfo.getUseYear().equals(AppConfig.getSchoolYear())) {
+			showError("This is school year is not current.[",UserInfo.getUseYear(),"]");
+			return;
+		}
 		ScheduleManualGradingExt bean = (ScheduleManualGradingExt) this.getBean();
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 		AbstractChildTemplatePanel tab = tabs.get(0);
