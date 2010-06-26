@@ -43,7 +43,7 @@ public class BeanUtil {
         for (PropertyDescriptor propertyDescriptor : descriptors) {
             fieldName = propertyDescriptor.getName();
             try {
-                if ("|HTMLDocument|class|column1|column2|column3|column4|column5|column6|column7|column8|column9|column10|comboDisplay|config|emptyKey|formattedTitle|formulaValue|imageList|keyVal|me|pictureHTML|tableColumns|".indexOf(BeanUtil.concat("|",fieldName,"|"))==-1) {
+                if ("|HTMLDocument|class|column1|column2|column3|column4|column5|column6|column7|column8|column9|column10|comboDisplay|config|emptyKey|formattedTitle|formulaValue|imageList|keyVal|me|pictureHTML|tableColumns|".indexOf(BeanUtil.concat("|",fieldName,"|").trim())==-1) {
                     fieldValue = getPropertyValue(bean, fieldName);
                     sb.append(fieldName).append("\t=\t").append(fieldValue).append("\n");
                 }
@@ -99,17 +99,18 @@ public class BeanUtil {
     }
 
     public static Object getPropertyValue(IBean bean, Object... propertyName) {
-        return BeanProperty.create(BeanUtil.concat(propertyName)).getValue(bean);
+        return BeanProperty.create(BeanUtil.concat(propertyName).trim()).getValue(bean);
     }
 
     public static double getDoubleValue(IBean bean, String... propertyName) {
-        return Double.parseDouble(BeanProperty.create(BeanUtil.concat(propertyName)).getValue(bean).toString());
+//    	Log.info(BeanUtil.concat(propertyName).trim(),",",bean.getClass().getSimpleName());
+        return Double.parseDouble(BeanProperty.create(BeanUtil.concat(propertyName).trim()).getValue(bean).toString());
     }
 
     public static Class getPropertyType(IBean bean, String... propertyName) {
         BeanWrapper beanWrapper = new BeanWrapperImpl(bean);
-        if (beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName)) != null) {
-            return beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName)).getPropertyType();
+        if (beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName).trim()) != null) {
+            return beanWrapper.getPropertyDescriptor(BeanUtil.concat(propertyName).trim()).getPropertyType();
         } else {
             return String.class;
         }
@@ -165,9 +166,9 @@ public class BeanUtil {
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];
             String methodName = method.getName();
-            if (BeanUtil.concat("get",properName).equalsIgnoreCase(methodName)) {
+            if (BeanUtil.concat("get",properName).trim().equalsIgnoreCase(methodName)) {
                 methodName = methodName.substring("get".length());
-                methodName = BeanUtil.concat(Character.toLowerCase(methodName.charAt(0)),methodName.substring(1));
+                methodName = BeanUtil.concat(Character.toLowerCase(methodName.charAt(0)),methodName.substring(1)).trim();
                 return methodName;
             }
         }
@@ -310,7 +311,7 @@ public class BeanUtil {
     public static String concatFromTo(AbstractIBean b, String fieldName, int start, int end) {
         StringBuffer sb = new StringBuffer();
         for (int i=start; i<end; i++) {
-            sb.append(BeanUtil.getPropertyValue(b, BeanUtil.concat(fieldName,i))).append(",");
+            sb.append(BeanUtil.getPropertyValue(b, BeanUtil.concat(fieldName,i).trim())).append(",");
         }
         return sb.toString();
     }
