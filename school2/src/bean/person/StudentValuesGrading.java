@@ -2202,7 +2202,6 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 			stud.save();
 			if (section == null || section.trim().isEmpty()) {
 				section = stud.section;
-				gradeLevel = stud.gradeLevel;
 			}
 		}
 		if (faculty == null) {
@@ -2302,7 +2301,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		double totalScore = 0;
 		double totalCount = 0;
 		for (String s:str) {
-			double val = BeanUtil.getDoubleValue(this, BeanUtil.concat(s,quarter));
+			double val = BeanUtil.getDoubleValue(this, BeanUtil.concat(s,quarter).trim());
 			if (val>0) {
 				totalScore += val;
 				totalCount++;
