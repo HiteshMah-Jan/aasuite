@@ -28,7 +28,6 @@ import util.DataUtil;
 import util.PanelUtil;
 import bean.Person;
 import bean.Student;
-import bean.admin.AppConfig;
 import bean.reference.Subject;
 import constants.UserInfo;
 
@@ -125,13 +124,13 @@ public class StudentSubject extends AbstractIBean implements Serializable {
     @Column(name = "actionTaken")
     public String actionTaken;
     @Column(name = "grade1")
-    public double grade1;
+    public Double grade1;
     @Column(name = "grade2")
-    public double grade2;
+    public Double grade2;
     @Column(name = "grade3")
-    public double grade3;
+    public Double grade3;
     @Column(name = "grade4")
-    public double grade4;
+    public Double grade4;
     @Column(name = "finalRating")
     public double finalRating;
     @Column(name = "tempGrade1")
@@ -570,35 +569,50 @@ public class StudentSubject extends AbstractIBean implements Serializable {
         this.course = course;
     }
 
-    public double getGrade1() {
+    public Double getGrade1() {
 		return grade1;
 	}
 
-	public void setGrade1(double grade1) {
+	private boolean isValidScore(Double grade) {
+		if (grade==null) {
+			return false;
+		}
+		if (grade>100) {
+			PanelUtil.showError(null, "Percentage is more than 100.");
+			return false;
+		}
+		return true;
+	}
+
+	public void setGrade1(Double grade1) {
+		if (!isValidScore(grade1)) return;
 		this.grade1 = grade1;
 	}
 
-	public double getGrade2() {
+	public Double getGrade2() {
 		return grade2;
 	}
 
-	public void setGrade2(double grade2) {
+	public void setGrade2(Double grade2) {
+		if (!isValidScore(grade2)) return;
 		this.grade2 = grade2;
 	}
 
-	public double getGrade3() {
+	public Double getGrade3() {
 		return grade3;
 	}
 
-	public void setGrade3(double grade3) {
+	public void setGrade3(Double grade3) {
+		if (!isValidScore(grade3)) return;
 		this.grade3 = grade3;
 	}
 
-	public double getGrade4() {
+	public Double getGrade4() {
 		return grade4;
 	}
 
-	public void setGrade4(double grade4) {
+	public void setGrade4(Double grade4) {
+		if (!isValidScore(grade4)) return;
 		this.grade4 = grade4;
 	}
 
