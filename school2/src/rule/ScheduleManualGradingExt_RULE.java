@@ -5,20 +5,19 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-import constants.UserInfo;
-
 import springbean.CalculateGradeService;
 import template.screen.AbstractChildTemplatePanel;
+import util.BeanUtil;
 import util.DBClient;
 import util.Log;
 import util.PanelUtil;
 import bean.Schedule;
 import bean.Student;
 import bean.admin.AppConfig;
-import bean.extension.ScheduleManualGradingExt;
 import bean.person.StudentSubject;
 import bean.reference.GradeLevel;
 import bean.reference.Section;
+import constants.UserInfo;
 
 public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 
@@ -45,8 +44,53 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		else if ("btnSaveGrade4".equals(comp.getName())) {
 			saveAllGrades(4);
 		}
+		else if ("btnTestGrading".equals(comp.getName())) {
+				testGrading();
+		}
 	}
 
+	double testGrade;
+	
+	private void testGrading() {
+		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
+			generateTask();
+			List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
+			for (int i=0; i<4; i++) {
+				AbstractChildTemplatePanel tab = tabs.get(i);
+				
+				List<StudentSubject> subjects = tab.list;
+				for (StudentSubject s : subjects) {
+					generateTestGrade();
+					try {
+						Thread.currentThread().sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					BeanUtil.setPropertyValue(s, BeanUtil.concat("grade",(i+1)).trim(), testGrade);
+				}
+				saveAllGrades(1);
+				saveAllGrades(2);
+				saveAllGrades(3);
+				saveAllGrades(4);
+			}
+			this.tbl.updateUI();
+		}
+	}
+
+	private void generateTestGrade() {
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Thread.yield();
+				double d = (Math.random()*100) + (Math.random()*10);
+				if (d > 60 && d < 100) {
+					testGrade = d;
+				}
+			}
+		});
+		t.start();
+	}
+	
 	private void generateTask() {
 		Schedule t = (Schedule) this.getBean();
 		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='",t.section,"'");

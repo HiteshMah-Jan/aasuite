@@ -60,7 +60,8 @@ import bean.reference.Subject;
     @ActionButton(name="btnSaveGrade1", label="Save Grade Q1"),
     @ActionButton(name="btnSaveGrade2", label="Q2"),
     @ActionButton(name="btnSaveGrade3", label="Q3"),
-    @ActionButton(name="btnSaveGrade4", label="Q4")
+    @ActionButton(name="btnSaveGrade4", label="Q4"),
+    @ActionButton(name="btnTestGrading", label="Test Grading")
 })
 public class ScheduleManualGradingExt extends bean.Schedule implements Serializable {
 	public static void main(String[] args) {
