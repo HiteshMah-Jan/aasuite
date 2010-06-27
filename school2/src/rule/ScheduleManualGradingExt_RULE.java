@@ -53,12 +53,16 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 	
 	private void testGrading() {
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
-			generateTask();
+			AbstractChildTemplatePanel tab = this.panel.getTabs().get(0);
+			List<StudentSubject> subjects = tab.list;
+			if (subjects == null || subjects.size() == 0) {
+				generateTask();
+			}
 			List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 			for (int i=0; i<4; i++) {
-				AbstractChildTemplatePanel tab = tabs.get(i);
+				tab = tabs.get(i);
 				
-				List<StudentSubject> subjects = tab.list;
+				subjects = tab.list;
 				for (StudentSubject s : subjects) {
 					generateTestGrade();
 					try {
