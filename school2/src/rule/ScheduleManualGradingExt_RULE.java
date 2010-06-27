@@ -72,11 +72,8 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 					}
 					BeanUtil.setPropertyValue(s, BeanUtil.concat("grade",(i+1)).trim(), testGrade);
 				}
-				saveAllGrades(1);
-				saveAllGrades(2);
-				saveAllGrades(3);
-				saveAllGrades(4);
 			}
+			saveAllGrades(4);
 			this.tbl.updateUI();
 		}
 	}
