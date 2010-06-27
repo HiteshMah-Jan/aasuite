@@ -268,7 +268,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
         AppConfig.getCompanyNameOfBank();
         AppConfig.isAutoCreateChargeRule();
         AppConfig.isRawScoreGrading();
-        
+        AppConfig.isShowTestButton();
         String[] arrStr = {"H1","H2","H3","H4","G1","G2","G3","G4","G5","G6","K1","K2","N1","N2","P1","P2"};
         for (String s : arrStr) {
             AppConfig.isGradingGPAStraightAverage(s);
@@ -508,4 +508,8 @@ public class AppConfig extends AbstractIBean implements Serializable {
     public static boolean isGradingGPATotalMapehThenAverage(String gradeLevel) {
         return AppConfig.isTrue(BeanUtil.concat("GRADING TOTAL MAPEH THEN AVERAGE ", gradeLevel), true);
     }
+
+	public static boolean isShowTestButton() {
+        return AppConfig.isTrue("SHOW TEST BUTTON", true);
+	}
 }
