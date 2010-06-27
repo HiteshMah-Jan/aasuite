@@ -11,6 +11,8 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -21,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractCellEditor;
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,11 +32,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -338,4 +343,40 @@ public class JTableReadOnly extends JTable {
     		getColumnModel().addColumn(col);
     	}
     }
-}
+
+    @Override
+	public TableCellEditor getCellEditor(int row, int column) {
+//    	TableCellEditor ed = super.getCellEditor(row, column);
+//    	ed.getClass().getName();
+    	return new MyTableCellEditor();
+	}
+
+	public class MyTableCellEditor extends AbstractCellEditor implements TableCellEditor {
+        // This is the component that will handle the editing of the cell value
+    	JTextField component = new JTextField();
+
+        // This method is called when a cell value is edited by the user.
+        public Component getTableCellEditorComponent(JTable table, final Object value,
+                boolean isSelected, int rowIndex, int vColIndex) {
+            // 'value' is value contained in the cell located at (rowIndex, vColIndex)
+            component.setText(value.toString());
+            if (isSelected) {
+            	component.selectAll();
+            }
+            // Configure the component with the specified value
+            component.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					JTextField f = (JTextField) e.getComponent();
+					f.selectAll();
+				}
+			});
+            return component;
+        }
+
+        // This method is called when editing is completed.
+        // It must return the new value to be stored in the cell.
+        public Object getCellEditorValue() {
+            return component.getText();
+        }
+    }}
