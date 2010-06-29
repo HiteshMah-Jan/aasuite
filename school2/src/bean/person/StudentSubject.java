@@ -124,13 +124,13 @@ public class StudentSubject extends AbstractIBean implements Serializable {
     @Column(name = "actionTaken")
     public String actionTaken;
     @Column(name = "grade1")
-    public Double grade1;
+    public Double grade1=0.0;
     @Column(name = "grade2")
-    public Double grade2;
+    public Double grade2=0.0;
     @Column(name = "grade3")
-    public Double grade3;
+    public Double grade3=0.0;
     @Column(name = "grade4")
-    public Double grade4;
+    public Double grade4=0.0;
     @Column(name = "finalRating")
     public double finalRating;
     @Column(name = "tempGrade1")
@@ -628,28 +628,30 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 		}
 		double totalCount = 0;
 		double totalGrade = 0;
-		if (grade1>60) {
+		if (grade1!=null && grade1>60) {
 			totalGrade += (int) (grade1+.5);
 			totalCount++;
 		}
-		if (grade2>60) {
+		if (grade2!=null && grade2>60) {
 			totalGrade += (int) (grade2+.5);
 			totalCount++;
 		}
-		if (grade3>60) {
+		if (grade3!=null && grade3>60) {
 			totalGrade += (int) (grade3+.5);
 			totalCount++;
 		}
-		if (grade4>60) {
+		if (grade4!=null && grade4>60) {
 			totalGrade += (int) (grade4+.5);
 			totalCount++;
 		}
-		finalRating = finalTempRating = DataUtil.getMoneyFormat(totalGrade/totalCount);
-		if (finalRating>74) {
-			actionTaken = "PASSED";
-		}
-		else {
-			actionTaken = "FAILED";
+		if (totalGrade > 0 && totalCount > 0) {
+			finalRating = finalTempRating = DataUtil.getMoneyFormat(totalGrade/totalCount);
+			if (finalRating>74) {
+				actionTaken = "PASSED";
+			}
+			else {
+				actionTaken = "FAILED";
+			}
 		}
         Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub!=null) {
