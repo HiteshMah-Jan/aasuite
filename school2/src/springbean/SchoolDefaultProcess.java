@@ -603,7 +603,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     		}
     		if (enrolls != null) {
     			for (Enrollment e : enrolls) {
-    				if (e.gradeLevel.equals(level)) {
+    				if (e.gradeLevel!=null && e.gradeLevel.equals(level)) {
     					return e;
     				}
     			}
