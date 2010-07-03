@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import service.util.IBean;
 import springbean.GradingProcess;
-import template.screen.AbstractChildTemplatePanel;
 import util.BeanUtil;
 import util.DBClient;
 import util.Log;
@@ -15,7 +15,6 @@ import util.PanelUtil;
 import util.ThreadPoolUtil;
 import bean.Student;
 import bean.admin.AppConfig;
-import bean.person.StudentSubject;
 import bean.person.StudentValuesGrading;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
@@ -70,20 +69,22 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
 			StudentValuesGrading bean = (StudentValuesGrading) this.getBean();
 			List<StudentValuesGrading> lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",bean.gradeLevel,"' AND a.section='",bean.section,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
-			for (StudentValuesGrading val:lst) {
-				putRandomGrade(val, 1, 5, "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
-				putRandomGrade(val, 1, 5, "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
-				putRandomGrade(val, 1, 5, "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
-				putRandomGrade(val, 1, 5, "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
-				putRandomGrade(val, 1, 5, "pfe", "cra", "ca", "kin", "ec1", "ec2");
-				putRandomGrade(val, 75, 99, "scouting");
+			for (int i=0; i<lst.size(); i++) {
+				int addGrade = (i > 15)?2:0;
+				StudentValuesGrading val = lst.get(i);
+				putRandomGrade(val, 1+addGrade, 5, "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
+				putRandomGrade(val, 1+addGrade, 5, "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
+				putRandomGrade(val, 1+addGrade, 5, "con", "mot", "eff", "res", "ini", "per", "car", "tea", "com", "pro", "focus", "respect");
+				putRandomGrade(val, 1+addGrade, 5, "els", "wfr", "apgw", "spaa", "iva", "isl", "aspvi", "hspd", "sd", "put", "hlew", "prs", "cr", "cws");
+				putRandomGrade(val, 1+addGrade, 5, "pfe", "cra", "ca", "kin", "ec1", "ec2");
+				putRandomGrade(val, 75+(addGrade*5), 99, "scouting");
 				putRandomGrade(val, 0, 5, "absent");
 				val.comment1 = arrComment[getRandom(0, 3)];
 				val.comment2 = arrComment[getRandom(0, 3)];
 				val.comment3 = arrComment[getRandom(0, 3)];
 				val.comment4 = arrComment[getRandom(0, 3)];
-				val.save();
 			}
+			DBClient.persistBean((List) lst);
 			this.redisplayRecord();
 		}
 	}
@@ -95,12 +96,6 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			BeanUtil.setPropertyValue(val, BeanUtil.concat(s,"3"), getRandom(i, j));
 			BeanUtil.setPropertyValue(val, BeanUtil.concat(s,"4"), getRandom(i, j));
 		}
-	}
-
-	private int getRandom(int low, int high) {
-		double d = Math.random();
-		int val = (int) ((high - low) * d);
-		return low + val;
 	}
 
 	private void saveAllDisplayed() {

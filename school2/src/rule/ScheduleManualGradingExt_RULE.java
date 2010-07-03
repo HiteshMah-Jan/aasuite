@@ -49,8 +49,6 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		}
 	}
 
-	double testGrade;
-	
 	private void testGrading() {
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
 			AbstractChildTemplatePanel tab = this.panel.getTabs().get(0);
@@ -59,19 +57,14 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 				generateTask();
 			}
 			List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
-			for (int i=0; i<4; i++) {
-				tab = tabs.get(i);
-				
-				subjects = tab.list;
-				for (StudentSubject s : subjects) {
-					generateTestGrade();
-					try {
-						Thread.currentThread().sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					BeanUtil.setPropertyValue(s, BeanUtil.concat("grade",(i+1)).trim(), testGrade);
-				}
+			
+			subjects = tabs.get(0).list;
+			for (int i=0; i<subjects.size(); i++) {
+				StudentSubject s = subjects.get(i);
+				BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
+				BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
+				BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
+				BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
 			}
 			saveAllGrades(1);
 			saveAllGrades(2);
@@ -81,20 +74,6 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		}
 	}
 
-	private void generateTestGrade() {
-		Thread t = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Thread.yield();
-				double d = (Math.random()*100) + (Math.random()*10);
-				if (d > 60 && d < 100) {
-					testGrade = d;
-				}
-			}
-		});
-		t.start();
-	}
-	
 	private void generateTask() {
 		Schedule t = (Schedule) this.getBean();
 		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='",t.section,"'");
