@@ -510,6 +510,6 @@ public class AppConfig extends AbstractIBean implements Serializable {
     }
 
 	public static boolean isShowTestButton() {
-        return AppConfig.isTrue("SHOW TEST BUTTON", true);
+        return AppConfig.isTrue("SHOW TEST BUTTON", false);
 	}
 }
