@@ -50,6 +50,19 @@ public abstract class BusinessRuleWrapper {
     public JTableReadOnly tbl;
     protected Object oldObj;
 
+	public double getRandomDouble(int low, int high) {
+		if (low >= high) return low;
+		int i = getRandom(low, high);
+		return i + Math.random();
+	}
+	
+	public int getRandom(int low, int high) {
+		if (low >= high) return low;
+		double d = Math.random();
+		int val = (int) ((high - low) * d);
+		return low + val;
+	}
+
     public void setTable(JTableReadOnly tbl) {
     	this.tbl = tbl;
     }
