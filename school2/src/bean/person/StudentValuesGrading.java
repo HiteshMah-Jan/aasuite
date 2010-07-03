@@ -25,6 +25,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateLeftRight;
 import util.BeanUtil;
+import util.DBClient;
 import util.Log;
 import util.PanelUtil;
 import bean.EmployeeFaculty;
@@ -44,8 +45,9 @@ import constants.UserInfo;
 @Entity
 @Table(name = "StudentValuesGrading")
 @UITemplate(template = TemplateLeftRight.class, showChart = false, showFiles = false, showImages = false, columnSearch = {
-		"faculty", "gradeLevel", "section", "student", "studentNumber" }, criteriaSearch = {
-		"facultyId", "gradeLevel", "section", "studentId" }, gridCount = 2, title = "Student Values Grading")
+		"faculty", "gradeLevel", "section", "student"}, criteriaSearch = {
+		"facultyId", "gradeLevel", "section", "studentId" }, gridCount = 2, title = "Student Values Grading",
+		select="SELECT a FROM StudentValuesGrading a WHERE a.schoolYear='${useYear}'")
 @ChildRecords(value = { // @ChildRecord(template=ChildTemplateListPopup.class,
 						// fieldMapping={"seq","admissionId"},
 						// entity=AdmissionExamReference.class,
@@ -501,7 +503,8 @@ import constants.UserInfo;
     @ActionButton(name = "btnRankQ2", label = "2nd"),
     @ActionButton(name = "btnRankQ3", label = "3rd"),
     @ActionButton(name = "btnRankQ4", label = "4th"),
-    @ActionButton(name = "btnSaveAllDisplayed", label = "Save All Displayed")
+    @ActionButton(name = "btnSaveAllDisplayed", label = "Save All Displayed"),
+    @ActionButton(name="btnTestGrading", label="Test Grading")
 })
 @Reports({
     @template.Report(reportFile = "Q1_ValuesGrades", reportTitle = "Values 1st Qtr.", reportSql = "${section}"),
@@ -2204,7 +2207,11 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 				section = stud.section;
 			}
 		}
-		if (faculty == null) {
+		if (faculty == null || faculty.isEmpty()) {
+			if (facultyId <= 0) {
+				Section s = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",section,"'");
+				facultyId = s.facultyId;
+			}
 			Person f = (Person) extractPerson(facultyId);
 			if (f != null)
 				faculty = f.toString();
