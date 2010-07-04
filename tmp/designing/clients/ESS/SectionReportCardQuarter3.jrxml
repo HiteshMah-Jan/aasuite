@@ -23,7 +23,7 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+	<parameter name="PARAM_section" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["Guimaras"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String">
@@ -46,7 +46,7 @@ FROM
 WHERE
      person.status ='ENROLLED'
 AND  person.gradeLevel is not null  AND person.section is not null
-AND person.section=$P{REPORT_ADD_WHERE}  
+AND person.section=$P{PARAM_section}  
 ORDER BY
     person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
 

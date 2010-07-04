@@ -1,0 +1,1983 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="G2_ReportCardQuarter"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["4950"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="REPORT_QUARTER" isForPrompting="false" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+     person.`personId` AS person_personId,
+     person.`firstName` AS person_firstName,
+     person.`middleInitial` AS person_middleInitial,
+     person.`lastName` AS person_lastName,
+     person.`latestSchoolYear` AS person_latestSchoolYear,
+     person.`gradeLevel` AS person_gradeLevel,
+     person.`studentNumber` AS person_studentNumber,
+     person.`section` AS person_section,
+     person.`status` AS person_status,
+     section.`faculty` AS section_faculty,
+     person.`gradeLevelDesc` AS person_gradeLevelDesc,
+     studentvaluesgrading.`totalDays2` AS studentvaluesgrading_totalDays2,
+     studentvaluesgrading.`totalDays` AS studentvaluesgrading_totalDays,
+     studentvaluesgrading.`totalDays3` AS studentvaluesgrading_totalDays3,
+     studentvaluesgrading.`present` AS studentvaluesgrading_present,
+     studentvaluesgrading.`absent` AS studentvaluesgrading_absent,
+     studentvaluesgrading.`present2` AS studentvaluesgrading_present2,
+     studentvaluesgrading.`absent2` AS studentvaluesgrading_absent2,
+     studentvaluesgrading.`present3` AS studentvaluesgrading_present3,
+     studentvaluesgrading.`absent3` AS studentvaluesgrading_absent3,
+     studentvaluesgrading.`totalDays4` AS studentvaluesgrading_totalDays4,
+     studentvaluesgrading.`present4` AS studentvaluesgrading_present4,
+     studentvaluesgrading.`absent4` AS studentvaluesgrading_absent4,
+     studentvaluesgrading.`tardy` AS studentvaluesgrading_tardy,
+     studentvaluesgrading.`tardy2` AS studentvaluesgrading_tardy2,
+     studentvaluesgrading.`tardy3` AS studentvaluesgrading_tardy3,
+     studentvaluesgrading.`tardy4` AS studentvaluesgrading_tardy4,
+     person.`addStatus` AS person_addStatus
+FROM
+     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
+     INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
+WHERE
+     person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
+
+	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="person_firstName" class="java.lang.String"/>
+	<field name="person_middleInitial" class="java.lang.String"/>
+	<field name="person_lastName" class="java.lang.String"/>
+	<field name="person_latestSchoolYear" class="java.lang.String"/>
+	<field name="person_gradeLevel" class="java.lang.String"/>
+	<field name="person_studentNumber" class="java.lang.String"/>
+	<field name="person_section" class="java.lang.String"/>
+	<field name="person_status" class="java.lang.String"/>
+	<field name="section_faculty" class="java.lang.String"/>
+	<field name="person_gradeLevelDesc" class="java.lang.String"/>
+	<field name="studentvaluesgrading_totalDays2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_absent" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_absent2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_absent3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_totalDays4" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_present4" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_absent4" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_tardy" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_tardy2" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_tardy3" class="java.lang.Integer"/>
+	<field name="studentvaluesgrading_tardy4" class="java.lang.Integer"/>
+	<field name="person_addStatus" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="825"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="19"
+						y="180"
+						width="195"
+						height="15"
+						forecolor="#000000"
+						key="element-90"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[BASIC SUBJECTS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="195"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-91"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[FILIPINO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="206"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-92"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[ENGLISH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="217"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-93"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[SCIENCE AND HEALTH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="228"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-94"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[MATHEMATICS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="239"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-95"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Catholic Christian Formation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="250"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-96"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[HEKASI]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="348"
+						width="195"
+						height="15"
+						forecolor="#000000"
+						key="element-97"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MEGASKILLS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="275"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-98"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Music]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="286"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-99"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Art]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="297"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-100"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Physical Education]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="321"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-102"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Computer Education]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="230"
+						y="180"
+						width="52"
+						height="15"
+						forecolor="#000000"
+						key="element-104"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[1st Qtr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="307"
+						y="180"
+						width="52"
+						height="15"
+						forecolor="#000000"
+						key="element-105">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[2nd Qtr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="384"
+						y="180"
+						width="52"
+						height="15"
+						forecolor="#000000"
+						key="element-106">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[3rd Qtr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="385"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-108"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Effort]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="332"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-111"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Co-Curricular: Club/s Participation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="363"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-113"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Confidence]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="484"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-114"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Respect]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="396"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-115"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Responsibility]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="462"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-116"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Problem Solving]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="473"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-117"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Focus]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="309"
+						y="701"
+						width="150"
+						height="0"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch">
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+</graphicElement>
+				</line>
+				<staticText>
+					<reportElement
+						x="310"
+						y="702"
+						width="150"
+						height="16"
+						forecolor="#000000"
+						key="element-129"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="" pdfFontName="Helvetica" size="10" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Adviser]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="374"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-136"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Motivation]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="407"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-138"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Initiative]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="418"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-139"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Perseverance]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="429"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-140"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Caring]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="440"
+						width="195"
+						height="12"
+						forecolor="#000000"
+						key="element-141"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Teamwork]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="451"
+						width="195"
+						height="11"
+						forecolor="#000000"
+						key="element-142"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[Common Sense]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="363"
+						width="134"
+						height="11"
+						key="subreport-129"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT con as any1, con2 as any2, con3 as any3, con4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="374"
+						width="134"
+						height="11"
+						key="subreport-130"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT mot as any1, mot2 as any2, mot3 as any3, mot4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="385"
+						width="134"
+						height="11"
+						key="subreport-131"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT eff as any1, eff2 as any2, eff3 as any3, eff4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="396"
+						width="134"
+						height="11"
+						key="subreport-132"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT res as any1,res2 as any2, res3 as any3, res4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="407"
+						width="134"
+						height="11"
+						key="subreport-133"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT ini as any1, ini2 as any2, ini3 as any3, ini4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="418"
+						width="134"
+						height="11"
+						key="subreport-134"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT per as any1, per2 as any2, per3 as any3, per4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="429"
+						width="134"
+						height="11"
+						key="subreport-135"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT car as any1, car2 as any2, car3 as any3, car4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="440"
+						width="134"
+						height="11"
+						key="subreport-136"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT tea as any1, tea2 as any2, tea3 as any3, tea4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="451"
+						width="134"
+						height="11"
+						key="subreport-137"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT com as any1, com2 as any2, com3 as any3, com4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="462"
+						width="134"
+						height="11"
+						key="subreport-138"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT pro as any1, pro2 as any2, pro3 as any3, pro4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="473"
+						width="134"
+						height="11"
+						key="subreport-139"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT focus as any1, focus2 as any2, focus3 as any3, focus4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="484"
+						width="134"
+						height="11"
+						key="subreport-140"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT respect as any1, respect2 as any2, respect3 as any3, respect4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="23"
+						y="602"
+						width="131"
+						height="16"
+						forecolor="#000000"
+						key="element-145"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ATTENDANCE REPORT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="618"
+						width="131"
+						height="11"
+						forecolor="#000000"
+						key="element-146"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[          No. of School Days]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="629"
+						width="131"
+						height="11"
+						forecolor="#000000"
+						key="element-147"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[          Days Present]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="640"
+						width="131"
+						height="11"
+						forecolor="#000000"
+						key="element-148"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[          Days Absent]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="23"
+						y="651"
+						width="131"
+						height="11"
+						forecolor="#000000"
+						key="element-149"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<text><![CDATA[          No. of Tardiness]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="510"
+						width="138"
+						height="16"
+						forecolor="#000000"
+						key="element-150"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Marking Legend]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="526"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-151"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   O          Outstanding]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="537"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-152"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   HS        Highly Satisfactory]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="548"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-153"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   S           Satisfactory]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="559"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-154"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   MS        Moderately Satisfactory]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="581"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-155"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   X            No Grade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="570"
+						width="138"
+						height="11"
+						forecolor="#000000"
+						key="element-156"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
+					</textElement>
+				<text><![CDATA[   NI          Needs Improvement]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="718"
+						width="543"
+						height="46"
+						forecolor="#000000"
+						key="element-157"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<text><![CDATA[                    This progress report card is a very important school record issued to parents / students quarterly (1st to 3rd Quarters).  The grades reflected herein keep the parents informed and updated of the student’s performance in class. Parents should also have a substantial idea on what learning area(s) the student needs improvement. 
+                    Our student’s education is our mutual concern and we believe that the educational welfare of the child is best served through a strong, concerted partnership between parents and ESS. The School encourages and welcomes visits made by appointment from parent(s)/ guardian(s) to discuss the learning areas on the student’s progress. 
+                    This is NOT VALID FOR TRANSFER. The final Automated Report Card (ARC) reflecting the complete grade entries (First Quarter to Fourth Quarter) for all subject areas shall be issued to students at the close of the school year.
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="118"
+						y="124"
+						width="212"
+						height="15"
+						key="textField-1"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_lastName}+", "+$F{person_firstName}+" "+$F{person_middleInitial}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="19"
+						y="124"
+						width="99"
+						height="15"
+						forecolor="#000000"
+						key="element-158"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student Name:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="330"
+						y="124"
+						width="87"
+						height="15"
+						forecolor="#000000"
+						key="element-159"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[School Year:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="139"
+						width="99"
+						height="15"
+						forecolor="#000000"
+						key="element-160"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Level and Section:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="330"
+						y="139"
+						width="87"
+						height="15"
+						forecolor="#000000"
+						key="element-161"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Class Adviser:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="118"
+						y="139"
+						width="212"
+						height="15"
+						key="textField-3"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Grade 2 - "+$F{person_section}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="19"
+						y="154"
+						width="99"
+						height="15"
+						forecolor="#000000"
+						key="element-162"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student No.:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="330"
+						y="154"
+						width="87"
+						height="15"
+						forecolor="#000000"
+						key="element-163"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Student Status:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="139"
+						width="145"
+						height="15"
+						key="textField-4"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{section_faculty}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="118"
+						y="154"
+						width="212"
+						height="15"
+						key="textField-5"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{person_studentNumber}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="19"
+						y="261"
+						width="195"
+						height="15"
+						forecolor="#000000"
+						key="element-164"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PERFORMING ARTS SUBJECTS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="19"
+						y="308"
+						width="195"
+						height="15"
+						forecolor="#000000"
+						key="element-165"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[NON-ACADEMIC SUBJECTS]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="332"
+						width="134"
+						height="11"
+						key="subreport-141"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT clubsAndParticipation as any1, clubsAndParticipation2 as any2, clubsAndParticipation3 as any3, clubsAndParticipation4 as any4 "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportLetter.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="419"
+						y="155"
+						width="145"
+						height="11"
+						key="subreport-142"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT  status as any "+
+"FROM StudentValuesGrading "+
+"WHERE "+
+"	studentId="+$F{person_personId}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="195"
+						width="134"
+						height="11"
+						key="subreport-143"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Filipino+.5 as any1, q2Filipino+.5 as any2, q3Filipino+.5 as any3, q4Filipino+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="206"
+						width="134"
+						height="11"
+						key="subreport-144"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1English+.5 as any1, q2English+.5 as any2, q3English+.5 as any3, q4English+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="217"
+						width="134"
+						height="11"
+						key="subreport-145"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Science+.5 as any1, q2Science+.5 as any2, q3Science+.5 as any3, q4Science+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="228"
+						width="134"
+						height="11"
+						key="subreport-146"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Math+.5 as any1, q2Math+.5 as any2, q3Math+.5 as any3, q4Math+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="239"
+						width="134"
+						height="11"
+						key="subreport-147"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1CCF+.5 as any1, q2CCF+.5 as any2, q3CCF+.5 as any3, q4CCF+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="250"
+						width="134"
+						height="11"
+						key="subreport-148"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Hekasi+.5 as any1, q2Hekasi+.5 as any2, q3Hekasi+.5 as any3, q4Hekasi+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="322"
+						width="134"
+						height="11"
+						key="subreport-149"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Computer+.5 as any1, q2Computer+.5 as any2, q3Computer+.5 as any3, q4Computer+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="275"
+						width="134"
+						height="11"
+						key="subreport-150"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Music+.5 as any1, q2Music+.5 as any2, q3Music+.5 as any3, q4Music+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="286"
+						width="134"
+						height="11"
+						key="subreport-151"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Arts+.5 as any1, q2Arts+.5 as any2, q3Arts+.5 as any3, q4Arts+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="230"
+						y="297"
+						width="134"
+						height="11"
+						key="subreport-152"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1PE+.5 as any1, q2PE+.5 as any2, q3PE+.5 as any3, q4PE+.5 as any4 "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="618"
+						width="48"
+						height="11"
+						key="textField-19">
+							<printWhenExpression><![CDATA[new Boolean($F{studentvaluesgrading_totalDays}.doubleValue()>0)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_totalDays}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="629"
+						width="48"
+						height="11"
+						key="textField-20">
+							<printWhenExpression><![CDATA[new Boolean($F{studentvaluesgrading_present}.doubleValue()>0)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_present}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="651"
+						width="48"
+						height="11"
+						key="textField-21"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_tardy}==null?new Integer(0):$F{studentvaluesgrading_tardy}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="640"
+						width="48"
+						height="11"
+						key="textField-22"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_absent}==null?new Integer(0):$F{studentvaluesgrading_absent}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="212"
+						y="618"
+						width="48"
+						height="11"
+						key="textField-23">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_totalDays2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="618"
+						width="48"
+						height="11"
+						key="textField-24">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_totalDays3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="212"
+						y="629"
+						width="48"
+						height="11"
+						key="textField-25">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_present2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="212"
+						y="651"
+						width="48"
+						height="11"
+						key="textField-26">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_tardy2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="212"
+						y="640"
+						width="48"
+						height="11"
+						key="textField-27">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>1)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_absent2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="629"
+						width="48"
+						height="11"
+						key="textField-28">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_present3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="651"
+						width="48"
+						height="11"
+						key="textField-29">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_tardy3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="260"
+						y="640"
+						width="48"
+						height="11"
+						key="textField-30">
+							<printWhenExpression><![CDATA[new Boolean($P{REPORT_QUARTER}.intValue()>2)]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_absent3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="124"
+						width="145"
+						height="15"
+						key="textField-31"/>
+					<box leftPadding="2" rightPadding="2">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{PARAM_schoolYear}]]></textFieldExpression>
+				</textField>
+			</band>
+		</summary>
+</jasperReport>
