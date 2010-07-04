@@ -273,6 +273,7 @@ import constants.UserInfo;
 	    @template.Report(reportFile = "SectionReportCardQuarter2", reportTitle = "Q2", reportSql = "${section}"),
 	    @template.Report(reportFile = "SectionReportCardQuarter3", reportTitle = "Q3", reportSql = "${section}"),
 		@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}"),
+		@template.Report(reportFile = "SingleReportCard", reportTitle = "Single Card", reportSql = "${personId}"),
 		@template.Report(reportFile = "StudentId", reportTitle = "ID", reportSql = "${personId}"),
 		@template.Report(reportFile = "StudentIdSingle", reportTitle = "Single", reportSql = "${personId}"),
 		@template.Report(reportFile = "StickerGrade", reportTitle = "Sticker", reportSql = "${personId}", duties="WITH STICKER GRADE"),
