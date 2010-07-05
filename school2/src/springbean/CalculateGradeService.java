@@ -62,6 +62,7 @@ public class CalculateGradeService implements IService {
 				Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",det.studentId," AND a.gradeLevel='",task.gradeLevel,"'");
 				if (e != null) {
 					e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
+					e.section = task.section;
 					e.save();
 				}
 			}
@@ -79,6 +80,7 @@ public class CalculateGradeService implements IService {
 				Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",subject.studentId," AND a.gradeLevel='",schedule.gradeLevel,"'");
 				if (e != null) {
 					e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
+					e.section = schedule.section;
 					e.save();
 				}
 			}
