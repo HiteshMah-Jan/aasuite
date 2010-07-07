@@ -33,7 +33,6 @@ public class GradingProcess implements Runnable {
 	public static void rankAll(int quarter) {
 		if (UserInfo.loginUser.isSuperAAA()) {
 			if (PanelUtil.showPrompt(null, "Ranking for all section would take several minutes, continue?")) {
-				List l = AbstractIBean.listCache("SELECT a FROM Subject a");
 				boolean r = PanelUtil.showPrompt(null, "Run merits?");
 				List<Section> lst = AbstractIBean.listCache("SELECT a FROM Section a");
 				for (Section s:lst) {

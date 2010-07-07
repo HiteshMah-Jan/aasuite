@@ -1069,7 +1069,13 @@ public class Student extends Customer implements Serializable {
 			schoolYear = AppConfig.getSchoolYear();
 		}
 		personType = "STUDENT";
-		super.save();
+		if (isEmptyKey()) {
+			super.save();
+            new springbean.SchoolDefaultProcess().createAllSubjects(this);
+		}
+		else {
+			super.save();
+		}
 	}
 
 	public void updateEnrollmentSection() {

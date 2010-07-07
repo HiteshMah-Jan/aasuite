@@ -9,6 +9,7 @@ import springbean.CalculateGradeService;
 import template.screen.AbstractChildTemplatePanel;
 import util.BeanUtil;
 import util.DBClient;
+import util.GlobalBean;
 import util.Log;
 import util.PanelUtil;
 import bean.Schedule;
@@ -51,31 +52,65 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 
 	private void testGrading() {
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
-			AbstractChildTemplatePanel tab = this.panel.getTabs().get(0);
-			List<StudentSubject> subjects = tab.list;
-			if (subjects == null || subjects.size() == 0) {
-				generateTask();
+			if (showPrompt("Put test grade for all students?")) {
+				List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section IS NOT NULL ORDER BY a.gradeLevel, a.section",0,5000);
+				for (Schedule sched:lst) {
+					List<StudentSubject> subjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.scheduleId=",String.valueOf(sched.seq)," AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+					if (subjects != null && !subjects.isEmpty()) {
+						for (int i=0; i<subjects.size(); i++) {
+							StudentSubject s = subjects.get(i);
+							BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
+							BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
+							BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
+							BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
+						}
+						CalculateGradeService.calculateGrade(1, sched, subjects);
+						CalculateGradeService.calculateGrade(2, sched, subjects);
+						CalculateGradeService.calculateGrade(3, sched, subjects);
+						CalculateGradeService.calculateGrade(4, sched, subjects);
+					}
+				}
 			}
-			List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
-			
-			subjects = tabs.get(0).list;
-			for (int i=0; i<subjects.size(); i++) {
-				StudentSubject s = subjects.get(i);
-				BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
-				BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
-				BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
-				BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
+			else {
+				AbstractChildTemplatePanel tab = this.panel.getTabs().get(0);
+				List<StudentSubject> subjects = tab.list;
+				if (subjects == null || subjects.size() == 0) {
+					generateTask();
+				}
+				List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
+				
+				subjects = tabs.get(0).list;
+				for (int i=0; i<subjects.size(); i++) {
+					StudentSubject s = subjects.get(i);
+					BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
+					BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
+					BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
+					BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
+				}
+				saveAllGrades(1);
+				saveAllGrades(2);
+				saveAllGrades(3);
+				saveAllGrades(4);
 			}
-			saveAllGrades(1);
-			saveAllGrades(2);
-			saveAllGrades(3);
-			saveAllGrades(4);
 			this.tbl.updateUI();
 		}
 	}
 
 	private void generateTask() {
+        if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
+        	if (showPrompt("Generate grading for all student?")) {
+            	List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a, Section b WHERE a.section=b.code", 0, 10000);
+            	for (Schedule s:lst) {
+            		generateTask(s);
+            	}
+            	return;
+        	}
+        }
 		Schedule t = (Schedule) this.getBean();
+		generateTask(t);
+	}
+	
+	private void generateTask(Schedule t) {
 		List<Student> lstStud = DBClient.getList("SELECT a FROM Student a WHERE a.section='",t.section,"'");
 		Section sec = (Section) Section.extractObject(Section.class.getSimpleName(), t.section);
 		GradeLevel lvl = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), sec.gradeLevel);
@@ -131,7 +166,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 	private void saveAllGrades(int quarter) {
 //		check for schoolyear
 		if (!UserInfo.getUseYear().equals(AppConfig.getSchoolYear())) {
-			showError("This is school year is not current.[",UserInfo.getUseYear(),"]");
+			showError("This school year is not current.[",UserInfo.getUseYear(),"]");
 			return;
 		}
 		Schedule bean = (Schedule) this.getBean();

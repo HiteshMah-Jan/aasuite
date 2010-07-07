@@ -6,6 +6,7 @@ import java.util.List;
 import service.IService;
 import service.ParamStruct;
 import service.ReturnStruct;
+import service.util.AbstractIBean;
 import service.util.CallService;
 import util.BeanUtil;
 import util.DBClient;
@@ -38,13 +39,13 @@ public class CalculateGradeService implements IService {
 
 	@Override
 	public ReturnStruct callService(ParamStruct param) {
+		List<Subject> allsubs = AbstractIBean.listCache("SELECT a FROM Subject a");
 		int quarter = param.getActionCommand();
 		List<Object> l = (List<Object>) param.getData();
 		Object obj = l.get(0);
 		if (obj instanceof FacultyGradingTask) {
 			FacultyGradingTask task = (FacultyGradingTask) l.get(0);
 			List<StudentSubjectDetailGrading> subjects = (List<StudentSubjectDetailGrading>) l.get(1);
-			List<Subject> allsubs = DBClient.getList("SELECT a FROM Subject a");
 			for (StudentSubjectDetailGrading det:subjects) {
 				det.scheduleId = task.scheduleId;
 				det.section = task.section;
@@ -71,7 +72,6 @@ public class CalculateGradeService implements IService {
 		else {
 			Schedule schedule = (Schedule) l.get(0);
 			List<StudentSubject> subjects = (List<StudentSubject>) l.get(1);
-			List<Subject> allsubs = DBClient.getList("SELECT a FROM Subject a");
 			for (StudentSubject subject:subjects) {
 //				update student subject
 				subject.save();

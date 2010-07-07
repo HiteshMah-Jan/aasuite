@@ -31,8 +31,6 @@ import bean.EmployeeFaculty;
 import bean.Enrollment;
 import bean.Schedule;
 import bean.Student;
-import bean.accounting.GLPostingScript;
-import bean.accounting.Invoice;
 import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
 import bean.accounting.PaymentLineItem;
@@ -45,7 +43,6 @@ import bean.person.StudentSummerSchoolAttended;
 import bean.person.StudentValuesGrading;
 import bean.reference.CourseSubject;
 import bean.reference.GradeLevel;
-import bean.reference.ScholarshipTable;
 import bean.reference.Section;
 
 import component.IAuthorization;
@@ -548,66 +545,33 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         return d;
     }
 
-    static List lst;
     public static class CreateCurriculum implements Runnable {
+        List courselst;
     	Student student;
-    	List<Enrollment> enrolls;
     	
     	public CreateCurriculum(Student stud) {
     		this.student = stud;
     	}
 
     	@SuppressWarnings("unchecked")
-		protected void createEnrollment() {
+		protected void createEnrollment(List<Enrollment> enrolls, List<StudentValuesGrading> values) {
 //    		create for preschool, gradeschool, high school
+    		String[] levels = {"P1","P2","K1","K2","N1","N2","G1","G2","G3","G4","G5","G6","H1","H2","H3","H4"};
     		List l = new ArrayList();
-    		l.add(newEnrollment("P1"));
-    		l.add(newEnrollment("P2"));
-    		l.add(newEnrollment("K1"));
-    		l.add(newEnrollment("K2"));
-    		l.add(newEnrollment("N1"));
-    		l.add(newEnrollment("N2"));
-    		l.add(newEnrollment("G1"));
-    		l.add(newEnrollment("G2"));
-    		l.add(newEnrollment("G3"));
-    		l.add(newEnrollment("G4"));
-    		l.add(newEnrollment("G5"));
-    		l.add(newEnrollment("G6"));
-    		l.add(newEnrollment("H1"));
-    		l.add(newEnrollment("H2"));
-    		l.add(newEnrollment("H3"));
-    		l.add(newEnrollment("H4"));
-
-    		l.add(newValues("P1"));
-    		l.add(newValues("P2"));
-    		l.add(newValues("K1"));
-    		l.add(newValues("K2"));
-    		l.add(newValues("N1"));
-    		l.add(newValues("N2"));
-    		l.add(newValues("G1"));
-    		l.add(newValues("G2"));
-    		l.add(newValues("G3"));
-    		l.add(newValues("G4"));
-    		l.add(newValues("G5"));
-    		l.add(newValues("G6"));
-    		l.add(newValues("H1"));
-    		l.add(newValues("H2"));
-    		l.add(newValues("H3"));
-    		l.add(newValues("H4"));
-    		DBClient.persistBean(l);
+    		for (String level:levels) {
+        		if (!isEnrollmentExist(enrolls, level)) {
+        			l.add(newEnrollment(level));
+        		}
+        		if (!isValuesExist(values, level)) {
+        			l.add(newValues(level));
+        		}
+    		}
+    		if (!l.isEmpty()) {
+        		DBClient.persistBean(l);
+    		}
     	}
 
     	protected Enrollment newEnrollment(String level) {
-    		if (enrolls==null) {
-    			enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=",student.personId));
-    		}
-    		if (enrolls != null) {
-    			for (Enrollment e : enrolls) {
-    				if (e.gradeLevel!=null && e.gradeLevel.equals(level)) {
-    					return e;
-    				}
-    			}
-    		}
     		Enrollment e = new Enrollment();
     		e.gradeLevel = level;
     		e.studentId = student.personId;
@@ -622,19 +586,13 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     		return val;
     	}
     	
-    	protected void createSubjects() {
-	        lst = appCache.selectListCache("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
+    	protected void createSubjects(List<StudentSubject> subjects) {
 	        List lstSubjects = new ArrayList();
-	        if (lst==null || lst.isEmpty()) {
-//	        	create curriculum using subjects created
-	        	String sql1 = "update subject set course=(select distinct course from gradelevel where code=subject.gradelevel) where course is null or course=''";
-	        	String sql2 = "insert into coursesubject(subject, course, weight) (select distinct code, course, unit from subject where course is not null or course!='')";
-	        	DBClient.runBatchNative(sql1, sql2);
-		        lst = appCache.selectListCache("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
-	        }
-	        for (Object obj : lst) {
+	        for (Object obj : courselst) {
 	            CourseSubject csubject = (CourseSubject) obj;
-	            
+	            if (isSubjectExist(subjects, csubject)) {
+	            	continue;
+	            }
 	            if (!PanelUtil.isEmpty(student.getSchoolYear()) && !PanelUtil.isEmpty(csubject.getExceptCurriculumYears()) && csubject.getExceptCurriculumYears().indexOf(student.getSchoolYear()) != -1) {
 	                //do not include the subject to this curriculum
 	                continue;
@@ -656,20 +614,63 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 	            lstSubjects.add(subject);
 	        }
 	        student.officiallyRegistered = true;
-	        lstSubjects.add(student);
-	        DBClient.persistBean(lstSubjects);
+	        if (!lstSubjects.isEmpty()) {
+		        lstSubjects.add(student);
+		        DBClient.persistBean(lstSubjects);
+	        }
     	}
     	
+    	private boolean isSubjectExist(List<StudentSubject> subjects, CourseSubject csubject) {
+    		for (StudentSubject s:subjects) {
+    			if (s.subject!=null && s.subject.equalsIgnoreCase(csubject.subject)) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+    	
+    	private boolean isEnrollmentExist(List<Enrollment> enroll, String level) {
+    		for (Enrollment s:enroll) {
+    			if (s.gradeLevel!=null && s.gradeLevel.equalsIgnoreCase(level)) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+
+    	private boolean isValuesExist(List<StudentValuesGrading> value, String level) {
+    		for (StudentValuesGrading s:value) {
+    			if (s.gradeLevel!=null && s.gradeLevel.equalsIgnoreCase(level)) {
+    				return true;
+    			}
+    		}
+    		return false;
+    	}
+
     	@Override
 		public void run() {
 	        String course = student.course;
+	        if (course==null || course.isEmpty()) {
+	        	return;
+	        }
 	        int personId = student.personId;
 	        if (PanelUtil.isEmpty(course)) {
 	        	PanelUtil.showError(null, "Student does not have a course.");
 	            return;
 	        }
-	        createSubjects();
-	        createEnrollment();
+	        courselst = DBClient.getList("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
+	        if (courselst==null || courselst.isEmpty()) {
+//	        	create curriculum using subjects created
+	        	String sql1 = "update subject set course=(select distinct course from gradelevel where code=subject.gradelevel) where course is null or course=''";
+	        	String sql2 = "insert into coursesubject(subject, course, weight) (select distinct code, course, unit from subject where course is not null or course!='')";
+	        	DBClient.runBatchNative(sql1, sql2);
+		        courselst = DBClient.getList("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
+	        }
+	        List<StudentSubject> lst = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.studentId=",String.valueOf(personId));
+	        createSubjects(lst);
+	        List<Enrollment> enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=",student.personId));
+	        List<StudentValuesGrading> values = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",student.personId));
+	        createEnrollment(enrolls, values);
 		}
     }
 }

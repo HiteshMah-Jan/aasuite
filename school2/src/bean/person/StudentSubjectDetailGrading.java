@@ -394,7 +394,7 @@ public class StudentSubjectDetailGrading extends AbstractIBean implements Serial
 			return false;
 		}
 		if (usePercentage) {
-			if (score>100) {
+			if (score>100 && !AppConfig.isShowTestButton()) {
 				PanelUtil.showError(null, "Percentage is more than 100.");
 				return false;
 			}

@@ -28,6 +28,7 @@ import util.DataUtil;
 import util.PanelUtil;
 import bean.Person;
 import bean.Student;
+import bean.admin.AppConfig;
 import bean.reference.Subject;
 import constants.UserInfo;
 
@@ -577,7 +578,7 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 		if (grade==null) {
 			return false;
 		}
-		if (grade>100) {
+		if (grade>100 && !AppConfig.isShowTestButton()) {
 			PanelUtil.showError(null, "Percentage is more than 100.");
 			return false;
 		}

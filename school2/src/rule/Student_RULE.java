@@ -4,6 +4,8 @@
  */
 package rule;
 
+import java.util.List;
+
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
@@ -11,6 +13,7 @@ import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
 import ui.action.StudentAction;
 import util.BeanUtil;
+import util.DBClient;
 import util.PerfUtil;
 import bean.Student;
 import bean.admin.AppConfig;
@@ -90,7 +93,20 @@ public class Student_RULE extends Person_RULE {
 		PerfUtil p = new PerfUtil("Generate curriculum subjects.");
 		p.start();
         Student stud = (Student) getBean();
-        new springbean.SchoolDefaultProcess().createAllSubjects(stud);
+        if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
+        	if (showPrompt("Generate Curriculum for all student?")) {
+        		List<Student> lst = DBClient.getList("SELECT a FROM Student a, Section b WHERE a.status='ENROLLED' AND a.section=b.code ORDER BY a.lastName", 0, 10000);
+        		for (Student s:lst) {
+                    new springbean.SchoolDefaultProcess().createAllSubjects(s);
+        		}
+        	}
+        	else {
+                new springbean.SchoolDefaultProcess().createAllSubjects(stud);
+        	}
+        }
+        else {
+            new springbean.SchoolDefaultProcess().createAllSubjects(stud);
+        }
 		p.printSpanComplete();
         this.redisplayRecord();
     }
