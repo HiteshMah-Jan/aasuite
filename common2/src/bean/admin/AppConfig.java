@@ -274,6 +274,7 @@ public class AppConfig extends AbstractIBean implements Serializable {
             AppConfig.isGradingGPAStraightAverage(s);
             AppConfig.isGradingGPATotalMapehThenAverage(s);
         }
+        AppConfig.getMaxThread();
     }
     
     public static boolean isTrimester() {
@@ -511,5 +512,9 @@ public class AppConfig extends AbstractIBean implements Serializable {
 
 	public static boolean isShowTestButton() {
         return AppConfig.isTrue("SHOW TEST BUTTON", false);
+	}
+
+	public static int getMaxThread() {
+        return Integer.valueOf(AppConfig.getAppValue("MAX THREAD", "10"));
 	}
 }
