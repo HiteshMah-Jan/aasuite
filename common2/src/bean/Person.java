@@ -1192,6 +1192,7 @@ public class Person extends AbstractIBean implements Serializable {
 		runIndex(4, "gradeLevel");
 		runIndex(5, "gradeLevel", "shift");
 		runIndex(6, "birthDate");
+		runIndex(7, "status", "section");
 	}
 	
     public List<Payment> extractPayments(String schoolYear) {

@@ -9,6 +9,8 @@
 package bean.admin;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import util.DBClient;
 
 /**
  *
@@ -81,4 +84,9 @@ public class AclDuty extends AbstractIBean implements Serializable {
         duty.description = desc;
         duty.save();
     }
+    
+	@Override
+	public void setupIndex() {
+		runIndex(1, "code");
+	}
 }

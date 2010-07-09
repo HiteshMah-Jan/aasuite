@@ -1151,7 +1151,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     	return new HashMap();
     }
     
-    static Map<String, List> listCache = new HashMap<String, List>();
+    static Map<String, List> listCache = new Hashtable<String, List>();
     public static List listCache(String sql) {
     	List lst = listCache.get(sql);
     	if (lst==null) {
@@ -1161,12 +1161,13 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return lst;
     }
 
-    static Map<String, Object> objCache = new HashMap<String, Object>();
-    public static Object objCache(String sql) {
-    	Object lst = objCache.get(sql);
+    static Map<String, Object> objCache = new Hashtable<String, Object>();
+    public static Object objCache(String... sql) {
+    	String s = BeanUtil.concatStr(sql);
+    	Object lst = objCache.get(s);
     	if (lst==null) {
-    		lst = DBClient.getFirstRecord(sql);
-    		objCache.put(sql, lst);
+    		lst = DBClient.getFirstRecord(s);
+    		objCache.put(s, lst);
     	}
         return lst;
     }

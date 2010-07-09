@@ -53,14 +53,25 @@ public abstract class BusinessRuleWrapper {
 	public double getRandomDouble(int low, int high) {
 		if (low >= high) return low;
 		int i = getRandom(low, high);
-		return i + Math.random();
+		if (i >= high) {
+			return high;
+		}
+		else {
+			return i + Math.random();
+		}
 	}
 	
 	public int getRandom(int low, int high) {
 		if (low >= high) return low;
 		double d = Math.random();
 		int val = (int) ((high - low) * d);
-		return low + val;
+		int v = low + val;
+		if (v > high) {
+			return high;
+		}
+		else {
+			return v;
+		}
 	}
 
     public void setTable(JTableReadOnly tbl) {
