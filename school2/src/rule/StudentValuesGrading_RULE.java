@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
-import service.util.IBean;
+import service.util.AbstractIBean;
 import springbean.GradingProcess;
 import util.BeanUtil;
 import util.DBClient;
@@ -18,6 +18,7 @@ import bean.admin.AppConfig;
 import bean.person.StudentValuesGrading;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
+import bean.reference.Section;
 import constants.UserInfo;
 
 public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
@@ -65,10 +66,41 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 	}
 
 	private void testGrading() {
-		String[] arrComment = {"Kind","Patient","Polite","Good"};
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
-			StudentValuesGrading bean = (StudentValuesGrading) this.getBean();
-			List<StudentValuesGrading> lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",bean.gradeLevel,"' AND a.section='",bean.section,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+			if (showPrompt("Generate grades for all students?")) {
+				List<Section> lst = DBClient.getList("SELECT a FROM Section a ORDER BY a.gradeLevel, a.code",0,1000);
+				for (Section sched:lst) {
+					PanelUtil.showWaitFrame("Generating grades for ", sched.gradeLevel, " - ", sched.code);
+					List<StudentValuesGrading> values = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",sched.gradeLevel,"' AND a.section='",sched.code,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+					new RunTestGrading(values).run();
+					PanelUtil.hideWaitFrame();
+				}
+				for (Section sched:lst) {
+					for (int i=1; i<=4; i++) {
+						GradingProcess proc = new GradingProcess(AppConfig.getSchoolYear(), sched.code, i);
+						proc.runHonors = true;
+						ThreadPoolUtil.execute(proc);
+					}
+				}
+			}
+			else {
+				StudentValuesGrading bean = (StudentValuesGrading) this.getBean();
+				List<StudentValuesGrading> lst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",bean.gradeLevel,"' AND a.section='",bean.section,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+				new RunTestGrading(lst).run();
+			}
+			this.redisplayRecord();
+		}
+	}
+
+	private class RunTestGrading implements Runnable {
+		String[] arrComment = {"Kind","Patient","Polite","Good"};
+		List<StudentValuesGrading> lst;
+		private RunTestGrading(List<StudentValuesGrading> lst) {
+			this.lst = lst;
+		}
+		
+		@Override
+		public void run() {
 			for (int i=0; i<lst.size(); i++) {
 				int addGrade = (i > 15)?2:0;
 				StudentValuesGrading val = lst.get(i);
@@ -79,22 +111,31 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 				putRandomGrade(val, 1+addGrade, 5, "pfe", "cra", "ca", "kin", "ec1", "ec2");
 				putRandomGrade(val, 75+(addGrade*5), 99, "scouting");
 				putRandomGrade(val, 0, 5, "absent");
-				val.comment1 = arrComment[getRandom(0, 3)];
-				val.comment2 = arrComment[getRandom(0, 3)];
-				val.comment3 = arrComment[getRandom(0, 3)];
-				val.comment4 = arrComment[getRandom(0, 3)];
+				if (val.comment1==null) val.comment1 = arrComment[getRandom(0, 3)];
+				if (val.comment2==null) val.comment2 = arrComment[getRandom(0, 3)];
+				if (val.comment3==null) val.comment3 = arrComment[getRandom(0, 3)];
+				if (val.comment4==null) val.comment4 = arrComment[getRandom(0, 3)];
 			}
 			DBClient.persistBean((List) lst);
-			this.redisplayRecord();
 		}
 	}
 
 	private void putRandomGrade(StudentValuesGrading val, int i, int j, String... str) {
 		for (String s:str) {
-			BeanUtil.setPropertyValue(val, s, getRandom(i, j));
-			BeanUtil.setPropertyValue(val, BeanUtil.concat(s,"2"), getRandom(i, j));
-			BeanUtil.setPropertyValue(val, BeanUtil.concat(s,"3"), getRandom(i, j));
-			BeanUtil.setPropertyValue(val, BeanUtil.concat(s,"4"), getRandom(i, j));
+			setValueBetween(val, s, i, j);
+			setValueBetween(val, BeanUtil.concat(s,"2"), i, j);
+			setValueBetween(val, BeanUtil.concat(s,"3"), i, j);
+			setValueBetween(val, BeanUtil.concat(s,"4"), i, j);
+		}
+	}
+	
+	private void setValueBetween(AbstractIBean b, String property, int low, int high) {
+		int val = (int) BeanUtil.getDoubleValue(b, property);
+		if (val>=low && val<=high) {
+			BeanUtil.setPropertyValue(b, property, val);
+		}
+		else {
+			BeanUtil.setPropertyValue(b, property, getRandom(low, high));
 		}
 	}
 

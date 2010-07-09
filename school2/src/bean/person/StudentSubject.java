@@ -23,6 +23,7 @@ import template.DisplayGroup;
 import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
+import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.PanelUtil;
@@ -654,7 +655,7 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 				actionTaken = "FAILED";
 			}
 		}
-        Subject sub = (Subject) AbstractIBean.firstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
+        Subject sub = (Subject) AbstractIBean.objCache("SELECT a FROM Subject a WHERE a.code='",subject,"'");
         if (sub!=null) {
         	gradeLevel = sub.gradeLevel;
         	unit = sub.getUnit();
@@ -689,6 +690,7 @@ public class StudentSubject extends AbstractIBean implements Serializable {
 		runIndex(5, "scheduleId","section","subject");
 		runIndex(6, "schoolYear","section");
 		runIndex(7, "schoolYear","gradeLevel","section");
+		runIndex(8, "schoolYear","gradeLevel","studentId");
 		
 		List lst = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.studentName IS NULL", 1, 15000);
 		DBClient.persistBean(lst);

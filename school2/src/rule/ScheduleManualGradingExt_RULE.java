@@ -7,9 +7,7 @@ import javax.swing.JComponent;
 
 import springbean.CalculateGradeService;
 import template.screen.AbstractChildTemplatePanel;
-import util.BeanUtil;
 import util.DBClient;
-import util.GlobalBean;
 import util.Log;
 import util.PanelUtil;
 import bean.Schedule;
@@ -53,22 +51,12 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 	private void testGrading() {
 		if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
 			if (showPrompt("Put test grade for all students?")) {
-				List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section IS NOT NULL ORDER BY a.gradeLevel, a.section",0,5000);
+				List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.section IS NOT NULL ORDER BY a.gradeLevel, a.section, a.subject",0,5000);
 				for (Schedule sched:lst) {
-					List<StudentSubject> subjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.scheduleId=",String.valueOf(sched.seq)," AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
-					if (subjects != null && !subjects.isEmpty()) {
-						for (int i=0; i<subjects.size(); i++) {
-							StudentSubject s = subjects.get(i);
-							BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
-							BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
-							BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
-							BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
-						}
-						CalculateGradeService.calculateGrade(1, sched, subjects);
-						CalculateGradeService.calculateGrade(2, sched, subjects);
-						CalculateGradeService.calculateGrade(3, sched, subjects);
-						CalculateGradeService.calculateGrade(4, sched, subjects);
-					}
+//					ThreadPoolUtil.execute(new RunTestGrading(sched));
+					PanelUtil.showWaitFrame("Generating grades for ", sched.gradeLevel, " - ", sched.section);
+					new RunTestGrading(sched).run();
+					PanelUtil.hideWaitFrame();
 				}
 			}
 			else {
@@ -82,10 +70,10 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 				subjects = tabs.get(0).list;
 				for (int i=0; i<subjects.size(); i++) {
 					StudentSubject s = subjects.get(i);
-					BeanUtil.setPropertyValue(s, "grade1", getRandomDouble(60+i, 99));
-					BeanUtil.setPropertyValue(s, "grade2", getRandomDouble(60+i, 99));
-					BeanUtil.setPropertyValue(s, "grade3", getRandomDouble(60+i, 99));
-					BeanUtil.setPropertyValue(s, "grade4", getRandomDouble(60+i, 99));
+					s.grade1 = getRandomDouble(60+i, 99);
+					s.grade2 = getRandomDouble(60+i, 99);
+					s.grade3 = getRandomDouble(60+i, 99);
+					s.grade4 = getRandomDouble(60+i, 99);
 				}
 				saveAllGrades(1);
 				saveAllGrades(2);
@@ -96,6 +84,31 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		}
 	}
 
+	private class RunTestGrading implements Runnable {
+		Schedule sched;
+		private RunTestGrading(Schedule s) {
+			this.sched = s;
+		}
+		
+		@Override
+		public void run() {
+			List<StudentSubject> subjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.scheduleId=",String.valueOf(sched.seq)," AND a.section='",sched.section,"' AND a.subject='",sched.subject,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+			if (subjects != null && !subjects.isEmpty()) {
+				for (int i=0; i<subjects.size(); i++) {
+					StudentSubject s = subjects.get(i);
+					if (s.grade1<60) s.grade1 = getRandomDouble(60+i, 99);
+					if (s.grade2<60)s.grade2 = getRandomDouble(60+i, 99);
+					if (s.grade3<60)s.grade3 = getRandomDouble(60+i, 99);
+					if (s.grade4<60)s.grade4 = getRandomDouble(60+i, 99);
+				}
+				CalculateGradeService.calculateGrade(1, sched, subjects);
+				CalculateGradeService.calculateGrade(2, sched, subjects);
+				CalculateGradeService.calculateGrade(3, sched, subjects);
+				CalculateGradeService.calculateGrade(4, sched, subjects);
+			}
+		}
+	}
+	
 	private void generateTask() {
         if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
         	if (showPrompt("Generate grading for all student?")) {

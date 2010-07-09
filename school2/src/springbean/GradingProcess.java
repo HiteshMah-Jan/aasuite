@@ -21,13 +21,13 @@ public class GradingProcess implements Runnable {
 	String schoolYear;
 	String section;
 	int quarter;
-	boolean runHonors;
+	public boolean runHonors;
 	
 	public GradingProcess(String schoolYear, String section, int quarter) {
 		this.schoolYear = schoolYear;
 		this.section = section;
 		this.quarter = quarter;
-                runHonors = true;
+        runHonors = true;
 	}
 	
 	public static void rankAll(int quarter) {
@@ -114,9 +114,9 @@ public class GradingProcess implements Runnable {
 	public void setHonors() {
 		PanelUtil.showWaitFrame("Check student merit.");
 		Log.out("Check student merit.");
-		Section sec = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",section,"'");
-		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",sec.gradeLevel,"'");
-		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a WHERE a.gradeLevel='",sec.gradeLevel,"'");
+		Section sec = (Section) AbstractIBean.objCache("SELECT a FROM Section a WHERE a.code='",section,"'");
+		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.studentId>0 AND a.gradeLevel='",sec.gradeLevel,"'");
+		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a WHERE a.studentId>0 AND a.gradeLevel='",sec.gradeLevel,"'");
 		
 //		1. get all enrolled students
 		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",section,"'");

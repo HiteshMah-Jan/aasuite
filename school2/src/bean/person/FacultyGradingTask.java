@@ -139,7 +139,11 @@ import constants.UserInfo;
 	@template.Report(reportFile = "SectionReportCardQuarter1", reportTitle = "Card Q1", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter2", reportTitle = "Q2", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter3", reportTitle = "Q3", reportSql = "${section}"),
-	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}")
+	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}"),
+	@template.Report(reportFile = "AdminReportCardQuarter1", reportTitle = "Admin Card Q1", reportSql = ""),
+    @template.Report(reportFile = "AdminReportCardQuarter2", reportTitle = "Q2", reportSql = ""),
+    @template.Report(reportFile = "AdminReportCardQuarter3", reportTitle = "Q3", reportSql = ""),
+	@template.Report(reportFile = "AdminReportCardQuarter4", reportTitle = "Q4", reportSql = "")
 })
 @ActionButtons({
     @ActionButton(name = "btnGenerateAllComponents", label = "Generate All Components"),

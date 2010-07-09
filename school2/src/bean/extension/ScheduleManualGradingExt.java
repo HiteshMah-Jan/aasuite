@@ -46,7 +46,11 @@ import bean.reference.Subject;
 	@template.Report(reportFile = "SectionReportCardQuarter1", reportTitle = "Card Q1", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter2", reportTitle = "Q2", reportSql = "${section}"),
     @template.Report(reportFile = "SectionReportCardQuarter3", reportTitle = "Q3", reportSql = "${section}"),
-	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}")
+	@template.Report(reportFile = "SectionReportCardQuarter4", reportTitle = "Q4", reportSql = "${section}"),
+	@template.Report(reportFile = "AdminReportCardQuarter1", reportTitle = "Admin Card Q1", reportSql = ""),
+    @template.Report(reportFile = "AdminReportCardQuarter2", reportTitle = "Q2", reportSql = ""),
+    @template.Report(reportFile = "AdminReportCardQuarter3", reportTitle = "Q3", reportSql = ""),
+	@template.Report(reportFile = "AdminReportCardQuarter4", reportTitle = "Q4", reportSql = "")
 })
 @ChildRecords({
     @ChildRecord(entity = StudentSubjectManualGradingQ1Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),

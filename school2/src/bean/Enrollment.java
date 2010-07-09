@@ -4054,7 +4054,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
 	public void setupIndex() {
 		runIndex(1, "studentId","schoolYear");
 		runIndex(2, "schoolYear","section");
-		runUniqueIndex(3, "studentId","gradeLevel");
+		runIndex(3, "studentId","gradeLevel");
+		runUniqueIndex(4, "studentId","gradeLevel");
 	}
 	
 	public boolean noConflict() {
