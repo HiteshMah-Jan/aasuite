@@ -31,6 +31,10 @@ import bean.Employee;
 import bean.EmployeeFaculty;
 import bean.Person;
 import bean.admin.AppConfig;
+import bean.extension.Q1StudentSubjectComponentScoreExt;
+import bean.extension.Q2StudentSubjectComponentScoreExt;
+import bean.extension.Q3StudentSubjectComponentScoreExt;
+import bean.extension.Q4StudentSubjectComponentScoreExt;
 import bean.extension.QAllStudentSubjectComponentScoreDetailExt;
 import bean.reference.LockGrading;
 import bean.reference.Section;
@@ -45,7 +49,11 @@ import constants.UserInfo;
     criteriaSearch={"schoolYear", "facultyId", "section", "subject", "component"},
     gridCount=6, title="Component Grade Posting")
 @ChildRecords(value={
-    @ChildRecord(entity=QAllStudentSubjectComponentScoreDetailExt.class, template=ChildTemplateListOnly.class, fieldMapping={"seq","facultyGradingTaskId"}, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId='${seq}' ORDER BY b.gender DESC, a.studentName", title="Per Student")
+    @ChildRecord(entity=QAllStudentSubjectComponentScoreDetailExt.class, template=ChildTemplateListOnly.class, fieldMapping={"seq","facultyGradingTaskId"}, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId=${seq} ORDER BY b.gender DESC, a.studentName", title="Per Student"),
+    @ChildRecord(entity=Q1StudentSubjectComponentScoreExt.class, template=ChildTemplateListOnly.class, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId='${seq}' ORDER BY b.gender DESC, a.studentName", title="Score Q1", sortable=false),
+    @ChildRecord(entity=Q2StudentSubjectComponentScoreExt.class, template=ChildTemplateListOnly.class, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId='${seq}' ORDER BY b.gender DESC, a.studentName", title="Q2", sortable=false),
+    @ChildRecord(entity=Q3StudentSubjectComponentScoreExt.class, template=ChildTemplateListOnly.class, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId='${seq}' ORDER BY b.gender DESC, a.studentName", title="Q3", sortable=false),
+    @ChildRecord(entity=Q4StudentSubjectComponentScoreExt.class, template=ChildTemplateListOnly.class, sql="SELECT a FROM StudentSubjectDetailGrading a, Student b WHERE a.studentId=b.personId AND a.facultyGradingTaskId='${seq}' ORDER BY b.gender DESC, a.studentName", title="Q4", sortable=false)
 })
         
 @DisplayGroups({
@@ -147,16 +155,12 @@ import constants.UserInfo;
 })
 @ActionButtons({
     @ActionButton(name = "btnGenerateAllComponents", label = "Generate All Components"),
-    @ActionButton(name = "btnGenerateTask", label = "Student Component Grade/Score"),
+    @ActionButton(name = "btnTestGrading", label = "Test Grading"),
     @ActionButton(name = "btnSaveAllScore1", label = "Save All 1st Qtr."),
     @ActionButton(name = "btnSaveAllScore2", label = "2nd"),
     @ActionButton(name = "btnSaveAllScore3", label = "3rd"),
     @ActionButton(name = "btnSaveAllScore4", label = "4th"),
-    @ActionButton(name = "btnSaveAllSection", label = "All"),
-    @ActionButton(name = "btnRankAll1", label = "Rank All 1st Qtr."),
-    @ActionButton(name = "btnRankAll2", label = "2nd"),
-    @ActionButton(name = "btnRankAll3", label = "3rd"),
-    @ActionButton(name = "btnRankAll4", label = "4th")
+    @ActionButton(name = "btnSaveAllSection", label = "All")
 })
 public class FacultyGradingTask extends AbstractIBean implements Serializable {
 

@@ -1084,8 +1084,15 @@ public class Student extends Customer implements Serializable {
 		if (e != null) {
 			e.section = section;
 			e.save();
-			new SchoolDefaultProcess().updateSchedules(e);
 		}
+		else {
+			e = new Enrollment();
+			e.studentId = personId;
+			e.gradeLevel = gradeLevel;
+			e.section = section;
+			e.save();
+		}
+		new SchoolDefaultProcess().updateSchedules(e);
 	}
 
 	@Override

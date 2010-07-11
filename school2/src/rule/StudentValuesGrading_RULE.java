@@ -120,7 +120,7 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 		}
 	}
 
-	private void putRandomGrade(StudentValuesGrading val, int i, int j, String... str) {
+	private void putRandomGrade(AbstractIBean val, int i, int j, String... str) {
 		for (String s:str) {
 			setValueBetween(val, s, i, j);
 			setValueBetween(val, BeanUtil.concat(s,"2"), i, j);
@@ -129,16 +129,6 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 		}
 	}
 	
-	private void setValueBetween(AbstractIBean b, String property, int low, int high) {
-		int val = (int) BeanUtil.getDoubleValue(b, property);
-		if (val>=low && val<=high) {
-			BeanUtil.setPropertyValue(b, property, val);
-		}
-		else {
-			BeanUtil.setPropertyValue(b, property, getRandom(low, high));
-		}
-	}
-
 	private void saveAllDisplayed() {
 		PanelUtil.showWaitFrame("Saving records, please wait");
 		List lst = this.panel.getRecordList();

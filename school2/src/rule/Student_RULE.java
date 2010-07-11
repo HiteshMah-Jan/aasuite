@@ -10,11 +10,14 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import service.util.AbstractIBean;
+import springbean.SchoolDefaultProcess.CreateCurriculum;
 import template.report.AbstractReportTemplate;
 import ui.action.StudentAction;
 import util.BeanUtil;
 import util.DBClient;
+import util.PanelUtil;
 import util.PerfUtil;
+import util.ThreadPoolUtil;
 import bean.Student;
 import bean.admin.AppConfig;
 import constants.UserInfo;
@@ -95,9 +98,16 @@ public class Student_RULE extends Person_RULE {
         Student stud = (Student) getBean();
         if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
         	if (showPrompt("Generate Curriculum for all student?")) {
-        		List<Student> lst = DBClient.getList("SELECT a FROM Student a, Section b WHERE a.status='ENROLLED' AND a.section=b.code ORDER BY a.lastName", 0, 10000);
+        		List<Student> lst = DBClient.getList("SELECT a FROM Student a, Section b WHERE a.status='ENROLLED' AND a.section=b.code ORDER BY a.gradeLevel, a.section, a.lastName", 0, 10000);
         		for (Student s:lst) {
-                    new springbean.SchoolDefaultProcess().createAllSubjects(s);
+        			CreateCurriculum cur = new CreateCurriculum(s) {
+        				public void run() {
+                			PanelUtil.showWaitFrame("Generate Curriculum for ",student.gradeLevel,"-",student.section,"[",student.lastName,",",student.firstName,"]");
+        					super.run();
+                            PanelUtil.hideWaitFrame();
+        				}
+        			};
+        			ThreadPoolUtil.execute(cur);
         		}
         	}
         	else {

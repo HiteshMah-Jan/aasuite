@@ -365,11 +365,7 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
     	if (tblEnrolledStudent.isRowSelected(i)) {
             p.section = sec.code;
             p.gradeLevel = sec.gradeLevel;
-            if (p.course!=null && !p.course.equals(sec.getCourse())) {
-            	if (!PanelUtil.showPrompt(btnPutToSection, p.toString()," in ",p.course," has conflict curriculum with ",sec.getCourse()," \nWould you like to continue?\nNote: This will need to regenerate curriculum in Student Info.")) {
-            		return;
-            	}
-            }
+            p.course = sec.getCourse();
             lst.add(p);
             lstStudentWithSection.add(p);
             lstStudentWithoutSection.remove(i);

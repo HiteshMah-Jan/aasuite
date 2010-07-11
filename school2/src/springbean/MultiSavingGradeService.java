@@ -34,15 +34,18 @@ public class MultiSavingGradeService implements IService {
 		List<Object> l = (List<Object>) param.getData();
 		FacultyGradingTask task = (FacultyGradingTask) l.get(0);
 		List<StudentSubjectDetailGrading> subjects = (List<StudentSubjectDetailGrading>) l.get(1);
+
+		List<StudentSubject> studSubjects = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a, Student b WHERE a.studentId=b.personId AND b.section='",task.section,"' AND a.subject='",task.subject,"'"),0,5000);
+		List<Enrollment> enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a, Student b WHERE a.studentId=b.personId AND b.section='",task.section,"' AND a.gradeLevel='",task.gradeLevel,"'"),0,5000);
 		for (StudentSubjectDetailGrading det:subjects) {
 //			update student subject
 			Log.out("SUBJECT TO USE " + det.subject);
-			StudentSubject subject = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",det.studentId," AND a.subject='",det.subject,"'");
+			StudentSubject subject = getStudentSubject(studSubjects, det.studentId);
 			subject.changeValue(BeanUtil.concat("grade",quarter), getTotalShares(quarter, det.studentId, subject.subject));
 			subject.save();
 			
 //			update enrollment
-			Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",det.studentId," AND a.gradeLevel='",task.gradeLevel,"'");
+			Enrollment e = getEnrollment(enrolls, det.studentId);
 			if (e != null) {
 				e = new StudentSubjectToEnrollmentGrade(allsubs).setupEnrollmentGrade(subject, e, quarter);
 				e.save();
@@ -51,6 +54,24 @@ public class MultiSavingGradeService implements IService {
 		return null;
 	}
 
+	private StudentSubject getStudentSubject(List<StudentSubject> studSubjects, int personId) {
+		for (StudentSubject sub:studSubjects) {
+			if (sub.studentId==personId) {
+				return sub;
+			}
+		}
+		return null;
+	}
+
+	private Enrollment getEnrollment(List<Enrollment> enrolls, int personId) {
+		for (Enrollment e:enrolls) {
+			if (e.studentId==personId) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	private double getTotalShares(int quarter, int studentId, String subject) {
 		double val = DBClient.getSingleColumnDouble("SELECT SUM(gradeShareQ",quarter,") FROM StudentSubjectDetailGrading WHERE studentId=",studentId," AND subject='",subject,"'");
 		if (val < 70 && val > 60) {

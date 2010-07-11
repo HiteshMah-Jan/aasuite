@@ -547,7 +547,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 
     public static class CreateCurriculum implements Runnable {
         List courselst;
-    	Student student;
+    	public Student student;
     	
     	public CreateCurriculum(Student stud) {
     		this.student = stud;
@@ -658,7 +658,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 	        	PanelUtil.showError(null, "Student does not have a course.");
 	            return;
 	        }
-	        courselst = DBClient.getList("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
+	        courselst = AbstractIBean.listCache("SELECT a FROM CourseSubject a WHERE a.course='" + student.course + "'");
 	        if (courselst==null || courselst.isEmpty()) {
 //	        	create curriculum using subjects created
 	        	String sql1 = "update subject set course=(select distinct course from gradelevel where code=subject.gradelevel) where course is null or course=''";
