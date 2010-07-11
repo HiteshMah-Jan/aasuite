@@ -1167,7 +1167,11 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     	Object lst = objCache.get(s);
     	if (lst==null) {
     		lst = DBClient.getFirstRecord(s);
-    		objCache.put(s, lst);
+    		try {
+        		objCache.put(s, lst);
+    		}
+    		catch (Exception e) {
+    		}
     	}
         return lst;
     }

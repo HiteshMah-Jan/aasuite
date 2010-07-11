@@ -455,4 +455,15 @@ public abstract class BusinessRuleWrapper {
 			tabs.add(title.get(index), comps[index]);
 		}
 	}
+	
+	protected void setValueBetween(AbstractIBean b, String property, int low, int high) {
+		int val = (int) BeanUtil.getDoubleValue(b, property);
+		if (val>=low && val<=high) {
+			BeanUtil.setPropertyValue(b, property, val);
+		}
+		else {
+			BeanUtil.setPropertyValue(b, property, getRandom(low, high));
+		}
+	}
+
 }
