@@ -32,6 +32,7 @@
 	<parameter name="REPORT_QUARTER" isForPrompting="false" class="java.lang.Integer">
 		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
 	</parameter>
+	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[SELECT
      person.`personId` AS person_personId,
      person.`firstName` AS person_firstName,
@@ -67,6 +68,7 @@
 FROM
      `section` section INNER JOIN `person` person ON section.`code` = person.`section`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
+     AND studentvaluesgrading.`gradeLevel` = section.`gradeLevel`
 WHERE
      person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
@@ -381,7 +383,7 @@ WHERE
 						width="150"
 						height="0"
 						key="line-6"/>
-					<graphicElement stretchType="NoStretch" pen="1Point"/>
+					<graphicElement stretchType="NoStretch"/>
 				</line>
 				<staticText>
 					<reportElement
@@ -559,7 +561,7 @@ WHERE
 						height="16"
 						forecolor="#000000"
 						key="element-150"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
@@ -573,11 +575,11 @@ WHERE
 						height="11"
 						forecolor="#000000"
 						key="element-151"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
 					</textElement>
-				<text><![CDATA[   O          Outstanding]]></text>
+				<text><![CDATA[   5           Exemplary]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -587,11 +589,11 @@ WHERE
 						height="11"
 						forecolor="#000000"
 						key="element-152"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
 					</textElement>
-				<text><![CDATA[   HS        Highly Satisfactory]]></text>
+				<text><![CDATA[   4           Proficient]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -601,11 +603,11 @@ WHERE
 						height="11"
 						forecolor="#000000"
 						key="element-153"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
 					</textElement>
-				<text><![CDATA[   S           Satisfactory]]></text>
+				<text><![CDATA[   3           At Standard]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -615,11 +617,11 @@ WHERE
 						height="11"
 						forecolor="#000000"
 						key="element-154"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
 					</textElement>
-				<text><![CDATA[   MS        Moderately Satisfactory]]></text>
+				<text><![CDATA[   2           Developing]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -629,11 +631,11 @@ WHERE
 						height="11"
 						forecolor="#000000"
 						key="element-156"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica" size="6" isBold="false"/>
 					</textElement>
-				<text><![CDATA[   NI          Needs Improvement]]></text>
+				<text><![CDATA[   1           Beginner]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -643,7 +645,7 @@ WHERE
 						height="46"
 						forecolor="#000000"
 						key="element-157"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
 					</textElement>
@@ -1881,20 +1883,6 @@ WHERE
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\SubReports\\SQLRetreiverStringSubReport.jasper"]]></subreportExpression>
 				</subreport>
-				<staticText>
-					<reportElement
-						x="418"
-						y="125"
-						width="87"
-						height="15"
-						forecolor="#000000"
-						key="element-190"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Arial" pdfFontName="Helvetica" size="8" isBold="false"/>
-					</textElement>
-				<text><![CDATA[2009-2010]]></text>
-				</staticText>
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="231"
@@ -2228,6 +2216,19 @@ WHERE
 						<font fontName="Arial" size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{studentvaluesgrading_absent3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="418"
+						y="125"
+						width="145"
+						height="15"
+						key="textField-35"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="None" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{PARAM_schoolYear}]]></textFieldExpression>
 				</textField>
 			</band>
 		</summary>
