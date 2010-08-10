@@ -41,8 +41,8 @@ import bean.reference.Subject;
    // @template.Report(reportFile="Schedule", reportTitle="Schedule Report", reportSql="")
 })
 @ChildRecords({
-    @ChildRecord(entity = StudentSubjectManualGradingQ4Ext.class, template=ChildTemplateListOnly.class, title="Q4", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"}),
-    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a WHERE a.scheduleId=${seq} AND a.schoolYear='${useYear}'", fieldMapping = {"seq", "scheduleId"})
+    @ChildRecord(entity = StudentSubjectManualGradingQ4Ext.class, template=ChildTemplateListOnly.class, title="Q1", sql = "SELECT a FROM StudentSubject a, Student b WHERE a.studentId=b.personId AND a.scheduleId=${seq} AND a.schoolYear='${useYear}' ORDER BY b.gender DESC, b.lastName", fieldMapping = {"seq", "scheduleId"}),
+    @ChildRecord(entity = StudentSubjectManualGradingExt.class, template=ChildTemplateListOnly.class, title="All Quarters", sql = "SELECT a FROM StudentSubject a, Student b WHERE a.studentId=b.personId AND a.scheduleId=${seq} AND a.schoolYear='${useYear}' ORDER BY b.gender DESC, b.lastName", fieldMapping = {"seq", "scheduleId"})
 })
 @ActionButtons({
     @ActionButton(name="btnSaveGrade4", label="Save Grade")
