@@ -282,7 +282,8 @@ public class BeanUtil {
     
     public static String concat(Object... strArr) {
     	if (strArr.length == 1) {
-    		return strArr[0].toString();
+            if (strArr[0]==null) return "";
+            return strArr[0].toString();
     	}
         StringBuffer sb = new StringBuffer();
         for (Object string : strArr) {
@@ -299,6 +300,7 @@ public class BeanUtil {
 
     public static String concatStr(String... strArr) {
     	if (strArr.length == 1) {
+            if (strArr[0]==null) return "";
     		return strArr[0].toString();
     	}
         StringBuffer sb = new StringBuffer();
