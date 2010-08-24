@@ -104,7 +104,7 @@ import constants.UserInfo;
 				"ENROLLED", "NOT ENROLLED", "OFF. DROP", "UNOFF. DROP",
 				"FAILED" }, width = -1),
 		@Display(name = "addStatus", gridFieldWidth = 3, type = "Combo", modelCombo = {
-				"NEW","REGULAR","PROBATIONARY ACADEMIC","PROBATIONARY BEHAVIOR","PROBATIONARY ACADEMIC AND BEHAVIOR", "TRANSFEREES", "BALIK-ARAL",
+				"NEW","OLD","REGULAR","PROBATIONARY ACADEMIC","PROBATIONARY BEHAVIOR","PROBATIONARY ACADEMIC AND BEHAVIOR", "TRANSFEREES", "BALIK-ARAL",
 				"SPED GRADED","REPEATER","MUSLIM","INDIGENOUS PEOPLE"}, width = -1),
 
 		@Display(name = "scholarshipCode", type = "PopSearch", linktoBean = ScholarshipTable.class, gridFieldWidth = 3, width = -1),

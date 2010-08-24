@@ -32,7 +32,7 @@ import bean.reference.Section;
    template = TemplateTabSinglePageLeftRightNoCriteria.class, showChart = false, showFiles = false,showImages=false,
     columnSearch={"gradeLevel","section","student","studentNumber"},
     criteriaSearch={"gradeLevel","section","student"},
-    gridCount=4, title="Student Values Grading", select="SELECT a FROM StudentValuesGrading a, Person b WHERE a.facultyId=${personId} AND a.schoolYear='${useYear}' AND a.studentId=b.personId",
+    gridCount=4, title="Student Values Grading", select="SELECT a FROM StudentValuesGrading a, Person b WHERE a.facultyId=${personId} AND a.schoolYear='${useYear}' AND a.studentId=b.personId AND a.gradeLevel=b.gradeLevel",
     orderBy="a.gradeLevel, a.section, b.gender DESC, a.student")
     
 @ChildRecords(value = { //@ChildRecord(template=ChildTemplateListPopup.class, fieldMapping={"seq","admissionId"}, entity=AdmissionExamReference.class, sql="SELECT a FROM AdmissionExam a WHERE a.admissionId=${seq} ORDER BY a.examType", title="Exams")
@@ -80,7 +80,7 @@ info = {
     @Display(name = "studentId", type = "PopSearch", linktoBean = Student.class,label="Student",width=150,enabled=false),
     @Display(name = "gradeLevel", type = "PopSearch", linktoBean = GradeLevel.class,label="Grade Level",width=150,enabled=false),
     @Display(name = "section", type = "PopSearch", linktoBean = Section.class,width=150,enabled=false),
-    @Display(name = "status",type="Combo",width=150,modelCombo={"Regular","Probationary Academic","Probationary Behavior","Probationary Academic and Behavior"}),
+    @Display(name = "status",type="Combo",width=150,modelCombo={"Old","New"}),
 	@Display(name = "totalDays",width=50, enabled=false),
 	@Display(name = "present",width=30,mergeFields={"absent","tardy"},label="Pres/Abs/Tardy", enabled=false),
 	@Display(name = "absent",width=30,hideLabel=true),

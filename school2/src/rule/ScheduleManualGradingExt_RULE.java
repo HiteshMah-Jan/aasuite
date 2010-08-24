@@ -114,7 +114,12 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
         	if (showPrompt("Generate grading for all student?")) {
             	List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a, Section b WHERE a.section=b.code", 0, 10000);
             	for (Schedule s:lst) {
-            		generateTask(s);
+                    try {
+                    	generateTask(s);
+                    }
+                    catch (Exception e) {
+                    	e.printStackTrace();
+                    }
             	}
             	return;
         	}
@@ -146,7 +151,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 				sub.save();
 			}
 			else {
-				if (sub.finalRating > 60) {
+				if (sub.grade3 > 61) {
 					Log.info(sub.studentName, "-", sub.subject, " already has grade ", sub.finalRating);
 					continue;
 				}

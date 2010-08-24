@@ -44,6 +44,7 @@ import bean.admin.AppConfig;
 import bean.person.StudentSubject;
 import bean.reference.GradeLevel;
 import bean.reference.Section;
+import springbean.AAAConfig;
 
 /**
  *
@@ -4031,6 +4032,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     }
 
     public static void main(String[] args) {
+        AAAConfig.getServerInstance();
+    	new Enrollment().setupIndex();
         view(Enrollment.class);
     }
     @Override
@@ -4052,6 +4055,32 @@ public class Enrollment extends AbstractIBean implements Serializable {
     }
 	@Override
 	public void setupIndex() {
+            DBClient.runSQLNative("DELETE FROM Enrollment WHERE studentId=0");
+		String sql = "select studentid, gradelevel, count(*) c from enrollment where studentid > 0 and gradelevel is not null group by studentid, gradelevel having c > 1";
+		List l = DBClient.getListNative(sql);
+                for (Object o:l) {
+                    List v = (List) o;
+                    String studId = v.get(0).toString();
+                    String gLevel = (String) v.get(1);
+                    List<Enrollment> le = DBClient.getList("SELECT a FROM Enrollment a WHERE a.studentId=",studId," AND a.gradeLevel='",gLevel,"'");
+//                    just get the enroll id
+                    if (le.size() > 1) {
+                        Enrollment enrollWithGrade = le.get(0);
+                        for (Enrollment e:le) {
+                            if (e.q1Math > 0 || e.q1English > 0 || e.q1Science > 0 || e.q1MAPEH > 0) {
+                                enrollWithGrade = e;
+//                                need to modify the schoolyear
+                            }
+                        }
+                        for (Enrollment e:le) {
+                            if (e.equals(enrollWithGrade)) {
+                                continue;
+                            }
+                            DBClient.runSQLNative("UPDATE Payment SET recordId="+enrollWithGrade.seq+" WHERE recordId="+e.seq);
+                            e.delete();
+                        }
+                    }
+                }
 		runIndex(1, "studentId","schoolYear");
 		runIndex(2, "schoolYear","section");
 		runIndex(3, "studentId","gradeLevel");

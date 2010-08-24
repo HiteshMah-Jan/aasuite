@@ -98,7 +98,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         if (enrollmentId == null || enrollmentId == 0) {
             return;
         }
-        List<StudentSubject> lst = AbstractIBean.list("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",enroll.gradeLevel,"%' AND a.studentId=",enroll.studentId);
+        List<StudentSubject> lst = AbstractIBean.list("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",enroll.gradeLevel,"' AND a.studentId=",enroll.studentId);
         if (lst!=null) {
             List<Schedule> scheds = appCache.selectListCache("SELECT a FROM Schedule a WHERE a.section='",enroll.getSection(),"'");
             for (StudentSubject sub : lst) {
