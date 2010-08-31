@@ -278,6 +278,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			getComponent("weight").requestFocus();
 			return;
 		}
+		task.save();
 		PanelUtil.showWaitFrame("Recalculating grades, please wait...");
 		Log.out("RECALCULATE");
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
