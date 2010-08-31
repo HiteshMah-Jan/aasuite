@@ -8,6 +8,7 @@ package ui;
 
 import bean.Student;
 import bean.admin.AppConfig;
+import bean.person.StudentValuesGrading;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -370,6 +371,7 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
             lstStudentWithSection.add(p);
             lstStudentWithoutSection.remove(i);
             p.updateEnrollmentSection();
+            updateValuesSection(p.personId, sec.gradeLevel, sec.code, sec.facultyId);
     	}
     }
     Thread t = new Thread(new Runnable() {
@@ -380,6 +382,27 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
     });
     t.start();
 }//GEN-LAST:event_btnPutToSectionActionPerformed
+
+	public void updateValuesSection(int personId, String gradeLevel, String section, int facultyId) {
+		StudentValuesGrading e = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId="
+				, personId , " AND a.gradeLevel='",gradeLevel,"'");
+		if (e != null) {
+			e.section = section;
+                        e.facultyId = facultyId;
+                        e.faculty = "";
+			e.save();
+		}
+		else {
+			e = new StudentValuesGrading();
+                        e.facultyId = facultyId;
+                        e.faculty = "";
+			e.studentId = personId;
+			e.gradeLevel = gradeLevel;
+			e.section = section;
+			e.save();
+		}
+	}
+
 
 private void btnRemoveFromSectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveFromSectionActionPerformed
     bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();

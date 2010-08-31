@@ -386,7 +386,8 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	}
 	
 	private void generateAllComponents() {
-		ThreadPoolUtil.execute(new RequestRun());
+            FacultyGradingTask task = (FacultyGradingTask) this.getBean();
+		ThreadPoolUtil.execute(new RequestRun(task));
 	}
 
 	@Override
@@ -455,6 +456,11 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	}
 	
 	private static class RequestRun implements Runnable {
+                FacultyGradingTask task;
+                private RequestRun(FacultyGradingTask task) {
+                    this.task = task;
+                }
+
 		private List<SubjectGradingCriteria> getCriteria(String subject) {
 			List<SubjectGradingCriteria> crit = AbstractIBean.listCache(BeanUtil.concat("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='",subject,"'"));
 			return crit;
@@ -462,7 +468,7 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 
 		@Override
 		public void run() {
-			List<Schedule> lstSched = AbstractIBean.listCache("SELECT a FROM Schedule a WHERE a.section IS NOT NULL ORDER BY a.gradeLevel, a.section, a.subject");
+			List<Schedule> lstSched = DBClient.getList("SELECT a FROM Schedule a, Section b WHERE a.section IS NOT NULL AND a.section = b.code ORDER BY a.gradeLevel, a.section, a.subject",0,10000);
 			if (lstSched==null) {
 				PanelUtil.hideWaitFrame();
 				return;
@@ -497,7 +503,8 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			if (lstComp!=null && !lstComp.isEmpty()) {
 				List<FacultyGradingTask> lst = new ArrayList();
 				for (SubjectGradingCriteria comp:lstComp) {
-					FacultyGradingTask task = new FacultyGradingTask();
+					FacultyGradingTask task = (FacultyGradingTask) DBClient.getFirstRecord("SELECT a FROM FacultyGradingTask a WHERE a.section='",sched.section,"' AND a.subject='",sched.subject,"' AND a.component='",comp.criteria,"'");
+                                        if (task == null) task = new FacultyGradingTask();
 					task.facultyId = sched.facultyId;
 					task.section = sched.section;
 					task.subject = sched.subject;
@@ -557,7 +564,11 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 				sub.schoolYear = t.schoolYear;
 			}
 			l.add(sub);
-			StudentSubjectDetailGrading det = new StudentSubjectDetailGrading();
+			StudentSubjectDetailGrading det = (StudentSubjectDetailGrading) 
+                                DBClient.getFirstRecord("SELECT a FROM StudentSubjectDetailGrading a WHERE a.studentId=",stud.personId," AND a.subject='",t.subject,"' AND a.component='",t.component,"'");
+                        if (det == null) {
+                            det = new StudentSubjectDetailGrading();
+                        }
 			det.studentSubjectId = sub.seq;
 			det.component = t.component;
 			det.facultyGradingTaskId = t.seq;
@@ -571,7 +582,8 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			det.usePercentage = t.usePercentage;
 			det.section = t.section; 
 			det.scheduleId = t.scheduleId;
-			l.add(det);
+//			det.save();
+                        l.add(det);
 		}
 	}
 }

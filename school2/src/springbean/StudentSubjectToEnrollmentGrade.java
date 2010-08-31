@@ -338,7 +338,7 @@ public class StudentSubjectToEnrollmentGrade {
         else if (mysub.contains("COMPUTER")) {
         	setGrades(e, subject, "Computer", quarter);
         }
-        else if (mysub.contains("ARTS")) {
+        else if (mysub.contains("ART")) {
         	setGrades(e, subject, "Arts", quarter);
         }
         else if (mysub.contains("HEKASI")) {

@@ -523,7 +523,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 //		    		get all student subject detail grades
 					String sql2 = BeanUtil.concat("UPDATE StudentSubjectDetailGrading SET facultyId=",facultyId,", facultyName='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    		DBClient.runSQLNative(sql2);
-					String sql3 = BeanUtil.concat("UPDATE StudentSubject SET facultyId=",facultyId,", facultyName='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
+					String sql3 = BeanUtil.concat("UPDATE StudentSubject SET facultyId=",facultyId,", faculty='",faculty,"', subject='",subject,"' WHERE scheduleId=",seq," AND schoolYear='",AppConfig.getSchoolYear(),"'");
 		    		DBClient.runSQLNative(sql3);
 		    		Log.out(sql1);
 		    		Log.out(sql2);
