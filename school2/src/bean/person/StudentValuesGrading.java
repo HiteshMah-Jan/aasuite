@@ -147,7 +147,7 @@ import constants.UserInfo;
 		@Display(name = "studentId", type = "PopSearch", linktoBean = Student.class, label = "Student", width = 300, enabled = false),
 		@Display(name = "gradeLevel", type = "PopSearch", linktoBean = GradeLevel.class, label = "Grade Level", width = 300),
 		@Display(name = "section", type = "PopSearch", linktoBean = Section.class, width = 300),
-	    @Display(name = "status",type="Combo",width=300,modelCombo={"Regular","Probationary Academic","Probationary Behavior","Probationary Academic and Behavior"}),
+	    @Display(name = "status",type="Combo",width=300,modelCombo={"Old","New"}),
 		// @Display(name = "quarter", type="Combo",
 		// modelCombo={"1","2","3","4"},width=300),
 		@Display(name = "comment1", width = 400, label = "1st Quarter Comment", type = "TextArea", height=60),
