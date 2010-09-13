@@ -96,6 +96,7 @@ public class FacultyFilterGradingTaskQ1Ext_RULE extends FacultyGradingTask_RULE 
 		String scoreName = BeanUtil.concat("q",quarter,"Score",itemNumber);
 			
 		FacultyGradingTask task = (FacultyGradingTask) this.getBean();
+                task.save();
 		List<AbstractChildTemplatePanel> tabs = this.panel.getTabs();
 		AbstractChildTemplatePanel tab = tabs.get(0);
 		List lst = tab.list;
