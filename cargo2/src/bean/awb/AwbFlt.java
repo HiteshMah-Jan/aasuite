@@ -396,7 +396,7 @@ public class AwbFlt extends AbstractIBean implements Serializable {
     }
 
     public Awb extractAwb() {
-        return (Awb) selectFirstCache("SELECT a FROM Awb a WHERE a.seq="+awbSeq);
+        return (Awb) selectFirstCache("SELECT a FROM Awb a WHERE a.seq=",awbSeq);
     }
     
     public Flight extractNextFlight() {
@@ -406,7 +406,7 @@ public class AwbFlt extends AbstractIBean implements Serializable {
     
     public AwbFlt extractNextAwbFlight() {
         AwbFlt f = null;
-        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.awbSeq="+awbSeq);
+        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.awbSeq=",awbSeq);
         for (int i=0; lst!=null && i<lst.size(); i++) {
             AwbFlt flt = (AwbFlt) lst.get(i);
             if (flt.getSeq().equals(seq)) {
@@ -429,7 +429,7 @@ public class AwbFlt extends AbstractIBean implements Serializable {
     }
 
     private Flight extractFlightObj() {
-        return (Flight) selectFirstCache("SELECT a FROM Flight a WHERE a.seq="+flightSeq);
+        return (Flight) selectFirstCache("SELECT a FROM Flight a WHERE a.seq=",flightSeq);
     }
     
     public void removeFromULD() {
@@ -446,7 +446,7 @@ public class AwbFlt extends AbstractIBean implements Serializable {
     
     public void removeFromFlight() {
         if (uldNumber!=null && !uldNumber.isEmpty()) {
-            UldNumber uldN = (UldNumber) selectFirstCache("SELECT a FROM UldNumber a WHERE a.uld='"+uldNumber+"'");
+            UldNumber uldN = (UldNumber) selectFirstCache("SELECT a FROM UldNumber a WHERE a.uld='",uldNumber,"'");
             uldN.removeFromFlight();
         }
         else {
@@ -592,7 +592,7 @@ public class AwbFlt extends AbstractIBean implements Serializable {
 	}
 
 	public Flight extractFlight() {
-    	Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.carrier='"+carrier+"' AND a.flightNumber='"+flightNumber+"'");
+    	Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.carrier='",carrier,"' AND a.flightNumber='",flightNumber,"'");
     	if (f==null || f.isEmptyKey()) {
     		f = new Flight();
     		f.carrier = carrier;
@@ -614,10 +614,10 @@ public class AwbFlt extends AbstractIBean implements Serializable {
 
 	public String getAwb() {
 		if (awbObj == null && awbSeq > 0) {
-			awbObj = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.seq = " + awbSeq);
+			awbObj = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.seq = ",awbSeq);
 		}
 		if (awbObj != null) {
-			return awbObj.prefix + "-" + awbObj.serial;
+			return BeanUtil.concat(awbObj.prefix,"-",awbObj.serial);
 		}
 		return "";
 	}

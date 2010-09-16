@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import util.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -505,7 +506,7 @@ public class FlightSchedule extends AbstractIBean implements Serializable {
     }
 
     public void constructAirportList() {
-        airportList = origin1+" "+destination1+" "+destination2+" "+destination3+" "+destination4;
+        airportList = BeanUtil.concat(origin1," ",destination1," ",destination2," ",destination3," ",destination4);
     }
     
     public List<Flight> buildFlightSchedule() {
@@ -536,7 +537,7 @@ public class FlightSchedule extends AbstractIBean implements Serializable {
                 }
             }
         }
-        List lst = selectListCache("SELECT a FROM Flight a WHERE a.flightScheduleSeq="+seq);
+        List lst = selectListCache("SELECT a FROM Flight a WHERE a.flightScheduleSeq=",seq);
         for (Flight flt : lstFlt) {
             if (this.hasSameBuilt(lst, flt)) {
                 continue;
@@ -597,7 +598,7 @@ public class FlightSchedule extends AbstractIBean implements Serializable {
         constructAirportList();
         flt.airportList = airportList;
 
-        AircraftType aircraft = (AircraftType) selectFirstCache("SELECT a FROM AircraftType a WHERE a.code='"+getAircraftType()+"'");
+        AircraftType aircraft = (AircraftType) selectFirstCache("SELECT a FROM AircraftType a WHERE a.code='",getAircraftType(),"'");
         flt.setAvailLc(aircraft.getLc());
         flt.setAvailLp(aircraft.getLp());
         flt.setAvailMh(aircraft.getMh());

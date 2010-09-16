@@ -14,10 +14,9 @@ import bean.Flight;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.DBClient;
 import util.DateUtil;
+import util.Log;
 
 /**
  *
@@ -49,7 +48,7 @@ public class FlightService {
         List retList = new ArrayList();
         //for connecting flights, get connection from origin to destination
         System.out.println("\n\nUSE CONNECTING FLIGHT\n\n");
-        List lstConn = DBClient.getList("SELECT a FROM Connection a WHERE a.origin='" + origin + "' and a.destination='" + destination + "'");
+        List lstConn = DBClient.getList("SELECT a FROM Connection a WHERE a.origin='",origin,"' and a.destination='",destination,"'");
         if (lstConn != null && lstConn.size() > 0) {
             Connection conn = (Connection) lstConn.get(0);
             retList.addAll(getRouteFromConnection(conn, origin, destination, date, capacity));
@@ -61,7 +60,7 @@ public class FlightService {
         List retList = new ArrayList();
         //for connecting flights, get connection from origin to destination
         System.out.println("\n\nUSE CONNECTING FLIGHT\n\n");
-        List lstConn = DBClient.getList("SELECT a FROM Connection a WHERE a.origin='" + origin + "' and a.destination='" + destination + "'");
+        List lstConn = DBClient.getList("SELECT a FROM Connection a WHERE a.origin='",origin,"' and a.destination='",destination,"'");
         if (lstConn != null && lstConn.size() > 0) {
             for (Object object : lstConn) {
                 Connection conn = (Connection) object;
@@ -81,11 +80,11 @@ public class FlightService {
         String airport5 = conn.getAirport5();
 
         //select flight using airport 1 and 2
-        System.out.println("\n\nAIRPORT " + airport1 + ":" + airport2);
+        Log.out("\n\nAIRPORT ",airport1,":",airport2);
         Flight flt1 = this.getDirectFlight(airport1, airport2, date, capacity);
         if (flt1 != null) {
             retList.add(flt1);
-            System.out.println("\n\nAIRPORT " + airport2 + ":" + airport3);
+            Log.out("\n\nAIRPORT ",airport2,":",airport3);
             Flight flt2 = this.getDirectFlight(airport2, airport3, flt1.getDepartureDate(), flt1.getDepartureTime(), capacity);
             if (flt2 != null) {
                 retList.add(flt2);
@@ -122,10 +121,10 @@ public class FlightService {
     }
 
     public Flight getDirectFlight(String origin, String destination, Date date, String time, double... capacity) {
-        List lst = DBClient.getList("SELECT a FROM Flight a WHERE a.origin='" + origin + "' and a.airportList LIKE '%" + destination + "%' AND a.departureDate='" + util.DateUtil.formatDateToSql(date) + "' ORDER BY a.departureDate");
+        List lst = DBClient.getList("SELECT a FROM Flight a WHERE a.origin='",origin,"' and a.airportList LIKE '%",destination,"%' AND a.departureDate='",util.DateUtil.formatDateToSql(date),"' ORDER BY a.departureDate");
         //get all direct flights first, if there is a good direct flight use it, most likely it will be better than the connecting flights
         for (Object obj : lst) {
-            Logger.getLogger("global").log(Level.INFO, "ITERATE DIRECT FLIGHTS");
+            Log.info("ITERATE DIRECT FLIGHTS");
             Flight flt = (Flight) obj;
             if (flt.goodCapacity(capacity)) {
                 //            check timezone

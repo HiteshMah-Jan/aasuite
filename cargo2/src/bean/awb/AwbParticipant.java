@@ -51,7 +51,7 @@ public class AwbParticipant extends AbstractIBean implements Serializable {
     @Override
 	public void save() {
     	if (code != null) {
-    		Participant part = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.personId='"+code+"'");
+    		Participant part = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.personId='",code,"'");
     		name = part.name;
     	}
 		super.save();

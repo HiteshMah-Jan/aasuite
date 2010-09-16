@@ -58,12 +58,12 @@ public class Airport extends AbstractIBean implements Serializable {
     public boolean active;
 
     public static String extractCurrency(String airport) {
-    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+airport+"'");
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='",airport,"'");
     	return c.currency;
     }    
 
     public static String extractCountry(String airport) {
-    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='"+airport+"'");
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country a, Airport b WHERE a.code=b.country AND b.code='",airport,"'");
     	return c.code;
     }    
 

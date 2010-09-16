@@ -17,6 +17,7 @@ import message.FWB;
 import service.IService;
 import service.ParamStruct;
 import service.ReturnStruct;
+import util.Log;
 import bean.admin.AppConfig;
 
 public class CargoMessageService implements IService, Runnable {
@@ -32,10 +33,10 @@ public class CargoMessageService implements IService, Runnable {
 	@Override
 	public void run() {
 		if (serviceRunning) {
-			System.out.println("CARGO MESSAGE SERVICE IS ALREADY RUNNING."+" - "+constants.Constants.useDate);
+			Log.out("CARGO MESSAGE SERVICE IS ALREADY RUNNING."," - ",constants.Constants.useDate);
 		}
 		else {
-			System.out.println("CARGO MESSAGE SERVICE CALLED."+" - "+constants.Constants.useDate);
+			Log.out("CARGO MESSAGE SERVICE CALLED."," - ",constants.Constants.useDate);
 			try {
 				process();
 			} catch (InterruptedException e) {
@@ -55,7 +56,7 @@ public class CargoMessageService implements IService, Runnable {
 			File[] lst = incoming.listFiles();
 			if (lst!=null && lst.length>0) {
 				for (File f:lst) {
-					System.out.println("PROCESS FILE "+f.getName());
+					Log.out("PROCESS FILE ",f.getName());
 					Thread.currentThread().yield();
 					String str = readFile(f);
 					f.renameTo(new File(processed, f.getName()));

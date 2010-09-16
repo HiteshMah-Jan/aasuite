@@ -32,6 +32,7 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
+import util.BeanUtil;
 import util.DBClient;
 import bean.admin.CompanyConfig;
 import bean.admin.CompanyConfigUser;
@@ -977,7 +978,7 @@ public class Awb extends AbstractIBean implements Serializable {
 	}
 	
 	public AwbFlt findFlight(Flight f) {
-		List<AwbFlt> flts = DBClient.getList("SELECT a FROM AwbFlt a WHERE a.seq="+seq);
+		List<AwbFlt> flts = DBClient.getList(BeanUtil.concat("SELECT a FROM AwbFlt a WHERE a.seq=",seq));
 		if (flts!=null) {
 			for (AwbFlt l:flts) {
 				if (!l.carrier.equals(f.carrier)) continue;
@@ -1001,7 +1002,7 @@ public class Awb extends AbstractIBean implements Serializable {
 		if (!isEmptyKey()) {
 			double prepaid = 0;
 			double collect = 0;
-			List<AwbCharges> lst = DBClient.getList("SELECT a FROM AwbCharges a WHERE a.awbSeq="+seq);
+			List<AwbCharges> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM AwbCharges a WHERE a.awbSeq=",seq));
 			for (AwbCharges c:lst) {
 				if (c.prepaid) {
 					prepaid += c.amount;
@@ -1021,7 +1022,7 @@ public class Awb extends AbstractIBean implements Serializable {
 				businessCode = user.businessCode;
 			}
 			else {
-				CompanyConfigUser user = (CompanyConfigUser) DBClient.getFirstRecord("SELECT a FROM CompanyConfigUser a WHERE a.userId='"+UserInfo.getUserName()+"'");
+				CompanyConfigUser user = (CompanyConfigUser) DBClient.getFirstRecord("SELECT a FROM CompanyConfigUser a WHERE a.userId='",UserInfo.getUserName(),"'");
 				businessCode = user.businessCode;
 			}
 		}

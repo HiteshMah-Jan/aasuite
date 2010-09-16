@@ -10,6 +10,7 @@ import bean.Flight;
 import message.AbstractMessageProcessor;
 import message.util.StringSplitter;
 import message.util.SubstringUtil;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 
@@ -57,14 +58,14 @@ public class FSR extends AbstractMessageProcessor {
         StringSplitter ss = lineSplitter.getStringSplitter(flight);
         SubstringUtil tflt = lineSplitter.getSubstringUtil(ss.getNextSplitNonEmpty());
         bk.carrier = tflt.getNextNonNumeric();
-        bk.flightNumber = tflt.getNextInt() + "";
+        bk.flightNumber = BeanUtil.concat(tflt.getNextInt());
         bk.flightDate = ss.getNextSplitDate();
 
         tflt = lineSplitter.getSubstringUtil(ss.getNextSplitNonEmpty());
         bk.origin = tflt.getNextSubstring(3);
         bk.destination = tflt.getNextSubstring(3);
         //check if flight exist
-        Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.carrier='"+bk.carrier+"' AND a.flightNumber='"+bk.flightNumber+"' AND a.flightDate='"+DateUtil.formatDateToSql(bk.flightDate)+"' AND a.origin='"+bk.origin+"'");
+        Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.carrier='",bk.carrier,"' AND a.flightNumber='",bk.flightNumber,"' AND a.flightDate='",DateUtil.formatDateToSql(bk.flightDate),"' AND a.origin='",bk.origin,"'");
         if (f==null) {
             bk.save();
         }

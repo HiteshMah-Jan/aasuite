@@ -105,7 +105,7 @@ public abstract class AbstractMessageProcessor {
         awb.prefix = tawb.getNextSubstring(3);
         tawb.getNextSubstring(1);
         awb.serial = tawb.getNextSubstring(8);
-        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.prefix='"+awb.prefix+"' AND a.serial='"+awb.serial+"'");
+        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.prefix='",awb.prefix,"' AND a.serial='",awb.serial,"'");
         if (b!=null) {
         	BeanUtil.copyBean(b, awb);
         }
@@ -180,7 +180,7 @@ public abstract class AbstractMessageProcessor {
     protected void processOSI(Awb awb, String osi) {
         StringSplitter ss = lineSplitter.getStringSplitter(osi);
         ss.getNextSplitNonEmpty();  //contains OSI
-        awb.otherServiceInformation = ss.getNextSplitNonEmpty() + "\n" + ss.getNextSplitNonEmpty();
+        awb.otherServiceInformation = BeanUtil.concat(ss.getNextSplitNonEmpty(),"\n",ss.getNextSplitNonEmpty());
     }
 
     protected void processProductInfo(Awb awb) {
@@ -195,13 +195,13 @@ public abstract class AbstractMessageProcessor {
     protected void processSRI(Awb awb, String sri) {
         StringSplitter ss = lineSplitter.getStringSplitter(sri);
         ss.getNextSplitNonEmpty();  //contains SSR
-        awb.shipmentReferenceInformation = ss.getNextSplitNonEmpty() + "\n" + ss.getNextSplitNonEmpty() + "\n" + ss.getNextSplitNonEmpty();
+        awb.shipmentReferenceInformation = BeanUtil.concat(ss.getNextSplitNonEmpty(),"\n",ss.getNextSplitNonEmpty(),"\n",ss.getNextSplitNonEmpty());
     }
 
     protected void processSSR(Awb awb, String ssr) {
         StringSplitter ss = lineSplitter.getStringSplitter(ssr);
         ss.getNextSplitNonEmpty();  //contains SSR
-        awb.specialServiceRequest = ss.getNextSplitNonEmpty() + "\n" + ss.getNextSplitNonEmpty();
+        awb.specialServiceRequest = BeanUtil.concat(ss.getNextSplitNonEmpty(),"\n",ss.getNextSplitNonEmpty());
     }
 
     protected List<AwbUld> processULD(Awb awb, String uld) {
@@ -292,7 +292,7 @@ public abstract class AbstractMessageProcessor {
         }
         
         //this needs to create the shipper if does not exist in the system
-        Participant consignee = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='"+awb.consignee+"'");
+        Participant consignee = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='",awb.consignee+"'");
         if (consignee==null) {
             consignee = new Participant();
             consignee.code = awb.consignee;
@@ -354,7 +354,7 @@ public abstract class AbstractMessageProcessor {
         }
         
         //this needs to create the shipper if does not exist in the system
-        Participant shipper = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='"+awb.shipper+"'");
+        Participant shipper = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='",awb.shipper+"'");
         if (shipper==null) {
             shipper = new Participant();
             shipper.code = awb.shipper;
@@ -404,7 +404,7 @@ public abstract class AbstractMessageProcessor {
         }
         
         //this needs to create the shipper if does not exist in the system
-        Participant agent = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='"+awb.agent+"'");
+        Participant agent = (Participant) DBClient.getFirstRecord("SELECT a FROM Participant a WHERE a.code='",awb.agent,"'");
         if (agent==null) {
             agent = new Participant();
             agent.code = awb.agent;
@@ -446,7 +446,7 @@ public abstract class AbstractMessageProcessor {
     protected void processSCI(Awb awb, String str) {
         StringSplitter ss = lineSplitter.getStringSplitter(str);
         ss.getNextSplitNonEmpty();  //contains OSI
-        awb.remarks = ss.getNextSplitNonEmpty() + "\n" + ss.getNextSplitNonEmpty();
+        awb.remarks = BeanUtil.concat(ss.getNextSplitNonEmpty(),"\n",ss.getNextSplitNonEmpty());
     }
 
 }

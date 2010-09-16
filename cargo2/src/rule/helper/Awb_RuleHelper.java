@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import service.FlightService;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 import bean.Awb;
@@ -79,7 +80,7 @@ public class Awb_RuleHelper {
     }
     
     public void autoCreateDG(AwbShc awbShc, Awb awb) {
-        SpecialHandling shc = (SpecialHandling) awb.selectFirstCache("SELECT a FROM SpecialHandling a WHERE a.code='"+awbShc.getShcCode()+"'");
+        SpecialHandling shc = (SpecialHandling) awb.selectFirstCache("SELECT a FROM SpecialHandling a WHERE a.code='",awbShc.getShcCode(),"'");
         if (shc.getDgNumber1()!=null) {
             createDG(shc.dgNumber1, awb.pieces, awb);
         }
@@ -97,13 +98,13 @@ public class Awb_RuleHelper {
         }
     }
     public void autoCreateSHC(Awb awb) {
-        List col = awb.selectListCache("SELECT a FROM AwbShc a WHERE a.awbSeq="+awb.seq);
+        List col = awb.selectListCache("SELECT a FROM AwbShc a WHERE a.awbSeq=",awb.seq);
         if (col != null && col.size() > 0) {
             return;
         }
         //check the service
         String serviceLevelt = awb.getServiceLevel();
-        ServiceLevel serv = (ServiceLevel) awb.selectFirstCache("SELECT a FROM ServiceLevel a WHERE a.code='"+serviceLevelt+"'");
+        ServiceLevel serv = (ServiceLevel) awb.selectFirstCache("SELECT a FROM ServiceLevel a WHERE a.code='",serviceLevelt,"'");
         if (serv != null) {
             if (!util.DataUtil.isEmpty(serv.getShc1())) {
                 AwbShc shc1 = new AwbShc();
@@ -152,34 +153,34 @@ public class Awb_RuleHelper {
     }
 
     public List<ChargesRule> getApplicableCharges(Awb awb) {
-    	List<AwbShc> shcs = DBClient.getList("SELECT a FROM AwbShc a WHERE a.awbSeq='"+awb.seq+"'");
+    	List<AwbShc> shcs = DBClient.getList(BeanUtil.concat("SELECT a FROM AwbShc a WHERE a.awbSeq='",awb.seq,"'"));
     	String s = "";
     	if (shcs != null && !shcs.isEmpty()) {
          	for (AwbShc shc : shcs) {
-        		s += "'"+shc.shcCode+"',";
+        		s += BeanUtil.concat("'",shc.shcCode,"',");
         	}
     	}
     	s += "''";
-    	String d = "'"+DateUtil.formatDateToSql(new Date())+"'";
+    	String d = BeanUtil.concat("'",DateUtil.formatDateToSql(new Date()),"'");
     	String sql = "";
     	
 //    	this part of program should have a switch to disable and enable
     	if (AppConfig.isAutoCreateChargeRule()) {
     		List<String> sqlArr = new ArrayList();
     		
-    		sqlArr.add("SELECT a FROM ChargesRule a " +
-			"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-			"AND "+d+" BETWEEN a.startDate AND a.endDate AND a.shc IS NULL AND a.serviceLevel IS NULL");
+    		sqlArr.add(BeanUtil.concat("SELECT a FROM ChargesRule a ",
+			"WHERE a.origin='",awb.origin,"' AND a.destination='",awb.destination,"' ",
+			"AND ",d," BETWEEN a.startDate AND a.endDate AND a.shc IS NULL AND a.serviceLevel IS NULL"));
 		
-			sqlArr.add("SELECT a FROM ChargesRule a " +
-				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-				"AND "+d+" BETWEEN a.startDate AND a.endDate " +
-				"AND a.shc IN ("+s+") ");
+			sqlArr.add(BeanUtil.concat("SELECT a FROM ChargesRule a ",
+				"WHERE a.origin='",awb.origin,"' AND a.destination='",awb.destination,"' ",
+				"AND ",d," BETWEEN a.startDate AND a.endDate ",
+				"AND a.shc IN (",s,") "));
 			
-			sqlArr.add("SELECT a FROM ChargesRule a " +
-				"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-				"AND "+d+" BETWEEN a.startDate AND a.endDate " +			
-				"AND a.serviceLevel IN ('"+awb.serviceLevel+"') ");
+			sqlArr.add(BeanUtil.concat("SELECT a FROM ChargesRule a ",
+				"WHERE a.origin='",awb.origin,"' AND a.destination='",awb.destination,"' ",
+				"AND ",d," BETWEEN a.startDate AND a.endDate ",			
+				"AND a.serviceLevel IN ('",awb.serviceLevel,"') "));
 
 			Map map = DBClient.batchQueryNoCache(sqlArr);
 			List originRules = (List) map.get(sqlArr.get(0));
@@ -196,11 +197,11 @@ public class Awb_RuleHelper {
 			}
     	}
 		
-    	sql = "SELECT a FROM ChargesRule a " +
-			"WHERE a.origin='"+awb.origin+"' AND a.destination='"+awb.destination+"' " +
-			"AND "+d+" BETWEEN a.startDate AND a.endDate " +
-			"AND (a.shc IS NULL OR a.shc IN ("+s+")) " +
-			"AND (a.serviceLevel IS NULL OR a.serviceLevel IN ('"+awb.serviceLevel+"')) ";
+    	sql = BeanUtil.concat("SELECT a FROM ChargesRule a " +
+			"WHERE a.origin='",awb.origin,"' AND a.destination='",awb.destination,"' " +
+			"AND ",d," BETWEEN a.startDate AND a.endDate " +
+			"AND (a.shc IS NULL OR a.shc IN (",s,")) " +
+			"AND (a.serviceLevel IS NULL OR a.serviceLevel IN ('",awb.serviceLevel,"')) ");
     	return DBClient.getList(sql);
     }
     
@@ -225,7 +226,7 @@ public class Awb_RuleHelper {
     public void createChargesRuleForSHC(Awb awb) {
     	List l = new ArrayList();
 //    	charge for shc
-    	List<AwbShc> shcs = DBClient.getList("SELECT a FROM AwbShc a WHERE a.awbSeq='"+awb.seq+"'");
+    	List<AwbShc> shcs = DBClient.getList(BeanUtil.concat("SELECT a FROM AwbShc a WHERE a.awbSeq='",awb.seq,"'"));
     	if (shcs != null && !shcs.isEmpty()) {
          	for (AwbShc shc : shcs) {
             	if (shc.shcCode!=null && !shc.shcCode.isEmpty()) {

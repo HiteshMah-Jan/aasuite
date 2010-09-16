@@ -63,7 +63,7 @@ public class UldNumber extends AbstractIBean implements Serializable {
 	@Override
 	public void save() {
 		if (flightSeq>0) {
-			Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.seq="+flightSeq);
+			Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.seq=",flightSeq);
 			carrier = f.carrier;
 			flightNumber = f.flightNumber;
 			flightDate = f.flightDate;
@@ -268,7 +268,7 @@ public class UldNumber extends AbstractIBean implements Serializable {
     }
 
     public Flight extractNextFlight() {
-        return (Flight) selectFirstCache("SELECT a FROM Flight a WHERE a.origin='"+destination+"' AND a.status NOT IN('DEP')");
+        return (Flight) selectFirstCache("SELECT a FROM Flight a WHERE a.origin='",destination,"' AND a.status NOT IN('DEP')");
     }
     
     public void removeFromFlight() {
@@ -277,7 +277,7 @@ public class UldNumber extends AbstractIBean implements Serializable {
         save();
         
         //change all the AWBs
-        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq="+flightSeq+" AND a.uldNumber='"+uld+"'");
+        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq=",flightSeq," AND a.uldNumber='",uld,"'");
         for (Object obj:lst) {
             AwbFlt flt = (AwbFlt) obj;
             flt.status = "RCS";
@@ -305,7 +305,7 @@ public class UldNumber extends AbstractIBean implements Serializable {
         save();
         
         //change all the AWBs
-        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq="+flightSeq+" AND a.uldNumber='"+uld+"'");
+        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq=",flightSeq," AND a.uldNumber='",uld,"'");
         for (Object obj:lst) {
             AwbFlt flt = (AwbFlt) obj;
             flt.arriveFromFlight();
@@ -334,7 +334,7 @@ public class UldNumber extends AbstractIBean implements Serializable {
         save();
         
         //change all the AWBs
-        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq="+getFlightSeq()+" AND a.uldNumber='"+getUld()+"'");
+        List lst = selectListCache("SELECT a FROM AwbFlt a WHERE a.flightSeq=",getFlightSeq()," AND a.uldNumber='",getUld(),"'");
         for (Object obj:lst) {
             AwbFlt flt = (AwbFlt) obj;
             flt.assignToFlight(flight);

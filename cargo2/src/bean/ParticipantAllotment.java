@@ -89,7 +89,7 @@ public class ParticipantAllotment extends AbstractIBean implements Serializable 
 	@Override
 	public void save() {
 		if (flightSeq>0) {
-			Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.seq="+flightSeq);
+			Flight f = (Flight) DBClient.getFirstRecord("SELECT a FROM Flight a WHERE a.seq=",flightSeq);
 			carrier = f.carrier;
 			flightNumber = f.flightNumber;
 			flightDate = f.flightDate;

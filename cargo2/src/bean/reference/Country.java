@@ -49,7 +49,7 @@ public class Country extends AbstractIBean implements Serializable {
     public boolean active;
 
     public static String extractCurrency(String country) {
-    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country WHERE a.code='"+country+"'");
+    	Country c = (Country) DBClient.getFirstRecord("SELECT a FROM Country WHERE a.code='",country,"'");
     	return c.currency;
     }
     

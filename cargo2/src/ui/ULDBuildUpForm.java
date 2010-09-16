@@ -290,7 +290,7 @@ public class ULDBuildUpForm extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     
 	public void setUldNumber(UldNumber uld) {
-        List lst = DBClient.getList("SELECT a FROM AwbFlt a, Awb b WHERE a.awbSeq=b.seq AND b.prefix is not null AND a.uldNumber='"+uld.uld+"'");
+        List lst = DBClient.getList("SELECT a FROM AwbFlt a, Awb b WHERE a.awbSeq=b.seq AND b.prefix is not null AND a.uldNumber='",uld.uld,"'");
         beanInsideCargo.setList(lst);
         this.uld = uld;
 	}

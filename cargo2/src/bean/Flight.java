@@ -34,6 +34,7 @@ import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopup;
 import template.screen.TemplateTabPage;
+import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 
@@ -420,13 +421,13 @@ public class Flight extends AbstractIBean implements Serializable {
     public void depart() {
         status = "DEP";
         save();
-        DBClient.runSQL("UPDATE AwbFlt a SET a.status='DEP' WHERE a.flightSeq="+seq+" AND a.status='MAN'");
-        DBClient.runSQL("UPDATE UldNumber a SET a.status='DEP' WHERE a.flightSeq="+seq+" AND a.status='MAN'");
+        DBClient.runSQL("UPDATE AwbFlt a SET a.status='DEP' WHERE a.flightSeq=",seq," AND a.status='MAN'");
+        DBClient.runSQL("UPDATE UldNumber a SET a.status='DEP' WHERE a.flightSeq=",seq," AND a.status='MAN'");
     }
     
     public void updateFlightSpace() {
-        AircraftType aircraft = (AircraftType) DBClient.getFirstRecord("SELECT a FROM AircraftType a WHERE a.code='"+getAircraftType()+"'");
-        List lst = DBClient.getList("SELECT a FROM AwbFlt a WHERE a.flightSeq="+seq);
+        AircraftType aircraft = (AircraftType) DBClient.getFirstRecord("SELECT a FROM AircraftType a WHERE a.code='",getAircraftType(),"'");
+        List lst = DBClient.getList(BeanUtil.concat("SELECT a FROM AwbFlt a WHERE a.flightSeq=",seq));
         int totalPiecest = 0;
         double totalWeight = 0;
         double totalVolume = 0;
@@ -489,6 +490,6 @@ public class Flight extends AbstractIBean implements Serializable {
 		if (isEmptyKey()) {
 			return "";
 		}
-		return carrier+flightNumber+"-"+DateUtil.formatDate(flightDate,"ddMMM").toUpperCase();
+		return BeanUtil.concat(carrier,flightNumber,"-",DateUtil.formatDate(flightDate,"ddMMM").toUpperCase());
 	}
 }

@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import rule.helper.Awb_RuleHelper;
 import service.FlightService;
 import template.screen.TablePopup;
+import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
 import bean.Awb;
@@ -134,6 +135,6 @@ public class Awb_RULE extends BusinessRuleWrapper {
 
     private void showMessages() {
         Awb awb = (Awb) this.getBean();
-        Common2View.showBeanPanel("CargoMessageInbox", "", "SELECT a FROM CargoMessageInbox a, CargoMessageTransactionDetail b WHERE a.seq=b.cargoMessageInboxSeq AND b.entity='Awb' AND b.entityId='"+awb.seq+"'");
+        Common2View.showBeanPanel("CargoMessageInbox", "", BeanUtil.concat("SELECT a FROM CargoMessageInbox a, CargoMessageTransactionDetail b WHERE a.seq=b.cargoMessageInboxSeq AND b.entity='Awb' AND b.entityId='",awb.seq,"'"));
     }
 }

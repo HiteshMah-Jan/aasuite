@@ -90,7 +90,7 @@ public class FHL extends AbstractMessageProcessor {
         ss.getNextSplitNonEmpty();
         
         hawb.serial = ss.getNextSplitNonEmpty();
-        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.masterAwbSeq="+mawb.seq+" AND a.serial='"+hawb.serial+"'");
+        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.masterAwbSeq=",mawb.seq," AND a.serial='",hawb.serial,"'");
         if (b!=null) {
             hawb = b;
         }
@@ -129,7 +129,7 @@ public class FHL extends AbstractMessageProcessor {
         mawb.prefix = tawb.getNextSubstring(3);
         tawb.getNextSubstring(1);
         mawb.serial = tawb.getNextSubstring(8);
-        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.prefix='"+mawb.prefix+"' AND a.serial='"+mawb.serial+"'");
+        Awb b = (Awb) DBClient.getFirstRecord("SELECT a FROM Awb a WHERE a.prefix='",mawb.prefix,"' AND a.serial='",mawb.serial,"'");
         if (b!=null) {
             mawb = b;
         }
