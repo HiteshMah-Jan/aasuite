@@ -299,7 +299,7 @@ public class StudentSubjectToEnrollmentGrade {
         else if (mysub.contains("ENGLISH2") || mysub.contains("ENGLISHB")) {
         	setGrades(e, subject, "English2", quarter);
         }
-        else if (mysub.contains("ENGLISH") || mysub.contains("ENGLISHA")) {
+        else if (mysub.contains("ENGLISH") || mysub.contains("ENGLISH1") || mysub.contains("ENGLISHA")) {
         	setGrades(e, subject, "English", quarter);
         }
         else if (mysub.contains("FILIPINO")) {
@@ -320,7 +320,7 @@ public class StudentSubjectToEnrollmentGrade {
         else if (mysub.contains("MATH2") || mysub.contains("MATHEMATICS2") || mysub.contains("MATHEMATICSB")) {
         	setGrades(e, subject, "Math2", quarter);
         }
-        else if (mysub.contains("MATH") || mysub.contains("MATHEMATICS") || mysub.contains("MATHEMATICS1") || mysub.contains("MATHEMATICSA")) {
+        else if (mysub.contains("MATH") || mysub.contains("MATH1") || mysub.contains("MATHEMATICS") || mysub.contains("MATHEMATICS1") || mysub.contains("MATHEMATICSA")) {
         	setGrades(e, subject, "Math", quarter);
         }
         else if (mysub.contains("RESEARCH")) {
@@ -332,7 +332,7 @@ public class StudentSubjectToEnrollmentGrade {
         else if (mysub.contains("SCIENCE2") || mysub.contains("SCIENCEB")) {
         	setGrades(e, subject, "Science2", quarter);
         }
-        else if (mysub.contains("SCIENCE") || mysub.contains("SCIENCEA")) {
+        else if (mysub.contains("SCIENCE") || mysub.contains("SCIENCE1") || mysub.contains("SCIENCEA")) {
         	setGrades(e, subject, "Science", quarter);
         }
         else if (mysub.contains("COMPUTER")) {
