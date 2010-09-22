@@ -108,10 +108,9 @@
      (studentvaluesgrading.`oct` - studentvaluesgrading.`octAbsent`)+
      (studentvaluesgrading.`nov` - studentvaluesgrading.`novAbsent`)+
      (studentvaluesgrading.`dece` - studentvaluesgrading.`deceAbsent`)) AS totalDaysPresent
-
-     
 FROM
-     `studentvaluesgrading` studentvaluesgrading
+     `person` person INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
+     AND person.`gradeLevel` = studentvaluesgrading.`gradeLevel`
 WHERE
      studentvaluesgrading.studentId = $P{REPORT_PERSON_ID}]]></queryString>
 
