@@ -24,7 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["10753"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["6"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[".\\"]]></defaultValueExpression>
@@ -33,7 +33,10 @@
 		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
 	</parameter>
 	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["2010-2011"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_gradeLevel" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["H2"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`firstName` AS person_firstName,
@@ -59,6 +62,7 @@ FROM
      INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
 WHERE
      enrollment.schoolYear = $P{PARAM_schoolYear}
+AND person.gradeLevel = $P{PARAM_gradeLevel}
  AND person.personId = $P{REPORT_ADD_WHERE}]]></queryString>
 
 	<field name="person_firstName" class="java.lang.String"/>
@@ -439,45 +443,6 @@ WHERE
 				</staticText>
 				<staticText>
 					<reportElement
-						x="-1"
-						y="100"
-						width="476"
-						height="16"
-						key="staticText-101"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Baskerville Old Face" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
-					</textElement>
-				<text><![CDATA[HIGH SCHOOL DEPARTMENT]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="-1"
-						y="112"
-						width="476"
-						height="17"
-						key="staticText-102"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Arial Rounded MT Bold" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Report Card]]></text>
-				</staticText>
-				<subreport  isUsingCache="true">
-					<reportElement
-						x="53"
-						y="613"
-						width="222"
-						height="44"
-						key="subreport-204"/>
-					<subreportParameter  name="REPORT_PERSON_ID">
-						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
-					</subreportParameter>
-					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\ReportCard\\AttendanceSubReport.jasper"]]></subreportExpression>
-				</subreport>
-				<staticText>
-					<reportElement
 						x="53"
 						y="585"
 						width="89"
@@ -750,7 +715,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="350"
+						y="364"
 						width="97"
 						height="12"
 						key="staticText-127"/>
@@ -763,7 +728,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="365"
+						y="379"
 						width="97"
 						height="12"
 						key="staticText-128"/>
@@ -776,7 +741,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="380"
+						y="394"
 						width="97"
 						height="12"
 						key="staticText-129"/>
@@ -789,7 +754,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="395"
+						y="409"
 						width="97"
 						height="12"
 						key="staticText-130"/>
@@ -802,7 +767,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="410"
+						y="424"
 						width="97"
 						height="12"
 						key="staticText-131"/>
@@ -815,7 +780,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="425"
+						y="439"
 						width="97"
 						height="12"
 						key="staticText-132"/>
@@ -828,7 +793,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="455"
+						y="469"
 						width="97"
 						height="12"
 						key="staticText-133"/>
@@ -841,7 +806,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="470"
+						y="484"
 						width="97"
 						height="12"
 						key="staticText-134"/>
@@ -854,7 +819,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="485"
+						y="499"
 						width="97"
 						height="12"
 						key="staticText-135"/>
@@ -867,7 +832,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="500"
+						y="514"
 						width="97"
 						height="12"
 						key="staticText-136"/>
@@ -880,7 +845,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="515"
+						y="529"
 						width="97"
 						height="12"
 						key="staticText-137"/>
@@ -893,7 +858,7 @@ WHERE
 				<staticText>
 					<reportElement
 						x="53"
-						y="440"
+						y="454"
 						width="97"
 						height="12"
 						key="staticText-138"/>
@@ -906,7 +871,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="500"
+						y="514"
 						width="219"
 						height="11"
 						key="subreport-205"/>
@@ -932,7 +897,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="515"
+						y="529"
 						width="219"
 						height="11"
 						key="subreport-206"/>
@@ -958,7 +923,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="350"
+						y="364"
 						width="219"
 						height="11"
 						key="subreport-207"/>
@@ -1090,7 +1055,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="365"
+						y="379"
 						width="219"
 						height="11"
 						key="subreport-212"/>
@@ -1116,7 +1081,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="395"
+						y="409"
 						width="219"
 						height="11"
 						key="subreport-213"/>
@@ -1142,7 +1107,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="410"
+						y="424"
 						width="219"
 						height="11"
 						key="subreport-214"/>
@@ -1168,7 +1133,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="425"
+						y="439"
 						width="219"
 						height="11"
 						key="subreport-215"/>
@@ -1194,7 +1159,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="470"
+						y="484"
 						width="219"
 						height="11"
 						key="subreport-216"/>
@@ -1220,7 +1185,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="485"
+						y="499"
 						width="219"
 						height="11"
 						key="subreport-217"/>
@@ -1246,7 +1211,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="455"
+						y="469"
 						width="219"
 						height="11"
 						key="subreport-218"/>
@@ -1274,7 +1239,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="380"
+						y="394"
 						width="219"
 						height="11"
 						key="subreport-219"/>
@@ -1302,7 +1267,7 @@ WHERE
 				<subreport  isUsingCache="true">
 					<reportElement
 						x="158"
-						y="440"
+						y="454"
 						width="219"
 						height="11"
 						key="subreport-220"/>
@@ -1512,7 +1477,7 @@ WHERE
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="-1"
-						y="122"
+						y="123"
 						width="476"
 						height="18"
 						key="textField-10"/>
@@ -1522,6 +1487,87 @@ WHERE
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA["School Year "+$P{PARAM_schoolYear}]]></textFieldExpression>
 				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="53"
+						y="613"
+						width="222"
+						height="44"
+						key="subreport-224"/>
+					<subreportParameter  name="REPORT_PERSON_ID">
+						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_GRADE_LEVEL">
+						<subreportParameterExpression><![CDATA[$F{person_gradeLevel}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\ReportCard\\AttendanceSubReport.jasper"]]></subreportExpression>
+				</subreport>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="90"
+						width="476"
+						height="34"
+						key="staticText-144"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Baskerville Old Face" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[HIGH SCHOOL DEPARTMENT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="107"
+						width="476"
+						height="24"
+						key="staticText-145"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial Rounded MT Bold" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Report Card]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="53"
+						y="350"
+						width="97"
+						height="12"
+						key="staticText-146"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<text><![CDATA[GEOMETRY]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="158"
+						y="350"
+						width="219"
+						height="11"
+						key="subreport-225"/>
+					<subreportParameter  name="REPORT_SQL">
+						<subreportParameterExpression><![CDATA["SELECT q1Math2+.5 as any1, q2Math2+.5 as any2, q3Math2+.5 as any3, q4Math2+.5 as any4, qallMath2 as anyall "+
+"FROM Enrollment "+
+"WHERE "+
+"	studentId="+$P{REPORT_ADD_WHERE}+" AND "+
+"	gradeLevel='"+$F{person_gradeLevel}+"'"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_ADD_WHERE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="SUBREPORT_DIR">
+						<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[$P{REPORT_QUARTER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLC\\grading\\ReportCardQuarterSQLRetreiverSubReportGrade.jasper"]]></subreportExpression>
+				</subreport>
 			</band>
 		</summary>
 </jasperReport>
