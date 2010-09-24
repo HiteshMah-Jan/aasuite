@@ -96,9 +96,9 @@ public class Student_RULE extends Person_RULE {
 		PerfUtil p = new PerfUtil("Generate curriculum subjects.");
 		p.start();
         Student stud = (Student) getBean();
-        if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
+        if (UserInfo.loginUser.isSuperAAA()) {
         	if (showPrompt("Generate Curriculum for all student?")) {
-        		List<Student> lst = DBClient.getList("SELECT a FROM Student a, Section b WHERE a.status='ENROLLED' AND a.section=b.code ORDER BY a.gradeLevel, a.section, a.lastName", 0, 10000);
+        		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.course IS NOT NULL AND a.status='ENROLLED' ORDER BY a.gradeLevel, a.section, a.lastName", 0, 10000);
         		for (Student s:lst) {
         			CreateCurriculum cur = new CreateCurriculum(s) {
         				public void run() {

@@ -2210,7 +2210,9 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		if (faculty == null || faculty.isEmpty()) {
 			if (facultyId <= 0) {
 				Section s = (Section) DBClient.getFirstRecord("SELECT a FROM Section a WHERE a.code='",section,"'");
-				facultyId = s.facultyId;
+				if (s != null) {
+                                    facultyId = s.facultyId;
+                                }
 			}
 			Person f = (Person) extractPerson(facultyId);
 			if (f != null)

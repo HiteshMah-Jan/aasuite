@@ -110,7 +110,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 	}
 	
 	private void generateTask() {
-        if (UserInfo.loginUser.isSuperAAA() && AppConfig.isShowTestButton()) {
+        if (UserInfo.loginUser.isSuperAAA()) {
         	if (showPrompt("Generate grading for all student?")) {
             	List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a, Section b WHERE a.section=b.code", 0, 10000);
             	for (Schedule s:lst) {
