@@ -277,8 +277,8 @@ public class Awb extends AbstractIBean implements Serializable {
     public String domesticRouting;
     @Column(name = "forDeliveryOfTheGoodsApplyTo")
     public String forDeliveryOfTheGoodsApplyTo;
-
-
+    @Column(name = "activeStatus") //will have D - delivery, C - checkin, etc.
+    public String activeStatus;
 
     public Awb() {
         departureDate = util.DateUtil.addDay(new Date(), 1);
@@ -297,6 +297,14 @@ public class Awb extends AbstractIBean implements Serializable {
 
     public void setForDeliveryOfTheGoodsApplyTo(String forDeliveryOfTheGoodsApplyTo) {
         this.forDeliveryOfTheGoodsApplyTo = forDeliveryOfTheGoodsApplyTo;
+    }
+
+    public String getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(String activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
         public String getDomesticRouting() {

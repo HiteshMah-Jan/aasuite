@@ -17,9 +17,11 @@ import template.UITemplate;
 import template.screen.ChildTemplateListPopupDownButton;
 import bean.Participant;
 import bean.awb.AwbCharges;
+import bean.awb.AwbCheckin;
 import bean.awb.AwbCommissionInformation;
 import bean.awb.AwbCustoms;
 import bean.awb.AwbDangerousGoods;
+import bean.awb.AwbDeliver;
 import bean.awb.AwbDimension;
 import bean.awb.AwbFlt;
 import bean.awb.AwbHistory;
@@ -31,12 +33,13 @@ import bean.reference.Airport;
 import bean.reference.Charges;
 import bean.reference.Currency;
 import bean.reference.ServiceLevel;
+import template.screen.ChildTemplateListOnly;
 
 /**
  *
  * @author Charliemagne Mark
  */
-@UITemplate(template = template.screen.TemplateTabSinglePage.class, gridCount = 6, columnSearch = {"prefix","serial","origin","destination"})
+@UITemplate(template = template.screen.TemplateTabPage.class, gridCount = 6, columnSearch = {"prefix","serial","origin","destination"})
 @Displays({
     @Display(name = "prefix", width=30, mergeFields={"serial"}, label="Bill #               ", searchLabel="Prefix"),
     @Display(name = "serial", width=70, hideLabel=true),
@@ -108,14 +111,16 @@ import bean.reference.ServiceLevel;
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbDimension.class, sql="SELECT a FROM AwbDimension a WHERE a.awbSeq=${seq}", title="Dimension", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbShc.class, sql="SELECT a FROM AwbShc a WHERE a.awbSeq=${seq}", title="SHC", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbUld.class, sql="SELECT a FROM AwbUld a WHERE a.awbSeq=${seq}", title="ULD", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCommissionInformation.class, sql="SELECT a FROM AwbCommissionInformation a WHERE a.awbSeq=${seq}", title="Commission", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCustoms.class, sql="SELECT a FROM AwbCustoms a WHERE a.awbSeq=${seq}", title="Customs", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbDangerousGoods.class, sql="SELECT a FROM AwbDangerousGoods a WHERE a.awbSeq=${seq}", title="DG", fieldMapping={"seq","awbSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbInspection.class, sql="SELECT a FROM AwbInspection a WHERE a.awbSeq='${seq}'", title="Inspection", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbRateDescription.class, sql="SELECT a FROM AwbRateDescription a WHERE a.awbSeq=${seq}", title="Rate", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCommissionInformation.class, sql="SELECT a FROM AwbCommissionInformation a WHERE a.awbSeq=${seq}", title="Commission", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbCharges.class, sql="SELECT a FROM AwbCharges a WHERE a.awbSeq=${seq}", title="Charges", fieldMapping={"seq","awbSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbPaymentExt.class, sql="SELECT a FROM Payment a WHERE a.form='Awb' AND a.recordId=${seq}", title="Payment", fieldMapping={"seq","recordId"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=AwbHistory.class, sql="SELECT a FROM AwbHistory a WHERE a.awbSeq='${seq}'", title="History", fieldMapping={"seq","awbSeq"})
+        @ChildRecord(template=ChildTemplateListOnly.class, entity=AwbInspection.class, sql="SELECT a FROM AwbInspection a WHERE a.awbSeq='${seq}'", title="Inspection", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListOnly.class, entity=AwbCheckin.class, sql="SELECT a FROM AwbCheckin a WHERE a.awbSeq='${seq}'", title="Checkin", fieldMapping={"seq","awbSeq"}),
+        @ChildRecord(template=ChildTemplateListOnly.class, entity=AwbDeliver.class, sql="SELECT a FROM AwbDeliver a WHERE a.masterAwbSeq='${seq}'", title="Arrival/Deliver", fieldMapping={"seq","masterAwbSeq"}),
+        @ChildRecord(template=ChildTemplateListOnly.class, entity=AwbHistory.class, sql="SELECT a FROM AwbHistory a WHERE a.awbSeq='${seq}'", title="History", fieldMapping={"seq","awbSeq"})
     }, 
     info={
         @ParentAddInfo(gridCount=6, title="Additional Info", 

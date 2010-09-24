@@ -9,7 +9,6 @@
 
 package bean.awb;
 
-import bean.*;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -18,9 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import service.util.AbstractIBean;
-import util.DBClient;
 import template.screen.TemplateTabPage;
 import template.*;
 
@@ -31,8 +28,10 @@ import template.*;
 @Entity
 @Table(name = "AwbDeliver")
 @UITemplate(template = TemplateTabPage.class, gridCount = 6, 
-    columnSearch = {"pieces","weight","volume","receivedBy","deliverDate"}, showChart=true)
+    columnSearch = {"prefix","serial","pieces","weight","volume","receivedBy","deliverDate"})
 @Displays({
+    @Display(name = "prefix"),
+    @Display(name = "serial"),
     @Display(name = "pieces"),
     @Display(name = "weight"),
     @Display(name = "volume"),
@@ -77,6 +76,27 @@ public class AwbDeliver extends AbstractIBean implements Serializable {
     public String releaseToAddress;
     @Column(name = "releaseToIdType", length = 100)
     public String releaseToIdType;
+
+    @Column(name = "prefix", nullable = false, length = 3)
+    public String prefix;
+    @Column(name = "serial", nullable = false, length = 8)
+    public String serial;
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 
     public int getAwbMoveSeq() {
         return awbMoveSeq;

@@ -20,6 +20,7 @@ import bean.UldNumber;
 import bean.awb.AwbFlt;
 
 import service.util.AbstractIBean;
+import template.screen.TransactionPanel;
 import util.DBClient;
 import util.PanelUtil;
 
@@ -27,13 +28,18 @@ import util.PanelUtil;
  *
  * @author Administrator
  */
-public class ULDBuildUpForm extends javax.swing.JPanel {
+public class ULDBuildUpForm extends TransactionPanel {
 	private UldNumber uld;
+
+    @Override
+    public String getTitle() {
+        return "ULD Build Up";
+    }
 	
     /** Creates new form ULDBuildUpForm */
     public ULDBuildUpForm() {
         initComponents();
-        List lst = DBClient.getList("SELECT a FROM AwbFlt a, Awb b WHERE a.awbSeq=b.seq AND b.prefix is not null AND a.uldNumber is null");
+        List lst = DBClient.getList("SELECT a FROM AwbFlt a, Awb b WHERE a.awbSeq=b.seq AND b.prefix is not null AND a.uldNumber is null AND b.activeStatus LIKE '%C%'");
         beanLooseCargo.setList(lst);
         
         beanInsideCargo.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

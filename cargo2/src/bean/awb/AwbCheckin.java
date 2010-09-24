@@ -29,8 +29,10 @@ import template.*;
 @Entity
 @Table(name = "AwbCheckin")
 @UITemplate(template = TemplateTabPage.class, gridCount = 6, 
-    columnSearch = {"flightSeq","pieces","grossWeight","shc1","shc2"}, showChart=true)
+    columnSearch = {"prefix","serial","flightSeq","pieces","grossWeight","shc1","shc2"}, showChart=true)
 @Displays({
+    @Display(name = "prefix"),
+    @Display(name = "serial"),
     @Display(name = "flightSeq"),
     @Display(name = "pieces"),
     @Display(name = "grossWeight"),
@@ -80,6 +82,26 @@ public class AwbCheckin extends AbstractIBean implements Serializable {
     public String offload;
     @Column(name = "awbSeq", nullable = false)
     public int awbSeq;
+    @Column(name = "prefix", nullable = false, length = 3)
+    public String prefix;
+    @Column(name = "serial", nullable = false, length = 8)
+    public String serial;
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 
     public int getAwbSeq() {
         return awbSeq;

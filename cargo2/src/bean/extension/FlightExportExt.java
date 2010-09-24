@@ -70,12 +70,13 @@ import bean.reference.TraceStatus;
 })
 @ChildRecords(
     value={
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=FlightManifestAwb.class, sql="SELECT a FROM FlightManifestAwb a WHERE a.flightSeq='${seq}'", title="Awb", fieldMapping={"seq","flightSeq"}),
-        @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=FlightManifestUld.class, sql="SELECT a FROM FlightManifestUld a WHERE a.flightSeq='${seq}'", title="ULD", fieldMapping={"seq","flightSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, canNew=false, canSave=false, entity=FlightManifestAwb.class, sql="SELECT a FROM FlightManifestAwb a WHERE a.flightSeq='${seq}'", title="Awb", fieldMapping={"seq","flightSeq"}),
+        @ChildRecord(template=ChildTemplateListPopupDownButton.class, canNew=false, canSave=false, entity=FlightManifestUld.class, sql="SELECT a FROM FlightManifestUld a WHERE a.flightSeq='${seq}'", title="ULD", fieldMapping={"seq","flightSeq"}),
         @ChildRecord(template=ChildTemplateListPopupDownButton.class, entity=FlightNotoc.class, sql="SELECT a FROM FlightNotoc a WHERE a.flightSeq='${seq}'", title="Notoc", fieldMapping={"seq","flightSeq"})
     }
 )
 @template.ActionButtons({
+    @template.ActionButton(name="btnLoadAWB", label="Load AWB"),
     @template.ActionButton(name="btnLoadULD", label="Load ULD"),
     @template.ActionButton(name="btnManifestFlight", label="Manifest Flight"),
     @template.ActionButton(name="btnShowNotoc", label="Show Notoc"),
