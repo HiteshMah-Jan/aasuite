@@ -24,7 +24,7 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["Aladdin"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA["BP.DIEGO VASZQUEZ DE MERCADO"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`studentNumber` AS SN,
@@ -136,6 +136,8 @@ FROM
      `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
      INNER JOIN `section` section ON person.`section` = section.`code`
      INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
+     AND studentvaluesgrading.`gradeLevel` = section.`gradeLevel`
+     AND enrollment.`gradeLevel` = section.`gradeLevel`
 WHERE
      person.section = $P{REPORT_ADD_WHERE}
  AND enrollment.gradeLevel = section.gradeLevel
