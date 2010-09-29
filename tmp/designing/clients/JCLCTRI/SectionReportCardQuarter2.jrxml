@@ -23,32 +23,41 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["2009-2010"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="PARAM_gradeLevel" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["G1"]]></defaultValueExpression>
+		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`personId` AS person_personId,
+     person.`firstName` AS person_firstName,
+     person.`middleInitial` AS person_middleInitial,
+     person.`lastName` AS person_lastName,
+     person.`latestSchoolYear` AS person_latestSchoolYear,
      person.`gradeLevel` AS person_gradeLevel,
-     person.`section` AS person_section
+     person.`studentNumber` AS person_studentNumber,
+     person.`section` AS person_section,
+     person.`status` AS person_status,
+     section.`faculty` AS section_faculty,
+     person.`gradeLevelDesc` AS person_gradeLevelDesc
 FROM
-     `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
+     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
 WHERE
-     person.gradeLevel IS NOT null
- AND person.section IS NOT null
- AND enrollment.schoolYear = $P{PARAM_schoolYear}
- AND enrollment.gradeLevel = $P{PARAM_gradeLevel}
+     person.status ='ENROLLED'
+AND  person.gradeLevel is not null  AND person.section is not null
+AND person.gradeLevel=$P{PARAM_gradeLevel}  
 ORDER BY
-     person.gradeLevel ASC,
-     person.section ASC,
-     person.gender DESC,
-     person.lastname ASC]]></queryString>
+    person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
 
 	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="person_firstName" class="java.lang.String"/>
+	<field name="person_middleInitial" class="java.lang.String"/>
+	<field name="person_lastName" class="java.lang.String"/>
+	<field name="person_latestSchoolYear" class="java.lang.String"/>
 	<field name="person_gradeLevel" class="java.lang.String"/>
+	<field name="person_studentNumber" class="java.lang.String"/>
 	<field name="person_section" class="java.lang.String"/>
+	<field name="person_status" class="java.lang.String"/>
+	<field name="section_faculty" class="java.lang.String"/>
+	<field name="person_gradeLevelDesc" class="java.lang.String"/>
 
 
 		<group  name="G_Gender" >
@@ -95,8 +104,8 @@ ORDER BY
 					<subreportParameter  name="REPORT_QUARTER">
 						<subreportParameterExpression><![CDATA[new Integer(2)]]></subreportParameterExpression>
 					</subreportParameter>
-					<subreportParameter  name="PARAM_schoolYear">
-						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
+					<subreportParameter  name="PARAM_gradeLevel">
+						<subreportParameterExpression><![CDATA[$F{person_gradeLevel}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\JCLCTRI\\grading\\"+$P{PARAM_gradeLevel}+"_ReportCard.jasper"]]></subreportExpression>
