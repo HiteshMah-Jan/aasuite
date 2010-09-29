@@ -15,6 +15,7 @@ import util.Log;
 import util.ThreadPoolUtil;
 import bean.Enrollment;
 import bean.Schedule;
+import bean.admin.AppConfig;
 import bean.person.FacultyGradingTask;
 import bean.person.StudentSubject;
 import bean.person.StudentSubjectDetailGrading;
@@ -84,7 +85,7 @@ public class CalculateGradeService implements IService {
 					e.save();
 				}
 			}
-			ThreadPoolUtil.execute(new GradingProcess(schedule.schoolYear, schedule.section, quarter));
+			ThreadPoolUtil.execute(new GradingProcess(AppConfig.getSchoolYear(), schedule.section, quarter));
 		}
 		return null;
 	}
