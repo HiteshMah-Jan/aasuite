@@ -192,21 +192,14 @@ public class AppMenu extends AbstractIBean implements Serializable {
             createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
         }
         else if ("CARGO".equalsIgnoreCase(module)) {
-            createAppMenuObj("BookingExt", "Main", "Booking", 100).save();
-            createAppMenuObj("FullAwbExt", "Main", "Full AWB", 110).save();
-            createAppMenuObj("CargoMessageInbox", "Main", "Message Inbox", 120).save();
-            createAppMenuObj("CashierTransactionForm", "Main", "Cashier", 191).save();
-            createAppMenuObj("AwbAcceptanceExt", "Handling", "AWB Acceptance", 200).save();
-            createAppMenuObj("FlightExportExt", "Handling", "Flight Export", 210).save();
-            createAppMenuObj("AcceptFlightExt", "Handling", "Accept Flight", 220).save();
-            createAppMenuObj("BreakdownULDExt", "Handling", "Breakdown ULD", 230).save();
-            createAppMenuObj("AwbDeliveryExt", "Arrival/Delivery", "AWB Delivery", 300).save();
-            createAppMenuObj("FlightSchedule", "Reference", "Flight Schedule", 400).save();
-            createAppMenuObj("Participant", "Reference", "Participant", 410).save();
-            createAppMenuObj("Station", "Reference", "Station", 420).save();
-            createAppMenuObj("UldNumber", "Reference", "ULD Number", 430).save();
-            createAppMenuObj("CargoReferenceForm", "Reference", "Reference Data", 440).save();
-            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
+            createAppMenuObj("CargoBookingForm", "Main", "Cargo Booking", 100).save();
+            createAppMenuObj("CargoHandlingForm", "Main", "Cargo Handling", 110).save();
+            createAppMenuObj("CargoForwardingForm", "Main", "Cargo Forwarding", 120).save();
+            createAppMenuObj("CargoMessageInbox", "Main", "Message Inbox", 191).save();
+            createAppMenuObj("FlightSchedule", "Reference", "Flight Schedule", 200).save();
+            createAppMenuObj("Participant", "Reference", "Participant", 210).save();
+            createAppMenuObj("UldNumber", "Reference", "Container Reference", 220).save();
+            createAppMenuObj("CargoReferenceForm", "Reference", "Reference Data", 240).save();
         }
         else if ("ENERGY".equalsIgnoreCase(module)) {
             createAppMenuObj("Offer", "Main", "Offer", 100).save();
