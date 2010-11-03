@@ -181,7 +181,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		redisplayRecord();
 	}
 
-	private void saveAllGrades(int quarter) {
+	protected void saveAllGrades(int quarter) {
 //		check for schoolyear
 		if (!UserInfo.getUseYear().equals(AppConfig.getSchoolYear())) {
 			showError("This school year is not current.[",UserInfo.getUseYear(),"]");
@@ -194,6 +194,11 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		List<StudentSubject> subjects = tab.list;
 		List<StudentSubject> tlist = new ArrayList<StudentSubject>();
 		for (StudentSubject s : subjects) {
+			if (quarter == 2) {
+				if (s.grade2 >= 75 && s.grade1 < 75) {
+					s.grade1 = 75.0;
+				}
+			}
 			tlist.add(s);
 		}
 		
