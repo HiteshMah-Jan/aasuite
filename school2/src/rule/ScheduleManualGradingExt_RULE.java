@@ -195,7 +195,7 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		List<StudentSubject> tlist = new ArrayList<StudentSubject>();
 		for (StudentSubject s : subjects) {
 			if (quarter == 2) {
-				if (s.grade2 >= 75 && s.grade1 < 75) {
+				if (s.grade2 >= 75 && s.grade1 > 60 && s.grade1 < 75) {
 					s.grade1 = 75.0;
 				}
 			}
