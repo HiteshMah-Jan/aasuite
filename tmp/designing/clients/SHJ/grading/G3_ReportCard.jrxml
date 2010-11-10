@@ -51,7 +51,8 @@
      person.`toSection` AS person_toSection,
      person.`gender` AS person_gender,
      person.`gradeLevelDesc` AS person_gradeLevelDesc,
-     enrollment.`gpaFinal` AS enrollment_gpaFinal
+     enrollment.`gpaFinal` AS enrollment_gpaFinal,
+     enrollment.schoolYear AS schoolYear
 FROM
      person INNER JOIN enrollment ON person.personId=enrollment.studentId 
      AND person.gradeLevel=enrollment.gradeLevel,
@@ -76,6 +77,7 @@ WHERE
 	<field name="person_gender" class="java.lang.String"/>
 	<field name="person_gradeLevelDesc" class="java.lang.String"/>
 	<field name="enrollment_gpaFinal" class="java.lang.Double"/>
+	<field name="schoolYear" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -521,7 +523,7 @@ WHERE
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica" size="12" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{PARAM_schoolYear}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{schoolYear}]]></textFieldExpression>
 				</textField>
 				<subreport  isUsingCache="true">
 					<reportElement
