@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="AdminReportCardQuarter3"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<queryString><![CDATA[SELECT
+     person.`personId` AS person_personId,
+     person.`firstName` AS person_firstName,
+     person.`middleInitial` AS person_middleInitial,
+     person.`lastName` AS person_lastName,
+     person.`latestSchoolYear` AS person_latestSchoolYear,
+     person.`gradeLevel` AS person_gradeLevel,
+     person.`studentNumber` AS person_studentNumber,
+     person.`section` AS person_section,
+     person.`status` AS person_status,
+     section.`faculty` AS section_faculty,
+     person.`gradeLevelDesc` AS person_gradeLevelDesc
+FROM
+     `section` section INNER JOIN `person` person ON section.`code` = person.`section`
+WHERE
+     person.status ='ENROLLED'
+AND  person.gradeLevel is not null  AND person.section is not null
+ORDER BY
+    person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
+
+	<field name="person_personId" class="java.lang.Integer"/>
+	<field name="person_firstName" class="java.lang.String"/>
+	<field name="person_middleInitial" class="java.lang.String"/>
+	<field name="person_lastName" class="java.lang.String"/>
+	<field name="person_latestSchoolYear" class="java.lang.String"/>
+	<field name="person_gradeLevel" class="java.lang.String"/>
+	<field name="person_studentNumber" class="java.lang.String"/>
+	<field name="person_section" class="java.lang.String"/>
+	<field name="person_status" class="java.lang.String"/>
+	<field name="section_faculty" class="java.lang.String"/>
+	<field name="person_gradeLevelDesc" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="1"
+						width="535"
+						height="10"
+						key="subreport-1"
+						stretchType="RelativeToTallestObject"/>
+					<subreportParameter  name="REPORT_ADD_WHERE">
+						<subreportParameterExpression><![CDATA[$F{person_personId}+""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="REPORT_QUARTER">
+						<subreportParameterExpression><![CDATA[new Integer(3)]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\SHJ\\grading\\"+$F{person_gradeLevel}+"_ReportCard.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
