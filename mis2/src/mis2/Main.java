@@ -21,7 +21,7 @@ public class Main {
         //check the package here
     	if (args==null || args.length==0) {
             AAAConfig.getServerInstance();
-    		AAAConfig.server = true;
+    	    AAAConfig.server = true;
             springbean.AAAConfig.getInstance().setTitle("MISSoft");
     	}
     	else {
