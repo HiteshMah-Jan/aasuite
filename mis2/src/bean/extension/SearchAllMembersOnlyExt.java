@@ -5,21 +5,22 @@
 
 package bean.extension;
 
+import bean.Center;
 import bean.Member;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import template.screen.TemplateDefault;
+import template.screen.TemplateSearchOnly;
 
 /**
  *
  * @author disney
  */
-@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
+@UITemplate(template = TemplateSearchOnly.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
 @Displays({
         @Display(name="lastName"),
         @Display(name="firstName"),
-        @Display(name="center"),
+        @Display(name="center", type="PopSearch", linktoBean=Center.class),
         @Display(name="shareDate")
 })
 public class SearchAllMembersOnlyExt extends Member {
