@@ -71,4 +71,160 @@
     nbproject/build-impl.xml file. 
 
     -->
+<!-- Create a webstart tree -->
+    <target name="sign-jars" depends="-jnlp-init-keystore,-check-signing-possible" if="jnlp.signed.true">
+        <apply executable="nbproject/packinit.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist">
+                <include name="*.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+        <apply executable="nbproject/packinit_nosegment.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist/lib">
+                <include name="spring-2.5.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+        <apply executable="nbproject/packinit.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist/lib">
+                <include name="DynamicJasper-2.0.10.jar"/>
+                <include name="Filters.jar"/>
+                <include name="appframework-1.0.3.jar"/>
+                <include name="beansbinding-1.2.1.jar"/>
+                <include name="bsh-2.0b4.jar"/>
+                <include name="cglib-2.2.jar"/>
+                <include name="common2.jar"/>
+                <include name="commons-beanutils-bean-collections.jar"/>
+                <include name="commons-beanutils-core.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="commons-collections-3.2.jar"/>
+                <include name="commons-configuration-1.1.jar"/>
+                <include name="commons-dbcp-1.2.1.jar"/>
+                <include name="commons-digester-1.8.jar"/>
+                <include name="commons-javaflow-20060411.jar"/>
+                <include name="commons-lang-2.1.jar"/>
+                <include name="commons-lang-exception-2.0.jar"/>
+                <include name="commons-logging-1.1.jar"/>
+                <include name="commons-logging-adapters-1.1.jar"/>
+                <include name="commons-logging-api.jar"/>
+                <include name="commons-math-1.0.jar"/>
+                <include name="commons-pool-1.3.jar"/>
+                <include name="commons-validator-1.3.1.jar"/>
+                <include name="commons-vfs.jar"/>
+                <include name="poi-3.0.1-FINAL-20070705.jar"/>
+                <include name="flexdock-0.4.1.jar"/>
+                <include name="itext-1.3.5.jar"/>
+                <include name="jasperreports-2.0.2.jar"/>
+                <include name="jcalendar.jar"/>
+                <include name="jcmdline-1.0.2.jar"/>
+                <include name="jdt-compiler-3.1.1.jar"/>
+                <include name="jpa.jar"/>
+                <include name="swing-layout-1.0.4.jar"/>
+                <include name="swing-worker-1.1.jar"/>
+                <include name="xercesImpl.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+        <jnlpsignjars keystore="${jnlp.signjar.keystore}" storepass="${jnlp.signjar.storepass}"
+                keypass="${jnlp.signjar.keypass}" alias="${jnlp.signjar.alias}" mainjar="${dist.jar}" destdir="dist"
+                codebase="${jnlp.codebase.value}" signedjarsprop="jnlp.signed.jars"
+                componentsprop="jnlp.components">
+            <fileset dir="dist/lib">
+                <include name="DynamicJasper-2.0.10.jar"/>
+                <include name="Filters.jar"/>
+                <include name="appframework-1.0.3.jar"/>
+                <include name="beansbinding-1.2.1.jar"/>
+                <include name="bsh-2.0b4.jar"/>
+                <include name="cglib-2.2.jar"/>
+                <include name="common2.jar"/>
+                <include name="commons-beanutils-bean-collections.jar"/>
+                <include name="commons-beanutils-core.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="commons-collections-3.2.jar"/>
+                <include name="commons-configuration-1.1.jar"/>
+                <include name="commons-dbcp-1.2.1.jar"/>
+                <include name="commons-digester-1.8.jar"/>
+                <include name="commons-javaflow-20060411.jar"/>
+                <include name="commons-lang-2.1.jar"/>
+                <include name="commons-lang-exception-2.0.jar"/>
+                <include name="commons-logging-1.1.jar"/>
+                <include name="commons-logging-adapters-1.1.jar"/>
+                <include name="commons-logging-api.jar"/>
+                <include name="commons-math-1.0.jar"/>
+                <include name="commons-pool-1.3.jar"/>
+                <include name="commons-validator-1.3.1.jar"/>
+                <include name="commons-vfs.jar"/>
+                <include name="poi-3.0.1-FINAL-20070705.jar"/>
+                <include name="flexdock-0.4.1.jar"/>
+                <include name="itext-1.3.5.jar"/>
+                <include name="jasperreports-2.0.2.jar"/>
+                <include name="jcalendar.jar"/>
+                <include name="jcmdline-1.0.2.jar"/>
+                <include name="jdt-compiler-3.1.1.jar"/>
+                <include name="jpa.jar"/>
+                <include name="spring-2.5.jar"/>
+                <include name="swing-layout-1.0.4.jar"/>
+                <include name="swing-worker-1.1.jar"/>
+                <include name="xercesImpl.jar"/>
+            </fileset>
+        </jnlpsignjars>
+        <apply executable="nbproject/pack.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist">
+                <include name="*.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+        <apply executable="nbproject/pack_nosegment.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist/lib">
+                <include name="spring-2.5.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+        <apply executable="nbproject/pack.bat" type="file"
+          resolveexecutable="true" failonerror="true" ignoremissing="false">
+            <fileset dir="dist/lib">
+                <include name="DynamicJasper-2.0.10.jar"/>
+                <include name="Filters.jar"/>
+                <include name="appframework-1.0.3.jar"/>
+                <include name="beansbinding-1.2.1.jar"/>
+                <include name="bsh-2.0b4.jar"/>
+                <include name="cglib-2.2.jar"/>
+                <include name="common2.jar"/>
+                <include name="commons-beanutils-bean-collections.jar"/>
+                <include name="commons-beanutils-core.jar"/>
+                <include name="commons-beanutils.jar"/>
+                <include name="commons-collections-3.2.jar"/>
+                <include name="commons-configuration-1.1.jar"/>
+                <include name="commons-dbcp-1.2.1.jar"/>
+                <include name="commons-digester-1.8.jar"/>
+                <include name="commons-javaflow-20060411.jar"/>
+                <include name="commons-lang-2.1.jar"/>
+                <include name="commons-lang-exception-2.0.jar"/>
+                <include name="commons-logging-1.1.jar"/>
+                <include name="commons-logging-adapters-1.1.jar"/>
+                <include name="commons-logging-api.jar"/>
+                <include name="commons-math-1.0.jar"/>
+                <include name="commons-pool-1.3.jar"/>
+                <include name="commons-validator-1.3.1.jar"/>
+                <include name="commons-vfs.jar"/>
+                <include name="poi-3.0.1-FINAL-20070705.jar"/>
+                <include name="flexdock-0.4.1.jar"/>
+                <include name="itext-1.3.5.jar"/>
+                <include name="jasperreports-2.0.2.jar"/>
+                <include name="jcalendar.jar"/>
+                <include name="jcmdline-1.0.2.jar"/>
+                <include name="jdt-compiler-3.1.1.jar"/>
+                <include name="jpa.jar"/>
+                <include name="swing-layout-1.0.4.jar"/>
+                <include name="swing-worker-1.1.jar"/>
+                <include name="xercesImpl.jar"/>
+            </fileset>
+            <srcfile/>
+        </apply>
+    </target>
 </project>
