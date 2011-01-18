@@ -17,7 +17,11 @@ import template.ActionButton;
 import template.ActionButtons;
 import template.ChildRecord;
 import template.ChildRecords;
+import template.Display;
+import template.Displays;
 import template.Reports;
+import template.UITemplate;
+import template.screen.TemplateDefault;
 
 /**
  *
@@ -25,13 +29,20 @@ import template.Reports;
  */
 @Entity
 @Table(name = "MemberLoan")
-@ChildRecords(
-    value={
+@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"releaseDate", "amount", "interest", "totalAmountPaid", "interestOnLoansPaid", "sbu"})
+@ChildRecords( value={
        @ChildRecord(title="Payment", entity = MemberLoanPayment.class, sql = "SELECT a FROM MemberLoanPayment a WHERE a.memberId=${personId}")
- }
-)
+})
+@Displays({
+        @Display(name="releaseDate"),
+        @Display(name="amount"),
+        @Display(name="interest"),
+        @Display(name="totalAmountPaid"),
+        @Display(name="interestOnLoansPaid"),
+        @Display(name="sbu")
+})
 @ActionButtons( {
-		@ActionButton(name = "btnAddPayment", label = "Add Payment") }
+	@ActionButton(name = "btnAddPayment", label = "Add Payment") }
 )
 @Reports({
     @template.Report(reportFile="LoanPayment", reportTitle="Loan Payment", reportSql="${seq}")

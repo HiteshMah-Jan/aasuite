@@ -133,9 +133,9 @@ public class Member extends Person implements Serializable {
     }
     
     @Override
-    public void runSetup() {
+    public void setupIndex() {
 //        select concat('createAppMenuObj("',moduleName,'", "',moduleLabel,'", "',menuLabel,'", ',sortNum,').save();') from appmenu order by sortNum
-        List lst = DBClient.getList("SELECT a FROM AppMenu a");
+        List lst = DBClient.getList("SELECT a FROM AppMenu a WHERE a.moduleName='MyBranchMemberExt'");
         if (lst!=null && !lst.isEmpty()) {
             return;
         }
