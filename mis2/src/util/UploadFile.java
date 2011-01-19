@@ -17,7 +17,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import bean.Branch;
-import bean.Center;
 import bean.Member;
 import bean.MemberDividends;
 import bean.MemberLoan;
@@ -63,13 +62,9 @@ public class UploadFile {
 	private static void checkCenterOrBranch(List l) {
 		String s = (String) l.get(0);
 		s = s.trim().toUpperCase();
-//		Center c = null;
 		if (s.contains("CENTER")) {
-			center = s;
-//			c = new Center();
-//			c.branchName = branch;
-//			c.name = center;
-//			c.save();
+			center = s.replace("CENTER", "").trim();
+			center = Integer.parseInt(center) + "";
 		} else if (s.contains("BRANCH")) {
 			s = s.replace("BRANCH", "");
 			s = s.replace(":", "");
@@ -78,13 +73,6 @@ public class UploadFile {
 			b.name = branch;
 			b.address = branch;
 			b.save();
-//			create 100 center
-			for (int i=1; i<=100; i++) {
-				Center c = new Center();
-				c.branchName = branch;
-				c.name = "CENTER " + i;
-				c.save();
-			}
 		}
 		Log.info("Saving Branch and Center");
 	}
@@ -248,6 +236,14 @@ public class UploadFile {
 		return 0;
 	}
 
+	private static String pad(Object o, String pad, int count) {
+		StringBuffer sb = new StringBuffer(o.toString());
+		for (int i=sb.length(); i<count; i++) {
+			sb.insert(0, pad);
+		}
+		return sb.toString();
+	}
+	
 	private static List<List> parseRecords(String filename, boolean removeHeader) {
 		List<List> lstRow = new ArrayList<List>();
 		try {

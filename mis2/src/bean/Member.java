@@ -34,7 +34,7 @@ import util.DBClient;
 @Displays({
         @Display(name="lastName"),
         @Display(name="firstName"),
-        @Display(name="center", type="PopSearch", linktoBean=Center.class),
+        @Display(name="center"),
         @Display(name="shareDate"),
         @Display(name="totalLoanAmount"),
         @Display(name="totalLoanInterest"),
