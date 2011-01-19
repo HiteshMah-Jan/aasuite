@@ -6,10 +6,12 @@
 package bean;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
@@ -74,5 +76,10 @@ public class Center extends AbstractIBean implements Serializable {
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria, "name", "branchName");
+    }
+    
+    @Override
+    public void setupIndex() {
+        runUniqueIndex(1, "name", "branchName");
     }
 }

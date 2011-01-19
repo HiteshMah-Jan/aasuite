@@ -143,6 +143,6 @@ public class Member extends Person implements Serializable {
         AppMenu.createAppMenuObj("MyCenterMemberExt", "Main", "Center Member", 120).save();
         AppMenu.createAppMenuObj("SearchAllMembersOnlyExt", "Main", "Search Member", 130).save();
         AppMenu.createAppMenuObj("ReferenceForm", "Reference", "Reference", 200).save();
-	runUniqueIndex(8, "firstName", "lastName");
+        runUniqueIndex(8, "firstName", "lastName");
     }
 }

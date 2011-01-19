@@ -102,6 +102,6 @@ public class MemberRegister extends AbstractIBean implements Serializable {
 
     @Override
     public void setupIndex() {
-	runUniqueIndex(1, "memberId", "registerDate");
+    	runUniqueIndex(1, "memberId", "registerDate");
     }
 }

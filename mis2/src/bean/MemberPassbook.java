@@ -99,9 +99,4 @@ public class MemberPassbook extends AbstractIBean implements Serializable {
     public String popupSearch(String criteria) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public void setupIndex() {
-	runUniqueIndex(1, "memberId", "passbookDate");
-    }
 }

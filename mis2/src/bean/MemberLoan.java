@@ -138,6 +138,6 @@ public class MemberLoan extends AbstractIBean implements Serializable {
 
     @Override
     public void setupIndex() {
-	runUniqueIndex(1, "memberId", "releaseDate");
+    	runUniqueIndex(1, "memberId", "releaseDate");
     }
 }

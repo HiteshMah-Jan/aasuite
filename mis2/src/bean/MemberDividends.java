@@ -80,6 +80,6 @@ public class MemberDividends extends AbstractIBean implements Serializable {
 
     @Override
     public void setupIndex() {
-	runUniqueIndex(1, "memberId", "dividendDate");
+    	runUniqueIndex(1, "memberId", "dividendDate");
     }
 }
