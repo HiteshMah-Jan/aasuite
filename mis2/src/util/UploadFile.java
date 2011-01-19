@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import bean.Branch;
+import bean.Center;
 import bean.Member;
 import bean.MemberDividends;
 import bean.MemberLoan;
@@ -73,6 +74,13 @@ public class UploadFile {
 			b.name = branch;
 			b.address = branch;
 			b.save();
+//			create 100 center
+			for (int i=1; i<=100; i++) {
+				Center c = new Center();
+				c.name = i+"";
+				c.branchName = branch;
+				c.save();
+			}
 		}
 		Log.info("Saving Branch and Center");
 	}
