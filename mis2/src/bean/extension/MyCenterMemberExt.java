@@ -49,7 +49,7 @@ import template.screen.TemplateDefault;
 		@ActionButton(name = "btnAddCenterMember", label = "Add Member") }
 )
 @Reports({
-    @template.Report(reportFile="CenterMemberList", reportTitle="Center Member List", reportSql="${center}")
+    @template.Report(reportFile="MemberTransactions", reportTitle="Member Transactions", reportSql="${personId}")
 })
 public class MyCenterMemberExt extends Member {
       public static void main(String[] args) {

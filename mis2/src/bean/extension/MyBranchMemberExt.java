@@ -50,8 +50,8 @@ import bean.MemberRegister;
 		@ActionButton(name = "btnAddBranchMember", label = "Add Member") }
 )
 @Reports({
-    @template.Report(reportFile="CenterMemberList", reportTitle="Center Member List", reportSql="${center}"),
-    @template.Report(reportFile="BranchMemberList", reportTitle="Branch Member List", reportSql="${branch}")
+    @template.Report(reportFile="BranchMemberList", reportTitle="Branch Member List", reportSql="${branch}"),
+    @template.Report(reportFile="MemberTransactions", reportTitle="Member Transactions", reportSql="${personId}")
 })
 public class MyBranchMemberExt extends Member {
       public static void main(String[] args) {
