@@ -78,4 +78,8 @@ public class MemberDividends extends AbstractIBean implements Serializable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void setupIndex() {
+	runUniqueIndex(1, "memberId", "dividendDate");
+    }
 }

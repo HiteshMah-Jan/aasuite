@@ -39,6 +39,14 @@ public class Center extends AbstractIBean implements Serializable {
     @Column(name = "address")
     public String address;
 
+    public Integer getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Integer seq) {
+        this.seq = seq;
+    }
+
     public String getBranchName() {
         return branchName;
     }

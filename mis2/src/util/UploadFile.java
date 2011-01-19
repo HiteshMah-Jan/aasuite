@@ -1,5 +1,7 @@
 package util;
 
+import bean.Branch;
+import bean.Center;
 import java.io.FileInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,17 +29,16 @@ public class UploadFile {
 	private static String branch;
 	
 	public static void main(String[] args) {
-        AAAConfig.getServerInstance();
-	    AAAConfig.server = true;
+            springbean.AAAConfig.getInstance(args);
 		List<List> lst = parseRecords("C:/filename.xls", true);
 		for (List l:lst) {
 			log(l);
 			if (isLineAMember(l)) {
-				int memberId = addMember(l);
-				addLoan(l, memberId);
-				addRegister(l, memberId);
-				addPasbook(l, memberId);
-				addDividends(l, memberId);
+//				int memberId = addMember(l);
+//				addLoan(l, memberId);
+//				addRegister(l, memberId);
+//				addPasbook(l, memberId);
+//				addDividends(l, memberId);
 			}
 			else {
 				checkCenterOrBranch(l);
@@ -58,14 +59,24 @@ public class UploadFile {
 	private static void checkCenterOrBranch(List l) {
 		String s = (String) l.get(0);
 		s = s.trim().toUpperCase();
+                Center c = null;
 		if (s.contains("CENTER")) {
 			center = s;
+                        c = new Center();
+                        c.branchName = branch;
+                        c.name = center;
+                        c.save();
 		}
 		else if (s.contains("BRANCH")) {
 			s = s.replace("BRANCH", "");
 			s = s.replace(":", "");
 			branch = s.trim();
+                        Branch b = new Branch();
+                        b.name = branch;
+                        b.address = branch;
+                        b.save();
 		}
+                Log.info("Saving Branch and Center");
 	}
 
 	private static void addDividends(List l, int memberId) {
