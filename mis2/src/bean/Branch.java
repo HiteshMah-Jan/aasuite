@@ -33,6 +33,8 @@ public class Branch extends AbstractIBean implements Serializable {
     public String name;
     @Column(name = "address")
     public String address;
+    @Column(name = "managedBy")
+    public int managedBy;
 
     public String getAddress() {
         return address;

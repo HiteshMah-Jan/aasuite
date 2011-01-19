@@ -30,7 +30,7 @@ import util.DBClient;
  */
 @Entity
 @Table(name = "Person")
-@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
+@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "branch", "center"})
 @Displays({
         @Display(name="lastName"),
         @Display(name="firstName"),

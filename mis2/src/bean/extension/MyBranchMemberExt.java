@@ -24,7 +24,7 @@ import bean.MemberRegister;
  *
  * @author disney
  */
-@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
+@UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "branch", "center"})
 @Displays({
         @Display(name="lastName", type="Label"),
         @Display(name="firstName", type="Label"),
