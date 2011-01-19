@@ -5,12 +5,11 @@
 
 package bean.extension;
 
-import bean.Center;
-import bean.Member;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateSearchOnly;
+import bean.Member;
 
 /**
  *
@@ -18,10 +17,10 @@ import template.screen.TemplateSearchOnly;
  */
 @UITemplate(template = TemplateSearchOnly.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
 @Displays({
-        @Display(name="lastName"),
-        @Display(name="firstName"),
-        @Display(name="center", type="PopSearch", linktoBean=Center.class),
-        @Display(name="shareDate")
+        @Display(name="lastName", type="Label"),
+        @Display(name="firstName", type="Label"),
+        @Display(name="center", type="Label"),
+        @Display(name="shareDate", type="Label")
 })
 public class SearchAllMembersOnlyExt extends Member {
       public static void main(String[] args) {

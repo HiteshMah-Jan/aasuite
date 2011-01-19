@@ -5,11 +5,6 @@
 
 package bean.extension;
 
-import bean.Member;
-import bean.MemberDividends;
-import bean.MemberLoan;
-import bean.MemberPassbook;
-import bean.MemberRegister;
 import template.ActionButton;
 import template.ActionButtons;
 import template.ChildRecord;
@@ -19,6 +14,11 @@ import template.Displays;
 import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateDefault;
+import bean.Member;
+import bean.MemberDividends;
+import bean.MemberLoan;
+import bean.MemberPassbook;
+import bean.MemberRegister;
 
 /**
  *
@@ -26,14 +26,14 @@ import template.screen.TemplateDefault;
  */
 @UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName", "center"})
 @Displays({
-        @Display(name="lastName"),
-        @Display(name="firstName"),
-        @Display(name="center"),
-        @Display(name="shareDate"),
-        @Display(name="totalLoanAmount"),
-        @Display(name="totalLoanInterest"),
-        @Display(name="totalLoanPayment"),
-        @Display(name="totalDividends")
+        @Display(name="lastName", type="Label"),
+        @Display(name="firstName", type="Label"),
+        @Display(name="center", type="Label"),
+        @Display(name="shareDate", type="Label"),
+        @Display(name="totalLoanAmount", type="Label"),
+        @Display(name="totalLoanInterest", type="Label"),
+        @Display(name="totalLoanPayment", type="Label"),
+        @Display(name="totalDividends", type="Label")
 })
 @ChildRecords(
     value={

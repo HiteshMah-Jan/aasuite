@@ -26,13 +26,13 @@ import template.screen.TemplateDefault;
  */
 @UITemplate(template = TemplateDefault.class, gridCount=4, columnSearch = {"lastName", "firstName"})
 @Displays({
-        @Display(name="lastName"),
-        @Display(name="firstName"),
-        @Display(name="shareDate"),
-        @Display(name="totalLoanAmount"),
-        @Display(name="totalLoanInterest"),
-        @Display(name="totalLoanPayment"),
-        @Display(name="totalDividends")
+        @Display(name="lastName", type="Label"),
+        @Display(name="firstName", type="Label"),
+        @Display(name="shareDate", type="Label"),
+        @Display(name="totalLoanAmount", type="Label"),
+        @Display(name="totalLoanInterest", type="Label"),
+        @Display(name="totalLoanPayment", type="Label"),
+        @Display(name="totalDividends", type="Label")
 })
 @ChildRecords(
     value={
