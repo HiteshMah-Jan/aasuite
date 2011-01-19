@@ -24,7 +24,7 @@ import bean.MemberPassbook;
 import bean.MemberRegister;
 
 public class UploadFile {
-	private static String center;
+	private static int center;
 	private static String branch;
 
 	public static void main(String[] args) {
@@ -63,8 +63,8 @@ public class UploadFile {
 		String s = (String) l.get(0);
 		s = s.trim().toUpperCase();
 		if (s.contains("CENTER")) {
-			center = s.replace("CENTER", "").trim();
-			center = Integer.parseInt(center) + "";
+			s = s.replace("CENTER", "").trim();
+			center = Integer.parseInt(s);
 		} else if (s.contains("BRANCH")) {
 			s = s.replace("BRANCH", "");
 			s = s.replace(":", "");
@@ -192,7 +192,7 @@ public class UploadFile {
 			m.setFirstName(firstName.toUpperCase());
 			m.setLastName(lastName.toUpperCase());
 			m.branch = branch.toUpperCase();
-			m.center = center.toUpperCase();
+			m.center = center;
 			m.save();
 		}
 		return m.personId;

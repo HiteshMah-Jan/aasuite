@@ -63,7 +63,7 @@ public class Member extends Person implements Serializable {
     @Column(name = "branch")
     public String branch;
     @Column(name = "center")
-    public String center;
+    public Integer center;
     @Column(name = "shareDate")
     @Temporal(value = javax.persistence.TemporalType.DATE)
     public Date shareDate;
@@ -116,11 +116,11 @@ public class Member extends Person implements Serializable {
         this.branch = branch;
     }
 
-    public String getCenter() {
+    public Integer getCenter() {
         return center;
     }
 
-    public void setCenter(String center) {
+    public void setCenter(Integer center) {
         this.center = center;
     }
 
