@@ -192,12 +192,28 @@ public class UploadFile {
 		String name = (String) l.get(1);
 		String[] arr = name.split(" ");
 		String firstName = arr[0];
+		String middleInitial = "";
 		String lastName = arr[1];
+		if (lastName!=null) {
+			if (lastName.contains(".") && lastName.length()==2) {
+				middleInitial = lastName.replace(".", "");
+			}
+			else if (lastName.length()==1) {
+				middleInitial = lastName.replace(".", "");
+			}
+		}
+		if (arr.length==3) {
+			lastName = arr[2];
+		}
+		else if (arr.length==4) {
+			lastName = arr[2]+" "+arr[3];
+		}
 //		check for existing member
 		Member m = (Member) DBClient.getFirstRecord("SELECT a FROM Member a WHERE a.firstName='",firstName.toUpperCase(),"' AND a.lastName='",lastName.toUpperCase(),"'");
 		if (m==null || m.personId==null || m.personId==0) {
 			m = new Member();
 			m.setFirstName(firstName.toUpperCase());
+			m.setMiddleInitial(middleInitial);
 			m.setLastName(lastName.toUpperCase());
 			m.branch = branch.toUpperCase();
 			m.center = center;
@@ -251,7 +267,7 @@ public class UploadFile {
 		}
 		return sb.toString();
 	}
-	
+
 	private static List<List> parseRecords(String filename, boolean removeHeader) {
 		List<List> lstRow = new ArrayList<List>();
 		try {
