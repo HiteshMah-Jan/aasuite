@@ -20,7 +20,7 @@ import util.BeanUtil;
  */
 @Entity
 @Table(name = "BookSaleRef")
-@UITemplate(template = TemplateSinglePage.class, gridCount = 4, 
+@UITemplate(template = TemplateSinglePage.class, gridCount = 4,
     columnSearch = {"code","title","schoolYear","course","gradeLevel","amount"}, orderBy="a.schoolYear DESC, a.course, a.gradeLevel, a.code")
 @Displays({
         @Display(name="code"),
@@ -28,7 +28,7 @@ import util.BeanUtil;
         @Display(name="author"),
         @Display(name="schoolYear"),
         @Display(name="course", type="PopSearch", linktoBean=Course.class),
-        @Display(name="gradeLevel", type="Combo", modelCombo={"1","2","3","4","5","6","7"}),
+        @Display(name="gradeLevel", type="PopSearch", linktoBean=GradeLevel.class),
         @Display(name="description"),
         @Display(name="amount")
 })
@@ -140,7 +140,7 @@ public class BookSaleRef extends AbstractIBean {
     public boolean cacheClient() {
         return true;
     }
-	
+
 	@Override
 	public void setupIndex() {
 		runIndex(1, "gradeLevel");
