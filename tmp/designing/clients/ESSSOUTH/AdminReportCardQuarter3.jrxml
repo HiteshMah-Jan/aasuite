@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SectionReportCardQuarter3"
+		 name="AdminReportCardQuarter3"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -23,9 +23,6 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="PARAM_section" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["Guimaras"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="PARAM_schoolYear" isForPrompting="false" class="java.lang.String">
 		<defaultValueExpression ><![CDATA["2010-2011"]]></defaultValueExpression>
 	</parameter>
@@ -46,7 +43,6 @@ FROM
 WHERE
      person.status ='ENROLLED'
 AND  person.gradeLevel is not null  AND person.section is not null
-AND person.section=$P{PARAM_section}  
 ORDER BY
     person.gradeLevel,person.section,person.gender desc, person.lastname, person.firstname]]></queryString>
 
@@ -99,7 +95,7 @@ ORDER BY
 						<subreportParameterExpression><![CDATA[$P{PARAM_schoolYear}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESSSOUTH\\grading\\"+$F{person_gradeLevel}+"_ReportCardQuarter.jasper"]]></subreportExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA["C:\\tmp\\designing\\clients\\ESS\\grading\\"+$F{person_gradeLevel}+"_ReportCardQuarter.jasper"]]></subreportExpression>
 				</subreport>
 			</band>
 		</detail>
