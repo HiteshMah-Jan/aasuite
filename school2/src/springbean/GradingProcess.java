@@ -22,14 +22,14 @@ public class GradingProcess implements Runnable {
 	String section;
 	int quarter;
 	public boolean runHonors;
-	
+
 	public GradingProcess(String schoolYear, String section, int quarter) {
 		this.schoolYear = schoolYear;
 		this.section = section;
 		this.quarter = quarter;
         runHonors = true;
 	}
-	
+
 	public static void rankAll(int quarter) {
 		if (UserInfo.loginUser.isSuperAAA()) {
 			if (PanelUtil.showPrompt(null, "Ranking for all section would take several minutes, continue?")) {
@@ -43,11 +43,11 @@ public class GradingProcess implements Runnable {
 			}
 		}
 	}
-	
+
 	public void run() {
 		setupRank();
 	}
-	
+
 	public void setupRank() {
 		String gpaStr = BeanUtil.concat("gpa",quarter);
 		if (quarter==5) {
@@ -84,10 +84,10 @@ public class GradingProcess implements Runnable {
 			counter++;
 		}
 		DBClient.runBatchNative(sql);
-		
+
 		System.out.print("RANKING DONE.");
 		PanelUtil.hideWaitFrame();
-		
+
 		if (runHonors) {
 			setHonors();
 		}
@@ -101,7 +101,7 @@ public class GradingProcess implements Runnable {
 		}
 		return null;
 	}
-	
+
 	private Enrollment getEnrollment(List<Enrollment> lst, int studentid) {
 		for (Enrollment s:lst) {
 			if (s.studentId==studentid) {
@@ -115,9 +115,9 @@ public class GradingProcess implements Runnable {
 		PanelUtil.showWaitFrame("Check student merit.");
 		Log.out("Check student merit.");
 		Section sec = (Section) AbstractIBean.objCache("SELECT a FROM Section a WHERE a.code='",section,"'");
-		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.studentId>0 AND a.gradeLevel='",sec.gradeLevel,"'");
-		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a WHERE a.studentId>0 AND a.gradeLevel='",sec.gradeLevel,"'");
-		
+		List<StudentValuesGrading> vallst = DBClient.getList("SELECT a FROM StudentValuesGrading a, Student b WHERE a.studentId=b.personId AND a.gradeLevel=b.gradeLevel AND a.gradeLevel='",sec.gradeLevel,"' AND b.section='",section,"'");
+		List<Enrollment> elst = DBClient.getList("SELECT a FROM Enrollment a, Student b WHERE a.studentId=b.personId AND a.gradeLevel=b.gradeLevel AND a.gradeLevel='",sec.gradeLevel,"' AND b.section='",section,"'");
+
 //		1. get all enrolled students
 		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",section,"'");
 		for (Student s:lst) {
@@ -294,7 +294,7 @@ public class GradingProcess implements Runnable {
 		avelow.isHonor = false;
 		return avelow;
 	}
-	
+
 	protected AveLow isHonor(Student s, double average, int lowest, int quarter, String[] grades, Enrollment e) {
 		AveLow avelow = new AveLow();
 //		check lowest, use enrollment
@@ -334,10 +334,10 @@ public class GradingProcess implements Runnable {
 		avelow.isHonor = false;
 		return avelow;
 	}
-	
+
 	private static class AveLow {
 		double average;
 		double lowest;
 		boolean isHonor;
-	}	
+	}
 }

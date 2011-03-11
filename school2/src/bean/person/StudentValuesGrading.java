@@ -39,7 +39,7 @@ import bean.reference.Section;
 import constants.UserInfo;
 
 /**
- * 
+ *
  * @author Charliemagne Mark
  */
 @Entity
@@ -66,7 +66,7 @@ import constants.UserInfo;
 // @ParentAddInfo(title = "Psychomotor Development", gridCount = 2,
 // displayFields =
 // {"ap","ce","tc","cfp","df","wlr","cst","ocs","cwp","cp","pa"})
-//    
+//
 })
 @DisplayGroups( {
 
@@ -294,7 +294,7 @@ import constants.UserInfo;
 		@Display(name = "pa3", addInfoOnly = true, label = "Pastes Accurately", width = 30, hideLabel = true),
 		@Display(name = "pa4", addInfoOnly = true, label = "Pastes Accurately", width = 30, hideLabel = true),
 		@Display(name = "paFinal", enabled = false, addInfoOnly = true, label = "Pastes Accurately", width = 30, hideLabel = true),
-                
+
 		@Display(name = "cfp", addInfoOnly = true, label = "Can Follow Patterns", width = 30),
 		@Display(name = "cfp2", addInfoOnly = true, label = "Can Follow Patterns", width = 30, hideLabel = true),
 		@Display(name = "cfp3", addInfoOnly = true, label = "Can Follow Patterns", width = 30, hideLabel = true),
@@ -305,9 +305,9 @@ import constants.UserInfo;
 		@Display(name = "cst3", addInfoOnly = true, label = "Is Concious of Stroke Terminals", width = 30, hideLabel = true),
 		@Display(name = "cst4", addInfoOnly = true, label = "Is Concious of Stroke Terminals", width = 30, hideLabel = true),
 		@Display(name = "cstFinal", enabled = false, addInfoOnly = true, label = "Is Concious of Stroke Terminals", width = 30, hideLabel = true),
-		
-		
-		
+
+
+
 
 		// Mega Skill
 		@Display(name = "con", addInfoOnly = true, leftLabel = "Confidence", labelTop = true, label = "1st", width = 30),
@@ -511,7 +511,7 @@ import constants.UserInfo;
     @template.Report(reportFile = "Q2_ValuesGrades", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_ValuesGrades", reportTitle = "3", reportSql = "${section}"),
     @template.Report(reportFile = "Q4_ValuesGrades", reportTitle = "4", reportSql = "${section}"),
-    @template.Report(reportFile = "QAll_ValuesGrades", reportTitle = "Values Final", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_ValuesGrades", reportTitle = "Final", reportSql = "${section}"),
     @template.Report(reportFile = "Q1_NarrativeGrades", reportTitle = "Narr. 1st Qtr.", reportSql = "${section}"),
     @template.Report(reportFile = "Q2_NarrativeGrades", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_NarrativeGrades", reportTitle = "3", reportSql = "${section}"),
@@ -520,6 +520,7 @@ import constants.UserInfo;
     @template.Report(reportFile = "Q2_Grades", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_Grades", reportTitle = "3", reportSql = "${section}"),
     @template.Report(reportFile = "Q4_Grades", reportTitle = "4", reportSql = "${section}"),
+    @template.Report(reportFile = "QAll_Grades", reportTitle = "Final", reportSql = "${section}"),
     @template.Report(reportFile = "Q1_GradesAll", reportTitle = "Admin 1st", reportSql = "${section}"),
     @template.Report(reportFile = "Q2_GradesAll", reportTitle = "2", reportSql = "${section}"),
     @template.Report(reportFile = "Q3_GradesAll", reportTitle = "3", reportSql = "${section}"),
@@ -531,7 +532,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	public int getRecordListCount() {
 		return 100;
 	}
-	
+
 	@Override
 	public void delete() {
 		LockGrading s = LockGrading.extractGrading(schoolYear);
@@ -1373,11 +1374,11 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	public double valuesPromotedAverageFinal;
 	@Column(name = "zl2AverageFinal")
 	public double zl2AverageFinal;
-       
+
         @Column(name = "gpaValuesFinal")
         public double gpaValuesFinal;
 
-   
+
         public double getGpaValuesFinal() {
         return gpaValuesFinal;
     }
@@ -1385,8 +1386,8 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
     public void setGpaValuesFinal(double gpaValuesFinal) {
         this.gpaValuesFinal = gpaValuesFinal;
     }
-        
-        
+
+
 
 	public double getAffectiveAverageFinal() {
 		return affectiveAverageFinal;
@@ -2227,12 +2228,12 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		present2 = totalDays2-absent2;
 		present3 = totalDays3-absent3;
 		present4 = totalDays4-absent4;
-		
+
 		affectiveAverage1 = extractAverage("", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage2 = extractAverage("2", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage3 = extractAverage("3", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
 		affectiveAverage4 = extractAverage("4", "kp","fh","fr","aw","ft","ic","ih","wi","id","neatAndOrganize","de","wp","hs","ir","ls");
-		
+
 		psychomotorAverage1 = extractAverage("", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage2 = extractAverage("2", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
 		psychomotorAverage3 = extractAverage("3", "ap", "ce", "tc", "cfp", "df", "wlr", "cst", "ocs", "cwp", "cp", "pa");
@@ -2253,7 +2254,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		zl2Average3 = extractAverage("3", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average4 = extractAverage("4", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		scoutingFinal = extractAverageDouble("", "scouting", "scouting2", "scouting3", "scouting4");
-		
+
 		if ("|K1|N1|P1|K2|N2|P2|".contains(gradeLevel)) {
 			affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");
 			psychomotorAverageFinal = extractAverage("", "psychomotorAverage1", "psychomotorAverage2", "psychomotorAverage3", "psychomotorAverage4");
@@ -2305,7 +2306,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		catch (Exception e) {
 		}
 	}
-	
+
 	private int extractAverage(String quarter, String...str) {
 		double totalScore = 0;
 		double totalCount = 0;
@@ -2324,7 +2325,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 			return (int) ((totalScore/totalCount)+.5);
 		}
 	}
-	
+
 	private double extractAverageDouble(String quarter, String...str) {
 		double totalScore = 0;
 		double totalCount = 0;
@@ -4719,7 +4720,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 
 	public void putDays() {
 		CourseTotalDays tot = CourseTotalDays.extractTotalGradeLevelDays(gradeLevel);
-		
+
 		jan = tot.jan;
 		feb = tot.feb;
 		mar = tot.mar;
@@ -4738,7 +4739,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		totalDays3 = tot.q3;
 		totalDays4 = tot.q4;
 	}
-	
+
 	@Override
 	public void setupIndex() {
 		runIndex(1, "section", "studentId");
