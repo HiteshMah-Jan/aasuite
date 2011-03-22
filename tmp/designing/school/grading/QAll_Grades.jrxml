@@ -73,7 +73,7 @@
      studentvaluesgrading.`valuesPromotedAverageFinal` AS ValuesPromotedAverage1,
      studentvaluesgrading.`zl2AverageFinal` AS Zl2Average1,
      studentvaluesgrading.`scouting` AS scouting,
-     clubsAndParticipation AS CLUB,
+     ((clubsAndParticipation+clubsAndParticipation2+clubsAndParticipation3+clubsAndParticipation4)/4)+.5 AS CLUB,
      ((studentvaluesgrading.`absent`)+(studentvaluesgrading.`absent2`)+(studentvaluesgrading.`absent3`)+(studentvaluesgrading.`absent4`))AS totalDaysAbsent,
      ((studentvaluesgrading.`present`)+(studentvaluesgrading.`present2`)+(studentvaluesgrading.`present3`)+(studentvaluesgrading.`present4`))AS totalDaysPresent,
      ((studentvaluesgrading.`tardy`)+(studentvaluesgrading.`tardy2`)+(studentvaluesgrading.`tardy3`)+(studentvaluesgrading.`tardy4`))AS totalTardy,
@@ -139,7 +139,7 @@ ORDER BY
 	<field name="ValuesPromotedAverage1" class="java.lang.Double"/>
 	<field name="Zl2Average1" class="java.lang.Double"/>
 	<field name="scouting" class="java.lang.Integer"/>
-	<field name="CLUB" class="java.lang.Integer"/>
+	<field name="CLUB" class="java.math.BigDecimal"/>
 	<field name="totalDaysAbsent" class="java.lang.Long"/>
 	<field name="totalDaysPresent" class="java.lang.Long"/>
 	<field name="totalTardy" class="java.lang.Long"/>
@@ -1616,7 +1616,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{CLUB}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{CLUB}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
