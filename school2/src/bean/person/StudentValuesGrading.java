@@ -2254,6 +2254,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 		zl2Average3 = extractAverage("3", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		zl2Average4 = extractAverage("4", "pfe", "cra", "ca", "kin", "ec1", "ec2");
 		scoutingFinal = extractAverageDouble("", "scouting", "scouting2", "scouting3", "scouting4");
+		clubsAndParticipationFinal = (int) extractAverageDouble("", "clubsAndParticipation", "clubsAndParticipation2", "clubsAndParticipation3", "clubsAndParticipation4");
 
 		if ("|K1|N1|P1|K2|N2|P2|".contains(gradeLevel)) {
 			affectiveAverageFinal = extractAverage("", "affectiveAverage1", "affectiveAverage2", "affectiveAverage3", "affectiveAverage4");

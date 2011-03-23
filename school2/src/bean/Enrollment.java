@@ -131,7 +131,7 @@ showChart = false, orderBy="a.student")
 //       @template.Report(reportFile = "officialOrganizationalListElementary1", reportTitle = "Grade 1-3 Org List", reportSql = ""),
 //        @template.Report(reportFile = "officialOrganizationalListElementary2", reportTitle = "Grade 1-4 Org List", reportSql = ""),
 //         @template.Report(reportFile = "officialOrganizationalListHighschool", reportTitle = "High School Org List", reportSql = "")
-    
+
 //    @template.Report(reportFile = "AccountsReceivableSchedule", reportTitle = "Schedule of Accounts Receivables", reportSql = "${section}")
 //    @template.Report(reportFile = "StudentLastAttendedSchool", reportTitle = "Student Last Attended School", reportSql = "${section}")
 })
@@ -153,7 +153,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		}
 		return DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",gradeLevel,"' AND a.studentId=",studentId));
 	}
-	
+
 	public void calculateQ1() {
 		List<StudentSubject> lst = extractSubjects();
 		double totalGpa = 0;
@@ -165,7 +165,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
         changeSupport.firePropertyChange("gpa1", gpa1, gpa1=doubleVal(totalGpa/totalUnit));
 		save();
 	}
-	
+
 	public void calculateQ2() {
 		List<StudentSubject> lst = extractSubjects();
 		double totalGpa = 0;
@@ -213,7 +213,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		}
 		save();
 	}
-	
+
 	public void extractAllGrades() {
 //		get all the studentsubject then put all grades in fields
 		List<StudentSubject> lst = extractSubjects();
@@ -226,7 +226,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 			}
 		}
 	}
-	
+
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
@@ -397,7 +397,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double gpa4;
     @Column(name = "gpaFinal")
     public double gpaFinal;
-    
+
     @Column(name = "rankQ1")
     public int rankQ1;
     @Column(name = "rankQ2")
@@ -444,7 +444,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q4OpMath;
     @Column(name = "qallOpMath")
     public double qallOpMath;
-    
+
     @Column(name = "q1Math")
     public double q1Math;
     @Column(name = "q1Math2")
@@ -473,7 +473,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q1Writing;
     @Column(name = "q1Computer")
     public double q1Computer;
-    
+
     @Column(name = "q1CCF")
     public double q1CCF;
     @Column(name = "q1AP")
@@ -596,7 +596,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q3Writing;
     @Column(name = "q3Computer")
     public double q3Computer;
-    
+
     @Column(name = "q3CCF")
     public double q3CCF;
     @Column(name = "q3AP")
@@ -653,7 +653,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q4Writing;
     @Column(name = "q4Computer")
     public double q4Computer;
-    
+
     @Column(name = "q4CCF")
     public double q4CCF;
     @Column(name = "q4AP")
@@ -710,7 +710,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double qallWriting;
     @Column(name = "qallComputer")
     public double qallComputer;
-    
+
     @Column(name = "qallCCF")
     public double qallCCF;
     @Column(name = "qallAP")
@@ -836,7 +836,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public int schedule14;
     @Column(name = "schedule15")
     public int schedule15;
-    
+
     @Column(name = "subject1")
     public String subject1;
     @Column(name = "subject2")
@@ -898,7 +898,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double unit14;
     @Column(name = "unit15")
     public double unit15;
-    
+
     @Column(name = "faculty1")
     public int faculty1;
     @Column(name = "faculty2")
@@ -966,7 +966,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double totalAmount;
     @Column(name = "college")
     public boolean college;
-    
+
     @Column(name = "q1Research")
     public double q1Research;
     @Column(name = "q2Research")
@@ -977,7 +977,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double q4Research;
     @Column(name = "qallResearch")
     public double qallResearch;
-    
+
     @Column(name = "q1Health")
     public double q1Health;
     @Column(name = "q2Health")
@@ -1009,7 +1009,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
         this.retainedAs = retainedAs;
     }
 
-    
+
     public double getQallHealth() {
 		return qallHealth;
 	}
@@ -2794,7 +2794,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 	public void setQ4ChineseB(double chineseB) {
 		q4ChineseB = chineseB;
 	}
-	
+
 	public double getQ1Math2() {
 		return q1Math2;
 	}
@@ -3174,8 +3174,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public double getGpaValues3() {
         return gpaValues3;
     }
- 
-    public void setGpaValues3(double gpaValues3) { 
+
+    public void setGpaValues3(double gpaValues3) {
         this.gpaValues3 = gpaValues3;
     }
 
@@ -3234,7 +3234,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
     public void setQallTEPP(double qallTEPP) {
         this.qallTEPP = qallTEPP;
     }
-    
+
     @Override
     public String popupSearch(String criteria) {
         return buildSearch(criteria, "schoolYear","semester", "gradeLevel");
@@ -3281,7 +3281,8 @@ public class Enrollment extends AbstractIBean implements Serializable {
 				"Filipino",
 				"VP",
 				"ZL",
-				"MC");
+				"MC",
+				"Health");
 //		check merit for final
 		String meritAll = BeanUtil.concat("|",meritQ1,"|",meritQ2,"|",meritQ3,"|",meritQ4,"|");
 		if (meritAll.contains("||") || meritAll.contains("|null|")) {
@@ -3429,7 +3430,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
         this.requestedDiscountBy = requestedDiscountBy;
     }
 
-   
+
     public Date getRequestedDiscountDate() {
         return requestedDiscountDate;
     }
@@ -4086,7 +4087,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		runIndex(3, "studentId","gradeLevel");
 		runUniqueIndex(4, "studentId","gradeLevel");
 	}
-	
+
 	public boolean noConflict() {
 		List<Integer> duplicateLst = new ArrayList();
 		for (int i=1; i<=15; i++) {
@@ -4097,7 +4098,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 			}
 			duplicateLst.add(val);
 		}
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append(schedule1).append(",");
 		sb.append(schedule2).append(",");
@@ -4117,7 +4118,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
 		List<Schedule> lst = DBClient.getList("SELECT a FROM Schedule a WHERE a.seq IN (",sb.toString(),")");
 		return Schedule.noConflict(lst);
 	}
-	
+
 	public void linkSubjects() {
 		for (int i=1; i<=15; i++) {
 			Object sub = BeanUtil.getPropertyValue(this, BeanUtil.concat("subject",i));
