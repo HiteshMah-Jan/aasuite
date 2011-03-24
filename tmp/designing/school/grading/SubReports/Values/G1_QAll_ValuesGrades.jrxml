@@ -48,10 +48,10 @@
      teaFinal tea,
      comFinal com,
      proFinal pro,
-     clubsAndParticipationFinal clubsAndParticipation,
+     ((studentvaluesgrading.`scouting`+studentvaluesgrading.`scouting2`+studentvaluesgrading.`scouting3`+studentvaluesgrading.`scouting4`)/4)+.5 AS scouting,
+     ((clubsAndParticipation+clubsAndParticipation2+clubsAndParticipation3+clubsAndParticipation4)/4)+.5 AS clubsAndParticipation,
      focusFinal focus,
      respectFinal respect,
-     scoutingFinal scouting,
      studentvaluesgrading.`affectiveAverageFinal` AS AffectiveAverage1,
      studentvaluesgrading.`megaskillAverageFinal` AS MegaskillAverage1,
      studentvaluesgrading.`psychomotorAverageFinal` AS PsychomotorAverage1,
@@ -93,10 +93,10 @@ ORDER BY
 	<field name="tea" class="java.lang.Integer"/>
 	<field name="com" class="java.lang.Integer"/>
 	<field name="pro" class="java.lang.Integer"/>
-	<field name="clubsAndParticipation" class="java.lang.Integer"/>
+	<field name="scouting" class="java.math.BigDecimal"/>
+	<field name="clubsAndParticipation" class="java.math.BigDecimal"/>
 	<field name="focus" class="java.lang.Integer"/>
 	<field name="respect" class="java.lang.Integer"/>
-	<field name="scouting" class="java.lang.Double"/>
 	<field name="AffectiveAverage1" class="java.lang.Double"/>
 	<field name="MegaskillAverage1" class="java.lang.Double"/>
 	<field name="PsychomotorAverage1" class="java.lang.Double"/>
@@ -614,7 +614,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{con}.intValue()==1?"NI":$F{con}.intValue()==2?"MS":$F{con}.intValue()==3?"S":$F{con}.intValue()==4?"HS":$F{con}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{con}.intValue()>1?$F{con}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -632,7 +632,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mot}.intValue()==1?"NI":$F{mot}.intValue()==2?"MS":$F{mot}.intValue()==3?"S":$F{mot}.intValue()==4?"HS":$F{mot}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{mot}.intValue()>1?$F{mot}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -650,7 +650,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{eff}.intValue()==1?"NI":$F{eff}.intValue()==2?"MS":$F{eff}.intValue()==3?"S":$F{eff}.intValue()==4?"HS":$F{eff}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{eff}.intValue()>1?$F{eff}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -668,7 +668,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{res}.intValue()==1?"NI":$F{res}.intValue()==2?"MS":$F{res}.intValue()==3?"S":$F{res}.intValue()==4?"HS":$F{res}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{res}.intValue()>1?$F{res}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -686,7 +686,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ini}.intValue()==1?"NI":$F{ini}.intValue()==2?"MS":$F{ini}.intValue()==3?"S":$F{ini}.intValue()==4?"HS":$F{ini}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ini}.intValue()>1?$F{ini}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -704,7 +704,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{per}.intValue()==1?"NI":$F{per}.intValue()==2?"MS":$F{per}.intValue()==3?"S":$F{per}.intValue()==4?"HS":$F{per}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{per}.intValue()>1?$F{per}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -722,7 +722,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{car}.intValue()==1?"NI":$F{car}.intValue()==2?"MS":$F{car}.intValue()==3?"S":$F{car}.intValue()==4?"HS":$F{car}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{car}.intValue()>1?$F{car}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -740,7 +740,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tea}.intValue()==1?"NI":$F{tea}.intValue()==2?"MS":$F{tea}.intValue()==3?"S":$F{tea}.intValue()==4?"HS":$F{tea}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tea}.intValue()>1?$F{tea}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -758,7 +758,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{com}.intValue()==1?"NI":$F{com}.intValue()==2?"MS":$F{com}.intValue()==3?"S":$F{com}.intValue()==4?"HS":$F{com}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{com}.intValue()>1?$F{com}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -776,7 +776,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pro}.intValue()==1?"NI":$F{pro}.intValue()==2?"MS":$F{pro}.intValue()==3?"S":$F{pro}.intValue()==4?"HS":$F{pro}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{pro}.intValue()>1?$F{pro}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -794,7 +794,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{clubsAndParticipation}.intValue()==1?"NI":$F{clubsAndParticipation}.intValue()==2?"MS":$F{clubsAndParticipation}.intValue()==3?"S":$F{clubsAndParticipation}.intValue()==4?"HS":$F{clubsAndParticipation}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{clubsAndParticipation}.intValue()>1?$F{clubsAndParticipation}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -812,7 +812,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{focus}.intValue()==1?"NI":$F{focus}.intValue()==2?"MS":$F{focus}.intValue()==3?"S":$F{focus}.intValue()==4?"HS":$F{focus}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{focus}.intValue()>1?$F{focus}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -830,7 +830,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{respect}.intValue()==1?"NI":$F{respect}.intValue()==2?"MS":$F{respect}.intValue()==3?"S":$F{respect}.intValue()==4?"HS":$F{respect}.intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{respect}.intValue()>1?$F{respect}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -848,7 +848,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{scouting}.intValue()==1?"NI":$F{scouting}.intValue()==2?"MS":$F{scouting}.intValue()==3?"S":$F{scouting}.intValue()==4?"HS":$F{scouting}.intValue()==5?"O":$F{scouting}.intValue()+""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{scouting}.intValue()>1?$F{scouting}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -866,7 +866,7 @@ ORDER BY
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==1?"NI":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==2?"MS":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==3?"S":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==4?"HS":new Double($F{MegaskillAverage1}.doubleValue()+.5).intValue()==5?"O":"-"]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MegaskillAverage1}.intValue()>1?$F{MegaskillAverage1}.intValue()+"":"-"]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

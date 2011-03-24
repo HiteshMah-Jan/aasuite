@@ -23,8 +23,8 @@
 	<import value="net.sf.jasperreports.engine.*" />
 	<import value="net.sf.jasperreports.engine.data.*" />
 
-	<parameter name="REPORT_ADD_WHERE" isForPrompting="false" class="java.lang.String">
-		<defaultValueExpression ><![CDATA["HIAWATHA"]]></defaultValueExpression>
+	<parameter name="REPORT_ADD_WHERE" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["BATANGAS"]]></defaultValueExpression>
 	</parameter>
 	<queryString><![CDATA[SELECT
      person.`studentNumber` AS SN,
@@ -72,7 +72,7 @@
      studentvaluesgrading.`psychomotorAverageFinal` AS PsychomotorAverage1,
      studentvaluesgrading.`valuesPromotedAverageFinal` AS ValuesPromotedAverage1,
      studentvaluesgrading.`zl2AverageFinal` AS Zl2Average1,
-     studentvaluesgrading.`scoutingFinal` AS scouting,
+     ((studentvaluesgrading.`scouting`+studentvaluesgrading.`scouting2`+studentvaluesgrading.`scouting3`+studentvaluesgrading.`scouting4`)/4)+.5 AS scouting,
      ((clubsAndParticipation+clubsAndParticipation2+clubsAndParticipation3+clubsAndParticipation4)/4)+.5 AS CLUB,
      ((studentvaluesgrading.`absent`)+(studentvaluesgrading.`absent2`)+(studentvaluesgrading.`absent3`)+(studentvaluesgrading.`absent4`))AS totalDaysAbsent,
      ((studentvaluesgrading.`present`)+(studentvaluesgrading.`present2`)+(studentvaluesgrading.`present3`)+(studentvaluesgrading.`present4`))AS totalDaysPresent,
@@ -138,7 +138,7 @@ ORDER BY
 	<field name="PsychomotorAverage1" class="java.lang.Double"/>
 	<field name="ValuesPromotedAverage1" class="java.lang.Double"/>
 	<field name="Zl2Average1" class="java.lang.Double"/>
-	<field name="scouting" class="java.lang.Double"/>
+	<field name="scouting" class="java.math.BigDecimal"/>
 	<field name="CLUB" class="java.math.BigDecimal"/>
 	<field name="totalDaysAbsent" class="java.lang.Long"/>
 	<field name="totalDaysPresent" class="java.lang.Long"/>
@@ -1508,7 +1508,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{scouting}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{scouting}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -1616,7 +1616,7 @@ ORDER BY
 					<textElement>
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{CLUB}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[new Double($F{CLUB}.intValue())]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
