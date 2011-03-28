@@ -13,7 +13,7 @@ import bean.reference.Subject;
 
 public class StudentSubjectToEnrollmentGrade {
 	private List<Subject> allsubs;
-	
+
 	private Subject getSubject(String code) {
 		for (Subject sub:allsubs) {
 			if (code.equals(sub.code)) {
@@ -22,7 +22,7 @@ public class StudentSubjectToEnrollmentGrade {
 		}
 		return null;
 	}
-	
+
 	public StudentSubjectToEnrollmentGrade(List<Subject> allsubs) {
 		this.allsubs = allsubs;
 	}
@@ -85,7 +85,7 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3MAPEH = totalMAPEH3/totalMAPEHUnits3;
 		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4MAPEH = totalMAPEH4/totalMAPEHUnits4;
 	}
-	
+
     protected void putAllTEPP(Enrollment e, List<StudentSubject> l) {
 		double totalMAPEHUnits1 = 0;
 		double totalMAPEHUnits2 = 0;
@@ -126,7 +126,7 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalMAPEH3>0 && totalMAPEHUnits3>0) e.q3TEPP = totalMAPEH3/totalMAPEHUnits3;
 		if (totalMAPEH4>0 && totalMAPEHUnits4>0) e.q4TEPP = totalMAPEH4/totalMAPEHUnits4;
 	}
-	
+
 	protected void putAllMakabayan(Enrollment e, List<StudentSubject> l) {
 		double totalMAPEHUnits1 = 0;
 		double totalMAPEHUnits2 = 0;
@@ -140,20 +140,20 @@ public class StudentSubjectToEnrollmentGrade {
 	        String mysub = s.subject.toUpperCase();
 	        mysub = mysub.replaceAll("MAPEH", "");
 	        mysub = mysub.replaceAll("MK", "");
-			if (mysub.contains("MUSIC") || 
-					mysub.contains("ART") || 
-					mysub.contains("PE") || 
-					mysub.contains("HEALTH") || 
-					mysub.contains("AP") || 
-					mysub.contains("HEKASI") || 
-					mysub.contains("SIBIKA") || 
-					mysub.contains("TLE") || 
-					mysub.contains("COMPUTER") || 
-					mysub.contains("TEPP") || 
-					mysub.contains("EP") || 
-					mysub.contains("SOCIAL") || 
-					mysub.contains("HELE") || 
-					mysub.contains("HELE") || 
+			if (mysub.contains("MUSIC") ||
+					mysub.contains("ART") ||
+					mysub.contains("PE") ||
+					mysub.contains("HEALTH") ||
+					mysub.contains("AP") ||
+					mysub.contains("HEKASI") ||
+					mysub.contains("SIBIKA") ||
+					mysub.contains("TLE") ||
+					mysub.contains("COMPUTER") ||
+					mysub.contains("TEPP") ||
+					mysub.contains("EP") ||
+					mysub.contains("SOCIAL") ||
+					mysub.contains("HELE") ||
+					mysub.contains("HELE") ||
 					mysub.contains("GK")) {
 				Subject subject = getSubject(s.subject);
 				if (subject != null && subject.unit>0) {
@@ -221,46 +221,49 @@ public class StudentSubjectToEnrollmentGrade {
 		if (totalGPA3>0 && totalUnits3>0) e.gpa3 = DataUtil.getMoneyFormat(totalGPA3/totalUnits3);
 		if (totalGPA4>0 && totalUnits4>0) e.gpa4 = DataUtil.getMoneyFormat(totalGPA4/totalUnits4);
 	}
-	
+
 	private void calculateGPA(Enrollment e, List<StudentSubject> l) {
-		if (AppConfig.isGradingGPAStraightAverage(e.gradeLevel)) {	//for ESS = "|P1|P2|K1|K2|N1|N2|"
-			e.gpaFinal = DataUtil.getMoneyFormat( (e.gpa1+e.gpa2+e.gpa3+e.gpa4)/4 );
-		}
-		else {
-			double totalUnits = 0;
-			double totalGPAFinal = 0;
-			for (StudentSubject s:l) {
-				Subject subject = getSubject(s.subject);
-				if (subject == null) {
-					Log.out("NULL SUBJECT == ",s.subject," -> ",s.studentName);
-				}
-				if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
-			        String mysub = s.subject.toUpperCase();
-			        mysub = mysub.replaceAll("MAPEH", "");
-			        mysub = mysub.replaceAll("MK", "");
-					if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
-//						this is mapeh, which is causing the discrepancy
-						Log.out("MAPEH SUBJECT " + s.subject);
-						continue;
+		e.gpaFinal = GPACalculator.calculateGPA(e);
+		if (e.gpaFinal == -1) {
+			if (AppConfig.isGradingGPAStraightAverage(e.gradeLevel)) {	//for ESS = "|P1|P2|K1|K2|N1|N2|"
+				e.gpaFinal = DataUtil.getMoneyFormat( (e.gpa1+e.gpa2+e.gpa3+e.gpa4)/4 );
+			}
+			else {
+				double totalUnits = 0;
+				double totalGPAFinal = 0;
+				for (StudentSubject s:l) {
+					Subject subject = getSubject(s.subject);
+					if (subject == null) {
+						Log.out("NULL SUBJECT == ",s.subject," -> ",s.studentName);
+					}
+					if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
+				        String mysub = s.subject.toUpperCase();
+				        mysub = mysub.replaceAll("MAPEH", "");
+				        mysub = mysub.replaceAll("MK", "");
+						if (mysub.contains("MUSIC") || mysub.contains("ART") || mysub.contains("PE") || mysub.contains("HEALTH") || mysub.contains("GK")) {
+//							this is mapeh, which is causing the discrepancy
+							Log.out("MAPEH SUBJECT " + s.subject);
+							continue;
+						}
+					}
+					if (subject != null && subject.unit>0) {
+						totalUnits += subject.unit;
+						totalGPAFinal += s.finalRating * subject.unit;
+						Log.out(subject.code,"\t",s.finalRating,"\t",subject.unit);
 					}
 				}
-				if (subject != null && subject.unit>0) {
-					totalUnits += subject.unit;
-					totalGPAFinal += s.finalRating * subject.unit;
-					Log.out(subject.code,"\t",s.finalRating,"\t",subject.unit);
+				if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
+					double totalMapehUnit = getMapehUnit(l);
+					totalGPAFinal += e.qallMAPEH * totalMapehUnit;
+					totalUnits += totalMapehUnit;
+					Log.out("MAPEH\t",e.qallMAPEH,"\t",totalMapehUnit);
 				}
+				Log.out(e.student,"\t",totalGPAFinal,"\t/",totalUnits,"\t=",(totalGPAFinal / totalUnits));
+				e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 			}
-			if (AppConfig.isGradingGPATotalMapehThenAverage(e.gradeLevel)) {	//for ESS = "|H1|H2|H3|H4|"
-				double totalMapehUnit = getMapehUnit(l);
-				totalGPAFinal += e.qallMAPEH * totalMapehUnit;
-				totalUnits += totalMapehUnit;
-				Log.out("MAPEH\t",e.qallMAPEH,"\t",totalMapehUnit);
-			}
-			Log.out(e.student,"\t",totalGPAFinal,"\t/",totalUnits,"\t=",(totalGPAFinal / totalUnits));
-			e.gpaFinal = DataUtil.getMoneyFormat(totalGPAFinal/totalUnits);
 		}
 	}
-	
+
 	private void setGrades(Enrollment e, StudentSubject s, String subjectName, int quarter) {
 		if (quarter==1) {
 			e.changeValue("q1" + subjectName, s.grade1);
@@ -276,7 +279,7 @@ public class StudentSubjectToEnrollmentGrade {
 		}
 		e.changeValue("qall" + subjectName, s.finalRating);
 	}
-	
+
 	public Enrollment setupEnrollmentGrade(StudentSubject subject, Enrollment e, int quarter) {
         if (e == null || e.studentId!=subject.studentId) {
         	Log.out("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT ",subject.studentName,".");
@@ -288,7 +291,7 @@ public class StudentSubjectToEnrollmentGrade {
 		putAllMakabayan(e, allStudSubjects);
 		putAllSubjects(e, allStudSubjects);
 		calculateGPA(e, allStudSubjects);
-		
+
         String mysub = subject.subject.toUpperCase();
         mysub = mysub.replaceAll("MAPEH", "");
         mysub = mysub.replaceAll("MK", "");
