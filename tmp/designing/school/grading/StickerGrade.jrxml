@@ -38,6 +38,7 @@
 FROM
      `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
 WHERE enrollment.gradeLevel = $P{PARAM_gradeLevel}
+     and enrollment.gradeLevel = person.gradeLevel
      and enrollment.schoolYear = $P{PARAM_schoolYear}
 ORDER BY
      enrollment.gradeLevel ASC,
