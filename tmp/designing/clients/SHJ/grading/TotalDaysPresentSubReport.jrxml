@@ -43,11 +43,13 @@
      (studentvaluesgrading.`nov` - studentvaluesgrading.`novAbsent`)+
      (studentvaluesgrading.`dece` - studentvaluesgrading.`deceAbsent`)) AS totalDaysPresent
 FROM
-     `studentvaluesgrading` studentvaluesgrading
+     `studentvaluesgrading` studentvaluesgrading, person p
 WHERE
-     studentvaluesgrading.`schoolYear` = $P{PARAM_schoolYear}
-AND
-     studentvaluesgrading.`studentId` = $P{PARAM_studentId}]]></queryString>
+     studentvaluesgrading.`schoolYear` = $P{PARAM_schoolYear} 
+AND studentvaluesgrading.`studentId` = $P{PARAM_studentId}
+AND studentvaluesgrading.studentid = p.personid
+AND studentvaluesgrading.gradeLevel = p.gradeLevel
+]]></queryString>
 
 	<field name="studentvaluesgrading_schoolYear" class="java.lang.String"/>
 	<field name="studentvaluesgrading_studentId" class="java.lang.Integer"/>
@@ -79,7 +81,11 @@ AND
 						height="10"
 						forecolor="#000000"
 						key="textField-1"/>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box>					<topPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+</box>
 					<textElement textAlignment="Center">
 						<font size="7" isBold="false" isItalic="false" isUnderline="false" isPdfEmbedded ="false" isStrikeThrough="false" />
 					</textElement>
