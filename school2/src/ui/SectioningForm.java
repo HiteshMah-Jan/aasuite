@@ -31,7 +31,7 @@ import util.PanelUtil;
  * @author  Administrator
  */
 public class SectioningForm extends TransactionPanel {
-    
+
     @Override
 	public String getTitle() {
 		return "Organization List";
@@ -41,7 +41,7 @@ public class SectioningForm extends TransactionPanel {
     public SectioningForm() {
         initComponents();
         javax.swing.JButton btnShowPromotionReport = new javax.swing.JButton();
-        btnShowPromotionReport.setText("Show Organization Report");
+        btnShowPromotionReport.setText("Show Promotion Report");
         btnShowPromotionReport.setName("btnShowSectioningReport"); // NOI18N
         btnShowPromotionReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +51,7 @@ public class SectioningForm extends TransactionPanel {
         java.awt.GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(3, 4, 0, 0);
         jPanel5.add(btnShowPromotionReport, gridBagConstraints);
-        btnShowPromotionReport.setVisible(AppConfig.hasPromotionReport());
+//        btnShowPromotionReport.setVisible(AppConfig.hasPromotionReport());
         try {
         	PanelUtil.updateColor(jPanel1);
         	PanelUtil.updateColor(jPanel2);
@@ -59,7 +59,7 @@ public class SectioningForm extends TransactionPanel {
         	PanelUtil.updateColor(jPanel5);
         	PanelUtil.updateColor(jPanel6);
         	PanelUtil.updateColor(jPanel7);
-        	
+
         	PanelUtil.updateColor(lblBoys);
         	PanelUtil.updateColor(lblGirls);
         	PanelUtil.updateColor(lblSection);
@@ -69,7 +69,7 @@ public class SectioningForm extends TransactionPanel {
         catch (Exception e) {
         }
     }
-    
+
      protected void btnShowPromotionReportActionPerformed(ActionEvent evt) {
     	 bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
     	 AbstractReportTemplate.getInstance().showReportFromFileTemplate(BeanUtil.concat("Promotion",sec.gradeLevel), "");
@@ -80,10 +80,10 @@ public class SectioningForm extends TransactionPanel {
         constants.Constants.panelBackground = clr;
         constants.Constants.labelColor = Color.WHITE;
         AAAConfig.getInstance();
-       
+
         PanelUtil.displayToFrame(new SectioningForm());
-    } 
-    
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -362,7 +362,7 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
     int rowCount = lstStudentWithoutSection.size();
     final List lst = new ArrayList();
     for (int i=rowCount-1; i>=0; i--) {
-        Student p = lstStudentWithoutSection.get(i); 
+        Student p = lstStudentWithoutSection.get(i);
     	if (tblEnrolledStudent.isRowSelected(i)) {
             p.section = sec.code;
             p.gradeLevel = sec.gradeLevel;
@@ -410,7 +410,7 @@ private void btnRemoveFromSectionActionPerformed(java.awt.event.ActionEvent evt)
     final List lst = new ArrayList();
     for (int i=rowCount-1; i>=0; i--) {
     	if (tblEnrolledStudentSection.isRowSelected(i)) {
-            Student p = lstStudentWithSection.get(i); 
+            Student p = lstStudentWithSection.get(i);
             p.section = null;
             lst.add(p);
             lstStudentWithoutSection.add(p);
@@ -438,16 +438,16 @@ private void btnRefreshListActionPerformed(java.awt.event.ActionEvent evt) {//GE
     String grd = cboGradeFilter.getSelectedItem().toString();
     if (grd.isEmpty()) {
         List lst2 = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND (a.section IS NULL OR a.section='') AND (a.gradeLevel IS NULL OR a.gradeLevel='') ORDER BY a.lastName, a.firstName, a.middleInitial", 0, 10000);
-        PanelUtil.setListData(lstStudentWithoutSection, lst2); 
+        PanelUtil.setListData(lstStudentWithoutSection, lst2);
     }
     else if ("ALL".equals(grd)) {
         List lst2 = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND (a.section IS NULL OR a.section='') ORDER BY a.lastName, a.firstName, a.middleInitial", 0, 10000);
-        PanelUtil.setListData(lstStudentWithoutSection, lst2); 
+        PanelUtil.setListData(lstStudentWithoutSection, lst2);
     }
     else {
         List lst2 = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a WHERE a.status='ENROLLED' AND (a.section IS NULL OR a.section='') AND a.gradeLevel='",grd,"' ORDER BY a.lastName, a.firstName, a.middleInitial"), 0, 10000);
-        PanelUtil.setListData(lstStudentWithoutSection, lst2); 
-    }    
+        PanelUtil.setListData(lstStudentWithoutSection, lst2);
+    }
 }//GEN-LAST:event_btnRefreshListActionPerformed
 
 String oldGradeLevel = null;
@@ -462,7 +462,7 @@ private void cboGradeFilterItemStateChanged(java.awt.event.ItemEvent evt) {//GEN
     oldGradeLevel = grd;
     btnRefreshListActionPerformed(null);
 }//GEN-LAST:event_cboGradeFilterItemStateChanged
-private String oldSection;   
+private String oldSection;
 protected void updateList() {
     bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
     if (sec==null) return;
@@ -473,13 +473,13 @@ protected void updateList() {
     oldSection = sec.code;
     refreshSectionStudent();
 }
- 
+
 protected void refreshSectionStudent() {
     bean.reference.Section sec = (bean.reference.Section) cboSection.getSelectedItem();
     if (sec==null) return;
     List<Student> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",sec.code,"' ORDER BY a.gradeLevel, a.lastName, a.middleInitial, a.firstName"),0,100);
     PanelUtil.setListData(lstStudentWithSection, lst);
-    
+
     int boys = 0;
     int girls = 0;
     for (Student s : lst) {
@@ -529,7 +529,7 @@ protected void refreshSectionStudent() {
     private component.JTextFieldPallete txtTotal;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    
+
     private JTable getNewTable() {
         JTable tbl = new JTable() {
 			@Override
