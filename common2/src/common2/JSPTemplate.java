@@ -46,10 +46,12 @@ public class JSPTemplate {
 	        StringBuffer js = new StringBuffer();
 	        js.append("<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>\n");
 	        js.append("<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js' type='text/javascript'></script>\n");
-	        js.append("<script>\n");
+	        js.append("<script src='http://fgelinas.com/code/timepicker/jquery.ui.timepicker.js?v=0.1.0' type='text/javascript'></script>\n");
+	        js.append("<script>\n$(document).ready(function() {\n");
 	        StringBuffer css = new StringBuffer();
 	        css.append("<link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/base/jquery-ui.css' type='text/css' media='all' />\n");
 	        css.append("<link rel='stylesheet' href='http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css' type='text/css' media='all' />\n");
+	        css.append("<link rel='stylesheet' href='http://fgelinas.com/code/timepicker/jquery-ui-timepicker.css?v=0.1.0' type='text/css' media='all' />\n");
 	        css.append("<style>\n");
         	css.append("\n.beanForm span{\n\tfloat: left; \n\twidth: 100px;\n}");
 	        List<FieldCompose> lst = parser.getAllFields(bean, tmp);
@@ -61,9 +63,11 @@ public class JSPTemplate {
 		            Class cls = comp.field.getType();
 		            if (cls.getSimpleName().equalsIgnoreCase("Date")) {
 			        	sb.append("\t\t").append(renderAny(comp)).append("\n");  
-			        	js.append("\n\t$(function() {\n$('#").append(comp.field.getName()).append("').datepicker();\n});\n");
+			        	js.append("\n\t$('#").append(comp.field.getName()).append("').datepicker();\n");
 		            } else if (cls.getSimpleName().equalsIgnoreCase("Boolean")) {
 			        	sb.append("\t\t").append(renderCheckBox(comp)).append("\n");
+		            } else {
+			        	sb.append("\t\t").append(renderAny(comp)).append("\n");  
 		            }
 	        	}
 	        	else if (type.equals("Text")) {
@@ -85,7 +89,7 @@ public class JSPTemplate {
 	        	}
 	        	else if (type.equals("Time")) {
 		        	sb.append("\t\t").append(renderTime(comp)).append("\n");
-		        	js.append("\n\t$('#").append(comp.field.getName()).append("').time_input();");
+		        	js.append("\n\t$('#").append(comp.field.getName()).append("').timepicker();\n");
 	        	}
 	        	else if (type.equals("Calendar")) {
 		        	sb.append("\t\t").append(renderCalendar(comp)).append("\n");
@@ -107,7 +111,7 @@ public class JSPTemplate {
 		        	sb.append("\t\t").append(renderPopSearch(comp)).append("\n");
 	        	}
 	        }
-	        js.append("\n</script>");
+	        js.append("\n});\n</script>");
 	        css.append("\n</style>");
 	        sb.append("\t</form>\n</div>\n");
 	        return toHTML(sb.toString(), js.toString(), css.toString());
