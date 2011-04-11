@@ -26,9 +26,6 @@
 	<parameter name="PARAM_gradeLevel" isForPrompting="true" class="java.lang.String">
 		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="PARAM_schoolYear" isForPrompting="true" class="java.lang.String">
-		<defaultValueExpression ><![CDATA[""]]></defaultValueExpression>
-	</parameter>
 	<queryString><![CDATA[SELECT
      person.`gradeLevel` AS person_gradeLevel,
      person.`section` AS person_section,
@@ -39,7 +36,8 @@ FROM
      `enrollment` enrollment INNER JOIN `person` person ON enrollment.`studentId` = person.`personId`
 WHERE enrollment.gradeLevel = $P{PARAM_gradeLevel}
      and enrollment.gradeLevel = person.gradeLevel
-     and enrollment.schoolYear = $P{PARAM_schoolYear}
+     and person.status = 'ENROLLED'
+     and person.section is not null
 ORDER BY
      enrollment.gradeLevel ASC,
      enrollment.section ASC,
