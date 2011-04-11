@@ -1312,8 +1312,18 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
                 inv.shipTo=(cust.getAddress());
                 inv.shipToAddress=(cust.getAddress());
                 inv.studentNumber = cust.studentNumber;
-                inv.gradeLevel = cust.gradeLevel;
-                inv.section = cust.section;
+                if (paymentFor.startsWith(cust.gradeLevel)) {
+                    inv.gradeLevel = cust.gradeLevel;
+                    inv.section = cust.section;
+                }
+                else {
+                	if (paymentFor.indexOf("-")!=-1) {
+                        inv.gradeLevel = paymentFor.substring(0, paymentFor.indexOf("-"));
+                	}
+                	else {
+                        inv.gradeLevel = paymentFor;
+                	}
+                }
             }
             inv.extractCheck(cloneCheck);
             inv.save();
