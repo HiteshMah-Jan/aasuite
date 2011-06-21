@@ -8,7 +8,8 @@
  */
 package bean.accounting;
 
-import bean.Employee;
+import bean.hr.Employee;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;

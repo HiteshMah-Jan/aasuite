@@ -5,8 +5,9 @@
 
 package rule;
 
-import bean.accounting.payroll.PayrollAdjustmentHelper;
-import bean.accounting.payroll.PayrollAdjustmentRef;
+import bean.payroll.PayrollAdjustmentHelper;
+import bean.payroll.PayrollAdjustmentRef;
+
 import javax.swing.JComponent;
 
 /**

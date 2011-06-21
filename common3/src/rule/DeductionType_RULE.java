@@ -5,7 +5,7 @@
 
 package rule;
 
-import bean.Employee;
+import bean.hr.Employee;
 import bean.reference.DeductionType;
 import java.util.List;
 import javax.swing.JComponent;

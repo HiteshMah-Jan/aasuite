@@ -8,6 +8,7 @@
  */
 package bean.accounting;
 
+import bean.banking.BankAccount;
 import bean.extension.AccountPayableExt;
 import bean.reference.Department;
 import java.io.Serializable;

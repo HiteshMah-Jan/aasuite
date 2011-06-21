@@ -5,8 +5,9 @@
 
 package rule;
 
-import bean.accounting.BankAccountTransaction;
 import bean.accounting.GLPostingScript;
+import bean.banking.BankAccountTransaction;
+
 import javax.swing.JComponent;
 import template.report.AbstractReportTemplate;
 import util.PanelUtil;

@@ -14,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 
 import constants.UserInfo;
 import bean.accounting.Invoice;
-import bean.accounting.PaymentPlan;
+import bean.sales.PaymentPlan;
 import template.report.AbstractReportTemplate;
 import ui.AbstractCashierForm;
 import util.BeanUtil;

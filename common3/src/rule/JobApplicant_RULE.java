@@ -5,7 +5,8 @@
 
 package rule;
 
-import bean.JobApplicant;
+import bean.hr.JobApplicant;
+
 import javax.swing.JComponent;
 import util.DBClient;
 

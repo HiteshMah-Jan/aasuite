@@ -14,12 +14,12 @@ import template.report.AbstractReportTemplate;
 import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
-import bean.Employee;
 import bean.Person;
 import bean.admin.AclGroup;
 import bean.admin.AclModule;
 import bean.admin.AclUser;
 import bean.admin.LoginMonitor;
+import bean.hr.Employee;
 
 import common2.Common2View;
 import component.IAuthorization;

@@ -16,9 +16,9 @@ import util.DBClient;
 import util.DateUtil;
 import util.Log;
 import util.ThreadPoolUtil;
-import bean.Employee;
-import bean.accounting.payroll.PersonAttendance;
 import bean.admin.AppConfig;
+import bean.hr.Employee;
+import bean.hr.PersonAttendance;
 import service.ServiceWrapper;
 
 public class AttendanceService extends ServiceWrapper {

@@ -7,8 +7,8 @@
 package ui.cashier;
 
 import bean.Person;
-import bean.accounting.Payment;
 import bean.admin.AppConfig;
+import bean.sales.Payment;
 import component.JCalendarPallete;
 import java.awt.Dimension;
 import java.util.List;

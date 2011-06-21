@@ -8,7 +8,8 @@
  */
 package bean.reference;
 
-import bean.Employee;
+import bean.hr.Employee;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;

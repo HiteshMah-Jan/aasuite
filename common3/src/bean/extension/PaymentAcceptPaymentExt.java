@@ -1,6 +1,7 @@
 package bean.extension;
 
-import bean.accounting.PaymentLineItem;
+import bean.sales.PaymentLineItem;
+
 import java.io.Serializable;
 import template.ActionButton;
 import template.ActionButtons;
@@ -63,7 +64,7 @@ import template.screen.TemplateSinglePage;
         @Display(name="amount10", hideLabel=true)
 //        @Display(name="bounceCheck10", hideLabel=true)
 })
-public class PaymentAcceptPaymentExt extends bean.accounting.Payment {
+public class PaymentAcceptPaymentExt extends bean.sales.Payment {
     public static void main(String[] args) {
         view(PaymentAcceptPaymentExt.class);
     }

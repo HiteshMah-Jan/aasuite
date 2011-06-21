@@ -7,7 +7,7 @@
 package ui.action;
 
 import bean.Person;
-import bean.accounting.payroll.PersonAttendance;
+import bean.hr.PersonAttendance;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;

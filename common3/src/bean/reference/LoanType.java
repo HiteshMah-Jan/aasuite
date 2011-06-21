@@ -9,6 +9,8 @@
 package bean.reference;
 
 import bean.*;
+import bean.hr.Employee;
+
 import java.io.Serializable;
 import java.util.logging.Logger;
 import javax.persistence.Column;

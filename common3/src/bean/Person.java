@@ -9,10 +9,11 @@
 package bean;
 
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
 import bean.person.PersonDependent;
 import bean.person.PersonInformation;
 import bean.reference.Department;
+import bean.sales.Payment;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

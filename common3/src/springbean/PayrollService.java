@@ -5,15 +5,15 @@
 
 package springbean;
 
-import bean.Employee;
-import bean.accounting.payroll.AlphaList;
-import bean.accounting.payroll.AlphaListEmployee;
-import bean.accounting.payroll.AlphaListRemittanceSummary;
-import bean.accounting.payroll.EmployeePayroll;
-import bean.accounting.payroll.EmployeePayrollAdjustment;
-import bean.accounting.payroll.Payroll;
-import bean.accounting.payroll.PayrollAdjustmentRef;
-import bean.accounting.payroll.PersonAttendance;
+import bean.hr.Employee;
+import bean.hr.PersonAttendance;
+import bean.payroll.AlphaList;
+import bean.payroll.AlphaListEmployee;
+import bean.payroll.AlphaListRemittanceSummary;
+import bean.payroll.EmployeePayroll;
+import bean.payroll.EmployeePayrollAdjustment;
+import bean.payroll.Payroll;
+import bean.payroll.PayrollAdjustmentRef;
 import bean.reference.EventHoliday;
 import java.util.ArrayList;
 import java.util.Date;

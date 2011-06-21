@@ -10,7 +10,7 @@
 package bean.accounting;
 
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
+import bean.sales.Payment;
 import constants.UserInfo;
 import java.io.Serializable;
 import java.util.Date;

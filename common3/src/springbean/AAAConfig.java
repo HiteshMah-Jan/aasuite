@@ -22,8 +22,8 @@ import util.DBClient;
 import util.DateUtil;
 import util.Log;
 import util.PanelUtil;
-import bean.Services;
 import bean.reference.Department;
+import bean.service.Services;
 
 /**
  *

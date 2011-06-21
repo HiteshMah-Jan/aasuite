@@ -19,10 +19,10 @@ import template.ParentAddInfo;
 import template.Reports;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePage;
-import bean.Employee;
-import bean.Product;
-import bean.PurchaseOrder;
-import bean.Supplier;
+import bean.businesspartners.Supplier;
+import bean.hr.Employee;
+import bean.inventory.Product;
+import bean.purchasing.PurchaseOrder;
 
 /**
  * 

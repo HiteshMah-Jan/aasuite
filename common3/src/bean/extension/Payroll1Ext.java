@@ -8,8 +8,8 @@
  */
 package bean.extension;
 
-import bean.Employee;
-import bean.accounting.Payroll;
+import bean.hr.Employee;
+import bean.payroll.Payroll;
 import template.Display;
 import template.DisplayGroup;
 import template.DisplayGroups;

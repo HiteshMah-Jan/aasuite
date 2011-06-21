@@ -9,6 +9,8 @@
 package bean.admin;
 
 import bean.*;
+import bean.businesspartners.Customer;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;

@@ -7,7 +7,7 @@
 package ui.cashier;
 
 import bean.Person;
-import bean.accounting.Payment;
+import bean.sales.Payment;
 
 import java.awt.*;
 import javax.swing.JPanel;

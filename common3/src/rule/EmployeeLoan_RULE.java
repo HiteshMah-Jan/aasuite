@@ -5,8 +5,9 @@
 
 package rule;
 
-import bean.accounting.PaymentLoan;
 import bean.person.EmployeeLoan;
+import bean.sales.PaymentLoan;
+
 import java.util.List;
 import javax.swing.JComponent;
 

@@ -17,9 +17,9 @@ import util.BeanUtil;
 import util.PanelUtil;
 import util.DBClient;
 import bean.accounting.CashierDailyBooklet;
-import bean.accounting.Payment;
 import bean.extension.OtherPaymentReferenceAccount2Ext;
 import bean.reference.OtherPaymentReference;
+import bean.sales.Payment;
 import component.JTextFieldPallete;
 
 import javax.swing.event.ListSelectionListener;
@@ -59,7 +59,7 @@ public class OtherPayment extends javax.swing.JPanel implements IAcceptPaymentWi
     }
 
     private void changeSelectedRecord() {
-        bean.accounting.OtherPayment pay = (bean.accounting.OtherPayment) beanSoldBooks.getBean();
+        bean.sales.OtherPayment pay = (bean.sales.OtherPayment) beanSoldBooks.getBean();
         pnlOtherPayment.setBean(pay);
     }
 
@@ -230,7 +230,7 @@ private void btnPrintOrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_btnPrintOrActionPerformed
 
 protected void printOR() {
-    bean.accounting.OtherPayment pay = (bean.accounting.OtherPayment) pnlOtherPayment.getBean();
+    bean.sales.OtherPayment pay = (bean.sales.OtherPayment) pnlOtherPayment.getBean();
     if (pay.seq!=null && pay.seq>0 && pay.orNumber!=null && !pay.orNumber.isEmpty()) {
         pay.printOR("Official Receipt");
     }
@@ -252,7 +252,7 @@ protected void printOR() {
 }
 
 private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-    pnlOtherPayment.setBean(new bean.accounting.OtherPayment());
+    pnlOtherPayment.setBean(new bean.sales.OtherPayment());
 }//GEN-LAST:event_btnNewActionPerformed
 
 private void btnAddReferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddReferenceActionPerformed
@@ -303,7 +303,7 @@ protected void search() {
     // End of variables declaration//GEN-END:variables
 
     public void loadOR(String or) {
-        bean.accounting.OtherPayment o = (bean.accounting.OtherPayment) DBClient.getFirstRecord("SELECT a FROM OtherPayment a");
+        bean.sales.OtherPayment o = (bean.sales.OtherPayment) DBClient.getFirstRecord("SELECT a FROM OtherPayment a");
         if (o!=null) {
             pnlOtherPayment.setBean(o);
         }
@@ -313,7 +313,7 @@ protected void search() {
         return "OtherPaymentAccount2Ext";
     }
     
-    protected void acceptCheck(bean.accounting.OtherPayment p) {
+    protected void acceptCheck(bean.sales.OtherPayment p) {
         Person stud = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",p.personId);
         if (stud!=null && "NOT ALLOWED".equals(stud.paymentStatus)) {
             if (!PanelUtil.showPrompt(btnPrintOr, "Cannot pay in check, would you like to continue?")) {

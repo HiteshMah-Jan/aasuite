@@ -11,7 +11,7 @@ import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
 import bean.Person;
-import bean.accounting.Payment;
+import bean.sales.Payment;
 
 /**
  *

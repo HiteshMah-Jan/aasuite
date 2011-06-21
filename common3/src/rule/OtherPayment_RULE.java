@@ -6,8 +6,8 @@
 package rule;
 
 import bean.Person;
-import bean.accounting.OtherPayment;
 import bean.reference.OtherPaymentReference;
+import bean.sales.OtherPayment;
 
 import javax.swing.JComponent;
 

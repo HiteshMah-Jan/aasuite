@@ -6,7 +6,7 @@ import service.IService;
 import service.util.CallService;
 import util.BeanUtil;
 
-import bean.Services;
+import bean.service.Services;
 
 public class Services_RULE extends BusinessRuleWrapper {
 

@@ -14,7 +14,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import bean.Employee;
+import bean.hr.Employee;
 import bean.person.PersonAttendance;
 import bean.reference.EventHoliday;
 import service.util.WSPersistenceEntityManager;

@@ -9,11 +9,11 @@ import java.util.List;
 
 import service.util.AbstractIBean;
 import template.screen.TablePopup;
-import bean.Employee;
 import bean.accounting.GL;
 import bean.accounting.GLPostingScript;
 import bean.accounting.IGL;
-import bean.accounting.PaymentLoan;
+import bean.hr.Employee;
+import bean.sales.PaymentLoan;
 
 /**
  *

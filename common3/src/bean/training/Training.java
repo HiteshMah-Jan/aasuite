@@ -5,7 +5,8 @@
 
 package bean.training;
 
-import bean.Employee;
+import bean.hr.Employee;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;

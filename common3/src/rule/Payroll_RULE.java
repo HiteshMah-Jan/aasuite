@@ -2,9 +2,9 @@ package rule;
 
 import javax.swing.JComponent;
 
-import bean.accounting.payroll.EmployeePayroll;
-import bean.accounting.payroll.Payroll;
 import bean.extension.EmployeePayrollExt;
+import bean.payroll.EmployeePayroll;
+import bean.payroll.Payroll;
 
 import springbean.PayrollService;
 import template.screen.TablePopup;

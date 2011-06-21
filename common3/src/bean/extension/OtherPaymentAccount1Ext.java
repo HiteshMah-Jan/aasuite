@@ -8,8 +8,8 @@ import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateSinglePage;
-import bean.accounting.OtherPayment;
 import bean.reference.OtherPaymentReference;
+import bean.sales.OtherPayment;
 
 @UITemplate(template = TemplateSinglePage.class, gridCount = 4, 
 	    columnSearch = {"payer","cashier","schoolYear","cashier","totalAmount"}, 

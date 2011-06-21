@@ -8,11 +8,13 @@
  */
 package bean.accounting;
 
-import bean.Customer;
-import bean.Employee;
 import bean.admin.AppConfig;
+import bean.businesspartners.Customer;
+import bean.hr.Employee;
 import bean.reference.AccountType;
 import bean.reference.PaymentMethod;
+import bean.sales.Payment;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;

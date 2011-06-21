@@ -5,7 +5,7 @@
 
 package rule;
 
-import bean.accounting.PaymentGeneric;
+import bean.sales.PaymentGeneric;
 
 /**
  *

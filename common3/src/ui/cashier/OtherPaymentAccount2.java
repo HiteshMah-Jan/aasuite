@@ -21,7 +21,7 @@ import util.PanelUtil;
  */
 public class OtherPaymentAccount2 extends OtherPayment {
 	protected void printOR() {
-	    bean.accounting.OtherPayment pay = (bean.accounting.OtherPayment) pnlOtherPayment.getBean();
+	    bean.sales.OtherPayment pay = (bean.sales.OtherPayment) pnlOtherPayment.getBean();
 	    if (pay.seq!=null && pay.seq>0 && pay.orNumber!=null && !pay.orNumber.isEmpty()) {
 	        pay.printOR("Official Receipt");
 	    }

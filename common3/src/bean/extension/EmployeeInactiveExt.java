@@ -132,7 +132,7 @@ import template.screen.TemplateTabSinglePage;
 @ActionButtons({
     @ActionButton(label="Make Active", name="btnActive")
 })
-public class EmployeeInactiveExt extends bean.Employee {
+public class EmployeeInactiveExt extends bean.hr.Employee {
     public static void main(String[] args) {
         view(EmployeeInactiveExt.class);
     }  

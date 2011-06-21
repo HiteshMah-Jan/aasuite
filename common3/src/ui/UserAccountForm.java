@@ -873,7 +873,7 @@ private void mnuRemoveGroupActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private bean.admin.AclUserDuty datUserDuty;
     private javax.swing.JDialog dlgCreateUser;
     private javax.swing.JDialog dlgGroups;
-    private java.util.List<bean.Employee> employeeList;
+    private java.util.List<bean.hr.Employee> employeeList;
     private javax.persistence.Query employeeQuery;
     private javax.swing.JPopupMenu groupPopup;
     private javax.swing.JLabel jLabel1;

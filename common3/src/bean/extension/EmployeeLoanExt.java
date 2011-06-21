@@ -8,7 +8,7 @@
  */
 package bean.extension;
 
-import bean.Employee;
+import bean.hr.Employee;
 import bean.person.*;
 import bean.reference.LoanType;
 import template.Display;

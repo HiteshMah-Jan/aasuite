@@ -7,7 +7,7 @@ package rule;
 
 import bean.accounting.GLPostingScript;
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
+import bean.sales.Payment;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

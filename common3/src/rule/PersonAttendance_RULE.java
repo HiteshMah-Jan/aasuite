@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 
 
 
-import bean.accounting.payroll.PersonAttendance;
+import bean.hr.PersonAttendance;
 import springbean.PayrollService;
 import util.DBClient;
 

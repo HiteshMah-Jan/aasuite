@@ -5,10 +5,10 @@
 
 package rule;
 
-import bean.Employee;
 import bean.accounting.GLPostingScript;
-import bean.accounting.Payroll;
-import bean.accounting.PayrollPeriod;
+import bean.hr.Employee;
+import bean.payroll.Payroll;
+import bean.payroll.PayrollPeriod;
 import bean.person.EmployeeLoan;
 import java.util.List;
 import javax.swing.JComponent;

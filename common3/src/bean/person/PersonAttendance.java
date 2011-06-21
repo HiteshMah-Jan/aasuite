@@ -29,7 +29,7 @@ import util.DateUtil;
 import util.Log;
 import util.PanelUtil;
 import util.ThreadPoolUtil;
-import bean.Employee;
+import bean.hr.Employee;
 import bean.reference.EventHoliday;
 
 /**

@@ -3,8 +3,8 @@ package rule;
 
 import javax.swing.JComponent;
 
-import bean.accounting.payroll.AlphaList;
 import bean.admin.AppConfig;
+import bean.payroll.AlphaList;
 import springbean.PayrollService;
 import util.DateUtil;
 

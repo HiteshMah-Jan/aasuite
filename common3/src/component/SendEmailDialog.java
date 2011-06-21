@@ -363,7 +363,7 @@ private void cboTemplateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FI
     private javax.swing.JButton btnSendEmail;
     private component.LookupTableFieldPallete cboCustomer;
     private component.JComboBoxPallete cboTemplate;
-    private java.util.List<bean.Customer> customerList;
+    private java.util.List<bean.businesspartners.Customer> customerList;
     private javax.persistence.Query customerQuery;
     private bean.admin.SentEmail datSentEmail;
     private javax.swing.JDialog dlgNewEmail;

@@ -7,9 +7,9 @@ package ui;
 
 import bean.accounting.CashDrawer;
 import bean.accounting.Invoice;
-import bean.accounting.OtherPayment;
 import bean.admin.AppConfig;
 import bean.admin.UserStation;
+import bean.sales.OtherPayment;
 import constants.UserInfo;
 import java.awt.Color;
 import java.awt.event.ActionListener;

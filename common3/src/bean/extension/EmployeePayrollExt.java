@@ -1,14 +1,14 @@
 package bean.extension;
 
-import bean.Employee;
 import template.ChildRecord;
 import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopupDownButton;
-import bean.accounting.payroll.EmployeePayroll;
-import bean.accounting.payroll.EmployeePayrollAdjustment;
+import bean.hr.Employee;
+import bean.payroll.EmployeePayroll;
+import bean.payroll.EmployeePayrollAdjustment;
 import template.screen.TemplateTabSinglePage;
 
 @UITemplate(template = TemplateTabSinglePage.class, gridCount = 4,

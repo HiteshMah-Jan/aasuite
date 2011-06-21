@@ -5,7 +5,7 @@
 package common2;
 
 import java.awt.Color;
-import java.awt.Dimension; 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Common2App extends SingleFrameApplication {
     @Override public void startup() {
         view = new Common2View(this);
         final JFrame frame = Common2View.mainView.getFrame();
-        frame.setUndecorated(true);
+//        frame.setUndecorated(true);
         show(view);
         Common2View.mainView.getFrame().setTitle(constants.Constants.appTitle);
         springbean.AAAConfig config = springbean.AAAConfig.getInstance();
@@ -72,7 +72,7 @@ public class Common2App extends SingleFrameApplication {
 
     static SplashForm form;
     public static void showSplash() {
-        
+
     }
     /**
      * Main method launching the application.
@@ -130,7 +130,7 @@ public class Common2App extends SingleFrameApplication {
         Thread t2 = new Thread(new HeartBeat());
         t2.start();
     }
-    
+
     private static class HeartBeat implements Runnable {
 		@Override
 		public void run() {

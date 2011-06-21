@@ -8,7 +8,7 @@
  */
 package bean.person;
 
-import bean.Employee;
+import bean.hr.Employee;
 import bean.reference.DeductionType;
 import java.io.Serializable;
 import javax.persistence.*;

@@ -9,6 +9,8 @@
 package bean.admin;
 
 import bean.*;
+import bean.hr.Employee;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;

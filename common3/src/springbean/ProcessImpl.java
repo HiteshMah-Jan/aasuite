@@ -6,11 +6,12 @@
 package springbean;
 
 import bean.Person;
-import bean.PurchaseOrderItem;
-import bean.SalesOrderItem;
-import bean.accounting.payroll.PersonAttendance;
+import bean.hr.PersonAttendance;
 import bean.person.EmployeeLeaveApplication;
+import bean.purchasing.PurchaseOrderItem;
 import bean.reference.EventHoliday;
+import bean.sales.SalesOrderItem;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;

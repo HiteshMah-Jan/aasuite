@@ -8,8 +8,9 @@
  */
 package bean.person;
 
-import bean.Employee;
-import bean.accounting.PaymentLoan;
+import bean.hr.Employee;
+import bean.sales.PaymentLoan;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

@@ -1,7 +1,7 @@
 package rule;
 
-import bean.accounting.PaymentPlan;
 import bean.admin.AppConfig;
+import bean.sales.PaymentPlan;
 
 import javax.swing.*;
 import java.util.List;

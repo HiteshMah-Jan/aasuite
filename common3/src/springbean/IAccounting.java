@@ -5,12 +5,12 @@
 
 package springbean;
 
-import bean.Employee;
 import bean.accounting.IGL;
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
-import bean.accounting.PaymentLoan;
-import bean.accounting.payroll.Payroll;
+import bean.hr.Employee;
+import bean.payroll.Payroll;
+import bean.sales.Payment;
+import bean.sales.PaymentLoan;
 
 import java.util.List;
 

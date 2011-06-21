@@ -17,7 +17,7 @@ import template.DisplayGroup;
 import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
-import bean.accounting.PaymentLineItem;
+import bean.sales.PaymentLineItem;
 
 /**
  *
@@ -104,7 +104,7 @@ import bean.accounting.PaymentLineItem;
 @ChildRecords({
     @ChildRecord(entity=PaymentLineItem.class, fieldMapping={"seq","paymentId"}, sql="SELECT a FROM PaymentLineItem a WHERE a.paymentId=${seq}", title="Payment Detail")
 })
-public class PaymentCashierPaymentExt extends bean.accounting.Payment implements Serializable {
+public class PaymentCashierPaymentExt extends bean.sales.Payment implements Serializable {
     public static void main(String[] args) {
         view(PaymentCashierPaymentExt.class);
     }

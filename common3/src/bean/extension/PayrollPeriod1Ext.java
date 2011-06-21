@@ -8,7 +8,7 @@
  */
 package bean.extension;
 
-import bean.accounting.PayrollPeriod;
+import bean.payroll.PayrollPeriod;
 import template.Display;
 import template.Displays;
 import template.Reports;

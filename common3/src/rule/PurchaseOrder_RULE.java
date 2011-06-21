@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import bean.Product;
-import bean.PurchaseOrder;
-import bean.PurchaseOrderItem;
-import bean.SupplierProduct;
 import bean.accounting.Expense;
 import bean.accounting.ExpenseParticulars;
+import bean.inventory.Product;
+import bean.inventory.SupplierProduct;
+import bean.purchasing.PurchaseOrder;
+import bean.purchasing.PurchaseOrderItem;
 
 import javax.swing.JComponent;
 
