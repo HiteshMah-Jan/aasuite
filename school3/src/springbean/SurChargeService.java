@@ -18,9 +18,9 @@ import util.DataUtil;
 import util.DateUtil;
 import util.Log;
 import util.PerfUtil;
-import bean.Services;
-import bean.accounting.Payment;
 import bean.admin.AppConfig;
+import bean.sales.Payment;
+import bean.service.Services;
 
 /**
  * @author alex

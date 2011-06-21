@@ -5,13 +5,13 @@
 package ui.cashier;
 
 import bean.Student;
-import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
-import bean.accounting.PaymentPlan;
 import bean.admin.AppConfig;
 import bean.extension.Student201Ext;
 import bean.extension.Student201Ext;
 import bean.reference.GradeLevel;
+import bean.sales.Payment;
+import bean.sales.PaymentPlan;
 import constants.UserInfo;
 import java.util.ArrayList;
 import java.util.Date;

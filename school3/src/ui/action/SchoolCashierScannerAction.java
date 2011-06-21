@@ -5,10 +5,11 @@
 package ui.action;
 
 import bean.*;
-import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
-import bean.accounting.PaymentGeneric;
 import bean.admin.AppConfig;
+import bean.sales.Payment;
+import bean.sales.PaymentGeneric;
+
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.Date;

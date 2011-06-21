@@ -6,7 +6,7 @@ import javax.swing.JCheckBox;
 
 import util.PanelUtil;
 
-import bean.accounting.Payment;
+import bean.sales.Payment;
 
 public class PaymentCashierPaymentExt_RULE extends Payment_RULE {
 

@@ -4,8 +4,8 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabPage;
-import bean.Employee;
 import bean.Student;
+import bean.hr.Employee;
 import bean.person.StudentSubjectDetailGrading;
 import bean.reference.Subject;
 

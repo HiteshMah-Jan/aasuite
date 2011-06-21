@@ -8,10 +8,10 @@
  */
 package bean.extension;
 
-import bean.Product;
-import bean.PurchaseOrder;
-import bean.Supplier;
-import bean.SupplierProduct;
+import bean.businesspartners.Supplier;
+import bean.inventory.Product;
+import bean.inventory.SupplierProduct;
+import bean.purchasing.PurchaseOrder;
 import bean.reference.Department;
 import template.ChildRecord;
 import template.ChildRecords;

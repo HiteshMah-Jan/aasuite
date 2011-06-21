@@ -45,8 +45,8 @@ import util.DBClient;
 import util.DateUtil;
 import util.PanelUtil;
 import bean.accounting.PaymentEnrollment;
-import bean.accounting.PaymentPlan;
 import bean.admin.AppConfig;
+import bean.businesspartners.Customer;
 import bean.extension.EnrollmentGradeExt;
 import bean.extension.StudentSubjectCollegeExt;
 import bean.extension.StudentSubjectExt;
@@ -59,6 +59,7 @@ import bean.reference.GradeLevel;
 import bean.reference.ScholarshipTable;
 import bean.reference.Section;
 import bean.reference.Subject;
+import bean.sales.PaymentPlan;
 import constants.UserInfo;
 
 /**

@@ -5,8 +5,8 @@
 
 package rule;
 
-import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
+import bean.sales.Payment;
 import bean.Enrollment;
 import bean.Student;
 

@@ -31,10 +31,7 @@ import bean.EmployeeFaculty;
 import bean.Enrollment;
 import bean.Schedule;
 import bean.Student;
-import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
-import bean.accounting.PaymentLineItem;
-import bean.accounting.PaymentPlan;
 import bean.admin.AclUser;
 import bean.admin.AppConfig;
 import bean.person.StudentSchoolAttended;
@@ -44,6 +41,9 @@ import bean.person.StudentValuesGrading;
 import bean.reference.CourseSubject;
 import bean.reference.GradeLevel;
 import bean.reference.Section;
+import bean.sales.Payment;
+import bean.sales.PaymentLineItem;
+import bean.sales.PaymentPlan;
 
 import component.IAuthorization;
 

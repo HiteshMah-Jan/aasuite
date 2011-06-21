@@ -14,7 +14,7 @@ import template.ActionButtons;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import bean.Employee;
+import bean.hr.Employee;
 import bean.reference.Course;
 import bean.reference.GradeLevel;
 

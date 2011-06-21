@@ -8,7 +8,7 @@
  */
 package bean.person;
 
-import bean.Employee;
+import bean.hr.Employee;
 import bean.reference.Course;
 import java.io.Serializable;
 import java.util.Date;

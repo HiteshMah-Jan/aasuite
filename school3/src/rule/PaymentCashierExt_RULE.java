@@ -4,8 +4,9 @@
  */
 package rule;
 
-import bean.accounting.Payment;
 import bean.admin.AppConfig;
+import bean.sales.Payment;
+
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import org.jdesktop.beansbinding.ELProperty;

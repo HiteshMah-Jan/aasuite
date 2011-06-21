@@ -8,9 +8,10 @@
 
 package bean.accounting;
 
-import bean.accounting.Payment;
-import bean.accounting.PaymentDetail;
-import bean.accounting.PaymentPartialDetail;
+import bean.sales.Payment;
+import bean.sales.PaymentDetail;
+import bean.sales.PaymentPartialDetail;
+
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

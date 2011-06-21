@@ -8,8 +8,8 @@
  */
 package bean;
 
-import bean.accounting.payroll.PersonAttendance;
 import bean.hr.HRAssessment;
+import bean.hr.PersonAttendance;
 import bean.person.*;
 import bean.reference.Department;
 import java.io.Serializable;

@@ -5,7 +5,7 @@
 
 package rule;
 
-import bean.JobApplicant;
+import bean.hr.JobApplicant;
 import util.DBClient;
 
 /**

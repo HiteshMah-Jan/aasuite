@@ -5,7 +5,7 @@
 
 package rule;
 
-import bean.accounting.Payroll;
+import bean.payroll.Payroll;
 
 /**
  *

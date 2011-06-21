@@ -6,6 +6,7 @@
 package bean.accounting;
 
 import bean.Student;
+import bean.sales.PaymentPlan;
 import constants.UserInfo;
 import java.util.Date;
 import javax.persistence.*;

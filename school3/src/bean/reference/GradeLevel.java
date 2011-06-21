@@ -22,7 +22,7 @@ import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import bean.Employee;
+import bean.hr.Employee;
 import constants.UserInfo;
 import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;

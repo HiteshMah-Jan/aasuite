@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.Employee;
+import bean.hr.Employee;
 
 import service.util.AbstractIBean;
 import template.ChildRecord;

@@ -34,11 +34,11 @@ import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
-import bean.Employee;
 import bean.EmployeeFaculty;
 import bean.admin.AppConfig;
 import bean.extension.SectionScheduleExt;
 import bean.extension.StudentExt;
+import bean.hr.Employee;
 
 /**
  *

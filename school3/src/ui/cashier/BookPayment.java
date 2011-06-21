@@ -20,7 +20,7 @@ import bean.Student;
 import bean.accounting.BookSold;
 import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
+import bean.sales.Payment;
 import rule.BookSold_RULE;
 
 import component.JTextFieldPallete;

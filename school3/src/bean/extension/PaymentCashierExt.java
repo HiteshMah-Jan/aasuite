@@ -9,7 +9,8 @@
 package bean.extension;
 
 import bean.Student;
-import bean.accounting.PaymentLineItem;
+import bean.sales.PaymentLineItem;
+
 import java.io.Serializable;
 import template.ActionButton;
 import template.ActionButtons;

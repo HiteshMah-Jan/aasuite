@@ -6,7 +6,8 @@
 package bean.extension;
 
 import bean.Student;
-import bean.accounting.PaymentGeneric;
+import bean.sales.PaymentGeneric;
+
 import java.util.Date;
 import template.ActionButton;
 import template.ActionButtons;

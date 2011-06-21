@@ -9,7 +9,7 @@
 package bean.extension;
 
 import bean.LibraryBorrowedBooks;
-import bean.accounting.payroll.PersonAttendance;
+import bean.hr.PersonAttendance;
 import bean.person.PersonDependent;
 import bean.person.PersonEducation;
 import bean.person.StudentEncounter;

@@ -14,8 +14,8 @@ import util.PanelUtil;
 
 import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Invoice;
-import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
+import bean.sales.Payment;
 
 public class CashierRulePaymentDistribution {
     CashierDailyBooklet booklet;

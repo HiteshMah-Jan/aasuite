@@ -9,8 +9,8 @@ import util.Log;
 import util.PanelUtil;
 import bean.Student;
 import bean.accounting.PaymentEnrollment;
-import bean.accounting.PaymentPlan;
 import bean.reference.GradeLevel;
+import bean.sales.PaymentPlan;
 
 public class CashierRuleAssessStudent {
 	OldStudent old;

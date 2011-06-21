@@ -9,7 +9,8 @@
 package bean.extension;
 
 import bean.Student;
-import bean.accounting.PaymentLineItem;
+import bean.sales.PaymentLineItem;
+
 import java.io.Serializable;
 import template.ActionButton;
 import template.ActionButtons;
@@ -116,7 +117,7 @@ import template.Reports;
 @ChildRecords({ 
     @ChildRecord(entity=PaymentLineItem.class, fieldMapping={"seq","paymentId"}, sql="SELECT a FROM PaymentLineItem a WHERE a.paymentId=${seq}", title="Payment Detail")
 })
-public class PaymentAllNotPaidExt extends bean.accounting.Payment implements Serializable {
+public class PaymentAllNotPaidExt extends bean.sales.Payment implements Serializable {
     public static void main(String[] args) {
         view(PaymentAllNotPaidExt.class);
     }

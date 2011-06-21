@@ -13,14 +13,14 @@ import template.UITemplate;
 import template.screen.TemplateSinglePage;
 import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
-import bean.Customer;
 import bean.Student;
 import bean.accounting.BookSold;
-import bean.accounting.OtherPayment;
-import bean.accounting.Payment;
+import bean.businesspartners.Customer;
 import bean.reference.AccountType;
 import bean.reference.PaymentMethod;
 import bean.reference.Section;
+import bean.sales.OtherPayment;
+import bean.sales.Payment;
 
 @UITemplate(template = TemplateTabSinglePage.class, gridCount = 4, 
 		columnSearch = {"schoolYear", "invoiceDate", "orNumber", "cashier", "payer", "totalAmount"}, autoResizeTable=false)

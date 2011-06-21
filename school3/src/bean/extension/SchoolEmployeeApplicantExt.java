@@ -5,7 +5,7 @@
 
 package bean.extension;
 
-import bean.JobApplicant;
+import bean.hr.JobApplicant;
 import bean.person.FormalTraining;
 import bean.person.PersonDependent;
 import bean.person.PersonEducation;

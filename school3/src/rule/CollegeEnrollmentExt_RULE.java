@@ -12,13 +12,13 @@ import util.PanelUtil;
 import bean.Enrollment;
 import bean.Schedule;
 import bean.Student;
-import bean.accounting.Payment;
-import bean.accounting.PaymentPlan;
 import bean.admin.AppConfig;
 import bean.person.StudentSubject;
 import bean.reference.GradeLevel;
 import bean.reference.Section;
 import bean.reference.Subject;
+import bean.sales.Payment;
+import bean.sales.PaymentPlan;
 
 import component.JTextFieldPallete;
 import component.LookupTableFieldPallete;
