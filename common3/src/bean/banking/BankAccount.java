@@ -32,9 +32,6 @@ import template.screen.TemplateTabSinglePage;
     @Display(name="bankName", type="PopSearch", linktoBean=Bank.class),
     @Display(name="totalAmount", type="Label")
 })
-@ChildRecords({
-    @ChildRecord(template=ChildTemplateListOnly.class, entity=BankAccountTransaction.class, sql="SELECT a FROM BankAccountTransaction a WHERE a.accountNumber='${accountNumber}'", title="Transactions")
-})
 public class BankAccount extends AbstractIBean {
     @Id
     @Column(name = "accountNumber", nullable = false)
