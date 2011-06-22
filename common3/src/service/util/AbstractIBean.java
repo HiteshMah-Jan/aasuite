@@ -67,7 +67,7 @@ import constants.UserInfo;
 public abstract class AbstractIBean extends CheckerBean implements IBean, IService {
 	@Transient
 	public AbstractIBean parentBean;
-	
+
     @Transient
 	public PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -253,7 +253,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         	}
         }
     }
-    
+
     public IBean findMe(EntityManager entityManager) {
         Object obj = null;
         try {
@@ -509,7 +509,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         });
         t.start();
     }
-    
+
     public void delete() {
         DBClient.deleteBean(this);
     }
@@ -979,7 +979,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     public void includeSave(List obj) {
         includeSave.add(obj);
     }
-    
+
     public void includeSave(AbstractIBean obj) {
         includeSave.add(obj);
     }
@@ -995,11 +995,11 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
             }
         }
     }
-    
+
     public int pageSize() {
         return 200;
     }
-    
+
     @Transient
     public boolean includeSearch = true;
 
@@ -1059,21 +1059,21 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     public static double formatMoney(double d) {
         return DataUtil.getMoneyFormat(d);
     }
-    
+
     public void copyFrom(AbstractIBean bean) {
     	String keyVal = this.getKeyVal();
     	BeanUtil.copyBean(bean, this);
     	this.setKeyVal(keyVal);
     }
-    
+
     public String addWhere() {
     	return "";
     }
-    
+
     public void setupIndex() {
 //    	this must call the runindex
     }
-    
+
     protected void runIndex(int index, String... fields) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("ALTER TABLE ").
@@ -1090,7 +1090,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 		sb.append(");");
 		DBClient.runSQLNative(sb.toString());
     }
-    
+
     protected void runUniqueIndex(int index, String... fields) {
     	StringBuffer sb = new StringBuffer();
     	sb.append("ALTER TABLE ").
@@ -1111,7 +1111,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     public static double doubleVal(double d) {
     	return DataUtil.getMoneyFormat(d);
     }
-    
+
     public static int roundVal(double d) {
     	return (int) Math.round(d);
     }
@@ -1123,7 +1123,7 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     public static boolean notEmpty(String s) {
     	return !(s==null || s.trim().isEmpty());
     }
-    
+
     public String extractPersonName(int personId) {
     	if (personId>0) {
         	Person p = (Person) DBClient.getFirstRecord("SELECT a FROM Person a WHERE a.personId=",personId);
@@ -1138,19 +1138,19 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     	}
     	return null;
     }
-    
+
     public String concat(Object... arr) {
     	return BeanUtil.concat(arr);
     }
-    
+
     public boolean isSuperBean() {
 		return (this._Table().equals(this.getClass().getSimpleName()));
     }
-    
+
     public Map<String,String> extractReportParameter() {
     	return new HashMap();
     }
-    
+
     static Map<String, List> listCache = new Hashtable<String, List>();
     public static List listCache(String sql) {
     	List lst = listCache.get(sql);
@@ -1178,5 +1178,13 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
 
 	public String getUseYear() {
 		return UserInfo.getUseYear();
+	}
+
+	public List<AbstractIBean> nextStep() {
+		return null;
+	}
+
+	public AbstractIBean prevStep() {
+		return null;
 	}
 }

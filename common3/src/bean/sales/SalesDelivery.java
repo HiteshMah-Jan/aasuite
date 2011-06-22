@@ -15,35 +15,34 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import bean.embed.AbstractSales;
 
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
-import bean.embed.AbstractSales;
 
 /**
  *
  * @author pogi
  */
 @Entity
-@Table(name = "SalesOrder")
+@Table(name = "SalesDelivery")
 @UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"customerId", "salesEmployeeId"})
 @Displays({
         @Display(name="seq")
 })
-public class SalesOrder extends AbstractIBean implements Serializable {
+public class SalesDelivery extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq")
     public Integer seq;
+    @Column(name = "salesOrderId")
+    public int salesOrderId;
     @Embedded
     public AbstractSales salesData;
-
-    @OneToMany(mappedBy="salesOrder")
-    List<SalesOrderItem> items;
 
 	@Override
 	public List<AbstractIBean> nextStep() {
@@ -79,12 +78,12 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.salesData = salesData;
 	}
 
-	public List<SalesOrderItem> getItems() {
-		return items;
+	public int getSalesOrderId() {
+		return salesOrderId;
 	}
 
-	public void setItems(List<SalesOrderItem> items) {
-		this.items = items;
+	public void setSalesOrderId(int salesOrderId) {
+		this.salesOrderId = salesOrderId;
 	}
 
 }
