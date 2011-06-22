@@ -25,7 +25,6 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateDefault;
 import bean.embed.AbstractSalesOrPurchaseItem;
-import bean.inventory.Product;
 
 /**
  *
@@ -33,19 +32,6 @@ import bean.inventory.Product;
  */
 @Entity
 @Table(name = "PurchaseInvoiceItem")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"seq", "product", "totalAmount"})
-@Displays({
-        @Display(name="seq"),
-        @Display(name="purchaseOrderId"),
-        @Display(name="product", type = "PopSearch", linktoBean = Product.class),
-        @Display(name="amountPerUnit"),
-        @Display(name="numberOfItem"),
-        @Display(name="totalAmount"),
-        @Display(name="lastReceivedDate"),
-        @Display(name="receivedCount"),
-        @Display(name="totalReceivedCount"),
-        @Display(name="remarks")
-})
 public class PurchaseInvoiceItem extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)

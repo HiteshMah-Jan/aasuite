@@ -12,7 +12,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import bean.embed.AbstractSalesOrPurchaseItem;
-import bean.inventory.Product;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -26,17 +25,6 @@ import template.screen.TemplateDefault;
  */
 @Entity
 @Table(name = "SalesReturnItem")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"salesOrderId", "product", "totalAmount"})
-@Displays({
-        @Display(name="seq"),
-        @Display(name="salesReturnId"),
-        @Display(name="productId", type = "PopSearch", linktoBean = Product.class),
-        @Display(name="quantity"),
-        @Display(name="unitPrice"),
-        @Display(name="discountPercentage"),
-        @Display(name="totalPrice"),
-        @Display(name="remarks")
-})
 public class SalesReturnItem extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)
