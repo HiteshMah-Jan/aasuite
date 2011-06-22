@@ -24,9 +24,9 @@ import service.util.AbstractIBean;
  * @author pogi
  */
 @Embeddable
-public class AbstractSales implements Serializable {
-    public int customerId;
-    public String salesReferenceNumber;
+public class AbstractSalesOrPurchase implements Serializable {
+    public int partnerId;
+    public String referenceNumber;
     public String contactPerson;
     public String currency;
     public String status;
@@ -37,7 +37,7 @@ public class AbstractSales implements Serializable {
     @Temporal(value = TemporalType.DATE)
     public Date documentDate;
     public String itemType;	//this may be service or item
-    public int salesEmployeeId;
+    public int employeeId;
     public double totalBeforeDiscount;
     public double discountPercentage;
     public double discountAmount;
@@ -65,22 +65,6 @@ public class AbstractSales implements Serializable {
 
 	public void setAccounting(AbstractAccounting accounting) {
 		this.accounting = accounting;
-	}
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getSalesReferenceNumber() {
-		return salesReferenceNumber;
-	}
-
-	public void setSalesReferenceNumber(String salesReferenceNumber) {
-		this.salesReferenceNumber = salesReferenceNumber;
 	}
 
 	public String getContactPerson() {
@@ -137,14 +121,6 @@ public class AbstractSales implements Serializable {
 
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
-	}
-
-	public int getSalesEmployeeId() {
-		return salesEmployeeId;
-	}
-
-	public void setSalesEmployeeId(int salesEmployeeId) {
-		this.salesEmployeeId = salesEmployeeId;
 	}
 
 	public double getTotalBeforeDiscount() {
@@ -209,6 +185,30 @@ public class AbstractSales implements Serializable {
 
 	public void setInvoiceId(int invoiceId) {
 		this.invoiceId = invoiceId;
+	}
+
+	public int getPartnerId() {
+		return partnerId;
+	}
+
+	public void setPartnerId(int partnerId) {
+		this.partnerId = partnerId;
+	}
+
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
+
+	public int getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
 	}
 
 }

@@ -32,7 +32,7 @@ import bean.inventory.Product;
  * @author pogi
  */
 @Entity
-@Table(name = "PurchaseOrderItem")
+@Table(name = "PurchaseInvoiceItem")
 @UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"seq", "product", "totalAmount"})
 @Displays({
         @Display(name="seq"),
@@ -46,14 +46,14 @@ import bean.inventory.Product;
         @Display(name="totalReceivedCount"),
         @Display(name="remarks")
 })
-public class PurchaseOrderItem extends AbstractIBean implements Serializable {
+public class PurchaseInvoiceItem extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="purchaseOrderId")
-    public PurchaseOrder purchaseOrder;
+    @JoinColumn(name="purchaseInvoiceId")
+    public PurchaseInvoice purchaseInvoice;
 
     @Embedded
     public AbstractSalesOrPurchaseItem item;
@@ -79,12 +79,12 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
 		this.item = item;
 	}
 
-	public PurchaseOrder getPurchaseOrder() {
-		return purchaseOrder;
+	public PurchaseInvoice getPurchaseInvoice() {
+		return purchaseInvoice;
 	}
 
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
+	public void setPurchaseInvoice(PurchaseInvoice purchaseInvoice) {
+		this.purchaseInvoice = purchaseInvoice;
 	}
 
 }

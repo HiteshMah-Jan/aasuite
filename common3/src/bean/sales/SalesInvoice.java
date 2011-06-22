@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.embed.AbstractSales;
+import bean.embed.AbstractSalesOrPurchase;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -42,7 +42,7 @@ public class SalesInvoice extends AbstractIBean implements Serializable {
     @Column(name = "salesOrderId")
     public int salesOrderId;
     @Embedded
-    public AbstractSales salesData;
+    public AbstractSalesOrPurchase salesData;
 
 	@Override
 	public List<AbstractIBean> nextStep() {
@@ -70,11 +70,11 @@ public class SalesInvoice extends AbstractIBean implements Serializable {
 		this.seq = seq;
 	}
 
-	public AbstractSales getSalesData() {
+	public AbstractSalesOrPurchase getSalesData() {
 		return salesData;
 	}
 
-	public void setSalesData(AbstractSales salesData) {
+	public void setSalesData(AbstractSalesOrPurchase salesData) {
 		this.salesData = salesData;
 	}
 

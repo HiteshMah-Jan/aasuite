@@ -1,12 +1,12 @@
 /*
- * Salesorder.java
+ * PurchaseOrder.java
  *
- * Created on Nov 22, 2007, 6:07:49 PM
+ * Created on Nov 29, 2007, 6:17:50 PM
  *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean.sales;
+package bean.purchasing;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,10 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import service.util.AbstractIBean;
-import template.Display;
-import template.Displays;
-import template.UITemplate;
-import template.screen.TemplateDefault;
 import bean.embed.AbstractSalesOrPurchase;
 
 /**
@@ -30,20 +26,16 @@ import bean.embed.AbstractSalesOrPurchase;
  * @author pogi
  */
 @Entity
-@Table(name = "SalesOrder")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"customerId", "salesEmployeeId"})
-@Displays({
-        @Display(name="seq")
-})
-public class SalesOrder extends AbstractIBean implements Serializable {
+@Table(name = "PurchaseReturn")
+public class PurchaseReturn extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq")
     public Integer seq;
     @Embedded
-    public AbstractSalesOrPurchase salesData;
+    public AbstractSalesOrPurchase poData;
 
-    @OneToMany(mappedBy="salesOrder")
-    List<SalesOrderItem> items;
+    @OneToMany(mappedBy="purchaseReturn")
+    List<PurchaseReturnItem> items;
 
 	@Override
 	public List<AbstractIBean> nextStep() {
@@ -71,20 +63,19 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.seq = seq;
 	}
 
-	public AbstractSalesOrPurchase getSalesData() {
-		return salesData;
+	public AbstractSalesOrPurchase getPoData() {
+		return poData;
 	}
 
-	public void setSalesData(AbstractSalesOrPurchase salesData) {
-		this.salesData = salesData;
+	public void setPoData(AbstractSalesOrPurchase poData) {
+		this.poData = poData;
 	}
 
-	public List<SalesOrderItem> getItems() {
+	public List<PurchaseReturnItem> getItems() {
 		return items;
 	}
 
-	public void setItems(List<SalesOrderItem> items) {
+	public void setItems(List<PurchaseReturnItem> items) {
 		this.items = items;
 	}
-
 }

@@ -17,7 +17,7 @@ import javax.persistence.Embeddable;
  * @author Charliemagne Mark
  */
 @Embeddable
-public class AbstractSalesItem implements Serializable {
+public class AbstractSalesOrPurchaseItem implements Serializable {
     public String productId;
     public String serviceDescription;
     public int quantity;

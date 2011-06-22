@@ -46,14 +46,14 @@ import bean.inventory.Product;
         @Display(name="totalReceivedCount"),
         @Display(name="remarks")
 })
-public class PurchaseOrderItem extends AbstractIBean implements Serializable {
+public class PurchaseDeliveryItem extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="purchaseOrderId")
-    public PurchaseOrder purchaseOrder;
+    @JoinColumn(name="purchaseDeliveryId")
+    public PurchaseDelivery purchaseDelivery;
 
     @Embedded
     public AbstractSalesOrPurchaseItem item;
@@ -79,12 +79,12 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
 		this.item = item;
 	}
 
-	public PurchaseOrder getPurchaseOrder() {
-		return purchaseOrder;
+	public PurchaseDelivery getPurchaseDelivery() {
+		return purchaseDelivery;
 	}
 
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
+	public void setPurchaseDelivery(PurchaseDelivery purchaseDelivery) {
+		this.purchaseDelivery = purchaseDelivery;
 	}
 
 }

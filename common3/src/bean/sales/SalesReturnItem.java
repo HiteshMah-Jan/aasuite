@@ -11,7 +11,7 @@ package bean.sales;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import bean.embed.AbstractSalesItem;
+import bean.embed.AbstractSalesOrPurchaseItem;
 import bean.inventory.Product;
 
 import service.util.AbstractIBean;
@@ -44,7 +44,7 @@ public class SalesReturnItem extends AbstractIBean implements Serializable {
     @Column(name = "salesReturnId", nullable = false)
     public int salesReturnId;
     @Embedded
-    public AbstractSalesItem items;
+    public AbstractSalesOrPurchaseItem items;
 
     @Override
     public String popupSearch(String criteria) {
@@ -67,11 +67,11 @@ public class SalesReturnItem extends AbstractIBean implements Serializable {
 		this.salesReturnId = salesReturnId;
 	}
 
-	public AbstractSalesItem getItems() {
+	public AbstractSalesOrPurchaseItem getItems() {
 		return items;
 	}
 
-	public void setItems(AbstractSalesItem items) {
+	public void setItems(AbstractSalesOrPurchaseItem items) {
 		this.items = items;
 	}
 
