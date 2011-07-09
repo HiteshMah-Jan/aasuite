@@ -1,9 +1,0 @@
-delete FROM admission;
-delete from enrollment;
-delete from enrollmentsubject;
-delete from enrolledsubjectdetailgrading;
-delete from invoice;
-delete from invoicedetail;
-delete from accountpayable;
-delete from payment;
-delete from gl;
