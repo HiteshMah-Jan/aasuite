@@ -1,12 +1,12 @@
 /*
- * Salesorder.java
+ * Purchaseorder.java
  *
  * Created on Nov 22, 2007, 6:07:49 PM
  *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean.sales;
+package bean.purchasing;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,14 +32,14 @@ import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateDefault;
 import bean.Customer;
 import bean.embedded.EmbeddedAccounting;
-import bean.sales.embedded.EmbeddedSalesOrderLogistics;
+import bean.purchasing.embedded.EmbeddedPurchaseOrderLogistics;
 
 /**
  *
  * @author pogi
  */
 @Entity
-@Table(name = "SalesOrder")
+@Table(name = "PurchaseOrder")
 @UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
@@ -57,8 +57,8 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
         @Display(name="documentDate"),
         
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"salesEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
-        @Display(name="salesEmployeeId", label="Sales Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
+    			mergeFields={"purchaseEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
+        @Display(name="purchaseEmployeeId", label="Purchase Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
         @Display(name="owner"),
         @Display(name="remarks"),
         @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
@@ -78,7 +78,7 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
 })
 @ChildRecords(
 		value={
-				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=SalesOrderItem.class, fieldMapping={"seq","salesOrderId"}, sql="SELECT a FROM SalesOrderItem a WHERE a.salesOrderId=${seq}", title="Contents")
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=PurchaseOrderItem.class, fieldMapping={"seq","purchaseOrderId"}, sql="SELECT a FROM PurchaseOrderItem a WHERE a.purchaseOrderId=${seq}", title="Contents")
 		},
 		info={
 				@ParentAddInfo(title = "Logistics", gridCount = 2, displayFields = {"logistics"}),
@@ -88,15 +88,15 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
     @ActionButton(name="btnDeliver", label="Deliver", parentOnly=true),
     @ActionButton(name="btnInvoice", label="Invoice", parentOnly=true)
 })
-public class SalesOrder extends AbstractIBean implements Serializable {
+public class PurchaseOrder extends AbstractIBean implements Serializable {
 	public static void main(String[] args) {
-		view(SalesOrder.class);
+		view(PurchaseOrder.class);
 	}
 	
 	@Override
     public void save() {
-		this.logistics = ((SalesOrder)myClone).logistics;
-		this.accounting = ((SalesOrder)myClone).accounting;
+		this.logistics = ((PurchaseOrder)myClone).logistics;
+		this.accounting = ((PurchaseOrder)myClone).accounting;
         super.save();
     }
 
@@ -116,7 +116,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
     public Date documentDate;
     public String itemOrServiceType;
     
-    public int salesEmployeeId;
+    public int purchaseEmployeeId;
     public String owner;
     public String remarks;
     public double totalBeforeDiscount;
@@ -130,7 +130,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
     
 //    below are for logistics
     @Embedded
-    public EmbeddedSalesOrderLogistics logistics = new EmbeddedSalesOrderLogistics();
+    public EmbeddedPurchaseOrderLogistics logistics = new EmbeddedPurchaseOrderLogistics();
     @Embedded
     public EmbeddedAccounting accounting = new EmbeddedAccounting();
     
@@ -222,12 +222,12 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.itemOrServiceType = itemOrServiceType;
 	}
 
-	public int getSalesEmployeeId() {
-		return salesEmployeeId;
+	public int getPurchaseEmployeeId() {
+		return purchaseEmployeeId;
 	}
 
-	public void setSalesEmployeeId(int salesEmployeeId) {
-		this.salesEmployeeId = salesEmployeeId;
+	public void setPurchaseEmployeeId(int purchaseEmployeeId) {
+		this.purchaseEmployeeId = purchaseEmployeeId;
 	}
 
 	public String getOwner() {
@@ -294,20 +294,20 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.totalAmount = totalAmount;
 	}
 
-	public EmbeddedSalesOrderLogistics getLogistics() {
-		return logistics;
-	}
-
-	public void setLogistics(EmbeddedSalesOrderLogistics logistics) {
-		this.logistics = logistics;
-	}
-
 	public EmbeddedAccounting getAccounting() {
 		return accounting;
 	}
 
 	public void setAccounting(EmbeddedAccounting accounting) {
 		this.accounting = accounting;
+	}
+
+	public EmbeddedPurchaseOrderLogistics getLogistics() {
+		return logistics;
+	}
+
+	public void setLogistics(EmbeddedPurchaseOrderLogistics logistics) {
+		this.logistics = logistics;
 	}
 
 	@Override	

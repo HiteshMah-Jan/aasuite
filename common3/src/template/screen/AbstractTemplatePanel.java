@@ -301,6 +301,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         setupFooter();
         if (template.tableColumnWidth()!=null) {
             SwingUtilities.invokeLater(new Runnable() {
+                @Override
                 public void run() {
                     resizeTable();
                 }
@@ -335,6 +336,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         }
     }
 
+    @Override
 	public List<AbstractChildTemplatePanel> getTabs() {
 		return tabs;
 	}
@@ -504,6 +506,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 if (!e.getValueIsAdjusting()) {
                     loadSubRecords(currentObject);
                     SwingUtilities.invokeLater(new Runnable() {
+						@Override
 						public void run() {
 		                    ruleWrapper.onChangeRecord();
 		                    AbstractTemplatePanel pnl = getMe();
@@ -572,8 +575,9 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         ActionButton buttons[] = btns.value();
         if (buttons==null || buttons.length==0) return;
         
-        JPanel panel = new JPanel(new FlowLayout());
-        pnlButton.add(panel);
+//        JPanel panel = new JPanel(new FlowLayout());
+        pnlButton.setLayout(new FlowLayout());
+//        pnlButton.add(panel);
         for (ActionButton button : buttons) {
             if (button.top()==top) {
                 JButtonPallete btn = new JButtonPallete(button.label(), button.name());
@@ -585,7 +589,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 btn.setName(button.name());
                 btn.setToolTipText(button.name());
                 this.addFieldComponent(btn);
-                panel.add(btn);
+                pnlButton.add(btn);
                 if (!UserInfo.hasDuty(button.duties())) {
                 	btn.setVisible(false);
                 }
@@ -593,7 +597,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         }
         if (constants.Constants.panelBackground!=null) {
             pnlButton.setBackground(constants.Constants.panelBackground);
-            panel.setBackground(constants.Constants.panelBackground);
+//            panel.setBackground(constants.Constants.panelBackground);
         }
     }
 
@@ -1098,6 +1102,7 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 		return tmp;
     }
 
+	@Override
 	public JTabbedPane getTabPane() {
 		return this.tabChildren;
 	}

@@ -32,14 +32,14 @@ import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateDefault;
 import bean.Customer;
 import bean.embedded.EmbeddedAccounting;
-import bean.sales.embedded.EmbeddedSalesOrderLogistics;
+import bean.sales.embedded.EmbeddedSalesDeliveryLogistics;
 
 /**
  *
  * @author pogi
  */
 @Entity
-@Table(name = "SalesOrder")
+@Table(name = "SalesReturn")
 @UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
@@ -78,7 +78,7 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
 })
 @ChildRecords(
 		value={
-				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=SalesOrderItem.class, fieldMapping={"seq","salesOrderId"}, sql="SELECT a FROM SalesOrderItem a WHERE a.salesOrderId=${seq}", title="Contents")
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=SalesReturnItem.class, fieldMapping={"seq","salesReturnId"}, sql="SELECT a FROM SalesReturnItem a WHERE a.salesReturnId=${seq}", title="Contents")
 		},
 		info={
 				@ParentAddInfo(title = "Logistics", gridCount = 2, displayFields = {"logistics"}),
@@ -88,15 +88,15 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
     @ActionButton(name="btnDeliver", label="Deliver", parentOnly=true),
     @ActionButton(name="btnInvoice", label="Invoice", parentOnly=true)
 })
-public class SalesOrder extends AbstractIBean implements Serializable {
+public class SalesReturn extends AbstractIBean implements Serializable {
 	public static void main(String[] args) {
-		view(SalesOrder.class);
+		view(SalesReturn.class);
 	}
 	
 	@Override
     public void save() {
-		this.logistics = ((SalesOrder)myClone).logistics;
-		this.accounting = ((SalesOrder)myClone).accounting;
+		this.logistics = ((SalesReturn)myClone).logistics;
+		this.accounting = ((SalesReturn)myClone).accounting;
         super.save();
     }
 
@@ -130,7 +130,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
     
 //    below are for logistics
     @Embedded
-    public EmbeddedSalesOrderLogistics logistics = new EmbeddedSalesOrderLogistics();
+    public EmbeddedSalesDeliveryLogistics logistics = new EmbeddedSalesDeliveryLogistics();
     @Embedded
     public EmbeddedAccounting accounting = new EmbeddedAccounting();
     
@@ -294,11 +294,11 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.totalAmount = totalAmount;
 	}
 
-	public EmbeddedSalesOrderLogistics getLogistics() {
+	public EmbeddedSalesDeliveryLogistics getLogistics() {
 		return logistics;
 	}
 
-	public void setLogistics(EmbeddedSalesOrderLogistics logistics) {
+	public void setLogistics(EmbeddedSalesDeliveryLogistics logistics) {
 		this.logistics = logistics;
 	}
 

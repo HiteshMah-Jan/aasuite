@@ -8,20 +8,12 @@
  */
 package service.util;
 
-import java.util.Map;
-
 import constants.Constants;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.metamodel.Metamodel;
-
 import service.ParamStruct;
 import service.ReturnStruct;
 import service.ServiceAdapter;
@@ -149,94 +141,4 @@ public class WSPersistenceEntityManager implements EntityManager {
     public EntityTransaction getTransaction() {
         return trans;
     }
-
-	public <T> TypedQuery<T> createNamedQuery(String arg0, Class<T> arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public <T> TypedQuery<T> createQuery(CriteriaQuery<T> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public <T> TypedQuery<T> createQuery(String arg0, Class<T> arg1) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void detach(Object arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public <T> T find(Class<T> arg0, Object arg1, Map<String, Object> arg2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public <T> T find(Class<T> arg0, Object arg1, LockModeType arg2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public <T> T find(Class<T> arg0, Object arg1, LockModeType arg2, Map<String, Object> arg3) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public CriteriaBuilder getCriteriaBuilder() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public EntityManagerFactory getEntityManagerFactory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public LockModeType getLockMode(Object arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Metamodel getMetamodel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Map<String, Object> getProperties() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void lock(Object arg0, LockModeType arg1, Map<String, Object> arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void refresh(Object arg0, Map<String, Object> arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void refresh(Object arg0, LockModeType arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void refresh(Object arg0, LockModeType arg1, Map<String, Object> arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setProperty(String arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public <T> T unwrap(Class<T> arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

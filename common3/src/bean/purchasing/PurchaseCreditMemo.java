@@ -1,12 +1,12 @@
 /*
- * Salesorder.java
+ * Purchaseorder.java
  *
  * Created on Nov 22, 2007, 6:07:49 PM
  *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean.sales;
+package bean.purchasing;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,14 +32,14 @@ import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateDefault;
 import bean.Customer;
 import bean.embedded.EmbeddedAccounting;
-import bean.sales.embedded.EmbeddedSalesOrderLogistics;
+import bean.purchasing.embedded.EmbeddedPurchaseCreditMemoLogistics;
 
 /**
  *
  * @author pogi
  */
 @Entity
-@Table(name = "SalesOrder")
+@Table(name = "PurchaseCreditMemo")
 @UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
@@ -57,30 +57,34 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
         @Display(name="documentDate"),
         
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"salesEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
-        @Display(name="salesEmployeeId", label="Sales Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
+    			mergeFields={"purchaseEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
+        @Display(name="purchaseEmployeeId", label="Purchase Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
         @Display(name="owner"),
         @Display(name="remarks"),
         @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
         
-    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalAmount"}, verticalMerge=true),
-        @Display(name="totalBeforeDiscount"),
-        @Display(name="discountPercentage"),
-        @Display(name="discountAmount"),
-        @Display(name="freightAmount"),
-        @Display(name="rounding"),
-        @Display(name="tax"),
-        @Display(name="totalAmount"),
+//    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
+//    			mergeFields={"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}, verticalMerge=true),
+        @Display(name="totalBeforeDiscount", addInfoOnly=true),
+        @Display(name="discountPercentage", addInfoOnly=true),
+        @Display(name="discountAmount", addInfoOnly=true),
+        @Display(name="freightAmount", addInfoOnly=true),
+        @Display(name="rounding", addInfoOnly=true),
+        @Display(name="tax", addInfoOnly=true),
+        @Display(name="totalDownpayment", addInfoOnly=true),
+        @Display(name="totalAmount", addInfoOnly=true),
+        @Display(name="appliedAmount", addInfoOnly=true),
+        @Display(name="balanceDue", addInfoOnly=true),
 
         @Display(name="logistics", addInfoOnly=true, type="Embedded", gridFieldWidth=2, noLabel=true),
         @Display(name="accounting", addInfoOnly=true, type="Embedded", gridFieldWidth=2, noLabel=true)
 })
 @ChildRecords(
 		value={
-				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=SalesOrderItem.class, fieldMapping={"seq","salesOrderId"}, sql="SELECT a FROM SalesOrderItem a WHERE a.salesOrderId=${seq}", title="Contents")
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=PurchaseCreditMemoItem.class, fieldMapping={"seq","purchaseCreditMemoId"}, sql="SELECT a FROM PurchaseCreditMemoItem a WHERE a.purchaseCreditMemoId=${seq}", title="Contents")
 		},
 		info={
+				@ParentAddInfo(title = "Calculation Details", gridCount = 2, displayFields = {"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}),
 				@ParentAddInfo(title = "Logistics", gridCount = 2, displayFields = {"logistics"}),
 				@ParentAddInfo(title = "Accounting", gridCount = 2, displayFields = {"accounting"})
 		})
@@ -88,15 +92,15 @@ import bean.sales.embedded.EmbeddedSalesOrderLogistics;
     @ActionButton(name="btnDeliver", label="Deliver", parentOnly=true),
     @ActionButton(name="btnInvoice", label="Invoice", parentOnly=true)
 })
-public class SalesOrder extends AbstractIBean implements Serializable {
+public class PurchaseCreditMemo extends AbstractIBean implements Serializable {
 	public static void main(String[] args) {
-		view(SalesOrder.class);
+		view(PurchaseCreditMemo.class);
 	}
 	
 	@Override
     public void save() {
-		this.logistics = ((SalesOrder)myClone).logistics;
-		this.accounting = ((SalesOrder)myClone).accounting;
+		this.logistics = ((PurchaseCreditMemo)myClone).logistics;
+		this.accounting = ((PurchaseCreditMemo)myClone).accounting;
         super.save();
     }
 
@@ -116,7 +120,7 @@ public class SalesOrder extends AbstractIBean implements Serializable {
     public Date documentDate;
     public String itemOrServiceType;
     
-    public int salesEmployeeId;
+    public int purchaseEmployeeId;
     public String owner;
     public String remarks;
     public double totalBeforeDiscount;
@@ -126,11 +130,14 @@ public class SalesOrder extends AbstractIBean implements Serializable {
     public int rounding;
     public double tax;
     public double totalAmount;
+    public double totalDownpayment;
+    public double appliedAmount;
+    public double balanceDue;
    
     
 //    below are for logistics
     @Embedded
-    public EmbeddedSalesOrderLogistics logistics = new EmbeddedSalesOrderLogistics();
+    public EmbeddedPurchaseCreditMemoLogistics logistics = new EmbeddedPurchaseCreditMemoLogistics();
     @Embedded
     public EmbeddedAccounting accounting = new EmbeddedAccounting();
     
@@ -140,6 +147,30 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 
 	public void setSeq(Integer seq) {
 		this.seq = seq;
+	}
+
+	public double getTotalDownpayment() {
+		return totalDownpayment;
+	}
+
+	public void setTotalDownpayment(double totalDownpayment) {
+		this.totalDownpayment = totalDownpayment;
+	}
+
+	public double getAppliedAmount() {
+		return appliedAmount;
+	}
+
+	public void setAppliedAmount(double appliedAmount) {
+		this.appliedAmount = appliedAmount;
+	}
+
+	public double getBalanceDue() {
+		return balanceDue;
+	}
+
+	public void setBalanceDue(double balanceDue) {
+		this.balanceDue = balanceDue;
 	}
 
 	public double getFreightAmount() {
@@ -222,12 +253,12 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.itemOrServiceType = itemOrServiceType;
 	}
 
-	public int getSalesEmployeeId() {
-		return salesEmployeeId;
+	public int getPurchaseEmployeeId() {
+		return purchaseEmployeeId;
 	}
 
-	public void setSalesEmployeeId(int salesEmployeeId) {
-		this.salesEmployeeId = salesEmployeeId;
+	public void setPurchaseEmployeeId(int purchaseEmployeeId) {
+		this.purchaseEmployeeId = purchaseEmployeeId;
 	}
 
 	public String getOwner() {
@@ -294,11 +325,11 @@ public class SalesOrder extends AbstractIBean implements Serializable {
 		this.totalAmount = totalAmount;
 	}
 
-	public EmbeddedSalesOrderLogistics getLogistics() {
+	public EmbeddedPurchaseCreditMemoLogistics getLogistics() {
 		return logistics;
 	}
 
-	public void setLogistics(EmbeddedSalesOrderLogistics logistics) {
+	public void setLogistics(EmbeddedPurchaseCreditMemoLogistics logistics) {
 		this.logistics = logistics;
 	}
 
