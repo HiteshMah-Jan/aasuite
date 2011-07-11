@@ -867,7 +867,6 @@ public class PanelUtil {
             this.obj = obj;
             this.methodName = methodName;
         }
-        @Override
         public void run() {
             try {
                 obj.getClass().getMethod(methodName, null).invoke(obj, null);
@@ -1013,31 +1012,26 @@ public class PanelUtil {
         	view.hideSearchResult();
         }
         btnMore.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 view.searchMoreRecords();
             }
         });
         btnPrev.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 view.prevRecord();
             }
         });
         btnNext.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 view.nextRecord();
             }
         });
         btnNew.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 view.newRecord();
             }
         });
         btnSave.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
             	if (hideSearch) {
                 	AbstractIBean b = (AbstractIBean) view.getBean();
@@ -1103,7 +1097,6 @@ public class PanelUtil {
 	        frWait.setAlwaysOnTop(true);
     	}
     	Thread t = new Thread(new Runnable() {
-			@Override
 			public void run() {
 		    	frWait.setTitle(BeanUtil.concat(title));
 		    	frWait.setVisible(true);

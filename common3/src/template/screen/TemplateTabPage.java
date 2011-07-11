@@ -63,7 +63,6 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         }
         if (tabs!=null) {
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
                 public void run() {
                     for (AbstractChildTemplatePanel tab : tabs) {
                         Dimension dim = tab.scrollTable.getPreferredSize();

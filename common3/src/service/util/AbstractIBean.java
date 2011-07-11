@@ -166,7 +166,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         }
     }
 
-    @Override
     public String _Key() {
         Field[] fs = this.getClass().getFields();
         for (Field field : fs) {
@@ -178,7 +177,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return "seq";
     }
 
-    @Override
     public String _Table() {
         //get root table
         if (this.getClass().getName().endsWith("Ext")) {
@@ -194,12 +192,10 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return tbl.name();
     }
 
-    @Override
     public int _Status() {
         return Constants.SUCCESS;
     }
 
-    @Override
     public IBean getMe(EntityManager entityManager) {
         Object obj = null;
         try {
@@ -212,7 +208,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return (IBean) obj;
     }
 
-    @Override
     public IBean updateMe(EntityManager entityManager) {
         try {
         	try {
@@ -689,19 +684,16 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     public boolean newCache = true;
     public Map<String, Object> cacheMap = new HashMap<String, Object>();
 
-    @Override
     public boolean isNewCache() {
         return newCache;
     }
 
-    @Override
     public void changeCache(IBean bean) {
         cacheMap = ((AbstractIBean) bean).cacheMap;
         newCache = false;
         ((AbstractIBean) bean).newCache = false;
     }
 
-    @Override
     public final void serverCache() {
         manualCache();
     }
@@ -938,7 +930,6 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
         return cls;
     }
 
-    @Override
     public ReturnStruct callService(ParamStruct param) {
 //        throw new UnsupportedOperationException("Not supported yet.");
         //all beans can be service

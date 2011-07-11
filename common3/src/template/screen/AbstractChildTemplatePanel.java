@@ -87,7 +87,6 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
     	btnNew.setVisible(t);
     }
     
-    @Override
 	public List<AbstractChildTemplatePanel> getTabs() {
 		return null;
 	}
@@ -229,7 +228,6 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
         
         if (template.tableColumnWidth()!=null) {
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
                 public void run() {
                     resizeTable();
                 }
@@ -678,7 +676,6 @@ private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         return list;
     }
 
-	@Override
 	public JTabbedPane getTabPane() {
 		// TODO Auto-generated method stub
 		return null;

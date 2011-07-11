@@ -151,14 +151,12 @@ public class JListPallete extends JList implements IGetText, IHelp {
 		}
 	}
 	
-    @Override
 	public String getText() {
 		Object obj = this.getSelectedValue();
 		if (obj==null) return "";
 		return this.getSelectedValue().toString();
     }
 
-    @Override
 	public void setText(String text) {
 		for (int i=0; i<this.getComponentCount(); i++) {
 			Object obj = this.getComponent(i);
@@ -209,7 +207,6 @@ public class JListPallete extends JList implements IGetText, IHelp {
 		return lst;
 	}
 
-    @Override
 	public boolean isEmpty() {
         return PanelUtil.isEmpty(this);
     }

@@ -29,7 +29,6 @@ public class ChildTemplateDisplayForm extends ChildTemplateListPopup {
     public void refreshRecords(AbstractIBean parent) {
     	super.refreshRecords(parent);
     	SwingUtilities.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				if (tblRecord.getRowCount()>0) {
 					try {

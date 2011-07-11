@@ -81,12 +81,10 @@ public class FileUploadRendererPallete extends javax.swing.JPanel implements IBl
         lblRemove.setEnabled(enabled);
     }
 
-    @Override
     public byte[] getBlobBytes() {
         return BeanUtil.toByte(mapFiles);
     }
 
-    @Override
     @SuppressWarnings(value = "unchecked")
     public void setBlobBytes(byte[] blobBytes) {
         if (blobBytes == null) {

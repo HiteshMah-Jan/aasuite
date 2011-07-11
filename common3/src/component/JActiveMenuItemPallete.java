@@ -35,7 +35,6 @@ public class JActiveMenuItemPallete extends JMenuItem {
 		this.panel = (AbstractPanel) tpanel;
 		setText(getTitle());
 		this.addActionListener(new ActionListener() {
-            @Override
 			public void actionPerformed(ActionEvent e) {
 				PanelUtil.showPanel(panel);
             }			
@@ -46,7 +45,6 @@ public class JActiveMenuItemPallete extends JMenuItem {
 		this.panel = (AbstractPanel) tpanel;
 		setText(title);
 		this.addActionListener(new ActionListener() {
-            @Override
 			public void actionPerformed(ActionEvent e) {
 				PanelUtil.showPanel(panel);
             }			

@@ -84,7 +84,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
         return this;
     }
 
-    @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
         lblEnlargeImage.setEnabled(enabled);
@@ -103,12 +102,10 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
         displayImage();
     }
 
-    @Override
     public void clear() {
         blob.clear();
         SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
             public void run() {
                 javax.swing.border.Border bkgrnd = new CentredBackgroundBorder(null);
                 pnlImageRenderer.setBorder(bkgrnd);
@@ -942,7 +939,6 @@ private void pnlImageRendererMouseEntered(java.awt.event.MouseEvent evt) {//GEN-
             this.image = image;
         }
 
-        @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             if (image != null) {
                 int x0 = x + (width - image.getWidth()) / 2;
@@ -987,12 +983,10 @@ private void pnlImageRendererMouseEntered(java.awt.event.MouseEvent evt) {//GEN-
     }
     private int imageIndex;
 
-    @Override
     public byte[] getBlobBytes() {
         return BeanUtil.toByte(blob.getLst());
     }
 
-    @Override
     @SuppressWarnings("unchecked")
     public void setBlobBytes(byte[] b) {
         if (b == null) {

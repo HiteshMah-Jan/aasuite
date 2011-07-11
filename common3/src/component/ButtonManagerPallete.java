@@ -827,7 +827,6 @@ public class ButtonManagerPallete {
     }
 
     private class TableSelectionListener implements ListSelectionListener {
-        @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
                 if (e.getSource() == masterTable.getSelectionModel()) {

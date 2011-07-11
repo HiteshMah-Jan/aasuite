@@ -66,7 +66,6 @@ public abstract class MainWindow extends FrameView {
     public MainWindow(SingleFrameApplication app) {
         super(app);
         SwingUtilities.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 mainwindow.getBtnDelete().addActionListener(new ActionListener() {
 

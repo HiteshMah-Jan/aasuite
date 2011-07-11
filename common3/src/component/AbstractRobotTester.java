@@ -105,7 +105,6 @@ public class AbstractRobotTester implements Runnable {
 
             Thread thread = new Thread(new Runnable() {
 
-                @Override
                 public void run() {
                     waitManySec(2);
 //					mouseLocationDlg.setVisible(true);
@@ -123,7 +122,6 @@ public class AbstractRobotTester implements Runnable {
         }
     }
 
-    @Override
     public void run() {
         if (ENABLE_ROBOT) {
             if (mainRobot) {
@@ -161,7 +159,6 @@ public class AbstractRobotTester implements Runnable {
 
     public void focusComponent(final JComponent comp) {
         Thread t = new Thread(new Runnable() {
-            @Override
             public void run() {
                 comp.setEnabled(true);
                 comp.requestFocus();
@@ -174,7 +171,6 @@ public class AbstractRobotTester implements Runnable {
     public void moveMouse(final JComponent comp) {
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 Point p = comp.getLocation();
                 SwingUtilities.convertPointToScreen(p, comp);
@@ -190,7 +186,6 @@ public class AbstractRobotTester implements Runnable {
         moveMouse(comp);
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 waitMilliSec(100);
                 String text = comp.getText();
@@ -234,7 +229,6 @@ public class AbstractRobotTester implements Runnable {
 
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 waitMilliSec(100);
                 String text = comp.getText();
@@ -278,7 +272,6 @@ public class AbstractRobotTester implements Runnable {
         }
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 tab.setSelectedIndex(index);
             }
@@ -318,7 +311,6 @@ public class AbstractRobotTester implements Runnable {
     public void tabNext() {
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 robot.keyRelease(KeyEvent.VK_TAB);
             }
@@ -335,7 +327,6 @@ public class AbstractRobotTester implements Runnable {
     public void selectTableRecord(final JTable tbl, final int row) {
         Thread t = new Thread(new Runnable() {
 
-            @Override
             public void run() {
                 tbl.setRowSelectionInterval(row, row);
             }

@@ -47,7 +47,6 @@ public class EditOR extends javax.swing.JPanel implements IAcceptPaymentWindow {
         		btnUnlockInvoice.setVisible(true);
         	}
             beanPanelPallete1.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     if (!e.getValueIsAdjusting()) {
                         changeSelectedRecord();
@@ -382,25 +381,21 @@ private void btnReprintORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private component.BeanPanelPallete pnlTopInvoice;
     private javax.swing.JTextField txtORNumber;
     // End of variables declaration//GEN-END:variables
-	@Override
 	public void reloadPayments() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setDrawer(AbstractCashierForm form) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setUseYear(String year) {
 		// TODO Auto-generated method stub
 		

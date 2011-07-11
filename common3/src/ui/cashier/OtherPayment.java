@@ -45,7 +45,6 @@ public class OtherPayment extends javax.swing.JPanel implements IAcceptPaymentWi
 
             jSplitPane1.setDividerSize(10);
             beanSoldBooks.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     if (!e.getValueIsAdjusting()) {
                         changeSelectedRecord();
@@ -348,30 +347,25 @@ protected void search() {
         }
     }
 
-	@Override
 	public void reloadPayments() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void searchOR(String or) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setDrawer(AbstractCashierForm form) {
 		this.drawer = form;
 	}
 
-	@Override
 	public void setUseYear(String year) {
 		// TODO Auto-generated method stub
 		

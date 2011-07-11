@@ -216,31 +216,26 @@ private void btnLedgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
-	@Override
 	public void reloadPayments() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void searchOR(String or) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setDrawer(AbstractCashierForm form) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void setUseYear(String year) {
 		// TODO Auto-generated method stub
 		

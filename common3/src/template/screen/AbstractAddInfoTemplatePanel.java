@@ -51,7 +51,6 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
 //    private List<JComponent> lstComponent = new ArrayList<JComponent>();
     private TemplateParserUtil templateParser;
 
-    @Override
 	public List<AbstractChildTemplatePanel> getTabs() {
 		return null;
 	}
@@ -273,7 +272,6 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
         return panel.getRecordList();
     }
 
-	@Override
 	public JTabbedPane getTabPane() {
 		// TODO Auto-generated method stub
 		return null;

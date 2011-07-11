@@ -138,7 +138,6 @@ public class AAAConfig implements IService {
 
     public void setupDB(final JLabel lbl) {
     	Thread t = new Thread(new Runnable() {
-			@Override
 			public void run() {
 		        //test all beans sql
 		        List<String> lst = test.XMLTester.getAllBeanNames();
@@ -186,7 +185,6 @@ public class AAAConfig implements IService {
 
     int callSetup = 1;
     
-    @Override
     public ReturnStruct callService(ParamStruct param) {
         if (param.getActionCommand()==callSetup) {
             Department.list("SELECT a FROM Department a");

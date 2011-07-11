@@ -396,7 +396,6 @@ public abstract class BusinessRuleWrapper {
     }
     public void disable(final String comp) {
 		Thread t = new Thread(new Runnable() {
-			@Override
 			public void run() {
 				try {
 					Thread.currentThread().sleep(100);

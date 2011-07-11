@@ -277,7 +277,6 @@ public class LookupTable extends javax.swing.JPanel {
                     keyHelper(e);
                     if (e.getKeyCode()==KeyEvent.VK_ENTER) {
                         Thread t = new Thread(new Runnable() {
-                            @Override
                             public void run() {
                                 filter();
                             }
@@ -385,7 +384,6 @@ public class LookupTable extends javax.swing.JPanel {
     private void threadFilter(final int flag, final int start, final int end) {
         ready.set(flag, false);
         Thread t = new Thread(new Runnable() {
-            @Override
             public void run() {
                 PerfUtil perf = new PerfUtil("FILTER CHUNK READY ");
                 perf.start();

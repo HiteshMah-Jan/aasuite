@@ -356,7 +356,6 @@ public abstract class AbstractComponentRenderer {
             else {
             	((JComponent) obj).setEnabled(false);
             	Thread t = new Thread(new Runnable() {
-					@Override
 					public void run() {
 						try {
 							Thread.currentThread().sleep(2000);

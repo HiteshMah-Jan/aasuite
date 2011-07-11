@@ -56,37 +56,31 @@ public class EmbeddedRenderer extends AbstractComponentRenderer {
     
     class EmbeddedPanel extends JPanel implements IGetText {
 
-		@Override
 		public String getText() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
 		public void setText(String text) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
 		public boolean isEmpty() {
 			// TODO Auto-generated method stub
 			return false;
 		}
 
-		@Override
 		public Object getValue() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
 		public FieldCompose getFieldCompose() {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
 		public void setFieldCompose(FieldCompose field) {
 			// TODO Auto-generated method stub
 			

@@ -14,7 +14,6 @@ public class HeartBeat implements IService {
 //		return b;
 	}
 	
-	@Override
 	public ReturnStruct callService(ParamStruct param) {
 		ReturnStruct r = new ReturnStruct();
 		r.setStatus(Constants.SUCCESS);

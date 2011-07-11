@@ -204,12 +204,10 @@ public class JComboBoxPallete extends JComboBox implements IGetText, IHelp, IRul
         PalleteRuleManager.useRule(this);
     }
     
-    @Override
     public String getText() {
         return getCode();
     }
 
-    @Override
     public void setText(String text) {
         setCode(text);
     }

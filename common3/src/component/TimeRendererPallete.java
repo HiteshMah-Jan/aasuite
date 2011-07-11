@@ -48,7 +48,6 @@ public class TimeRendererPallete extends javax.swing.JPanel implements IRule, IG
     
     public void setText(final String str) {
     	SwingUtilities.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 		        setTime(str);
 			}

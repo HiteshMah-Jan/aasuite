@@ -327,7 +327,6 @@ public class PersonAttendance extends PersonAttribute implements Serializable {
 			this.e = e;
 		}
 		
-		@Override
 		public void run() {
     		PanelUtil.showWaitFrame();
 			List l = new ArrayList();

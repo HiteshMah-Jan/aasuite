@@ -280,22 +280,18 @@ public abstract class AbstractSubPanel extends JPanel implements IPanelNavigator
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
     }
 
-    @Override
     public void newRecord() {
         
     }
     
-    @Override
     public void deleteRecord() {
         
     }
     
-    @Override
     public void saveRecord() {
         
     }
     
-    @Override
     public void refreshRecords() {
         
     }

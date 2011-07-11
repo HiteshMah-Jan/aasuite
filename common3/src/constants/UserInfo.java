@@ -270,7 +270,6 @@ public class UserInfo implements Serializable, IService {
     public static boolean canReceivePO() {
         return hasDuty("HAS RECEIVE PO");
     }
-    @Override
     public ReturnStruct callService(ParamStruct param) {
 //        populate all the duty codes here
 //    	Log.out("CALLED USERINFO.");

@@ -1574,23 +1574,19 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
 		}
 	}
 
-	@Override
 	public String extractChargeDepartment() {
 		return "";
 	}
 
-	@Override
 	public String extractDefaultFormula() {
         return BeanUtil.concat("GL.debit PAYMENT, now, \"102\", PAYMENT.amount, PAYMENT.paymentFor;",
         "\nGL.credit PAYMENT, now, \"402.1\", PAYMENT.amount, PAYMENT.paymentFor;");
 	}
 
-	@Override
 	public String extractGLSubType() {
 		return this.paymentFor;
 	}
 
-	@Override
 	public boolean hardcodePosting() {
 		if (paid) {
 //			since posting will be for invoice
@@ -1605,12 +1601,10 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
 		return false;
 	}
 
-	@Override
 	public boolean isPosted() {
 		return posted;
 	}
 
-	@Override
 	public void setPosted(boolean posted) {
 		this.posted = posted;
 	}

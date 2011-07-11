@@ -43,7 +43,6 @@ public class UITemplateCreator extends javax.swing.JPanel {
         };
         lstClasses.setModel(bigData);
         lstClasses.addListSelectionListener(new ListSelectionListener() {
-			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				txtCodes.setText(convertBean(lstClasses.getSelectedValue().toString()));
 //				txtHtml.setText(convertBean(lstClasses.getSelectedValue().toString()));

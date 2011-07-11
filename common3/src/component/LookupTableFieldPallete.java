@@ -159,7 +159,6 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
     		this.pallete = pallete;
     	}
     	
-		@Override
 		public void run() {
             AbstractIBean ibean = null;
             if (mapKey.containsKey(BeanUtil.concat(pallete.bean,"-",pallete.lookup.txt.getText()))) {

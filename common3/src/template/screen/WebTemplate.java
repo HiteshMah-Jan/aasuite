@@ -21,7 +21,6 @@ public class WebTemplate implements ITemplate {
     Class bean;
     Object obj;
     
-    @Override
 	public List<AbstractChildTemplatePanel> getTabs() {
 		return null;
 	}
@@ -78,7 +77,6 @@ public class WebTemplate implements ITemplate {
         return null;
     }
 
-	@Override
 	public JTabbedPane getTabPane() {
 		return null;
 	}

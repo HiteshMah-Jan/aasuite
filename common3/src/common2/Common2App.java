@@ -132,7 +132,6 @@ public class Common2App extends SingleFrameApplication {
     }
     
     private static class HeartBeat implements Runnable {
-		@Override
 		public void run() {
 			for (int i=0; i<1000;) {
 				try {

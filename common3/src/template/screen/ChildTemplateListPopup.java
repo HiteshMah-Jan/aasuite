@@ -147,13 +147,11 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
         bindingGroup.bind();
         pnlPopup.add(pnlMain);
         btnCancelUpdate.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 cancelUpdate();
             }
         });
         btnCancelSave.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 cancelSave();
             }
@@ -183,13 +181,11 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
         cons.insets = new Insets(2,2,2,2);
         cons.gridy++;
         myNewButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 newRecord();
             }
         });
         myUpdateButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 updateRecord();
             }
@@ -227,7 +223,6 @@ public class ChildTemplateListPopup extends AbstractChildTemplatePanel {
         
         if (template.tableColumnWidth()!=null) {
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
                 public void run() {
                     resizeTable();
                 }

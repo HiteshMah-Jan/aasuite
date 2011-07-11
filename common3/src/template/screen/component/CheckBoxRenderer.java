@@ -41,7 +41,6 @@ public class CheckBoxRenderer extends AbstractComponentRenderer {
             @Override
             public void mouseClicked(MouseEvent e) {
             	SwingUtilities.invokeLater(new Runnable() {
-					@Override
 					public void run() {
 		                lostFocus();
 					}

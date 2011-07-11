@@ -70,7 +70,6 @@ public class AttendanceService extends ServiceWrapper {
         return result.getTime();
     }
 
-    @Override
     public ReturnStruct callService(ParamStruct param) {
         AAAConfig.getInstance();
         // process the service every 3 minutes
@@ -96,7 +95,6 @@ public class AttendanceService extends ServiceWrapper {
             this.proc = proc;
         }
 
-        @Override
         public void run() {
             runFile(file);
             AttendanceService.lst.remove(file.getName());
