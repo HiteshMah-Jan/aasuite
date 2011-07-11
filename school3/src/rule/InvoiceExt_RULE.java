@@ -17,7 +17,6 @@ public class InvoiceExt_RULE extends Invoice_RULE {
 	public void onChangeRecord() {
 		super.onChangeRecord();
 		SwingUtilities.invokeLater(new Runnable() {
-			@Override
 			public void run() {
 				Invoice inv = (Invoice) getBean();
 				List<AbstractChildTemplatePanel> lst = panel.getTabs();

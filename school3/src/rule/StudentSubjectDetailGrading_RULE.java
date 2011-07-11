@@ -24,31 +24,24 @@ public class StudentSubjectDetailGrading_RULE extends BusinessRuleWrapper {
 		super.setTable(tbl);
 		tbl.setNewRenderer("Integer", IntegerWithColorRenderer.class);
 		tbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
 				calculate();
 			}
 		});
 		tbl.getModel().addTableModelListener(new TableModelListener() {
-			@Override
 			public void tableChanged(TableModelEvent arg0) {
 				calculate();
 			}
 		});
 		tbl.getColumnModel().addColumnModelListener(new TableColumnModelListener() {
-			@Override
 			public void columnAdded(TableColumnModelEvent e) {
 			}
-			@Override
 			public void columnMarginChanged(ChangeEvent e) {
 			}
-			@Override
 			public void columnMoved(TableColumnModelEvent e) {
 			}
-			@Override
 			public void columnRemoved(TableColumnModelEvent e) {
 			}
-			@Override
 			public void columnSelectionChanged(ListSelectionEvent e) {
 				calculate();
 			}

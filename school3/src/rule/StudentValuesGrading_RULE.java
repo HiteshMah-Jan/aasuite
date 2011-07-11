@@ -99,7 +99,6 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			this.lst = lst;
 		}
 		
-		@Override
 		public void run() {
 			for (int i=0; i<lst.size(); i++) {
 				int addGrade = (i > 15)?2:0;
@@ -177,7 +176,6 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			this.g = g;
 		}
 
-		@Override
 		public void run() {
 //			Log.out("VALUES ",g.seq);
 			g.save();

@@ -28,7 +28,6 @@ public class MultiSavingGradeService implements IService {
 		CallService.callService(l, quarter, MultiSavingGradeService.class.getName());
 	}
 	
-	@Override
 	public ReturnStruct callService(ParamStruct param) {
 		int quarter = param.getActionCommand();
 		List<Object> l = (List<Object>) param.getData();

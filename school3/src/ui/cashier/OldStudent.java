@@ -131,7 +131,6 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
             btnViewOtherPayments.setVisible(false);
             
             pnlAssessment.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
                 public void valueChanged(ListSelectionEvent e) {
                     changeLabelAmount();
                 }
@@ -775,7 +774,6 @@ private void btnStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 pnlPayment.setList(payments);
                 
                 SwingUtilities.invokeLater(new Runnable() {
-					@Override
 					public void run() {
 						List<Payment> lst = pnlAssessment.view.list;
 						for (int i=0; lst!=null && i<lst.size(); i++) {

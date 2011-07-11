@@ -38,7 +38,6 @@ public class CalculateGradeService implements IService {
 		CallService.callService(l, quarter, CalculateGradeService.class.getName());
 	}
 
-	@Override
 	public ReturnStruct callService(ParamStruct param) {
 		List<Subject> allsubs = AbstractIBean.listCache("SELECT a FROM Subject a");
 		int quarter = param.getActionCommand();

@@ -33,7 +33,6 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 	static List<SubjectGradingCriteria> lst;
 	static boolean alreadyRun;
 
-//	@Override
 	public boolean beforeSave(AbstractIBean bean) {
 		PanelUtil.showError(null, "Please use the Save All Score button.");
 		return false;
@@ -115,7 +114,6 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			this.tlist = tlist;
 		}
 		
-		@Override
 		public void run() {
 			for (StudentSubjectDetailGrading gr:tlist) {
 				gr.parentBean = task;
@@ -204,7 +202,6 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			this.quarter = quarter;
 		}
 		
-		@Override
 		public void run() {
 			Log.out("RECALCULATE");
 			List<StudentSubjectDetailGrading> tlist = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubjectDetailGrading a WHERE a.facultyGradingTaskId=",task.seq),0,500);
@@ -467,7 +464,6 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			return crit;
 		}
 
-		@Override
 		public void run() {
 			List<Schedule> lstSched = DBClient.getList("SELECT a FROM Schedule a, Section b WHERE a.section IS NOT NULL AND a.section = b.code ORDER BY a.gradeLevel, a.section, a.subject",0,10000);
 			if (lstSched==null) {

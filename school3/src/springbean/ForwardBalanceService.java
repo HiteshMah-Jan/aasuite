@@ -19,11 +19,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ForwardBalanceService implements IService {
-    @Override
     public ReturnStruct callService(ParamStruct param) {
         final String schoolYear = (String) param.getData();
         Thread t = new Thread(new Runnable() {
-            @Override
             public void run() {
                 runForwardBalance(schoolYear);
             }

@@ -375,7 +375,6 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
     	}
     }
     Thread t = new Thread(new Runnable() {
-		@Override
 		public void run() {
 		    DBClient.persistBean(lst);
 		}
@@ -418,7 +417,6 @@ private void btnRemoveFromSectionActionPerformed(java.awt.event.ActionEvent evt)
     	}
     }
     Thread t = new Thread(new Runnable() {
-		@Override
 		public void run() {
 		    DBClient.persistBean(lst);
 		}

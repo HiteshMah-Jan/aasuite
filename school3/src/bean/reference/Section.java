@@ -185,7 +185,6 @@ public class Section extends AbstractIBean implements Serializable {
     	head = extractPersonName(headId);
 		super.save();
 		Thread t = new Thread(new Runnable() {
-			@Override
 			public void run() {
 				if (UserInfo.canModifyReference()) {
 //		    		get all values grades

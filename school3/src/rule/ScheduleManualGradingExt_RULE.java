@@ -90,7 +90,6 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 			this.sched = s;
 		}
 		
-		@Override
 		public void run() {
 			List<StudentSubject> subjects = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.scheduleId=",String.valueOf(sched.seq)," AND a.section='",sched.section,"' AND a.subject='",sched.subject,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
 			if (subjects != null && !subjects.isEmpty()) {

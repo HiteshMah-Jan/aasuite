@@ -514,7 +514,6 @@ public class Schedule extends AbstractIBean implements Serializable {
 //    	}
 		super.save();
 		Thread t = new Thread(new Runnable() {
-			@Override
 			public void run() {
 				if (UserInfo.canModifyReference()) {
 //		    		get all faculty task

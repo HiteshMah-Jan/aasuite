@@ -647,7 +647,6 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     		return false;
     	}
 
-    	@Override
 		public void run() {
 	        String course = student.course;
 	        if (course==null || course.isEmpty()) {
