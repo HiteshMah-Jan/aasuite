@@ -301,7 +301,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         setupFooter();
         if (template.tableColumnWidth()!=null) {
             SwingUtilities.invokeLater(new Runnable() {
-                @Override
                 public void run() {
                     resizeTable();
                 }
@@ -336,7 +335,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         }
     }
 
-    @Override
 	public List<AbstractChildTemplatePanel> getTabs() {
 		return tabs;
 	}
@@ -506,7 +504,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 if (!e.getValueIsAdjusting()) {
                     loadSubRecords(currentObject);
                     SwingUtilities.invokeLater(new Runnable() {
-						@Override
 						public void run() {
 		                    ruleWrapper.onChangeRecord();
 		                    AbstractTemplatePanel pnl = getMe();
@@ -1102,7 +1099,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 		return tmp;
     }
 
-	@Override
 	public JTabbedPane getTabPane() {
 		return this.tabChildren;
 	}
