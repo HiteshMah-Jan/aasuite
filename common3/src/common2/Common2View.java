@@ -3,22 +3,11 @@
  */
 package common2;
 
-import bean.admin.AppConfig;
-import component.AbstractPanel;
-import component.ITransactionPanel;
-import component.OlapRunner;
-import component.SendEmailDialog;
 import java.awt.Component;
-import org.jdesktop.application.Action;
-import org.jdesktop.application.ResourceMap;
-import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.application.FrameView;
-import org.jdesktop.application.TaskMonitor;
-
-import constants.UserInfo;
-
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,16 +17,25 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
 import javax.swing.Icon;
+import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+
+import org.jdesktop.application.Action;
+import org.jdesktop.application.FrameView;
+import org.jdesktop.application.ResourceMap;
+import org.jdesktop.application.SingleFrameApplication;
+import org.jdesktop.application.TaskMonitor;
+
 import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import template.TemplateReader;
@@ -49,11 +47,13 @@ import ui.admin.ChangeLogo;
 import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
-import java.awt.GridLayout;
-import java.beans.PropertyVetoException;
+import bean.admin.AppConfig;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
+import component.AbstractPanel;
+import component.ITransactionPanel;
+import component.OlapRunner;
+
+import constants.UserInfo;
 
 /**
  * The application's main frame.
@@ -92,23 +92,19 @@ public class Common2View extends FrameView {
     }
 
     public void changeTheme() {
-        if (constants.Constants.panelBackground != null) {
+        if (!constants.Constants.SimpleLookAndFeel && constants.Constants.panelBackground != null) {
             toolbar.setBackground(constants.Constants.panelBackground);
             PanelUtil.updateColor(btnBack);
-            PanelUtil.updateColor(btnBookmark);
             PanelUtil.updateColor(btnCalc);
             PanelUtil.updateColor(btnConfigure);
             PanelUtil.updateColor(btnDelete);
-            PanelUtil.updateColor(btnEmail);
             PanelUtil.updateColor(btnExit);
             PanelUtil.updateColor(btnHome);
             PanelUtil.updateColor(btnMore);
             PanelUtil.updateColor(btnNew);
             PanelUtil.updateColor(btnNext);
-            PanelUtil.updateColor(btnNotepad);
             PanelUtil.updateColor(btnPrev);
             PanelUtil.updateColor(btnRefresh);
-            PanelUtil.updateColor(btnReport);
             PanelUtil.updateColor(btnSave);
             PanelUtil.updateColor(btnConfigure);
         }
@@ -119,11 +115,8 @@ public class Common2View extends FrameView {
         mainView = this;
         initComponents();
         changeTheme();
-        btnBookmark.setVisible(AppConfig.showBookmarkButton());
         btnCalc.setVisible(AppConfig.showCalcButton());
         btnConfigure.setVisible(AppConfig.showConfigureButton());
-        btnEmail.setVisible(AppConfig.showEmailButton());
-        btnNotepad.setVisible(AppConfig.showNotePadButton());
 //        this.showPanel("Home", "WelcomePanel");
         showPanel("Login", "LoginPanel");
         util.AccessControlUtil.setAccessControl(menuBar);
@@ -193,7 +186,6 @@ public class Common2View extends FrameView {
                 list.clear();
             }
         });
-        btnExit.setText("Minimize");
         boolean b = AppConfig.isShowDataAnalyzer();
         mnuDataAnalyzer.setVisible(b);
         btnYear.setText(AppConfig.getSchoolYear());
@@ -247,24 +239,31 @@ public class Common2View extends FrameView {
         lblClearCache = new javax.swing.JLabel();
         toolbar = new javax.swing.JToolBar();
         btnNew = new javax.swing.JButton();
+        btnNew.setToolTipText("New");
         btnSave = new javax.swing.JButton();
+        btnSave.setToolTipText("Save");
         btnRefresh = new javax.swing.JButton();
+        btnRefresh.setToolTipText("Refresh");
         btnDelete = new javax.swing.JButton();
+        btnDelete.setToolTipText("Delete");
         jLabel4 = new javax.swing.JLabel();
         btnPrev = new javax.swing.JButton();
+        btnPrev.setToolTipText("Previous");
         btnNext = new javax.swing.JButton();
+        btnNext.setToolTipText("Next");
         btnMore = new javax.swing.JButton();
+        btnMore.setToolTipText("More");
         jLabel3 = new javax.swing.JLabel();
-        btnBookmark = new javax.swing.JButton();
-        btnEmail = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
         btnCalc = new javax.swing.JButton();
-        btnNotepad = new javax.swing.JButton();
+        btnCalc.setToolTipText("Calculator");
         btnHome = new javax.swing.JButton();
+        btnHome.setToolTipText("Home");
         btnBack = new javax.swing.JButton();
+        btnBack.setToolTipText("Back");
         jLabel2 = new javax.swing.JLabel();
         btnYear = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnExit.setToolTipText("Exit");
         btnConfigure = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -504,8 +503,7 @@ public class Common2View extends FrameView {
         toolbar.setName("toolbar"); // NOI18N
 
         btnNew.setFont(resourceMap.getFont("btnNew.font")); // NOI18N
-        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new.png"))); // NOI18N
-        btnNew.setText(resourceMap.getString("btnNew.text")); // NOI18N
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new.png")));
         btnNew.setFocusable(false);
         btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNew.setName("btnNew"); // NOI18N
@@ -518,8 +516,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnNew);
 
         btnSave.setFont(resourceMap.getFont("btnSave.font")); // NOI18N
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
-        btnSave.setText(resourceMap.getString("btnSave.text")); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png")));
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setName("btnSave"); // NOI18N
@@ -532,8 +529,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnSave);
 
         btnRefresh.setFont(resourceMap.getFont("btnRefresh.font")); // NOI18N
-        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reload.png"))); // NOI18N
-        btnRefresh.setText(resourceMap.getString("btnRefresh.text")); // NOI18N
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reload.png")));
         btnRefresh.setFocusable(false);
         btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnRefresh.setName("btnRefresh"); // NOI18N
@@ -546,8 +542,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnRefresh);
 
         btnDelete.setFont(resourceMap.getFont("btnDelete.font")); // NOI18N
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
-        btnDelete.setText(resourceMap.getString("btnDelete.text")); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png")));
         btnDelete.setFocusable(false);
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDelete.setName("btnDelete"); // NOI18N
@@ -564,8 +559,7 @@ public class Common2View extends FrameView {
         toolbar.add(jLabel4);
 
         btnPrev.setFont(resourceMap.getFont("btnPrev.font")); // NOI18N
-        btnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prevRecord.png"))); // NOI18N
-        btnPrev.setText(resourceMap.getString("btnPrev.text")); // NOI18N
+        btnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prevRecord.png")));
         btnPrev.setFocusable(false);
         btnPrev.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrev.setName("btnPrev"); // NOI18N
@@ -578,8 +572,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnPrev);
 
         btnNext.setFont(resourceMap.getFont("btnNext.font")); // NOI18N
-        btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nextRecord.png"))); // NOI18N
-        btnNext.setText(resourceMap.getString("btnNext.text")); // NOI18N
+        btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nextRecord.png")));
         btnNext.setFocusable(false);
         btnNext.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNext.setName("btnNext"); // NOI18N
@@ -592,8 +585,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnNext);
 
         btnMore.setFont(resourceMap.getFont("btnMore.font")); // NOI18N
-        btnMore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/more.png"))); // NOI18N
-        btnMore.setText(resourceMap.getString("btnMore.text")); // NOI18N
+        btnMore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/more.png")));
         btnMore.setFocusable(false);
         btnMore.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMore.setName("btnMore"); // NOI18N
@@ -609,51 +601,8 @@ public class Common2View extends FrameView {
         jLabel3.setName("jLabel3"); // NOI18N
         toolbar.add(jLabel3);
 
-        btnBookmark.setFont(resourceMap.getFont("btnBookmark.font")); // NOI18N
-        btnBookmark.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/bookmark.png"))); // NOI18N
-        btnBookmark.setText(resourceMap.getString("btnBookmark.text")); // NOI18N
-        btnBookmark.setFocusable(false);
-        btnBookmark.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnBookmark.setName("btnBookmark"); // NOI18N
-        btnBookmark.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnBookmark.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBookmarkActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnBookmark);
-
-        btnEmail.setFont(resourceMap.getFont("btnEmail.font")); // NOI18N
-        btnEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/email.png"))); // NOI18N
-        btnEmail.setText(resourceMap.getString("btnEmail.text")); // NOI18N
-        btnEmail.setFocusable(false);
-        btnEmail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEmail.setName("btnEmail"); // NOI18N
-        btnEmail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmailActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnEmail);
-
-        btnReport.setFont(resourceMap.getFont("btnReport.font")); // NOI18N
-        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report.png"))); // NOI18N
-        btnReport.setText(resourceMap.getString("btnReport.text")); // NOI18N
-        btnReport.setFocusable(false);
-        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReport.setName("btnReport"); // NOI18N
-        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnReport);
-
         btnCalc.setFont(new java.awt.Font("Tahoma", 0, 12));
-        btnCalc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/calculator.PNG"))); // NOI18N
-        btnCalc.setText(resourceMap.getString("btnCalc.text")); // NOI18N
+        btnCalc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/calculator.PNG")));
         btnCalc.setFocusable(false);
         btnCalc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCalc.setName("btnCalc"); // NOI18N
@@ -665,23 +614,8 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnCalc);
 
-        btnNotepad.setFont(resourceMap.getFont("btnNotepad.font")); // NOI18N
-        btnNotepad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/notepad.png"))); // NOI18N
-        btnNotepad.setText(resourceMap.getString("btnNotepad.text")); // NOI18N
-        btnNotepad.setFocusable(false);
-        btnNotepad.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnNotepad.setName("btnNotepad"); // NOI18N
-        btnNotepad.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnNotepad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNotepadActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnNotepad);
-
         btnHome.setFont(resourceMap.getFont("btnHome.font")); // NOI18N
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home.png"))); // NOI18N
-        btnHome.setText(resourceMap.getString("btnHome.text")); // NOI18N
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home.png")));
         btnHome.setFocusable(false);
         btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnHome.setName("btnHome"); // NOI18N
@@ -694,8 +628,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnHome);
 
         btnBack.setFont(resourceMap.getFont("btnBack.font")); // NOI18N
-        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prev.png"))); // NOI18N
-        btnBack.setText(resourceMap.getString("btnBack.text")); // NOI18N
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prev.png")));
         btnBack.setFocusable(false);
         btnBack.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnBack.setName("btnBack"); // NOI18N
@@ -724,8 +657,7 @@ public class Common2View extends FrameView {
         toolbar.add(btnYear);
 
         btnExit.setFont(new java.awt.Font("Tahoma", 0, 12));
-        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
-        btnExit.setText(resourceMap.getString("btnExit.text")); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png")));
         btnExit.setFocusable(false);
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExit.setName("btnExit"); // NOI18N
@@ -950,15 +882,11 @@ public class Common2View extends FrameView {
         internalFrame.setIconifiable(true);
         internalFrame.setClosable(true);
         internalFrame.setBounds(0, 0, 110, 89);
-        internalFrame.setLayout(new GridLayout());
-        internalFrame.add(pnl);
+        internalFrame.getContentPane().setLayout(new GridLayout());
+        internalFrame.getContentPane().add(pnl);
         desktop.add(internalFrame);
+		internalFrame.pack();
         internalFrame.setVisible(true);
-        try {
-			internalFrame.setMaximum(true);
-		} catch (PropertyVetoException e) {
-			e.printStackTrace();
-		}
     }
     
 private void lstWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstWindowMouseClicked
@@ -998,14 +926,6 @@ private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     }
 }//GEN-LAST:event_btnCalcActionPerformed
 
-private void btnNotepadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotepadActionPerformed
-    try {
-        java.lang.Runtime.getRuntime().exec("notepad");
-    } catch (IOException ex) {
-        Logger.getLogger("global").log(Level.SEVERE, null, ex);
-    }
-}//GEN-LAST:event_btnNotepadActionPerformed
-
 private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
     mapPanels.remove("Home");
     showPanel("Home", "WelcomePanel");
@@ -1026,10 +946,6 @@ private void btnConfigureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     pnlBusinessRule.setVisible(!pnlBusinessRule.isVisible());
 }//GEN-LAST:event_btnConfigureActionPerformed
 
-private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-    getTransactionPanel().showReport(btnReport);
-}//GEN-LAST:event_btnReportActionPerformed
-
 private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
     getTransactionPanel().refreshRecords();
 }//GEN-LAST:event_btnRefreshActionPerformed
@@ -1048,15 +964,6 @@ private void helpMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void mnuAdminConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAdminConsoleActionPerformed
     showPanel("User Account Admin", "UserAccountForm");
 }//GEN-LAST:event_mnuAdminConsoleActionPerformed
-
-private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
-    try {
-        AbstractIBean bean = (AbstractIBean) TransactionPanel.getCurrentPanel().getBean();
-        SendEmailDialog.showDialog(bean.extractEmailSubject(), bean.extractEmailContent(), bean.extractEmailCustomerId(), bean.extractEmailRecipient(), bean.extractEmailAttachment());
-    } catch (Exception e) {
-        SendEmailDialog.showDialog(true);
-    }
-}//GEN-LAST:event_btnEmailActionPerformed
 
 private void mnuChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuChangePasswordActionPerformed
     showPanel("Change Password", "ChangePasswordPanel");
@@ -1095,14 +1002,6 @@ private void mnuUpdateSQLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 private void mnuConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuConfigActionPerformed
     showBeanPanel("AppConfig", "");
 }//GEN-LAST:event_mnuConfigActionPerformed
-
-private void btnBookmarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookmarkActionPerformed
-    try {
-        ((TransactionPanel) TransactionPanel.getCurrentPanel()).bookmark();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}//GEN-LAST:event_btnBookmarkActionPerformed
 
 private void mnuBookmarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBookmarkActionPerformed
     showBeanPanel("BookMark", "");
@@ -1369,22 +1268,18 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnBookmark;
     private javax.swing.JButton btnCalc;
     private javax.swing.JButton btnConfigure;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEmail;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnMaximize;
     private javax.swing.JButton btnMore;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnNotepad;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnRealExit;
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnYear;
     public static javax.swing.JDialog dlgUtility;

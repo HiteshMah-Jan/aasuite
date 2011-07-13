@@ -29,6 +29,7 @@ import util.DataUtil;
  * @author Budoy Entokwa
  */
 public class Constants {
+    public static final boolean SimpleLookAndFeel = true;
     public static final Cursor busyCursor = new Cursor(Cursor.WAIT_CURSOR);
     public static final Cursor defaultCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 

@@ -856,6 +856,7 @@ public class PanelUtil {
     }
     
     public static void updateColor(JPanel pnl) {
+    	if (constants.Constants.SimpleLookAndFeel) return;
         if (constants.Constants.panelBackground==null) {
             String panelColor = AppConfig.extractPanelBackground();
             String labelColor = AppConfig.extractLabelColor();
@@ -881,12 +882,14 @@ public class PanelUtil {
     }
     
     public static void updateColor(JLabel lbl) {
+    	if (constants.Constants.SimpleLookAndFeel) return;
         if (constants.Constants.labelColor!=null) {
             lbl.setForeground(constants.Constants.labelColor);
         }
     }
 
     public static void updateColor(JButton btn) {
+    	if (constants.Constants.SimpleLookAndFeel) return;
         if (constants.Constants.labelColor!=null) {
             btn.setForeground(constants.Constants.labelColor);
             btn.setBackground(constants.Constants.panelBackground);

@@ -8,17 +8,17 @@
  */
 package service.util;
 
-import constants.Constants;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.Query;
+
 import service.ParamStruct;
 import service.ReturnStruct;
 import service.ServiceAdapter;
 import util.BeanUtil;
-import util.DBClient;
+import constants.Constants;
 
 /**
  *

@@ -315,7 +315,7 @@ public class LoginPanel extends JPanel {
 		util.AccessControlUtil.setAccessControl(Common2View.mainView.getMenuBar());
 		SpringCall.getSpringCallBean(SuccessfulLogin.class).call(userInfo);
 		LoginMonitor.addLogin();
-		// check if Message Sender can be enabled
+		this.getParent().setVisible(false);
 	}// GEN-LAST:event_btnLoginActionPerformed
 
 	private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtPasswordActionPerformed
