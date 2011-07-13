@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -47,6 +49,11 @@ import ui.admin.ChangeLogo;
 import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
+import java.awt.GridLayout;
+import java.beans.PropertyVetoException;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 /**
  * The application's main frame.
@@ -69,8 +76,8 @@ public class Common2View extends FrameView {
         if (mainView == null || mainView.pnlMain == null) {
             return TransactionPanel.dummy;
         }
-        ;
-        Component comp = mainView.pnlMain.getComponent(0);
+//        Component comp = mainView.pnlMain.getComponent(0);
+        Component comp = mainView.desktop.getSelectedFrame().getComponent(0);
         if (comp instanceof TransactionPanel) {
             TransactionPanel pnl = (TransactionPanel) comp;
             if (pnl.getActivePanel() == null) {
@@ -214,8 +221,6 @@ public class Common2View extends FrameView {
         java.awt.GridBagConstraints gridBagConstraints;
 
         mainPanel = new javax.swing.JPanel();
-        pnlMain = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         mnuBookmark = new javax.swing.JMenuItem();
@@ -289,17 +294,7 @@ public class Common2View extends FrameView {
 
         mainPanel.setName("mainPanel"); // NOI18N
         mainPanel.setLayout(new java.awt.GridLayout(1, 0));
-
-        pnlMain.setName("pnlMain"); // NOI18N
-        pnlMain.setLayout(new java.awt.GridLayout(1, 0, 20, 20));
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getResourceMap(Common2View.class);
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
-        pnlMain.add(jLabel1);
-
-        mainPanel.add(pnlMain);
 
         menuBar.setName("menuBar"); // NOI18N
 
@@ -835,14 +830,14 @@ public class Common2View extends FrameView {
 
         jPanel3.setName("jPanel3"); // NOI18N
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout gl_jPanel3 = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(gl_jPanel3);
+        gl_jPanel3.setHorizontalGroup(
+            gl_jPanel3.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 76, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        gl_jPanel3.setVerticalGroup(
+            gl_jPanel3.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 227, Short.MAX_VALUE)
         );
 
@@ -923,11 +918,49 @@ public class Common2View extends FrameView {
         progressBar.setName("progressBar"); // NOI18N
 
         setComponent(mainPanel);
+        pnlMain = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        
+                pnlMain.setName("pnlMain"); // NOI18N
+                pnlMain.setLayout(new java.awt.GridLayout(1, 0, 20, 20));
+                
+                        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+                        jLabel1.setName("jLabel1"); // NOI18N
+                        pnlMain.add(jLabel1);
+                        
+//                                mainPanel.add(pnlMain);
+        
+        pnlDesk = new JPanel();
+        mainPanel.add(pnlDesk);
+        pnlDesk.setLayout(new GridLayout(1, 0, 0, 0));
+        
+        desktop = new JDesktopPane();
+        pnlDesk.add(desktop);
+        
         setMenuBar(menuBar);
         setStatusBar(statusPanel);
         setToolBar(toolbar);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void newIFrame(String title, JPanel pnl) {
+        JInternalFrame internalFrame = new JInternalFrame(title);
+        internalFrame.setResizable(true);
+        internalFrame.setMaximizable(true);
+        internalFrame.setIconifiable(true);
+        internalFrame.setClosable(true);
+        internalFrame.setBounds(0, 0, 110, 89);
+        internalFrame.setLayout(new GridLayout());
+        internalFrame.add(pnl);
+        desktop.add(internalFrame);
+        internalFrame.setVisible(true);
+        try {
+			internalFrame.setMaximum(true);
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+    }
+    
 private void lstWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstWindowMouseClicked
     BeanPanel value = (BeanPanel) lstWindow.getSelectedValue();
     if (value == null) {
@@ -1153,16 +1186,16 @@ private void mnuDataAnalyzerActionPerformed(java.awt.event.ActionEvent evt) {
                     e.printStackTrace();
             }
     }
-    PanelUtil.showPanel2("Data Analyzer", OlapRunner.reportViewer.getMainPanel());
+    Common2View.showPanel2("Data Analyzer", OlapRunner.reportViewer.getMainPanel());
 }                                               
 
 private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDataAnalyzerActionPerformed
-    PanelUtil.showPanel2("Test DB", new TestDBForm());
+	Common2View.showPanel2("Test DB", new TestDBForm());
 }//GEN-LAST:event_mnuDataAnalyzerActionPerformed
     public static Map<String, JPanel> mapPanels = new HashMap<String, JPanel>();
     public static List<String> lstPanel = new ArrayList<String>();
 
-    public final static void showPanel(String name, String clsStr) {
+    private final static void showPanel(String name, String clsStr) {
         JPanel pnl = mapPanels.get(name);
         if (pnl == null) {
             pnl = PanelUtil.getPanel(name, clsStr);
@@ -1176,13 +1209,27 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 mainView.lstWindow.updateUI();
             }
         }
-        Common2View.mainView.pnlMain.removeAll();
-        Common2View.mainView.pnlMain.add(pnl);
-        Common2View.mainView.pnlMain.add(pnl);
-        Common2View.mainView.pnlMain.updateUI();
+        Common2View.mainView.newIFrame(PanelUtil.getTitle(name), pnl);
+//        Common2View.mainView.pnlMain.removeAll();
+//        Common2View.mainView.pnlMain.add(pnl);
+//        Common2View.mainView.pnlMain.add(pnl);
+//        Common2View.mainView.pnlMain.updateUI();
         if (pnl instanceof AbstractTemplatePanel) {
             AbstractTemplatePanel tmp = (AbstractTemplatePanel) pnl;
             Common2View.showSearch(tmp);
+        }
+    }
+
+    private static void showPanel2(String name, JPanel pnl) {
+        try {
+            Common2View.mainView.newIFrame(PanelUtil.getTitle(name), pnl);
+//            Common2View.mainView.pnlMain.removeAll();
+//            Common2View.mainView.pnlMain.add(pnl);
+//            Common2View.mainView.pnlMain.add(pnl);
+//            Common2View.mainView.pnlMain.updateUI();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog((JPanel)Common2View.getTransactionPanel(), name, "", JOptionPane.OK_OPTION);
+            Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1202,11 +1249,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         showBeanPanel(bean, txt, true, "");
     }
 
-    public final static void showBeanPanel(String bean, String txt, String sql) {
-        showBeanPanel(bean, txt, true, sql);
-    }
-
-    public final static void showBeanPanel(String bean, String txt, boolean add, String sql) {
+    private final static void showBeanPanel(String bean, String txt, boolean add, String sql) {
         if (add) {
             lstPanel.add(BeanUtil.concat(bean,"|",txt));
         }
@@ -1223,7 +1266,8 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             mainView.pnlMain.removeAll();
             mainView.pnlSearchCriteria.removeAll();
             mainView.pnlSearchResult.removeAll();
-            mainView.pnlMain.add((JPanel) tmp.getMainForm());
+//            mainView.pnlMain.add((JPanel) tmp.getMainForm());
+            mainView.newIFrame(PanelUtil.getTitle(bean), (JPanel) tmp.getMainForm());
             mainView.pnlSearchCriteria.add((JPanel) tmp.getMainSearch());
             mainView.pnlSearchResult.add((JPanel) tmp.getMainSearchResult());
             mainView.pnlMain.updateUI();
@@ -1400,6 +1444,8 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private final Icon[] busyIcons = new Icon[15];
     private int busyIconIndex = 0;
     private JDialog aboutBox;
+    private JPanel pnlDesk;
+    private JDesktopPane desktop;
 
     public void showAllMenu() {
         menuBar.setVisible(true);

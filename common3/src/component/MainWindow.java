@@ -9,12 +9,10 @@
 
 package component;
 
-import common2.Common2View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -23,7 +21,7 @@ import javax.swing.SwingUtilities;
 
 import org.jdesktop.application.FrameView;
 import org.jdesktop.application.SingleFrameApplication;
-//import ui.ManagerLicenceDialog;
+
 import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
@@ -66,6 +64,7 @@ public abstract class MainWindow extends FrameView {
     public MainWindow(SingleFrameApplication app) {
         super(app);
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 mainwindow.getBtnDelete().addActionListener(new ActionListener() {
 
@@ -190,20 +189,6 @@ public abstract class MainWindow extends FrameView {
         catch (Exception e) {
         }
         return null;
-    }
-
-    public final void showPanel(String name, String clsStr) {
-        JPanel panel = PanelUtil.showPanel(name, clsStr);
-        if (panel instanceof AbstractPanel) {
-            String title = ((AbstractPanel) panel).getTitle();
-            PanelUtil.setTitle(title);
-        }
-    }
-
-    public static final void showPanel(JPanel panel) {
-        Common2View.mainView.pnlMain.removeAll();
-        Common2View.mainView.pnlMain.add(panel);
-        Common2View.mainView.pnlMain.updateUI();
     }
 
     public JButton getBtnDelete() {

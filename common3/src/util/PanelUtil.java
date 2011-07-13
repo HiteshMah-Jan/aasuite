@@ -228,57 +228,6 @@ public class PanelUtil {
     static Map mapPanel = new HashMap();
     static Map mapMenu = new HashMap();
 
-    @SuppressWarnings(value = "unchecked")
-    public static JPanel showPanel(String name, String clsStr) {
-        Class cls = null;
-        try {
-            cls = Class.forName(getClassPath(clsStr));
-            JPanel pnl = JActiveMenuPallete.getSamePanel(cls);
-//            if (pnl instanceof AbstractPanel) {
-//                pnl = JActiveMenuPallete.getSamePanel((AbstractPanel) pnl);
-////                ((AbstractPanel) pnl).refresh();
-//            }
-            MainWindow.mainwindow.getMainPanel().removeAll();
-            MainWindow.mainwindow.getMainPanel().add(pnl);
-            MainWindow.mainwindow.getMainPanel().updateUI();
-            MainWindow.mainwindow.getActiveMenu().add(pnl);
-            return pnl;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(MainWindow.mainwindow.getMainPanel(), name, "", JOptionPane.OK_OPTION);
-            Logger.getLogger("global").log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-
-    public static void showPanel2(String name, JPanel pnl) {
-        try {
-            Common2View.mainView.pnlMain.removeAll();
-            Common2View.mainView.pnlMain.add(pnl);
-            Common2View.mainView.pnlMain.add(pnl);
-            Common2View.mainView.pnlMain.updateUI();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog((JPanel)Common2View.getTransactionPanel(), name, "", JOptionPane.OK_OPTION);
-            Logger.getLogger("global").log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static JPanel showPanel2(String name, String clsStr) {
-        Class cls = null;
-        try {
-            cls = Class.forName(getClassPath(clsStr));
-            JPanel pnl = JActiveMenuPallete.getSamePanel(cls);
-            Common2View.mainView.pnlMain.removeAll();
-            Common2View.mainView.pnlMain.add(pnl);
-            Common2View.mainView.pnlMain.add(pnl);
-            Common2View.mainView.pnlMain.updateUI();
-            return pnl;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog((JPanel)Common2View.getTransactionPanel(), name, "", JOptionPane.OK_OPTION);
-            Logger.getLogger("global").log(Level.SEVERE, null, ex);
-            return null;
-        }
-    }
-
     public static JPanel getPanel(String name, String clsStr) {
         Class cls = null;
         try {
@@ -818,7 +767,13 @@ public class PanelUtil {
 
     public static String getTitle(String bean) {
         Class cls = PanelUtil.getBeanClass(bean);
-        return getTitle(cls);
+        if (cls == null) {
+//        	this is not a bean
+        	return bean;
+        }
+        else {
+            return getTitle(cls);
+        }
     }
 
     public static String getTitle(Class cls) {

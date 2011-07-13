@@ -86,7 +86,7 @@ public class Common2App extends SingleFrameApplication {
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 Dimension labelSize = form.getPreferredSize();
                 form.setLocation(screenSize.width/2 - (labelSize.width/2), screenSize.height/2 - (labelSize.height/2));
-                form.setVisible(true);
+//                form.setVisible(true);
             }
         });
         t.start();
