@@ -5,6 +5,11 @@
 
 package school2;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+
 import springbean.AAAConfig;
 import common2.Common2App;
 
@@ -18,11 +23,18 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    	try {
+			UIManager.setLookAndFeel(new WindowsLookAndFeel());
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         //check the package here
     	if (args==null || args.length==0) {
             AAAConfig.getServerInstance();
     		AAAConfig.server = true;
             springbean.AAAConfig.getInstance().setTitle("SchoolSoft");
+            springbean.AAAConfig.getInstance().setBootStrap("bean.Student");
     	}
     	else {
             springbean.AAAConfig.getInstance(args);
