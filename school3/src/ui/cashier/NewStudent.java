@@ -6,18 +6,20 @@
 
 package ui.cashier;
 
-import bean.Admission;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import springbean.AAAConfig;
 import template.report.AbstractReportTemplate;
 import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
+import bean.Admission;
 
 /**
  *
@@ -127,8 +129,6 @@ public class NewStudent extends OldStudent {
         pnl = new javax.swing.JPanel();
         pnlAcceptAdmission = new component.BeanPanelPallete();
         btn = new javax.swing.JPanel();
-        PanelUtil.updateColor(btn);
-        PanelUtil.updateColor(pnl);
         btnSaveAdmission = new javax.swing.JButton();
 
         pnl.setName("pnl"); // NOI18N

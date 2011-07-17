@@ -5,17 +5,9 @@
  */
 package ui.cashier;
 
-import bean.Enrollment;
-import bean.Student;
-import bean.admin.AppConfig;
-import bean.accounting.CashierDailyBooklet;
-import bean.accounting.Payment;
-import bean.extension.Student201Ext;
-import component.BeanPanelPallete;
-import component.JTextFieldPallete;
-import component.LabelPallete;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -27,13 +19,23 @@ import springbean.AAAConfig;
 import springbean.SchoolDefaultProcess;
 import template.report.AbstractReportTemplate;
 import ui.AbstractCashierForm;
-import ui.CashierTransactionForm;
+import util.BeanUtil;
 import util.DBClient;
+import util.DataUtil;
 import util.Log;
 import util.PanelUtil;
-import util.BeanUtil;
+import bean.Enrollment;
+import bean.Student;
+import bean.accounting.CashierDailyBooklet;
+import bean.accounting.Payment;
+import bean.admin.AppConfig;
+import bean.extension.Student201Ext;
+
+import component.BeanPanelPallete;
+import component.JTextFieldPallete;
+import component.LabelPallete;
+
 import constants.UserInfo;
-import util.DataUtil;
 
 /**
  *
@@ -106,13 +108,6 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
     public OldStudent() {
         initComponents();
         try {
-            PanelUtil.updateColor(this);
-            PanelUtil.updateColor(pnlAssessment);
-            PanelUtil.updateColor(pnlStudentInfo);
-            PanelUtil.updateColor(pnlStudentList);
-            PanelUtil.updateColor(pnlButton);
-            PanelUtil.updateColor(lblAmount);
-            PanelUtil.updateColor(lblSurchargeAmount);
             pnlStudentList.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {
                     if (!e.getValueIsAdjusting()) {
@@ -280,7 +275,6 @@ public class OldStudent extends javax.swing.JPanel implements IAcceptPaymentWind
 
         setLayout(new java.awt.GridBagLayout());
 
-        lblAmount.setFont(new java.awt.Font("Tahoma", 0, 12));
         lblAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAmount.setText("--"); // NOI18N
         lblAmount.setName("lblAmount"); // NOI18N

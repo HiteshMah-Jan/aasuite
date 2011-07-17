@@ -7,26 +7,24 @@
 package ui.cashier;
 
 import java.awt.Color;
-import java.util.Date;
 import java.util.List;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import rule.BookSold_RULE;
 import springbean.AAAConfig;
 import ui.AbstractCashierForm;
-import ui.CashierTransactionForm;
 import util.BeanUtil;
-import util.PanelUtil;
 import util.DBClient;
+import util.PanelUtil;
 import bean.Student;
 import bean.accounting.BookSold;
 import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Invoice;
 import bean.accounting.Payment;
-import rule.BookSold_RULE;
 
 import component.JTextFieldPallete;
-
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 /**
  *
@@ -40,11 +38,6 @@ public class BookPayment extends javax.swing.JPanel implements IAcceptPaymentWin
     public BookPayment() {
         initComponents();
         try {
-            PanelUtil.updateColor(pnlBookSold);
-            PanelUtil.updateColor(jPanel1);
-            PanelUtil.updateColor(jPanel2);
-            PanelUtil.updateColor(this);
-
             jSplitPane1.setDividerSize(10);
             beanSoldBooks.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {

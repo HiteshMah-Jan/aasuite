@@ -6,13 +6,14 @@
 
 package ui;
 
-import bean.Student;
 import java.awt.Color;
 import java.awt.GridLayout;
+
 import javax.swing.JPanel;
+
 import springbean.AAAConfig;
-import util.BeanUtil;
 import util.PanelUtil;
+import bean.Student;
 
 /**
  *
@@ -34,7 +35,6 @@ public class AcceptPaymentForm extends JPanel {
    
     public AcceptPaymentForm() {
         initComponents();
-        PanelUtil.updateColor(pnlPayment);
     }
     
     

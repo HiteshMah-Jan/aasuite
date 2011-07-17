@@ -6,11 +6,6 @@
 
 package ui;
 
-import bean.Admission;
-import bean.extension.AdmissionRequirements1Ext;
-import bean.Enrollment;
-import bean.Student;
-import component.JTextFieldPallete;
 import java.awt.Color;
 import java.util.List;
 
@@ -19,6 +14,12 @@ import springbean.AAAConfig;
 import template.screen.TransactionPanel;
 import util.DBClient;
 import util.PanelUtil;
+import bean.Admission;
+import bean.Enrollment;
+import bean.Student;
+import bean.extension.AdmissionRequirements1Ext;
+
+import component.JTextFieldPallete;
 
 /**
  *
@@ -93,16 +94,6 @@ public class StudentRecordForm extends TransactionPanel {
     public StudentRecordForm() {
         initComponents();
         //update color of the panel used
-        PanelUtil.updateColor(pnlAdmissionRequirement);
-        PanelUtil.updateColor(pnlEnrollmentInfo);
-        PanelUtil.updateColor(pnlParentInfo);
-        PanelUtil.updateColor(pnlPersonalInfo);
-        PanelUtil.updateColor(pnlStudent);
-        PanelUtil.updateColor(pnlStudentStatusSchoolDetail);
-        PanelUtil.updateColor(pnlStudentStatusTuitionDetail);
-        PanelUtil.updateColor(pnlSchoolAttended);
-        PanelUtil.updateColor(pnlStudentCurriculumSubject);
-        
     }
 
     /** This method is called from within the constructor to

@@ -134,7 +134,6 @@ public class LibraryAction extends javax.swing.JPanel {
         jPanel11.setName("jPanel11"); // NOI18N
         jPanel11.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16));
         jLabel3.setText("ID #:");
         jLabel3.setName("jLabel3"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -142,7 +141,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 16));
         jLabel4.setText("Name:");
         jLabel4.setName("jLabel4"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -152,7 +150,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(jLabel4, gridBagConstraints);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 16));
         jLabel5.setText("Grade Level:");
         jLabel5.setName("jLabel5"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -162,7 +159,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(jLabel5, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16));
         jLabel6.setText("Section:");
         jLabel6.setName("jLabel6"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -172,7 +168,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(jLabel6, gridBagConstraints);
 
-        lblStudentName.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblStudentName.setName("lblStudentName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -181,7 +176,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(lblStudentName, gridBagConstraints);
 
-        lblGradeLevel.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblGradeLevel.setName("lblGradeLevel"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -190,7 +184,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(lblGradeLevel, gridBagConstraints);
 
-        lblSection.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblSection.setName("lblSection"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -199,7 +192,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
         jPanel11.add(lblSection, gridBagConstraints);
 
-        lblIDNumber.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblIDNumber.setName("lblIDNumber"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -208,12 +200,10 @@ public class LibraryAction extends javax.swing.JPanel {
 
         jPanel15.setName("jPanel15"); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 24));
         jLabel14.setText("Barcode:");
         jLabel14.setName("jLabel14"); // NOI18N
 
         txtBarcodeValue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        txtBarcodeValue.setFont(new java.awt.Font("Tahoma", 0, 24));
         txtBarcodeValue.setName("txtBarcodeValue"); // NOI18N
         txtBarcodeValue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -320,7 +310,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 2, 0);
         jPanel14.add(jLabel11, gridBagConstraints);
 
-        lblShelf.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblShelf.setName("lblShelf"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -329,7 +318,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 2, 0);
         jPanel14.add(lblShelf, gridBagConstraints);
 
-        lblTitle.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblTitle.setName("lblTitle"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -338,7 +326,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 2, 0);
         jPanel14.add(lblTitle, gridBagConstraints);
 
-        lblAuthor.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblAuthor.setName("lblAuthor"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -347,7 +334,6 @@ public class LibraryAction extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 2, 0);
         jPanel14.add(lblAuthor, gridBagConstraints);
 
-        lblISBN.setFont(new java.awt.Font("Tahoma", 0, 18));
         lblISBN.setName("lblISBN"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

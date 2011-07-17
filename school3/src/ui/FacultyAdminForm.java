@@ -37,11 +37,6 @@ public class FacultyAdminForm extends TransactionPanel {
     /** Creates new form FacultyAdmin */
     public FacultyAdminForm() {
         initComponents();
-        PanelUtil.updateColor(jLabel1);
-        PanelUtil.updateColor(jLabel2);
-        PanelUtil.updateColor(this);
-        PanelUtil.updateColor(jPanel1);
-        PanelUtil.updateColor(pnlReportViewer);
     }
     
     protected ComboBoxModel getSections() {

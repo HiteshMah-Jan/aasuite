@@ -6,10 +6,6 @@
 
 package ui;
 
-import bean.Student;
-import bean.admin.AppConfig;
-import bean.person.StudentValuesGrading;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -25,6 +21,8 @@ import template.screen.TransactionPanel;
 import util.BeanUtil;
 import util.DBClient;
 import util.PanelUtil;
+import bean.Student;
+import bean.person.StudentValuesGrading;
 
 /**
  *
@@ -52,22 +50,7 @@ public class SectioningForm extends TransactionPanel {
         gridBagConstraints.insets = new java.awt.Insets(3, 4, 0, 0);
         jPanel5.add(btnShowPromotionReport, gridBagConstraints);
 //        btnShowPromotionReport.setVisible(AppConfig.hasPromotionReport());
-        try {
-        	PanelUtil.updateColor(jPanel1);
-        	PanelUtil.updateColor(jPanel2);
-        	PanelUtil.updateColor(jPanel3);
-        	PanelUtil.updateColor(jPanel5);
-        	PanelUtil.updateColor(jPanel6);
-        	PanelUtil.updateColor(jPanel7);
-
-        	PanelUtil.updateColor(lblBoys);
-        	PanelUtil.updateColor(lblGirls);
-        	PanelUtil.updateColor(lblSection);
-        	PanelUtil.updateColor(lblTotal);
-            btnRefreshListActionPerformed(null);
-        }
-        catch (Exception e) {
-        }
+        btnRefreshListActionPerformed(null);
     }
 
      protected void btnShowPromotionReportActionPerformed(ActionEvent evt) {
