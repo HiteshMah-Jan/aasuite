@@ -28,22 +28,12 @@ public class LoginPanel extends JPanel {
 	/** Creates new form LoginPanel */
 	public LoginPanel() {
 		initComponents();
-		util.AccessControlUtil.setAccessControl(Common2View.mainView
-				.getMenuBar());
+		util.AccessControlUtil.setAccessControl(Common2View.mainView.getMenuBar());
 		Logger.getLogger("global").log(Level.INFO, "LOGIN PANEL");
 		// setup host and port values
 		txtHost.setText(AAAConfig.getInstance().getHost());
 		txtPort.setVisible(false);
 		lblPort.setVisible(false);
-		if (constants.Constants.panelBackground != null) {
-			PanelUtil.updateColor(this);
-			PanelUtil.updateColor(pnlButton);
-			PanelUtil.updateColor(pnlHost);
-			PanelUtil.updateColor(this.lblHost);
-			PanelUtil.updateColor(this.lblPass);
-			PanelUtil.updateColor(this.lblPort);
-			PanelUtil.updateColor(this.lblUser);
-		}
 		try {
 			if (AppConfig.isShowHostLogin()) {
 				pnlHost.setVisible(true);
@@ -87,7 +77,6 @@ public class LoginPanel extends JPanel {
 		lblHost = new javax.swing.JLabel();
 		txtHost = new javax.swing.JTextField();
 
-		btnChangePassword.setFont(new java.awt.Font("Tahoma", 0, 12));
 		btnChangePassword.setText("Change Password");
 		btnChangePassword
 				.addActionListener(new java.awt.event.ActionListener() {
@@ -176,14 +165,12 @@ public class LoginPanel extends JPanel {
 
 		setLayout(new java.awt.GridBagLayout());
 
-		lblUser.setFont(new java.awt.Font("Tahoma", 0, 12));
 		lblUser.setText("Username:");
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
 		gridBagConstraints.insets = new java.awt.Insets(0, 1, 5, 0);
 		add(lblUser, gridBagConstraints);
 
-		lblPass.setFont(new java.awt.Font("Tahoma", 0, 12));
 		lblPass.setText("Password:");
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
@@ -192,7 +179,6 @@ public class LoginPanel extends JPanel {
 		gridBagConstraints.insets = new java.awt.Insets(0, 1, 5, 0);
 		add(lblPass, gridBagConstraints);
 
-		txtPassword.setFont(new java.awt.Font("Tahoma", 0, 12));
 		txtPassword.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtPasswordActionPerformed(evt);
@@ -206,14 +192,12 @@ public class LoginPanel extends JPanel {
 		gridBagConstraints.insets = new java.awt.Insets(0, 1, 5, 0);
 		add(txtPassword, gridBagConstraints);
 
-		txtUserName.setFont(new java.awt.Font("Tahoma", 0, 12));
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.ipadx = 200;
 		gridBagConstraints.insets = new java.awt.Insets(0, 1, 4, 0);
 		add(txtUserName, gridBagConstraints);
 
-		btnLogin.setFont(new java.awt.Font("Tahoma", 0, 12));
 		btnLogin.setText("Login");
 		btnLogin.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {

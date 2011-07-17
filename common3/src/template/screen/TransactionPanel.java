@@ -4,27 +4,24 @@
  */
 package template.screen;
 
-import bean.admin.BookMark;
-import common2.Common2View;
-import component.AbstractRobotTester;
-import component.BeanPanelPallete;
-import component.ITransactionPanel;
-import component.listener.CrudEvent;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+
 import org.jdesktop.beansbinding.ELProperty;
+
 import service.util.AbstractIBean;
 import service.util.IBean;
 import template.ChildRecord;
@@ -37,6 +34,13 @@ import test.TemplateViewer;
 import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
+import bean.admin.BookMark;
+
+import common2.Common2View;
+import component.AbstractRobotTester;
+import component.BeanPanelPallete;
+import component.ITransactionPanel;
+import component.listener.CrudEvent;
 
 /**
  *
@@ -342,10 +346,12 @@ public class TransactionPanel extends JPanel implements ITransactionPanel {
     }
 
     public void searchMoreRecords() {
-        int last = parentPanel.list.size()-1;
-        if (parentPanel!=null) parentPanel.searchMoreRecords();
-        if (parentPanel!=null) parentPanel.tblResult.setRowSelectionInterval(last, last);
-        if (parentPanel!=null) scroll(parentPanel.tblResult);
+    	JInternalFrame frame = Common2View.mainView.getDesktop().getSelectedFrame();
+    	AbstractTemplatePanel pnl = (AbstractTemplatePanel) frame.getContentPane().getComponent(0);
+    	if (pnl!=null) {
+    		pnl.searchMoreRecords();
+    		scroll(pnl.tblResult);
+    	}
     }
 
     public void redisplayRecord() {

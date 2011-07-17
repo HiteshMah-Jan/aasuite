@@ -82,7 +82,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         dlg.setName("dlg"); // NOI18N
         dlg.getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        lblStudentDisplay.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStudentDisplay.setText(resourceMap.getString("lblStudentDisplay.text")); // NOI18N
         lblStudentDisplay.setName("lblStudentDisplay"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -90,7 +89,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(lblStudentDisplay, gridBagConstraints);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
         jLabel6.setName("jLabel6"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -100,7 +98,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(jLabel6, gridBagConstraints);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
         jLabel7.setName("jLabel7"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -110,7 +107,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(jLabel7, gridBagConstraints);
 
-        txtPayAmount.setFont(resourceMap.getFont("txtPayAmount.font")); // NOI18N
         txtPayAmount.setText(resourceMap.getString("txtPayAmount.text")); // NOI18N
         txtPayAmount.setName("txtPayAmount"); // NOI18N
         txtPayAmount.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +122,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(txtPayAmount, gridBagConstraints);
 
-        cboPaymentFor.setFont(resourceMap.getFont("cboPaymentFor.font")); // NOI18N
         cboPaymentFor.setModel(getPaymentModel());
         cboPaymentFor.setName("cboPaymentFor"); // NOI18N
         cboPaymentFor.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +138,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(cboPaymentFor, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
         jLabel8.setName("jLabel8"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -155,7 +149,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        btnPrintInvoice.setFont(resourceMap.getFont("btnPrintInvoice.font")); // NOI18N
         btnPrintInvoice.setText(resourceMap.getString("btnPrintInvoice.text")); // NOI18N
         btnPrintInvoice.setName("btnPrintInvoice"); // NOI18N
         btnPrintInvoice.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +158,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         });
         jPanel1.add(btnPrintInvoice);
 
-        btnCancel.setFont(resourceMap.getFont("btnCancel.font")); // NOI18N
         btnCancel.setText(resourceMap.getString("btnCancel.text")); // NOI18N
         btnCancel.setName("btnCancel"); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +174,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(jPanel1, gridBagConstraints);
 
-        txtAmountDue.setFont(resourceMap.getFont("txtAmountDue.font")); // NOI18N
         txtAmountDue.setText(resourceMap.getString("txtAmountDue.text")); // NOI18N
         txtAmountDue.setName("txtAmountDue"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -193,7 +184,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(txtAmountDue, gridBagConstraints);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
         jLabel9.setName("jLabel9"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -203,7 +193,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 2, 0);
         dlg.getContentPane().add(jLabel9, gridBagConstraints);
 
-        txtDescription.setFont(resourceMap.getFont("txtDescription.font")); // NOI18N
         txtDescription.setText(resourceMap.getString("txtDescription.text")); // NOI18N
         txtDescription.setName("txtDescription"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -248,7 +237,6 @@ public class CashierScannerAction extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         getContentPane().add(txtScan, gridBagConstraints);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

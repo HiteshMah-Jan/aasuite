@@ -7,7 +7,6 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +76,7 @@ public class Common2View extends FrameView {
             return TransactionPanel.dummy;
         }
 //        Component comp = mainView.pnlMain.getComponent(0);
-        Component comp = mainView.desktop.getSelectedFrame().getComponent(0);
+        Component comp = mainView.desktop.getSelectedFrame().getContentPane().getComponent(0);
         if (comp instanceof TransactionPanel) {
             TransactionPanel pnl = (TransactionPanel) comp;
             if (pnl.getActivePanel() == null) {
@@ -91,30 +90,10 @@ public class Common2View extends FrameView {
         return TransactionPanel.dummy;
     }
 
-    public void changeTheme() {
-        if (!constants.Constants.SimpleLookAndFeel && constants.Constants.panelBackground != null) {
-            toolbar.setBackground(constants.Constants.panelBackground);
-            PanelUtil.updateColor(btnBack);
-            PanelUtil.updateColor(btnCalc);
-            PanelUtil.updateColor(btnConfigure);
-            PanelUtil.updateColor(btnDelete);
-            PanelUtil.updateColor(btnExit);
-            PanelUtil.updateColor(btnHome);
-            PanelUtil.updateColor(btnMore);
-            PanelUtil.updateColor(btnNew);
-            PanelUtil.updateColor(btnNext);
-            PanelUtil.updateColor(btnPrev);
-            PanelUtil.updateColor(btnRefresh);
-            PanelUtil.updateColor(btnSave);
-            PanelUtil.updateColor(btnConfigure);
-        }
-    }
-
     public Common2View(SingleFrameApplication app) {
         super(app);
         mainView = this;
         initComponents();
-        changeTheme();
         btnCalc.setVisible(AppConfig.showCalcButton());
         btnConfigure.setVisible(AppConfig.showConfigureButton());
 //        this.showPanel("Home", "WelcomePanel");
@@ -189,7 +168,6 @@ public class Common2View extends FrameView {
         boolean b = AppConfig.isShowDataAnalyzer();
         mnuDataAnalyzer.setVisible(b);
         btnYear.setText(AppConfig.getSchoolYear());
-        PanelUtil.updateColor(btnYear);
     }
 
     @Action
@@ -298,7 +276,6 @@ public class Common2View extends FrameView {
         menuBar.setName("menuBar"); // NOI18N
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
-        helpMenu.setFont(resourceMap.getFont("helpMenu.font")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
         helpMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +283,6 @@ public class Common2View extends FrameView {
             }
         });
 
-        mnuBookmark.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuBookmark.setText(resourceMap.getString("mnuBookmark.text")); // NOI18N
         mnuBookmark.setName("mnuBookmark"); // NOI18N
         mnuBookmark.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +292,6 @@ public class Common2View extends FrameView {
         });
         helpMenu.add(mnuBookmark);
 
-        mnuLogin.setFont(resourceMap.getFont("mnuLogin.font")); // NOI18N
         mnuLogin.setText(resourceMap.getString("mnuLogin.text")); // NOI18N
         mnuLogin.setName("mnuLogin"); // NOI18N
         mnuLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -326,7 +301,6 @@ public class Common2View extends FrameView {
         });
         helpMenu.add(mnuLogin);
 
-        mnuChangePassword.setFont(resourceMap.getFont("mnuChangePassword.font")); // NOI18N
         mnuChangePassword.setText(resourceMap.getString("mnuChangePassword.text")); // NOI18N
         mnuChangePassword.setName("mnuChangePassword"); // NOI18N
         mnuChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +310,6 @@ public class Common2View extends FrameView {
         });
         helpMenu.add(mnuChangePassword);
 
-        mnuAdminConsole.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuAdminConsole.setText(resourceMap.getString("mnuAdminConsole.text")); // NOI18N
         mnuAdminConsole.setName("mnuAdminConsole"); // NOI18N
         mnuAdminConsole.addActionListener(new java.awt.event.ActionListener() {
@@ -347,10 +320,8 @@ public class Common2View extends FrameView {
         helpMenu.add(mnuAdminConsole);
 
         jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jMenu1.setName("jMenu1"); // NOI18N
 
-        mnuAppMenu.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuAppMenu.setText(resourceMap.getString("mnuAppMenu.text")); // NOI18N
         mnuAppMenu.setName("mnuAppMenu"); // NOI18N
         mnuAppMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -360,7 +331,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuAppMenu);
 
-        mnuModules.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuModules.setText("Modules"); // NOI18N
         mnuModules.setName("mnuModules"); // NOI18N
         mnuModules.addActionListener(new java.awt.event.ActionListener() {
@@ -370,7 +340,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuModules);
 
-        mnuConfig.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuConfig.setText(resourceMap.getString("mnuConfig.text")); // NOI18N
         mnuConfig.setName("mnuConfig"); // NOI18N
         mnuConfig.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +349,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuConfig);
 
-        mnuCompanyConfig.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuCompanyConfig.setText(resourceMap.getString("mnuCompanyConfig.text")); // NOI18N
         mnuCompanyConfig.setName("mnuCompanyConfig"); // NOI18N
         mnuCompanyConfig.addActionListener(new java.awt.event.ActionListener() {
@@ -390,7 +358,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuCompanyConfig);
 
-        mnuSetupDB.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuSetupDB.setText(resourceMap.getString("mnuSetupDB.text")); // NOI18N
         mnuSetupDB.setName("mnuSetupDB"); // NOI18N
         mnuSetupDB.addActionListener(new java.awt.event.ActionListener() {
@@ -400,7 +367,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuSetupDB);
 
-        mnuTraining.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuTraining.setText(resourceMap.getString("mnuTraining.text")); // NOI18N
         mnuTraining.setName("mnuTraining"); // NOI18N
         mnuTraining.addActionListener(new java.awt.event.ActionListener() {
@@ -410,7 +376,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuTraining);
 
-        mnuChangeTheme.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuChangeTheme.setText(resourceMap.getString("mnuChangeTheme.text")); // NOI18N
         mnuChangeTheme.setName("mnuChangeTheme"); // NOI18N
         mnuChangeTheme.addActionListener(new java.awt.event.ActionListener() {
@@ -420,7 +385,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuChangeTheme);
 
-        mnuServices.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuServices.setText("Services"); // NOI18N
         mnuServices.setName("mnuServices"); // NOI18N
         mnuServices.addActionListener(new java.awt.event.ActionListener() {
@@ -430,7 +394,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuServices);
 
-        mnuUserStation.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuUserStation.setText(resourceMap.getString("mnuUserStation.text")); // NOI18N
         mnuUserStation.setName("mnuUserStation"); // NOI18N
         mnuUserStation.addActionListener(new java.awt.event.ActionListener() {
@@ -440,7 +403,6 @@ public class Common2View extends FrameView {
         });
         jMenu1.add(mnuUserStation);
 
-        mnuDataAnalyzer.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuDataAnalyzer.setText("Data Analyzer"); // NOI18N
         mnuDataAnalyzer.setName("mnuDataAnalyzer"); // NOI18N
         mnuDataAnalyzer.addActionListener(new java.awt.event.ActionListener() {
@@ -449,7 +411,6 @@ public class Common2View extends FrameView {
             }
         });
         jMenu1.add(mnuTestDB);
-        mnuTestDB.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuTestDB.setText("Test DB"); // NOI18N
         mnuTestDB.setName("mnuTestDB"); // NOI18N
         mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
@@ -463,12 +424,10 @@ public class Common2View extends FrameView {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getActionMap(Common2View.class, this);
         aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
-        aboutMenuItem.setFont(resourceMap.getFont("aboutMenuItem.font")); // NOI18N
         aboutMenuItem.setName("aboutMenuItem"); // NOI18N
         helpMenu.add(aboutMenuItem);
 
         exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
-        exitMenuItem.setFont(resourceMap.getFont("exitMenuItem.font")); // NOI18N
         exitMenuItem.setName("exitMenuItem"); // NOI18N
         exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -485,7 +444,6 @@ public class Common2View extends FrameView {
         statusPanelSeparator.setName("statusPanelSeparator"); // NOI18N
         statusPanel.add(statusPanelSeparator, java.awt.BorderLayout.NORTH);
 
-        statusMessageLabel.setFont(resourceMap.getFont("statusMessageLabel.font")); // NOI18N
         statusMessageLabel.setName("statusMessageLabel"); // NOI18N
         statusPanel.add(statusMessageLabel, java.awt.BorderLayout.WEST);
 
@@ -502,7 +460,6 @@ public class Common2View extends FrameView {
         toolbar.setRollover(true);
         toolbar.setName("toolbar"); // NOI18N
 
-        btnNew.setFont(resourceMap.getFont("btnNew.font")); // NOI18N
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new.png")));
         btnNew.setFocusable(false);
         btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -515,7 +472,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnNew);
 
-        btnSave.setFont(resourceMap.getFont("btnSave.font")); // NOI18N
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png")));
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -528,7 +484,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnSave);
 
-        btnRefresh.setFont(resourceMap.getFont("btnRefresh.font")); // NOI18N
         btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reload.png")));
         btnRefresh.setFocusable(false);
         btnRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -541,7 +496,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnRefresh);
 
-        btnDelete.setFont(resourceMap.getFont("btnDelete.font")); // NOI18N
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png")));
         btnDelete.setFocusable(false);
         btnDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -558,7 +512,6 @@ public class Common2View extends FrameView {
         jLabel4.setName("jLabel4"); // NOI18N
         toolbar.add(jLabel4);
 
-        btnPrev.setFont(resourceMap.getFont("btnPrev.font")); // NOI18N
         btnPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prevRecord.png")));
         btnPrev.setFocusable(false);
         btnPrev.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -571,7 +524,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnPrev);
 
-        btnNext.setFont(resourceMap.getFont("btnNext.font")); // NOI18N
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nextRecord.png")));
         btnNext.setFocusable(false);
         btnNext.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -584,7 +536,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnNext);
 
-        btnMore.setFont(resourceMap.getFont("btnMore.font")); // NOI18N
         btnMore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/more.png")));
         btnMore.setFocusable(false);
         btnMore.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -601,7 +552,6 @@ public class Common2View extends FrameView {
         jLabel3.setName("jLabel3"); // NOI18N
         toolbar.add(jLabel3);
 
-        btnCalc.setFont(new java.awt.Font("Tahoma", 0, 12));
         btnCalc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/calculator.PNG")));
         btnCalc.setFocusable(false);
         btnCalc.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -614,7 +564,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnCalc);
 
-        btnHome.setFont(resourceMap.getFont("btnHome.font")); // NOI18N
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home.png")));
         btnHome.setFocusable(false);
         btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -627,7 +576,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnHome);
 
-        btnBack.setFont(resourceMap.getFont("btnBack.font")); // NOI18N
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prev.png")));
         btnBack.setFocusable(false);
         btnBack.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -656,7 +604,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnYear);
 
-        btnExit.setFont(new java.awt.Font("Tahoma", 0, 12));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png")));
         btnExit.setFocusable(false);
         btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -747,7 +694,6 @@ public class Common2View extends FrameView {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        lstWindow.setFont(resourceMap.getFont("lstWindow.font")); // NOI18N
         lstWindow.setName("lstWindow"); // NOI18N
         lstWindow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -780,7 +726,6 @@ public class Common2View extends FrameView {
         dlgUtility.setName("dlgUtility"); // NOI18N
         dlgUtility.getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        mnuUpdateSQL.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuUpdateSQL.setText(resourceMap.getString("mnuUpdateSQL.text")); // NOI18N
         mnuUpdateSQL.setName("mnuUpdateSQL"); // NOI18N
         mnuUpdateSQL.addActionListener(new java.awt.event.ActionListener() {
@@ -789,7 +734,6 @@ public class Common2View extends FrameView {
             }
         });
 
-        mnuChangeLogo.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuChangeLogo.setText(resourceMap.getString("mnuChangeLogo.text")); // NOI18N
         mnuChangeLogo.setName("mnuChangeLogo"); // NOI18N
         mnuChangeLogo.addActionListener(new java.awt.event.ActionListener() {
@@ -798,7 +742,6 @@ public class Common2View extends FrameView {
             }
         });
 
-        mnuRuleEngine.setFont(new java.awt.Font("Tahoma", 0, 12));
         mnuRuleEngine.setText(resourceMap.getString("mnuRuleEngine.text")); // NOI18N
         mnuRuleEngine.setName("mnuRuleEngine"); // NOI18N
         mnuRuleEngine.addActionListener(new java.awt.event.ActionListener() {
@@ -1451,4 +1394,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     void lblClearCacheMouseClicked(Object obj) {
         
     }
+	public JDesktopPane getDesktop() {
+		return desktop;
+	}
 }

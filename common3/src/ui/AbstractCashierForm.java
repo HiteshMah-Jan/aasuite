@@ -5,12 +5,6 @@
  */
 package ui;
 
-import bean.accounting.CashDrawer;
-import bean.accounting.Invoice;
-import bean.accounting.OtherPayment;
-import bean.admin.AppConfig;
-import bean.admin.UserStation;
-import constants.UserInfo;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -18,9 +12,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+
 import springbean.AAAConfig;
 import template.report.AbstractReportTemplate;
 import template.screen.TransactionPanel;
@@ -29,6 +25,11 @@ import util.DBClient;
 import util.DateUtil;
 import util.Log;
 import util.PanelUtil;
+import bean.accounting.CashDrawer;
+import bean.accounting.Invoice;
+import bean.admin.AppConfig;
+import bean.admin.UserStation;
+import constants.UserInfo;
 
 /**
  *
@@ -87,28 +88,6 @@ public class AbstractCashierForm extends TransactionPanel {
             return;
         }
         initComponents();
-        PanelUtil.updateColor(this);
-        PanelUtil.updateColor(pnlBottomLeft);
-        PanelUtil.updateColor(pnlCashDrawer);
-        PanelUtil.updateColor(pnlHeader);
-        PanelUtil.updateColor(pnlLeftCenter);
-        PanelUtil.updateColor(pnlTransactionMenu);
-        PanelUtil.updateColor(oRSeries1);
-
-        PanelUtil.updateColor(lblBranchLabel);
-        PanelUtil.updateColor(lblBusinessDay);
-        PanelUtil.updateColor(lblStationLabel);
-        PanelUtil.updateColor(lblTime);
-        PanelUtil.updateColor(lblUserLabel);
-//        PanelUtil.updateColor(lblStudentTitle);
-        
-        PanelUtil.updateColor(lblSchoolYear);
-        PanelUtil.updateColor(jLabel2);
-        PanelUtil.updateColor(jLabel3);
-        PanelUtil.updateColor(jLabel4);
-        PanelUtil.updateColor(jLabel5);
-        PanelUtil.updateColor(jLabel6);
-        PanelUtil.updateColor(jLabel7);
 
         passKey(btnMultiplePayment);
         passKey(btnNewStudent);

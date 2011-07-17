@@ -9,7 +9,6 @@
 
 package component;
 
-import java.awt.Font;
 import javax.swing.JButton;
 
 /**
@@ -18,30 +17,15 @@ import javax.swing.JButton;
  */
 public class JButtonPallete extends JButton implements IHelp, IRule {
     public JButtonPallete() {
-    	if (constants.Constants.font!=null) setFont(constants.Constants.font);
-//        if (constants.Constants.panelBackground!=null) {
-//            this.setBackground(constants.Constants.panelBackground);
-//        }
-//        if (constants.Constants.labelColor!=null) {
-//            this.setForeground(constants.Constants.labelColor);
-//        }
     }
 
     public JButtonPallete(String label) {
         super(label);
-//        if (constants.Constants.panelBackground!=null) {
-//            this.setBackground(constants.Constants.panelBackground);
-//        }
-//        if (constants.Constants.labelColor!=null) {
-//            this.setForeground(constants.Constants.labelColor);
-//        }
-        if (constants.Constants.font!=null) setFont(constants.Constants.font);
     }
     
     public JButtonPallete(String label, String name) {
         super(label);
         this.setName(name);
-        if (constants.Constants.font!=null) setFont(constants.Constants.font);
     }
     private JButton getMe() {
         return this;

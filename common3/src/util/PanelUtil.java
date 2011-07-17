@@ -855,68 +855,68 @@ public class PanelUtil {
         fr.setVisible(true);
     }
     
-    public static void updateColor(JPanel pnl) {
-    	if (constants.Constants.SimpleLookAndFeel) return;
-        if (constants.Constants.panelBackground==null) {
-            String panelColor = AppConfig.extractPanelBackground();
-            String labelColor = AppConfig.extractLabelColor();
-            try {
-                String[] arr1 = panelColor.split(" ");
-                String[] arr2 = labelColor.split(" ");
-                Color c1 = PanelUtil.getColor(arr1);
-                Color c2 = PanelUtil.getColor(arr2);
-                constants.Constants.panelBackground = c1;
-                constants.Constants.labelColor = c2;
-            }
-            catch (Exception e) {
-            }
-        }
-        if (constants.Constants.panelBackground!=null) {
-            pnl.setBackground(constants.Constants.panelBackground);
-            Border b = pnl.getBorder();
-            if (b instanceof TitledBorder) {
-                TitledBorder t = (TitledBorder) b;
-                t.setTitleColor(constants.Constants.labelColor);
-            }
-        }
-    }
-    
-    public static void updateColor(JLabel lbl) {
-    	if (constants.Constants.SimpleLookAndFeel) return;
-        if (constants.Constants.labelColor!=null) {
-            lbl.setForeground(constants.Constants.labelColor);
-        }
-    }
-
-    public static void updateColor(JButton btn) {
-    	if (constants.Constants.SimpleLookAndFeel) return;
-        if (constants.Constants.labelColor!=null) {
-            btn.setForeground(constants.Constants.labelColor);
-            btn.setBackground(constants.Constants.panelBackground);
-        }
-    }
-    
-    public static Color getColor(String[] arr) {
-        try {
-            if (arr.length<3) return null;
-            int a = Integer.parseInt(arr[0]);
-            int b = Integer.parseInt(arr[1]);
-            int c = Integer.parseInt(arr[2]);
-            Color clr = new Color(a,b,c);
-            return clr;
-        }
-        catch (Exception e) {
-        }
-        return null;
-    }
-
-    public static String getColorStr(Color col) {
-        if (col==null) return "";
-        String a = BeanUtil.concat(col.getRed());
-        String b = BeanUtil.concat(col.getGreen());
-        String c = BeanUtil.concat(col.getBlue());
-        return BeanUtil.concat(a," ",b," ",c);
-    }
+//    public static void updateColor(JPanel pnl) {
+//    	if (constants.Constants.SimpleLookAndFeel) return;
+//        if (constants.Constants.panelBackground==null) {
+//            String panelColor = AppConfig.extractPanelBackground();
+//            String labelColor = AppConfig.extractLabelColor();
+//            try {
+//                String[] arr1 = panelColor.split(" ");
+//                String[] arr2 = labelColor.split(" ");
+//                Color c1 = PanelUtil.getColor(arr1);
+//                Color c2 = PanelUtil.getColor(arr2);
+//                constants.Constants.panelBackground = c1;
+//                constants.Constants.labelColor = c2;
+//            }
+//            catch (Exception e) {
+//            }
+//        }
+//        if (constants.Constants.panelBackground!=null) {
+//            pnl.setBackground(constants.Constants.panelBackground);
+//            Border b = pnl.getBorder();
+//            if (b instanceof TitledBorder) {
+//                TitledBorder t = (TitledBorder) b;
+//                t.setTitleColor(constants.Constants.labelColor);
+//            }
+//        }
+//    }
+//    
+//    public static void updateColor(JLabel lbl) {
+//    	if (constants.Constants.SimpleLookAndFeel) return;
+//        if (constants.Constants.labelColor!=null) {
+//            lbl.setForeground(constants.Constants.labelColor);
+//        }
+//    }
+//
+//    public static void updateColor(JButton btn) {
+//    	if (constants.Constants.SimpleLookAndFeel) return;
+//        if (constants.Constants.labelColor!=null) {
+//            btn.setForeground(constants.Constants.labelColor);
+//            btn.setBackground(constants.Constants.panelBackground);
+//        }
+//    }
+//    
+//    public static Color getColor(String[] arr) {
+//        try {
+//            if (arr.length<3) return null;
+//            int a = Integer.parseInt(arr[0]);
+//            int b = Integer.parseInt(arr[1]);
+//            int c = Integer.parseInt(arr[2]);
+//            Color clr = new Color(a,b,c);
+//            return clr;
+//        }
+//        catch (Exception e) {
+//        }
+//        return null;
+//    }
+//
+//    public static String getColorStr(Color col) {
+//        if (col==null) return "";
+//        String a = BeanUtil.concat(col.getRed());
+//        String b = BeanUtil.concat(col.getGreen());
+//        String c = BeanUtil.concat(col.getBlue());
+//        return BeanUtil.concat(a," ",b," ",c);
+//    }
 
     public static void popupBeanTemplate(Class bean, String title, boolean showAdd) {
         popupBeanTemplate(bean, title, showAdd, new ArrayList());

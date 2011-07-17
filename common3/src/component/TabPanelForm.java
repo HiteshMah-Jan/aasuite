@@ -6,9 +6,7 @@
 
 package component;
 
-import bean.admin.AppConfig;
 import template.screen.TransactionPanel;
-import util.PanelUtil;
 
 /**
  *
@@ -35,7 +33,6 @@ public abstract class TabPanelForm extends TransactionPanel {
             initComponents();
             myTab.initialize(this);
         }
-        PanelUtil.updateColor(this);
     }
 
     /** This method is called from within the constructor to

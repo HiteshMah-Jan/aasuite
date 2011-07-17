@@ -5,11 +5,12 @@
  */
 package component;
 
-import component.listener.ValueChangeListener;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import service.util.AbstractIBean;
 import service.util.IBean;
 import template.screen.AbstractTemplatePanel.FieldCompose;
@@ -17,6 +18,8 @@ import util.BeanUtil;
 import util.ClientCache;
 import util.Log;
 import util.PanelUtil;
+
+import component.listener.ValueChangeListener;
 
 /**
  *
@@ -235,7 +238,6 @@ public class LookupTableFieldPallete extends javax.swing.JPanel implements IGetT
         });
         add(btn, java.awt.BorderLayout.EAST);
 
-        lblDisplay.setFont(constants.Constants.font);
         lblDisplay.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         lblDisplay.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

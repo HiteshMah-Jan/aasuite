@@ -61,24 +61,14 @@ public class TemplateSinglePage extends AbstractTemplatePanel {
             pnlMainForm2.add(pnlMainForm);
         }
         
-        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch(), GroupPanel.BLUE);
+        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch());
         pnlCriteria2.add(pnlCrit);
         pnlCrit.hide();
 
-        GroupPanel pnlResult = GroupPanel.construct("Search Result", (JPanel)super.getMainSearchResult(), GroupPanel.GREEN);
+        GroupPanel pnlResult = GroupPanel.construct("Search Result", (JPanel)super.getMainSearchResult());
         pnlResult2.add(pnlResult);
-        pnlResult.noneCollapsible();
         
         pnlButton2.add(super.pnlButton);
-        if (constants.Constants.panelBackground!=null) {
-            PanelUtil.updateColor(this);
-            PanelUtil.updateColor(pnlMainForm2);
-            PanelUtil.updateColor(pnlCriteria2);
-            PanelUtil.updateColor(pnlSearch);
-            PanelUtil.updateColor(pnlResult2);
-            PanelUtil.updateColor(pnlButton2);
-            PanelUtil.updateColor(jPanel1);
-        }
         return this;
     }
 

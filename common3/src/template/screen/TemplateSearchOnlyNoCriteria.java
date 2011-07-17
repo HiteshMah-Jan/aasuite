@@ -23,9 +23,8 @@ public class TemplateSearchOnlyNoCriteria extends AbstractTemplatePanel {
         pnlButton.removeAll();  
         pnlChildTab.removeAll();
         
-        GroupPanel pnlCrit = GroupPanel.construct("Result", (JPanel)super.getMainSearchResult(), GroupPanel.BLUE);
+        GroupPanel pnlCrit = GroupPanel.construct("Result", (JPanel)super.getMainSearchResult());
         pnlCriteria.add(pnlCrit);
-        pnlCrit.noneCollapsible();
         pnlResults.setVisible(false);
         pnlButton.add(super.pnlButton);
         

@@ -60,7 +60,6 @@ public class TemplateParserUtil {
         GridBagConstraints cons = new GridBagConstraints();
         int totalGrid = -1;
         JPanel pnlGroup = new JPanel(new GridBagLayout());
-        PanelUtil.updateColor(pnlGroup);
         pnlGroup.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
         int gridCount = templatePanel.getUITemplate().gridCount();
         if (group != null && group.gridCount() > 0) {
@@ -99,7 +98,6 @@ public class TemplateParserUtil {
                 mergeCons.anchor = GridBagConstraints.NORTHWEST;
                 mergeCons.insets = new Insets(1, 1, 0, 0);
                 JPanel pnlMerge = new JPanel(new GridBagLayout());
-                PanelUtil.updateColor(pnlMerge);
                 pnlMerge.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
                 pnlMerge.add(label, mergeCons);
                 cons.gridwidth = fieldCompose.display.gridFieldWidth() + 1;
@@ -122,7 +120,6 @@ public class TemplateParserUtil {
                     });
                     templatePanel.addFieldComponent(field);
                     JPanel pnl = new JPanel(new GridBagLayout());
-                    PanelUtil.updateColor(pnl);
                     pnl.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
                     pnl.add(field);
                     pnl.add(btn);
@@ -140,7 +137,6 @@ public class TemplateParserUtil {
                     int oldCons = cons.anchor;
                     cons.anchor = GridBagConstraints.NORTHWEST;
                     JPanel tpnl = new JPanel(new GridLayout(2,0, 2, 1));
-                    PanelUtil.updateColor(tpnl);
                     tpnl.add(new JLabel(""));
                     String ltmp = fieldCompose.display.leftLabel();
                     if (ltmp!=null && !ltmp.trim().isEmpty()) {
@@ -148,9 +144,7 @@ public class TemplateParserUtil {
                     }
                     JLabel lbl = new JLinkLabelPallete(ltmp, null);
                     tpnl.add(lbl);
-                    if (constants.Constants.font!=null) lbl.setFont(constants.Constants.font);
                     
-                    PanelUtil.updateColor(tpnl);
                     pnlGroup.add(tpnl, cons);
                     cons.anchor = oldCons;
                 }
@@ -168,7 +162,6 @@ public class TemplateParserUtil {
                         c.gridx = 0;
                         c.anchor = GridBagConstraints.CENTER;
                         JPanel tmp = new JPanel(new GridBagLayout());
-                        PanelUtil.updateColor(tmp);
                         c.gridy = 1;
                         JLabel lbl = (JLabel) label;
                         if (lbl.getText().endsWith(":")) {
@@ -187,7 +180,6 @@ public class TemplateParserUtil {
                     JButtonPallete btn = new JButtonPallete(fieldCompose.display.button(), BeanUtil.concat("btn",fieldCompose.field.getName()));
                     templatePanel.addFieldComponent(field);
                     JPanel pnl = new JPanel(new GridBagLayout());
-                    PanelUtil.updateColor(pnl);
                     pnl.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
                     btn.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
@@ -226,7 +218,7 @@ public class TemplateParserUtil {
         		pnlGroup.setVisible(false);
         	}
         	else {
-                pnlGroup = GroupPanel.construct(group.title(), pnlGroup, group.color());
+                pnlGroup = GroupPanel.construct(group.title(), pnlGroup);
                 pnlGroup.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
                 if (constants.Constants.panelBackground!=null) {
                     pnlGroup.setBackground(constants.Constants.panelBackground);
@@ -243,7 +235,6 @@ public class TemplateParserUtil {
         	if (!fieldCompose.display.noLabel()) {
             	mergePnl.setBorder(new TitledBorder(fieldCompose.display.label()));
         	}
-        	PanelUtil.updateColor(mergePnl);
             for (String string : mergeFields) {
                 //get the field
                 FieldCompose fTmp = null;

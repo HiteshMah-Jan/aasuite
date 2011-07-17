@@ -124,7 +124,6 @@ public class BusinessRuleForm extends AbstractPanel {
 
         jPanel4.add(scrRule);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.formName}"), jLabel1, org.jdesktop.beansbinding.BeanProperty.create("text"));

@@ -17,8 +17,6 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,6 +80,7 @@ import component.JCalendarPallete;
 import component.JComboBoxPallete;
 import component.LookupTableFieldPallete;
 import component.PalleteRuleManager;
+
 import constants.UserInfo;
 
 /**
@@ -166,8 +165,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 imagePallete.setEditable(template.imageEditable());
                 pnlImages.add(imagePallete, cons);
                 if (constants.Constants.panelBackground!=null) {
-                    PanelUtil.updateColor(pnlImages);
-                    PanelUtil.updateColor(pnlImages);
                     imagePallete.pnlImageRenderer.setBackground(Color.WHITE);
                 }
             }
@@ -812,11 +809,9 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         pnlResults.setLayout(new java.awt.BorderLayout());
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getResourceMap(AbstractTemplatePanel.class);
-        jScrollPane1.setFont(resourceMap.getFont("jScrollPane1.font")); // NOI18N
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         tblResult.setAutoCreateRowSorter(true);
-        tblResult.setFont(resourceMap.getFont("tblResult.font")); // NOI18N
         tblResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -875,7 +870,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
         pnlTabAndButton.setName("pnlTabAndButton"); // NOI18N
         pnlTabAndButton.setLayout(new java.awt.BorderLayout());
 
-        tabChildren.setFont(resourceMap.getFont("tabChildren.font")); // NOI18N
         tabChildren.setName("tabChildren"); // NOI18N
 
         jPanel1.setName("jPanel1"); // NOI18N
@@ -1095,7 +1089,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 		tmp.add(new JLabel("  "), BorderLayout.SOUTH);
 		tmp.add(new JLabel("  "), BorderLayout.WEST);
 		tmp.add(new JLabel("  "), BorderLayout.EAST);
-		PanelUtil.updateColor(tmp);
 		return tmp;
     }
 

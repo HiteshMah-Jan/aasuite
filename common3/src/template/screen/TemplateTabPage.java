@@ -53,7 +53,7 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         
         pnlTop.add(super.pnlTop);
         pnlTab.add(super.tabChildren);
-        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch(), GroupPanel.BLUE);
+        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch());
         pnlCriteria3.add(pnlCrit);
         pnlResult3.add((JComponent)super.getMainSearchResult());
         pnlButton.add(super.pnlButton);
@@ -188,7 +188,6 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         setLayout(new java.awt.BorderLayout());
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getResourceMap(TemplateTabPage.class);
-        myTab.setFont(resourceMap.getFont("myTab.font")); // NOI18N
         myTab.setName("myTab"); // NOI18N
 
         pnlSearchPanel.setName("pnlSearchPanel"); // NOI18N

@@ -188,7 +188,6 @@ public abstract class AbstractComponentRenderer {
             }
         }
         if (this.field.display.labelWidth()>0) setSize(lbl, this.field.display.labelWidth());
-        if (constants.Constants.font!=null) lbl.setFont(constants.Constants.font);
         lbl.setName(BeanUtil.concat("lbl_",label));
         if (this.field.display.withHelp()) {
             lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/help.png")));
@@ -220,7 +219,6 @@ public abstract class AbstractComponentRenderer {
             }
         }
         if (this.field.display.labelWidth()>0) setSize(lbl, this.field.display.labelWidth());
-        if (constants.Constants.font!=null) lbl.setFont(constants.Constants.font);
         lbl.setName(label);
         if (this.field.display.withHelp()) {
             lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/images/help.png")));
@@ -283,7 +281,6 @@ public abstract class AbstractComponentRenderer {
             ((IGetText)obj).setFieldCompose(field);
         }
 		((JComponent) obj).setEnabled(field.display.enabled());
-        if (constants.Constants.font!=null) ((JComponent) obj).setFont(constants.Constants.font);
         if (obj instanceof JComponent) {
             DynamicAccessForm.initializeComponent((JComponent) obj);
             ((JComponent) obj).addKeyListener(new KeyAdapter() {

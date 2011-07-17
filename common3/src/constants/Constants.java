@@ -2,7 +2,6 @@ package constants;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -452,6 +451,4 @@ public class Constants {
     
     public static Color panelBackground;
     public static Color labelColor;
-//    public static Font font = new java.awt.Font("Tahoma", 0, 10);
-    public static Font font = null;
 }

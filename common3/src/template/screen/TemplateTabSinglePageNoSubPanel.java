@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-import util.PanelUtil;
-
 public class TemplateTabSinglePageNoSubPanel extends TemplateTabPage {
 	@Override
 	public Object getMainForm() {
@@ -25,10 +23,6 @@ public class TemplateTabSinglePageNoSubPanel extends TemplateTabPage {
 		pnl3.add(pnl2, BorderLayout.SOUTH);
 
 		JPanel tmp = centerPanel(pnl3);
-		PanelUtil.updateColor(pnl);
-		PanelUtil.updateColor(pnl2);
-		PanelUtil.updateColor(pnl3);
-		PanelUtil.updateColor(tmp);
 		myTab.addTab("Main Form", tmp);
         myTab.addTab("Reports", pnlReportsPanel); // NOI18N
 		return this;

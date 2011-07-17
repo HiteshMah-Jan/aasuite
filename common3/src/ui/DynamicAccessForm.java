@@ -221,7 +221,6 @@ public class DynamicAccessForm extends AbstractPanel {
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        lblFormTitle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.formTitle}"), lblFormTitle, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);

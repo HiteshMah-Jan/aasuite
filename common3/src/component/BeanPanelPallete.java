@@ -10,8 +10,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import org.jdesktop.beansbinding.ELProperty;
+
 import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import template.screen.BeanFormDisplayerPage;
@@ -43,9 +46,6 @@ public class BeanPanelPallete extends javax.swing.JPanel {
     	newPanel.add(pallete, BorderLayout.CENTER);
     	newPanel.add(pnl, BorderLayout.SOUTH);
     	
-    	PanelUtil.updateColor(pallete);
-    	PanelUtil.updateColor(pnl);
-    	PanelUtil.updateColor(newPanel);
     	currentPanel = pallete.view;
     	return newPanel;
     }
@@ -58,9 +58,6 @@ public class BeanPanelPallete extends javax.swing.JPanel {
     	newPanel.add(this, BorderLayout.CENTER);
     	newPanel.add(pnl, BorderLayout.SOUTH);
     	
-    	PanelUtil.updateColor(this);
-    	PanelUtil.updateColor(pnl);
-    	PanelUtil.updateColor(newPanel);
     	currentPanel = this.view;
     	return newPanel;
     }

@@ -265,7 +265,6 @@ public class JTableReadOnly extends JTable {
 
         public RowHeaderRenderer1(JTable table) {
             this.table = table;
-            //setFont(new Font("Dialog", 0, 11));
             setMargin(new Insets(0, 0, 0, 0));
         }
 

@@ -1,9 +1,9 @@
 package template.screen;
 
-import util.PanelUtil;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,7 +21,6 @@ public class TemplateLeftRight extends TemplateTabPage {
         JPanel tmp = new JPanel(new BorderLayout());
         tmp.add(pnlTop, BorderLayout.CENTER);
         tmp.add(pnlButton, BorderLayout.SOUTH);
-        PanelUtil.updateColor(tmp);
         pnlMainScreen.add(tmp);
         pnlMainScreen.add(pnlTab);
         return pnl;

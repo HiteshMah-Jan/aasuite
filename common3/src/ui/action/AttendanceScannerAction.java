@@ -68,7 +68,6 @@ public class AttendanceScannerAction extends javax.swing.JPanel {
         dlgScanner.setName("dlgScanner"); // NOI18N
         dlgScanner.setUndecorated(true);
 
-        lblTime.setFont(new java.awt.Font("Tahoma", 0, 36));
         lblTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTime.setText("<<Time>>");
         lblTime.setName("lblTime"); // NOI18N
@@ -90,7 +89,6 @@ public class AttendanceScannerAction extends javax.swing.JPanel {
             }
         });
 
-        lblPerson.setFont(new java.awt.Font("Tahoma", 0, 14));
         lblPerson.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPerson.setText("<<PERSON>>");
         lblPerson.setName("lblPerson"); // NOI18N

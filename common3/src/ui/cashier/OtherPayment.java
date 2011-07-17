@@ -38,11 +38,6 @@ public class OtherPayment extends javax.swing.JPanel implements IAcceptPaymentWi
     public OtherPayment() {
         initComponents();
         try {
-            PanelUtil.updateColor(pnlOtherPayment);
-            PanelUtil.updateColor(jPanel1);
-            PanelUtil.updateColor(jPanel2);
-            PanelUtil.updateColor(this);
-
             jSplitPane1.setDividerSize(10);
             beanSoldBooks.view.tblResult.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 public void valueChanged(ListSelectionEvent e) {

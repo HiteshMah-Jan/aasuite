@@ -155,7 +155,6 @@ public class FileUploadRendererPallete extends javax.swing.JPanel implements IBl
             dlgFile.setFileFilter(filter);
         }
 
-        tblFile.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblFile.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -191,7 +190,6 @@ public class FileUploadRendererPallete extends javax.swing.JPanel implements IBl
 
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        lblUploadFile.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblUploadFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/uploadFile.png"))); // NOI18N
         lblUploadFile.setToolTipText("Upload File");
         lblUploadFile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,7 +199,6 @@ public class FileUploadRendererPallete extends javax.swing.JPanel implements IBl
         });
         jPanel1.add(lblUploadFile, new java.awt.GridBagConstraints());
 
-        lblRemove.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/deleteImage.png"))); // NOI18N
         lblRemove.setToolTipText("Delete File");
         lblRemove.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -213,7 +210,6 @@ public class FileUploadRendererPallete extends javax.swing.JPanel implements IBl
         gridBagConstraints.insets = new java.awt.Insets(0, 23, 0, 0);
         jPanel1.add(lblRemove, gridBagConstraints);
 
-        lblDownload.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblDownload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/saveImage.png"))); // NOI18N
         lblDownload.setToolTipText("Save File");
         lblDownload.addMouseListener(new java.awt.event.MouseAdapter() {

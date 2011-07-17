@@ -10,7 +10,6 @@
 package component;
 
 import common2.Common2View;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,7 +29,6 @@ import util.PanelUtil;
  */
 public class AbstractTabPanel extends JTabbedPane {
     public AbstractTabPanel() {
-        if (constants.Constants.font!=null) setFont(constants.Constants.font);
     }
 
     private String[] tabs;

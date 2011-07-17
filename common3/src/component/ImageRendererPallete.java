@@ -13,7 +13,6 @@ import constants.BlobImages;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -127,16 +126,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
             }
         });
         pnlButtons.setVisible(false);
-        PanelUtil.updateColor(jPanel2);
-        PanelUtil.updateColor(jPanel3);
-        PanelUtil.updateColor(jPanel4);
-        PanelUtil.updateColor(jPanel5);
-        PanelUtil.updateColor(jPanel6);
-        PanelUtil.updateColor(jPanel7);
-        PanelUtil.updateColor(pnlButtons);
-        PanelUtil.updateColor(pnlImageRenderer);
-        PanelUtil.updateColor(pnlLargeImage);
-        PanelUtil.updateColor(pnlWebCam);
     }
 
     /** This method is called from within the constructor to
@@ -193,7 +182,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
         jPanel2 = new javax.swing.JPanel();
         pnlImageRenderer = new javax.swing.JPanel();
 
-        lblRemove.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/deleteImage.png"))); // NOI18N
         lblRemove.setText("  ");
         lblRemove.setToolTipText("Delete Image");
@@ -203,7 +191,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
             }
         });
 
-        lblPrevious.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prevImage.png"))); // NOI18N
         lblPrevious.setText("  ");
         lblPrevious.setToolTipText("Previous Image");
@@ -213,7 +200,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
             }
         });
 
-        lblNext.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nextImage.png"))); // NOI18N
         lblNext.setToolTipText("Next Image");
         lblNext.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -258,7 +244,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
 
         jPanel5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btnDownEnlarge.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnDownEnlarge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/saveImage.png"))); // NOI18N
         btnDownEnlarge.setText("Save Image");
         btnDownEnlarge.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -271,7 +256,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
         jLabel1.setText("       ");
         jPanel5.add(jLabel1);
 
-        btnPrevEnlarge.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnPrevEnlarge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prevImage.png"))); // NOI18N
         btnPrevEnlarge.setText("Prev");
         btnPrevEnlarge.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -284,7 +268,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
         jLabel3.setText("      ");
         jPanel5.add(jLabel3);
 
-        btnNextEnlarge.setFont(new java.awt.Font("Tahoma", 1, 11));
         btnNextEnlarge.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/nextImage.png"))); // NOI18N
         btnNextEnlarge.setText("Next");
         btnNextEnlarge.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -445,7 +428,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        lblPasteImage.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblPasteImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/captureImage.png"))); // NOI18N
         lblPasteImage.setText("  ");
         lblPasteImage.setToolTipText("Capture Image");
@@ -455,7 +437,6 @@ public class ImageRendererPallete extends javax.swing.JPanel implements IBlobPal
             }
         });
 
-        lblEnlargeImage.setFont(new java.awt.Font("Tahoma", 1, 11));
         lblEnlargeImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/enlargeImage.png"))); // NOI18N
         lblEnlargeImage.setText("  ");
         lblEnlargeImage.setToolTipText("Enlarge Image");
@@ -949,7 +930,6 @@ private void pnlImageRendererMouseEntered(java.awt.event.MouseEvent evt) {//GEN-
                 // Set the context color for lines and text
                 g.setColor(Color.BLUE);
                 // Create the font and pass it to the Graphics context
-                g.setFont(new Font("Monospaced", Font.BOLD, 24));
                 // Get measures needed to center the message
                 FontMetrics fm = g.getFontMetrics();
 

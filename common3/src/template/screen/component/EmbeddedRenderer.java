@@ -50,7 +50,6 @@ public class EmbeddedRenderer extends AbstractComponentRenderer {
         AbstractTemplatePanel pnl = TemplateViewer.getPanel(cls);
         pnl.tblResult = (JTable) this.tbl;
         f.add((Component) pnl.getMainForm());
-        PanelUtil.updateColor(f);
         return f;
 	}
     

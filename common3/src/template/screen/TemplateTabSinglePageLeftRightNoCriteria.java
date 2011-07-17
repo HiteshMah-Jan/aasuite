@@ -3,11 +3,7 @@ package template.screen;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-
-import util.PanelUtil;
 
 public class TemplateTabSinglePageLeftRightNoCriteria extends TemplateTabPage {
 	@Override
@@ -31,10 +27,6 @@ public class TemplateTabSinglePageLeftRightNoCriteria extends TemplateTabPage {
 		pnl.add(super.pnlButton, BorderLayout.SOUTH);
 		
 		JPanel tmp = centerPanel(pnl);
-		PanelUtil.updateColor(pnl2);
-		PanelUtil.updateColor(pnl3);
-		PanelUtil.updateColor(pnl);
-		PanelUtil.updateColor(tmp);
 		myTab.addTab("Main Form", tmp);
         myTab.addTab("Reports", pnlReportsPanel); // NOI18N
 		return this;

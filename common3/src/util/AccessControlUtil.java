@@ -9,16 +9,8 @@
 
 package util;
 
-import bean.admin.AclGroupModule;
-import bean.admin.AclUserModule; 
-import bean.admin.AppMenu;
-import bean.admin.AppConfig;
-import common2.Common2View;
-import component.JActiveMenuPallete;
-import constants.UserInfo;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -29,19 +21,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
 import service.util.AbstractIBean;
+import bean.admin.AclGroupModule;
+import bean.admin.AclUserModule;
+import bean.admin.AppConfig;
+import bean.admin.AppMenu;
+
+import common2.Common2View;
+import component.JActiveMenuPallete;
+
+import constants.UserInfo;
 
 /**
  *
  * @author Budoy Entokwa
  */
 public class AccessControlUtil {
-    static Font font = new java.awt.Font("Tahoma", 0, 12);
     static boolean runAlready = false;
     
     
@@ -73,13 +75,11 @@ public class AccessControlUtil {
         if (lst==null || lst.size()==0) {
             if (comps!=null && comps.length>0) {
                 JMenu mnu1 = (JMenu) comps[0];
-                mnu1.setFont(font);
                 if (mnu1.getText().equalsIgnoreCase("Active Window")) {
                     //this is just new
                     menu = new JMenu("Admin");
                     menuBar.add(menu);
                     JMenuItem item = new JMenuItem("Department");
-                    item.setFont(font);
                     menu.add(item);
                     item.addActionListener(new MenuAction("Department", "DepartmentForm"));
                 }
@@ -88,11 +88,9 @@ public class AccessControlUtil {
                     List lstApp = new ArrayList();
                     for (int i = 0; i < comps.length; i++) {
                         JMenu mnu = (JMenu) comps[i];
-                        mnu.setFont(font);
                         Component[] mnuItems = mnu.getMenuComponents();
                         for (int j = 0; j < mnuItems.length; j++) {
                             JMenuItem item = (JMenuItem) mnuItems[j];
-                            item.setFont(font);
                             lstApp.add(new AppMenu(mnu.getText(), item.getText(), item.getText(), (i*100)+j));
                         }
                     }
@@ -115,19 +113,16 @@ public class AccessControlUtil {
     //            check if the menu is a parent menu
                 if (menu==null) {
                     menu = new JMenu(moduleLabel);
-                    menu.setFont(font);
                     menuBar.add(menu);
                 }
                 else {
                     String txt = menu.getText();
                     if (!txt.equalsIgnoreCase(moduleLabel)) {
                         menu = new JMenu(moduleLabel);
-                        menu.setFont(font);
                         menuBar.add(menu);
                     }
                 }
                 JMenuItem item = new JMenuItem(menuLabel);
-                item.setFont(font);
                 menu.add(item);
                 item.addActionListener(new MenuAction(menuLabel, moduleName));
                 item.setToolTipText(description);
@@ -146,7 +141,6 @@ public class AccessControlUtil {
         List lst = AppConfig.lstModule;
         for (int i = 0; (lst==null || lst.size()==0 ) && i < menuCount; i++) {
             JMenu menu = menuBar.getMenu(i);
-            menu.setFont(font);
             String txtMenu = menu.getText();
 
             bean.admin.AclModule module = new bean.admin.AclModule();
@@ -158,7 +152,6 @@ public class AccessControlUtil {
             int itemCount = menu.getItemCount();
             for (int j = 0; j < itemCount; j++) {
                 JMenuItem item = menu.getItem(j);
-                item.setFont(font);
                 if (item == null) {
                     continue;
                 }
@@ -217,7 +210,6 @@ public class AccessControlUtil {
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
                 JMenu menu = menuBar.getMenu(i);
-                menu.setFont(font);
 
                 String txt = menu.getText();
                 if (!withAccess(txt, lst)) {
@@ -230,7 +222,6 @@ public class AccessControlUtil {
                 int itemCount = menu.getItemCount();
                 for (int j = 0; j < itemCount; j++) {
                     JMenuItem item = menu.getItem(j);
-                    item.setFont(font);
                     String text = item.getText();
                     boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst);
                     item.setVisible(b);
@@ -244,7 +235,6 @@ public class AccessControlUtil {
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
                 JMenu menu = menuBar.getMenu(i);
-                menu.setFont(font);
 
                 String txt = menu.getText();
                 if (!withAccess(txt, lst, true)) {
@@ -257,7 +247,6 @@ public class AccessControlUtil {
                 int itemCount = menu.getItemCount();
                 for (int j = 0; j < itemCount; j++) {
                     JMenuItem item = menu.getItem(j);
-                    item.setFont(font);
                     String text = item.getText();
                     boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst, true);
                     item.setVisible(b);
@@ -311,7 +300,6 @@ public class AccessControlUtil {
         private JMenuButton(JMenuBar menubar, JPanel pnl) {
             this.menuBar = menubar;
             this.pnl = pnl;
-            PanelUtil.updateColor(pnl);
             this.pnl.setLayout(new GridBagLayout());
         }
 
@@ -321,7 +309,6 @@ public class AccessControlUtil {
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
                 JMenu menu = menuBar.getMenu(i);
-                menu.setFont(font);
                 if (menu instanceof JActiveMenuPallete) {
                     continue;
                 }
@@ -331,16 +318,13 @@ public class AccessControlUtil {
                 JPanel tmpPanel = new JPanel();
                 tmpPanel.setLayout(new GridLayout(0, totalCount, 3, 3));
                 tmpPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(txt));
-                PanelUtil.updateColor(tmpPanel);
 
                 int itemCount = menu.getItemCount();
                 if (itemCount<4) tmpPanel.setLayout(new GridLayout(0, itemCount, 3, 3));
                 for (int j = 0; j < itemCount; j++) {
                     JMenuItem item = menu.getItem(j);
-                    item.setFont(font);
                     String text = item.getText();
                     JButton btn = new JButton(text);
-                    btn.setFont(font);
                     Dimension dim = btn.getPreferredSize();
                     dim.height += 25;
                     btn.setSize(dim);
@@ -356,7 +340,6 @@ public class AccessControlUtil {
                 cons.gridy++;
                 cons.fill = GridBagConstraints.HORIZONTAL;
                 pnl.add(tmpPanel, cons);
-                PanelUtil.updateColor(pnl);
             }
         }
 
@@ -383,21 +366,18 @@ public class AccessControlUtil {
             int menuCount = menuBar.getMenuCount();
             for (int i = 0; i < menuCount; i++) {
                 JMenu menu = menuBar.getMenu(i);
-                menu.setFont(font);
 
                 String txt = menu.getText();
                 JPanel tmp = null;
                 if (!withAccess(txt, lst)) {
                     tmp = mapPnl.get(txt);
                     if (tmp!=null) {
-                        PanelUtil.updateColor(tmp);
                         pnl.remove(tmp);
                     }
                     continue;
                 } else {
                     tmp = mapPnl.get(txt);
                     if (tmp!=null) {
-                        PanelUtil.updateColor(tmp);
                         tmp.setVisible(true);
                     }
                 }
@@ -405,7 +385,6 @@ public class AccessControlUtil {
                 int itemCount = menu.getItemCount();
                 for (int j = 0; j < itemCount; j++) {
                     JMenuItem item = menu.getItem(j);
-                    item.setFont(font);
                     String text = item.getText();
                     boolean b = withAccess(BeanUtil.concat(txt," - ",text), lst);
                     JButton btn = map.get(item);

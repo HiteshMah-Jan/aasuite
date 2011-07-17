@@ -24,7 +24,6 @@ public class ORSeries extends javax.swing.JPanel {
     /** Creates new form ORSeries */
     public ORSeries() {
         initComponents();
-        PanelUtil.updateColor(jPanel1);
         try {
             Log.out("OR SERIES INIT SERVER CALL");
             String user = UserInfo.getUserName();

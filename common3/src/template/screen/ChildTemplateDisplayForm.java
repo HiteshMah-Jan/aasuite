@@ -10,7 +10,6 @@ import javax.swing.SwingUtilities;
 
 import service.util.AbstractIBean;
 import template.ChildRecord;
-import util.PanelUtil;
 
 /**
  *
@@ -22,8 +21,6 @@ public class ChildTemplateDisplayForm extends ChildTemplateListPopup {
         super.setup(childAnnotation, parent);
         this.removeAll();
         this.add(pnlMain);
-        PanelUtil.updateColor(this);
-        PanelUtil.updateColor(pnlMain);
     }
     
     public void refreshRecords(AbstractIBean parent) {

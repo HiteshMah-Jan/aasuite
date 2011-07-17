@@ -6,12 +6,13 @@
 
 package ui;
 
-import bean.admin.AppConfig;
-import common2.Common2View;
-import constants.UserInfo;
-import util.PanelUtil;
+import javax.swing.JButton;
 
-import javax.swing.*;
+import bean.admin.AppConfig;
+
+import common2.Common2View;
+
+import constants.UserInfo;
 
 /**
  *
@@ -25,12 +26,6 @@ public class WelcomePanel extends javax.swing.JPanel {
         initComponents();
 	util.AccessControlUtil.setAccessControlButtons(Common2View.mainView.menuBar, pnlButtons);
         springbean.AAAConfig.getInstance();
-        if (constants.Constants.panelBackground!=null) {
-            PanelUtil.updateColor(this);
-            PanelUtil.updateColor(pnlButtons);
-            PanelUtil.updateColor(this.lblWelcome);
-            PanelUtil.updateColor(this.lblWelcomeTo);
-        }
         lblWelcomeTo.setText(AppConfig.getWelcomeLabel());
         if (!UserInfo.loginUser.isSuperAAA()) {
             Common2View.mainView.mnuChangeTheme.setVisible(false);

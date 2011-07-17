@@ -6,15 +6,18 @@
 
 package ui;
 
-import bean.admin.AppConfig;
-import common2.Common2View;
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
+
 import springbean.AAAConfig;
 import util.BeanUtil;
 import util.PanelUtil;
+import bean.admin.AppConfig;
+
+import common2.Common2View;
 
 /**
  *
@@ -34,17 +37,10 @@ public class ChangeThemeForm extends javax.swing.JPanel {
         try {
             String[] arr1 = panelColor.split(" ");
             String[] arr2 = labelColor.split(" ");
-            Color c1 = PanelUtil.getColor(arr1);
-            Color c2 = PanelUtil.getColor(arr2);
-            constants.Constants.panelBackground = c1;
-            constants.Constants.labelColor = c2;
-            
             chkShowHostLogin.setSelected(AppConfig.isShowHostLogin());
         }
         catch (Exception e) {
         }
-        PanelUtil.updateColor(this);
-        PanelUtil.updateColor(lbl);
         
         String image = AppConfig.extractLoadingImage();
         if (image==null || image.isEmpty()) return;
@@ -115,7 +111,6 @@ public class ChangeThemeForm extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 0, 0);
         add(btnChangeLabelColor, gridBagConstraints);
 
-        lbl.setFont(new java.awt.Font("Tahoma", 0, 24));
         lbl.setText(resourceMap.getString("lbl.text")); // NOI18N
         lbl.setName("lbl"); // NOI18N
         add(lbl, new java.awt.GridBagConstraints());
@@ -208,20 +203,13 @@ public class ChangeThemeForm extends javax.swing.JPanel {
 private void btnChangePanelColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePanelColorActionPerformed
     Color c = JColorChooser.showDialog(btnChangePanelColor, "Choose Panel Color", constants.Constants.panelBackground);
     constants.Constants.panelBackground = c;
-    PanelUtil.updateColor(this);
-    Common2View.mainView.changeTheme();
 }//GEN-LAST:event_btnChangePanelColorActionPerformed
 
 private void btnChangeLabelColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeLabelColorActionPerformed
     Color c = JColorChooser.showDialog(btnChangePanelColor, "Choose Label Color", constants.Constants.labelColor);
-    constants.Constants.labelColor = c;
-    PanelUtil.updateColor(lbl);
-    Common2View.mainView.changeTheme();
 }//GEN-LAST:event_btnChangeLabelColorActionPerformed
 
 private void btnSaveThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveThemeActionPerformed
-    AppConfig.setAppValue("PANEL BACKGROUND", PanelUtil.getColorStr(constants.Constants.panelBackground));
-    AppConfig.setAppValue("LABEL COLOR", PanelUtil.getColorStr(constants.Constants.labelColor));
     AppConfig.setAppValue("LOADING IMAGE", lblSplashIconView.getText());
     AppConfig.setAppValue("CLIENT_REPORT_FOLDER", btnReportFolder.getToolTipText());
     AppConfig.setAppValue("WELCOME LABEL", btnWelcomeLabel.getToolTipText());

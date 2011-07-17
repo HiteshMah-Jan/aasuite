@@ -6,11 +6,6 @@
 
 package template.screen;
 
-import component.IGetText;
-import component.IRule;
-import component.JButtonPallete;
-import component.JCalendarPallete;
-import component.PalleteRuleManager;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -21,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.persistence.Column;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -34,6 +30,7 @@ import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.ELProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
+
 import rule.BusinessRuleWrapper;
 import service.util.AbstractIBean;
 import service.util.IBean;
@@ -47,6 +44,12 @@ import template.screen.component.JTableReadOnly;
 import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
+
+import component.IGetText;
+import component.IRule;
+import component.JButtonPallete;
+import component.JCalendarPallete;
+import component.PalleteRuleManager;
 
 /**
  *
@@ -389,7 +392,6 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
         pnlRightButtons.setLayout(new java.awt.GridLayout(3, 1, 10, 10));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getResourceMap(AbstractChildTemplatePanel.class);
-        btnNew.setFont(resourceMap.getFont("btnNew.font")); // NOI18N
         btnNew.setText(resourceMap.getString("btnNew.text")); // NOI18N
         btnNew.setName("btnNew"); // NOI18N
         btnNew.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +401,6 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
         });
         pnlRightButtons.add(btnNew);
 
-        btnDelete.setFont(resourceMap.getFont("btnNew.font")); // NOI18N
         btnDelete.setText(resourceMap.getString("btnDelete.text")); // NOI18N
         btnDelete.setName("btnDelete"); // NOI18N
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +410,6 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
         });
         pnlRightButtons.add(btnDelete);
 
-        btnSave.setFont(resourceMap.getFont("btnNew.font")); // NOI18N
         btnSave.setText(resourceMap.getString("btnSave.text")); // NOI18N
         btnSave.setName("btnSave"); // NOI18N
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -419,10 +419,8 @@ public class AbstractChildTemplatePanel extends javax.swing.JPanel implements IT
         });
         pnlRightButtons.add(btnSave);
 
-        scrollTable.setFont(resourceMap.getFont("scrollTable.font")); // NOI18N
         scrollTable.setName("scrollTable"); // NOI18N
 
-        tblRecord.setFont(resourceMap.getFont("tblRecord.font")); // NOI18N
         tblRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

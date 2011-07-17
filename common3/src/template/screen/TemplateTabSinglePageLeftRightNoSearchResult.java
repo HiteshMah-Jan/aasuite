@@ -22,8 +22,6 @@ public class TemplateTabSinglePageLeftRightNoSearchResult extends TemplateTabPag
 		pnl.add(super.pnlButton, BorderLayout.SOUTH);
 		
 		JPanel tmp = centerPanel(pnl);
-		PanelUtil.updateColor(pnl);
-		PanelUtil.updateColor(tmp);
 		myTab.addTab("Main Form", pnl);
         myTab.addTab("Reports", pnlReportsPanel); // NOI18N
 		return this;
@@ -32,7 +30,6 @@ public class TemplateTabSinglePageLeftRightNoSearchResult extends TemplateTabPag
     public JPanel centerPanel(JPanel pnl) {
 		JPanel tmp = new JPanel(new GridLayout());
 		tmp.add(pnl);
-		PanelUtil.updateColor(tmp);
 		return tmp;
     }
 }

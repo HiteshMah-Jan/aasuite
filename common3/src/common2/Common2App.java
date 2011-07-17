@@ -4,8 +4,7 @@
 
 package common2;
 
-import java.awt.Color;
-import java.awt.Dimension; 
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.List;
@@ -36,7 +35,7 @@ public class Common2App extends SingleFrameApplication {
     @Override public void startup() {
         view = new Common2View(this);
         final JFrame frame = Common2View.mainView.getFrame();
-        frame.setUndecorated(true);
+//        frame.setUndecorated(true);
         show(view);
         Common2View.mainView.getFrame().setTitle(constants.Constants.appTitle);
         springbean.AAAConfig config = springbean.AAAConfig.getInstance();
@@ -96,10 +95,6 @@ public class Common2App extends SingleFrameApplication {
         try {
             String[] arr1 = panelColor.split(" ");
             String[] arr2 = labelColor.split(" ");
-            Color c1 = PanelUtil.getColor(arr1);
-            Color c2 = PanelUtil.getColor(arr2);
-            constants.Constants.panelBackground = c1;
-            constants.Constants.labelColor = c2;
         }
         catch (Exception e) {
         }

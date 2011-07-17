@@ -6,15 +6,17 @@
 
 package ui.cashier;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JPanel;
+
+import rule.BusinessRuleWrapper;
+import springbean.AAAConfig;
+import util.PanelUtil;
 import bean.Person;
 import bean.accounting.Payment;
-
-import java.awt.*;
-import javax.swing.JPanel;
-import springbean.AAAConfig;
-import util.BeanUtil;
-import util.PanelUtil;
-import rule.BusinessRuleWrapper;
 
 /**
  *
@@ -53,12 +55,6 @@ public class AcceptCheckForm extends JPanel {
    
     public AcceptCheckForm() {
         initComponents();
-        PanelUtil.updateColor(pnlPayment);
-        PanelUtil.updateColor(this);
-        PanelUtil.updateColor(this.jPanel1);
-        PanelUtil.updateColor(this.jPanel2);
-        PanelUtil.updateColor(this.jPanel4);
-        PanelUtil.updateColor(this.pnlStudent);
     }
     
     

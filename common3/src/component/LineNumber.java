@@ -9,10 +9,20 @@
 
 package component;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.text.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class LineNumber extends JComponent {
     private final static Color DEFAULT_BACKGROUND = new Color(230, 163, 4);
@@ -44,11 +54,9 @@ public class LineNumber extends JComponent {
         if (component == null) {
             setBackground( DEFAULT_BACKGROUND );
             setForeground( DEFAULT_FOREGROUND );
-            setFont( DEFAULT_FONT );
         } else {
             setBackground( DEFAULT_BACKGROUND );
             setForeground( component.getForeground() );
-            setFont( component.getFont() );
         }
         setPreferredSize( 9999 );
     }
