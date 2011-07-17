@@ -99,6 +99,177 @@ public class Common2View extends FrameView {
 //        this.showPanel("Home", "WelcomePanel");
         showPanel("Login", "LoginPanel");
         util.AccessControlUtil.setAccessControl(menuBar);
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
+        mnuBookmark = new javax.swing.JMenuItem();
+        mnuLogin = new javax.swing.JMenuItem();
+        mnuChangePassword = new javax.swing.JMenuItem();
+        mnuAdminConsole = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mnuAppMenu = new javax.swing.JMenuItem();
+        mnuModules = new javax.swing.JMenuItem();
+        mnuConfig = new javax.swing.JMenuItem();
+        mnuCompanyConfig = new javax.swing.JMenuItem();
+        mnuSetupDB = new javax.swing.JMenuItem();
+        mnuTraining = new javax.swing.JMenuItem();
+        mnuChangeTheme = new javax.swing.JMenuItem();
+        mnuServices = new javax.swing.JMenuItem();
+        mnuUserStation = new javax.swing.JMenuItem();
+        mnuTestDB = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        
+                helpMenu.setText("Help"); // NOI18N
+                helpMenu.setName("helpMenu"); // NOI18N
+                helpMenu.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        helpMenuActionPerformed(evt);
+                    }
+                });
+                
+                        mnuBookmark.setText("Bookmark"); // NOI18N
+                        mnuBookmark.setName("mnuBookmark"); // NOI18N
+                        mnuBookmark.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                mnuBookmarkActionPerformed(evt);
+                            }
+                        });
+                        helpMenu.add(mnuBookmark);
+                        
+                                mnuLogin.setText("Login"); // NOI18N
+                                mnuLogin.setName("mnuLogin"); // NOI18N
+                                mnuLogin.addActionListener(new java.awt.event.ActionListener() {
+                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                        mnuLoginActionPerformed(evt);
+                                    }
+                                });
+                                helpMenu.add(mnuLogin);
+                                
+                                        mnuChangePassword.setText("Change Password"); // NOI18N
+                                        mnuChangePassword.setName("mnuChangePassword"); // NOI18N
+                                        mnuChangePassword.addActionListener(new java.awt.event.ActionListener() {
+                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                mnuChangePasswordActionPerformed(evt);
+                                            }
+                                        });
+                                        helpMenu.add(mnuChangePassword);
+                                        
+                                                mnuAdminConsole.setText("Admin Console"); // NOI18N
+                                                mnuAdminConsole.setName("mnuAdminConsole"); // NOI18N
+                                                mnuAdminConsole.addActionListener(new java.awt.event.ActionListener() {
+                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                        mnuAdminConsoleActionPerformed(evt);
+                                                    }
+                                                });
+                                                helpMenu.add(mnuAdminConsole);
+                                                
+                                                        jMenu1.setText("Exit"); // NOI18N
+                                                        jMenu1.setName("jMenu1"); // NOI18N
+                                                        
+                                                                mnuAppMenu.setText("App Menu"); // NOI18N
+                                                                mnuAppMenu.setName("mnuAppMenu"); // NOI18N
+                                                                mnuAppMenu.addActionListener(new java.awt.event.ActionListener() {
+                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                        mnuAppMenuActionPerformed(evt);
+                                                                    }
+                                                                });
+                                                                jMenu1.add(mnuAppMenu);
+                                                                
+                                                                        mnuModules.setText("Modules"); // NOI18N
+                                                                        mnuModules.setName("mnuModules"); // NOI18N
+                                                                        mnuModules.addActionListener(new java.awt.event.ActionListener() {
+                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                mnuModulesActionPerformed(evt);
+                                                                            }
+                                                                        });
+                                                                        jMenu1.add(mnuModules);
+                                                                        
+                                                                                mnuConfig.setText("Config"); // NOI18N
+                                                                                mnuConfig.setName("mnuConfig"); // NOI18N
+                                                                                mnuConfig.addActionListener(new java.awt.event.ActionListener() {
+                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                        mnuConfigActionPerformed(evt);
+                                                                                    }
+                                                                                });
+                                                                                jMenu1.add(mnuConfig);
+                                                                                
+                                                                                        mnuCompanyConfig.setText("Company Config"); // NOI18N
+                                                                                        mnuCompanyConfig.setName("mnuCompanyConfig"); // NOI18N
+                                                                                        mnuCompanyConfig.addActionListener(new java.awt.event.ActionListener() {
+                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                mnuCompanyConfigActionPerformed(evt);
+                                                                                            }
+                                                                                        });
+                                                                                        jMenu1.add(mnuCompanyConfig);
+                                                                                        
+                                                                                                mnuSetupDB.setText("Setup DB"); // NOI18N
+                                                                                                mnuSetupDB.setName("mnuSetupDB"); // NOI18N
+                                                                                                mnuSetupDB.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                        mnuSetupDBActionPerformed(evt);
+                                                                                                    }
+                                                                                                });
+                                                                                                jMenu1.add(mnuSetupDB);
+                                                                                                
+                                                                                                        mnuTraining.setText("Training"); // NOI18N
+                                                                                                        mnuTraining.setName("mnuTraining"); // NOI18N
+                                                                                                        mnuTraining.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                mnuTrainingActionPerformed(evt);
+                                                                                                            }
+                                                                                                        });
+                                                                                                        jMenu1.add(mnuTraining);
+                                                                                                        
+                                                                                                                mnuChangeTheme.setText("Change Theme"); // NOI18N
+                                                                                                                mnuChangeTheme.setName("mnuChangeTheme"); // NOI18N
+                                                                                                                mnuChangeTheme.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                        mnuChangeThemeActionPerformed(evt);
+                                                                                                                    }
+                                                                                                                });
+                                                                                                                jMenu1.add(mnuChangeTheme);
+                                                                                                                
+                                                                                                                        mnuServices.setText("Services"); // NOI18N
+                                                                                                                        mnuServices.setName("mnuServices"); // NOI18N
+                                                                                                                        mnuServices.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                                mnuServicesActionPerformed(evt);
+                                                                                                                            }
+                                                                                                                        });
+                                                                                                                        jMenu1.add(mnuServices);
+                                                                                                                        
+                                                                                                                                mnuUserStation.setText("User Station"); // NOI18N
+                                                                                                                                mnuUserStation.setName("mnuUserStation"); // NOI18N
+                                                                                                                                mnuUserStation.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                                        mnuUserStationActionPerformed(evt);
+                                                                                                                                    }
+                                                                                                                                });
+                                                                                                                                jMenu1.add(mnuUserStation);
+                                                                                                                                jMenu1.add(mnuTestDB);
+                                                                                                                                mnuTestDB.setText("Test DB"); // NOI18N
+                                                                                                                                mnuTestDB.setName("mnuTestDB"); // NOI18N
+                                                                                                                                mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                                        mnuTestDBActionPerformed(evt);
+                                                                                                                                    }
+                                                                                                                                });
+                                                                                                                                jMenu1.add(mnuTestDB);
+                                                                                                                                
+                                                                                                                                helpMenu.add(jMenu1);
+//                                                                                                                                aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
+                                                                                                                                aboutMenuItem.setName("aboutMenuItem"); // NOI18N
+                                                                                                                                helpMenu.add(aboutMenuItem);
+                                                                                                                                
+//                                                                                                                                        exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
+                                                                                                                                        exitMenuItem.setName("exitMenuItem"); // NOI18N
+                                                                                                                                        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+                                                                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                                                                                                                                exitMenuItemActionPerformed(evt);
+                                                                                                                                            }
+                                                                                                                                        });
+                                                                                                                                        helpMenu.add(exitMenuItem);
+                                                                                                                                        
+                                                                                                                                                menuBar.add(helpMenu);
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
         ResourceMap resourceMap = getResourceMap();
@@ -192,25 +363,7 @@ public class Common2View extends FrameView {
 
         mainPanel = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
-        mnuBookmark = new javax.swing.JMenuItem();
-        mnuLogin = new javax.swing.JMenuItem();
-        mnuChangePassword = new javax.swing.JMenuItem();
-        mnuAdminConsole = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        mnuAppMenu = new javax.swing.JMenuItem();
-        mnuModules = new javax.swing.JMenuItem();
-        mnuConfig = new javax.swing.JMenuItem();
-        mnuCompanyConfig = new javax.swing.JMenuItem();
-        mnuSetupDB = new javax.swing.JMenuItem();
-        mnuTraining = new javax.swing.JMenuItem();
-        mnuChangeTheme = new javax.swing.JMenuItem();
-        mnuServices = new javax.swing.JMenuItem();
-        mnuUserStation = new javax.swing.JMenuItem();
         mnuDataAnalyzer = new javax.swing.JMenuItem();
-        mnuTestDB = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
         javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         statusMessageLabel = new javax.swing.JLabel();
@@ -275,134 +428,6 @@ public class Common2View extends FrameView {
 
         menuBar.setName("menuBar"); // NOI18N
 
-        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
-        helpMenu.setName("helpMenu"); // NOI18N
-        helpMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                helpMenuActionPerformed(evt);
-            }
-        });
-
-        mnuBookmark.setText(resourceMap.getString("mnuBookmark.text")); // NOI18N
-        mnuBookmark.setName("mnuBookmark"); // NOI18N
-        mnuBookmark.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuBookmarkActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mnuBookmark);
-
-        mnuLogin.setText(resourceMap.getString("mnuLogin.text")); // NOI18N
-        mnuLogin.setName("mnuLogin"); // NOI18N
-        mnuLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuLoginActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mnuLogin);
-
-        mnuChangePassword.setText(resourceMap.getString("mnuChangePassword.text")); // NOI18N
-        mnuChangePassword.setName("mnuChangePassword"); // NOI18N
-        mnuChangePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuChangePasswordActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mnuChangePassword);
-
-        mnuAdminConsole.setText(resourceMap.getString("mnuAdminConsole.text")); // NOI18N
-        mnuAdminConsole.setName("mnuAdminConsole"); // NOI18N
-        mnuAdminConsole.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAdminConsoleActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mnuAdminConsole);
-
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-
-        mnuAppMenu.setText(resourceMap.getString("mnuAppMenu.text")); // NOI18N
-        mnuAppMenu.setName("mnuAppMenu"); // NOI18N
-        mnuAppMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAppMenuActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuAppMenu);
-
-        mnuModules.setText("Modules"); // NOI18N
-        mnuModules.setName("mnuModules"); // NOI18N
-        mnuModules.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuModulesActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuModules);
-
-        mnuConfig.setText(resourceMap.getString("mnuConfig.text")); // NOI18N
-        mnuConfig.setName("mnuConfig"); // NOI18N
-        mnuConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuConfigActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuConfig);
-
-        mnuCompanyConfig.setText(resourceMap.getString("mnuCompanyConfig.text")); // NOI18N
-        mnuCompanyConfig.setName("mnuCompanyConfig"); // NOI18N
-        mnuCompanyConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCompanyConfigActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuCompanyConfig);
-
-        mnuSetupDB.setText(resourceMap.getString("mnuSetupDB.text")); // NOI18N
-        mnuSetupDB.setName("mnuSetupDB"); // NOI18N
-        mnuSetupDB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSetupDBActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuSetupDB);
-
-        mnuTraining.setText(resourceMap.getString("mnuTraining.text")); // NOI18N
-        mnuTraining.setName("mnuTraining"); // NOI18N
-        mnuTraining.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuTrainingActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuTraining);
-
-        mnuChangeTheme.setText(resourceMap.getString("mnuChangeTheme.text")); // NOI18N
-        mnuChangeTheme.setName("mnuChangeTheme"); // NOI18N
-        mnuChangeTheme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuChangeThemeActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuChangeTheme);
-
-        mnuServices.setText("Services"); // NOI18N
-        mnuServices.setName("mnuServices"); // NOI18N
-        mnuServices.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuServicesActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuServices);
-
-        mnuUserStation.setText(resourceMap.getString("mnuUserStation.text")); // NOI18N
-        mnuUserStation.setName("mnuUserStation"); // NOI18N
-        mnuUserStation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuUserStationActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuUserStation);
-
         mnuDataAnalyzer.setText("Data Analyzer"); // NOI18N
         mnuDataAnalyzer.setName("mnuDataAnalyzer"); // NOI18N
         mnuDataAnalyzer.addActionListener(new java.awt.event.ActionListener() {
@@ -410,33 +435,62 @@ public class Common2View extends FrameView {
                 mnuDataAnalyzerActionPerformed(evt);
             }
         });
-        jMenu1.add(mnuTestDB);
-        mnuTestDB.setText("Test DB"); // NOI18N
-        mnuTestDB.setName("mnuTestDB"); // NOI18N
-        mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuTestDBActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mnuTestDB);
-        
-        helpMenu.add(jMenu1);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getActionMap(Common2View.class, this);
-        aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
-        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
-        helpMenu.add(aboutMenuItem);
-
-        exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
-        exitMenuItem.setName("exitMenuItem"); // NOI18N
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
-        helpMenu.add(exitMenuItem);
-
-        menuBar.add(helpMenu);
+        
+        JMenu Modules = new JMenu("Modules");
+        menuBar.add(Modules);
+        
+        JMenu mnFinancials = new JMenu("Financials");
+        Modules.add(mnFinancials);
+        
+        JMenuItem mntmChartOfAccounts = new JMenuItem("Chart of Accounts");
+        mnFinancials.add(mntmChartOfAccounts);
+        
+        JMenuItem mntmJournalEntry = new JMenuItem("Journal Entry");
+        mnFinancials.add(mntmJournalEntry);
+        
+        JMenuItem mntmJournalVoucher = new JMenuItem("Journal Voucher");
+        mnFinancials.add(mntmJournalVoucher);
+        
+        JMenu mnSalesAr = new JMenu("Sales - A/R");
+        Modules.add(mnSalesAr);
+        
+        JMenu mnPurchasingAp = new JMenu("Purchasing - A/P");
+        Modules.add(mnPurchasingAp);
+        
+        JMenu mnBusinessPartners = new JMenu("Business Partners");
+        Modules.add(mnBusinessPartners);
+        
+        JMenu mnBanking = new JMenu("Banking");
+        Modules.add(mnBanking);
+        
+        JMenu mnInventory = new JMenu("Inventory");
+        Modules.add(mnInventory);
+        
+        JMenu mnProduction = new JMenu("Production");
+        Modules.add(mnProduction);
+        
+        JMenu mnMRP = new JMenu("MRP");
+        Modules.add(mnMRP);
+        
+        JMenu mnService = new JMenu("Service");
+        Modules.add(mnService);
+        
+        JMenu mnHumanResources = new JMenu("Human Resources");
+        Modules.add(mnHumanResources);
+        
+        JMenu mnReports = new JMenu("Reports");
+        Modules.add(mnReports);
+        
+        JMenu mnuAdministration = new JMenu("Administration");
+        menuBar.add(mnuAdministration);
+        
+        JMenuItem mntmChooseCompany = new JMenuItem("Choose Company");
+        mnuAdministration.add(mntmChooseCompany);
+        
+        JMenuItem mnuExchangeRate = new JMenuItem("Exchange Rate");
+        mnuAdministration.add(mnuExchangeRate);
 
         statusPanel.setName("statusPanel"); // NOI18N
         statusPanel.setLayout(new java.awt.BorderLayout());
