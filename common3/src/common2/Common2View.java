@@ -53,6 +53,7 @@ import component.ITransactionPanel;
 import component.OlapRunner;
 
 import constants.UserInfo;
+import java.awt.event.KeyEvent;
 
 /**
  * The application's main frame.
@@ -61,6 +62,8 @@ public class Common2View extends FrameView {
 
     public static Common2View mainView;
     public Vector list = new Vector();
+	public JMenuItem mntmChooseCompany;
+	public JMenuItem mnuExchangeRate;
 
     public static void showRule(JPanel pnl) {
         mainView.pnlBusinessRule.removeAll();
@@ -430,11 +433,6 @@ public class Common2View extends FrameView {
 
         mnuDataAnalyzer.setText("Data Analyzer"); // NOI18N
         mnuDataAnalyzer.setName("mnuDataAnalyzer"); // NOI18N
-        mnuDataAnalyzer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuDataAnalyzerActionPerformed(evt);
-            }
-        });
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(common2.Common2App.class).getContext().getActionMap(Common2View.class, this);
         
@@ -444,39 +442,24 @@ public class Common2View extends FrameView {
         JMenu mnFinancials = new JMenu("Financials");
         Modules.add(mnFinancials);
         
-        JMenuItem mntmChartOfAccounts = new JMenuItem("Chart of Accounts");
-        mntmChartOfAccounts.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmChartOfAccounts = new JMenuItem("Chart of Accounts");
+        mntmChartOfAccounts.setName("mntmChartOfAccounts");
         mnFinancials.add(mntmChartOfAccounts);
         
-        JMenuItem mntmJournalEntry = new JMenuItem("Journal Entry");
-        mntmJournalEntry.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmJournalEntry = new JMenuItem("Journal Entry");
+        mntmJournalEntry.setName("mntmJournalEntry");
         mnFinancials.add(mntmJournalEntry);
         
-        JMenuItem mntmJournalVoucher = new JMenuItem("Journal Voucher");
-        mntmJournalVoucher.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmJournalVoucher = new JMenuItem("Journal Voucher");
+        mntmJournalVoucher.setName("mntmJournalVoucher");
         mnFinancials.add(mntmJournalVoucher);
         
         mntmReverseTransactions = new JMenuItem("Reverse Transactions");
-        mntmReverseTransactions.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmReverseTransactions.setName("mntmReverseTransactions");
         mnFinancials.add(mntmReverseTransactions);
         
         mntmInternalReconcillation = new JMenuItem("Internal Reconcillation");
-        mntmInternalReconcillation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInternalReconcillation.setName("mntmInternalReconcillation");
         mnFinancials.add(mntmInternalReconcillation);
         
         mnFinancialReports = new JMenu("Financial Reports");
@@ -486,276 +469,168 @@ public class Common2View extends FrameView {
         mnFinancialReports.add(mnAccounting);
         
         mntmGlAccountsAnd = new JMenuItem("G/L Accounts and Business Partners");
-        mntmGlAccountsAnd.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGlAccountsAnd.setName("mntmGlAccountsAnd");
         mnAccounting.add(mntmGlAccountsAnd);
         
         mntmGeneralLedger = new JMenuItem("General Ledger");
-        mntmGeneralLedger.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGeneralLedger.setName("mntmGeneralLedger");
         mnAccounting.add(mntmGeneralLedger);
         
         mntmAging = new JMenuItem("Aging");
-        mntmAging.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmAging.setName("mntmAging");
         mnAccounting.add(mntmAging);
         
         mntmTaxReport = new JMenuItem("Tax Report");
-        mntmTaxReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmTaxReport.setName("mntmTaxReport");
         mnAccounting.add(mntmTaxReport);
         
         mnNewMenu = new JMenu("Financial");
         mnFinancialReports.add(mnNewMenu);
         
         mntmBalanceSheet = new JMenuItem("Balance Sheet");
-        mntmBalanceSheet.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBalanceSheet.setName("mntmBalanceSheet");
         mnNewMenu.add(mntmBalanceSheet);
         
         mntmTrialBalance = new JMenuItem("Trial Balance");
-        mntmTrialBalance.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmTrialBalance.setName("mntmTrialBalance");
         mnNewMenu.add(mntmTrialBalance);
         
         mntmProfitAndLoss = new JMenuItem("Profit and Loss Statement");
-        mntmProfitAndLoss.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmProfitAndLoss.setName("mntmProfitAndLoss");
         mnNewMenu.add(mntmProfitAndLoss);
         
         mntmCashFlow = new JMenuItem("Cash Flow");
-        mntmCashFlow.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCashFlow.setName("mntmCashFlow");
         mnNewMenu.add(mntmCashFlow);
         
         mnNewMenu_1 = new JMenu("Budget");
         mnFinancialReports.add(mnNewMenu_1);
         
         mntmBudgetReport = new JMenuItem("Budget Report");
-        mntmBudgetReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBudgetReport.setName("mntmBudgetReport");
         mnNewMenu_1.add(mntmBudgetReport);
         
         mntmBalanceSheetBudget = new JMenuItem("Balance Sheet Budget Report");
-        mntmBalanceSheetBudget.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBalanceSheetBudget.setName("mntmBalanceSheetBudget");
         mnNewMenu_1.add(mntmBalanceSheetBudget);
         
         mntmTrialBalanceBudget = new JMenuItem("Trial Balance Budget Report");
-        mntmTrialBalanceBudget.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmTrialBalanceBudget.setName("mntmTrialBalanceBudget");
         mnNewMenu_1.add(mntmTrialBalanceBudget);
         
         mntmProfitAndLoss_1 = new JMenuItem("Profit and Loss Statement Budget Report");
-        mntmProfitAndLoss_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmProfitAndLoss_1.setName("mntmProfitAndLoss_1");
         mnNewMenu_1.add(mntmProfitAndLoss_1);
         
         JMenu mnSalesAr = new JMenu("Sales - A/R");
         Modules.add(mnSalesAr);
         
         mntmSalesQuotation = new JMenuItem("Sales Quotation");
-        mntmSalesQuotation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmSalesQuotation.setName("mntmSalesQuotation");
         mnSalesAr.add(mntmSalesQuotation);
         
         mntmSalesOrder = new JMenuItem("Sales Order");
-        mntmSalesOrder.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmSalesOrder.setName("mntmSalesOrder");
         mnSalesAr.add(mntmSalesOrder);
         
         mntmDelivery = new JMenuItem("Delivery");
-        mntmDelivery.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDelivery.setName("mntmDelivery");
         mnSalesAr.add(mntmDelivery);
         
         mntmReturn = new JMenuItem("Return");
-        mntmReturn.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmReturn.setName("mntmReturn");
         mnSalesAr.add(mntmReturn);
         
         mntmArDownPayment = new JMenuItem("A/R Down Payment Invoice");
-        mntmArDownPayment.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmArDownPayment.setName("mntmArDownPayment");
         mnSalesAr.add(mntmArDownPayment);
         
         mntmArInvoice = new JMenuItem("A/R Invoice");
-        mntmArInvoice.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmArInvoice.setName("mntmArInvoice");
         mnSalesAr.add(mntmArInvoice);
         
         mntmArCreditMemo = new JMenuItem("A/R Credit Memo");
-        mntmArCreditMemo.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmArCreditMemo.setName("mntmArCreditMemo");
         mnSalesAr.add(mntmArCreditMemo);
         
         mnSalesReports = new JMenu("Sales Reports");
         mnSalesAr.add(mnSalesReports);
         
         mntmOpenItemsList = new JMenuItem("Open Items List");
-        mntmOpenItemsList.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmOpenItemsList.setName("mntmOpenItemsList");
         mnSalesReports.add(mntmOpenItemsList);
         
         mntmDocumentDraftsReport = new JMenuItem("Document Drafts Report");
-        mntmDocumentDraftsReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDocumentDraftsReport.setName("mntmDocumentDraftsReport");
         mnSalesReports.add(mntmDocumentDraftsReport);
         
         mntmSalesAnalysis = new JMenuItem("Sales Analysis");
-        mntmSalesAnalysis.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmSalesAnalysis.setName("mntmSalesAnalysis");
         mnSalesReports.add(mntmSalesAnalysis);
         
         mntmBackorder = new JMenuItem("Backorder");
-        mntmBackorder.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBackorder.setName("mntmBackorder");
         mnSalesReports.add(mntmBackorder);
         
         mntmDiscountReport = new JMenuItem("Discount Report");
-        mntmDiscountReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDiscountReport.setName("mntmDiscountReport");
         mnSalesReports.add(mntmDiscountReport);
         
         JMenu mnPurchasingAp = new JMenu("Purchasing - A/P");
         Modules.add(mnPurchasingAp);
         
         mntmPurchaseOrder = new JMenuItem("Purchase Order");
-        mntmPurchaseOrder.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmPurchaseOrder.setName("mntmPurchaseOrder");
         mnPurchasingAp.add(mntmPurchaseOrder);
         
         mntmGoodsReceiptPo = new JMenuItem("Goods Receipt PO");
-        mntmGoodsReceiptPo.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGoodsReceiptPo.setName("mntmGoodsReceiptPo");
         mnPurchasingAp.add(mntmGoodsReceiptPo);
         
         mntmGoodsReturn = new JMenuItem("Goods Return");
-        mntmGoodsReturn.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGoodsReturn.setName("mntmGoodsReturn");
         mnPurchasingAp.add(mntmGoodsReturn);
         
         mntmApDownPayment = new JMenuItem("A/P Down Payment Invoice");
-        mntmApDownPayment.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmApDownPayment.setName("mntmApDownPayment");
         mnPurchasingAp.add(mntmApDownPayment);
         
         mntmApInvoice = new JMenuItem("A/P Invoice");
-        mntmApInvoice.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmApInvoice.setName("mntmApInvoice");
         mnPurchasingAp.add(mntmApInvoice);
         
         mntmApCreditMemo = new JMenuItem("A/P Credit Memo");
-        mntmApCreditMemo.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmApCreditMemo.setName("mntmApCreditMemo");
         mnPurchasingAp.add(mntmApCreditMemo);
         
         mntmLandedCosts = new JMenuItem("Landed Costs");
-        mntmLandedCosts.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmLandedCosts.setName("mntmLandedCosts");
         mnPurchasingAp.add(mntmLandedCosts);
         
         mnPurchasingReports = new JMenu("Purchasing Reports");
         mnPurchasingAp.add(mnPurchasingReports);
         
         mntmOpenItemsList_1 = new JMenuItem("Open Items List");
-        mntmOpenItemsList_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmOpenItemsList_1.setName("mntmOpenItemsList_1");
         mnPurchasingReports.add(mntmOpenItemsList_1);
         
         mntmDocumentDraftsReport_1 = new JMenuItem("Document Drafts Report");
-        mntmDocumentDraftsReport_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDocumentDraftsReport_1.setName("mntmDocumentDraftsReport_1");
         mnPurchasingReports.add(mntmDocumentDraftsReport_1);
         
         mntmPurchaseAnalysis = new JMenuItem("Purchase Analysis");
-        mntmPurchaseAnalysis.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmPurchaseAnalysis.setName("mntmPurchaseAnalysis");
         mnPurchasingReports.add(mntmPurchaseAnalysis);
         
         mntmDiscountReports = new JMenuItem("Discount Reports");
-        mntmDiscountReports.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDiscountReports.setName("mntmDiscountReports");
         mnPurchasingReports.add(mntmDiscountReports);
         
         JMenu mnBusinessPartners = new JMenu("Business Partners");
         Modules.add(mnBusinessPartners);
         
         mntmBusinessPartnerMaster = new JMenuItem("Business Partner Master Data");
-        mntmBusinessPartnerMaster.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBusinessPartnerMaster.setName("mntmBusinessPartnerMaster");
         mnBusinessPartners.add(mntmBusinessPartnerMaster);
         
         JMenu mnBanking = new JMenu("Banking");
@@ -765,436 +640,272 @@ public class Common2View extends FrameView {
         mnBanking.add(mnIncomingPayments);
         
         mntmIncomingPayments = new JMenuItem("Incoming Payments");
-        mntmIncomingPayments.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmIncomingPayments.setName("mntmIncomingPayments");
         mnIncomingPayments.add(mntmIncomingPayments);
         
         mntmCheckRegister = new JMenuItem("Check Register");
-        mntmCheckRegister.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCheckRegister.setName("mntmCheckRegister");
         mnIncomingPayments.add(mntmCheckRegister);
         
         mntmCreditCardManagement = new JMenuItem("Credit Card Management");
-        mntmCreditCardManagement.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCreditCardManagement.setName("mntmCreditCardManagement");
         mnIncomingPayments.add(mntmCreditCardManagement);
         
         mnDeposits = new JMenu("Deposits");
         mnBanking.add(mnDeposits);
         
         mntmDeposit = new JMenuItem("Deposit");
-        mntmDeposit.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDeposit.setName("mntmDeposit");
         mnDeposits.add(mntmDeposit);
         
         mnOutgoingPayments = new JMenu("Outgoing Payments");
         mnBanking.add(mnOutgoingPayments);
         
         mntmOutgoingPayments = new JMenuItem("Outgoing Payments");
-        mntmOutgoingPayments.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmOutgoingPayments.setName("mntmOutgoingPayments");
         mnOutgoingPayments.add(mntmOutgoingPayments);
         
         mntmChecksForPayment = new JMenuItem("Checks for Payment");
-        mntmChecksForPayment.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmChecksForPayment.setName("mntmChecksForPayment");
         mnOutgoingPayments.add(mntmChecksForPayment);
         
         mnBankStatementsAnd = new JMenu("Bank Statements and External Reconcilliations");
         mnBanking.add(mnBankStatementsAnd);
         
         mntmReconcillation = new JMenuItem("Reconcillation");
-        mntmReconcillation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmReconcillation.setName("mntmReconcillation");
         mnBankStatementsAnd.add(mntmReconcillation);
         
         mntmManualReconcillation = new JMenuItem("Manual Reconcillation");
-        mntmManualReconcillation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmManualReconcillation.setName("mntmManualReconcillation");
         mnBankStatementsAnd.add(mntmManualReconcillation);
         
         mnBankingReports = new JMenu("Banking Reports");
         mnBanking.add(mnBankingReports);
         
         mntmCheckRegisterReport = new JMenuItem("Check Register Report");
-        mntmCheckRegisterReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCheckRegisterReport.setName("mntmCheckRegisterReport");
         mnBankingReports.add(mntmCheckRegisterReport);
         
         JMenu mnInventory = new JMenu("Inventory");
         Modules.add(mnInventory);
         
         mntmItemMasterData = new JMenuItem("Item Master Data");
-        mntmItemMasterData.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmItemMasterData.setName("mntmItemMasterData");
         mnInventory.add(mntmItemMasterData);
         
         mnInventoryTransactions = new JMenu("Inventory Transactions");
         mnInventory.add(mnInventoryTransactions);
         
         mntmGoodsReceipt = new JMenuItem("Goods Receipt");
-        mntmGoodsReceipt.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGoodsReceipt.setName("mntmGoodsReceipt");
         mnInventoryTransactions.add(mntmGoodsReceipt);
         
         mntmGoodsIssue = new JMenuItem("Goods Issue");
-        mntmGoodsIssue.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGoodsIssue.setName("mntmGoodsIssue");
         mnInventoryTransactions.add(mntmGoodsIssue);
         
         mntmInventoryTransfer = new JMenuItem("Inventory Transfer");
-        mntmInventoryTransfer.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInventoryTransfer.setName("mntmInventoryTransfer");
         mnInventoryTransactions.add(mntmInventoryTransfer);
         
         mntmPriceLists = new JMenuItem("Price Lists");
-        mntmPriceLists.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmPriceLists.setName("mntmPriceLists");
         mnInventoryTransactions.add(mntmPriceLists);
         
         mntmSpecialPricesFor = new JMenuItem("Special Prices for Business Partners");
-        mntmSpecialPricesFor.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmSpecialPricesFor.setName("mntmSpecialPricesFor");
         mnInventoryTransactions.add(mntmSpecialPricesFor);
         
         mnInventoryReports = new JMenu("Inventory Reports");
         mnInventoryTransactions.add(mnInventoryReports);
         
         mntmItemsList = new JMenuItem("Items List");
-        mntmItemsList.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmItemsList.setName("mntmItemsList");
         mnInventoryReports.add(mntmItemsList);
         
         mntmLastPricesReport = new JMenuItem("Last Prices Report");
-        mntmLastPricesReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmLastPricesReport.setName("mntmLastPricesReport");
         mnInventoryReports.add(mntmLastPricesReport);
         
         mntmDocumentsDraftsReport = new JMenuItem("Documents Drafts Report");
-        mntmDocumentsDraftsReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmDocumentsDraftsReport.setName("mntmDocumentsDraftsReport");
         mnInventoryReports.add(mntmDocumentsDraftsReport);
         
         mntmInactiveItems = new JMenuItem("Inactive Items");
-        mntmInactiveItems.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInactiveItems.setName("mntmInactiveItems");
         mnInventoryReports.add(mntmInactiveItems);
         
         mntmInventoryPostingList = new JMenuItem("Inventory Posting List");
-        mntmInventoryPostingList.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInventoryPostingList.setName("mntmInventoryPostingList");
         mnInventoryReports.add(mntmInventoryPostingList);
         
         mntmInventoryStatus = new JMenuItem("Inventory Status");
-        mntmInventoryStatus.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInventoryStatus.setName("mntmInventoryStatus");
         mnInventoryReports.add(mntmInventoryStatus);
         
         mntmInventoryInWarehouse = new JMenuItem("Inventory in Warehouse Report");
-        mntmInventoryInWarehouse.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInventoryInWarehouse.setName("mntmInventoryInWarehouse");
         mnInventoryReports.add(mntmInventoryInWarehouse);
         
         mntmInventoryAuditReport = new JMenuItem("Inventory Audit Report");
-        mntmInventoryAuditReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmInventoryAuditReport.setName("mntmInventoryAuditReport");
         mnInventoryReports.add(mntmInventoryAuditReport);
         
         JMenu mnProduction = new JMenu("Production");
         Modules.add(mnProduction);
         
         mntmBillOfMaterials = new JMenuItem("Bill of Materials");
-        mntmBillOfMaterials.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBillOfMaterials.setName("mntmBillOfMaterials");
         mnProduction.add(mntmBillOfMaterials);
         
         mntmProductionOrder = new JMenuItem("Production Order");
-        mntmProductionOrder.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmProductionOrder.setMnemonic(KeyEvent.VK_ENTER);
+        mntmProductionOrder.setName("mntmProductionOrder");
         mnProduction.add(mntmProductionOrder);
         
         mntmReceiptFromProduction = new JMenuItem("Receipt from Production");
-        mntmReceiptFromProduction.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmReceiptFromProduction.setName("mntmReceiptFromProduction");
         mnProduction.add(mntmReceiptFromProduction);
         
         mntmIssueForProduction = new JMenuItem("Issue for Production");
-        mntmIssueForProduction.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmIssueForProduction.setName("mntmIssueForProduction");
         mnProduction.add(mntmIssueForProduction);
         
         mnProductionReports = new JMenu("Production Reports");
         mnProduction.add(mnProductionReports);
         
         mntmBillOfMaterials_1 = new JMenuItem("Bill of Materials Report");
-        mntmBillOfMaterials_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmBillOfMaterials_1.setName("mntmBillOfMaterials_1");
         mnProductionReports.add(mntmBillOfMaterials_1);
         
         mntmOpenItemsList_2 = new JMenuItem("Open Items List");
-        mntmOpenItemsList_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmOpenItemsList_2.setName("mntmOpenItemsList_2");
         mnProductionReports.add(mntmOpenItemsList_2);
         
         JMenu mnMRP = new JMenu("MRP");
         Modules.add(mnMRP);
         
         mntmForecasts = new JMenuItem("Forecasts");
-        mntmForecasts.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmForecasts.setName("mntmForecasts");
         mnMRP.add(mntmForecasts);
         
         mntmMrpWizard = new JMenuItem("MRP Wizard");
-        mntmMrpWizard.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmMrpWizard.setName("mntmMrpWizard");
         mnMRP.add(mntmMrpWizard);
         
         mntmOrderRecommendation = new JMenuItem("Order Recommendation");
-        mntmOrderRecommendation.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmOrderRecommendation.setName("mntmOrderRecommendation");
         mnMRP.add(mntmOrderRecommendation);
         
         JMenu mnService = new JMenu("Service");
         Modules.add(mnService);
         
         mntmServiceCall = new JMenuItem("Service Call");
-        mntmServiceCall.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceCall.setName("mntmServiceCall");
         mnService.add(mntmServiceCall);
         
         mntmCustomerEquipmentCard = new JMenuItem("Customer Equipment Card");
-        mntmCustomerEquipmentCard.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCustomerEquipmentCard.setName("mntmCustomerEquipmentCard");
         mnService.add(mntmCustomerEquipmentCard);
         
         mntmServiceContract = new JMenuItem("Service Contract");
-        mntmServiceContract.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceContract.setName("mntmServiceContract");
         mnService.add(mntmServiceContract);
         
         mntmSolutionsKnowledgeBase = new JMenuItem("Solutions Knowledge Base");
-        mntmSolutionsKnowledgeBase.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmSolutionsKnowledgeBase.setName("mntmSolutionsKnowledgeBase");
         mnService.add(mntmSolutionsKnowledgeBase);
         
         mnServiceReports = new JMenu("Service Reports");
         mnService.add(mnServiceReports);
         
         mntmServiceCalls = new JMenuItem("Service Calls");
-        mntmServiceCalls.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceCalls.setName("mntmServiceCalls");
         mnServiceReports.add(mntmServiceCalls);
         
         mntmServiceCallsBy = new JMenuItem("Service Calls by Queue");
-        mntmServiceCallsBy.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceCallsBy.setName("mntmServiceCallsBy");
         mnServiceReports.add(mntmServiceCallsBy);
         
         mntmResponseTimeBy = new JMenuItem("Response Time by Assigned to");
-        mntmResponseTimeBy.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmResponseTimeBy.setName("mntmResponseTimeBy");
         mnServiceReports.add(mntmResponseTimeBy);
         
         mntmAverageClosureTime = new JMenuItem("Average Closure Time");
-        mntmAverageClosureTime.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmAverageClosureTime.setName("mntmAverageClosureTime");
         mnServiceReports.add(mntmAverageClosureTime);
         
         mntmServiceContracts = new JMenuItem("Service Contracts");
-        mntmServiceContracts.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceContracts.setName("mntmServiceContracts");
         mnServiceReports.add(mntmServiceContracts);
         
         mntmCustomerEquipmentCard_1 = new JMenuItem("Customer Equipment card Report");
-        mntmCustomerEquipmentCard_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCustomerEquipmentCard_1.setName("mntmCustomerEquipmentCard_1");
         mnServiceReports.add(mntmCustomerEquipmentCard_1);
         
         mntmServiceMonitor = new JMenuItem("Service Monitor");
-        mntmServiceMonitor.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmServiceMonitor.setName("mntmServiceMonitor");
         mnServiceReports.add(mntmServiceMonitor);
         
         mntmMyServiceCalls = new JMenuItem("My Service Calls");
-        mntmMyServiceCalls.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmMyServiceCalls.setName("mntmMyServiceCalls");
         mnServiceReports.add(mntmMyServiceCalls);
         
         mntmMyOpenService = new JMenuItem("My Open Service Calls");
-        mntmMyOpenService.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmMyOpenService.setName("mntmMyOpenService");
         mnServiceReports.add(mntmMyOpenService);
         
         mntmMyOverdueServiec = new JMenuItem("My Overdue Serviec Calls");
-        mntmMyOverdueServiec.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmMyOverdueServiec.setName("mntmMyOverdueServiec");
         mnServiceReports.add(mntmMyOverdueServiec);
         
         JMenu mnHumanResources = new JMenu("Human Resources");
         Modules.add(mnHumanResources);
         
         mntmEmployeeMasterData = new JMenuItem("Employee Master Data");
-        mntmEmployeeMasterData.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmEmployeeMasterData.setName("mntmEmployeeMasterData");
         mnHumanResources.add(mntmEmployeeMasterData);
         
         mnHumanResourcesReports = new JMenu("Human Resources Reports");
         mnHumanResources.add(mnHumanResourcesReports);
         
         mntmEmployeeList = new JMenuItem("Employee List");
-        mntmEmployeeList.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmEmployeeList.setName("mntmEmployeeList");
         mnHumanResourcesReports.add(mntmEmployeeList);
         
         mntmAbsenceReport = new JMenuItem("Absence Report");
-        mntmAbsenceReport.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmAbsenceReport.setName("mntmAbsenceReport");
         mnHumanResourcesReports.add(mntmAbsenceReport);
         
         mntmPhoneBook = new JMenuItem("Phone Book");
-        mntmPhoneBook.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmPhoneBook.setName("mntmPhoneBook");
         mnHumanResourcesReports.add(mntmPhoneBook);
         
         JMenu mnuAdministration = new JMenu("Administration");
         menuBar.add(mnuAdministration);
         
-        JMenuItem mntmChooseCompany = new JMenuItem("Choose Company");
-        mntmChooseCompany.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmChooseCompany = new JMenuItem("Choose Company");
+        mntmChooseCompany.setName("mntmChooseCompany");
         mnuAdministration.add(mntmChooseCompany);
         
-        JMenuItem mnuExchangeRate = new JMenuItem("Exchange Rate");
-        mnuExchangeRate.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mnuExchangeRate = new JMenuItem("Exchange Rate");
+        mnuExchangeRate.setName("mnuExchangeRate");
         mnuAdministration.add(mnuExchangeRate);
         
         mnSystemInitialization = new JMenu("System Initialization");
         mnuAdministration.add(mnSystemInitialization);
         
         mntmCompanyDetails = new JMenuItem("Company Details");
-        mntmCompanyDetails.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmCompanyDetails.setName("mntmCompanyDetails");
         mnSystemInitialization.add(mntmCompanyDetails);
         
         mntmGeneralSettings = new JMenuItem("General Settings");
-        mntmGeneralSettings.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmGeneralSettings.setName("mntmGeneralSettings");
         mnSystemInitialization.add(mntmGeneralSettings);
         
         mntmPostingPeriod = new JMenuItem("Posting Period");
-        mntmPostingPeriod.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
+        mntmPostingPeriod.setName("mntmPostingPeriod");
         mnSystemInitialization.add(mntmPostingPeriod);
 
         statusPanel.setName("statusPanel"); // NOI18N
@@ -2008,22 +1719,22 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public javax.swing.JMenuBar menuBar;
     public javax.swing.JMenuItem mnuAdminConsole;
     public javax.swing.JMenuItem mnuAppMenu;
-    private javax.swing.JMenuItem mnuBookmark;
-    private javax.swing.JMenuItem mnuChangeLogo;
+    public javax.swing.JMenuItem mnuBookmark;
+    public javax.swing.JMenuItem mnuChangeLogo;
     public javax.swing.JMenuItem mnuChangePassword;
     public javax.swing.JMenuItem mnuChangeTheme;
-    private javax.swing.JMenuItem mnuCompanyConfig;
-    private javax.swing.JMenuItem mnuConfig;
-    private javax.swing.JMenuItem mnuDataAnalyzer;
-    private javax.swing.JMenuItem mnuTestDB;
+    public javax.swing.JMenuItem mnuCompanyConfig;
+    public javax.swing.JMenuItem mnuConfig;
+    public javax.swing.JMenuItem mnuDataAnalyzer;
+    public javax.swing.JMenuItem mnuTestDB;
     public javax.swing.JMenuItem mnuLogin;
-    private javax.swing.JMenuItem mnuModules;
-    private javax.swing.JMenuItem mnuRuleEngine;
-    private javax.swing.JMenuItem mnuServices;
+    public javax.swing.JMenuItem mnuModules;
+    public javax.swing.JMenuItem mnuRuleEngine;
+    public javax.swing.JMenuItem mnuServices;
     public javax.swing.JMenuItem mnuSetupDB;
-    private javax.swing.JMenuItem mnuTraining;
-    private javax.swing.JMenuItem mnuUpdateSQL;
-    private javax.swing.JMenuItem mnuUserStation;
+    public javax.swing.JMenuItem mnuTraining;
+    public javax.swing.JMenuItem mnuUpdateSQL;
+    public javax.swing.JMenuItem mnuUserStation;
     private javax.swing.JPanel pnlBusinessRule;
     public javax.swing.JPanel pnlMain;
     public javax.swing.JPanel pnlSearchCriteria;
@@ -2043,117 +1754,120 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private JDialog aboutBox;
     private JPanel pnlDesk;
     private JDesktopPane desktop;
-    private JMenuItem mntmReverseTransactions;
-    private JMenuItem mntmInternalReconcillation;
-    private JMenu mnFinancialReports;
-    private JMenuItem mntmGlAccountsAnd;
-    private JMenuItem mntmGeneralLedger;
-    private JMenuItem mntmAging;
-    private JMenuItem mntmTaxReport;
-    private JMenu mnAccounting;
-    private JMenu mnNewMenu;
-    private JMenuItem mntmNewMenuItem;
-    private JMenuItem mntmBalanceSheet;
-    private JMenuItem mntmTrialBalance;
-    private JMenuItem mntmProfitAndLoss;
-    private JMenuItem mntmCashFlow;
-    private JMenu mnNewMenu_1;
-    private JMenuItem mntmBudgetReport;
-    private JMenuItem mntmBalanceSheetBudget;
-    private JMenuItem mntmTrialBalanceBudget;
-    private JMenuItem mntmProfitAndLoss_1;
-    private JMenuItem mntmSalesQuotation;
-    private JMenuItem mntmSalesOrder;
-    private JMenuItem mntmDelivery;
-    private JMenuItem mntmReturn;
-    private JMenuItem mntmArDownPayment;
-    private JMenuItem mntmArInvoice;
-    private JMenuItem mntmArCreditMemo;
-    private JMenu mnSalesReports;
-    private JMenuItem mntmOpenItemsList;
-    private JMenuItem mntmDocumentDraftsReport;
-    private JMenuItem mntmSalesAnalysis;
-    private JMenuItem mntmBackorder;
-    private JMenuItem mntmDiscountReport;
-    private JMenuItem mntmPurchaseOrder;
-    private JMenuItem mntmGoodsReceiptPo;
-    private JMenuItem mntmGoodsReturn;
-    private JMenuItem mntmApDownPayment;
-    private JMenuItem mntmApInvoice;
-    private JMenuItem mntmApCreditMemo;
-    private JMenuItem mntmLandedCosts;
-    private JMenu mnPurchasingReports;
-    private JMenuItem mntmOpenItemsList_1;
-    private JMenuItem mntmDocumentDraftsReport_1;
-    private JMenuItem mntmPurchaseAnalysis;
-    private JMenuItem mntmDiscountReports;
-    private JMenuItem mntmBusinessPartnerMaster;
-    private JMenu mnIncomingPayments;
-    private JMenu mnDeposits;
-    private JMenu mnOutgoingPayments;
-    private JMenu mnBankStatementsAnd;
-    private JMenu mnBankingReports;
-    private JMenuItem mntmIncomingPayments;
-    private JMenuItem mntmCheckRegister;
-    private JMenuItem mntmCreditCardManagement;
-    private JMenuItem mntmDeposit;
-    private JMenuItem mntmOutgoingPayments;
-    private JMenuItem mntmNewMenuItem_1;
-    private JMenuItem mntmNewMenuItem_2;
-    private JMenuItem mntmChecksForPayment;
-    private JMenuItem mntmReconcillation;
-    private JMenuItem mntmManualReconcillation;
-    private JMenuItem mntmCheckRegisterReport;
-    private JMenuItem mntmItemMasterData;
-    private JMenu mnInventoryTransactions;
-    private JMenuItem mntmGoodsReceipt;
-    private JMenuItem mntmGoodsIssue;
-    private JMenuItem mntmInventoryTransfer;
-    private JMenuItem mntmPriceLists;
-    private JMenuItem mntmSpecialPricesFor;
-    private JMenu mnInventoryReports;
-    private JMenuItem mntmItemsList;
-    private JMenuItem mntmDocumentsDraftsReport;
-    private JMenuItem mntmLastPricesReport;
-    private JMenuItem mntmInactiveItems;
-    private JMenuItem mntmInventoryPostingList;
-    private JMenuItem mntmInventoryStatus;
-    private JMenuItem mntmInventoryInWarehouse;
-    private JMenuItem mntmInventoryAuditReport;
-    private JMenuItem mntmBillOfMaterials;
-    private JMenuItem mntmProductionOrder;
-    private JMenuItem mntmReceiptFromProduction;
-    private JMenuItem mntmIssueForProduction;
-    private JMenu mnProductionReports;
-    private JMenuItem mntmBillOfMaterials_1;
-    private JMenuItem mntmOpenItemsList_2;
-    private JMenuItem mntmForecasts;
-    private JMenuItem mntmMrpWizard;
-    private JMenuItem mntmOrderRecommendation;
-    private JMenuItem mntmServiceCall;
-    private JMenuItem mntmCustomerEquipmentCard;
-    private JMenuItem mntmServiceContract;
-    private JMenuItem mntmSolutionsKnowledgeBase;
-    private JMenu mnServiceReports;
-    private JMenuItem mntmServiceCalls;
-    private JMenuItem mntmServiceCallsBy;
-    private JMenuItem mntmResponseTimeBy;
-    private JMenuItem mntmAverageClosureTime;
-    private JMenuItem mntmServiceContracts;
-    private JMenuItem mntmCustomerEquipmentCard_1;
-    private JMenuItem mntmServiceMonitor;
-    private JMenuItem mntmMyServiceCalls;
-    private JMenuItem mntmMyOpenService;
-    private JMenuItem mntmMyOverdueServiec;
-    private JMenuItem mntmEmployeeMasterData;
-    private JMenu mnHumanResourcesReports;
-    private JMenuItem mntmEmployeeList;
-    private JMenuItem mntmAbsenceReport;
-    private JMenuItem mntmPhoneBook;
-    private JMenu mnSystemInitialization;
-    private JMenuItem mntmCompanyDetails;
-    private JMenuItem mntmGeneralSettings;
-    private JMenuItem mntmPostingPeriod;
+    public JMenuItem mntmReverseTransactions;
+    public JMenuItem mntmInternalReconcillation;
+    public JMenu mnFinancialReports;
+    public JMenuItem mntmGlAccountsAnd;
+    public JMenuItem mntmGeneralLedger;
+    public JMenuItem mntmAging;
+    public JMenuItem mntmTaxReport;
+    public JMenu mnAccounting;
+    public JMenu mnNewMenu;
+    public JMenuItem mntmNewMenuItem;
+    public JMenuItem mntmBalanceSheet;
+    public JMenuItem mntmTrialBalance;
+    public JMenuItem mntmProfitAndLoss;
+    public JMenuItem mntmCashFlow;
+    public JMenu mnNewMenu_1;
+    public JMenuItem mntmBudgetReport;
+    public JMenuItem mntmBalanceSheetBudget;
+    public JMenuItem mntmTrialBalanceBudget;
+    public JMenuItem mntmProfitAndLoss_1;
+    public JMenuItem mntmSalesQuotation;
+    public JMenuItem mntmSalesOrder;
+    public JMenuItem mntmDelivery;
+    public JMenuItem mntmReturn;
+    public JMenuItem mntmArDownPayment;
+    public JMenuItem mntmArInvoice;
+    public JMenuItem mntmArCreditMemo;
+    public JMenu mnSalesReports;
+    public JMenuItem mntmOpenItemsList;
+    public JMenuItem mntmDocumentDraftsReport;
+    public JMenuItem mntmSalesAnalysis;
+    public JMenuItem mntmBackorder;
+    public JMenuItem mntmDiscountReport;
+    public JMenuItem mntmPurchaseOrder;
+    public JMenuItem mntmGoodsReceiptPo;
+    public JMenuItem mntmGoodsReturn;
+    public JMenuItem mntmApDownPayment;
+    public JMenuItem mntmApInvoice;
+    public JMenuItem mntmApCreditMemo;
+    public JMenuItem mntmLandedCosts;
+    public JMenu mnPurchasingReports;
+    public JMenuItem mntmOpenItemsList_1;
+    public JMenuItem mntmDocumentDraftsReport_1;
+    public JMenuItem mntmPurchaseAnalysis;
+    public JMenuItem mntmDiscountReports;
+    public JMenuItem mntmBusinessPartnerMaster;
+    public JMenu mnIncomingPayments;
+    public JMenu mnDeposits;
+    public JMenu mnOutgoingPayments;
+    public JMenu mnBankStatementsAnd;
+    public JMenu mnBankingReports;
+    public JMenuItem mntmIncomingPayments;
+    public JMenuItem mntmCheckRegister;
+    public JMenuItem mntmCreditCardManagement;
+    public JMenuItem mntmDeposit;
+    public JMenuItem mntmOutgoingPayments;
+    public JMenuItem mntmNewMenuItem_1;
+    public JMenuItem mntmNewMenuItem_2;
+    public JMenuItem mntmChecksForPayment;
+    public JMenuItem mntmReconcillation;
+    public JMenuItem mntmManualReconcillation;
+    public JMenuItem mntmCheckRegisterReport;
+    public JMenuItem mntmItemMasterData;
+    public JMenu mnInventoryTransactions;
+    public JMenuItem mntmGoodsReceipt;
+    public JMenuItem mntmGoodsIssue;
+    public JMenuItem mntmInventoryTransfer;
+    public JMenuItem mntmPriceLists;
+    public JMenuItem mntmSpecialPricesFor;
+    public JMenu mnInventoryReports;
+    public JMenuItem mntmItemsList;
+    public JMenuItem mntmDocumentsDraftsReport;
+    public JMenuItem mntmLastPricesReport;
+    public JMenuItem mntmInactiveItems;
+    public JMenuItem mntmInventoryPostingList;
+    public JMenuItem mntmInventoryStatus;
+    public JMenuItem mntmInventoryInWarehouse;
+    public JMenuItem mntmInventoryAuditReport;
+    public JMenuItem mntmBillOfMaterials;
+    public JMenuItem mntmProductionOrder;
+    public JMenuItem mntmReceiptFromProduction;
+    public JMenuItem mntmIssueForProduction;
+    public JMenu mnProductionReports;
+    public JMenuItem mntmBillOfMaterials_1;
+    public JMenuItem mntmOpenItemsList_2;
+    public JMenuItem mntmForecasts;
+    public JMenuItem mntmMrpWizard;
+    public JMenuItem mntmOrderRecommendation;
+    public JMenuItem mntmServiceCall;
+    public JMenuItem mntmCustomerEquipmentCard;
+    public JMenuItem mntmServiceContract;
+    public JMenuItem mntmSolutionsKnowledgeBase;
+    public JMenu mnServiceReports;
+    public JMenuItem mntmServiceCalls;
+    public JMenuItem mntmServiceCallsBy;
+    public JMenuItem mntmResponseTimeBy;
+    public JMenuItem mntmAverageClosureTime;
+    public JMenuItem mntmServiceContracts;
+    public JMenuItem mntmCustomerEquipmentCard_1;
+    public JMenuItem mntmServiceMonitor;
+    public JMenuItem mntmMyServiceCalls;
+    public JMenuItem mntmMyOpenService;
+    public JMenuItem mntmMyOverdueServiec;
+    public JMenuItem mntmEmployeeMasterData;
+    public JMenu mnHumanResourcesReports;
+    public JMenuItem mntmEmployeeList;
+    public JMenuItem mntmAbsenceReport;
+    public JMenuItem mntmPhoneBook;
+    public JMenu mnSystemInitialization;
+    public JMenuItem mntmCompanyDetails;
+    public JMenuItem mntmGeneralSettings;
+    public JMenuItem mntmPostingPeriod;
+	public JMenuItem mntmChartOfAccounts;
+	public JMenuItem mntmJournalEntry;
+	public JMenuItem mntmJournalVoucher;
 
     public void showAllMenu() {
         menuBar.setVisible(true);

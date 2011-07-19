@@ -34,6 +34,7 @@ public class Common2App extends SingleFrameApplication {
      */
     @Override public void startup() {
         view = new Common2View(this);
+        Common2ViewListener.listenToView(view);
         final JFrame frame = Common2View.mainView.getFrame();
 //        frame.setUndecorated(true);
         show(view);
