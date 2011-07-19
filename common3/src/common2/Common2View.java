@@ -390,8 +390,6 @@ public class Common2View extends FrameView {
         jLabel3 = new javax.swing.JLabel();
         btnCalc = new javax.swing.JButton();
         btnCalc.setToolTipText("Calculator");
-        btnHome = new javax.swing.JButton();
-        btnHome.setToolTipText("Home");
         btnBack = new javax.swing.JButton();
         btnBack.setToolTipText("Back");
         jLabel2 = new javax.swing.JLabel();
@@ -1034,18 +1032,6 @@ public class Common2View extends FrameView {
         });
         toolbar.add(btnCalc);
 
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/home.png")));
-        btnHome.setFocusable(false);
-        btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHome.setName("btnHome"); // NOI18N
-        btnHome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
-            }
-        });
-        toolbar.add(btnHome);
-
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/prev.png")));
         btnBack.setFocusable(false);
         btnBack.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1338,12 +1324,6 @@ private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         Logger.getLogger("global").log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_btnCalcActionPerformed
-
-private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-    mapPanels.remove("Home");
-    showPanel("Home", "WelcomePanel");
-    resetHome();
-}//GEN-LAST:event_btnHomeActionPerformed
 
     public void resetHome() {
     }
@@ -1685,7 +1665,6 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton btnConfigure;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnHome;
     private javax.swing.JButton btnMaximize;
     private javax.swing.JButton btnMore;
     private javax.swing.JButton btnNew;

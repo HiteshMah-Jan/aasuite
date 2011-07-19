@@ -9,6 +9,8 @@ import javax.swing.JTree;
 
 import org.jdesktop.application.SingleFrameApplication;
 
+import bean.sales.SalesOrder;
+
 import springbean.AAAConfig;
 import util.JMenuToJTree;
 
@@ -560,6 +562,7 @@ public class Common2ViewListener {
 	private void mntmSalesQuotation() {
 	}
 	private void mntmSalesOrder() {
+		Common2View.mainView.showBeanPanel(SalesOrder.class.getSimpleName());
 	}
 	private void mntmDelivery() {
 	}
