@@ -59,13 +59,20 @@ public class JMenuToJTree {
 					MutableTreeNode parentNode = getParentNode(comp);
 					model.insertNodeInto(node, parentNode, parentNode.getChildCount());
 					if (item.getName() != null) {
-						sb.insert(0,"view."+item.getName()+".addActionListener(new ActionListener() {\n" +
+						if (item.getName().contains("Report")) {
+							sb.append(  "view."+item.getName()+".addActionListener(new ActionListener() {\n" +
 									"    public void actionPerformed(ActionEvent e) {\n" +
-									"        "+item.getName()+"();\n" +
+									"        Common2View.mainView.showReport(\""+item.getName().replaceAll("mntm", "")+"\");\n" +
 									"    }\n" +
 									"});\n");
-						sb.append(	"private void "+item.getName()+"() {\n" +
-									"}\n");
+						}
+						else {
+							sb.append(  "view."+item.getName()+".addActionListener(new ActionListener() {\n" +
+									"    public void actionPerformed(ActionEvent e) {\n" +
+									"        Common2View.mainView.showBeanPanel("+item.getName().replaceAll("mntm", "")+".class.getSimpleName());\n" +
+									"    }\n" +
+									"});\n");
+						}
 					}
 					else {
 						System.out.println(item.getText());

@@ -38,684 +38,492 @@ public class Common2ViewListener {
 	}
 	
 	private void listen() {
-		view.mntmPostingPeriod.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmPostingPeriod();
-		    }
-		});
-		view.mntmGeneralSettings.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmGeneralSettings();
-		    }
-		});
-		view.mntmCompanyDetails.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCompanyDetails();
-		    }
-		});
-		view.mnuExchangeRate.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mnuExchangeRate();
-		    }
-		});
-		view.mntmChooseCompany.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmChooseCompany();
-		    }
-		});
-		view.mntmPhoneBook.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmPhoneBook();
-		    }
-		});
-		view.mntmAbsenceReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmAbsenceReport();
-		    }
-		});
-		view.mntmEmployeeList.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmEmployeeList();
-		    }
-		});
-		view.mntmEmployeeMasterData.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmEmployeeMasterData();
-		    }
-		});
-		view.mntmMyOverdueServiec.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmMyOverdueServiec();
-		    }
-		});
-		view.mntmMyOpenService.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmMyOpenService();
-		    }
-		});
-		view.mntmMyServiceCalls.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmMyServiceCalls();
-		    }
-		});
-		view.mntmServiceMonitor.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceMonitor();
-		    }
-		});
-		view.mntmCustomerEquipmentCard_1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCustomerEquipmentCard_1();
-		    }
-		});
-		view.mntmServiceContracts.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceContracts();
-		    }
-		});
-		view.mntmAverageClosureTime.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmAverageClosureTime();
-		    }
-		});
-		view.mntmResponseTimeBy.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmResponseTimeBy();
-		    }
-		});
-		view.mntmServiceCallsBy.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceCallsBy();
-		    }
-		});
-		view.mntmServiceCalls.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceCalls();
-		    }
-		});
-		view.mntmSolutionsKnowledgeBase.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmSolutionsKnowledgeBase();
-		    }
-		});
-		view.mntmServiceContract.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceContract();
-		    }
-		});
-		view.mntmCustomerEquipmentCard.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCustomerEquipmentCard();
-		    }
-		});
-		view.mntmServiceCall.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmServiceCall();
-		    }
-		});
-		view.mntmOrderRecommendation.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmOrderRecommendation();
-		    }
-		});
-		view.mntmMrpWizard.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmMrpWizard();
-		    }
-		});
-		view.mntmForecasts.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmForecasts();
-		    }
-		});
-		view.mntmOpenItemsList_2.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmOpenItemsList_2();
-		    }
-		});
-		view.mntmBillOfMaterials_1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBillOfMaterials_1();
-		    }
-		});
-		view.mntmIssueForProduction.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmIssueForProduction();
-		    }
-		});
-		view.mntmReceiptFromProduction.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmReceiptFromProduction();
-		    }
-		});
-		view.mntmProductionOrder.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmProductionOrder();
-		    }
-		});
-		view.mntmBillOfMaterials.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBillOfMaterials();
-		    }
-		});
-		view.mntmInventoryAuditReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInventoryAuditReport();
-		    }
-		});
-		view.mntmInventoryInWarehouse.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInventoryInWarehouse();
-		    }
-		});
-		view.mntmInventoryStatus.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInventoryStatus();
-		    }
-		});
-		view.mntmInventoryPostingList.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInventoryPostingList();
-		    }
-		});
-		view.mntmInactiveItems.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInactiveItems();
-		    }
-		});
-		view.mntmDocumentsDraftsReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDocumentsDraftsReport();
-		    }
-		});
-		view.mntmLastPricesReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmLastPricesReport();
-		    }
-		});
-		view.mntmItemsList.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmItemsList();
-		    }
-		});
-		view.mntmSpecialPricesFor.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmSpecialPricesFor();
-		    }
-		});
-		view.mntmPriceLists.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmPriceLists();
-		    }
-		});
-		view.mntmInventoryTransfer.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmInventoryTransfer();
-		    }
-		});
-		view.mntmGoodsIssue.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmGoodsIssue();
-		    }
-		});
-		view.mntmGoodsReceipt.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmGoodsReceipt();
-		    }
-		});
-		view.mntmItemMasterData.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmItemMasterData();
-		    }
-		});
-		view.mntmCheckRegisterReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCheckRegisterReport();
-		    }
-		});
-		view.mntmManualReconcillation.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmManualReconcillation();
-		    }
-		});
-		view.mntmReconcillation.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmReconcillation();
-		    }
-		});
-		view.mntmChecksForPayment.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmChecksForPayment();
-		    }
-		});
-		view.mntmOutgoingPayments.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmOutgoingPayments();
-		    }
-		});
-		view.mntmDeposit.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDeposit();
-		    }
-		});
-		view.mntmCreditCardManagement.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCreditCardManagement();
-		    }
-		});
-		view.mntmCheckRegister.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCheckRegister();
-		    }
-		});
-		view.mntmIncomingPayments.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmIncomingPayments();
-		    }
-		});
-		view.mntmBusinessPartnerMaster.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBusinessPartnerMaster();
-		    }
-		});
-		view.mntmDiscountReports.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDiscountReports();
-		    }
-		});
-		view.mntmPurchaseAnalysis.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmPurchaseAnalysis();
-		    }
-		});
-		view.mntmDocumentDraftsReport_1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDocumentDraftsReport_1();
-		    }
-		});
-		view.mntmOpenItemsList_1.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmOpenItemsList_1();
-		    }
-		});
-		view.mntmLandedCosts.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmLandedCosts();
-		    }
-		});
-		view.mntmApCreditMemo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmApCreditMemo();
-		    }
-		});
-		view.mntmApInvoice.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmApInvoice();
-		    }
-		});
-		view.mntmApDownPayment.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmApDownPayment();
-		    }
-		});
-		view.mntmGoodsReturn.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmGoodsReturn();
-		    }
-		});
-		view.mntmGoodsReceiptPo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmGoodsReceiptPo();
-		    }
-		});
-		view.mntmPurchaseOrder.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmPurchaseOrder();
-		    }
-		});
-		view.mntmDiscountReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDiscountReport();
-		    }
-		});
-		view.mntmBackorder.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBackorder();
-		    }
-		});
-		view.mntmSalesAnalysis.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmSalesAnalysis();
-		    }
-		});
-		view.mntmDocumentDraftsReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDocumentDraftsReport();
-		    }
-		});
-		view.mntmOpenItemsList.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmOpenItemsList();
-		    }
-		});
-		view.mntmArCreditMemo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmArCreditMemo();
-		    }
-		});
-		view.mntmArInvoice.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmArInvoice();
-		    }
-		});
-		view.mntmArDownPayment.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmArDownPayment();
-		    }
-		});
-		view.mntmReturn.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmReturn();
-		    }
-		});
-		view.mntmDelivery.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmDelivery();
-		    }
-		});
+//		view.mntmChartOfAccounts.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ChartOfAccounts.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmJournalEntry.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(JournalEntry.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmJournalVoucher.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(JournalVoucher.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmReverseTransactions.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ReverseTransactions.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmInternalReconcillation.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(InternalReconcillation.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmSalesQuotation.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(SalesQuotation.class.getSimpleName());
+//		    }
+//		});
 		view.mntmSalesOrder.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmSalesOrder();
+		        Common2View.mainView.showBeanPanel(SalesOrder.class.getSimpleName());
 		    }
 		});
-		view.mntmSalesQuotation.addActionListener(new ActionListener() {
+//		view.mntmDelivery.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(Delivery.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmReturn.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(Return.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmArDownPayment.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ArDownPayment.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmArInvoice.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ArInvoice.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmArCreditMemo.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ArCreditMemo.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmPurchaseOrder.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(PurchaseOrder.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmGoodsReceiptPo.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(GoodsReceiptPo.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmGoodsReturn.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(GoodsReturn.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmApDownPayment.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ApDownPayment.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmApInvoice.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ApInvoice.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmApCreditMemo.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ApCreditMemo.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmLandedCosts.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(LandedCosts.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmBusinessPartnerMaster.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(BusinessPartnerMaster.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmIncomingPayments.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(IncomingPayments.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmCheckRegister.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CheckRegister.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmCreditCardManagement.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CreditCardManagement.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmDeposit.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(Deposit.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmOutgoingPayments.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(OutgoingPayments.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmChecksForPayment.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ChecksForPayment.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmReconcillation.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(Reconcillation.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmManualReconcillation.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ManualReconcillation.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmItemMasterData.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ItemMasterData.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmGoodsReceipt.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(GoodsReceipt.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmGoodsIssue.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(GoodsIssue.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmInventoryTransfer.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(InventoryTransfer.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmPriceLists.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(PriceLists.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmSpecialPricesFor.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(SpecialPricesFor.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmBillOfMaterials.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(BillOfMaterials.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmProductionOrder.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ProductionOrder.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmReceiptFromProduction.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ReceiptFromProduction.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmIssueForProduction.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(IssueForProduction.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmForecasts.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(Forecasts.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmMrpWizard.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(MrpWizard.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmOrderRecommendation.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(OrderRecommendation.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmServiceCall.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ServiceCall.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmCustomerEquipmentCard.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CustomerEquipmentCard.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmServiceContract.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ServiceContract.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmSolutionsKnowledgeBase.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(SolutionsKnowledgeBase.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmEmployeeMasterData.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(EmployeeMasterData.class.getSimpleName());
+//		    }
+//		});
+		view.mntmGlAccountsAndReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmSalesQuotation();
+		        Common2View.mainView.showReport("GlAccountsAndReport");
 		    }
 		});
-		view.mntmProfitAndLoss_1.addActionListener(new ActionListener() {
+		view.mntmGeneralLedgerReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmProfitAndLoss_1();
+		        Common2View.mainView.showReport("GeneralLedgerReport");
 		    }
 		});
-		view.mntmTrialBalanceBudget.addActionListener(new ActionListener() {
+		view.mntmAgingReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmTrialBalanceBudget();
-		    }
-		});
-		view.mntmBalanceSheetBudget.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBalanceSheetBudget();
-		    }
-		});
-		view.mntmBudgetReport.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBudgetReport();
-		    }
-		});
-		view.mntmCashFlow.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmCashFlow();
-		    }
-		});
-		view.mntmProfitAndLoss.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmProfitAndLoss();
-		    }
-		});
-		view.mntmTrialBalance.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmTrialBalance();
-		    }
-		});
-		view.mntmBalanceSheet.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        mntmBalanceSheet();
+//		        Common2View.mainView.showReport("AgingReport");
+		        Common2View.mainView.showReport("Books");
 		    }
 		});
 		view.mntmTaxReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmTaxReport();
+		        Common2View.mainView.showReport("TaxReport");
 		    }
 		});
-		view.mntmAging.addActionListener(new ActionListener() {
+		view.mntmBalanceSheetReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmAging();
+		        Common2View.mainView.showReport("BalanceSheetReport");
 		    }
 		});
-		view.mntmGeneralLedger.addActionListener(new ActionListener() {
+		view.mntmTrialBalanceReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmGeneralLedger();
+		        Common2View.mainView.showReport("TrialBalanceReport");
 		    }
 		});
-		view.mntmGlAccountsAnd.addActionListener(new ActionListener() {
+		view.mntmProfitAndLossReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmGlAccountsAnd();
+		        Common2View.mainView.showReport("ProfitAndLossReport");
 		    }
 		});
-		view.mntmInternalReconcillation.addActionListener(new ActionListener() {
+		view.mntmCashFlowReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmInternalReconcillation();
+		        Common2View.mainView.showReport("CashFlowReport");
 		    }
 		});
-		view.mntmReverseTransactions.addActionListener(new ActionListener() {
+		view.mntmBudgetReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmReverseTransactions();
+		        Common2View.mainView.showReport("BudgetReport");
 		    }
 		});
-		view.mntmJournalVoucher.addActionListener(new ActionListener() {
+		view.mntmBalanceSheetBudgetReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmJournalVoucher();
+		        Common2View.mainView.showReport("BalanceSheetBudgetReport");
 		    }
 		});
-		view.mntmJournalEntry.addActionListener(new ActionListener() {
+		view.mntmTrialBalanceBudgetReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmJournalEntry();
+		        Common2View.mainView.showReport("TrialBalanceBudgetReport");
 		    }
 		});
-		view.mntmChartOfAccounts.addActionListener(new ActionListener() {
+		view.mntmProfitAndLossBudgetReport.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        mntmChartOfAccounts();
+		        Common2View.mainView.showReport("ProfitAndLossBudgetReport");
 		    }
 		});
+		view.mntmOpenItemsListSalesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("OpenItemsListSalesReport");
+		    }
+		});
+		view.mntmDocumentDraftsSalesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("DocumentDraftsSalesReport");
+		    }
+		});
+		view.mntmSalesAnalysisSalesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("SalesAnalysisSalesReport");
+		    }
+		});
+		view.mntmBackorderSalesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("BackorderSalesReport");
+		    }
+		});
+		view.mntmDiscountSalesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("DiscountSalesReport");
+		    }
+		});
+		view.mntmOpenItemsListPurchasingReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("OpenItemsListPurchasingReport");
+		    }
+		});
+		view.mntmDocumentDraftsPurchasingReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("DocumentDraftsPurchasingReport");
+		    }
+		});
+		view.mntmPurchaseAnalysisReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("PurchaseAnalysisReport");
+		    }
+		});
+		view.mntmDiscountPurchasingReports.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("DiscountPurchasingReports");
+		    }
+		});
+		view.mntmCheckRegisterReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("CheckRegisterReport");
+		    }
+		});
+		view.mntmItemsListReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ItemsListReport");
+		    }
+		});
+		view.mntmLastPricesReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("LastPricesReport");
+		    }
+		});
+		view.mntmDocumentsDraftsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("DocumentsDraftsReport");
+		    }
+		});
+		view.mntmInactiveItemsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("InactiveItemsReport");
+		    }
+		});
+		view.mntmInventoryPostingListReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("InventoryPostingListReport");
+		    }
+		});
+		view.mntmInventoryStatusReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("InventoryStatusReport");
+		    }
+		});
+		view.mntmInventoryInWarehouseReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("InventoryInWarehouseReport");
+		    }
+		});
+		view.mntmInventoryAuditReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("InventoryAuditReport");
+		    }
+		});
+		view.mntmBillOfMaterialsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("BillOfMaterialsReport");
+		    }
+		});
+		view.mntmOpenItemsListProductionReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("OpenItemsListProductionReport");
+		    }
+		});
+		view.mntmServiceCallsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ServiceCallsReport");
+		    }
+		});
+		view.mntmServiceCallsByReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ServiceCallsByReport");
+		    }
+		});
+		view.mntmResponseTimeByReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ResponseTimeByReport");
+		    }
+		});
+		view.mntmAverageClosureTimeReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("AverageClosureTimeReport");
+		    }
+		});
+		view.mntmServiceContractsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ServiceContractsReport");
+		    }
+		});
+		view.mntmCustomerEquipmentCardReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("CustomerEquipmentCardReport");
+		    }
+		});
+		view.mntmServiceMonitorReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("ServiceMonitorReport");
+		    }
+		});
+		view.mntmMyServiceCallsReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("MyServiceCallsReport");
+		    }
+		});
+		view.mntmMyOpenServiceReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("MyOpenServiceReport");
+		    }
+		});
+		view.mntmMyOverdueServiceReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("MyOverdueServiceReport");
+		    }
+		});
+		view.mntmEmployeeListReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("EmployeeListReport");
+		    }
+		});
+		view.mntmAbsenceReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("AbsenceReport");
+		    }
+		});
+		view.mntmPhoneBookReport.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showReport("PhoneBookReport");
+		    }
+		});
+//		view.mntmChooseCompany.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ChooseCompany.class.getSimpleName());
+//		    }
+//		});
+//		view.mnuExchangeRate.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(ExchangeRate.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmCompanyDetails.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CompanyDetails.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmGeneralSettings.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(GeneralSettings.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmPostingPeriod.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(PostingPeriod.class.getSimpleName());
+//		    }
+//		});
 	}
 	
 	public static void listenToView(Common2View view) {
 		Common2ViewListener listen = new Common2ViewListener();
 		listen.view = view;
 		listen.listen();
-	}
-	private void mntmChartOfAccounts() {
-	}
-	private void mntmJournalEntry() {
-	}
-	private void mntmJournalVoucher() {
-	}
-	private void mntmReverseTransactions() {
-	}
-	private void mntmInternalReconcillation() {
-	}
-	private void mntmGlAccountsAnd() {
-	}
-	private void mntmGeneralLedger() {
-	}
-	private void mntmAging() {
-	}
-	private void mntmTaxReport() {
-	}
-	private void mntmBalanceSheet() {
-	}
-	private void mntmTrialBalance() {
-	}
-	private void mntmProfitAndLoss() {
-	}
-	private void mntmCashFlow() {
-	}
-	private void mntmBudgetReport() {
-	}
-	private void mntmBalanceSheetBudget() {
-	}
-	private void mntmTrialBalanceBudget() {
-	}
-	private void mntmProfitAndLoss_1() {
-	}
-	private void mntmSalesQuotation() {
-	}
-	private void mntmSalesOrder() {
-		Common2View.mainView.showBeanPanel(SalesOrder.class.getSimpleName());
-	}
-	private void mntmDelivery() {
-	}
-	private void mntmReturn() {
-	}
-	private void mntmArDownPayment() {
-	}
-	private void mntmArInvoice() {
-	}
-	private void mntmArCreditMemo() {
-	}
-	private void mntmOpenItemsList() {
-	}
-	private void mntmDocumentDraftsReport() {
-	}
-	private void mntmSalesAnalysis() {
-	}
-	private void mntmBackorder() {
-	}
-	private void mntmDiscountReport() {
-	}
-	private void mntmPurchaseOrder() {
-	}
-	private void mntmGoodsReceiptPo() {
-	}
-	private void mntmGoodsReturn() {
-	}
-	private void mntmApDownPayment() {
-	}
-	private void mntmApInvoice() {
-	}
-	private void mntmApCreditMemo() {
-	}
-	private void mntmLandedCosts() {
-	}
-	private void mntmOpenItemsList_1() {
-	}
-	private void mntmDocumentDraftsReport_1() {
-	}
-	private void mntmPurchaseAnalysis() {
-	}
-	private void mntmDiscountReports() {
-	}
-	private void mntmBusinessPartnerMaster() {
-	}
-	private void mntmIncomingPayments() {
-	}
-	private void mntmCheckRegister() {
-	}
-	private void mntmCreditCardManagement() {
-	}
-	private void mntmDeposit() {
-	}
-	private void mntmOutgoingPayments() {
-	}
-	private void mntmChecksForPayment() {
-	}
-	private void mntmReconcillation() {
-	}
-	private void mntmManualReconcillation() {
-	}
-	private void mntmCheckRegisterReport() {
-	}
-	private void mntmItemMasterData() {
-	}
-	private void mntmGoodsReceipt() {
-	}
-	private void mntmGoodsIssue() {
-	}
-	private void mntmInventoryTransfer() {
-	}
-	private void mntmPriceLists() {
-	}
-	private void mntmSpecialPricesFor() {
-	}
-	private void mntmItemsList() {
-	}
-	private void mntmLastPricesReport() {
-	}
-	private void mntmDocumentsDraftsReport() {
-	}
-	private void mntmInactiveItems() {
-	}
-	private void mntmInventoryPostingList() {
-	}
-	private void mntmInventoryStatus() {
-	}
-	private void mntmInventoryInWarehouse() {
-	}
-	private void mntmInventoryAuditReport() {
-	}
-	private void mntmBillOfMaterials() {
-	}
-	private void mntmProductionOrder() {
-	}
-	private void mntmReceiptFromProduction() {
-	}
-	private void mntmIssueForProduction() {
-	}
-	private void mntmBillOfMaterials_1() {
-	}
-	private void mntmOpenItemsList_2() {
-	}
-	private void mntmForecasts() {
-	}
-	private void mntmMrpWizard() {
-	}
-	private void mntmOrderRecommendation() {
-	}
-	private void mntmServiceCall() {
-	}
-	private void mntmCustomerEquipmentCard() {
-	}
-	private void mntmServiceContract() {
-	}
-	private void mntmSolutionsKnowledgeBase() {
-	}
-	private void mntmServiceCalls() {
-	}
-	private void mntmServiceCallsBy() {
-	}
-	private void mntmResponseTimeBy() {
-	}
-	private void mntmAverageClosureTime() {
-	}
-	private void mntmServiceContracts() {
-	}
-	private void mntmCustomerEquipmentCard_1() {
-	}
-	private void mntmServiceMonitor() {
-	}
-	private void mntmMyServiceCalls() {
-	}
-	private void mntmMyOpenService() {
-	}
-	private void mntmMyOverdueServiec() {
-	}
-	private void mntmEmployeeMasterData() {
-	}
-	private void mntmEmployeeList() {
-	}
-	private void mntmAbsenceReport() {
-	}
-	private void mntmPhoneBook() {
-	}
-	private void mntmChooseCompany() {
-	}
-	private void mnuExchangeRate() {
-	}
-	private void mntmCompanyDetails() {
-	}
-	private void mntmGeneralSettings() {
-	}
-	private void mntmPostingPeriod() {
 	}
 }

@@ -38,6 +38,7 @@ import org.jdesktop.application.TaskMonitor;
 import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import template.TemplateReader;
+import template.report.AbstractReportTemplate;
 import template.screen.AbstractTemplatePanel;
 import template.screen.TemplateDefault;
 import template.screen.TransactionPanel;
@@ -54,6 +55,7 @@ import component.OlapRunner;
 
 import constants.UserInfo;
 import java.awt.event.KeyEvent;
+import java.beans.PropertyVetoException;
 
 /**
  * The application's main frame.
@@ -460,66 +462,6 @@ public class Common2View extends FrameView {
         mntmInternalReconcillation.setName("mntmInternalReconcillation");
         mnFinancials.add(mntmInternalReconcillation);
         
-        mnFinancialReports = new JMenu("Financial Reports");
-        mnFinancials.add(mnFinancialReports);
-        
-        mnAccounting = new JMenu("Accounting");
-        mnFinancialReports.add(mnAccounting);
-        
-        mntmGlAccountsAnd = new JMenuItem("G/L Accounts and Business Partners");
-        mntmGlAccountsAnd.setName("mntmGlAccountsAnd");
-        mnAccounting.add(mntmGlAccountsAnd);
-        
-        mntmGeneralLedger = new JMenuItem("General Ledger");
-        mntmGeneralLedger.setName("mntmGeneralLedger");
-        mnAccounting.add(mntmGeneralLedger);
-        
-        mntmAging = new JMenuItem("Aging");
-        mntmAging.setName("mntmAging");
-        mnAccounting.add(mntmAging);
-        
-        mntmTaxReport = new JMenuItem("Tax Report");
-        mntmTaxReport.setName("mntmTaxReport");
-        mnAccounting.add(mntmTaxReport);
-        
-        mnNewMenu = new JMenu("Financial");
-        mnFinancialReports.add(mnNewMenu);
-        
-        mntmBalanceSheet = new JMenuItem("Balance Sheet");
-        mntmBalanceSheet.setName("mntmBalanceSheet");
-        mnNewMenu.add(mntmBalanceSheet);
-        
-        mntmTrialBalance = new JMenuItem("Trial Balance");
-        mntmTrialBalance.setName("mntmTrialBalance");
-        mnNewMenu.add(mntmTrialBalance);
-        
-        mntmProfitAndLoss = new JMenuItem("Profit and Loss Statement");
-        mntmProfitAndLoss.setName("mntmProfitAndLoss");
-        mnNewMenu.add(mntmProfitAndLoss);
-        
-        mntmCashFlow = new JMenuItem("Cash Flow");
-        mntmCashFlow.setName("mntmCashFlow");
-        mnNewMenu.add(mntmCashFlow);
-        
-        mnNewMenu_1 = new JMenu("Budget");
-        mnFinancialReports.add(mnNewMenu_1);
-        
-        mntmBudgetReport = new JMenuItem("Budget Report");
-        mntmBudgetReport.setName("mntmBudgetReport");
-        mnNewMenu_1.add(mntmBudgetReport);
-        
-        mntmBalanceSheetBudget = new JMenuItem("Balance Sheet Budget Report");
-        mntmBalanceSheetBudget.setName("mntmBalanceSheetBudget");
-        mnNewMenu_1.add(mntmBalanceSheetBudget);
-        
-        mntmTrialBalanceBudget = new JMenuItem("Trial Balance Budget Report");
-        mntmTrialBalanceBudget.setName("mntmTrialBalanceBudget");
-        mnNewMenu_1.add(mntmTrialBalanceBudget);
-        
-        mntmProfitAndLoss_1 = new JMenuItem("Profit and Loss Statement Budget Report");
-        mntmProfitAndLoss_1.setName("mntmProfitAndLoss_1");
-        mnNewMenu_1.add(mntmProfitAndLoss_1);
-        
         JMenu mnSalesAr = new JMenu("Sales - A/R");
         Modules.add(mnSalesAr);
         
@@ -551,29 +493,6 @@ public class Common2View extends FrameView {
         mntmArCreditMemo.setName("mntmArCreditMemo");
         mnSalesAr.add(mntmArCreditMemo);
         
-        mnSalesReports = new JMenu("Sales Reports");
-        mnSalesAr.add(mnSalesReports);
-        
-        mntmOpenItemsList = new JMenuItem("Open Items List");
-        mntmOpenItemsList.setName("mntmOpenItemsList");
-        mnSalesReports.add(mntmOpenItemsList);
-        
-        mntmDocumentDraftsReport = new JMenuItem("Document Drafts Report");
-        mntmDocumentDraftsReport.setName("mntmDocumentDraftsReport");
-        mnSalesReports.add(mntmDocumentDraftsReport);
-        
-        mntmSalesAnalysis = new JMenuItem("Sales Analysis");
-        mntmSalesAnalysis.setName("mntmSalesAnalysis");
-        mnSalesReports.add(mntmSalesAnalysis);
-        
-        mntmBackorder = new JMenuItem("Backorder");
-        mntmBackorder.setName("mntmBackorder");
-        mnSalesReports.add(mntmBackorder);
-        
-        mntmDiscountReport = new JMenuItem("Discount Report");
-        mntmDiscountReport.setName("mntmDiscountReport");
-        mnSalesReports.add(mntmDiscountReport);
-        
         JMenu mnPurchasingAp = new JMenu("Purchasing - A/P");
         Modules.add(mnPurchasingAp);
         
@@ -604,25 +523,6 @@ public class Common2View extends FrameView {
         mntmLandedCosts = new JMenuItem("Landed Costs");
         mntmLandedCosts.setName("mntmLandedCosts");
         mnPurchasingAp.add(mntmLandedCosts);
-        
-        mnPurchasingReports = new JMenu("Purchasing Reports");
-        mnPurchasingAp.add(mnPurchasingReports);
-        
-        mntmOpenItemsList_1 = new JMenuItem("Open Items List");
-        mntmOpenItemsList_1.setName("mntmOpenItemsList_1");
-        mnPurchasingReports.add(mntmOpenItemsList_1);
-        
-        mntmDocumentDraftsReport_1 = new JMenuItem("Document Drafts Report");
-        mntmDocumentDraftsReport_1.setName("mntmDocumentDraftsReport_1");
-        mnPurchasingReports.add(mntmDocumentDraftsReport_1);
-        
-        mntmPurchaseAnalysis = new JMenuItem("Purchase Analysis");
-        mntmPurchaseAnalysis.setName("mntmPurchaseAnalysis");
-        mnPurchasingReports.add(mntmPurchaseAnalysis);
-        
-        mntmDiscountReports = new JMenuItem("Discount Reports");
-        mntmDiscountReports.setName("mntmDiscountReports");
-        mnPurchasingReports.add(mntmDiscountReports);
         
         JMenu mnBusinessPartners = new JMenu("Business Partners");
         Modules.add(mnBusinessPartners);
@@ -678,13 +578,6 @@ public class Common2View extends FrameView {
         mntmManualReconcillation.setName("mntmManualReconcillation");
         mnBankStatementsAnd.add(mntmManualReconcillation);
         
-        mnBankingReports = new JMenu("Banking Reports");
-        mnBanking.add(mnBankingReports);
-        
-        mntmCheckRegisterReport = new JMenuItem("Check Register Report");
-        mntmCheckRegisterReport.setName("mntmCheckRegisterReport");
-        mnBankingReports.add(mntmCheckRegisterReport);
-        
         JMenu mnInventory = new JMenu("Inventory");
         Modules.add(mnInventory);
         
@@ -715,41 +608,6 @@ public class Common2View extends FrameView {
         mntmSpecialPricesFor.setName("mntmSpecialPricesFor");
         mnInventoryTransactions.add(mntmSpecialPricesFor);
         
-        mnInventoryReports = new JMenu("Inventory Reports");
-        mnInventoryTransactions.add(mnInventoryReports);
-        
-        mntmItemsList = new JMenuItem("Items List");
-        mntmItemsList.setName("mntmItemsList");
-        mnInventoryReports.add(mntmItemsList);
-        
-        mntmLastPricesReport = new JMenuItem("Last Prices Report");
-        mntmLastPricesReport.setName("mntmLastPricesReport");
-        mnInventoryReports.add(mntmLastPricesReport);
-        
-        mntmDocumentsDraftsReport = new JMenuItem("Documents Drafts Report");
-        mntmDocumentsDraftsReport.setName("mntmDocumentsDraftsReport");
-        mnInventoryReports.add(mntmDocumentsDraftsReport);
-        
-        mntmInactiveItems = new JMenuItem("Inactive Items");
-        mntmInactiveItems.setName("mntmInactiveItems");
-        mnInventoryReports.add(mntmInactiveItems);
-        
-        mntmInventoryPostingList = new JMenuItem("Inventory Posting List");
-        mntmInventoryPostingList.setName("mntmInventoryPostingList");
-        mnInventoryReports.add(mntmInventoryPostingList);
-        
-        mntmInventoryStatus = new JMenuItem("Inventory Status");
-        mntmInventoryStatus.setName("mntmInventoryStatus");
-        mnInventoryReports.add(mntmInventoryStatus);
-        
-        mntmInventoryInWarehouse = new JMenuItem("Inventory in Warehouse Report");
-        mntmInventoryInWarehouse.setName("mntmInventoryInWarehouse");
-        mnInventoryReports.add(mntmInventoryInWarehouse);
-        
-        mntmInventoryAuditReport = new JMenuItem("Inventory Audit Report");
-        mntmInventoryAuditReport.setName("mntmInventoryAuditReport");
-        mnInventoryReports.add(mntmInventoryAuditReport);
-        
         JMenu mnProduction = new JMenu("Production");
         Modules.add(mnProduction);
         
@@ -769,17 +627,6 @@ public class Common2View extends FrameView {
         mntmIssueForProduction = new JMenuItem("Issue for Production");
         mntmIssueForProduction.setName("mntmIssueForProduction");
         mnProduction.add(mntmIssueForProduction);
-        
-        mnProductionReports = new JMenu("Production Reports");
-        mnProduction.add(mnProductionReports);
-        
-        mntmBillOfMaterials_1 = new JMenuItem("Bill of Materials Report");
-        mntmBillOfMaterials_1.setName("mntmBillOfMaterials_1");
-        mnProductionReports.add(mntmBillOfMaterials_1);
-        
-        mntmOpenItemsList_2 = new JMenuItem("Open Items List");
-        mntmOpenItemsList_2.setName("mntmOpenItemsList_2");
-        mnProductionReports.add(mntmOpenItemsList_2);
         
         JMenu mnMRP = new JMenu("MRP");
         Modules.add(mnMRP);
@@ -815,49 +662,6 @@ public class Common2View extends FrameView {
         mntmSolutionsKnowledgeBase.setName("mntmSolutionsKnowledgeBase");
         mnService.add(mntmSolutionsKnowledgeBase);
         
-        mnServiceReports = new JMenu("Service Reports");
-        mnService.add(mnServiceReports);
-        
-        mntmServiceCalls = new JMenuItem("Service Calls");
-        mntmServiceCalls.setName("mntmServiceCalls");
-        mnServiceReports.add(mntmServiceCalls);
-        
-        mntmServiceCallsBy = new JMenuItem("Service Calls by Queue");
-        mntmServiceCallsBy.setName("mntmServiceCallsBy");
-        mnServiceReports.add(mntmServiceCallsBy);
-        
-        mntmResponseTimeBy = new JMenuItem("Response Time by Assigned to");
-        mntmResponseTimeBy.setName("mntmResponseTimeBy");
-        mnServiceReports.add(mntmResponseTimeBy);
-        
-        mntmAverageClosureTime = new JMenuItem("Average Closure Time");
-        mntmAverageClosureTime.setName("mntmAverageClosureTime");
-        mnServiceReports.add(mntmAverageClosureTime);
-        
-        mntmServiceContracts = new JMenuItem("Service Contracts");
-        mntmServiceContracts.setName("mntmServiceContracts");
-        mnServiceReports.add(mntmServiceContracts);
-        
-        mntmCustomerEquipmentCard_1 = new JMenuItem("Customer Equipment card Report");
-        mntmCustomerEquipmentCard_1.setName("mntmCustomerEquipmentCard_1");
-        mnServiceReports.add(mntmCustomerEquipmentCard_1);
-        
-        mntmServiceMonitor = new JMenuItem("Service Monitor");
-        mntmServiceMonitor.setName("mntmServiceMonitor");
-        mnServiceReports.add(mntmServiceMonitor);
-        
-        mntmMyServiceCalls = new JMenuItem("My Service Calls");
-        mntmMyServiceCalls.setName("mntmMyServiceCalls");
-        mnServiceReports.add(mntmMyServiceCalls);
-        
-        mntmMyOpenService = new JMenuItem("My Open Service Calls");
-        mntmMyOpenService.setName("mntmMyOpenService");
-        mnServiceReports.add(mntmMyOpenService);
-        
-        mntmMyOverdueServiec = new JMenuItem("My Overdue Serviec Calls");
-        mntmMyOverdueServiec.setName("mntmMyOverdueServiec");
-        mnServiceReports.add(mntmMyOverdueServiec);
-        
         JMenu mnHumanResources = new JMenu("Human Resources");
         Modules.add(mnHumanResources);
         
@@ -865,20 +669,221 @@ public class Common2View extends FrameView {
         mntmEmployeeMasterData.setName("mntmEmployeeMasterData");
         mnHumanResources.add(mntmEmployeeMasterData);
         
-        mnHumanResourcesReports = new JMenu("Human Resources Reports");
-        mnHumanResources.add(mnHumanResourcesReports);
+        mnReports = new JMenu("Reports");
+        Modules.add(mnReports);
         
-        mntmEmployeeList = new JMenuItem("Employee List");
-        mntmEmployeeList.setName("mntmEmployeeList");
-        mnHumanResourcesReports.add(mntmEmployeeList);
+        mnFinancialReports = new JMenu("Financial Reports");
+        mnReports.add(mnFinancialReports);
+        
+        mnAccounting = new JMenu("Accounting");
+        mnFinancialReports.add(mnAccounting);
+        
+        mntmGlAccountsAndReport = new JMenuItem("G/L Accounts and Business Partners");
+        mntmGlAccountsAndReport.setName("mntmGlAccountsAndReport");
+        mnAccounting.add(mntmGlAccountsAndReport);
+        
+        mntmGeneralLedgerReport = new JMenuItem("General Ledger");
+        mntmGeneralLedgerReport.setName("mntmGeneralLedgerReport");
+        mnAccounting.add(mntmGeneralLedgerReport);
+        
+        mntmAgingReport = new JMenuItem("Aging");
+        mntmAgingReport.setName("mntmAgingReport");
+        mnAccounting.add(mntmAgingReport);
+        
+        mntmTaxReport = new JMenuItem("Tax Report");
+        mntmTaxReport.setName("mntmTaxReport");
+        mnAccounting.add(mntmTaxReport);
+        
+        mnNewMenu = new JMenu("Financial");
+        mnFinancialReports.add(mnNewMenu);
+        
+        mntmBalanceSheetReport = new JMenuItem("Balance Sheet");
+        mntmBalanceSheetReport.setName("mntmBalanceSheetReport");
+        mnNewMenu.add(mntmBalanceSheetReport);
+        
+        mntmTrialBalanceReport = new JMenuItem("Trial Balance");
+        mntmTrialBalanceReport.setName("mntmTrialBalanceReport");
+        mnNewMenu.add(mntmTrialBalanceReport);
+        
+        mntmProfitAndLossReport = new JMenuItem("Profit and Loss Statement");
+        mntmProfitAndLossReport.setName("mntmProfitAndLossReport");
+        mnNewMenu.add(mntmProfitAndLossReport);
+        
+        mntmCashFlowReport = new JMenuItem("Cash Flow");
+        mntmCashFlowReport.setName("mntmCashFlowReport");
+        mnNewMenu.add(mntmCashFlowReport);
+        
+        mnNewMenu_1 = new JMenu("Budget");
+        mnFinancialReports.add(mnNewMenu_1);
+        
+        mntmBudgetReport = new JMenuItem("Budget Report");
+        mntmBudgetReport.setName("mntmBudgetReport");
+        mnNewMenu_1.add(mntmBudgetReport);
+        
+        mntmBalanceSheetBudgetReport = new JMenuItem("Balance Sheet Budget Report");
+        mntmBalanceSheetBudgetReport.setName("mntmBalanceSheetBudgetReport");
+        mnNewMenu_1.add(mntmBalanceSheetBudgetReport);
+        
+        mntmTrialBalanceBudgetReport = new JMenuItem("Trial Balance Budget Report");
+        mntmTrialBalanceBudgetReport.setName("mntmTrialBalanceBudgetReport");
+        mnNewMenu_1.add(mntmTrialBalanceBudgetReport);
+        
+        mntmProfitAndLossBudgetReport = new JMenuItem("Profit and Loss Statement Budget Report");
+        mntmProfitAndLossBudgetReport.setName("mntmProfitAndLossBudgetReport");
+        mnNewMenu_1.add(mntmProfitAndLossBudgetReport);
+        
+        mnSalesReports = new JMenu("Sales Reports");
+        mnReports.add(mnSalesReports);
+        
+        mntmOpenItemsListSalesReport = new JMenuItem("Open Items List");
+        mntmOpenItemsListSalesReport.setName("mntmOpenItemsListSalesReport");
+        mnSalesReports.add(mntmOpenItemsListSalesReport);
+        
+        mntmDocumentDraftsSalesReport = new JMenuItem("Document Drafts Report");
+        mntmDocumentDraftsSalesReport.setName("mntmDocumentDraftsSalesReport");
+        mnSalesReports.add(mntmDocumentDraftsSalesReport);
+        
+        mntmSalesAnalysisSalesReport = new JMenuItem("Sales Analysis");
+        mntmSalesAnalysisSalesReport.setName("mntmSalesAnalysisSalesReport");
+        mnSalesReports.add(mntmSalesAnalysisSalesReport);
+        
+        mntmBackorderSalesReport = new JMenuItem("Backorder");
+        mntmBackorderSalesReport.setName("mntmBackorderSalesReport");
+        mnSalesReports.add(mntmBackorderSalesReport);
+        
+        mntmDiscountSalesReport = new JMenuItem("Discount Report");
+        mntmDiscountSalesReport.setName("mntmDiscountSalesReport");
+        mnSalesReports.add(mntmDiscountSalesReport);
+        
+        mnPurchasingReports = new JMenu("Purchasing Reports");
+        mnReports.add(mnPurchasingReports);
+        
+        mntmOpenItemsListPurchasingReport = new JMenuItem("Open Items List");
+        mntmOpenItemsListPurchasingReport.setName("mntmOpenItemsListPurchasingReport");
+        mnPurchasingReports.add(mntmOpenItemsListPurchasingReport);
+        
+        mntmDocumentDraftsPurchasingReport = new JMenuItem("Document Drafts Report");
+        mntmDocumentDraftsPurchasingReport.setName("mntmDocumentDraftsPurchasingReport");
+        mnPurchasingReports.add(mntmDocumentDraftsPurchasingReport);
+        
+        mntmPurchaseAnalysisReport = new JMenuItem("Purchase Analysis");
+        mntmPurchaseAnalysisReport.setName("mntmPurchaseAnalysisReport");
+        mnPurchasingReports.add(mntmPurchaseAnalysisReport);
+        
+        mntmDiscountPurchasingReports = new JMenuItem("Discount Reports");
+        mntmDiscountPurchasingReports.setName("mntmDiscountPurchasingReports");
+        mnPurchasingReports.add(mntmDiscountPurchasingReports);
+        
+        mnBankingReports = new JMenu("Banking Reports");
+        mnReports.add(mnBankingReports);
+        
+        mntmCheckRegisterReport = new JMenuItem("Check Register Report");
+        mntmCheckRegisterReport.setName("mntmCheckRegisterReport");
+        mnBankingReports.add(mntmCheckRegisterReport);
+        
+        mnInventoryReports = new JMenu("Inventory Reports");
+        mnReports.add(mnInventoryReports);
+        
+        mntmItemsListReport = new JMenuItem("Items List");
+        mntmItemsListReport.setName("mntmItemsListReport");
+        mnInventoryReports.add(mntmItemsListReport);
+        
+        mntmLastPricesReport = new JMenuItem("Last Prices Report");
+        mntmLastPricesReport.setName("mntmLastPricesReport");
+        mnInventoryReports.add(mntmLastPricesReport);
+        
+        mntmDocumentsDraftsReport = new JMenuItem("Documents Drafts Report");
+        mntmDocumentsDraftsReport.setName("mntmDocumentsDraftsReport");
+        mnInventoryReports.add(mntmDocumentsDraftsReport);
+        
+        mntmInactiveItemsReport = new JMenuItem("Inactive Items");
+        mntmInactiveItemsReport.setName("mntmInactiveItemsReport");
+        mnInventoryReports.add(mntmInactiveItemsReport);
+        
+        mntmInventoryPostingListReport = new JMenuItem("Inventory Posting List");
+        mntmInventoryPostingListReport.setName("mntmInventoryPostingListReport");
+        mnInventoryReports.add(mntmInventoryPostingListReport);
+        
+        mntmInventoryStatusReport = new JMenuItem("Inventory Status");
+        mntmInventoryStatusReport.setName("mntmInventoryStatusReport");
+        mnInventoryReports.add(mntmInventoryStatusReport);
+        
+        mntmInventoryInWarehouseReport = new JMenuItem("Inventory in Warehouse Report");
+        mntmInventoryInWarehouseReport.setName("mntmInventoryInWarehouseReport");
+        mnInventoryReports.add(mntmInventoryInWarehouseReport);
+        
+        mntmInventoryAuditReport = new JMenuItem("Inventory Audit Report");
+        mntmInventoryAuditReport.setName("mntmInventoryAuditReport");
+        mnInventoryReports.add(mntmInventoryAuditReport);
+        
+        mnProductionReports = new JMenu("Production Reports");
+        mnReports.add(mnProductionReports);
+        
+        mntmBillOfMaterialsReport = new JMenuItem("Bill of Materials Report");
+        mntmBillOfMaterialsReport.setName("mntmBillOfMaterialsReport");
+        mnProductionReports.add(mntmBillOfMaterialsReport);
+        
+        mntmOpenItemsListProductionReport = new JMenuItem("Open Items List");
+        mntmOpenItemsListProductionReport.setName("mntmOpenItemsListProductionReport");
+        mnProductionReports.add(mntmOpenItemsListProductionReport);
+        
+        mnServiceReports = new JMenu("Service Reports");
+        mnReports.add(mnServiceReports);
+        
+        mntmServiceCallsReport = new JMenuItem("Service Calls");
+        mntmServiceCallsReport.setName("mntmServiceCallsReport");
+        mnServiceReports.add(mntmServiceCallsReport);
+        
+        mntmServiceCallsByReport = new JMenuItem("Service Calls by Queue");
+        mntmServiceCallsByReport.setName("mntmServiceCallsByReport");
+        mnServiceReports.add(mntmServiceCallsByReport);
+        
+        mntmResponseTimeByReport = new JMenuItem("Response Time by Assigned to");
+        mntmResponseTimeByReport.setName("mntmResponseTimeByReport");
+        mnServiceReports.add(mntmResponseTimeByReport);
+        
+        mntmAverageClosureTimeReport = new JMenuItem("Average Closure Time");
+        mntmAverageClosureTimeReport.setName("mntmAverageClosureTimeReport");
+        mnServiceReports.add(mntmAverageClosureTimeReport);
+        
+        mntmServiceContractsReport = new JMenuItem("Service Contracts");
+        mntmServiceContractsReport.setName("mntmServiceContractsReport");
+        mnServiceReports.add(mntmServiceContractsReport);
+        
+        mntmCustomerEquipmentCardReport = new JMenuItem("Customer Equipment card Report");
+        mntmCustomerEquipmentCardReport.setName("mntmCustomerEquipmentCardReport");
+        mnServiceReports.add(mntmCustomerEquipmentCardReport);
+        
+        mntmServiceMonitorReport = new JMenuItem("Service Monitor");
+        mntmServiceMonitorReport.setName("mntmServiceMonitorReport");
+        mnServiceReports.add(mntmServiceMonitorReport);
+        
+        mntmMyServiceCallsReport = new JMenuItem("My Service Calls");
+        mntmMyServiceCallsReport.setName("mntmMyServiceCallsReport");
+        mnServiceReports.add(mntmMyServiceCallsReport);
+        
+        mntmMyOpenServiceReport = new JMenuItem("My Open Service Calls");
+        mntmMyOpenServiceReport.setName("mntmMyOpenServiceReport");
+        mnServiceReports.add(mntmMyOpenServiceReport);
+        
+        mntmMyOverdueServiceReport = new JMenuItem("My Overdue Serviec Calls");
+        mntmMyOverdueServiceReport.setName("mntmMyOverdueServiceReport");
+        mnServiceReports.add(mntmMyOverdueServiceReport);
+        
+        mnHumanResourcesReports = new JMenu("Human Resources Reports");
+        mnReports.add(mnHumanResourcesReports);
+        
+        mntmEmployeeListReport = new JMenuItem("Employee List");
+        mntmEmployeeListReport.setName("mntmEmployeeListReport");
+        mnHumanResourcesReports.add(mntmEmployeeListReport);
         
         mntmAbsenceReport = new JMenuItem("Absence Report");
         mntmAbsenceReport.setName("mntmAbsenceReport");
         mnHumanResourcesReports.add(mntmAbsenceReport);
         
-        mntmPhoneBook = new JMenuItem("Phone Book");
-        mntmPhoneBook.setName("mntmPhoneBook");
-        mnHumanResourcesReports.add(mntmPhoneBook);
+        mntmPhoneBookReport = new JMenuItem("Phone Book");
+        mntmPhoneBookReport.setName("mntmPhoneBookReport");
+        mnHumanResourcesReports.add(mntmPhoneBookReport);
         
         JMenu mnuAdministration = new JMenu("Administration");
         menuBar.add(mnuAdministration);
@@ -1286,8 +1291,15 @@ public class Common2View extends FrameView {
         desktop.add(internalFrame);
 		internalFrame.pack();
         internalFrame.setVisible(true);
+        if (title.contains("Login")) {
+        	try {
+				internalFrame.setMaximum(true);
+			} catch (PropertyVetoException e) {
+				e.printStackTrace();
+			}
+        }
     }
-    
+
 private void lstWindowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstWindowMouseClicked
     BeanPanel value = (BeanPanel) lstWindow.getSelectedValue();
     if (value == null) {
@@ -1487,6 +1499,17 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public static Map<String, JPanel> mapPanels = new HashMap<String, JPanel>();
     public static List<String> lstPanel = new ArrayList<String>();
 
+    public static void showReport(String reportName) {
+        JPanel pnl = new JPanel(new GridLayout());
+        Common2View.mainView.newIFrame(reportName, pnl);
+        try {
+			Common2View.mainView.desktop.getSelectedFrame().setMaximum(true);
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+    	new AbstractReportTemplate().showReportFromFileTemplate(reportName, "", pnl);
+    }
+    
     private final static void showPanel(String name, String clsStr) {
         JPanel pnl = mapPanels.get(name);
         if (pnl == null) {
@@ -1736,22 +1759,22 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmReverseTransactions;
     public JMenuItem mntmInternalReconcillation;
     public JMenu mnFinancialReports;
-    public JMenuItem mntmGlAccountsAnd;
-    public JMenuItem mntmGeneralLedger;
-    public JMenuItem mntmAging;
+    public JMenuItem mntmGlAccountsAndReport;
+    public JMenuItem mntmGeneralLedgerReport;
+    public JMenuItem mntmAgingReport;
     public JMenuItem mntmTaxReport;
     public JMenu mnAccounting;
     public JMenu mnNewMenu;
     public JMenuItem mntmNewMenuItem;
-    public JMenuItem mntmBalanceSheet;
-    public JMenuItem mntmTrialBalance;
-    public JMenuItem mntmProfitAndLoss;
-    public JMenuItem mntmCashFlow;
+    public JMenuItem mntmBalanceSheetReport;
+    public JMenuItem mntmTrialBalanceReport;
+    public JMenuItem mntmProfitAndLossReport;
+    public JMenuItem mntmCashFlowReport;
     public JMenu mnNewMenu_1;
     public JMenuItem mntmBudgetReport;
-    public JMenuItem mntmBalanceSheetBudget;
-    public JMenuItem mntmTrialBalanceBudget;
-    public JMenuItem mntmProfitAndLoss_1;
+    public JMenuItem mntmBalanceSheetBudgetReport;
+    public JMenuItem mntmTrialBalanceBudgetReport;
+    public JMenuItem mntmProfitAndLossBudgetReport;
     public JMenuItem mntmSalesQuotation;
     public JMenuItem mntmSalesOrder;
     public JMenuItem mntmDelivery;
@@ -1760,11 +1783,11 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmArInvoice;
     public JMenuItem mntmArCreditMemo;
     public JMenu mnSalesReports;
-    public JMenuItem mntmOpenItemsList;
-    public JMenuItem mntmDocumentDraftsReport;
-    public JMenuItem mntmSalesAnalysis;
-    public JMenuItem mntmBackorder;
-    public JMenuItem mntmDiscountReport;
+    public JMenuItem mntmOpenItemsListSalesReport;
+    public JMenuItem mntmDocumentDraftsSalesReport;
+    public JMenuItem mntmSalesAnalysisSalesReport;
+    public JMenuItem mntmBackorderSalesReport;
+    public JMenuItem mntmDiscountSalesReport;
     public JMenuItem mntmPurchaseOrder;
     public JMenuItem mntmGoodsReceiptPo;
     public JMenuItem mntmGoodsReturn;
@@ -1773,10 +1796,10 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmApCreditMemo;
     public JMenuItem mntmLandedCosts;
     public JMenu mnPurchasingReports;
-    public JMenuItem mntmOpenItemsList_1;
-    public JMenuItem mntmDocumentDraftsReport_1;
-    public JMenuItem mntmPurchaseAnalysis;
-    public JMenuItem mntmDiscountReports;
+    public JMenuItem mntmOpenItemsListPurchasingReport;
+    public JMenuItem mntmDocumentDraftsPurchasingReport;
+    public JMenuItem mntmPurchaseAnalysisReport;
+    public JMenuItem mntmDiscountPurchasingReports;
     public JMenuItem mntmBusinessPartnerMaster;
     public JMenu mnIncomingPayments;
     public JMenu mnDeposits;
@@ -1802,21 +1825,21 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmPriceLists;
     public JMenuItem mntmSpecialPricesFor;
     public JMenu mnInventoryReports;
-    public JMenuItem mntmItemsList;
+    public JMenuItem mntmItemsListReport;
     public JMenuItem mntmDocumentsDraftsReport;
     public JMenuItem mntmLastPricesReport;
-    public JMenuItem mntmInactiveItems;
-    public JMenuItem mntmInventoryPostingList;
-    public JMenuItem mntmInventoryStatus;
-    public JMenuItem mntmInventoryInWarehouse;
+    public JMenuItem mntmInactiveItemsReport;
+    public JMenuItem mntmInventoryPostingListReport;
+    public JMenuItem mntmInventoryStatusReport;
+    public JMenuItem mntmInventoryInWarehouseReport;
     public JMenuItem mntmInventoryAuditReport;
     public JMenuItem mntmBillOfMaterials;
     public JMenuItem mntmProductionOrder;
     public JMenuItem mntmReceiptFromProduction;
     public JMenuItem mntmIssueForProduction;
     public JMenu mnProductionReports;
-    public JMenuItem mntmBillOfMaterials_1;
-    public JMenuItem mntmOpenItemsList_2;
+    public JMenuItem mntmBillOfMaterialsReport;
+    public JMenuItem mntmOpenItemsListProductionReport;
     public JMenuItem mntmForecasts;
     public JMenuItem mntmMrpWizard;
     public JMenuItem mntmOrderRecommendation;
@@ -1825,21 +1848,21 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmServiceContract;
     public JMenuItem mntmSolutionsKnowledgeBase;
     public JMenu mnServiceReports;
-    public JMenuItem mntmServiceCalls;
-    public JMenuItem mntmServiceCallsBy;
-    public JMenuItem mntmResponseTimeBy;
-    public JMenuItem mntmAverageClosureTime;
-    public JMenuItem mntmServiceContracts;
-    public JMenuItem mntmCustomerEquipmentCard_1;
-    public JMenuItem mntmServiceMonitor;
-    public JMenuItem mntmMyServiceCalls;
-    public JMenuItem mntmMyOpenService;
-    public JMenuItem mntmMyOverdueServiec;
+    public JMenuItem mntmServiceCallsReport;
+    public JMenuItem mntmServiceCallsByReport;
+    public JMenuItem mntmResponseTimeByReport;
+    public JMenuItem mntmAverageClosureTimeReport;
+    public JMenuItem mntmServiceContractsReport;
+    public JMenuItem mntmCustomerEquipmentCardReport;
+    public JMenuItem mntmServiceMonitorReport;
+    public JMenuItem mntmMyServiceCallsReport;
+    public JMenuItem mntmMyOpenServiceReport;
+    public JMenuItem mntmMyOverdueServiceReport;
     public JMenuItem mntmEmployeeMasterData;
     public JMenu mnHumanResourcesReports;
-    public JMenuItem mntmEmployeeList;
+    public JMenuItem mntmEmployeeListReport;
     public JMenuItem mntmAbsenceReport;
-    public JMenuItem mntmPhoneBook;
+    public JMenuItem mntmPhoneBookReport;
     public JMenu mnSystemInitialization;
     public JMenuItem mntmCompanyDetails;
     public JMenuItem mntmGeneralSettings;
@@ -1847,6 +1870,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 	public JMenuItem mntmChartOfAccounts;
 	public JMenuItem mntmJournalEntry;
 	public JMenuItem mntmJournalVoucher;
+	private JMenu mnReports;
 
     public void showAllMenu() {
         menuBar.setVisible(true);

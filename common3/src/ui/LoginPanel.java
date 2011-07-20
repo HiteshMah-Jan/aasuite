@@ -11,9 +11,15 @@ import bean.admin.LoginMonitor;
 import common2.Common2View;
 import component.SpringCall;
 import constants.UserInfo;
+
+import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import springbean.SuccessfulLogin;
@@ -275,6 +281,7 @@ public class LoginPanel extends JPanel {
 	}// GEN-LAST:event_btnChangePasswordActionPerformed
 
 	private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLoginActionPerformed
+		JInternalFrame myframe = Common2View.mainView.getDesktop().getSelectedFrame();
 		String user = txtUserName.getText();
 		@SuppressWarnings("deprecation")
 		String pass = txtPassword.getText();
@@ -299,7 +306,7 @@ public class LoginPanel extends JPanel {
 		util.AccessControlUtil.setAccessControl(Common2View.mainView.getMenuBar());
 		SpringCall.getSpringCallBean(SuccessfulLogin.class).call(userInfo);
 		LoginMonitor.addLogin();
-		this.getParent().setVisible(false);
+		myframe.setVisible(false);
 	}// GEN-LAST:event_btnLoginActionPerformed
 
 	private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtPasswordActionPerformed
