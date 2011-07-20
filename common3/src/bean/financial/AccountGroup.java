@@ -6,7 +6,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean.accounting;
+package bean.financial;
 
 import java.io.Serializable;
 import javax.persistence.Column;

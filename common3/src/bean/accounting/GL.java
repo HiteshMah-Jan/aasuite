@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
 
+import bean.financial.AccountChart;
+
 import service.util.AbstractIBean;
 import service.util.ChartBean;
 import template.Display;

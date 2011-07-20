@@ -5,9 +5,10 @@
 package springbean;
 
 import bean.Person;
-import bean.PurchaseOrderItem;
 import bean.accounting.payroll.PersonAttendance;
 import bean.person.EmployeeLeaveApplication;
+import bean.purchasing.PurchaseOrderItem;
+
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;

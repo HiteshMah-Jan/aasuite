@@ -9,6 +9,8 @@
 package bean.extension;
 
 import bean.accounting.*;
+import bean.financial.AccountChart;
+
 import java.io.Serializable;
 import template.Display;
 import template.Displays;

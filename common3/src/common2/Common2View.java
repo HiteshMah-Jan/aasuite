@@ -108,20 +108,10 @@ public class Common2View extends FrameView {
         mnuBookmark = new javax.swing.JMenuItem();
         mnuLogin = new javax.swing.JMenuItem();
         mnuChangePassword = new javax.swing.JMenuItem();
-        mnuAdminConsole = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        mnuAppMenu = new javax.swing.JMenuItem();
-        mnuModules = new javax.swing.JMenuItem();
-        mnuConfig = new javax.swing.JMenuItem();
-        mnuCompanyConfig = new javax.swing.JMenuItem();
-        mnuSetupDB = new javax.swing.JMenuItem();
-        mnuTraining = new javax.swing.JMenuItem();
-        mnuChangeTheme = new javax.swing.JMenuItem();
-        mnuServices = new javax.swing.JMenuItem();
-        mnuUserStation = new javax.swing.JMenuItem();
-        mnuTestDB = new javax.swing.JMenuItem();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem.setText("About");
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        exitMenuItem.setText("Exit");
         
                 helpMenu.setText("Help"); // NOI18N
                 helpMenu.setName("helpMenu"); // NOI18N
@@ -157,110 +147,6 @@ public class Common2View extends FrameView {
                                             }
                                         });
                                         helpMenu.add(mnuChangePassword);
-                                        
-                                                mnuAdminConsole.setText("Admin Console"); // NOI18N
-                                                mnuAdminConsole.setName("mnuAdminConsole"); // NOI18N
-                                                mnuAdminConsole.addActionListener(new java.awt.event.ActionListener() {
-                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                        mnuAdminConsoleActionPerformed(evt);
-                                                    }
-                                                });
-                                                helpMenu.add(mnuAdminConsole);
-                                                
-                                                        jMenu1.setText("Exit"); // NOI18N
-                                                        jMenu1.setName("jMenu1"); // NOI18N
-                                                        
-                                                                mnuAppMenu.setText("App Menu"); // NOI18N
-                                                                mnuAppMenu.setName("mnuAppMenu"); // NOI18N
-                                                                mnuAppMenu.addActionListener(new java.awt.event.ActionListener() {
-                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                        mnuAppMenuActionPerformed(evt);
-                                                                    }
-                                                                });
-                                                                jMenu1.add(mnuAppMenu);
-                                                                
-                                                                        mnuModules.setText("Modules"); // NOI18N
-                                                                        mnuModules.setName("mnuModules"); // NOI18N
-                                                                        mnuModules.addActionListener(new java.awt.event.ActionListener() {
-                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                mnuModulesActionPerformed(evt);
-                                                                            }
-                                                                        });
-                                                                        jMenu1.add(mnuModules);
-                                                                        
-                                                                                mnuConfig.setText("Config"); // NOI18N
-                                                                                mnuConfig.setName("mnuConfig"); // NOI18N
-                                                                                mnuConfig.addActionListener(new java.awt.event.ActionListener() {
-                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                        mnuConfigActionPerformed(evt);
-                                                                                    }
-                                                                                });
-                                                                                jMenu1.add(mnuConfig);
-                                                                                
-                                                                                        mnuCompanyConfig.setText("Company Config"); // NOI18N
-                                                                                        mnuCompanyConfig.setName("mnuCompanyConfig"); // NOI18N
-                                                                                        mnuCompanyConfig.addActionListener(new java.awt.event.ActionListener() {
-                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                mnuCompanyConfigActionPerformed(evt);
-                                                                                            }
-                                                                                        });
-                                                                                        jMenu1.add(mnuCompanyConfig);
-                                                                                        
-                                                                                                mnuSetupDB.setText("Setup DB"); // NOI18N
-                                                                                                mnuSetupDB.setName("mnuSetupDB"); // NOI18N
-                                                                                                mnuSetupDB.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                        mnuSetupDBActionPerformed(evt);
-                                                                                                    }
-                                                                                                });
-                                                                                                jMenu1.add(mnuSetupDB);
-                                                                                                
-                                                                                                        mnuTraining.setText("Training"); // NOI18N
-                                                                                                        mnuTraining.setName("mnuTraining"); // NOI18N
-                                                                                                        mnuTraining.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                                mnuTrainingActionPerformed(evt);
-                                                                                                            }
-                                                                                                        });
-                                                                                                        jMenu1.add(mnuTraining);
-                                                                                                        
-                                                                                                                mnuChangeTheme.setText("Change Theme"); // NOI18N
-                                                                                                                mnuChangeTheme.setName("mnuChangeTheme"); // NOI18N
-                                                                                                                mnuChangeTheme.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                                        mnuChangeThemeActionPerformed(evt);
-                                                                                                                    }
-                                                                                                                });
-                                                                                                                jMenu1.add(mnuChangeTheme);
-                                                                                                                
-                                                                                                                        mnuServices.setText("Services"); // NOI18N
-                                                                                                                        mnuServices.setName("mnuServices"); // NOI18N
-                                                                                                                        mnuServices.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                                            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                                                mnuServicesActionPerformed(evt);
-                                                                                                                            }
-                                                                                                                        });
-                                                                                                                        jMenu1.add(mnuServices);
-                                                                                                                        
-                                                                                                                                mnuUserStation.setText("User Station"); // NOI18N
-                                                                                                                                mnuUserStation.setName("mnuUserStation"); // NOI18N
-                                                                                                                                mnuUserStation.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                                                        mnuUserStationActionPerformed(evt);
-                                                                                                                                    }
-                                                                                                                                });
-                                                                                                                                jMenu1.add(mnuUserStation);
-                                                                                                                                jMenu1.add(mnuTestDB);
-                                                                                                                                mnuTestDB.setText("Test DB"); // NOI18N
-                                                                                                                                mnuTestDB.setName("mnuTestDB"); // NOI18N
-                                                                                                                                mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
-                                                                                                                                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                                                                                                                        mnuTestDBActionPerformed(evt);
-                                                                                                                                    }
-                                                                                                                                });
-                                                                                                                                jMenu1.add(mnuTestDB);
-                                                                                                                                
-                                                                                                                                helpMenu.add(jMenu1);
 //                                                                                                                                aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
                                                                                                                                 aboutMenuItem.setName("aboutMenuItem"); // NOI18N
                                                                                                                                 helpMenu.add(aboutMenuItem);
@@ -888,20 +774,110 @@ public class Common2View extends FrameView {
         JMenu mnuAdministration = new JMenu("Administration");
         menuBar.add(mnuAdministration);
         
-        mntmChooseCompany = new JMenuItem("Choose Company");
-        mntmChooseCompany.setName("mntmChooseCompany");
-        mnuAdministration.add(mntmChooseCompany);
-        
         mnuExchangeRate = new JMenuItem("Exchange Rate");
         mnuExchangeRate.setName("mnuExchangeRate");
         mnuAdministration.add(mnuExchangeRate);
+        mnuAppMenu = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuAppMenu);
+        
+                mnuAppMenu.setText("App Menu"); // NOI18N
+                mnuAppMenu.setName("mnuAppMenu"); // NOI18N
+                mnuAppMenu.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuAppMenuActionPerformed(evt);
+                    }
+                });
+        mnuModules = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuModules);
+        
+                mnuModules.setText("Modules"); // NOI18N
+                mnuModules.setName("mnuModules"); // NOI18N
+                mnuModules.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuModulesActionPerformed(evt);
+                    }
+                });
+        mnuConfig = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuConfig);
+        
+                mnuConfig.setText("Config"); // NOI18N
+                mnuConfig.setName("mnuConfig"); // NOI18N
+                mnuConfig.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuConfigActionPerformed(evt);
+                    }
+                });
+        mnuCompanyConfig = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuCompanyConfig);
+        
+                mnuCompanyConfig.setText("Company Config"); // NOI18N
+                mnuCompanyConfig.setName("mnuCompanyConfig"); // NOI18N
+                mnuCompanyConfig.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuCompanyConfigActionPerformed(evt);
+                    }
+                });
+        mnuTraining = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuTraining);
+        
+                mnuTraining.setText("Training"); // NOI18N
+                mnuTraining.setName("mnuTraining"); // NOI18N
+                mnuTraining.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuTrainingActionPerformed(evt);
+                    }
+                });
+        mnuServices = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuServices);
+        
+                mnuServices.setText("Services"); // NOI18N
+                mnuServices.setName("mnuServices"); // NOI18N
+                mnuServices.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuServicesActionPerformed(evt);
+                    }
+                });
+        mnuUserStation = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuUserStation);
+        
+                mnuUserStation.setText("User Station"); // NOI18N
+                mnuUserStation.setName("mnuUserStation"); // NOI18N
+                mnuUserStation.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuUserStationActionPerformed(evt);
+                    }
+                });
+        mnuAdminConsole = new javax.swing.JMenuItem();
+        mnuAdministration.add(mnuAdminConsole);
+        
+                mnuAdminConsole.setText("Admin Console"); // NOI18N
+                mnuAdminConsole.setName("mnuAdminConsole"); // NOI18N
+                mnuAdminConsole.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuAdminConsoleActionPerformed(evt);
+                    }
+                });
         
         mnSystemInitialization = new JMenu("System Initialization");
         mnuAdministration.add(mnSystemInitialization);
+        mnuChangeTheme = new javax.swing.JMenuItem();
+        mnSystemInitialization.add(mnuChangeTheme);
+        
+                mnuChangeTheme.setText("Change Theme"); // NOI18N
+                mnuChangeTheme.setName("mnuChangeTheme"); // NOI18N
+                mnuChangeTheme.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuChangeThemeActionPerformed(evt);
+                    }
+                });
         
         mntmCompanyDetails = new JMenuItem("Company Details");
         mntmCompanyDetails.setName("mntmCompanyDetails");
         mnSystemInitialization.add(mntmCompanyDetails);
+        
+        mntmChooseCompany = new JMenuItem("Choose Company");
+        mnSystemInitialization.add(mntmChooseCompany);
+        mntmChooseCompany.setName("mntmChooseCompany");
         
         mntmGeneralSettings = new JMenuItem("General Settings");
         mntmGeneralSettings.setName("mntmGeneralSettings");
@@ -910,6 +886,25 @@ public class Common2View extends FrameView {
         mntmPostingPeriod = new JMenuItem("Posting Period");
         mntmPostingPeriod.setName("mntmPostingPeriod");
         mnSystemInitialization.add(mntmPostingPeriod);
+        mnuSetupDB = new javax.swing.JMenuItem();
+        mnSystemInitialization.add(mnuSetupDB);
+        
+                mnuSetupDB.setText("Setup DB"); // NOI18N
+                mnuSetupDB.setName("mnuSetupDB"); // NOI18N
+                mnuSetupDB.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        mnuSetupDBActionPerformed(evt);
+                    }
+                });
+        mnuTestDB = new javax.swing.JMenuItem();
+        mnSystemInitialization.add(mnuTestDB);
+        mnuTestDB.setText("Test DB"); // NOI18N
+        mnuTestDB.setName("mnuTestDB"); // NOI18N
+        mnuTestDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuTestDBActionPerformed(evt);
+            }
+        });
 
         statusPanel.setName("statusPanel"); // NOI18N
         statusPanel.setLayout(new java.awt.BorderLayout());
@@ -1705,7 +1700,6 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

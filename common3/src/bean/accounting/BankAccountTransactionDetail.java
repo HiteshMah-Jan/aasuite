@@ -8,6 +8,8 @@ package bean.accounting;
 import java.util.Date;
 import javax.persistence.*;
 
+import bean.financial.AccountChart;
+
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;

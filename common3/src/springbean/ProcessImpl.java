@@ -6,9 +6,9 @@
 package springbean;
 
 import bean.Person;
-import bean.PurchaseOrderItem;
 import bean.accounting.payroll.PersonAttendance;
 import bean.person.EmployeeLeaveApplication;
+import bean.purchasing.PurchaseOrderItem;
 import bean.reference.EventHoliday;
 import java.util.ArrayList;
 import java.util.Date;

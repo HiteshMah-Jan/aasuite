@@ -9,6 +9,7 @@
 package bean.accounting;
 
 import bean.extension.AccountPayableExt;
+import bean.financial.AccountChart;
 import bean.reference.Department;
 import java.io.Serializable;
 import java.util.Date;

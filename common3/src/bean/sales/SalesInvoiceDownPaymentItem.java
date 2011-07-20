@@ -1,16 +1,17 @@
 /*
- * PurchaseOrderItem.java
+ * Salesorderitem.java
  *
- * Created on Nov 29, 2007, 6:17:50 PM
+ * Created on Dec 10, 2007, 9:57:01 PM
  *
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package bean.sales;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
+
+import bean.Product;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -20,44 +21,35 @@ import template.screen.TemplateDefault;
 
 /**
  *
- * @author pogi
+ * @author Charliemagne Mark
  */
 @Entity
-@Table(name = "PurchaseOrderItem")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"seq", "product", "totalAmount"})
+@Table(name = "SalesInvoiceItem")
+@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"salesInvoiceDownPaymentId", "product", "totalAmount"})
 @Displays({
         @Display(name="seq"),
-        @Display(name="purchaseOrderId"),
+        @Display(name="salesInvoiceDownPaymentId"),
         @Display(name="product", type = "PopSearch", linktoBean = Product.class),
-        @Display(name="amountPerUnit"),
         @Display(name="numberOfItem"),
+        @Display(name="amountPerUnit"),
         @Display(name="totalAmount"),
-        @Display(name="lastReceivedDate"),
-        @Display(name="receivedCount"),
-        @Display(name="totalReceivedCount"),
         @Display(name="remarks")
 })
-public class PurchaseOrderItem extends AbstractIBean implements Serializable {
+public class SalesInvoiceDownPaymentItem extends AbstractIBean implements Serializable {
+
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
-    @Column(name = "purchaseOrderId", nullable = false)
-    public int purchaseOrderId;
-    @Column(name = "product")
+    @Column(name = "salesInvoiceDownPaymentId", nullable = false)
+    public int salesInvoiceDownPaymentId;
+    @Column(name = "product", nullable = false)
     public String product;
-    @Column(name = "amountPerUnit")
-    public double amountPerUnit;
     @Column(name = "numberOfItem")
     public int numberOfItem;
+    @Column(name = "amountPerUnit")
+    public double amountPerUnit;
     @Column(name = "totalAmount")
     public double totalAmount;
-    @Column(name = "lastReceivedDate")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    public Date lastReceivedDate;
-    @Column(name = "receivedCount")
-    public int receivedCount;
-    @Column(name = "totalReceivedCount")
-    public int totalReceivedCount;
     @Column(name = "remarks")
     public String remarks;
 
@@ -72,14 +64,6 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
 
     public void setAmountPerUnit(double amountPerUnit) {
         this.amountPerUnit = amountPerUnit;
-    }
-
-    public Date getLastReceivedDate() {
-        return lastReceivedDate;
-    }
-
-    public void setLastReceivedDate(Date lastReceivedDate) {
-        this.lastReceivedDate = lastReceivedDate;
     }
 
     public int getNumberOfItem() {
@@ -98,22 +82,6 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
         this.product = product;
     }
 
-    public int getPurchaseOrderId() {
-        return purchaseOrderId;
-    }
-
-    public void setPurchaseOrderId(int purchaseOrderId) {
-        this.purchaseOrderId = purchaseOrderId;
-    }
-
-    public int getReceivedCount() {
-        return receivedCount;
-    }
-
-    public void setReceivedCount(int receivedCount) {
-        this.receivedCount = receivedCount;
-    }
-
     public String getRemarks() {
         return remarks;
     }
@@ -122,7 +90,15 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
         this.remarks = remarks;
     }
 
-    public Integer getSeq() {
+	public int getSalesInvoiceDownPaymentId() {
+		return salesInvoiceDownPaymentId;
+	}
+
+	public void setSalesInvoiceDownPaymentId(int salesInvoiceDownPaymentId) {
+		this.salesInvoiceDownPaymentId = salesInvoiceDownPaymentId;
+	}
+
+	public Integer getSeq() {
         return seq;
     }
 
@@ -136,13 +112,5 @@ public class PurchaseOrderItem extends AbstractIBean implements Serializable {
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
-    }
-
-    public int getTotalReceivedCount() {
-        return totalReceivedCount;
-    }
-
-    public void setTotalReceivedCount(int totalReceivedCount) {
-        this.totalReceivedCount = totalReceivedCount;
     }
 }

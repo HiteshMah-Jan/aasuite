@@ -5,8 +5,8 @@
 
 package rule;
 
-import bean.accounting.AccountChart;
 import bean.accounting.BankAccountTransactionDetail;
+import bean.financial.AccountChart;
 import component.LookupTableFieldPallete;
 import javax.swing.JComponent;
 import util.PanelUtil;
