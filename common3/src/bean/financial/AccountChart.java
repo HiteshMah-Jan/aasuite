@@ -18,6 +18,7 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.Reports;
+import template.screen.TemplateTabSinglePageLeftRight;
 import util.BeanUtil;
 /**
  *
@@ -25,7 +26,7 @@ import util.BeanUtil;
  */
 @Entity
 @Table(name = "AccountChart")
-@UITemplate(gridCount = 4, criteriaSearch = {"category", "groupName", "accountName", "sign"}, columnSearch = {"category", "groupName", "accountName", "accountNumber", "sign"}, orderBy="a.category, a.groupName, a.accountName")
+@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, criteriaSearch = {"category", "groupName", "accountName", "sign"}, columnSearch = {"category", "groupName", "accountName", "accountNumber", "sign"}, orderBy="a.category, a.groupName, a.accountName")
 @Displays({
     @Display(name = "accountNumber"),
     @Display(name = "accountName"),
