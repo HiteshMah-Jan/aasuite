@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import template.screen.TemplateTabSinglePageLeftRight;
 import test.XMLTester;
 import util.BeanUtil;
 import util.DataUtil;
@@ -64,15 +66,15 @@ public class BeanTester {
         }
     }
     
-    public static void displayFields(List<String> lst) {
+    public static String displayFields(List<String> lst) {
         StringBuffer sb = new StringBuffer();
         for (String string : lst) {
             try {
                 sb.setLength(0);
                 sb.append("#############   ").append(string).append("   #####################\n\n");
                 sb.append("@Entity\n");
-                sb.append("@Table(name = \"").append(string).append("\")");
-                sb.append("@UITemplate(gridCount = 4, columnSearch = {})\n");
+                sb.append("@Table(name = \"").append(string).append("\")\n");
+                sb.append("@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {\"seq\"})\n");
                 sb.append("@Displays({\n");
                 List<String> fieldNames = getFields(string);
                 for (String string1 : fieldNames) {
@@ -87,6 +89,7 @@ public class BeanTester {
                 Logger.getLogger(BeanTester.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return sb.toString();
     }
 
     private static List<String> getFields(String bean) {

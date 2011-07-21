@@ -16,8 +16,6 @@ import bean.admin.ExchangeRate;
 import bean.admin.GeneralSettings;
 import bean.admin.PostingPeriod;
 import bean.banking.CheckForPayment;
-import bean.banking.CheckRegister;
-import bean.banking.CreditCardManagement;
 import bean.banking.Deposit;
 import bean.banking.IncomingPayment;
 import bean.banking.OutgoingPayment;
@@ -193,16 +191,16 @@ public class Common2ViewListener {
 		        Common2View.mainView.showBeanPanel(IncomingPayment.class.getSimpleName());
 		    }
 		});
-		view.mntmCheckRegister.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(CheckRegister.class.getSimpleName());
-		    }
-		});
-		view.mntmCreditCardManagement.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(CreditCardManagement.class.getSimpleName());
-		    }
-		});
+//		view.mntmCheckRegister.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CheckRegister.class.getSimpleName());
+//		    }
+//		});
+//		view.mntmCreditCardManagement.addActionListener(new ActionListener() {
+//		    public void actionPerformed(ActionEvent e) {
+//		        Common2View.mainView.showBeanPanel(CreditCardManagement.class.getSimpleName());
+//		    }
+//		});
 		view.mntmDeposit.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        Common2View.mainView.showBeanPanel(Deposit.class.getSimpleName());

@@ -47,6 +47,7 @@ import service.ReturnStruct;
 import springbean.AAAConfig;
 import template.ChildRecord;
 import template.ChildRecords;
+import template.UITemplate;
 import test.TemplateViewer;
 import util.BeanUtil;
 import util.ClientCache;
@@ -54,6 +55,7 @@ import util.DBClient;
 import util.DBUtil;
 import util.DataUtil;
 import util.PanelUtil;
+import bean.BeanTester;
 import bean.Person;
 import bean.admin.DocumentTable;
 import bean.admin.ImageTable;
@@ -486,7 +488,15 @@ public abstract class AbstractIBean extends CheckerBean implements IBean, IServi
     }
 
     protected static void view(Class cls) {
-        TemplateViewer.view(cls);
+        UITemplate template = (UITemplate) cls.getAnnotation(UITemplate.class); 
+        if (template == null) {
+            List<String> list = new ArrayList<String>();
+            list.add(cls.getSimpleName());
+            System.out.println(BeanTester.displayFields(list));
+        }
+        else {
+            TemplateViewer.view(cls);
+        }
     }
 
     protected static void viewEmbedded(Class cls) {
