@@ -33,18 +33,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="totalAmount"),
 	@Display(name="cashAmount"),
 	@Display(name="cashBalance"),
-	@Display(name="cashGLAccount"),
-	@Display(name="parentBean"),
-	@Display(name="changeSupport"),
-	@Display(name="dummyField"),
-	@Display(name="myNode"),
-	@Display(name="newCache"),
-	@Display(name="cacheMap"),
-	@Display(name="includeSearch"),
-	@Display(name="showImages"),
-	@Display(name="showFile"),
-	@Display(name="showSubrecords"),
-	@Display(name="showCharts")
+	@Display(name="cashGLAccount")
 })
 public class Deposit extends AbstractIBean {
 	public static void main(String[] args) {

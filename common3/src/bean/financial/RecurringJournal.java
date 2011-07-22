@@ -15,7 +15,7 @@ import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
 @Entity
-@Table(name = "JournalEntry")
+@Table(name = "RecurringJournal")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
 	@Display(name="seq"),
@@ -24,7 +24,6 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="docDate"),
 	@Display(name="remarks"),
 	@Display(name="fixedExchangeRate"),
-	@Display(name="reverse"),
 	@Display(name="adjTransaction"),
 	@Display(name="period"),
 	@Display(name="origin"),
@@ -38,7 +37,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="ref1"),
 	@Display(name="ref2")
 })
-public class JournalEntry extends AbstractIBean {
+public class RecurringJournal extends AbstractIBean {
 	@Id
 	public Integer seq;
     @Temporal(value = TemporalType.DATE)
@@ -49,7 +48,6 @@ public class JournalEntry extends AbstractIBean {
 	public Date docDate;
 	public String remarks;
 	public boolean fixedExchangeRate;
-	public boolean reverse;
 	public boolean adjTransaction;
 	public String period;
 	public String origin;
@@ -109,14 +107,6 @@ public class JournalEntry extends AbstractIBean {
 
 	public void setFixedExchangeRate(boolean fixedExchangeRate) {
 		this.fixedExchangeRate = fixedExchangeRate;
-	}
-
-	public boolean isReverse() {
-		return reverse;
-	}
-
-	public void setReverse(boolean reverse) {
-		this.reverse = reverse;
 	}
 
 	public boolean isAdjTransaction() {
@@ -216,7 +206,7 @@ public class JournalEntry extends AbstractIBean {
 	}
 
 	public static void main(String[] args) {
-		view(JournalEntry.class);
+		view(RecurringJournal.class);
 	}
 	
 	@Override

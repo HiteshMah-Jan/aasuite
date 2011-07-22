@@ -34,18 +34,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="openBalance"),
 	@Display(name="remarks"),
 	@Display(name="journalRemarks"),
-	@Display(name="createdByWizard"),
-	@Display(name="parentBean"),
-	@Display(name="changeSupport"),
-	@Display(name="dummyField"),
-	@Display(name="myNode"),
-	@Display(name="newCache"),
-	@Display(name="cacheMap"),
-	@Display(name="includeSearch"),
-	@Display(name="showImages"),
-	@Display(name="showFile"),
-	@Display(name="showSubrecords"),
-	@Display(name="showCharts")
+	@Display(name="createdByWizard")
 })
 
 public class OutgoingPayment extends AbstractIBean {

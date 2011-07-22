@@ -27,7 +27,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="taxAmount"),
 	@Display(name="grossTotal")
 })
-public class JournalEntryItem extends AbstractIBean {
+public class RecurringJournalItem extends AbstractIBean {
 	@Id
 	public Integer seq;
 	public int journalEntryId;
@@ -139,7 +139,7 @@ public class JournalEntryItem extends AbstractIBean {
 	}
 
 	public static void main(String[] args) {
-		view(JournalEntryItem.class);
+		view(RecurringJournalItem.class);
 	}
 	
 	@Override

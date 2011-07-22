@@ -34,18 +34,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="bank"),
 	@Display(name="accountNumber"),
 	@Display(name="branch"),
-	@Display(name="checkNo"),
-	@Display(name="parentBean"),
-	@Display(name="changeSupport"),
-	@Display(name="dummyField"),
-	@Display(name="myNode"),
-	@Display(name="newCache"),
-	@Display(name="cacheMap"),
-	@Display(name="includeSearch"),
-	@Display(name="showImages"),
-	@Display(name="showFile"),
-	@Display(name="showSubrecords"),
-	@Display(name="showCharts")
+	@Display(name="checkNo")
 })
 
 public class CheckForPayment extends AbstractIBean {

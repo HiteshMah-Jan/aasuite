@@ -336,17 +336,17 @@ public class Common2View extends FrameView {
         mntmJournalEntry.setName("mntmJournalEntry");
         mnFinancials.add(mntmJournalEntry);
         
-        mntmJournalVoucher = new JMenuItem("Journal Voucher");
-        mntmJournalVoucher.setName("mntmJournalVoucher");
-        mnFinancials.add(mntmJournalVoucher);
+        mntmManualJournal = new JMenuItem("Manual Journal");
+        mntmManualJournal.setName("mntmJournalVoucher");
+        mnFinancials.add(mntmManualJournal);
         
         mntmReverseTransactions = new JMenuItem("Reverse Transactions");
         mntmReverseTransactions.setName("mntmReverseTransactions");
         mnFinancials.add(mntmReverseTransactions);
         
-        mntmInternalReconcillation = new JMenuItem("Internal Reconcillation");
-        mntmInternalReconcillation.setName("mntmInternalReconcillation");
-        mnFinancials.add(mntmInternalReconcillation);
+        mntmRecurringJournal = new JMenuItem("Recurring Journal");
+        mntmRecurringJournal.setName("mntmInternalReconcillation");
+        mnFinancials.add(mntmRecurringJournal);
         
         JMenu mnSalesAr = new JMenu("Sales - A/R");
         Modules.add(mnSalesAr);
@@ -1751,7 +1751,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private JPanel pnlDesk;
     private JDesktopPane desktop;
     public JMenuItem mntmReverseTransactions;
-    public JMenuItem mntmInternalReconcillation;
+    public JMenuItem mntmRecurringJournal;
     public JMenu mnFinancialReports;
     public JMenuItem mntmGlAccountsAndReport;
     public JMenuItem mntmGeneralLedgerReport;
@@ -1863,7 +1863,7 @@ private void mnuTestDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     public JMenuItem mntmPostingPeriod;
 	public JMenuItem mntmChartOfAccounts;
 	public JMenuItem mntmJournalEntry;
-	public JMenuItem mntmJournalVoucher;
+	public JMenuItem mntmManualJournal;
 	private JMenu mnReports;
 
     public void showAllMenu() {

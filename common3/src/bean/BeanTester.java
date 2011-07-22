@@ -53,7 +53,9 @@ public class BeanTester {
                 List<String> fieldNames = getFields(string);
                 for (String string1 : fieldNames) {
                     if ("comboDisplay".equals(string1)) continue;
-                    sb.append("\t@Display(name=\"").append(string1).append("\"),\n");
+                    if (!",parentBean,changeSupport,dummyField,myNode,newCache,cacheMap,includeSearch,showImages,showFile,showSubrecords,showCharts,".contains(","+string1+",")) {
+                        sb.append("\t@Display(name=\"").append(string1).append("\"),\n");
+                    }
                 }
                 sb.deleteCharAt(sb.length()-1);
                 sb.deleteCharAt(sb.length()-1);
@@ -79,7 +81,9 @@ public class BeanTester {
                 List<String> fieldNames = getFields(string);
                 for (String string1 : fieldNames) {
                     if ("comboDisplay".equals(string1)) continue;
-                    sb.append("\t@Display(name=\"").append(string1).append("\"),\n");
+                    if (!",parentBean,changeSupport,dummyField,myNode,newCache,cacheMap,includeSearch,showImages,showFile,showSubrecords,showCharts,".contains(","+string1+",")) {
+                        sb.append("\t@Display(name=\"").append(string1).append("\"),\n");
+                    }
                 }
                 sb.deleteCharAt(sb.length()-1);
                 sb.deleteCharAt(sb.length()-1);

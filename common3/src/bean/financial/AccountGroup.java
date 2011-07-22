@@ -9,17 +9,17 @@
 package bean.financial;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.reference.DeductionConfigTable;
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
-import template.UITemplate;
 import template.Reports;
+import template.UITemplate;
 import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;
 /**

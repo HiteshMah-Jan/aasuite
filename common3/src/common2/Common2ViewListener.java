@@ -20,11 +20,9 @@ import bean.banking.Deposit;
 import bean.banking.IncomingPayment;
 import bean.banking.OutgoingPayment;
 import bean.financial.AccountChart;
-import bean.financial.InternalReconcillation;
 import bean.financial.JournalEntry;
-import bean.financial.JournalVoucher;
-import bean.financial.ManualReconcillation;
-import bean.financial.Reconcillation;
+import bean.financial.ManualJournalEntry;
+import bean.financial.RecurringJournal;
 import bean.financial.ReverseTransactions;
 import bean.hr.EmployeeMasterData;
 import bean.inventory.GoodsIssue;
@@ -96,19 +94,19 @@ public class Common2ViewListener {
 		        Common2View.mainView.showBeanPanel(JournalEntry.class.getSimpleName());
 		    }
 		});
-		view.mntmJournalVoucher.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(JournalVoucher.class.getSimpleName());
-		    }
-		});
 		view.mntmReverseTransactions.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        Common2View.mainView.showBeanPanel(ReverseTransactions.class.getSimpleName());
 		    }
 		});
-		view.mntmInternalReconcillation.addActionListener(new ActionListener() {
+		view.mntmManualJournal.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(InternalReconcillation.class.getSimpleName());
+		        Common2View.mainView.showBeanPanel(ManualJournalEntry.class.getSimpleName());
+		    }
+		});
+		view.mntmRecurringJournal.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Common2View.mainView.showBeanPanel(RecurringJournal.class.getSimpleName());
 		    }
 		});
 		view.mntmSalesQuotation.addActionListener(new ActionListener() {
@@ -214,16 +212,6 @@ public class Common2ViewListener {
 		view.mntmChecksForPayment.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        Common2View.mainView.showBeanPanel(CheckForPayment.class.getSimpleName());
-		    }
-		});
-		view.mntmReconcillation.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(Reconcillation.class.getSimpleName());
-		    }
-		});
-		view.mntmManualReconcillation.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(ManualReconcillation.class.getSimpleName());
 		    }
 		});
 		view.mntmItemMasterData.addActionListener(new ActionListener() {
