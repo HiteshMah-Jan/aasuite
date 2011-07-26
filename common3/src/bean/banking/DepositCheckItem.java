@@ -17,7 +17,7 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "DepositCheckItem")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="seq"),
+	@Display(name="seq,hoy"),
 	@Display(name="depositId"),
 	@Display(name="checkDate"),
 	@Display(name="checkNumber"),

@@ -16,8 +16,8 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Displays({
 	@Display(name="itemNumber"),
 	@Display(name="barCode"),
-	@Display(name="description"),
-	@Display(name="descInForeignLanguage"),
+	@Display(name="description", type="TextArea", gridFieldWidth=4, width=-1),
+	@Display(name="descInForeignLanguage", type="TextArea", gridFieldWidth=4, width=-1),
 	@Display(name="itemType"),
 	@Display(name="itemGroup"),
 	@Display(name="inventoryItem"),
