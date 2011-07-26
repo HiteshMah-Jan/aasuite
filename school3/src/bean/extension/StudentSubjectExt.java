@@ -10,18 +10,9 @@ package bean.extension;
 
 import java.io.Serializable;
 
-import springbean.GradingProcess;
-import springbean.StudentSubjectToEnrollmentGrade;
 import template.Display;
-import template.DisplayGroup;
-import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
-import util.DBClient;
-import util.PanelUtil;
-import bean.Enrollment;
-import bean.admin.AuditTrail;
-import bean.reference.LockGrading;
 import bean.reference.Subject;
 
 /**

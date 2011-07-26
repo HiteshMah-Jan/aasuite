@@ -23,7 +23,6 @@ import template.DisplayGroup;
 import template.DisplayGroups;
 import template.Displays;
 import template.UITemplate;
-import util.BeanUtil;
 import util.DBClient;
 import util.DataUtil;
 import util.PanelUtil;
