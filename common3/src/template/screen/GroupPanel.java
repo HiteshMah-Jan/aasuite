@@ -62,7 +62,7 @@ public class GroupPanel extends javax.swing.JPanel {
         add(pnlMain, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private javax.swing.JPanel pnlMain;
+    public javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 
 }

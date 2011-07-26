@@ -34,7 +34,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -243,6 +245,9 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
                 if (displayGroup.addInfoOnly()) continue;
                 JPanel tmp = templateParser.constructGroupPanel(bindingGroup, displayGroup);
                 tmp.setName(BeanUtil.concat("grp",displayGroup.title()));
+                if (tmp instanceof GroupPanel) {
+                	((GroupPanel)tmp).pnlMain.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), displayGroup.title(), TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+                }
                 tmp.setToolTipText(tmp.getName());
                 addFieldComponent(tmp);
                 cons.gridy++;

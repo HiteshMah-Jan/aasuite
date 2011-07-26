@@ -9,9 +9,13 @@ package template.screen;
 import component.IRule;
 import component.JButtonPallete;
 import component.PalleteRuleManager;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -101,7 +105,12 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
             cons.anchor = GridBagConstraints.NORTHWEST;
             cons.gridwidth = fieldCompose.display.gridLabelWidth();
             if (!fieldCompose.display.noLabel()) {
-                pnlMain.add(label, cons);
+            	if (fieldCompose.display.labelTop()) {
+                    pnlMain.add(new JLabel(""), cons);
+            	}
+            	else {
+                    pnlMain.add(label, cons);
+            	}
             }
             cons.gridwidth = fieldCompose.display.gridFieldWidth();
             if (fieldCompose.display.width()==-1) {
@@ -112,7 +121,25 @@ public class AbstractAddInfoTemplatePanel extends javax.swing.JPanel implements 
             }
             //check if button exist in the field
             if (fieldCompose.display.button().isEmpty()) {
-                pnlMain.add(field, cons);
+            	if (fieldCompose.display.labelTop()) {
+                    GridBagConstraints c = new GridBagConstraints();
+                    c.gridx = 0;
+                    c.anchor = GridBagConstraints.CENTER;
+                    JPanel tmp = new JPanel(new GridBagLayout());
+                    c.gridy = 1;
+                    JLabel lbl = (JLabel) label;
+                    if (lbl.getText().endsWith(":")) {
+                        lbl.setText(lbl.getText().replace(":",""));
+                    }
+                    tmp.add(label, c);
+                    c.gridy = 2;
+                    c.anchor = GridBagConstraints.WEST;
+                    tmp.add(field, c);
+                    pnlMain.add(tmp, cons);
+            	}
+            	else {
+                    pnlMain.add(field, cons);
+            	}
             }
             else {
                 JButton btn = new JButtonPallete(fieldCompose.display.button(), BeanUtil.concat("btn",fieldCompose.field.getName()));
