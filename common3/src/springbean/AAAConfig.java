@@ -271,11 +271,11 @@ public class AAAConfig implements IService {
                     Class type = f.getType();
                     String dtype = " VARCHAR ";
 
-                    Column col = f.getAnnotation(Column.class);
-                    if (col==null) {
-                    	Log.out("FIELD PROBLEM for ",f.getName());
-                    	continue;
-                    }
+//                    Column col = f.getAnnotation(Column.class);
+//                    if (col==null) {
+//                    	Log.out("FIELD PROBLEM for ",f.getName());
+//                    	continue;
+//                    }
                     if (type == double.class || type == Double.class) {
                         dtype = "DOUBLE";
                     } else if (type == int.class || type == Integer.class) {
@@ -285,7 +285,7 @@ public class AAAConfig implements IService {
                     } else if (type == Date.class) {
                         dtype = "DATE";
                     }
-                    int len = col.length();
+                    int len = 0;
                     if (len == 0) {
                         len = 50;
                     }

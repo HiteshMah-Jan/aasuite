@@ -284,4 +284,9 @@ public class TemplateTabPage extends AbstractTemplatePanel {
     	if (((AbstractIBean)this.getBean()).watermark() == null) return "";
     	return ((AbstractIBean)this.getBean()).watermark();
     }
+    
+	public void paint(Graphics g) {
+		super.paint(g);
+		pnlTop.updateUI();
+	}
 }

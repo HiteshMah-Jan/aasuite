@@ -28,7 +28,7 @@ import template.screen.TemplateDefault;
 @Entity
 @Table(name = "Person")
 @UITemplate(canBackup=false, template = TemplateDefault.class, gridCount = 4, columnSearch = {"salesPersonId1", "customerClass", "contactPerson"})
-@DiscriminatorValue(value = "CUSTOMER")
+@DiscriminatorValue(value = "STUDENT")
 @Displays({
     @Display(name="lastName"),
     @Display(name="firstName"),
@@ -47,7 +47,7 @@ import template.screen.TemplateDefault;
     @Display(name="customerHeadcount")
 })
 public class Customer extends Person implements Serializable {
-
+	public String schoolYear;
     @Column(name = "paymentTerm", length = 10)
     public String paymentTerm;
     @Column(name = "salesPersonId1")
@@ -75,7 +75,15 @@ public class Customer extends Person implements Serializable {
     @Column(name = "template")
     public String template;
 
-    public String getTemplate() {
+    public String getSchoolYear() {
+		return schoolYear;
+	}
+
+	public void setSchoolYear(String schoolYear) {
+		this.schoolYear = schoolYear;
+	}
+
+	public String getTemplate() {
         return template;
     }
 

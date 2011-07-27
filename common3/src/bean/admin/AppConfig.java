@@ -441,7 +441,10 @@ public class AppConfig extends AbstractIBean implements Serializable {
         return AppConfig.isTrue("RUN FWB", true);
     }
     public static boolean hasExamReference() {
-        return AppConfig.isTrue("HAS EXAM REFERENCE", true);
+        return AppConfig.isTrue("HAS EXAM REFERENCE", false);
+    }
+    public static boolean hasOffense() {
+        return AppConfig.isTrue("HAS OFFENSE", false);
     }
     public static boolean hasSchoolProfile() {
         return AppConfig.isTrue("HAS SCHOOL PROFILE", true);
@@ -516,5 +519,9 @@ public class AppConfig extends AbstractIBean implements Serializable {
 
 	public static int getMaxThread() {
         return Integer.valueOf(AppConfig.getAppValue("MAX THREAD", "10"));
+	}
+
+	public static double getAmountPerUnit() {
+        return Integer.valueOf(AppConfig.getAppValue("AMOUNT PER UNIT", "235"));
 	}
 }

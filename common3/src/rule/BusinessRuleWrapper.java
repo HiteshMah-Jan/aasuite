@@ -5,10 +5,12 @@
 
 package rule;
 
+import bean.admin.AppConfig;
 import component.AbstractRobotTester;
 import component.IGetText;
 import component.JCalendarPallete;
 import component.JCheckBoxPallete;
+import component.LookupTableFieldPallete;
 import constants.UserInfo;
 
 import java.awt.Component;
@@ -19,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -33,6 +36,7 @@ import service.util.IBean;
 import template.UITemplate;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 import template.screen.component.JTableReadOnly;
+import template.screen.component.PopSearchRenderer;
 import template.screen.AbstractChildTemplatePanel;
 import template.screen.ITemplate;
 import template.screen.TransactionPanel;
@@ -257,6 +261,18 @@ public abstract class BusinessRuleWrapper {
         }
         return null;
     }
+    public AbstractIBean getSelectedBean(String name) {
+        List<JComponent> comps = panel.getFieldComponents();
+        for (JComponent comp : comps) {
+            if (comp!=null && comp.getName()!=null && comp.getName().equals(name)) {
+            	if (comp instanceof LookupTableFieldPallete) {
+            		LookupTableFieldPallete pal = (LookupTableFieldPallete) comp;
+            		return pal.getSelectedBean();
+            	}
+            }
+        }
+        return null;
+    }
     public boolean mandatoryOk() {
         List<JComponent> comps = panel.getFieldComponents();
         for (JComponent elem : comps) {
@@ -310,6 +326,7 @@ public abstract class BusinessRuleWrapper {
     public void onNewRecord() {
     }
     public void onChangeRecord() {
+		this.updateUI();
     }
     public boolean beforeSave(AbstractIBean bean) {
         return true;
@@ -473,5 +490,8 @@ public abstract class BusinessRuleWrapper {
 			BeanUtil.setPropertyValue(b, property, getRandom(low, high));
 		}
 	}
-
+	public void updateUI() {
+		JPanel pnl = (JPanel) this.panel;
+		pnl.updateUI();
+	}
 }

@@ -130,34 +130,27 @@ public class AppMenu extends AbstractIBean implements Serializable {
         
         String module = AAAConfig.getInstance().getModule();
         if ("SCHOOL".equalsIgnoreCase(module)) {
-            createAppMenuObj("Admission", "Main", "Admission", 110).save();
-            createAppMenuObj("Enrollment", "Main", "Enrollment", 120).save();
-            createAppMenuObj("CollegeEnrollmentExt", "Main", "College Enrollment", 121).save();
-            createAppMenuObj("Student", "Main", "Student Info", 130).save();
-            createAppMenuObj("LibraryForm", "Main", "Library", 140).save();
-            createAppMenuObj("FacultyGradingForm", "Main", "Faculty Tool", 160).save();
-            createAppMenuObj("FacultyAdminForm", "Main", "Faculty Admin", 161).save();
-            createAppMenuObj("SRUForm", "Main", "SRU Tool", 162).save();
-            createAppMenuObj("ScheduleExt", "Main", "Student Tool", 163).save();
-            createAppMenuObj("Schedule", "Main", "Schedule", 170).save();
-            createAppMenuObj("StudentEncounterClinic", "Main", "Clinic", 180).save();
-            createAppMenuObj("StudentEncounterGuidanceForm", "Main", "Guidance", 185).save();
-            createAppMenuObj("OSAForm", "Main", "OSA", 190).save();
-            createAppMenuObj("CashierTransactionForm", "Main", "Cashier", 191).save();
-//            createAppMenuObj("SectioningForm", "Main", "Organization List", 195).save();
-//            createAppMenuObj("CashierGenericForm", "Main", "Cashier", 191).save();
+            createAppMenuObj("Student", "Main", "Student", 110).save();
+            createAppMenuObj("StudentAssessment", "Main", "Assessment", 120).save();
+            createAppMenuObj("StudentGrading", "Main", "Grading", 130).save();
+            createAppMenuObj("SchoolAccountingProcessForm", "Main", "Accounting Process", 140).save();
+            
             createAppMenuObj("SchoolReferenceForm", "Reference", "School Reference", 200).save();
-            createAppMenuObj("StudentExt", "Reference", "Student Reference", 210).save();
-            createAppMenuObj("KioskReferenceForm", "Reference", "Kiosk Reference", 220).save();
-            createAppMenuObj("AttendanceForm", "Reference", "Attendance", 230).save();
-            createAppMenuObj("SendMessageAccount", "Reference", "Messaging Config", 240).save();
-            createAppMenuObj("EmployeeSchoolForm", "Accounting", "School Employee", 310).save();
-            createAppMenuObj("SchoolEmployeeApplicantExt", "Accounting", "Applicant", 320).save();
-            createAppMenuObj("AccountingReferenceForm", "Accounting", "Accounting Reference", 330).save();
-            createAppMenuObj("SchoolAccountingProcessForm", "Accounting", "Accounting Process", 340).save();
-            createAppMenuObj("PayrollForm", "Accounting", "Payroll", 341).save();
-            createAppMenuObj("PurchaseOrderForm", "Accounting", "Purchase Order", 351).save();
-            createAppMenuObj("InventoryForm", "Accounting", "Inventory", 352).save();
+            createAppMenuObj("EmployeeSchoolForm", "Reference", "School Employee", 210).save();
+            createAppMenuObj("Schedule", "Reference", "Schedule", 220).save();
+            Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		            DBClient.runSQLNative("delete from appmenu where modulelabel in('Modules','Administration')");
+				}
+            });
+            t.start();
         }
         else if ("TOOL".equalsIgnoreCase(module)) {
             createAppMenuObj("CustomerContactForm", "Main", "Customer", 100).save();

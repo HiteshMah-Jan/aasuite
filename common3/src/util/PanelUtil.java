@@ -55,6 +55,9 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+
 import org.jdesktop.beansbinding.ELProperty;
 
 import bean.admin.AppConfig;
@@ -64,6 +67,7 @@ import springbean.AAAConfig;
 import template.Display;
 import template.TemplateReader;
 import template.UITemplate;
+import template.report.AbstractReportTemplate;
 import template.screen.AbstractTemplatePanel;
 import template.screen.AbstractTemplatePanel.FieldCompose;
 
@@ -1073,5 +1077,14 @@ public class PanelUtil {
         if (constants.Constants.labelColor!=null) {
         	slidContrast.setForeground(constants.Constants.labelColor);
         }
+	}
+	
+	public static void popupReport(String reportName, String recordId, String title) {
+        AbstractReportTemplate ins = AbstractReportTemplate.getInstance();
+        JasperReport rep = ins.getJasperReport("OfficialReceipt");
+        Map map = new HashMap();
+        ins.getReportParameter(recordId, map);
+        JasperPrint print = ins.getJasperPrint(rep, map);
+        ins.showReportFromFileTemplateDialog(print, title, null);
 	}
 }

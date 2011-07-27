@@ -66,6 +66,10 @@ public class UserInfo implements Serializable, IService {
         return user.getUserid().equals(SUPER_AAA_USER);
     }
 
+    public static void loginAdmin() {
+    	login(SUPER_AAA_USER, SUPER_AAA_PASS);
+    }
+    
     public static UserInfo login(String user, String password) {
         AclUser acluser = new AclUser();
         acluser.setUserid(user);

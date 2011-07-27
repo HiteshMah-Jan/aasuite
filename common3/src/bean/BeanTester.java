@@ -76,7 +76,7 @@ public class BeanTester {
                 sb.append("#############   ").append(string).append("   #####################\n\n");
                 sb.append("@Entity\n");
                 sb.append("@Table(name = \"").append(string).append("\")\n");
-                sb.append("@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {\"seq\"})\n");
+                sb.append("@UITemplate(template=TemplateTabSinglePage.class, gridCount = 4, columnSearch = {\"seq\"})\n");
                 sb.append("@Displays({\n");
                 List<String> fieldNames = getFields(string);
                 for (String string1 : fieldNames) {

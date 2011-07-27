@@ -5,11 +5,11 @@
 
 package bean.accounting;
 
-import bean.reference.Bank;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import service.util.AbstractIBean;
 import template.ChildRecord;
 import template.ChildRecords;
@@ -17,8 +17,8 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
-import template.screen.TemplateTabPage;
 import template.screen.TemplateTabSinglePage;
+import bean.reference.Bank;
 
 /**
  *
@@ -57,7 +57,7 @@ public class BankAccount extends AbstractIBean {
     @Override
     public String toString() {
         if (isEmptyKey()) return "";
-        return super.toString();
+        return accountNumber+" - "+bankName;
     }
 
     @Override

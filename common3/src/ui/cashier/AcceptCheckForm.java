@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import rule.BusinessRuleWrapper;
+import service.util.AbstractIBean;
 import springbean.AAAConfig;
 import util.PanelUtil;
 import bean.Person;
@@ -26,7 +27,7 @@ public class AcceptCheckForm extends JPanel {
 	static Payment lastCheck;
     static Payment pay;
 	
-    public static Payment acceptCheck(Person stud, double amount, double discount) {
+    public static Payment acceptCheck(AbstractIBean stud, double amount, double discount) {
         AcceptCheckForm form = new AcceptCheckForm();
         pay = (Payment) form.pnlPayment.getBean();
         pay.amount = amount;
@@ -35,7 +36,7 @@ public class AcceptCheckForm extends JPanel {
         BusinessRuleWrapper rule = form.pnlPayment.view.ruleWrapper;
         rule.onChangeRecord();
         if (stud!=null) {
-            form.datStud = stud;
+//            form.datStud = stud;
             form.txtStudent.setText(stud.toString());
         }
 //        BeanUtil.copyBean(stud, form.datStud);
