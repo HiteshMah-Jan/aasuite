@@ -281,6 +281,7 @@ public class TemplateTabPage extends AbstractTemplatePanel {
     }
     
     private String getWatermark() {
+    	if (((AbstractIBean)this.getBean()).watermark() == null) return "";
     	return ((AbstractIBean)this.getBean()).watermark();
     }
 }
