@@ -53,7 +53,7 @@ public class CashierRuleAssessStudent {
 
     private boolean canStudentAssessToLevel(Student stud, GradeLevel lvl) {
         PaymentEnrollment lastEnroll = null;
-        List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",stud.personId," AND a.paymentFor LIKE '%-MISC' ORDER BY a.seq"));
+        List<PaymentEnrollment> lst = DBClient.getList(BeanUtil.concat("SELECT a FROM PaymentEnrollment a WHERE a.paidBy=",stud.seq," AND a.paymentFor LIKE '%-MISC' ORDER BY a.seq"));
         for (PaymentEnrollment e: lst) {
             if (e.paymentFor.startsWith(lvl.code)) {
                 PanelUtil.showMessage(old, "Student already assess in the grade level in school year [",e.schoolYear,"].");

@@ -116,7 +116,7 @@ public class LibraryAction extends javax.swing.JPanel {
         javax.persistence.EntityManager schoolPUEntityManager = WSPersistenceEntityManager.getInstance();
         personBorrowQuery = java.beans.Beans.isDesignTime() ? null : schoolPUEntityManager.createQuery("SELECT c FROM Student c");
         personBorrowList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : personBorrowQuery.getResultList();
-        borrower = new bean.Person();
+        borrower = new bean.Student();
         borrowedBooksQuery = java.beans.Beans.isDesignTime() ? null : schoolPUEntityManager.createQuery("SELECT b FROM LibraryBorrowedBooks b");
         borrowedBooksList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : borrowedBooksQuery.getResultList();
         personReturnQuery = java.beans.Beans.isDesignTime() ? null : schoolPUEntityManager.createQuery("SELECT c FROM Student c");
@@ -577,14 +577,14 @@ if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
     } else if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         String str = txtBarcodeValue.getText();
         //check code if person or book
-        Person p = (Person) AbstractIBean.firstRecord("SELECT p FROM Student p WHERE p.userid='" + str + "'");
+        Student p = (Student) AbstractIBean.firstRecord("SELECT p FROM Student p WHERE p.userid='" + str + "'");
         if (p != null) {
             borrower = p;
         } else {
             if (borrower != null) {
                 LibraryBooks bookt = (LibraryBooks) p.firstRecord("SELECT a FROM LibraryBooks a WHERE a.barcode='" + str + "'");
                 if (bookt != null) {
-                    bookt.borrowBook(borrower.getPersonId(), DateUtil.addDay(constants.Constants.useDate, 3));
+                    bookt.borrowBook(borrower.seq, DateUtil.addDay(constants.Constants.useDate, 3));
                     lblISBN.setText(bookt.getIsbn());
                     lblAuthor.setText(bookt.getAuthor());
                     lblTitle.setText(bookt.getTitle());
@@ -607,7 +607,7 @@ if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             lblGradeLevel.setText(((Student) borrower).getGradeLevel());
             lblSection.setText(((Student) borrower).getSection());
         }
-        List lst = p.list("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=" + borrower.getPersonId() + " AND a.isReturned=false");
+        List lst = p.list("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=" + borrower.seq + " AND a.isReturned=false");
         PanelUtil.setListData(borrowedBooksList, lst);
         if (borrowedBooksList != null && !borrowedBooksList.isEmpty()) {
             tblBorrowedBooks.setRowSelectionInterval(borrowedBooksList.size() - 1, borrowedBooksList.size() - 1);
@@ -625,7 +625,7 @@ if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
         if (b) {
             LibraryBorrowedBooks book = borrowedBooksList.get(tblBorrowedBooks.getSelectedRow());
             book.returnBook();
-            List lst = book.list("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=" + borrower.getPersonId() + " AND a.isReturned=false");
+            List lst = book.list("SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=" + borrower.seq + " AND a.isReturned=false");
             PanelUtil.setListData(borrowedBooksList, lst);
             if (!borrowedBooksList.isEmpty()) {
                 tblBorrowedBooks.setRowSelectionInterval(borrowedBooksList.size() - 1, borrowedBooksList.size() - 1);
@@ -655,7 +655,7 @@ private void btnReturnNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.util.List<bean.LibraryBorrowedBooks> borrowedBooksList;
     private javax.persistence.Query borrowedBooksQuery;
-    private bean.Person borrower;
+    private bean.Student borrower;
     private javax.swing.JButton btnBorrowNow;
     private javax.swing.JButton btnReturnNow;
     private component.JCalendarPallete calDueDate;

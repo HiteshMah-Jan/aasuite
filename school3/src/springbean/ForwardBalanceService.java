@@ -45,10 +45,10 @@ public class ForwardBalanceService implements IService {
     		return;
     	}
 //            get the sum of balance
-        double d = DBClient.getSingleColumnDouble("SELECT SUM(a.balance) FROM Payment a WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.personId," AND a.paid=0");
+        double d = DBClient.getSingleColumnDouble("SELECT SUM(a.balance) FROM Payment a WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.seq," AND a.paid=0");
 //            create a forward balance for this year
         PaymentEnrollment p = new PaymentEnrollment();
-        p.paidBy = s.personId;
+        p.paidBy = s.seq;
         p.orType = "A";
         p.line = 0;
         p.schoolYear = AppConfig.getSchoolYear();
@@ -58,7 +58,7 @@ public class ForwardBalanceService implements IService {
         p.amount = p.overallAmountDue = p.balance = p.overallBalance = d;
         p.save();
 //            update all the balance make it zero
-        DBClient.runSQLNative("UPDATE Payment a SET a.balance=0 WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.personId," AND a.paid=0");
+        DBClient.runSQLNative("UPDATE Payment a SET a.balance=0 WHERE a.shoolYear='",schoolYear,"' AND a.paidBy=",s.seq," AND a.paid=0");
     }
 
     public static void main(String[] args) {

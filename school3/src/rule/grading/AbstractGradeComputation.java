@@ -30,7 +30,7 @@ public abstract class AbstractGradeComputation {
 	
 	private List<StudentSubjectDetailGrading> getDetail(int quarter, String subject, String criteria) {
 		if (allDetail==null) {
-			allDetail = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubjectDetailGrading a WHERE a.schoolYear='",schoolYear,"' AND a.studentId=",stud.personId));
+			allDetail = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubjectDetailGrading a WHERE a.schoolYear='",schoolYear,"' AND a.studentId=",stud.seq));
 		}
 		List<StudentSubjectDetailGrading> tmp = new ArrayList();
 		for (StudentSubjectDetailGrading sub:allDetail) {

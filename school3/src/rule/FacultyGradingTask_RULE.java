@@ -539,14 +539,14 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 		}
 		
 		private void createStudentTask(FacultyGradingTask t, Student stud, List l) {
-			StudentSubject sub = (StudentSubject) AbstractIBean.objCache("SELECT a FROM StudentSubject a WHERE a.studentId=",String.valueOf(stud.personId)," AND a.subject='",t.subject,"'");
+			StudentSubject sub = (StudentSubject) AbstractIBean.objCache("SELECT a FROM StudentSubject a WHERE a.studentId=",String.valueOf(stud.seq)," AND a.subject='",t.subject,"'");
 			if (sub==null) {
 				sub = new StudentSubject();
 				sub.facultyId = t.facultyId;
 				sub.faculty = t.faculty;
 				sub.section = t.section;
 				sub.scheduleId = t.scheduleId;
-				sub.studentId = stud.personId;
+				sub.studentId = stud.seq;
 				sub.subject = t.subject;
 				sub.course = stud.course;
 				sub.gradeLevel = stud.gradeLevel;
@@ -562,14 +562,14 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
 			}
 			l.add(sub);
 			StudentSubjectDetailGrading det = (StudentSubjectDetailGrading) 
-                                DBClient.getFirstRecord("SELECT a FROM StudentSubjectDetailGrading a WHERE a.studentId=",stud.personId," AND a.subject='",t.subject,"' AND a.component='",t.component,"'");
+                                DBClient.getFirstRecord("SELECT a FROM StudentSubjectDetailGrading a WHERE a.studentId=",stud.seq," AND a.subject='",t.subject,"' AND a.component='",t.component,"'");
                         if (det == null) {
                             det = new StudentSubjectDetailGrading();
                         }
 			det.studentSubjectId = sub.seq;
 			det.component = t.component;
 			det.facultyGradingTaskId = t.seq;
-			det.studentId = stud.personId;
+			det.studentId = stud.seq;
 			det.schoolYear = t.schoolYear;
 			det.subject = t.subject;
 			det.studentName = stud.toString();

@@ -104,7 +104,7 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 
 	private void getMisc() {
 		Enrollment col = (Enrollment) this.getBean();
-		Student stud = (Student) col.extractPerson(col.studentId);
+		Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.seq=",col.studentId);
 		String plan = col.paymentPlanType;
 		PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan,"' AND a.gradeLevel='",stud.gradeLevel,"'");
 		if (pl==null || pl.isEmptyKey()) {
@@ -291,7 +291,7 @@ public class CollegeEnrollmentExt_RULE extends BusinessRuleWrapper {
 		
 		String plan = PanelUtil.showPromptDefaultMessage(null, "Type payment plan [S,Q,M]", "S");
 		if (plan!=null) {
-			Student stud = (Student) col.extractPerson(col.studentId);
+			Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.seq="+col.studentId);
 			
 			PaymentPlan pl = (PaymentPlan) DBClient.getFirstRecord("SELECT a FROM PaymentPlan a WHERE a.code='",plan,"' AND a.gradeLevel='",stud.gradeLevel,"'");
 			if (pl==null || pl.isEmptyKey()) {

@@ -121,10 +121,10 @@ public class GradingProcess implements Runnable {
 //		1. get all enrolled students
 		List<Student> lst = DBClient.getList("SELECT a FROM Student a WHERE a.status='ENROLLED' AND a.section='",section,"'");
 		for (Student s:lst) {
-			String sql = BeanUtil.concat("UPDATE Enrollment SET meritQ",quarter,"='' WHERE studentId=",s.personId," AND gradeLevel='",s.gradeLevel,"'");
+			String sql = BeanUtil.concat("UPDATE Enrollment SET meritQ",quarter,"='' WHERE studentId=",s.seq," AND gradeLevel='",s.gradeLevel,"'");
 	    	DBClient.runSQLNative(sql);
-			StudentValuesGrading val = getValues(vallst, s.personId);
-			Enrollment e = getEnrollment(elst, s.personId);
+			StudentValuesGrading val = getValues(vallst, s.seq);
+			Enrollment e = getEnrollment(elst, s.seq);
 
 //			2. check all subjects with regards to current grade level
 			if ("|K1|K2|N1|N2|P1|P2|".contains(s.gradeLevel)) {

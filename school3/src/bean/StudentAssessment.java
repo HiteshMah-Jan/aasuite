@@ -1,34 +1,50 @@
 package bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import constants.UserInfo;
+
 import service.util.AbstractIBean;
+import springbean.AAAConfig;
 import template.ActionButton;
 import template.ActionButtons;
+import template.ChildRecord;
 import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.ParentAddInfo;
 import template.UITemplate;
+import template.screen.ChildTemplateListOnly;
+import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePage;
+import util.DBClient;
+import bean.accounting.EnrollmentAR;
+import bean.accounting.EnrollmentCollection;
+import bean.accounting.PaymentPlan;
 import bean.reference.Section;
+import bean.reference.Subject;
 
 @Entity
 @Table(name = "StudentAssessment")
 @UITemplate(template=TemplateTabSinglePage.class, gridCount = 4, 
-		columnSearch = {"schoolYear","studentName","semeter","assessedBy","section"})
+		columnSearch = {"schoolYear","studentId","semeter","assessedBy","section"})
 @ActionButtons( {
-	@ActionButton(name = "btnComplete", label = "Complete") 
+	@ActionButton(name = "btnFinalize", label = "Finalize"),
+	@ActionButton(name = "btnPrintSchedule", label = "Print Schedule"), 
+	@ActionButton(name = "btnSOA", label = "Statement of Account")
 })
 @Displays({
-	@Display(name="studentId", label="Student", type="PopSearch", linktoBean=Student.class),
-	@Display(name="studentName", type="Label", hideLabel=true),
+	@Display(name="studentId", label="Student", type="PopSearch", linktoBean=Student.class, gridFieldWidth=3, width=-1),
+//	@Display(name="studentName", type="Label", hideLabel=true),
 	@Display(name="schoolYear"),
 	@Display(name="semester", type="Combo", modelCombo={"1","2","3","4"}),
-	@Display(name="assessedBy"),
+	@Display(name="assessedBy", enabled=false),
 	@Display(name="section", type="PopSearch", linktoBean=Section.class),
+	@Display(name="plan", type="PopSearch", linktoBean=PaymentPlan.class, gridFieldWidth=3, width=-1),
 	@Display(name="schedule1", label="Schedule", labelTop=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=250),
 	@Display(name="subject1", label="Subject", labelTop=true, addInfoOnly=true, enabled=false),
 	@Display(name="unit1", label="Unit", labelTop=true, addInfoOnly=true, enabled=false),
@@ -109,12 +125,19 @@ import bean.reference.Section;
 	@Display(name="subject20", hideLabel=true, addInfoOnly=true, enabled=false),
 	@Display(name="unit20", hideLabel=true, addInfoOnly=true, enabled=false),
 	@Display(name="amount20", hideLabel=true, addInfoOnly=true, enabled=false),
-	@Display(name="totalUnit", enabled=false),
+	@Display(name="totalUnit", enabled=false, gridFieldWidth=3),
 	@Display(name="miscAmount"),
+	@Display(name="discount"),
 	@Display(name="totalUnitAmount", enabled=false),
-	@Display(name="overallAmount",enabled=false)
+	@Display(name="overallAmount",enabled=false),
+	@Display(name="collected",enabled=false),
+	@Display(name="balance",enabled=false)
 })
 @ChildRecords(value = {
+        @ChildRecord(template = ChildTemplateListOnly.class, fieldMapping = {
+    		"seq", "assessId" }, title = "Receivables", canNew=false, canDelete=false, entity = EnrollmentAR.class, sql = "SELECT a FROM EnrollmentAR a WHERE a.assessId=${seq}"),
+        @ChildRecord(template = ChildTemplateListPopupDownButton.class, fieldMapping = {
+        	"seq", "assessId" }, title = "Collections", canDelete=false, entity = EnrollmentCollection.class, sql = "SELECT a FROM EnrollmentCollection a WHERE a.assessId=${seq}")
 }, info = { 
 		@ParentAddInfo(title = "Subjects 1-10", gridCount=8, 
 				displayFields = {
@@ -152,6 +175,7 @@ public class StudentAssessment extends AbstractIBean {
 	public int semester;
 	public String assessedBy;
 	public String section;
+	public String plan;
 	
 	public int schedule1;
 	public String subject1;
@@ -236,10 +260,37 @@ public class StudentAssessment extends AbstractIBean {
 	
 	public double totalUnit;
 	public double miscAmount;
+	public double discount;
 	public double totalUnitAmount;
 	public double overallAmount;
+	public double collected;
+	public double balance;
 	public String status = "INITIAL";
 	
+	public double getDiscount() {
+		return discount;
+	}
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
+	public double getCollected() {
+		return collected;
+	}
+	public void setCollected(double collected) {
+		this.collected = collected;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	public String getPlan() {
+		return plan;
+	}
+	public void setPlan(String plan) {
+		this.plan = plan;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -793,6 +844,14 @@ public class StudentAssessment extends AbstractIBean {
 		this.overallAmount = overallAmount;
 	}
 	public static void main(String[] args) {
+        AAAConfig.getServerInstance();
+        UserInfo.loginAdmin();
+		List<Subject> lst = DBClient.getList("SELECT a FROM Subject a WHERE a.amount IS NULL");
+		if (lst!=null) {
+			for (Subject s:lst) {
+				s.save();
+			}
+		}
 		view(StudentAssessment.class);
 	}
 	@Override
@@ -802,5 +861,9 @@ public class StudentAssessment extends AbstractIBean {
 	}
 	public String watermark() {
 		return status;
+	}
+	public void addCollection(double amount) {
+		this.collected += amount;
+		this.balance -= amount;
 	}
 }

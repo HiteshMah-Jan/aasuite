@@ -635,7 +635,7 @@ private void btnRequestDiscountActionPerformed(java.awt.event.ActionEvent evt) {
     }
     else {
 //      get the enrollment for the selected schoolYear
-        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stud.personId," AND a.schoolYear='", AppConfig.getSchoolYear(),"'");
+        Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stud.seq," AND a.schoolYear='", AppConfig.getSchoolYear(),"'");
         e.requestedDiscountAmount = amount;
         e.requestedDiscountBy = UserInfo.getUserName();
         e.requestedDiscountDate = constants.Constants.useDate;

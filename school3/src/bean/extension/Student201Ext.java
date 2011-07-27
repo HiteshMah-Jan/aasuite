@@ -46,7 +46,7 @@ import util.BeanUtil;
 import util.DBClient;
 import util.DateUtil;
 import util.PanelUtil;
-import bean.accounting.Payment;
+import bean.accounting.EnrollmentAR;
 import bean.accounting.PaymentEnrollment;
 import bean.admin.AppConfig;
 import bean.extension.StudentSubjectCollegeExt;

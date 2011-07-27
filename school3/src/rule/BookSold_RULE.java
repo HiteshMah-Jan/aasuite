@@ -83,7 +83,7 @@ public class BookSold_RULE extends BusinessRuleWrapper {
             }
             GradeLevel lvl = null;
             if (b.personId>0) {
-                Student stud = (Student) Student.extractObject(b.personId);
+                Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.seq=",b.personId);
                 lvl = (GradeLevel) GradeLevel.extractObject(GradeLevel.class.getSimpleName(), stud.gradeLevel);
             }
             else {

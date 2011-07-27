@@ -4029,7 +4029,7 @@ public class Enrollment extends AbstractIBean implements Serializable {
         if (studentId == 0) {
             return null;
         }
-        return (Student) extractPerson(this.studentId);
+        return (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.seq=",this.studentId);
     }
 
     public static void main(String[] args) {

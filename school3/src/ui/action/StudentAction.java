@@ -99,19 +99,19 @@ public class StudentAction extends javax.swing.JPanel {
 
 private void btnChangeGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeGradeActionPerformed
     //todo: check if already had the course, create new student record, update old record parentId, register student for the course
-    List<Student> lst = AbstractIBean.list("SELECT a FROM Student a WHERE a.personId=",student.personId," AND a.parentId=",student.personId);
+    List<Student> lst = AbstractIBean.list("SELECT a FROM Student a WHERE a.personId=",student.seq," AND a.parentId=",student.seq);
     for (Student stud : lst) {
         if (cboCourse.getCode().equalsIgnoreCase(stud.course)) {
             PanelUtil.showErrorMessageToScreen("Course [",cboCourse.getCode(),"] already taken.");
             return;
         }
     }
-    int personId = student.personId;
-    student.personId = 0;
+    int personId = student.seq;
+    student.seq = 0;
     student.course = cboCourse.getCode();
     student.save();
     Student oldStud = (Student) student.find(personId);
-    oldStud.parentId = student.personId;
+    oldStud.seq = student.seq;
     oldStud.save();
     dlgChangeGrade.setVisible(false);
 }//GEN-LAST:event_btnChangeGradeActionPerformed

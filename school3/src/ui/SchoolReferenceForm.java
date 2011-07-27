@@ -21,7 +21,10 @@ public class SchoolReferenceForm extends TabPanelForm {
     	String lic = AppConfig.getLicenceType();
     	if ("ALL".equals(lic)) {
 //            String str = "Course,GradeLevel,Subject,ValuesSubjectGradingCriteria,Section,Department,Building,Room,ScholarshipTable,EventHoliday,Offense,ActionTaken";
-            String str = "Course,GradeLevel,Subject,Section,Schedule,Department,Building,Room,ScholarshipTable,EventHoliday,Offense,ActionTaken";
+            String str = "Course,GradeLevel,Subject,Section,Schedule,Department,Building,Room,ScholarshipTable";
+    		if (AppConfig.hasOffense()) {
+    			str += ",Offense,ActionTaken";
+    		}
     		if (AppConfig.hasExamReference()) {
     			str += ",AdmissionExamReference";
     		}

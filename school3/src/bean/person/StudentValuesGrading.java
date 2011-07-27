@@ -2200,7 +2200,7 @@ public class StudentValuesGrading extends AbstractIBean implements Serializable 
 	@Override
 	public void save() {
 		if (student == null) {
-			Student stud = (Student) extractPerson(studentId);
+			Student stud = (Student) DBClient.getFirstRecord("SELECT a FROM Student a WHERE a.seq=",studentId);
 			student = stud.toString();
 			stud.addStatus = status;
 			stud.save();

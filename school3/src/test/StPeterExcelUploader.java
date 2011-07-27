@@ -56,8 +56,6 @@ public class StPeterExcelUploader {
             
             Log.out("#",(i+1)," Loading ",stud.firstName," ",stud.lastName);
             
-            stud.father = father.lastName;
-            stud.mother = mother.lastName;
             stud.age = 0;
             if (stud.birthDate!=null) {
                 int span = DateUtil.getSpanYears(stud.birthDate);
@@ -80,7 +78,7 @@ public class StPeterExcelUploader {
             stud.course = courseCode;
             stud.save();
             
-            Integer personId = stud.getPersonId();
+            Integer personId = stud.seq;
             if (ed!=null && personId!=null) {
                 ed.setPersonId(personId);
                 ed.save();

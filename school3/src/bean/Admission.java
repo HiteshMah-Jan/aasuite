@@ -1858,32 +1858,14 @@ public class Admission extends AbstractIBean implements Serializable {
     private void serverRegister() {
     	Admission admission = this;
         bean.Student studTmp = (bean.Student) AbstractIBean.firstRecord("SELECT a FROM Student a WHERE a.lastName='" , admission.getLastName() , "' AND a.firstName='" , admission.getFirstName() , "' AND a.middleInitial='" , admission.getMiddleInitial() , "'");
-        if (studTmp == null || studTmp.getPersonId() == null || studTmp.getPersonId() == 0) {
+        if (studTmp == null || studTmp.seq == null || studTmp.seq == 0) {
             Student student = new Student();
             student.copyFrom(admission);
             student.setDefaultStudentNumber();
-            student.personId = null;
+            student.seq = null;
             student.save();
             
-            PersonDependent father = student.extractOrCreateDependent("FATHER");
-            father.lastName = admission.father;
-            father.companyName = admission.fatherCompany;
-            father.companyAddress = admission.fatherCompanyAddress;
-            father.telephoneNumber = admission.fatherCompanyTelNo;
-            father.occupation = admission.fatherOccupation;
-            father.save();
-            
-            PersonDependent mother = student.extractOrCreateDependent("MOTHER");
-            mother.lastName = admission.mother;
-            mother.companyName = admission.motherCompany;
-            mother.companyAddress = admission.motherCompanyAddress;
-            mother.telephoneNumber = admission.motherCompanyTelNo;
-            mother.occupation = admission.motherOccupation;
-            mother.save();
-
-            student.extractOrCreateDependent("GUARDIAN");
-
-            admission.personId = student.personId;
+            admission.personId = student.seq;
             admission.studentNumber = student.studentNumber;
             admission.save();
             
@@ -1893,7 +1875,7 @@ public class Admission extends AbstractIBean implements Serializable {
             studTmp.setDefaultStudentNumber();
             studTmp.save();
 
-            admission.personId = studTmp.personId;
+            admission.personId = studTmp.seq;
             admission.studentNumber = studTmp.studentNumber;
             admission.save();
         }

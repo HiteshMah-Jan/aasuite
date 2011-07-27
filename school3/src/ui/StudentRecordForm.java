@@ -74,15 +74,15 @@ public class StudentRecordForm extends TransactionPanel {
         pnlCurriculumSubject.setBean(stud);
 
         //setup the father info
-        pnlFather.setBean(stud.extractOrCreateDependent("FATHER"));
-        pnlMother.setBean(stud.extractOrCreateDependent("MOTHER"));
-        pnlGuardian.setBean(stud.extractOrCreateDependent("GUARDIAN"));
+//        pnlFather.setBean(stud.extractOrCreateDependent("FATHER"));
+//        pnlMother.setBean(stud.extractOrCreateDependent("MOTHER"));
+//        pnlGuardian.setBean(stud.extractOrCreateDependent("GUARDIAN"));
         
-        Admission req = (Admission) AbstractIBean.firstRecord("SELECT a FROM Admission a WHERE a.personId=",stud.personId);
+        Admission req = (Admission) AbstractIBean.firstRecord("SELECT a FROM Admission a WHERE a.personId=",stud.seq);
         pnlAdmissionInfo1.setBean(req);
         pnlAdmissionInfo2.setBean(req);
 
-        Enrollment lastEnroll = (Enrollment) stud.selectFirstCache("SELECT a FROM Enrollment a WHERE a.studentId=",stud.personId," ORDER BY a.seq DESC");
+        Enrollment lastEnroll = (Enrollment) stud.selectFirstCache("SELECT a FROM Enrollment a WHERE a.studentId=",stud.seq," ORDER BY a.seq DESC");
         pnlStudentStatus.setBean(lastEnroll);
         pnlStudentStatusSchoolDetail.setBean(lastEnroll);
         pnlStudentStatusTuitionDetail.setBean(lastEnroll);

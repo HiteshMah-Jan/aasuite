@@ -1,11 +1,5 @@
 package rule;
 
-import java.util.Date;
-
-import javax.swing.JCheckBox;
-
-import util.PanelUtil;
-
 import bean.accounting.Payment;
 
 public class PaymentCashierPaymentExt_RULE extends Payment_RULE {

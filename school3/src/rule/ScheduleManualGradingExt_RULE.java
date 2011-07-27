@@ -135,14 +135,14 @@ public class ScheduleManualGradingExt_RULE extends BusinessRuleWrapper {
 		List all = new ArrayList();
 		for (Student stud:lstStud) {
 //			select subject of student
-			StudentSubject sub = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",stud.personId," AND a.subject='",t.subject,"'");
+			StudentSubject sub = (StudentSubject) DBClient.getFirstRecord("SELECT a FROM StudentSubject a WHERE a.studentId=",stud.seq," AND a.subject='",t.subject,"'");
 			if (sub==null) {
 				sub = new StudentSubject();
 				sub.facultyId = t.facultyId;
 				sub.faculty = t.faculty;
 				sub.section = t.section;
 				sub.scheduleId = t.seq;
-				sub.studentId = stud.personId;
+				sub.studentId = stud.seq;
 				sub.subject = t.subject;
 				sub.course = stud.course;
 				sub.gradeLevel = stud.gradeLevel;

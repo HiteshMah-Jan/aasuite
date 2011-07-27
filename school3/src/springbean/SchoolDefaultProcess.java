@@ -351,7 +351,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     }
 
     public void createSchoolAttended(Student student) {
-        List lst = DBClient.getList("SELECT a FROM StudentSchoolAttended a WHERE a.studentId=" + student.personId);
+        List lst = DBClient.getList("SELECT a FROM StudentSchoolAttended a WHERE a.studentId=" + student.seq);
         if (lst == null || lst.size() == 0) {
             //create 12 records
             for (int i = 1; i <= 12; i++) {
@@ -366,14 +366,14 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         att.curriculumYear = student.schoolYear;
         att.school = AppConfig.getCompanyName();
         att.schoolYear = student.schoolYear;
-        att.studentId = student.personId;
+        att.studentId = student.seq;
         att.yearCount = 1 + "";
         att.yearLevel = level + "";
         att.save();
     }
 
     public void createSummerSchoolAttended(Student student) {
-        List lst = DBClient.getList("SELECT a FROM StudentSummerSchoolAttended a WHERE a.studentId=" + student.personId);
+        List lst = DBClient.getList("SELECT a FROM StudentSummerSchoolAttended a WHERE a.studentId=" + student.seq);
         if (lst == null || lst.size() == 0) {
             //create 12 records
             for (int i = 1; i <= 12; i++) {
@@ -388,7 +388,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
         att.curriculumYear = student.schoolYear;
         att.school = AppConfig.getCompanyName();
         att.schoolYear = student.schoolYear;
-        att.studentId = student.personId;
+        att.studentId = student.seq;
         att.yearCount = 1 + "";
         att.yearLevel = i + "";
         att.month1Days = 0;
@@ -415,7 +415,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     }
 
     public boolean isEnrolled(Student stud, String schoolYear) {
-        String sql = "SELECT a FROM Enrollment a WHERE a.studentId=" + stud.personId + " AND a.schoolYear='" + schoolYear + "'";
+        String sql = "SELECT a FROM Enrollment a WHERE a.studentId=" + stud.seq + " AND a.schoolYear='" + schoolYear + "'";
         boolean b = DBClient.getFirstRecord(sql) != null;
         return b;
     }
@@ -426,13 +426,13 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
             lvl = (GradeLevel) AbstractIBean.extractObject(GradeLevel.class.getSimpleName(), stud.gradeLevel);
         }
         else {
-            lvl = (GradeLevel) DBClient.getFirstRecord("SELECT a FROM GradeLevel a, Enrollment b WHERE a.code=b.gradeLevel AND b.studentId=" + stud.personId + " ORDER BY b.schoolYear DESC");
+            lvl = (GradeLevel) DBClient.getFirstRecord("SELECT a FROM GradeLevel a, Enrollment b WHERE a.code=b.gradeLevel AND b.studentId=" + stud.seq + " ORDER BY b.schoolYear DESC");
         }
         return lvl;
     }
 
     public Enrollment getStudentEnrollment(Student stud) {
-        return (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=" + stud.personId + " AND a.schoolYear='" + AppConfig.getSchoolYear() + "'");
+        return (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=" + stud.seq + " AND a.schoolYear='" + AppConfig.getSchoolYear() + "'");
     }
      
     public boolean hasPayment(Enrollment enroll) {
@@ -463,7 +463,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     
     public double extractBackAccount(Student stud) {
         double totalBalance = 0;
-        Enrollment e = (Enrollment) AbstractIBean.firstRecord("SELECT a FROM Enrollment a WHERE a.studentId=" + stud.personId + " ORDER BY a.seq DESC");
+        Enrollment e = (Enrollment) AbstractIBean.firstRecord("SELECT a FROM Enrollment a WHERE a.studentId=" + stud.seq + " ORDER BY a.seq DESC");
         if (e != null) {
             List<PaymentEnrollment> lst = AbstractIBean.list("SELECT a FROM PaymentEnrollment a WHERE a.recordId=" + e.seq);
             for (PaymentEnrollment pay : lst) {
@@ -574,14 +574,14 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
     	protected Enrollment newEnrollment(String level) {
     		Enrollment e = new Enrollment();
     		e.gradeLevel = level;
-    		e.studentId = student.personId;
+    		e.studentId = student.seq;
     		return e;
     	}
     	
     	protected StudentValuesGrading newValues(String level) {
     		StudentValuesGrading val = new StudentValuesGrading();
     		val.gradeLevel = level;
-    		val.studentId = student.personId;
+    		val.studentId = student.seq;
     		val.schoolYear = AppConfig.getSchoolYear();
     		return val;
     	}
@@ -607,7 +607,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 	            subject.preSubject5=(csubject.preSubject5);
 	            subject.preferredSemester=(csubject.preferredSemester);
 	            subject.gradeLevel = csubject.preferredYear;
-	            subject.studentId=(student.personId);
+	            subject.studentId=(student.seq);
 	            subject.subject=(csubject.subject);
 	            subject.unit = csubject.weight;
 	            subject.studentName = student.toString();
@@ -652,7 +652,7 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 	        if (course==null || course.isEmpty()) {
 	        	return;
 	        }
-	        int personId = student.personId;
+	        int personId = student.seq;
 	        if (PanelUtil.isEmpty(course)) {
 	        	PanelUtil.showError(null, "Student does not have a course.");
 	            return;
@@ -667,8 +667,8 @@ public class SchoolDefaultProcess extends ProcessImpl implements IService {
 	        }
 	        List<StudentSubject> lst = DBClient.getList("SELECT a FROM StudentSubject a WHERE a.studentId=",String.valueOf(personId));
 	        createSubjects(lst);
-	        List<Enrollment> enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=",student.personId));
-	        List<StudentValuesGrading> values = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",student.personId));
+	        List<Enrollment> enrolls = DBClient.getList(BeanUtil.concat("SELECT a FROM Enrollment a WHERE a.studentId=",student.seq));
+	        List<StudentValuesGrading> values = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",student.seq));
 	        createEnrollment(enrolls, values);
 		}
     }

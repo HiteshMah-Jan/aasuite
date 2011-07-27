@@ -113,7 +113,7 @@ import template.UITemplate;
 @ChildRecords({ 
     @ChildRecord(entity=PaymentLineItem.class, fieldMapping={"seq","paymentId"}, sql="SELECT a FROM PaymentLineItem a WHERE a.paymentId=${seq}", title="Payment Detail")
 })
-public class PaymentAllExt extends bean.accounting.Payment implements Serializable {
+public class PaymentAllExt extends bean.accounting.EnrollmentAR implements Serializable {
     public static void main(String[] args) {
         view(PaymentAllExt.class);
     }

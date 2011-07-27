@@ -17,7 +17,7 @@ import bean.Customer;
 import bean.Student;
 import bean.accounting.BookSold;
 import bean.accounting.OtherPayment;
-import bean.accounting.Payment;
+import bean.accounting.EnrollmentAR;
 import bean.reference.AccountType;
 import bean.reference.PaymentMethod;
 import bean.reference.Section;

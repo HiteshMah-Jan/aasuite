@@ -14,6 +14,7 @@ import util.DataUtil;
 import util.PanelUtil;
 import bean.accounting.CashierDailyBooklet;
 import bean.accounting.Invoice;
+import bean.accounting.EnrollmentAR;
 import bean.accounting.Payment;
 import bean.accounting.PaymentEnrollment;
 

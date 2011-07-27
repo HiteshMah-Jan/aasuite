@@ -51,7 +51,7 @@ public class CashierRuleChangePlan {
             	return;
             }
 //          reassess student
-            Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stTmp.personId," AND a.schoolYear='",schoolYear,"'");
+            Enrollment e = (Enrollment) DBClient.getFirstRecord("SELECT a FROM Enrollment a WHERE a.studentId=",stTmp.seq," AND a.schoolYear='",schoolYear,"'");
             if (lvl!=null) {
             	e.gradeLevel = lvl.code;
             }
@@ -70,12 +70,12 @@ public class CashierRuleChangePlan {
             e.paymentPlanType = plan.toUpperCase();
             if (!hasPayment) {
                 e.save();
-                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.personId," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
+                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.seq," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
                 proc.createPayment(e);
             }
             else {
                 e.save();
-                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.personId," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
+                DBClient.runSQL("DELETE FROM Payment a WHERE a.paidBy=",stTmp.seq," AND a.schoolYear='",schoolYear,"' AND a.paid=false");
                 proc.createPayment(e);
                 updateOldPayment(e);
             }

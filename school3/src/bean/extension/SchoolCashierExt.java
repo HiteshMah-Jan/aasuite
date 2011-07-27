@@ -30,6 +30,6 @@ import template.screen.*;
 @Reports({
     @template.Report(reportFile="DailyInvoice", reportTitle="Daily Invoice", reportSql = "")
 })
-public class SchoolCashierExt extends bean.accounting.Payment {
+public class SchoolCashierExt extends bean.accounting.EnrollmentAR {
 
 }

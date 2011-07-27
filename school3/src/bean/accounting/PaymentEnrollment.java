@@ -8,7 +8,7 @@
 
 package bean.accounting;
 
-import bean.accounting.Payment;
+import bean.accounting.EnrollmentAR;
 import bean.accounting.PaymentDetail;
 import bean.accounting.PaymentPartialDetail;
 import java.io.Serializable;

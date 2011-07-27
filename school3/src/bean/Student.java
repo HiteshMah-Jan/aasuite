@@ -9,6 +9,7 @@
 package bean;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -30,8 +31,10 @@ import template.ParentAddInfo;
 import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListPopupDownButton;
+import template.screen.TemplateTabSinglePage;
 import template.screen.TemplateTabSinglePageLeftRight;
 import util.PanelUtil;
+import bean.accounting.Payment;
 import bean.embedded.EmbeddedAddress;
 import bean.embedded.EmbeddedChildren;
 import bean.embedded.EmbeddedContact;
@@ -39,10 +42,10 @@ import bean.embedded.EmbeddedEducation;
 import bean.embedded.EmbeddedGuardian;
 import bean.embedded.EmbeddedPersonalReference;
 import bean.extension.EnrollmentGradeExt;
-import bean.extension.StudentSubjectCollegeExt;
 import bean.extension.StudentSubjectExt;
 import bean.extension.StudentValuesGradingOverrideExt;
 import bean.person.StudentSubjectTaken;
+import bean.reference.GradeLevel;
 import constants.UserInfo;
 
 /**
@@ -51,7 +54,7 @@ import constants.UserInfo;
  */
 @Entity
 @Table(name = "Student")
-@UITemplate(showChart = false, template = TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {
+@UITemplate(showChart = false, template = TemplateTabSinglePage.class, gridCount = 4, columnSearch = {
 		"schoolYear", "studentNumber", "lastName", "firstName", "middleInitial",
 		"gradeLevel", "section", "age" }, criteriaSearch = { "schoolYear",
 		"studentNumber", "lastName", "firstName", "middleInitial", "section" }, showImages = true, imageInsideForm = true, showFiles = true, orderBy = "a.lastName")
@@ -192,6 +195,8 @@ public class Student extends AbstractIBean {
 	public EmbeddedEducation education;
     @Embedded
 	public EmbeddedChildren children;
+	public String paymentStatus;
+	public boolean officiallyRegistered;
     
 	public EmbeddedGuardian getGuardian() {
 		return guardian;
@@ -405,6 +410,40 @@ public class Student extends AbstractIBean {
 	}
 	@Override
 	public String popupSearch(String criteria) {
+		return buildSearch(criteria, "firstName","lastName");
+	}
+	public String toString() {
+		if (lastName==null || firstName==null) {
+			return "";
+		}
+		return lastName+" "+firstName;
+	}
+	public void assessStudent(String schoolYear2, GradeLevel lvl,
+			String upperCase, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+	public List<Payment> extractPayments(String useYear) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public List extractBackAccount(String schoolYear2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void updateEnrollmentSection() {
+		// TODO Auto-generated method stub
+		
+	}
+	public static String getDefaultStudentNumber(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setDefaultStudentNumber() {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getFormattedTitle() {
 		// TODO Auto-generated method stub
 		return null;
 	}

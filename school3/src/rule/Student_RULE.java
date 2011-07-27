@@ -190,7 +190,7 @@ public class Student_RULE extends Person_RULE {
 //        else {
 //            AbstractReportTemplate.getInstance().showReportFromFileTemplate("TORCollege", stud.personId);
 //                   }
-     AbstractReportTemplate.getInstance().showReportFromFileTemplate("TOR", stud.personId);
+     AbstractReportTemplate.getInstance().showReportFromFileTemplate("TOR", stud.seq);
     
     }
 }

@@ -29,7 +29,9 @@ import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabSinglePage;
 import util.BeanUtil;
 import util.DBClient;
+import util.DataUtil;
 import util.PanelUtil;
+import bean.admin.AppConfig;
 import bean.extension.SectionScheduleExt;
 import constants.UserInfo;
 
@@ -51,7 +53,7 @@ import constants.UserInfo;
     @Display(name="subject",gridFieldWidth=3,width=-1),
     @Display(name="course",type="PopSearch",linktoBean=Course.class,gridFieldWidth=3,width=-1),
     @Display(name="gradeLevel",gridFieldWidth=3,width=-1,type="PopSearch",linktoBean=GradeLevel.class),
-    @Display(name="college",gridFieldWidth=3,width=-1)
+    @Display(name="amount")
 })
 @Reports({
     @template.Report(reportFile="SubjectComponent", reportTitle="Components", reportSql="")
@@ -75,6 +77,15 @@ public class Subject extends AbstractIBean implements Serializable {
     public String head;
     @Column(name = "headId")
     public int headId;
+    public double amount;
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 
 	public String getHead() {
 		return head;
@@ -122,6 +133,9 @@ public class Subject extends AbstractIBean implements Serializable {
 		}
 		DBClient.runSQLNative("UPDATE StudentSubject SET gradeLevel='",gradeLevel,"', unit=",unit," WHERE subject='",code,"'");
     	head = extractPersonName(headId);
+    	if (amount==0) {
+    		amount = DataUtil.getMoneyFormat(AppConfig.getAmountPerUnit()+unit);
+    	}
 		super.save();
 	}
 

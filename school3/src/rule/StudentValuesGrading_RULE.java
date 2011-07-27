@@ -186,7 +186,7 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 		List lst = new ArrayList();
 		List<Student> lstStud = DBClient.getList(BeanUtil.concat("SELECT a FROM Student a, Section b WHERE a.section=b.code AND b.facultyId=",UserInfo.getPersonId()," AND a.status='ENROLLED'"),0,10000);
 		for (Student stud:lstStud) {
-			StudentValuesGrading val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",stud.personId," AND a.gradeLevel='",stud.gradeLevel,"'");
+			StudentValuesGrading val = (StudentValuesGrading) DBClient.getFirstRecord("SELECT a FROM StudentValuesGrading a WHERE a.studentId=",stud.seq," AND a.gradeLevel='",stud.gradeLevel,"'");
 			if (val==null) {
 				val = new StudentValuesGrading();
 			}
@@ -194,7 +194,7 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 			val.gradeLevel = stud.gradeLevel;
 			val.facultyId = UserInfo.getPersonId();
 			val.faculty = UserInfo.loginUser.getPersonName();
-			val.studentId = stud.personId;
+			val.studentId = stud.seq;
 			val.student = stud.toString();
 			val.studentNumber = stud.studentNumber;
 			lst.add(val);

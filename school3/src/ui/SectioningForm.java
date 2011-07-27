@@ -354,7 +354,7 @@ private void btnPutToSectionActionPerformed(java.awt.event.ActionEvent evt) {//G
             lstStudentWithSection.add(p);
             lstStudentWithoutSection.remove(i);
             p.updateEnrollmentSection();
-            updateValuesSection(p.personId, sec.gradeLevel, sec.code, sec.facultyId);
+            updateValuesSection(p.seq, sec.gradeLevel, sec.code, sec.facultyId);
     	}
     }
     Thread t = new Thread(new Runnable() {
