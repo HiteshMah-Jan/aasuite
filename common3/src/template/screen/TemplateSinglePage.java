@@ -61,11 +61,11 @@ public class TemplateSinglePage extends AbstractTemplatePanel {
             pnlMainForm2.add(pnlMainForm);
         }
         
-        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch());
+        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch(), tblResult);
         pnlCriteria2.add(pnlCrit);
         pnlCrit.hide();
 
-        GroupPanel pnlResult = GroupPanel.construct("Search Result", (JPanel)super.getMainSearchResult());
+        GroupPanel pnlResult = GroupPanel.construct("Search Result", (JPanel)super.getMainSearchResult(), tblResult);
         pnlResult2.add(pnlResult);
         
         pnlButton2.add(super.pnlButton);

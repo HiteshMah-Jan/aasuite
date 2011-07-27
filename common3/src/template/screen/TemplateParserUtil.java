@@ -218,10 +218,10 @@ public class TemplateParserUtil {
         		pnlGroup.setVisible(false);
         	}
         	else {
-                pnlGroup = GroupPanel.construct(group.title(), pnlGroup);
+                pnlGroup = GroupPanel.construct(group.title(), pnlGroup, templatePanel.getTable());
                 pnlGroup.setToolTipText(templatePanel.getCurrentClass().getSimpleName());
                 if (constants.Constants.panelBackground!=null) {
-                    pnlGroup.setBackground(constants.Constants.panelBackground);
+//                    pnlGroup.setBackground(constants.Constants.panelBackground);
                 }
         	}
         }

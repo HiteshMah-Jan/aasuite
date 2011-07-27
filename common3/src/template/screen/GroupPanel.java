@@ -6,23 +6,27 @@
 
 package template.screen;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import util.BeanUtil;
 import bean.admin.AppConfig;
-import javax.swing.UIManager;
-import java.awt.Color;
 
 /**
  *
  * @author  Entokwaa
  */
 public class GroupPanel extends javax.swing.JPanel {
-    private String name = "Department";
+    private String name = "Criteria";
+    JTable tbl;
 	
-    public static GroupPanel construct(String name, JPanel newPanel) {
+    public static GroupPanel construct(String name, JPanel newPanel, JTable tbl) {
         GroupPanel pnl = new GroupPanel(name);
+        pnl.tbl = tbl;
         pnl.pnlMain.add(newPanel);
         if (AppConfig.isGroupWithTitle()) {
             pnl.pnlMain.setBorder(javax.swing.BorderFactory.createTitledBorder(BeanUtil.concat(name,":")));
@@ -54,7 +58,7 @@ public class GroupPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         pnlMain = new javax.swing.JPanel();
-        pnlMain.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Department", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+        pnlMain.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), this.name, TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -64,5 +68,4 @@ public class GroupPanel extends javax.swing.JPanel {
 
     public javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
-
 }

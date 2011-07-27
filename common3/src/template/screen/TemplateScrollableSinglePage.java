@@ -96,7 +96,7 @@ public class TemplateScrollableSinglePage extends TemplateTabPage {
         pnl.setPreferredSize(dim);
         Log.out("ADDING ",title);
         if (title!=null && !title.trim().isEmpty()) {
-            GroupPanel pnlGroup = GroupPanel.construct(title, pnl);
+            GroupPanel pnlGroup = GroupPanel.construct(title, pnl, tblResult);
             pnlCenter.add(pnlGroup, cons);
             pnlGroup.hide();
         }

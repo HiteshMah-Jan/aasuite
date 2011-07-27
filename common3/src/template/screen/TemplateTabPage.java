@@ -6,7 +6,10 @@
 
 package template.screen;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -53,7 +56,7 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         
         pnlTop.add(super.pnlTop);
         pnlTab.add(super.tabChildren);
-        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch());
+        GroupPanel pnlCrit = GroupPanel.construct("Criteria", (JPanel)super.getMainSearch(), tblResult);
         pnlCriteria3.add(pnlCrit);
         pnlResult3.add((JComponent)super.getMainSearchResult());
         pnlButton.add(super.pnlButton);
@@ -174,7 +177,14 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         pnlCriteria3 = new javax.swing.JPanel();
         pnlResult3 = new javax.swing.JPanel();
         pnlMainScreen = new javax.swing.JPanel();
-        pnlTop = new javax.swing.JPanel();
+        pnlTop = new javax.swing.JPanel() {
+        	public void paint(Graphics g) {
+        		super.paint(g);
+        		g.setColor(Color.LIGHT_GRAY);
+        		g.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
+        		g.drawString(getWatermark(), 10, 35);
+        	}
+        };
         pnlMainTab = new javax.swing.JPanel();
         pnlButton = new javax.swing.JPanel();
         pnlTab = new javax.swing.JPanel();
@@ -270,4 +280,7 @@ public class TemplateTabPage extends AbstractTemplatePanel {
         }
     }
     
+    private String getWatermark() {
+    	return ((AbstractIBean)this.getBean()).watermark();
+    }
 }

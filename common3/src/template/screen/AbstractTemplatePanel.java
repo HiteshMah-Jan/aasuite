@@ -1100,4 +1100,6 @@ public class AbstractTemplatePanel extends TransactionPanel implements ITemplate
 	public JTabbedPane getTabPane() {
 		return this.tabChildren;
 	}
+	
+
 }

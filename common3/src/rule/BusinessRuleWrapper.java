@@ -361,6 +361,15 @@ public abstract class BusinessRuleWrapper {
             return false;
         }
     }
+    public boolean mandatoryCheck(String field, String... message) {
+    	if (!isEmpty(field)) {
+    		return true; 
+    	}
+    	else {
+    		this.showError(message);
+    		return false;
+    	}
+    }
     public void showMessage(String message) {
         PanelUtil.showMessage(null, message);
     }

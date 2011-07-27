@@ -46,6 +46,7 @@ import org.jdesktop.beansbinding.ELProperty;
 import org.jdesktop.jdic.desktop.Desktop;
 
 import rule.BusinessRuleWrapper;
+import service.util.AbstractIBean;
 import template.report.AbstractReportTemplate;
 import util.BeanUtil;
 import util.DataUtil;
@@ -70,6 +71,11 @@ public class JTableReadOnly extends JTable {
     public Class beanClass;
     public List lst;
     Map<String, Class> mapRenderer = new HashMap();
+    
+    public AbstractIBean getBean() {
+    	if (lst==null || lst.isEmpty()) return null;
+    	return (AbstractIBean) lst.get(this.getSelectedRow());
+    }
     
     @Override
     public TableCellRenderer getCellRenderer(int row, int column) {
