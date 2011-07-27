@@ -4,110 +4,115 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import bean.reference.Section;
-
 import service.util.AbstractIBean;
+import template.ActionButton;
+import template.ActionButtons;
 import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.ParentAddInfo;
 import template.UITemplate;
-import template.screen.TemplateTabSinglePageLeftRight;
+import template.screen.TemplateTabSinglePage;
+import bean.reference.Section;
 
 @Entity
 @Table(name = "StudentAssessment")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, 
-		columnSearch = {"schoolYear","studentId","semeter","assessedBy","section"})
+@UITemplate(template=TemplateTabSinglePage.class, gridCount = 4, 
+		columnSearch = {"schoolYear","studentName","semeter","assessedBy","section"})
+@ActionButtons( {
+	@ActionButton(name = "btnComplete", label = "Complete") 
+})
 @Displays({
-	@Display(name="schoolYear"),
 	@Display(name="studentId", label="Student", type="PopSearch", linktoBean=Student.class),
-	@Display(name="semeter", type="Combo", modelCombo={"1","2","3","4"}),
+	@Display(name="studentName", type="Label", hideLabel=true),
+	@Display(name="schoolYear"),
+	@Display(name="semester", type="Combo", modelCombo={"1","2","3","4"}),
 	@Display(name="assessedBy"),
 	@Display(name="section", type="PopSearch", linktoBean=Section.class),
-	@Display(name="schedule1", label="Schedule", labelTop=true, addInfoOnly=true),
-	@Display(name="subject1", label="Subject", labelTop=true, addInfoOnly=true),
-	@Display(name="unit1", label="Unit", labelTop=true, addInfoOnly=true),
-	@Display(name="amount1", label="Amount", labelTop=true, addInfoOnly=true),
-	@Display(name="schedule2", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject2", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit2", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount2", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule3", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject3", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit3", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount3", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule4", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject4", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit4", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount4", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule5", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject5", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit5", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount5", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule6", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject6", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit6", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount6", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule7", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject7", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit7", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount7", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule8", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject8", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit8", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount8", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule9", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject9", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit9", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount9", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule10", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject10", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit10", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount10", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule11", label="Schedule", labelTop=true, addInfoOnly=true),
-	@Display(name="subject11", label="Subject", labelTop=true, addInfoOnly=true),
-	@Display(name="unit11", label="Unit", labelTop=true, addInfoOnly=true),
-	@Display(name="amount11", label="Amount", labelTop=true, addInfoOnly=true),
-	@Display(name="schedule12", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject12", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit12", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount12", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule13", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject13", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit13", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount13", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule14", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject14", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit14", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount14", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule15", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject15", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit15", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount15", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule16", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject16", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit16", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount16", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule17", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject17", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit17", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount17", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule18", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject18", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit18", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount18", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule19", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject19", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit19", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount19", hideLabel=true, addInfoOnly=true),
-	@Display(name="schedule20", hideLabel=true, addInfoOnly=true),
-	@Display(name="subject20", hideLabel=true, addInfoOnly=true),
-	@Display(name="unit20", hideLabel=true, addInfoOnly=true),
-	@Display(name="amount20", hideLabel=true, addInfoOnly=true),
-	@Display(name="totalUnit"),
+	@Display(name="schedule1", label="Schedule", labelTop=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=250),
+	@Display(name="subject1", label="Subject", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit1", label="Unit", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount1", label="Amount", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule2", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject2", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit2", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount2", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule3", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject3", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit3", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount3", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule4", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject4", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit4", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount4", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule5", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject5", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit5", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount5", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule6", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject6", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit6", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount6", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule7", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject7", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit7", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount7", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule8", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject8", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit8", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount8", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule9", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject9", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit9", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount9", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule10", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject10", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit10", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount10", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule11", label="Schedule", labelTop=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=250),
+	@Display(name="subject11", label="Subject", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit11", label="Unit", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount11", label="Amount", labelTop=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule12", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject12", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit12", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount12", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule13", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject13", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit13", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount13", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule14", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject14", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit14", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount14", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule15", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject15", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit15", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount15", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule16", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject16", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit16", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount16", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule17", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject17", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit17", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount17", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule18", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject18", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit18", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount18", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule19", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject19", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit19", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount19", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="schedule20", hideLabel=true, addInfoOnly=true, type="PopSearch", linktoBean=Schedule.class, width=-1),
+	@Display(name="subject20", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="unit20", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="amount20", hideLabel=true, addInfoOnly=true, enabled=false),
+	@Display(name="totalUnit", enabled=false),
 	@Display(name="miscAmount"),
-	@Display(name="totalUnitAmount"),
-	@Display(name="overallAmount")
+	@Display(name="totalUnitAmount", enabled=false),
+	@Display(name="overallAmount",enabled=false)
 })
 @ChildRecords(value = {
 }, info = { 
@@ -143,7 +148,8 @@ public class StudentAssessment extends AbstractIBean {
 	public Integer seq;
 	public String schoolYear;
 	public int studentId;
-	public int semeter;
+	public String studentName;
+	public int semester;
 	public String assessedBy;
 	public String section;
 	
@@ -232,7 +238,20 @@ public class StudentAssessment extends AbstractIBean {
 	public double miscAmount;
 	public double totalUnitAmount;
 	public double overallAmount;
+	public String status = "INITIAL";
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
 	public Integer getSeq() {
 		return seq;
 	}
@@ -251,11 +270,11 @@ public class StudentAssessment extends AbstractIBean {
 	public void setSchoolYear(String schoolYear) {
 		this.schoolYear = schoolYear;
 	}
-	public int getSemeter() {
-		return semeter;
+	public int getSemester() {
+		return semester;
 	}
-	public void setSemeter(int semeter) {
-		this.semeter = semeter;
+	public void setSemester(int semester) {
+		this.semester = semester;
 	}
 	public String getAssessedBy() {
 		return assessedBy;
@@ -781,5 +800,7 @@ public class StudentAssessment extends AbstractIBean {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public String watermark() {
+		return status;
+	}
 }

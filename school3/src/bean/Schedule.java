@@ -261,7 +261,7 @@ public class Schedule extends AbstractIBean implements Serializable {
 
 	@Override
     public String popupSearch(String criteria) {
-        return buildSearch(criteria,"subject","blockOrSection");
+        return buildSearch(criteria,"subject");
     }
 
     public String getGradeLevel() {
