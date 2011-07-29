@@ -490,7 +490,6 @@ public class Schedule extends AbstractIBean implements Serializable {
     	Subject sub = (Subject) DBClient.getFirstRecord("SELECT a FROM Subject a WHERE a.code='",subject,"'");
     	if (sub!=null) {
     		unit = sub.unit;
-    		college = sub.college;
     	}
     	if (sec!=null && sub!=null) {
         	if (!sub.gradeLevel.equalsIgnoreCase(sec.gradeLevel)) {

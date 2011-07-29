@@ -26,6 +26,7 @@ import bean.person.StudentSubjectDetailGrading;
 import bean.reference.GradeLevel;
 import bean.reference.LockGrading;
 import bean.reference.Section;
+import bean.reference.Subject;
 import bean.reference.SubjectGradingCriteria;
 import constants.UserInfo;
 
@@ -460,7 +461,8 @@ public class FacultyGradingTask_RULE extends BusinessRuleWrapper {
                 }
 
 		private List<SubjectGradingCriteria> getCriteria(String subject) {
-			List<SubjectGradingCriteria> crit = AbstractIBean.listCache(BeanUtil.concat("SELECT a FROM SubjectGradingCriteria a WHERE a.subject='",subject,"'"));
+			Subject s = (Subject) Subject.extractObject("Subject", subject);
+			List<SubjectGradingCriteria> crit = s.extractGradingCriteria();
 			return crit;
 		}
 

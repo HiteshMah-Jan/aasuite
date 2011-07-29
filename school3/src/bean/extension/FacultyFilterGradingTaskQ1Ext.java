@@ -13,6 +13,7 @@ import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
 import template.screen.ChildTemplateListPopupDownButton;
 import bean.person.FacultyGradingTask;
+import bean.reference.GradingComponent;
 import bean.reference.Section;
 import bean.reference.Subject;
 
@@ -40,8 +41,7 @@ import bean.reference.Subject;
     @Display(name="scheduleId",width=60,type="Label",label="Sched #"),
     @Display(name="section", type="PopSearch", linktoBean=Section.class,width=100,enabled=false), 
     @Display(name="subject", type="PopSearch", linktoBean=Subject.class,width=100,enabled=false),
-    @Display(name="component",type="Combo",
-    		modelCombo={"ASSIGNMENT","ATTENDANCE","ATTITUDE","COMPOSITION/CREATIVE OUTPUT","FORMAL THEME/JOURNAL","GAP","HANDS ON","LABORATORY","LONG TEST","MASTERY 1","MASTERY 2","OPERATIONAL READING","OPERATIONAL MATH","PARTICIPATION","PERFORMANCE","PRACTICAL TEST","PRO MATH","PROJECT","QUARTERLY TEST","QUIZ","QUIZ/SW/READING TEST","RECITATION","SEATWORK","SW/HW/QUIZ","UNIFORM","WORK ETHICS"},width=100, enabled=false),
+    @Display(name="component", type="PopSearch", linktoBean=GradingComponent.class, enabled=false),
     @Display(name="weight",width=30, enabled=false),
     @Display(name="usePercentage"),
     @Display(name="description",gridFieldWidth=3,width=-1),
@@ -73,4 +73,7 @@ import bean.reference.Subject;
     @ActionButton(name = "btnRemoveGirls", label = "Remove All Girls")
 })
 public class FacultyFilterGradingTaskQ1Ext extends FacultyGradingTask {
+	public static void main(String[] args) {
+		view(FacultyFilterGradingTaskQ1Ext.class);
+	}
 }

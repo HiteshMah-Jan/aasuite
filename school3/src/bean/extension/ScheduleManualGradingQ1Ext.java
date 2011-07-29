@@ -9,8 +9,6 @@
 
 package bean.extension;
 
-import java.io.Serializable;
-
 import template.ActionButton;
 import template.ActionButtons;
 import template.ChildRecord;

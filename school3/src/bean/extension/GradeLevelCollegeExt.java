@@ -9,19 +9,10 @@
 
 package bean.extension;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import service.util.AbstractIBean;
-import template.*;
-import template.screen.TemplateTabPage;
+import template.Display;
+import template.Displays;
+import template.UITemplate;
 import util.BeanUtil;
-import util.DBClient;
-import bean.admin.AppConfig;
 import bean.reference.Course;
 import bean.reference.GradeLevel;
 

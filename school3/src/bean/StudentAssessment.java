@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import constants.UserInfo;
 
@@ -167,6 +168,8 @@ import bean.reference.Subject;
 			})
 })
 public class StudentAssessment extends AbstractIBean {
+	@Transient
+	public static String COMPLETE = "FINALIZED";
 	@Id
 	public Integer seq;
 	public String schoolYear;

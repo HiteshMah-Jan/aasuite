@@ -36,6 +36,7 @@ import bean.extension.Q2StudentSubjectComponentScoreExt;
 import bean.extension.Q3StudentSubjectComponentScoreExt;
 import bean.extension.Q4StudentSubjectComponentScoreExt;
 import bean.extension.QAllStudentSubjectComponentScoreDetailExt;
+import bean.reference.GradingComponent;
 import bean.reference.LockGrading;
 import bean.reference.Section;
 import bean.reference.Subject;
@@ -76,8 +77,7 @@ import constants.UserInfo;
     @Display(name="schoolYear",width=60,type="Label"),
     @Display(name="section", type="PopSearch", linktoBean=Section.class,width=100,enabled=false), 
     @Display(name="subject", type="PopSearch", linktoBean=Subject.class,width=100,enabled=false),
-    @Display(name="component",type="Combo",
-    		modelCombo={"ASSIGNMENT","ATTENDANCE","ATTITUDE","COMPOSITION/CREATIVE OUTPUT","FORMAL THEME/JOURNAL","GAP","HANDS ON","LABORATORY","LONG TEST","MASTERY 1","MASTERY 2","OPERATIONAL READING","OPERATIONAL MATH","PARTICIPATION","PERFORMANCE","PRACTICAL TEST","PRO MATH","PROJECT","QUARTERLY TEST","QUIZ","QUIZ/SW/READING TEST","RECITATION","SEATWORK","SW/HW/QUIZ","UNIFORM","WORK ETHICS"},width=100, enabled=false),
+    @Display(name="component", type="PopSearch", linktoBean=GradingComponent.class,width=100, enabled=false),
     @Display(name="weight",width=30, enabled=false),
     @Display(name="facultyId", type="PopSearch", linktoBean=Employee.class, enabled=false),
     @Display(name="description",gridFieldWidth=5,width=-1),
@@ -163,7 +163,6 @@ import constants.UserInfo;
     @ActionButton(name = "btnSaveAllSection", label = "All")
 })
 public class FacultyGradingTask extends AbstractIBean implements Serializable {
-
 	@Override
 	public int getRecordListCount() {
 		return 100;

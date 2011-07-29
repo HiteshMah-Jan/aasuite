@@ -5,15 +5,6 @@
 
 package bean.extension;
 
-import bean.Enrollment;
-import bean.Student;
-import bean.person.StudentSubject;
-import bean.person.StudentSubjectDetailGrading;
-import bean.reference.GradeLevel;
-import bean.reference.Section;
-import bean.reference.Subject;
-import template.ActionButton;
-import template.ActionButtons;
 import template.ChildRecord;
 import template.ChildRecords;
 import template.Display;
@@ -23,9 +14,12 @@ import template.Displays;
 import template.Reports;
 import template.UITemplate;
 import template.screen.ChildTemplateListOnly;
-import template.screen.ChildTemplateListPopup;
-import template.screen.ChildTemplateListPopupDownButton;
 import template.screen.TemplateTabPage;
+import bean.Student;
+import bean.person.StudentSubject;
+import bean.reference.GradeLevel;
+import bean.reference.Section;
+import bean.reference.Subject;
 
 /**
  *

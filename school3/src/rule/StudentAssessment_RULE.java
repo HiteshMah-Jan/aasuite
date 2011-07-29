@@ -21,7 +21,7 @@ import component.IGetText;
 import constants.UserInfo;
 
 public class StudentAssessment_RULE extends BusinessRuleWrapper {
-
+	
 	@Override
 	public void runFocusLost(JComponent comp) {
 		if (comp.getName().startsWith("schedule")) {
@@ -103,7 +103,7 @@ public class StudentAssessment_RULE extends BusinessRuleWrapper {
 
 	private void printSOA() {
 		StudentAssessment assess = ((StudentAssessment)this.getBean());
-		if (!"COMPLETE".equals(assess.status)) {
+		if (!StudentAssessment.COMPLETE.equals(assess.status)) {
 			this.showError("Assessment is not yet finalize, please finalize.");
 		}
 		else {
@@ -113,7 +113,7 @@ public class StudentAssessment_RULE extends BusinessRuleWrapper {
 
 	private void printSchedule() {
 		StudentAssessment assess = ((StudentAssessment)this.getBean());
-		if (!"COMPLETE".equals(assess.status)) {
+		if (!StudentAssessment.COMPLETE.equals(assess.status)) {
 			this.showError("Assessment is not yet finalize, please finalize.");
 		}
 		else {
@@ -123,7 +123,7 @@ public class StudentAssessment_RULE extends BusinessRuleWrapper {
 
 	private void complete() {
 		StudentAssessment assess = (StudentAssessment)this.getBean();
-		if ("COMPLETE".equals(assess.status)) {
+		if (StudentAssessment.COMPLETE.equals(assess.status)) {
 			this.showMessage("This assessment is already finalize.");
 			return;
 		}
@@ -135,7 +135,7 @@ public class StudentAssessment_RULE extends BusinessRuleWrapper {
 
 		if (!this.showPrompt("Are you sure to finalize, you cannot modify this after finalizing the record?")) return;
 //		save to get the actual record id
-		assess.status = "COMPLETE";
+		assess.status = StudentAssessment.COMPLETE;
 		assess.save();
 		
 //		create all from payment plan
@@ -196,7 +196,7 @@ public class StudentAssessment_RULE extends BusinessRuleWrapper {
 	private boolean isAlreadyComplete() {
 		StudentAssessment assess = ((StudentAssessment)this.getBean());
 		if (assess==null) return false;
-		boolean b = ("COMPLETE".equals(assess.status));
+		boolean b = (StudentAssessment.COMPLETE.equals(assess.status));
 		if (b) {
 			this.showErrorMessageToScreen("This assessment is already complete, you cannot change any value.");
 		}
