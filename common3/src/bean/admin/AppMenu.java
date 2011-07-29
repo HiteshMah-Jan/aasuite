@@ -132,7 +132,7 @@ public class AppMenu extends AbstractIBean implements Serializable {
         if ("SCHOOL".equalsIgnoreCase(module)) {
             createAppMenuObj("Student", "Main", "Student", 110).save();
             createAppMenuObj("StudentAssessment", "Main", "Assessment", 120).save();
-            createAppMenuObj("StudentGrading", "Main", "Grading", 130).save();
+            createAppMenuObj("FacultyGradingForm", "Main", "Grading", 130).save();
             createAppMenuObj("SchoolAccountingProcessForm", "Main", "Accounting Process", 140).save();
             
             createAppMenuObj("SchoolReferenceForm", "Reference", "School Reference", 200).save();
