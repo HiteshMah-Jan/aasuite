@@ -9,33 +9,39 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import service.util.AbstractIBean;
+import template.ChildRecord;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import template.screen.TemplateTabSinglePageLeftRight;
+import template.screen.ChildTemplateListPopupDownButton;
+import template.screen.TemplateTabSinglePage;
 
 @Entity
 @Table(name = "RecurringJournal")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePage.class, gridCount = 6, columnSearch = {"period","postingDate","transactionType","origin","transNo"})
 @Displays({
-	@Display(name="seq"),
-	@Display(name="postingDate"),
-	@Display(name="dueDate"),
-	@Display(name="docDate"),
-	@Display(name="remarks"),
-	@Display(name="fixedExchangeRate"),
-	@Display(name="adjTransaction"),
-	@Display(name="period"),
-	@Display(name="origin"),
-	@Display(name="originNo"),
-	@Display(name="transNo"),
-	@Display(name="templateType"),
-	@Display(name="template"),
+	@Display(name="seq", label="Journal Id", enabled=false),
+	@Display(name="period", enabled=false),
 	@Display(name="indicator"),
-	@Display(name="project"),
-	@Display(name="transCode"),
-	@Display(name="ref1"),
-	@Display(name="ref2")
+	@Display(name="postingDate", enabled=false),
+	@Display(name="dueDate", enabled=false),
+	@Display(name="docDate", enabled=false),
+	@Display(name="transactionType", type="Combo", 
+			modelCombo={"Reverse","Sales","Purchase","Inventory","Others"}),
+	@Display(name="transNo"),
+	@Display(name="fixedExchangeRate"),
+	@Display(name="project", gridFieldWidth=5, width=-1),
+	@Display(name="remarks", gridFieldWidth=5, width=-1),
+	@Display(name="ref1", gridFieldWidth=5, width=-1),
+	@Display(name="ref2", gridFieldWidth=5, width=-1),
+	@Display(name="recurEvery", type="Combo", modelCombo={"WEEK","MONTH"}),
+	@Display(name="recurWeekday", type="Combo", modelCombo={"SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"}),
+	@Display(name="recurDate", type="NumberCombo", startCount=1, endCount=31),
+})
+@ChildRecords({
+        @ChildRecord(template = ChildTemplateListPopupDownButton.class, fieldMapping = {
+        	"seq", "journalEntryId" }, title = "Journal Items", entity = RecurringJournalItem.class, sql = "SELECT a FROM RecurringJournalItem a WHERE a.journalEntryId=${seq}")
 })
 public class RecurringJournal extends AbstractIBean {
 	@Id
@@ -48,18 +54,16 @@ public class RecurringJournal extends AbstractIBean {
 	public Date docDate;
 	public String remarks;
 	public boolean fixedExchangeRate;
-	public boolean adjTransaction;
 	public String period;
-	public String origin;
-	public String originNo;
+	public String transactionType;
 	public String transNo;
-	public String templateType;
-	public String template;
 	public String indicator;
 	public String project;
-	public String transCode;
 	public String ref1;
 	public String ref2;
+	public String recurEvery;
+	public String recurWeekday;
+	public int recurDate;
 	
 	public Integer getSeq() {
 		return seq;
@@ -109,14 +113,6 @@ public class RecurringJournal extends AbstractIBean {
 		this.fixedExchangeRate = fixedExchangeRate;
 	}
 
-	public boolean isAdjTransaction() {
-		return adjTransaction;
-	}
-
-	public void setAdjTransaction(boolean adjTransaction) {
-		this.adjTransaction = adjTransaction;
-	}
-
 	public String getPeriod() {
 		return period;
 	}
@@ -125,20 +121,12 @@ public class RecurringJournal extends AbstractIBean {
 		this.period = period;
 	}
 
-	public String getOrigin() {
-		return origin;
+	public String getTransactionType() {
+		return transactionType;
 	}
 
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getOriginNo() {
-		return originNo;
-	}
-
-	public void setOriginNo(String originNo) {
-		this.originNo = originNo;
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	public String getTransNo() {
@@ -147,22 +135,6 @@ public class RecurringJournal extends AbstractIBean {
 
 	public void setTransNo(String transNo) {
 		this.transNo = transNo;
-	}
-
-	public String getTemplateType() {
-		return templateType;
-	}
-
-	public void setTemplateType(String templateType) {
-		this.templateType = templateType;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
 	}
 
 	public String getIndicator() {
@@ -179,14 +151,6 @@ public class RecurringJournal extends AbstractIBean {
 
 	public void setProject(String project) {
 		this.project = project;
-	}
-
-	public String getTransCode() {
-		return transCode;
-	}
-
-	public void setTransCode(String transCode) {
-		this.transCode = transCode;
 	}
 
 	public String getRef1() {

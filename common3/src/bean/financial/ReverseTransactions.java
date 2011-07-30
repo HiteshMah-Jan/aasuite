@@ -12,32 +12,18 @@ import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import template.screen.TemplateTabSinglePageLeftRight;
+import template.screen.TemplateTabSinglePageNoSubPanel;
 
 @Entity
 @Table(name = "ReverseTransactions")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePageNoSubPanel.class, gridCount = 6, columnSearch = {"period","transactionDate","reverseDate","journalEntryId"})
 @Displays({
-	@Display(name="seq"),
-	@Display(name="transactionDate"),
-	@Display(name="reverseDate"),
-	@Display(name="remarks"),
-	@Display(name="period"),
-	@Display(name="journalEntryId"),
-	@Display(name="reverseJournalEntryId"),
-	@Display(name="parentBean"),
-	@Display(name="changeSupport"),
-	@Display(name="dummyField"),
-	@Display(name="myNode"),
-	@Display(name="newCache"),
-	@Display(name="cacheMap"),
-	@Display(name="includeSearch"),
-	@Display(name="showImages"),
-	@Display(name="showFile"),
-	@Display(name="showSubrecords"),
-	@Display(name="showCharts")
+	@Display(name="seq", label="Journal Id", enabled=false),
+	@Display(name="period", enabled=false),
+	@Display(name="transactionDate", enabled=false),
+	@Display(name="reverseDate", enabled=false),
+	@Display(name="journalEntryId", type="PopSearch", linktoBean=JournalEntry.class, label="Journal Id")
 })
-
 public class ReverseTransactions extends AbstractIBean {
 	@Id
 	public Integer seq;
@@ -48,7 +34,6 @@ public class ReverseTransactions extends AbstractIBean {
 	public String remarks;
 	public String period;
 	public int journalEntryId;
-	public int reverseJournalEntryId;
 	
 	public Integer getSeq() {
 		return seq;
@@ -96,14 +81,6 @@ public class ReverseTransactions extends AbstractIBean {
 
 	public void setJournalEntryId(int journalEntryId) {
 		this.journalEntryId = journalEntryId;
-	}
-
-	public int getReverseJournalEntryId() {
-		return reverseJournalEntryId;
-	}
-
-	public void setReverseJournalEntryId(int reverseJournalEntryId) {
-		this.reverseJournalEntryId = reverseJournalEntryId;
 	}
 
 	public static void main(String[] args) {

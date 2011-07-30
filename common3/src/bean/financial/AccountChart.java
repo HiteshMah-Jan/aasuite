@@ -9,16 +9,17 @@
 package bean.financial;
 
 import java.io.Serializable;
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import service.util.AbstractIBean;
 import template.Display;
 import template.Displays;
-import template.UITemplate;
 import template.Reports;
-import template.screen.TemplateTabSinglePageLeftRight;
+import template.UITemplate;
+import template.screen.TemplateTabSinglePageNoSubPanel;
 import util.BeanUtil;
 /**
  *
@@ -26,33 +27,26 @@ import util.BeanUtil;
  */
 @Entity
 @Table(name = "AccountChart")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, criteriaSearch = {"category", "groupName", "accountName", "sign"}, columnSearch = {"category", "groupName", "accountName", "accountNumber", "sign"}, orderBy="a.category, a.groupName, a.accountName")
+@UITemplate(template=TemplateTabSinglePageNoSubPanel.class, gridCount = 4, criteriaSearch = {"category", "groupName", "accountName", "sign"}, columnSearch = {"category", "groupName", "accountName", "accountNumber", "sign"}, orderBy="a.category, a.groupName, a.accountName")
 @Displays({
     @Display(name = "accountNumber"),
     @Display(name = "accountName"),
     @Display(name = "groupName", type="PopSearch", gridFieldWidth=3, width=-1, linktoBean=AccountGroup.class),
-//    @Display(name = "category", type = "Label"),
-    @Display(name = "sign", type="Combo", modelCombo = {"DEBIT", "CREDIT", "BOTH"}),
     @Display(name = "description")
 })
 @Reports({
     @template.Report(reportFile = "AccountChart", reportTitle = "Account Chart List", reportSql="'${accountNumber}")
 })
 public class AccountChart extends AbstractIBean implements Serializable {
+	public static void main(String[] args) {
+		view(AccountChart.class);
+	}
     @Id
-    @Column(name = "accountNumber", nullable=false)
     public String accountNumber;
-    @Column(name = "accountName", nullable=false)
     public String accountName;
-    @Column(name = "category")
     public String category;
-    @Column(name = "groupName")
     public String groupName;
-    @Column(name = "sign")
-    public String sign;
-    @Column(name = "description")
     public String description;
-    @Column(name = "isActive")
     public boolean isActive = true;
 
     @Override
@@ -109,14 +103,6 @@ public class AccountChart extends AbstractIBean implements Serializable {
         this.groupName = groupName;
     }
 
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
-
     public static String extractAccountNumber(String accountName) {
         AccountChart chart = (AccountChart) AbstractIBean.firstRecord("SELECT a FROM AccountChart a WHERE a.accountName='",accountName,"'");
         if (chart==null) {
@@ -136,20 +122,19 @@ public class AccountChart extends AbstractIBean implements Serializable {
     }   
     
 
-    public static AccountChart createAccountChartObj(String accountNumber, String accountName, String category, String groupName, String sign) {
+    public static AccountChart createAccountChartObj(String accountNumber, String accountName, String category, String groupName) {
         AccountChart stud = new AccountChart();
         stud.accountNumber = accountNumber;
         stud.accountName = accountName;
         stud.category = category;
         stud.groupName = groupName;
-        stud.sign = sign;
         return stud;
     }
     
     @Override
     protected void runSetup() {
-        createAccountChartObj("102", "CASH", "ASSET", "ASSET", "BOTH").save();
-        createAccountChartObj("804", "PAYROLL", "EXPENSE", "SALARY EXPENSE", "DEBIT").save();
+        createAccountChartObj("102", "CASH", "ASSET", "ASSET").save();
+        createAccountChartObj("804", "PAYROLL", "EXPENSE", "SALARY EXPENSE").save();
     }
 
     @Override

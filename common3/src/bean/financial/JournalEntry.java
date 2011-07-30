@@ -9,34 +9,36 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import service.util.AbstractIBean;
+import template.ChildRecord;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
-import template.screen.TemplateTabSinglePageLeftRight;
+import template.screen.ChildTemplateListPopupDownButton;
+import template.screen.TemplateTabSinglePage;
 
 @Entity
 @Table(name = "JournalEntry")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePage.class, gridCount = 6, columnSearch = {"period","postingDate","transactionType","origin","transNo"})
 @Displays({
-	@Display(name="seq"),
-	@Display(name="postingDate"),
-	@Display(name="dueDate"),
-	@Display(name="docDate"),
-	@Display(name="remarks"),
-	@Display(name="fixedExchangeRate"),
-	@Display(name="reverse"),
-	@Display(name="adjTransaction"),
-	@Display(name="period"),
-	@Display(name="origin"),
-	@Display(name="originNo"),
-	@Display(name="transNo"),
-	@Display(name="templateType"),
-	@Display(name="template"),
+	@Display(name="seq", label="Journal Id", enabled=false),
+	@Display(name="period", enabled=false),
 	@Display(name="indicator"),
-	@Display(name="project"),
-	@Display(name="transCode"),
-	@Display(name="ref1"),
-	@Display(name="ref2")
+	@Display(name="postingDate", enabled=false),
+	@Display(name="dueDate", enabled=false),
+	@Display(name="docDate", enabled=false),
+	@Display(name="transactionType", type="Combo", 
+			modelCombo={"Reverse","Manual","Sales","Purchase","Inventory","Others"}),
+	@Display(name="transNo"),
+	@Display(name="fixedExchangeRate"),
+	@Display(name="project", gridFieldWidth=5, width=-1),
+	@Display(name="remarks", gridFieldWidth=5, width=-1),
+	@Display(name="ref1", gridFieldWidth=5, width=-1),
+	@Display(name="ref2", gridFieldWidth=5, width=-1)
+})
+@ChildRecords({
+        @ChildRecord(template = ChildTemplateListPopupDownButton.class, fieldMapping = {
+        	"seq", "journalEntryId" }, title = "Journal Items", entity = JournalEntryItem.class, sql = "SELECT a FROM JournalEntryItem a WHERE a.journalEntryId=${seq}")
 })
 public class JournalEntry extends AbstractIBean {
 	@Id
@@ -50,16 +52,12 @@ public class JournalEntry extends AbstractIBean {
 	public String remarks;
 	public boolean fixedExchangeRate;
 	public boolean reverse;
-	public boolean adjTransaction;
+	public boolean manual;
 	public String period;
-	public String origin;
-	public String originNo;
+	public String transactionType;
 	public String transNo;
-	public String templateType;
-	public String template;
 	public String indicator;
 	public String project;
-	public String transCode;
 	public String ref1;
 	public String ref2;
 	
@@ -119,12 +117,20 @@ public class JournalEntry extends AbstractIBean {
 		this.reverse = reverse;
 	}
 
-	public boolean isAdjTransaction() {
-		return adjTransaction;
+	public boolean isManual() {
+		return manual;
 	}
 
-	public void setAdjTransaction(boolean adjTransaction) {
-		this.adjTransaction = adjTransaction;
+	public void setManual(boolean manual) {
+		this.manual = manual;
+	}
+
+	public String getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
 	}
 
 	public String getPeriod() {
@@ -135,44 +141,12 @@ public class JournalEntry extends AbstractIBean {
 		this.period = period;
 	}
 
-	public String getOrigin() {
-		return origin;
-	}
-
-	public void setOrigin(String origin) {
-		this.origin = origin;
-	}
-
-	public String getOriginNo() {
-		return originNo;
-	}
-
-	public void setOriginNo(String originNo) {
-		this.originNo = originNo;
-	}
-
 	public String getTransNo() {
 		return transNo;
 	}
 
 	public void setTransNo(String transNo) {
 		this.transNo = transNo;
-	}
-
-	public String getTemplateType() {
-		return templateType;
-	}
-
-	public void setTemplateType(String templateType) {
-		this.templateType = templateType;
-	}
-
-	public String getTemplate() {
-		return template;
-	}
-
-	public void setTemplate(String template) {
-		this.template = template;
 	}
 
 	public String getIndicator() {
@@ -189,14 +163,6 @@ public class JournalEntry extends AbstractIBean {
 
 	public void setProject(String project) {
 		this.project = project;
-	}
-
-	public String getTransCode() {
-		return transCode;
-	}
-
-	public void setTransCode(String transCode) {
-		this.transCode = transCode;
 	}
 
 	public String getRef1() {

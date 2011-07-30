@@ -12,20 +12,13 @@ import template.screen.TemplateTabSinglePageLeftRight;
 
 @Entity
 @Table(name = "ManualJournalEntryItem")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, 
+		columnSearch = {"accountNumber","accountName","debit","credit"}, sumFooter="2,3")
 @Displays({
-	@Display(name="seq"),
-	@Display(name="journalEntryId"),
-	@Display(name="accountNumber"),
-	@Display(name="accountName"),
+	@Display(name="accountNumber", type="PopSearch", linktoBean=AccountChart.class),
+	@Display(name="accountName", enabled=false),
 	@Display(name="debit"),
-	@Display(name="credit"),
-	@Display(name="taxPostingAccount"),
-	@Display(name="taxCode"),
-	@Display(name="taxJurisdictionType"),
-	@Display(name="taxJurisdictionCode"),
-	@Display(name="taxAmount"),
-	@Display(name="grossTotal")
+	@Display(name="credit")
 })
 public class ManualJournalEntryItem extends AbstractIBean {
 	@Id
@@ -35,12 +28,6 @@ public class ManualJournalEntryItem extends AbstractIBean {
 	public String accountName;
 	public double debit;
 	public double credit;
-	public String taxPostingAccount;
-	public String taxCode;
-	public String taxJurisdictionType;
-	public String taxJurisdictionCode;
-	public double taxAmount;
-	public double grossTotal;
 	
 	public Integer getSeq() {
 		return seq;
@@ -88,54 +75,6 @@ public class ManualJournalEntryItem extends AbstractIBean {
 
 	public void setCredit(double credit) {
 		this.credit = credit;
-	}
-
-	public String getTaxPostingAccount() {
-		return taxPostingAccount;
-	}
-
-	public void setTaxPostingAccount(String taxPostingAccount) {
-		this.taxPostingAccount = taxPostingAccount;
-	}
-
-	public String getTaxCode() {
-		return taxCode;
-	}
-
-	public void setTaxCode(String taxCode) {
-		this.taxCode = taxCode;
-	}
-
-	public String getTaxJurisdictionType() {
-		return taxJurisdictionType;
-	}
-
-	public void setTaxJurisdictionType(String taxJurisdictionType) {
-		this.taxJurisdictionType = taxJurisdictionType;
-	}
-
-	public String getTaxJurisdictionCode() {
-		return taxJurisdictionCode;
-	}
-
-	public void setTaxJurisdictionCode(String taxJurisdictionCode) {
-		this.taxJurisdictionCode = taxJurisdictionCode;
-	}
-
-	public double getTaxAmount() {
-		return taxAmount;
-	}
-
-	public void setTaxAmount(double taxAmount) {
-		this.taxAmount = taxAmount;
-	}
-
-	public double getGrossTotal() {
-		return grossTotal;
-	}
-
-	public void setGrossTotal(double grossTotal) {
-		this.grossTotal = grossTotal;
 	}
 
 	public static void main(String[] args) {
