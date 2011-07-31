@@ -5,7 +5,6 @@
 
 package ui;
 
-import bean.admin.AppConfig;
 import component.TabPanelForm;
 /**
  *
@@ -19,7 +18,7 @@ public class SchoolAccountingProcessForm extends TabPanelForm {
 
     @Override
     public String tabs() {
-        return "GL,PaymentAllNotPaidExt,PaymentAllExt,InvoiceExt,CashierDailyBooklet,BookSold,Expense,PayrollPeriod1Ext,ManualGL,BankAccountTransaction";
+        return "PaymentAllExt,InvoiceExt,CashierDailyBooklet,BookSold";
     }
 
 }

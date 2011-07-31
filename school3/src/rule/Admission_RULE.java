@@ -14,7 +14,6 @@ import util.BeanUtil;
 import util.Log;
 import util.PanelUtil;
 import bean.Admission;
-import bean.accounting.GLPostingScript;
 import bean.accounting.Invoice;
 import bean.accounting.PaymentAdmission;
 import bean.reference.GradeLevel;
@@ -257,7 +256,6 @@ public class Admission_RULE extends BusinessRuleWrapper {
             createInvoice();
         }
         Invoice inv = (Invoice) ad.firstRecord("SELECT a FROM Invoice a WHERE a.seq=",ad.invoiceId);
-        springbean.IProcess.Process.getInstance().showGL(inv);
     }
     
     
@@ -299,8 +297,6 @@ public class Admission_RULE extends BusinessRuleWrapper {
 
             ad.invoiceId = inv.seq;
             ad.save();
-            
-            GLPostingScript.post(inv);
         }
     }
 }

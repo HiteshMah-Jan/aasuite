@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import bean.StudentAssessment;
+import bean.reference.BankAccount;
 
 import service.util.AbstractIBean;
 import template.Display;

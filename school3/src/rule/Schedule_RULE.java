@@ -10,8 +10,6 @@ import util.DBClient;
 import util.PanelUtil;
 
 import bean.Schedule;
-import bean.accounting.GL;
-import bean.reference.Section;
 
 public class Schedule_RULE extends BusinessRuleWrapper {
 
