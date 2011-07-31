@@ -14,73 +14,75 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "BillOfMaterials")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="ProductNo"),
-	@Display(name="XQuantity"),
-	@Display(name="Warehouse"),
-	@Display(name="ProductDescription"),
-	@Display(name="BOMType"),
-	@Display(name="PriceList"),
-	@Display(name="DistrRule"),
-	@Display(name="ProductPrice")
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
+			mergeFields={"productNo","xQuantity","warehouse"}, verticalMerge=false),
+	@Display(name="productNo"),
+	@Display(name="xQuantity"),
+	@Display(name="warehouse"),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
+			mergeFields={"productDescription"}, verticalMerge=true),
+	@Display(name="productDescription", type="TextArea", gridFieldWidth=4),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
+			mergeFields={"bOMType","distrRule","priceList"}, verticalMerge=false),
+	@Display(name="bOMType", type="Combo", modelCombo={"Sales","Production","Template" }),
+	@Display(name="distrRule"),
+	
+	@Display(name="priceList"),
 })
 public class BillOfMaterials extends AbstractIBean {
 @Id
-public Double ProductNo;
-public Integer XQuantity;
-public String Warehouse;
-public String ProductDescription;
-public String BOMType;
-public String PriceList;
-public String DistrRule;
-public String ProductPrice;
+public Double productNo;
+public Integer xQuantity;
+public String warehouse;
+
+public String productDescription;
+public String bOMType;
+public String priceList;
+public String distrRule;
 
 public Double getProductNo() {
-	return ProductNo;
+	return productNo;
 }
 public void setProductNo(Double productNo) {
-	ProductNo = productNo;
+	productNo = productNo;
 }
 public Integer getXQuantity() {
-	return XQuantity;
+	return xQuantity;
 }
 public void setXQuantity(Integer xQuantity) {
-	XQuantity = xQuantity;
+	xQuantity = xQuantity;
 }
 public String getWarehouse() {
-	return Warehouse;
+	return warehouse;
 }
 public void setWarehouse(String warehouse) {
-	Warehouse = warehouse;
+	warehouse = warehouse;
 }
 public String getProductDescription() {
-	return ProductDescription;
+	return productDescription;
 }
 public void setProductDescription(String productDescription) {
-	ProductDescription = productDescription;
+	productDescription = productDescription;
 }
 public String getBOMType() {
-	return BOMType;
+	return bOMType;
 }
 public void setBOMType(String bOMType) {
-	BOMType = bOMType;
+	bOMType = bOMType;
 }
 public String getPriceList() {
-	return PriceList;
+	return priceList;
 }
 public void setPriceList(String priceList) {
-	PriceList = priceList;
+	priceList = priceList;
 }
 public String getDistrRule() {
-	return DistrRule;
+	return distrRule;
 }
 public void setDistrRule(String distrRule) {
-	DistrRule = distrRule;
-}
-public String getProductPrice() {
-	return ProductPrice;
-}
-public void setProductPrice(String productPrice) {
-	ProductPrice = productPrice;
+	distrRule = distrRule;
 }
 public static void main(String[] args) {
 	view(BillOfMaterials.class);

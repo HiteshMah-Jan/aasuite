@@ -14,82 +14,82 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "ServiceContract")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="CustomerCode"),
-	@Display(name="CustomerName"),
-	@Display(name="ContactPerson"),
-	@Display(name="TelephoneNo"),
-	@Display(name="Description"),
-	@Display(name="ContactNo"),
-	@Display(name="StartDate"),
-	@Display(name="EndDate"),
-	@Display(name="TerminationDate")
+	@Display(name="customerCode"),
+	@Display(name="customerName"),
+	@Display(name="contactPerson"),
+	@Display(name="telephoneNo"),
+	@Display(name="description"),
+	@Display(name="contactNo"),
+	@Display(name="startDate"),
+	@Display(name="endDate"),
+	@Display(name="terminationDate")
 })
 public class ServiceContract extends AbstractIBean {
 	@Id
-	public String CustomerCode;
-	public String CustomerName;
-	public String ContactPerson;
-	public String TelephoneNo;
-	public String Description;
-	public Double ContactNo;
-	public Double StartDate;
-	public Double EndDate;
-	public Double TerminationDate;
+	public String customerCode;
+	public String customerName;
+	public String contactPerson;
+	public String telephoneNo;
+	public String description;
+	public Double contactNo;
+	public Double startDate;
+	public Double endDate;
+	public Double terminationDate;
 	
 	
 public String getCustomerCode() {
-		return CustomerCode;
+		return customerCode;
 	}
 	public void setCustomerCode(String customerCode) {
-		CustomerCode = customerCode;
+		customerCode = customerCode;
 	}
 	public String getCustomerName() {
-		return CustomerName;
+		return customerName;
 	}
 	public void setCustomerName(String customerName) {
-		CustomerName = customerName;
+		customerName = customerName;
 	}
 	public String getContactPerson() {
-		return ContactPerson;
+		return contactPerson;
 	}
 	public void setContactPerson(String contactPerson) {
-		ContactPerson = contactPerson;
+		contactPerson = contactPerson;
 	}
 	public String getTelephoneNo() {
-		return TelephoneNo;
+		return telephoneNo;
 	}
 	public void setTelephoneNo(String telephoneNo) {
-		TelephoneNo = telephoneNo;
+		telephoneNo = telephoneNo;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		description = description;
 	}
 	public Double getContactNo() {
-		return ContactNo;
+		return contactNo;
 	}
 	public void setContactNo(Double contactNo) {
-		ContactNo = contactNo;
+		contactNo = contactNo;
 	}
 	public Double getStartDate() {
-		return StartDate;
+		return startDate;
 	}
 	public void setStartDate(Double startDate) {
-		StartDate = startDate;
+		startDate = startDate;
 	}
 	public Double getEndDate() {
-		return EndDate;
+		return endDate;
 	}
 	public void setEndDate(Double endDate) {
-		EndDate = endDate;
+		endDate = endDate;
 	}
 	public Double getTerminationDate() {
-		return TerminationDate;
+		return terminationDate;
 	}
 	public void setTerminationDate(Double terminationDate) {
-		TerminationDate = terminationDate;
+		terminationDate = terminationDate;
 	}
 public static void main(String[] args) {
 	view(ServiceContract.class);

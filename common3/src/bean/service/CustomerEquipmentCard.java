@@ -14,115 +14,125 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "CustomerEquipmentCard")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="MfrSerialNo"),
-	@Display(name="SerialNo"),
-	@Display(name="ItemNo"),
-	@Display(name="ItemDescription"),
-	@Display(name="CustomerCode"),
-	@Display(name="CustomerName"),
-	@Display(name="ContactPerson"),
-	@Display(name="TelephoneNo"),
-	@Display(name="Status"),
-	@Display(name="PreviousSN"),
-	@Display(name="NewSN"),
-	@Display(name="Technician"),
-	@Display(name="Territory")
+	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"mfrSerialNo","serialNo","itemNo","itemDescription"}, verticalMerge=true),
+	@Display(name="mfrSerialNo"),
+	@Display(name="serialNo"),
+	@Display(name="itemNo"),
+	@Display(name="itemDescription"),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"customerCode","customerName","contactPerson","telephoneNo"}, verticalMerge=true),	
+	@Display(name="customerCode"),
+	@Display(name="customerName"),
+	@Display(name="contactPerson"),
+	@Display(name="telephoneNo"),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"status","previousSN","newSN"}, verticalMerge=true),
+	@Display(name="status"),
+	@Display(name="previousSN"),
+	@Display(name="newSN"),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"technician","territory"}, verticalMerge=true),
+	@Display(name="technician"),
+	@Display(name="territory")
 })
 public class CustomerEquipmentCard extends AbstractIBean {
 	@Id
-	public Double MfrSerialNo;
-	public Double SerialNo;
-	public Double ItemNo;
-	public String ItemDescription;
-	public String CustomerCode;
-	public String CustomerName;
-	public String ContactPerson;
-	public Double TelephoneNo;
-	public String Status;
-	public String PreviousSN;
-	public String NewSN;
-	public String Technician;
-	public String Territory;
+	public Double mfrSerialNo;
+	public Double serialNo;
+	public Double itemNo;
+	public String itemDescription;
+	
+	public String customerCode;
+	public String customerName;
+	public String contactPerson;
+	public Double telephoneNo;
+	
+	public String status;
+	public String previousSN;
+	public String newSN;
+	
+	public String technician;
+	public String territory;
 	
 	
 	
 public Double getMfrSerialNo() {
-		return MfrSerialNo;
+		return mfrSerialNo;
 	}
 	public void setMfrSerialNo(Double mfrSerialNo) {
-		MfrSerialNo = mfrSerialNo;
+		mfrSerialNo = mfrSerialNo;
 	}
 	public Double getSerialNo() {
-		return SerialNo;
+		return serialNo;
 	}
 	public void setSerialNo(Double serialNo) {
-		SerialNo = serialNo;
+		serialNo = serialNo;
 	}
 	public Double getItemNo() {
-		return ItemNo;
+		return itemNo;
 	}
 	public void setItemNo(Double itemNo) {
-		ItemNo = itemNo;
+		itemNo = itemNo;
 	}
 	public String getItemDescription() {
-		return ItemDescription;
+		return itemDescription;
 	}
 	public void setItemDescription(String itemDescription) {
-		ItemDescription = itemDescription;
+		itemDescription = itemDescription;
 	}
 	public String getCustomerCode() {
-		return CustomerCode;
+		return customerCode;
 	}
 	public void setCustomerCode(String customerCode) {
-		CustomerCode = customerCode;
+		customerCode = customerCode;
 	}
 	public String getCustomerName() {
-		return CustomerName;
+		return customerName;
 	}
 	public void setCustomerName(String customerName) {
-		CustomerName = customerName;
+		customerName = customerName;
 	}
 	public String getContactPerson() {
-		return ContactPerson;
+		return contactPerson;
 	}
 	public void setContactPerson(String contactPerson) {
-		ContactPerson = contactPerson;
+		contactPerson = contactPerson;
 	}
 	public Double getTelephoneNo() {
-		return TelephoneNo;
+		return telephoneNo;
 	}
 	public void setTelephoneNo(Double telephoneNo) {
-		TelephoneNo = telephoneNo;
+		telephoneNo = telephoneNo;
 	}
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		status = status;
 	}
 	public String getPreviousSN() {
-		return PreviousSN;
+		return previousSN;
 	}
 	public void setPreviousSN(String previousSN) {
-		PreviousSN = previousSN;
+		previousSN = previousSN;
 	}
 	public String getNewSN() {
-		return NewSN;
+		return newSN;
 	}
 	public void setNewSN(String newSN) {
-		NewSN = newSN;
+		newSN = newSN;
 	}
 	public String getTechnician() {
-		return Technician;
+		return technician;
 	}
 	public void setTechnician(String technician) {
-		Technician = technician;
+		technician = technician;
 	}
 	public String getTerritory() {
-		return Territory;
+		return territory;
 	}
 	public void setTerritory(String territory) {
-		Territory = territory;
+		territory = territory;
 	}
 public static void main(String[] args) {
 	view(CustomerEquipmentCard.class);

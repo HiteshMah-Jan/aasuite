@@ -13,75 +13,75 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "SolutionsKnowledgeBase")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="Item"),
-	@Display(name="UpdatedBy"),
-	@Display(name="UpdatedOn"),
-	@Display(name="Solution"),
-	@Display(name="Symptom"),
-	@Display(name="Status"),
-	@Display(name="No"),
-	@Display(name="Owner")
+	@Display(name="item"),
+	@Display(name="updatedBy"),
+	@Display(name="updatedOn"),
+	@Display(name="solution"),
+	@Display(name="symptom"),
+	@Display(name="status"),
+	@Display(name="no"),
+	@Display(name="owner")
 })
 public class SolutionsKnowledgeBase extends AbstractIBean {
 	@Id
-	public String Item;
-	public String UpdatedBy;
-	public String UpdatedOn;
-	public String Solution;
-	public String Symptom;
-	public String Status;
-	public Double No;
-	public String Owner;
+	public String item;
+	public String updatedBy;
+	public String updatedOn;
+	public String solution;
+	public String symptom;
+	public String status;
+	public Double no;
+	public String owner;
 	
 	
 	
 public String getItem() {
-		return Item;
+		return item;
 	}
 	public void setItem(String item) {
-		Item = item;
+		item = item;
 	}
 	public String getUpdatedBy() {
-		return UpdatedBy;
+		return updatedBy;
 	}
 	public void setUpdatedBy(String updatedBy) {
-		UpdatedBy = updatedBy;
+		updatedBy = updatedBy;
 	}
 	public String getUpdatedOn() {
-		return UpdatedOn;
+		return updatedOn;
 	}
 	public void setUpdatedOn(String updatedOn) {
-		UpdatedOn = updatedOn;
+		updatedOn = updatedOn;
 	}
 	public String getSolution() {
-		return Solution;
+		return solution;
 	}
 	public void setSolution(String solution) {
-		Solution = solution;
+		solution = solution;
 	}
 	public String getSymptom() {
-		return Symptom;
+		return symptom;
 	}
 	public void setSymptom(String symptom) {
-		Symptom = symptom;
+		symptom = symptom;
 	}
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		status = status;
 	}
 	public Double getNo() {
-		return No;
+		return no;
 	}
 	public void setNo(Double no) {
-		No = no;
+		no = no;
 	}
 	public String getOwner() {
-		return Owner;
+		return owner;
 	}
 	public void setOwner(String owner) {
-		Owner = owner;
+		owner = owner;
 	}
 public static void main(String[] args) {
 	view(SolutionsKnowledgeBase.class);

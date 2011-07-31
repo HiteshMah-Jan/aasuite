@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import service.util.AbstractIBean;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
 import template.UITemplate;
@@ -13,137 +14,137 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "ServiceCall")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="Customer"),
-	@Display(name="Name"),
-	@Display(name="ContactPerson"),
-	@Display(name="TelephoneNo"),
-	@Display(name="MfrSerialNo"),
-	@Display(name="Item"),
-	@Display(name="Description"),
-	@Display(name="ItemGroup"),
-	@Display(name="Subject", type="TextArea", gridFieldWidth=6, width=-1),
-	@Display(name="CallStatus"),
-	@Display(name="CallId"),
-	@Display(name="Priority"),
-	@Display(name="CreatedOn"),
-	@Display(name="CloseOn"),
-	@Display(name="ContactNo"),
-	@Display(name="EndDate")
+	@Display(name="customer"),
+	@Display(name="name"),
+	@Display(name="contactPerson"),
+	@Display(name="telephoneNo"),
+	@Display(name="mfrSerialNo"),
+	@Display(name="item"),
+	@Display(name="description"),
+	@Display(name="itemGroup"),
+	@Display(name="subject", type="TextArea", gridFieldWidth=6, width=-1),
+	@Display(name="callStatus"),
+	@Display(name="callId"),
+	@Display(name="priority"),
+	@Display(name="createdOn"),
+	@Display(name="closeOn"),
+	@Display(name="contactNo"),
+	@Display(name="endDate")
 })
 public class ServiceCall extends AbstractIBean {
 	@Id
-	public String Customer;
+	public String customer;
 	public String getCustomer() {
-		return Customer;
+		return customer;
 	}
 	public void setCustomer(String customer) {
-		Customer = customer;
+		customer = customer;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 	public String getContactPerson() {
-		return ContactPerson;
+		return contactPerson;
 	}
 	public void setContactPerson(String contactPerson) {
-		ContactPerson = contactPerson;
+		contactPerson = contactPerson;
 	}
 	public Double getTelephoneNo() {
-		return TelephoneNo;
+		return telephoneNo;
 	}
 	public void setTelephoneNo(Double telephoneNo) {
-		TelephoneNo = telephoneNo;
+		telephoneNo = telephoneNo;
 	}
 	public Double getMfrSerialNo() {
-		return MfrSerialNo;
+		return mfrSerialNo;
 	}
 	public void setMfrSerialNo(Double mfrSerialNo) {
-		MfrSerialNo = mfrSerialNo;
+		mfrSerialNo = mfrSerialNo;
 	}
 	public String getItem() {
-		return Item;
+		return item;
 	}
 	public void setItem(String item) {
-		Item = item;
+		item = item;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		description = description;
 	}
 	public String getItemGroup() {
-		return ItemGroup;
+		return itemGroup;
 	}
 	public void setItemGroup(String itemGroup) {
-		ItemGroup = itemGroup;
+		itemGroup = itemGroup;
 	}
 	public String getSubject() {
-		return Subject;
+		return subject;
 	}
 	public void setSubject(String subject) {
-		Subject = subject;
+		subject = subject;
 	}
 	public String getCallStatus() {
-		return CallStatus;
+		return callStatus;
 	}
 	public void setCallStatus(String callStatus) {
-		CallStatus = callStatus;
+		callStatus = callStatus;
 	}
 	public Double getCallId() {
-		return CallId;
+		return callId;
 	}
 	public void setCallId(Double callId) {
-		CallId = callId;
+		callId = callId;
 	}
 	public String getPriority() {
-		return Priority;
+		return priority;
 	}
 	public void setPriority(String priority) {
-		Priority = priority;
+		priority = priority;
 	}
 	public Double getCreatedOn() {
-		return CreatedOn;
+		return createdOn;
 	}
 	public void setCreatedOn(Double createdOn) {
-		CreatedOn = createdOn;
+		createdOn = createdOn;
 	}
 	public Double getCloseOn() {
-		return CloseOn;
+		return closeOn;
 	}
 	public void setCloseOn(Double closeOn) {
-		CloseOn = closeOn;
+		closeOn = closeOn;
 	}
 	public Double getContactNo() {
-		return ContactNo;
+		return contactNo;
 	}
 	public void setContactNo(Double contactNo) {
-		ContactNo = contactNo;
+		contactNo = contactNo;
 	}
 	public Double getEndDate() {
-		return EndDate;
+		return endDate;
 	}
 	public void setEndDate(Double endDate) {
-		EndDate = endDate;
+		endDate = endDate;
 	}
-	public String Name;
-	public String ContactPerson;
-	public Double TelephoneNo;
-	public Double MfrSerialNo;
-	public String Item;
-	public String Description;
-	public String ItemGroup;
-	public String Subject;
-	public String CallStatus;
-	public Double CallId;
-	public String Priority;
-	public Double CreatedOn;
-	public Double CloseOn;
-	public Double ContactNo;
-	public Double EndDate;
+	public String name;
+	public String contactPerson;
+	public Double telephoneNo;
+	public Double mfrSerialNo;
+	public String item;
+	public String description;
+	public String itemGroup;
+	public String subject;
+	public String callStatus;
+	public Double callId;
+	public String priority;
+	public Double createdOn;
+	public Double closeOn;
+	public Double contactNo;
+	public Double endDate;
 public static void main(String[] args) {
 	view(ServiceCall.class);
 }

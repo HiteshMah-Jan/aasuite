@@ -3,6 +3,8 @@ package bean.production;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -14,118 +16,138 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "ProductionOrder")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="Type"),
-	@Display(name="Status"),
-	@Display(name="ProductNo"),
-	@Display(name="ProductDescription"),
-	@Display(name="PlannedQuantity"),
-	@Display(name="Warehouse"),
-	@Display(name="DueDate"),
-	@Display(name="User"),
-	@Display(name="Origin"),
-	@Display(name="SalesOrder"),
-	@Display(name="Customer"),
-	@Display(name="DistributionRule"),
-	@Display(name="Remarks", type="TextArea", gridFieldWidth=6, width=-1)
+	@Display(name="type", type="Combo", modelCombo={"Standard","Special","Disassembly"}),
+	@Display(name="status",type="Combo", modelCombo={"Planned"}),
+	@Display(name="productNo"),
+	@Display(name="productDescription"),
+	@Display(name="plannedQuantity"),
+	@Display(name="warehouse"),
+	
+	@Display(name="number"),
+	@Display(name="orderDate"),
+	@Display(name="dueDate"),
+	@Display(name="user",type="Combo", modelCombo={}),
+	@Display(name="origin"),
+	@Display(name="salesOrder"),
+	@Display(name="customer"),
+	@Display(name="distributionRule",type="Combo", modelCombo={"Define New"}),
+	@Display(name="remarks", type="TextArea", gridFieldWidth=6, width=-1)
 })
 public class ProductionOrder extends AbstractIBean {
 @Id
-public String Type;
-public String Status;
-public Double ProductNo;
-public String ProductDescription;
-public Double PlannedQuantity;
-public Double Warehouse;
-public Double DueDate;
-public String User;
-public String Origin;
-public String SalesOrder;
-public String Customer;
-public String DistributionRule;
-public String Remarks;
+public String type;
+public String status;
+public Double productNo;
+public String productDescription;
+public Double plannedQuantity;
+public Double warehouse;
 
+public double number;
+@Temporal(value = TemporalType.DATE)
+public double orderDate;
+@Temporal(value = TemporalType.DATE)
+public Double dueDate;
+public String user;
+public String origin;
+public String salesOrder;
+public String customer;
+public String distributionRule;
+public String remarks;
 
 public String getType() {
-	return Type;
+	return type;
 }
 public void setType(String type) {
-	Type = type;
+	type = type;
 }
 public String getStatus() {
-	return Status;
+	return status;
 }
 public void setStatus(String status) {
-	Status = status;
+	status = status;
 }
 public Double getProductNo() {
-	return ProductNo;
+	return productNo;
 }
 public void setProductNo(Double productNo) {
-	ProductNo = productNo;
+	productNo = productNo;
 }
 public String getProductDescription() {
-	return ProductDescription;
+	return productDescription;
 }
 public void setProductDescription(String productDescription) {
-	ProductDescription = productDescription;
+	productDescription = productDescription;
 }
 public Double getPlannedQuantity() {
-	return PlannedQuantity;
+	return plannedQuantity;
 }
 public void setPlannedQuantity(Double plannedQuantity) {
-	PlannedQuantity = plannedQuantity;
+	plannedQuantity = plannedQuantity;
 }
 public Double getWarehouse() {
-	return Warehouse;
+	return warehouse;
+}
+public double getNumber() {
+	return number;
+}
+public void setNumber(double number) {
+	this.number = number;
+}
+public double getOrderDate() {
+	return orderDate;
+}
+public void setOrderDate(double orderDate) {
+	this.orderDate = orderDate;
 }
 public void setWarehouse(Double warehouse) {
-	Warehouse = warehouse;
+	warehouse = warehouse;
 }
 public Double getDueDate() {
-	return DueDate;
+	return dueDate;
 }
 public void setDueDate(Double dueDate) {
-	DueDate = dueDate;
+	dueDate = dueDate;
 }
 public String getUser() {
-	return User;
+	return user;
 }
 public void setUser(String user) {
-	User = user;
+	user = user;
 }
 public String getOrigin() {
-	return Origin;
+	return origin;
 }
 public void setOrigin(String origin) {
-	Origin = origin;
+	origin = origin;
 }
 public String getSalesOrder() {
-	return SalesOrder;
+	return salesOrder;
 }
 public void setSalesOrder(String salesOrder) {
-	SalesOrder = salesOrder;
+	salesOrder = salesOrder;
 }
 public String getCustomer() {
-	return Customer;
+	return customer;
 }
 public void setCustomer(String customer) {
-	Customer = customer;
+	customer = customer;
 }
 public String getDistributionRule() {
-	return DistributionRule;
+	return distributionRule;
 }
 public void setDistributionRule(String distributionRule) {
-	DistributionRule = distributionRule;
+	distributionRule = distributionRule;
 }
 public String getRemarks() {
-	return Remarks;
+	return remarks;
 }
 public void setRemarks(String remarks) {
-	Remarks = remarks;
+	remarks = remarks;
 }
 public static void main(String[] args) {
 	view(ProductionOrder.class);
 }
+
 	@Override
 	public String popupSearch(String criteria) {
 		// TODO Auto-generated method stub
