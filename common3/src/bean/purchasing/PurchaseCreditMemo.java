@@ -40,28 +40,28 @@ import bean.purchasing.embedded.EmbeddedPurchaseCreditMemoLogistics;
  */
 @Entity
 @Table(name = "PurchaseCreditMemo")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
+@UITemplate(template = TemplateDefault.class, gridCount = 6, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"customerId","contactPerson","customerRefNo","localCurrency"}, verticalMerge=true),
+    			mergeFields={"customerId","contactPerson","customerRefNo","localCurrency","purchaseEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
         @Display(name="customerId", label="Customer", type = "PopSearch", linktoBean=Customer.class),
         @Display(name="contactPerson"),
         @Display(name="customerRefNo"),
         @Display(name="localCurrency"),
 
+//    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
+//    			mergeFields={"purchaseEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
+        @Display(name="purchaseEmployeeId", label="Purchase Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
+        @Display(name="owner"),
+        @Display(name="remarks"),
+        @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
+        
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
     			mergeFields={"status","postingDate","deliveryDate","documentDate"}, verticalMerge=true),
         @Display(name="status"),
         @Display(name="postingDate"),
         @Display(name="deliveryDate"),
         @Display(name="documentDate"),
-        
-    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"purchaseEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
-        @Display(name="purchaseEmployeeId", label="Purchase Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
-        @Display(name="owner"),
-        @Display(name="remarks"),
-        @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
         
 //    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
 //    			mergeFields={"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}, verticalMerge=true),
@@ -84,7 +84,7 @@ import bean.purchasing.embedded.EmbeddedPurchaseCreditMemoLogistics;
 				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=PurchaseCreditMemoItem.class, fieldMapping={"seq","purchaseCreditMemoId"}, sql="SELECT a FROM PurchaseCreditMemoItem a WHERE a.purchaseCreditMemoId=${seq}", title="Contents")
 		},
 		info={
-				@ParentAddInfo(title = "Calculation Details", gridCount = 2, displayFields = {"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}),
+				@ParentAddInfo(title = "Calculation Details", gridCount = 4, displayFields = {"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}),
 				@ParentAddInfo(title = "Logistics", gridCount = 2, displayFields = {"logistics"}),
 				@ParentAddInfo(title = "Accounting", gridCount = 2, displayFields = {"accounting"})
 		})

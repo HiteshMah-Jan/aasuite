@@ -40,7 +40,7 @@ import bean.sales.embedded.EmbeddedSalesInvoiceLogistics;
  */
 @Entity
 @Table(name = "SalesInvoice")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
+@UITemplate(template = TemplateDefault.class, gridCount = 6, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
     			mergeFields={"customerId","contactPerson","customerRefNo","localCurrency"}, verticalMerge=true),
@@ -84,7 +84,7 @@ import bean.sales.embedded.EmbeddedSalesInvoiceLogistics;
 				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=SalesInvoiceItem.class, fieldMapping={"seq","salesInvoiceId"}, sql="SELECT a FROM SalesInvoiceItem a WHERE a.salesInvoiceId=${seq}", title="Contents")
 		},
 		info={
-				@ParentAddInfo(title = "Calculation Details", gridCount = 2, displayFields = {"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}),
+				@ParentAddInfo(title = "Calculation Details", gridCount = 4, displayFields = {"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalDownpayment","totalAmount","appliedAmount","balanceDue"}),
 				@ParentAddInfo(title = "Logistics", gridCount = 2, displayFields = {"logistics"}),
 				@ParentAddInfo(title = "Accounting", gridCount = 2, displayFields = {"accounting"})
 		})

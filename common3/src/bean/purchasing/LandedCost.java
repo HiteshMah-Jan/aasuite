@@ -8,23 +8,39 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import bean.BusinessPartner;
+
 import service.util.AbstractIBean;
+import template.ChildRecord;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
+import template.ParentAddInfo;
 import template.UITemplate;
+import template.screen.ChildTemplateListPopupDownButton;
+import template.screen.TemplateTabSinglePage;
 import template.screen.TemplateTabSinglePageLeftRight;
 
 @Entity
 @Table(name = "LandedCost")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePage.class, gridCount = 6, columnSearch = {"seq"})
 @Displays({
-	@Display(name="seq"),
-	@Display(name="broker"),
-	@Display(name="vendor"),
-	@Display(name="postingDate"),
-	@Display(name="dueDate"),
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="landed.", 
+			mergeFields={"seq","broker","vendor","reference","fileNo","customsAffectsInventory"}, verticalMerge=true),
+	@Display(name="seq", type="Label", label="Landed Id"),
+	@Display(name="broker", type="PopSearch", linktoBean=BusinessPartner.class),
+	@Display(name="vendor", type="PopSearch", linktoBean=BusinessPartner.class),
 	@Display(name="reference"),
 	@Display(name="fileNo"),
+	@Display(name="customsAffectsInventory"),
+
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="landed.", 
+			mergeFields={"postingDate","dueDate"}, verticalMerge=true),
+	@Display(name="postingDate"),
+	@Display(name="dueDate"),
+	
+	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="landed.", 
+			mergeFields={"projectedCustoms","actualCustoms","totalFreightCharges","amountToBalance","beforeTax","tax1","tax2","totalAmount"}, verticalMerge=true),
 	@Display(name="projectedCustoms"),
 	@Display(name="actualCustoms"),
 	@Display(name="totalFreightCharges"),
@@ -33,10 +49,16 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="tax1"),
 	@Display(name="tax2"),
 	@Display(name="totalAmount"),
-	@Display(name="customsAffectsInventory"),
-	@Display(name="remarks")
-})
 
+	@Display(name="remarks", gridFieldWidth=5, width=-1)
+})
+@ChildRecords(
+		value={
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=LandedCostDetail.class, fieldMapping={"seq","landedCostId"}, sql="SELECT a FROM LandedCostDetail a WHERE a.landedCostId=${seq}", title="Details"),
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=LandedCostItem.class, fieldMapping={"seq","landedCostId"}, sql="SELECT a FROM LandedCostItem a WHERE a.landedCostId=${seq}", title="Items"),
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=LandedCostOtherCostItem.class, fieldMapping={"seq","landedCostId"}, sql="SELECT a FROM LandedCostOtherCostItem a WHERE a.landedCostId=${seq}", title="Other Items"),
+				@ChildRecord(template=ChildTemplateListPopupDownButton.class,entity=LandedCostVendor.class, fieldMapping={"seq","landedCostId"}, sql="SELECT a FROM LandedCostVendor a WHERE a.landedCostId=${seq}", title="Vendors")
+		})
 public class LandedCost extends AbstractIBean {
 	@Id
 	public Integer seq;

@@ -40,28 +40,28 @@ import bean.sales.embedded.EmbeddedSalesDeliveryLogistics;
  */
 @Entity
 @Table(name = "SalesDelivery")
-@UITemplate(template = TemplateDefault.class, gridCount = 4, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
+@UITemplate(template = TemplateDefault.class, gridCount = 6, columnSearch = {"accountType", "deposit", "logistics.billToContact"})
 @Displays({
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"customerId","contactPerson","customerRefNo","localCurrency"}, verticalMerge=true),
+    			mergeFields={"customerId","contactPerson","customerRefNo","localCurrency","salesEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
         @Display(name="customerId", label="Customer", type = "PopSearch", linktoBean=Customer.class),
         @Display(name="contactPerson"),
         @Display(name="customerRefNo"),
         @Display(name="localCurrency"),
 
+//    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
+//    			mergeFields={"salesEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
+        @Display(name="salesEmployeeId", label="Sales Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
+        @Display(name="owner"),
+        @Display(name="remarks"),
+        @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
+        
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
     			mergeFields={"status","postingDate","deliveryDate","documentDate"}, verticalMerge=true),
         @Display(name="status"),
         @Display(name="postingDate"),
         @Display(name="deliveryDate"),
         @Display(name="documentDate"),
-        
-    	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
-    			mergeFields={"salesEmployeeId","owner","remarks","itemOrServiceType"}, verticalMerge=true),
-        @Display(name="salesEmployeeId", label="Sales Employee", type="Combo", sqlCombo="SELECT a FROM Employee a"),
-        @Display(name="owner"),
-        @Display(name="remarks"),
-        @Display(name="itemOrServiceType", type="Combo", modelCombo={"Item", "Service"}),
         
     	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", 
     			mergeFields={"totalBeforeDiscount","discountPercentage","discountAmount","freightAmount","rounding","tax","totalAmount"}, verticalMerge=true),

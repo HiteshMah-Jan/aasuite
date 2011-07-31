@@ -12,7 +12,7 @@ import template.UITemplate;
 import template.screen.TemplateEmbedded;
 
 @Embeddable
-@UITemplate(template = TemplateEmbedded.class, gridCount = 4, columnSearch = { "billToContact", "shipToContact" })
+@UITemplate(template = TemplateEmbedded.class, gridCount = 6, columnSearch = { "billToContact", "shipToContact" })
 @Displays({
     	@Display(name="dummyField", type="MergePanel", label="Bill", fieldPrefix="logistics.", mergeFields={"billToContact","billToStreet","billToBuilding","billToCity","billToZipCode","billToState","billToCountry"}, verticalMerge=true),
         @Display(name="billToContact", fieldPrefix="logistics."),

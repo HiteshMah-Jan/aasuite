@@ -9,9 +9,11 @@
 package bean.purchasing;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-import bean.Product;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import service.util.AbstractIBean;
 import template.Display;

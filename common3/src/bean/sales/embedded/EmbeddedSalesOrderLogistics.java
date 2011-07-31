@@ -12,7 +12,7 @@ import template.UITemplate;
 import template.screen.TemplateEmbedded;
 
 @Embeddable
-@UITemplate(template = TemplateEmbedded.class, gridCount = 4, columnSearch = { "billToContact", "shipToContact" })
+@UITemplate(template = TemplateEmbedded.class, gridCount = 6, columnSearch = { "billToContact", "shipToContact" })
 @Displays({
     	@Display(name="dummyField", type="MergePanel", label="Bill", fieldPrefix="logistics.", mergeFields={"billToContact","billToStreet","billToBuilding","billToCity","billToZipCode","billToState","billToCountry"}, verticalMerge=true),
         @Display(name="billToContact", fieldPrefix="logistics."),
@@ -36,13 +36,14 @@ import template.screen.TemplateEmbedded;
         @Display(name="shipToState", type="PopSearch", linktoBean=State.class, fieldPrefix="logistics.", label="State"),
         @Display(name="shipToCountry", type="PopSearch", linktoBean=Country.class, fieldPrefix="logistics.", label="Country"),
 
-        @Display(name="dummyField", type="MergePanel", noLabel=false, fieldPrefix="logistics.", mergeFields={"shippingType","pickAndPackRemarks","bpChannelName","bpChannelContact"}, verticalMerge=true),
+        @Display(name="dummyField", type="MergePanel", noLabel=false, fieldPrefix="logistics.", 
+        		mergeFields={"shippingType","pickAndPackRemarks","bpChannelName","bpChannelContact","printPickingSheet","purchaseOrders","approved","allowPartialDelivery"}, verticalMerge=true),
         @Display(name="shippingType", type="Combo", sqlCombo="SELECT a FROM ShippingType a", fieldPrefix="logistics."),
         @Display(name="pickAndPackRemarks", fieldPrefix="logistics."),
         @Display(name="bpChannelName", fieldPrefix="logistics.", label="BP Channel"),
         @Display(name="bpChannelContact", fieldPrefix="logistics.", label="BP Contact"),
         
-        @Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", mergeFields={"printPickingSheet","purchaseOrders","approved","allowPartialDelivery"}, verticalMerge=true),
+//        @Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="logistics.", mergeFields={"printPickingSheet","purchaseOrders","approved","allowPartialDelivery"}, verticalMerge=true),
         @Display(name="printPickingSheet", fieldPrefix="logistics."),
         @Display(name="purchaseOrders", fieldPrefix="logistics."),
         @Display(name="approved", fieldPrefix="logistics."),
