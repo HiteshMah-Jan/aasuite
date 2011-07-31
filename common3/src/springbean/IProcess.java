@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Entokwaa
  */
-public interface IProcess extends IAccounting {
+public interface IProcess {
     void doLogin(Person person);
     void doLogout(Person person);
 

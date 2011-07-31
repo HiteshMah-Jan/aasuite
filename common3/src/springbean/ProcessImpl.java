@@ -5,11 +5,6 @@
 
 package springbean;
 
-import bean.Person;
-import bean.accounting.payroll.PersonAttendance;
-import bean.person.EmployeeLeaveApplication;
-import bean.purchasing.PurchaseOrderItem;
-import bean.reference.EventHoliday;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -17,12 +12,16 @@ import java.util.List;
 
 import util.BeanUtil;
 import util.DBClient;
+import bean.Person;
+import bean.accounting.payroll.PersonAttendance;
+import bean.person.EmployeeLeaveApplication;
+import bean.purchasing.PurchaseOrderItem;
 
 /**
  *
  * @author Entokwaa
  */
-public class ProcessImpl extends AccountingImpl implements IProcess {
+public class ProcessImpl implements IProcess {
 
     public void doLogin(Person person) {
         throw new UnsupportedOperationException("Not supported yet.");

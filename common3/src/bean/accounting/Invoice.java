@@ -70,7 +70,7 @@ import util.NumberToWordConverter;
 @template.ChildRecords({
     @template.ChildRecord(title="Detail", entity = Payment.class, sql = "SELECT a FROM Payment a WHERE a.invoiceId=${seq}", fieldMapping={"seq","invoiceId"})
 })
-public class Invoice extends AbstractIBean implements Serializable, IGL {
+public class Invoice extends AbstractIBean implements Serializable {
 	public static void main(String[] args) {
 		view(Invoice.class);
 	}

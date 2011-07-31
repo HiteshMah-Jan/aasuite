@@ -63,7 +63,7 @@ import util.PanelUtil;
     @ActionButton(name="btnNextPaymentDue", label="Next Payment", parentOnly=false),
     @ActionButton(name="btnViewGL", label="View GL", parentOnly=false)
 })
-public class Payment extends AbstractIBean implements Serializable, IGL {
+public class Payment extends AbstractIBean implements Serializable {
     @Id
     @Column(name = "seq", nullable = false)
     public Integer seq;
@@ -1595,7 +1595,6 @@ public class Payment extends AbstractIBean implements Serializable, IGL {
                 invoiceId = inv.seq;
                 save();
             }
-            GLPostingScript.post(inv);
 			return true;
 		}
 		return false;

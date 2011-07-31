@@ -5,7 +5,6 @@
 
 package rule;
 
-import bean.accounting.GLPostingScript;
 import bean.accounting.Invoice;
 import bean.accounting.Payment;
 
@@ -48,8 +47,6 @@ public class Invoice_RULE extends BusinessRuleWrapper {
 
     protected void viewGL() {
     	Invoice inv = (Invoice) this.getBean();
-        GLPostingScript.post(inv);
-        springbean.IProcess.Process.getInstance().showGL(inv);
         redisplayRecord();
     }
 

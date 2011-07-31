@@ -5,7 +5,6 @@
 
 package rule;
 
-import bean.accounting.GLPostingScript;
 import bean.accounting.Invoice;
 import bean.accounting.Payment;
 import bean.accounting.PaymentLineItem;
@@ -56,14 +55,10 @@ public class Payment_RULE extends BusinessRuleWrapper {
             if (payment.invoiceId==0) {
                 setValue("invoiceId", inv.seq);
             }
-            GLPostingScript.post(inv);
-            springbean.IProcess.Process.getInstance().showGL(inv);
         }
         else {
 //        	post receivables
             payment.save();
-            GLPostingScript.post(payment);
-            springbean.IProcess.Process.getInstance().showGL(payment);
         }
         redisplayRecord();
     }
