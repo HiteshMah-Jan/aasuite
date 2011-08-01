@@ -18,7 +18,7 @@ public class SchoolAccountingProcessForm extends TabPanelForm {
 
     @Override
     public String tabs() {
-        return "PaymentAllExt,InvoiceExt,CashierDailyBooklet,BookSold";
+        return "PaymentAllExt,InvoiceExt,CashierDailyBooklet,BookSold,SchoolAccountMapping";
     }
 
 }
