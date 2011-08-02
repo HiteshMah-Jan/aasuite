@@ -3,10 +3,15 @@ package bean.service;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+
+import com.sun.star.bridge.oleautomation.Date;
 
 import service.util.AbstractIBean;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
+import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
@@ -16,13 +21,33 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Displays({
 	@Display(name="customerCode"),
 	@Display(name="customerName"),
-	@Display(name="contactPerson"),
+	@Display(name="contactPerson",type="Combo",modelCombo={}),
 	@Display(name="telephoneNo"),
-	@Display(name="description"),
+	@Display(name="description",type="TextArea",gridFieldWidth=4, width=-1),
 	@Display(name="contactNo"),
 	@Display(name="startDate"),
 	@Display(name="endDate"),
 	@Display(name="terminationDate")
+})
+@ChildRecords(value = {
+}, info = { 
+		@ParentAddInfo(title = "general", gridCount=8,
+			displayFields = {
+
+}),
+
+@ParentAddInfo(title = "coverage", gridCount=8,
+			displayFields = {
+
+}),
+@ParentAddInfo(title = "attachments", gridCount=8,
+		displayFields = {
+
+}),
+@ParentAddInfo(title = "serviceCalls", gridCount=8,
+		displayFields = {
+
+})
 })
 public class ServiceContract extends AbstractIBean {
 	@Id
@@ -32,9 +57,12 @@ public class ServiceContract extends AbstractIBean {
 	public String telephoneNo;
 	public String description;
 	public Double contactNo;
-	public Double startDate;
-	public Double endDate;
-	public Double terminationDate;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date startDate;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date endDate;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date terminationDate;
 	
 	
 public String getCustomerCode() {
@@ -73,22 +101,22 @@ public String getCustomerCode() {
 	public void setContactNo(Double contactNo) {
 		contactNo = contactNo;
 	}
-	public Double getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Double startDate) {
+	public void setStartDate(Date startDate) {
 		startDate = startDate;
 	}
-	public Double getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Double endDate) {
+	public void setEndDate(Date endDate) {
 		endDate = endDate;
 	}
-	public Double getTerminationDate() {
+	public Date getTerminationDate() {
 		return terminationDate;
 	}
-	public void setTerminationDate(Double terminationDate) {
+	public void setTerminationDate(Date terminationDate) {
 		terminationDate = terminationDate;
 	}
 public static void main(String[] args) {

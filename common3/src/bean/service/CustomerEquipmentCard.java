@@ -5,8 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import service.util.AbstractIBean;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
+import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
@@ -14,26 +16,55 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "CustomerEquipmentCard")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"mfrSerialNo","serialNo","itemNo","itemDescription"}, verticalMerge=true),
+	
 	@Display(name="mfrSerialNo"),
 	@Display(name="serialNo"),
 	@Display(name="itemNo"),
 	@Display(name="itemDescription"),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"customerCode","customerName","contactPerson","telephoneNo"}, verticalMerge=true),	
+		
 	@Display(name="customerCode"),
 	@Display(name="customerName"),
-	@Display(name="contactPerson"),
+	@Display(name="contactPerson",type="Combo",modelCombo={}),
 	@Display(name="telephoneNo"),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"status","previousSN","newSN"}, verticalMerge=true),
-	@Display(name="status"),
-	@Display(name="previousSN"),
-	@Display(name="newSN"),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"technician","territory"}, verticalMerge=true),
+	@Display(name="status",type="Combo",modelCombo={"active","returned","terminated","loaned","inRepairLab"}),
+	@Display(name="previousSN",label="Previous SN"),
+	@Display(name="newSN",label="New SN"),
+	
+	
 	@Display(name="technician"),
 	@Display(name="territory")
+})
+@ChildRecords(value = {
+}, info = { 
+		@ParentAddInfo(title = "address", gridCount=8,
+			displayFields = {
+
+}),
+
+@ParentAddInfo(title = "serviceCalls", gridCount=8,
+			displayFields = {
+
+}),
+@ParentAddInfo(title = "serviceContracts", gridCount=8,
+		displayFields = {
+
+}),
+@ParentAddInfo(title = "salesData", gridCount=8,
+		displayFields = {
+
+}),
+@ParentAddInfo(title = "transactions", gridCount=8,
+		displayFields = {
+
+}),
+@ParentAddInfo(title = "attachments", gridCount=8,
+		displayFields = {
+
+})
+
 })
 public class CustomerEquipmentCard extends AbstractIBean {
 	@Id

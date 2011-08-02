@@ -5,8 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import service.util.AbstractIBean;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
+import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 @Entity
@@ -16,11 +18,23 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="item"),
 	@Display(name="updatedBy"),
 	@Display(name="updatedOn"),
-	@Display(name="solution"),
-	@Display(name="symptom"),
-	@Display(name="status"),
+	@Display(name="solution",type="TextArea",gridFieldWidth=4,width=-1),
+	@Display(name="symptom",type="TextArea",gridFieldWidth=4,width=-1),
+	@Display(name="status",type="Combo",modelCombo={"internal","publish","review"}),
 	@Display(name="no"),
 	@Display(name="owner")
+})
+@ChildRecords(value = {
+}, info = { 
+		@ParentAddInfo(title = "description", gridCount=8,
+			displayFields = {
+
+}),
+
+@ParentAddInfo(title = "attachments", gridCount=8,
+			displayFields = {
+
+})
 })
 public class SolutionsKnowledgeBase extends AbstractIBean {
 	@Id

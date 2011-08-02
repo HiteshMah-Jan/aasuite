@@ -43,6 +43,8 @@ public String vendorCodeFrm;
 public String vendorCodeTo;
 public String itemsGroup;
 
+
+
 	public String getItemsGroup() {
 	return itemsGroup;
 }

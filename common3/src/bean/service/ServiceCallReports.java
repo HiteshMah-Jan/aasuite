@@ -3,6 +3,7 @@ package bean.service;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -10,63 +11,146 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 @Entity
 @Table(name = "ServiceCallReports")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"createdOnFrm","resolveOnFrm","closedOnFrm","customerCodeFrm","handledByFrm","queueIdFrm"}, verticalMerge=true),
+	
 	@Display(name="createdOnFrm", label="Created On            From"),
 	@Display(name="resolveOnFrm", label="Resolve On            From"),
 	@Display(name="closedOnFrm",  label="Closed On              From"),
 	@Display(name="customerCodeFrm", label="Customer Code      From"),
-	@Display(name="handledByFrm", label="Handled By             From"),
+	@Display(name="handledByFrm", label="Handled By             From",type="Combo",modelCombo={}),
 	@Display(name="queueIdFrm", label="Queue Id                From"),
 
-	@Display(name="dummyField", type="MergePanel", noLabel=true, mergeFields={"createdOnTo","resolveOnTo","closedOnTo","customerCodeTo","handledByTo","queueIdTo"}, verticalMerge=true),	
-	@Display(name="createdOnTo", label="Created On               To"),
-	@Display(name="resolveOnTo", label="Resolve On               To"),
-	@Display(name="closedOnTo", label="Closed On                 To"),
-	@Display(name="customerCodeTo", label="Customer Code         To"),
-	@Display(name="handledByTo", label="Handled By               To"),
-	@Display(name="queueIdTo", label="Queue Id                  To")
+		
+	@Display(name="createdOnTo", label="To"),
+	@Display(name="resolveOnTo", label="To"),
+	@Display(name="closedOnTo", label="To"),
+	@Display(name="customerCodeTo", label="To"),
+	@Display(name="handledByTo", label="To",type="Combo",modelCombo={}),
+	@Display(name="queueIdTo", label="To"),
+
+	@Display(name="problemType"),
+	@Display(name="priority"),
+	@Display(name="callType"),
+	@Display(name="origin"),
+	@Display(name="callStatus"),
+	@Display(name="overdueCalls"),
+	
+	@Display(name="sort")
+
 })
 public class ServiceCallReports extends AbstractIBean{
 	@Id
-	public String createdOnFrm;
-	public String resolveOnFrm;
-	public String closedOnFrm;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date createdOnFrm;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date resolveOnFrm;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date closedOnFrm;
 	public String customerCodeFrm;
 	public String handledByFrm;
 	public String queueIdFrm;
 	
-	public String createdOnTo;
-	public String resolveOnTo;
-	public String closedOnTo;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date createdOnTo;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date resolveOnTo;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date closedOnTo;
 	public String customerCodeTo;
 	public String handledByTo;
 	public String queueIdTo;
 	
-	public String getCreatedOnFrm() {
+	public boolean problemType;
+	public boolean priority;
+	public boolean callType;
+	public boolean origin;
+	public boolean overdueCalls;
+	public boolean callStatus;
+	public boolean sort;
+	
+	
+	public boolean isCallStatus() {
+		return callStatus;
+	}
+
+	public void setCallStatus(boolean callStatus) {
+		this.callStatus = callStatus;
+	}
+
+	public boolean isProblemType() {
+		return problemType;
+	}
+
+	public void setProblemType(boolean problemType) {
+		this.problemType = problemType;
+	}
+
+	public boolean isPriority() {
+		return priority;
+	}
+
+	public void setPriority(boolean priority) {
+		this.priority = priority;
+	}
+
+	public boolean isCallType() {
+		return callType;
+	}
+
+	public void setCallType(boolean callType) {
+		this.callType = callType;
+	}
+
+	public boolean isOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(boolean origin) {
+		this.origin = origin;
+	}
+
+	public boolean isOverdueCalls() {
+		return overdueCalls;
+	}
+
+	public void setOverdueCalls(boolean overdueCalls) {
+		this.overdueCalls = overdueCalls;
+	}
+
+	public boolean isSort() {
+		return sort;
+	}
+
+	public void setSort(boolean sort) {
+		this.sort = sort;
+	}
+
+	public Date getCreatedOnFrm() {
 		return createdOnFrm;
 	}
 
-	public void setCreatedOnFrm(String createdOnFrm) {
+	public void setCreatedOnFrm(Date createdOnFrm) {
 		this.createdOnFrm = createdOnFrm;
 	}
 
-	public String getResolveOnFrm() {
+	public Date getResolveOnFrm() {
 		return resolveOnFrm;
 	}
 
-	public void setResolveOnFrm(String resolveOnFrm) {
+	public void setResolveOnFrm(Date resolveOnFrm) {
 		this.resolveOnFrm = resolveOnFrm;
 	}
 
-	public String getClosedOnFrm() {
+	public Date getClosedOnFrm() {
 		return closedOnFrm;
 	}
 
-	public void setClosedOnFrm(String closedOnFrm) {
+	public void setClosedOnFrm(Date closedOnFrm) {
 		this.closedOnFrm = closedOnFrm;
 	}
 
@@ -94,27 +178,27 @@ public class ServiceCallReports extends AbstractIBean{
 		this.queueIdFrm = queueIdFrm;
 	}
 
-	public String getCreatedOnTo() {
+	public Date getCreatedOnTo() {
 		return createdOnTo;
 	}
 
-	public void setCreatedOnTo(String createdOnTo) {
+	public void setCreatedOnTo(Date createdOnTo) {
 		this.createdOnTo = createdOnTo;
 	}
 
-	public String getResolveOnTo() {
+	public Date getResolveOnTo() {
 		return resolveOnTo;
 	}
 
-	public void setResolveOnTo(String resolveOnTo) {
+	public void setResolveOnTo(Date resolveOnTo) {
 		this.resolveOnTo = resolveOnTo;
 	}
 
-	public String getClosedOnTo() {
+	public Date getClosedOnTo() {
 		return closedOnTo;
 	}
 
-	public void setClosedOnTo(String closedOnTo) {
+	public void setClosedOnTo(Date closedOnTo) {
 		this.closedOnTo = closedOnTo;
 	}
 

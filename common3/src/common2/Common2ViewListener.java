@@ -30,7 +30,7 @@ import bean.inventory.GoodsReceipt;
 import bean.inventory.InventoryTransfer;
 import bean.inventory.ItemMasterData;
 import bean.inventory.PriceList;
-import bean.inventory.SpecialPrices;
+import bean.inventory.SpecialPricesForBusinessPartner;
 import bean.mrp.Forecast;
 import bean.mrp.MrpWizard;
 import bean.mrp.OrderRecommendation;
@@ -241,7 +241,7 @@ public class Common2ViewListener {
 		});
 		view.mntmSpecialPricesFor.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        Common2View.mainView.showBeanPanel(SpecialPrices.class.getSimpleName());
+		        Common2View.mainView.showBeanPanel(SpecialPricesForBusinessPartner.class.getSimpleName());
 		    }
 		});
 		view.mntmBillOfMaterials.addActionListener(new ActionListener() {

@@ -14,59 +14,49 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "BillOfMaterialsReport")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="Code"),
-	@Display(name="CFrm"),
-	@Display(name="CTo"),
-	@Display(name="Group"),
-	@Display(name="BOMType")
+	@Display(name="codeFrm",label="Code From"),
+	
+	@Display(name="codeTo",label="To"),
+	@Display(name="group",type="Combo",modelCombo={}),
+	@Display(name="bOMType",type="Combo",modelCombo={"All","Production","Sales","Template"},label="BOM Type")
 })
 public class BillOfMaterialsReport extends AbstractIBean{
 @Id
-public String Code;
-public String CFrm;
-public String CTo;
-public String Group;
-public String BOMType;
+public String codeFrm;
+public String codeTo;
+public String group;
+public String bOMType;
 
 
-	public String getCode() {
-	return Code;
+	public String getCodeFrm() {
+	return codeFrm;
 }
 
-public void setCode(String code) {
-	Code = code;
+public void setCodeFrm(String codeFrm) {
+	codeFrm = codeFrm;
 }
-
-public String getCFrm() {
-	return CFrm;
-}
-
-public void setCFrm(String cFrm) {
-	CFrm = cFrm;
-}
-
 public String getCTo() {
-	return CTo;
+	return codeTo;
 }
 
-public void setCTo(String cTo) {
-	CTo = cTo;
+public void setCodeTo(String codeTo) {
+	codeTo = codeTo;
 }
 
 public String getGroup() {
-	return Group;
+	return group;
 }
 
 public void setGroup(String group) {
-	Group = group;
+	group = group;
 }
 
 public String getBOMType() {
-	return BOMType;
+	return bOMType;
 }
 
 public void setBOMType(String bOMType) {
-	BOMType = bOMType;
+	bOMType = bOMType;
 }
 
 	public static void main(String[] args) {

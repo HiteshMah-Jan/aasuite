@@ -16,94 +16,88 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "GoodsReceipt")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"Seq"})
 @Displays({
-	@Display(name="Number"),
-	@Display(name="Series"),
-	@Display(name="PostingDate"),
-	@Display(name="DocumentDate"),
-	@Display(name="Reference"),
-	@Display(name="PriceList"),
-	@Display(name="Remarks", type="TextArea", gridFieldWidth=2, width=-1),
-	@Display(name="JournalRemarks")
+	@Display(name="number"),
+	@Display(name="series"),
+	@Display(name="postingDate"),
+	@Display(name="documentDate"),
+	@Display(name="reference"),
+	@Display(name="priceList"),
+	@Display(name="remarks", type="TextArea", gridFieldWidth=2, width=-1),
+	@Display(name="journalRemarks")
 })
 public class GoodsReceipt extends AbstractIBean {
 	 @Id
-	    @Column(name = "Number")
-	    public Integer Number;
-	    @Column(name = "Series")
-	    public int Series;	   
+	    @Column(name = "number")
+	    public Integer number;
+	    @Column(name = "series")
+	    public int series;	   
 	    @Temporal(javax.persistence.TemporalType.DATE)
-	public Double PostingDate;
-public void setPostingDate(Double postingDate) {
-			PostingDate = postingDate;
+	    public Double postingDate;
+
+	    @Temporal(javax.persistence.TemporalType.DATE)
+	    public Double documentDate;
+	    public String reference;
+	    public String priceList;
+
+	    public String remarks;
+	    public String journalRemarks;
+
+	    public void setPostingDate(Double postingDate) {
+			postingDate = postingDate;
 		}
 		public void setDocumentDate(Double documentDate) {
-			DocumentDate = documentDate;
+			documentDate = documentDate;
 		}
-@Temporal(javax.persistence.TemporalType.DATE)
-	public Double DocumentDate;
-	public String Reference;
-	public String PriceList;
-	public Integer getSeq() {
-		return Number;
-	}
-	public void setSeq(Integer Number) {
-		this.Number = Number;
-	}
 	public Integer getNumber() {
-		return Number;
+		return number;
 	}
 	public void setNumber(Integer number) {
-		Number = number;
+		number = number;
 	}
 	public int getGoodRecieptId() {
-		return Series;
+		return series;
 	}
-	public void setSeries(int Series) {
-		Series = Series;
+	public void setSeries(int series) {
+		series = series;
 	}
 	public int getSeries() {
-		return Series;
+		return series;
 	}
-	public String Remarks;
-	public String JournalRemarks;
-	
-
-
 	public String getRemarks() {
-		return Remarks;
+		return remarks;
 	}
 	public void setRemarks(String remarks) {
-		Remarks = remarks;
+		remarks = remarks;
 	}
 	public String getJournalRemarks() {
-		return JournalRemarks;
+		return journalRemarks;
 	}
 	public void setJournalRemarks(String journalRemarks) {
-		JournalRemarks = journalRemarks;
+		journalRemarks = journalRemarks;
 	}
-	public Double getPostingDate() {
-		return PostingDate;
+	public double getPostingDate() {
+		return postingDate;
 	}
 	public void setPostingDate1(Double postingDate) {
-		PostingDate = postingDate;
+		postingDate = postingDate;
 	}
-	public Double getDocumentDate() {
-		return DocumentDate;
+	public double getDocumentDate() {
+		return documentDate;
 	}
 	public void setDocumentDate1(Double documentDate) {
-		DocumentDate = documentDate;
+		documentDate = documentDate;
 	}
 	public String getReference() {
-		return Reference;
+		return reference;
 	}
 	public void setReference(String reference) {
-		Reference = reference;
+		reference = reference;
 	}
 	public String getPriceList() {
-		return PriceList;
+		return priceList;
 	}
 	public void setPriceList(String priceList) {
-		PriceList = priceList;
+		priceList = priceList;
 	}
 	public static void main(String[] args) {
 		view(GoodsReceipt.class);

@@ -3,6 +3,7 @@ package bean.inventory;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -10,121 +11,123 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 @Entity
 @Table(name = "InventoryTransfer")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"number","itemNo","toWarehouse","quantity","inStock","committed","ordered","itemCost","unitOfMeasure","distrRule"})
 @Displays({
-	@Display(name="Customer"),
-	@Display(name="Name"),
-	@Display(name="ContactPerson"),
-	@Display(name="ShipTo"),
-	@Display(name="Number"),
-	@Display(name="Series"),
-	@Display(name="PostingDate"),
-	@Display(name="DocumentDate"),
-	@Display(name="FromWarehouse"),
-	@Display(name="PriceList"),
-	@Display(name="SalesEmployee"),
-	@Display(name="Remarks", type="TextArea", gridFieldWidth=2, width=-1),
-	@Display(name="JournalRemarks", type="TextArea", gridFieldWidth=2, width=-1)
+	@Display(name="customer"),
+	@Display(name="name"),
+	@Display(name="contactPerson"),
+	@Display(name="shipTo"),
+	@Display(name="number"),
+	@Display(name="series", type="Combo", modelCombo={"Primary"}),
+	@Display(name="postingDate"),
+	@Display(name="documentDate"),
+	@Display(name="frmWarehouse"),
+	@Display(name="priceList", type="Combo", modelCombo={}),
+	@Display(name="salesEmployee"),
+	@Display(name="remarks", type="TextArea", gridFieldWidth=2, width=-1),
+	@Display(name="journalRemarks", type="TextArea", gridFieldWidth=2, width=-1)
 })
 public class InventoryTransfer extends AbstractIBean {
 @Id
-	public String Customer;
-	public String Name;
-	public String ContactPerson;
-	public String ShipTo;
-	public Double Number;
-	public String Series;
-	public Double PostingDate;
-	public Double DocumentDate;
-	public String FromWarehouse;
-	public String PriceList;
-	public String SalesEmployee;
-	public String Remarks;
-	public String JournalRemarks;
-	
-	
+	public String customer;
+	public String name;
+	public String contactPerson;
+	public String shipTo;
+
+	public Double number;
+	public String series;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date postingDate;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date documentDate;
+
+	public String frmWarehouse;
+	public String priceList;
+	public String salesEmployee;
+	public String remarks;
+	public String journalRemarks;
+		
 	public String getCustomer() {
-		return Customer;
+		return customer;
 	}
 	public void setCustomer(String customer) {
-		Customer = customer;
+		customer = customer;
 	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		name = name;
 	}
 	public String getContactPerson() {
-		return ContactPerson;
+		return contactPerson;
 	}
 	public void setContactPerson(String contactPerson) {
-		ContactPerson = contactPerson;
+		contactPerson = contactPerson;
 	}
 	public String getShipTo() {
-		return ShipTo;
+		return shipTo;
 	}
 	public void setShipTo(String shipTo) {
-		ShipTo = shipTo;
+		shipTo = shipTo;
 	}
 	public Double getNumber() {
-		return Number;
+		return number;
 	}
 	public void setNumber(Double number) {
-		Number = number;
+		number = number;
 	}
 	public String getSeries() {
-		return Series;
+		return series;
 	}
 	public void setSeries(String series) {
-		Series = series;
+		series = series;
 	}
-	public Double getPostingDate() {
-		return PostingDate;
+	public Date getPostingDate() {
+		return postingDate;
 	}
-	public void setPostingDate(Double postingDate) {
-		PostingDate = postingDate;
+	public void setPostingDate(Date postingDate) {
+		postingDate = postingDate;
 	}
-	public Double getDocumentDate() {
-		return DocumentDate;
+	public Date getDocumentDate() {
+		return documentDate;
 	}
-	public void setDocumentDate(Double documentDate) {
-		DocumentDate = documentDate;
+	public void setDocumentDate(Date documentDate) {
+		documentDate = documentDate;
 	}
-	public String getFromWarehouse() {
-		return FromWarehouse;
+	public String getFrmWarehouse() {
+		return frmWarehouse;
 	}
-	public void setFromWarehouse(String fromWarehouse) {
-		FromWarehouse = fromWarehouse;
+	public void setFrmWarehouse(String frmWarehouse) {
+		frmWarehouse = frmWarehouse;
 	}
 	public String getPriceList() {
-		return PriceList;
+		return priceList;
 	}
 	public void setPriceList(String priceList) {
-		PriceList = priceList;
+		priceList = priceList;
 	}
 	public String getSalesEmployee() {
-		return SalesEmployee;
+		return salesEmployee;
 	}
 	public void setSalesEmployee(String salesEmployee) {
-		SalesEmployee = salesEmployee;
+		salesEmployee = salesEmployee;
 	}
 	public String getRemarks() {
-		return Remarks;
-	}
-	public void setJournal(String journal) {
-		Remarks = Remarks;
+		return remarks;
 	}
 	public void setRemarks(String remarks) {
-		Remarks = remarks;
+		remarks = remarks;
 	}
 	public String getJournalRemarks() {
-		return JournalRemarks;
+		return journalRemarks;
 	}
 	public void setJournalRemarks(String journalRemarks) {
-		JournalRemarks = journalRemarks;
+		journalRemarks = journalRemarks;
 	}
 	public static void main(String[] args) {
 	view(InventoryTransfer.class);

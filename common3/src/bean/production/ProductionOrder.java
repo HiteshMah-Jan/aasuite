@@ -6,9 +6,13 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 import service.util.AbstractIBean;
+import template.ChildRecords;
 import template.Display;
 import template.Displays;
+import template.ParentAddInfo;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
@@ -33,6 +37,17 @@ import template.screen.TemplateTabSinglePageLeftRight;
 	@Display(name="distributionRule",type="Combo", modelCombo={"Define New"}),
 	@Display(name="remarks", type="TextArea", gridFieldWidth=6, width=-1)
 })
+@ChildRecords(value = {
+}, info = { 
+		@ParentAddInfo(title = "Components", gridCount=8,
+			displayFields = {
+
+}),
+@ParentAddInfo(title = "Summary", gridCount=8,
+		displayFields = {
+
+})
+})
 public class ProductionOrder extends AbstractIBean {
 @Id
 public String type;
@@ -43,10 +58,10 @@ public Double plannedQuantity;
 public Double warehouse;
 
 public double number;
-@Temporal(value = TemporalType.DATE)
-public double orderDate;
-@Temporal(value = TemporalType.DATE)
-public Double dueDate;
+@Temporal(javax.persistence.TemporalType.DATE)
+public Date orderDate;
+@Temporal(javax.persistence.TemporalType.DATE)
+public Date dueDate;
 public String user;
 public String origin;
 public String salesOrder;
@@ -93,19 +108,19 @@ public double getNumber() {
 public void setNumber(double number) {
 	this.number = number;
 }
-public double getOrderDate() {
+public Date getOrderDate() {
 	return orderDate;
 }
-public void setOrderDate(double orderDate) {
+public void setOrderDate(Date orderDate) {
 	this.orderDate = orderDate;
 }
 public void setWarehouse(Double warehouse) {
 	warehouse = warehouse;
 }
-public Double getDueDate() {
+public Date getDueDate() {
 	return dueDate;
 }
-public void setDueDate(Double dueDate) {
+public void setDueDate(Date dueDate) {
 	dueDate = dueDate;
 }
 public String getUser() {

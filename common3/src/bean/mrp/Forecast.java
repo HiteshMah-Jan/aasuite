@@ -3,6 +3,7 @@ package bean.mrp;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -10,48 +11,54 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 @Entity
 @Table(name = "Forecast")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"number","itemNo","itemDescription"})
 @Displays({
-	@Display(name="ForecastCode"),
-	@Display(name="ForecastName"),
-	@Display(name="StartDate"),
-	@Display(name="EndDate"),
-	@Display(name="View")
+	@Display(name="forecastCode"),
+	@Display(name="forecastName"),
+	@Display(name="startDate"),
+	@Display(name="endDate"),
+	
+	@Display(name="View", type="Combo",modelCombo={"Daily","Weekly","Monthly"})
 })
 public class Forecast extends AbstractIBean {
 @Id	
-public String ForecastCode;
-public String ForecastName;
-public Double StartDate;
-public Double EndDate;
+public String forecastCode;
+public String forecastName;
+@Temporal(javax.persistence.TemporalType.DATE)
+public Date startDate;
+@Temporal(javax.persistence.TemporalType.DATE)
+public Date endDate;
+
 public String View;
 
 
 public String getForecastCode() {
-	return ForecastCode;
+	return forecastCode;
 }
 public void setForecastCode(String forecastCode) {
-	ForecastCode = forecastCode;
+	forecastCode = forecastCode;
 }
 public String getForecastName() {
-	return ForecastName;
+	return forecastName;
 }
 public void setForecastName(String forecastName) {
-	ForecastName = forecastName;
+	forecastName = forecastName;
 }
-public Double getStartDate() {
-	return StartDate;
+public Date getStartDate() {
+	return startDate;
 }
-public void setStartDate(Double startDate) {
-	StartDate = startDate;
+public void setStartDate(Date startDate) {
+	startDate = startDate;
 }
-public Double getEndDate() {
-	return EndDate;
+public Date getEndDate() {
+	return endDate;
 }
-public void setEndDate(Double endDate) {
-	EndDate = endDate;
+public void setEndDate(Date endDate) {
+	endDate = endDate;
 }
 public String getView() {
 	return View;

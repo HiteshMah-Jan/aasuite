@@ -12,20 +12,20 @@ import template.screen.TemplateTabSinglePageLeftRight;
 
 @Entity
 @Table(name = "OpenItemList")
-@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
+@UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"docNo","type","status","productNo","plannedQuantity","orderDate","dueDate"})
 @Displays({
-	@Display(name="OpenDocuments")
+	@Display(name="openDocuments",type="Combo", modelCombo={"salesQuotation","salesOrders","deliveries","returns","aRDownpaymentsUnpaid","aRDownPaymentsNotYetFullyApplied","aRInvoice","aRCreditMemos","aRReserveInvoicesUnpaid","aRReserveInvoicesNotYetDelivered","purchaseOrders","goodRecieptPOs","goodsReurt","aPDownPaymentsUnpaid","aPDownPaymentsNotYetFullyApplied","aPInvoices","aPCreditMemos","aPReserveInvoicesUnpaid","aPDownPaymentsNotYetDelivered","productionOrders","missingItems"})
 })
 public class OpenItemList extends AbstractIBean{
 @Id	
-public String OpenDocuments;
+public String openDocuments;
 
 	public String getOpenDocuments() {
-	return OpenDocuments;
+	return openDocuments;
 }
 
 public void setOpenDocuments(String openDocuments) {
-	OpenDocuments = openDocuments;
+	openDocuments = openDocuments;
 }
 
 	public static void main(String[] args) {

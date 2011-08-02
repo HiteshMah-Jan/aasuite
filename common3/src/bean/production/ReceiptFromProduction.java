@@ -3,6 +3,7 @@ package bean.production;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -10,62 +11,68 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 @Entity
 @Table(name = "ReceiptFromProduction")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="Number"),
-	@Display(name="Series"),
-	@Display(name="PostingDate"),
-	@Display(name="ReferenceNo"),
-	@Display(name="Remarks", type="TextArea", gridFieldWidth=2, width=-1),
-	@Display(name="JournalRemarks")
+	@Display(name="number"),
+	@Display(name="series",type="Combo",modelCombo={"Primary"}),
+	@Display(name="postingDate"),
+	@Display(name="referenceNo"),
+	@Display(name="remarks", type="TextArea", gridFieldWidth=2, width=-1),
+	@Display(name="journalRemarks")
 })
 public class ReceiptFromProduction extends AbstractIBean {
 @Id
-public Double Number;
-public String Series;
-public Double PostingDate;
-public String ReferenceNo;
-public String Remarks;
-public String JournalRemarks;
+public Double number;
+public String series;
+@Temporal(javax.persistence.TemporalType.DATE)
+public Date postingDate;
+public String referenceNo;
+public String remarks;
+public String journalRemarks;
 
 	
 public Double getNumber() {
-	return Number;
+	return number;
 }
 public void setNumber(Double number) {
-	Number = number;
+	number = number;
 }
 public String getSeries() {
-	return Series;
+	return series;
 }
 public void setSeries(String series) {
-	Series = series;
+	series = series;
 }
-public Double getPostingDate() {
-	return PostingDate;
+public Date getPostingDate() {
+	return postingDate;
+}
+public void setPostingDate(Date postingDate) {
+	this.postingDate = postingDate;
 }
 public void setPostingDate(Double postingDate) {
-	PostingDate = postingDate;
+	postingDate = postingDate;
 }
 public String getReferenceNo() {
-	return ReferenceNo;
+	return referenceNo;
 }
 public void setReferenceNo(String referenceNo) {
-	ReferenceNo = referenceNo;
+	referenceNo = referenceNo;
 }
 public String getRemarks() {
-	return Remarks;
+	return remarks;
 }
 public void setRemarks(String remarks) {
-	Remarks = remarks;
+	remarks = remarks;
 }
 public String getJournalRemarks() {
-	return JournalRemarks;
+	return journalRemarks;
 }
 public void setJournalRemarks(String journalRemarks) {
-	JournalRemarks = journalRemarks;
+	journalRemarks = journalRemarks;
 }
 public static void main(String[] args) {
 	view(ReceiptFromProduction.class);

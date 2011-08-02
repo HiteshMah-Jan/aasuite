@@ -14,27 +14,20 @@ import template.screen.TemplateTabSinglePageLeftRight;
 @Table(name = "BillOfMaterials")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 2, columnSearch = {"number","itemNo","itemDescription","quantity","uoM","warehoue","issueMethod","priceList","unitPrice","total","comments"})
 @Displays({
-	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
-			mergeFields={"productNo","xQuantity","productDescription"}, verticalMerge=true),
+	
 	@Display(name="productNo"),
 	@Display(name="xQuantity"),
 	@Display(name="productDescription", type="TextArea", gridFieldWidth=2, width=-1),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
-			mergeFields={"bOMType"}, verticalMerge=false),
 	@Display(name="bOMType", type="Combo", modelCombo={"Sales","Production","Template" }),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
-			mergeFields={"warehouse"}, verticalMerge=true),
+	
 	@Display(name="warehouse", type="Combo", modelCombo={}),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
-			mergeFields={"priceList","distrRule"}, verticalMerge=true),
+	
 	@Display(name="priceList", type="Combo", modelCombo={"Base Price","Discount Purchase Price","Distributor Sales Price","Regular Purchase Price","Regular Sales Price","Small Account Sales Price","Last Purchase Price","Last Evaluated Price"}),
 	@Display(name="distrRule", type="Combo", modelCombo={}),
 	
-	@Display(name="dummyField", type="MergePanel", noLabel=true, fieldPrefix="production.", 
-			mergeFields={"productPrice"}, verticalMerge=true),
 	@Display(name="productPrice"),
 })
 public class BillOfMaterials extends AbstractIBean {

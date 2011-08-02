@@ -3,6 +3,7 @@ package bean.mrp;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 import service.util.AbstractIBean;
 import template.Display;
@@ -10,125 +11,114 @@ import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateTabSinglePageLeftRight;
 
+import com.sun.star.bridge.oleautomation.Date;
+
 @Entity
 @Table(name = "OrderRecommendation")
 @UITemplate(template=TemplateTabSinglePageLeftRight.class, gridCount = 4, columnSearch = {"seq"})
 @Displays({
-	@Display(name="OrderType"),
-	@Display(name="Scenario"),
-	@Display(name="DueDate"),
-	@Display(name="DDFrm"),
-	@Display(name="DDTo"),
-	@Display(name="Items"),
-	@Display(name="Code"),
-	@Display(name="CFrm"),
-	@Display(name="CTo"),
-	@Display(name="Vendors"),
-	@Display(name="VCode"),
-	@Display(name="VCFrm"),
-	@Display(name="VCTo"),
-	@Display(name="Group")
+	@Display(name="orderType", type="Combo",modelCombo={"all","productionOrder","purchaseOrder"}),
+	@Display(name="scenario", type="Combo",modelCombo={}),
+	@Display(name="dueDateFrm",label="Due Date   From"),
+	@Display(name="dueDateTo",label="To"),
+
+	@Display(name="itemsCodeFrm",label="Code   From"),
+	@Display(name="itemsCodeTo",label="To"),
+	@Display(name="itemsGroup",label="Group", type="Combo",modelCombo={}),
+	
+	@Display(name="vendorsCodeFrm",label="Code   From"),
+	@Display(name="vendorsTo",label="To"),
+	@Display(name="vendorsGroup",label="Group", type="Combo",modelCombo={})
 })
 public class OrderRecommendation extends AbstractIBean {
 	@Id
-public String OrderType;
-	public String Scenario;
-	public String DueDate;
-	public Double DDFrm;
-	public Double DDTo;
-	public String Items;
-	public String Code;
-	public String CFrm;
-	public String CTo;
-	public String Vendors;
-	public String VCode;
-	public String VCFrm;
-	public String VCTo;
-	public String Group;
+	public String orderType;
+	public String scenario;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date dueDateFrm;
+	@Temporal(javax.persistence.TemporalType.DATE)
+	public Date dueDateTo;
+	public String itemsCodeFrm;
+	public String itemsCodeTo;
+	public String itemsGroup; 
 	
+	public String vendorsCodeFrm;
+	public String vendorsTo;
+	
+	public String vendorsGroup;
+	
+public String getItemsCodeFrm() {
+		return itemsCodeFrm;
+	}
+	public void setItemsCodeFrm(String itemsCodeFrm) {
+		this.itemsCodeFrm = itemsCodeFrm;
+	}
+	public String getItemsCodeTo() {
+		return itemsCodeTo;
+	}
+	public void setItemsCodeTo(String itemsCodeTo) {
+		this.itemsCodeTo = itemsCodeTo;
+	}
+	public String getItemsGroup() {
+		return itemsGroup;
+	}
+	public void setItemsGroup(String itemsGroup) {
+		this.itemsGroup = itemsGroup;
+	}
+	public String getVendorsCodeFrm() {
+		return vendorsCodeFrm;
+	}
+	public void setVendorsCodeFrm(String vendorsCodeFrm) {
+		this.vendorsCodeFrm = vendorsCodeFrm;
+	}
+	public String getVendorsGroup() {
+		return vendorsGroup;
+	}
+	public void setVendorsGroup(String vendorsGroup) {
+		this.vendorsGroup = vendorsGroup;
+	}
+	public void setDueDateFrm(Date dueDateFrm) {
+		this.dueDateFrm = dueDateFrm;
+	}
+	public void setVendorsTo(String vendorsTo) {
+		this.vendorsTo = vendorsTo;
+	}
 public String getOrderType() {
-		return OrderType;
+		return orderType;
 	}
 	public void setOrderType(String orderType) {
-		OrderType = orderType;
+		orderType = orderType;
 	}
 	public String getScenario() {
-		return Scenario;
+		return scenario;
 	}
 	public void setScenario(String scenario) {
-		Scenario = scenario;
+		scenario = scenario;
 	}
-	public String getDueDate() {
-		return DueDate;
+	public Date getDueDateFrm() {
+		return dueDateFrm;
 	}
-	public void setDueDate(String dueDate) {
-		DueDate = dueDate;
+	public void setdueDateFrm(Date dueDateFrm) {
+		dueDateFrm = dueDateFrm;
 	}
-	public Double getDDFrm() {
-		return DDFrm;
+
+	public Date getDueDateTo() {
+		return dueDateTo;
 	}
-	public void setDDFrm(Double dDFrm) {
-		DDFrm = dDFrm;
+	public void setDueDateTo(Date dueDateTo) {
+		dueDateTo = dueDateTo;
 	}
-	public Double getDDTo() {
-		return DDTo;
+	public String getvendorsCodeFrm() {
+		return vendorsCodeFrm;
 	}
-	public void setDDTo(Double dDTo) {
-		DDTo = dDTo;
+	public void setvendorsCodeFrm(String vendorsCodeFrm) {
+		vendorsCodeFrm = vendorsCodeFrm;
 	}
-	public String getItems() {
-		return Items;
+	public String getVendorsTo() {
+		return vendorsTo;
 	}
-	public void setItems(String items) {
-		Items = items;
-	}
-	public String getCode() {
-		return Code;
-	}
-	public void setCode(String code) {
-		Code = code;
-	}
-	public String getCFrm() {
-		return CFrm;
-	}
-	public void setCFrm(String cFrm) {
-		CFrm = cFrm;
-	}
-	public String getCTo() {
-		return CTo;
-	}
-	public void setCTo(String cTo) {
-		CTo = cTo;
-	}
-	public String getVendors() {
-		return Vendors;
-	}
-	public void setVendors(String vendors) {
-		Vendors = vendors;
-	}
-	public String getVCode() {
-		return VCode;
-	}
-	public void setVCode(String vCode) {
-		VCode = vCode;
-	}
-	public String getVCFrm() {
-		return VCFrm;
-	}
-	public void setVCFrm(String vCFrm) {
-		VCFrm = vCFrm;
-	}
-	public String getVCTo() {
-		return VCTo;
-	}
-	public void setVCTo(String vCTo) {
-		VCTo = vCTo;
-	}
-	public String getGroup() {
-		return Group;
-	}
-	public void setGroup(String group) {
-		Group = group;
+	public void setvendorsTo(String vendorsTo) {
+		vendorsTo = vendorsTo;
 	}
 public static void main(String[] args) {
 	view(OrderRecommendation.class);
