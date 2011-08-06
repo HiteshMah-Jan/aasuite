@@ -8,9 +8,6 @@ import template.Display;
 import template.Displays;
 import template.UITemplate;
 import template.screen.TemplateSinglePage;
-import template.screen.TemplateTabSinglePage;
-import template.screen.TemplateTabSinglePageLeftRightNoSearchResult;
-import template.screen.TemplateTabSinglePageNoSubPanel;
 
 @Entity
 @Table(name = "SchoolAccountMapping")

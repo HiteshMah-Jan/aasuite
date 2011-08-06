@@ -51,7 +51,7 @@ import component.IAuthorization;
  *
  * @author Entokwaa
  */
-public class SchoolDefaultProcess extends ProcessImpl implements IService {
+public class SchoolDefaultProcess implements IService {
     static AppConfig appCache = new AppConfig();
     public static final int MAX_GRADE_RECALCULATE = 10000; //so that there will be less change in the code
 

@@ -9,7 +9,6 @@
 package bean.extension;
 
 import bean.LibraryBorrowedBooks;
-import bean.accounting.payroll.PersonAttendance;
 import bean.person.StudentEncounter;
 import bean.person.StudentEncounterClinic;
 import bean.person.StudentPersonalityExam;
@@ -43,7 +42,6 @@ import template.screen.TemplateTabPage;
     @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "studentId"}, title = "OSA", entity = StudentEncounter.class, sql = "SELECT a FROM StudentEncounter a WHERE a.studentId = ${personId}"),
     @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "personId"}, title = "Book Borrowed", entity = LibraryBorrowedBooks.class, sql = "SELECT a FROM LibraryBorrowedBooks a WHERE a.personId=${personId}"),
     @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "studentId"}, title = "Clinic", entity = StudentEncounterClinic.class, sql = "SELECT a FROM StudentEncounterClinic a WHERE a.studentId=${personId}"),
-    @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "personId"}, title = "Attendance", entity = PersonAttendance.class, sql = "SELECT a FROM PersonAttendance a WHERE a.personId=${personId}"),
     @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "studentId"}, title = "Personal Exam", entity = StudentPersonalityExam.class, sql = "SELECT a FROM StudentPersonalityExam a WHERE a.studentId=${personId}"),
     @ChildRecord(canSave = false, template = ChildTemplateListOnly.class, fieldMapping = {"personId", "studentId"}, title = "Student Class Performance", entity = EnrollmentSubjectFacultyExtOsa.class, sql = "SELECT a FROM StudentSubject a WHERE a.studentId=${personId}")
 })
