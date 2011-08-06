@@ -661,7 +661,7 @@ public class PanelUtil {
         return false;
     }
     
-    static String[] packages = {"","sales.","admin.","accounting.","accounting.payroll.","person.","reference.","hr.","extension.","history.","training.","awb.","financial.","banking.","inventory.","mrp.","production.","service.","purchasing.","embedded.","production.embedded."};
+    static String[] packages = {"","sales.","admin.","accounting.","payroll.","person.","reference.","hr.","extension.","history.","training.","awb.","financial.","banking.","inventory.","mrp.","production.","service.","purchasing.","embedded.","production.embedded."};
     static Map<String, Class> mapBean = new HashMap<String, Class>();
     public static Class getBeanClass(String bean) {
         Class cls = mapBean.get(bean);

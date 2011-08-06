@@ -19,7 +19,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import service.util.AbstractIBean;
-import springbean.IProcess;
 import template.ActionButton;
 import template.ActionButtons;
 import util.DBClient;
@@ -912,14 +911,6 @@ public class Person extends AbstractIBean implements Serializable {
 
     public void setEmail(java.lang.String email) {
         this.email = email;
-    }
-
-    public void login() {
-        IProcess.Process.getInstance().doLogin(this);
-    }
-
-    public void logout() {
-        IProcess.Process.getInstance().doLogout(this);
     }
 
     public java.lang.String getGuardianOccupation() {

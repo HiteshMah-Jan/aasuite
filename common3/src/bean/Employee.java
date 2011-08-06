@@ -10,8 +10,6 @@ package bean;
 
 import bean.hr.HRAssessment;
 import bean.person.*;
-import bean.accounting.payroll.Payroll;
-import bean.accounting.payroll.PersonAttendance;
 import bean.reference.BenefitType;
 import bean.reference.DeductionType;
 import bean.reference.Department;
