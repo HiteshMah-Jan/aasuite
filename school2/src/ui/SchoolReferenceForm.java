@@ -21,21 +21,21 @@ public class SchoolReferenceForm extends TabPanelForm {
     	String lic = AppConfig.getLicenceType();
     	if ("ALL".equals(lic)) {
 //            String str = "Course,GradeLevel,Subject,ValuesSubjectGradingCriteria,Section,Department,Building,Room,ScholarshipTable,EventHoliday,Offense,ActionTaken";
-            String str = "Course,GradeLevel,Subject,Section,Schedule,Department,Building,Room,ScholarshipTable,EventHoliday,Offense,ActionTaken";
+            String str = "Course,GradeLevel,Subject,Section,Schedule,Room";
     		if (AppConfig.hasExamReference()) {
     			str += ",AdmissionExamReference";
     		}
     		if (AppConfig.hasSchoolProfile()) {
-    			str += ",SchoolProfileSummary";
+//    			str += ",SchoolProfileSummary";
     		}
             return str;
     	}
     	else {
     		if (lic!=null && lic.contains("GUIDANCE")) {
-                return "Course,GradeLevel,Subject,Section,Department,Building,Room,ScholarshipTable,EventHoliday,Offense,ActionTaken,AdmissionExamReference";
+                return "Course,GradeLevel,Subject,Section,Room";
     		}
     		else {
-                return "Course,GradeLevel,Subject,Section,Department,Building,Room,ScholarshipTable,EventHoliday";
+                return "Course,GradeLevel,Subject,Section,Room";
     		}
     	}
     }
