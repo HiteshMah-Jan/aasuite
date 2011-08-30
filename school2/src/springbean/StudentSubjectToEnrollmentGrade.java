@@ -285,7 +285,7 @@ public class StudentSubjectToEnrollmentGrade {
         	Log.out("ERROR SUBJECT ENROLLMENT MATCHING FOR STUDENT ",subject.studentName,".");
         	return e;
         }
-		List<StudentSubject> allStudSubjects = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.schoolYear='",e.schoolYear,"' AND a.gradeLevel='",e.gradeLevel,"' AND a.studentId=",e.studentId));
+		List<StudentSubject> allStudSubjects = DBClient.getList(BeanUtil.concat("SELECT a FROM StudentSubject a WHERE a.gradeLevel='",e.gradeLevel,"' AND a.studentId=",e.studentId));
 		putAllMapeh(e, allStudSubjects);
 		putAllTEPP(e, allStudSubjects);
 		putAllMakabayan(e, allStudSubjects);

@@ -71,7 +71,7 @@ public class StudentValuesGrading_RULE extends BusinessRuleWrapper {
 				List<Section> lst = DBClient.getList("SELECT a FROM Section a ORDER BY a.gradeLevel, a.code",0,1000);
 				for (Section sched:lst) {
 					PanelUtil.showWaitFrame("Generating grades for ", sched.gradeLevel, " - ", sched.code);
-					List<StudentValuesGrading> values = DBClient.getList("SELECT a FROM StudentValuesGrading a WHERE a.gradeLevel='",sched.gradeLevel,"' AND a.section='",sched.code,"' AND a.schoolYear='",AppConfig.getSchoolYear(),"'");
+					List<StudentValuesGrading> values = DBClient.getList("SELECT a FROM StudentValuesGrading a, Student b WHERE a.studentId=b.personId AND b.gradeLevel='",sched.gradeLevel,"' AND a.gradeLevel=b.gradeLevel");
 					new RunTestGrading(values).run();
 					PanelUtil.hideWaitFrame();
 				}
