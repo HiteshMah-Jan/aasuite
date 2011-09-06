@@ -32,7 +32,8 @@ import bean.reference.Section;
    template = TemplateTabSinglePageLeftRightNoCriteria.class, showChart = false, showFiles = false,showImages=false,
     columnSearch={"gradeLevel","section","student","studentNumber"},
     criteriaSearch={"gradeLevel","section","student"},
-    gridCount=4, title="Student Values Grading", select="SELECT a FROM StudentValuesGrading a, Student b, Section s WHERE s.facultyId=${personId} AND a.section=s.code AND a.section=b.section AND a.studentId=b.personId",
+    gridCount=4, title="Student Values Grading", 
+    select="SELECT a FROM StudentValuesGrading a, Student b, Section s WHERE s.facultyId=${personId} AND a.gradeLevel=s.gradeLevel AND a.section=s.code AND a.section=b.section AND a.studentId=b.personId",
     orderBy="a.gradeLevel, a.section, b.gender DESC, a.student")
     
 @ChildRecords(value = { //@ChildRecord(template=ChildTemplateListPopup.class, fieldMapping={"seq","admissionId"}, entity=AdmissionExamReference.class, sql="SELECT a FROM AdmissionExam a WHERE a.admissionId=${seq} ORDER BY a.examType", title="Exams")
