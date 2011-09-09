@@ -76,14 +76,15 @@
      clubsAndParticipation2 AS CLUB,
      enrollment.`q2Health` AS HEALTH
 FROM
-     `person` person INNER JOIN `enrollment` enrollment ON person.`personId` = enrollment.`studentId`
-     INNER JOIN `section` section ON person.`section` = section.`code`
-     INNER JOIN `studentvaluesgrading` studentvaluesgrading ON person.`personId` = studentvaluesgrading.`studentId`
-     AND studentvaluesgrading.`gradeLevel` = section.`gradeLevel`
-     AND enrollment.`gradeLevel` = section.`gradeLevel`
+     person,studentvaluesgrading,enrollment,section
 WHERE
-     person.section = $P{REPORT_ADD_WHERE}
- AND enrollment.gradeLevel = section.gradeLevel
+     person.section = $P{REPORT_ADD_WHERE} AND
+     person.section = section.code AND
+     person.status = 'ENROLLED' AND
+     person.personId = enrollment.studentId AND 
+     person.personId = studentvaluesgrading.studentId AND 
+     section.gradeLevel = enrollment.gradeLevel AND
+     section.gradeLevel = studentvaluesgrading.gradeLevel
 ORDER BY
      gender ASC,
      lastname ASC,
