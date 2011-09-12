@@ -31,5 +31,7 @@ import template.screen.*;
     @template.Report(reportFile="DailyInvoice", reportTitle="Daily Invoice", reportSql = "")
 })
 public class CashierExt extends bean.accounting.Payment {
-
+    public static void main(String[] args) {
+        view(CashierExt.class);
+    }
 }
