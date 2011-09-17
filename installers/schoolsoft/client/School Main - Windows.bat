@@ -1,1 +1,1 @@
-javaw -jar school2.jar http://server:8080/schoolSetonMain/ServerServlet
+javaw -jar school2.jar http://server:8080/schoolService/ServerServlet
