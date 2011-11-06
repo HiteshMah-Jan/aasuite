@@ -7,10 +7,10 @@ $last = $_REQUEST["lastname"];
 
 $conn = conn();
 if ('' == $first && '' == $last) {
-	$result = qry("SELECT personid, firstname, lastname, planType FROM Person", $conn);
+	$result = qry("SELECT personid, firstname, lastname, planType, username, password FROM Person", $conn);
 }
 else {
-	$result = qry("SELECT personid, firstname, lastname, planType FROM Person WHERE firstname LIKE '".$first."%' OR lastname LIKE '".$last."%'", $conn);
+	$result = qry("SELECT personid, firstname, lastname, planType, username, password FROM Person WHERE firstname LIKE '".$first."%' OR lastname LIKE '".$last."%'", $conn);
 }
 if (!$result) {
 	die("No results found");
@@ -22,10 +22,17 @@ if (!$result) {
 		<th>Last Name</th>
 		<th>Plan</th>
 		<th></th>
+		<th></th>
 	</tr>
 	<?php
 	while($row = mysql_fetch_array($result)) {
-		echo "<tr><td><a onclick='return getSingle(".$row['personid'].");' href='#'>".$row['firstname']."</a></td><td>".$row['lastname']."</td><td>".$row['planType']."&nbsp;</td><td><a href='#' onclick='addRec(".$row['personid'].")'>Add</a></td></tr>";
+		echo "<tr>";
+		echo "<td><a onclick='return getSingle(".$row['personid'].");' href='#'>".$row['firstname']."</a></td>";
+		echo "<td>".$row['lastname']."</td>";
+		echo "<td>".$row['planType']."&nbsp;</td>";
+		echo "<td><a href='#' onclick='addRec(".$row['personid'].")'>Add</a></td>";
+		echo "<td><a href='#' onclick=\"updateRec(".$row['personid'].",'".$row['firstname']."','".$row['lastname']."','".$row['planType']."','".$row['username']."','".$row['password']."')\">Update</a></td>";
+		echo "</tr>";
 	}
 	mysql_free_result($result);
 	mysql_close($conn);

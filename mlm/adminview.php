@@ -31,7 +31,7 @@
 		function searchVal() {
 			url = 'result.php?firstname='+$('#firstname').val()+'&lastname='+$('#lastname').val()+"&t="+new Date();
 			$.get(url, function(data) {
-//				alert(data);
+				alert(data);
 				$('#SearchResult').html(data);
 			});
 		}
@@ -46,6 +46,24 @@
 			$.get(url, function(data) {
 //				alert(data);
 				$("#add").dialog('close');
+			});
+		}
+		function updateRec(a,first,last,plan,user,pass) {
+			$("#upersonid").val(a);
+			$("#ufirstname").val($.trim(first+""));
+			$("#ulastname").val($.trim(last+""));
+			$("#uplantype").val($.trim(plan+""));
+			$("#uusername").val($.trim(user+""));
+			$("#upassword").val($.trim(pass+""));
+			$("#update").dialog('open');
+		}
+		function trueUpdate() {
+			str = $("input").serialize();
+			url = 'trueUpdate.php?'+str+"&t="+new Date();
+			alert(url);
+			$.get(url, function(data) {
+				alert(data);
+				$("#update").dialog('close');
 			});
 		}
 </script>
@@ -118,7 +136,7 @@
 			<tr>
 				<td>Plan: </td>
 				<td>
-					<select>
+					<select name="aplantype" id="aplantype">
 						<option value="Plan A">Plan A</option>
 						<option value="Plan B">Plan B</option>
 					</select>
@@ -133,9 +151,47 @@
 			</tr>
 		</table>
 	</div>
+	<div id="update">
+		<input type = "hidden" name="upersonid" id="upersonid"/>
+		<table>
+			<tr>
+				<td>Lastname: </td>
+				<td><input type = "text" name="ulastname" id="ulastname"/></td>
+			</tr>
+			<tr>
+				<td>Firstname: </td>
+				<td><input type = "text" name="ulastname" id="ulastname"/></td>
+			</tr>
+			<tr>
+				<td>Username: </td>
+				<td><input type = "text" name="uusername" id="uusername"/></td>
+			</tr>
+			<tr>
+				<td>Password: </td>
+				<td><input type = "text" name="upassword" id="upassword"/></td>
+			</tr>
+			<tr>
+				<td>Plan: </td>
+				<td>
+					<select name="uplantype" id="uplantype">
+						<option value="Plan A">Plan A</option>
+						<option value="Plan B">Plan B</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					<input type="button" value="Save" onclick="trueUpdate()"/>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <script>
 $("#add").dialog({ autoOpen: false, title: 'Add Record' });
+$("#update").dialog({ autoOpen: false, title: 'Update Record' });
 </script>
 </body>
 </html>

@@ -18,7 +18,11 @@
 		mysql_query($sql, $conn) OR die(mysql_error());
 		mysql_close($conn);
 	}
-	function update($id, $first, $last, $plan) {
-		
+	function update($first, $last, $user, $pass, $personId, $plan) {
+		$conn = conn();
+		$sql = "UPDATE Person SET FirstName='".$first."', LastName='".$last."', UserName='".$user."', Password='".$pass."', PlanType='".$plan."' WHERE PersonId=".$personId;
+		echo $sql;
+		mysql_query($sql, $conn) OR die(mysql_error());
+		mysql_close($conn);
 	}
 ?>
