@@ -11,9 +11,9 @@
 		$result = mysql_query($sql, $db) OR die(mysql_error());
 	    return $result;
 	}
-	function add($first, $last) {
+	function add($first, $last, $user, $pass, $parentId) {
 		$conn = conn();
-		$sql = "INSERT INTO Person(FirstName, LastName) Values('".$first."','".$last."')";
+		$sql = "INSERT INTO Person(FirstName, LastName, UserName, Password, ParentId) Values('".$first."','".$last."','".$user."','".$pass."',".$parentId.")";
 		echo $sql;
 		mysql_query($sql, $conn) OR die(mysql_error());
 		mysql_close($conn);

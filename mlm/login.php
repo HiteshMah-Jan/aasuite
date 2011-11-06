@@ -43,7 +43,7 @@
 
 <td style="background-color:rgb(97,157,207);height:200px;width:300px;text-align:top;">
 
-<center>
+
 <br>
 <br>
 <br>
@@ -58,9 +58,7 @@
 <tr>
 <td class="loginLabel"><label for="username">Username:</label></td><td> <input type="text" name="username" size="24" /><br /></td></tr>
 <tr><td class="loginLabel"><label for="password">Password:</label></td> <td><input type="password" name="password" size="24" /><br /></td></tr>
-<tr><td colspan="2"><center><input type="submit" size="20" value="Login" />
-
-</center>
+<tr><td colspan="2"><center><input type="submit" size="20" value="Login" /></center>
 </td>
 </tr>
 
@@ -73,7 +71,7 @@
 
 </table>
 </center>
-</center>
+
 </form>
 </body>
 </html>

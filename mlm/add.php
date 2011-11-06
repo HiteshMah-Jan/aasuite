@@ -7,11 +7,19 @@
 <table>
 	<tr>
 		<td>Lastname: </td>
-		<td><input type = "text" name="lastName"/></td>
+		<td><input type = "text" name="lastname"/></td>
 	</tr>
 	<tr>
 		<td>Firstname: </td>
-		<td><input type = "text" name="firstName"/></td>
+		<td><input type = "text" name="firstname"/></td>
+	</tr>
+	<tr>
+		<td>Username: </td>
+		<td><input type = "text" name="userName"/></td>
+	</tr>
+	<tr>
+		<td>Password: </td>
+		<td><input type = "text" name="password"/></td>
 	</tr>
 	<tr>
 		<td>Plan: </td>

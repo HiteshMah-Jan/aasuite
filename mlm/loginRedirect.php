@@ -1,6 +1,6 @@
 <?php
-	$username = $_REQUEST['username'];
-	$password = $_REQUEST['password'];
+	$username = strtoupper($_REQUEST['username']);
+	$password = strtoupper($_REQUEST['password']);
 	if ('ADMIN' == $username && 'ADMIN' == $password) {
   		gotoAdminView();
 	}
