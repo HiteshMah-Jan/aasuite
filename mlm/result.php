@@ -16,7 +16,7 @@ if (!$result) {
 	die("No results found");
 }
 ?>
-<table width="100%" border="1">
+<table width="100%">
 	<tr>
 		<th>First Name</th>
 		<th>Last Name</th>

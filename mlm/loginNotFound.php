@@ -49,7 +49,7 @@
 
 
 <table>
-
+<tr><td colspan="2">Username and password not found.</td></tr>
 <tr>
 <td class="loginLabel"><label for="username">Username:</label></td><td> <input type="text" name="username" size="27" /><br /></td></tr>
 <tr><td class="loginLabel"><label for="password">Password:</label></td> <td><input type="password" name="password" size="27" /><br /></td></tr>

@@ -71,7 +71,7 @@
 <form name="test">
 <table width="100%" border="1">
 	<tr>
-		<td colspan="2" style="background-color: rgb(24, 74, 134);">
+		<td colspan="2">
 		<center>
 		<h1>Multi Level Marketing</h1>
 		</center>
@@ -81,16 +81,16 @@
 		<td class="left">
 			<table>
 				<tr>
-					<td>Search Panel</td>
+					<td colspan="2"><h2>Search Panel</h2></td>
 				</tr>
 				<tr>
-					<td>First name:</td>
-					<td><input type="text" name="firstname" id="firstname"/><br />
+					<td>First Name:</td>
+					<td><input type="text" name="firstname" id="firstname" style=width:150px;/><br />
 					</td>
 				</tr>
 				<tr>
-					<td>Last name:</td>
-					<td><input type="text" name="lastname" id="lastname"/><br /></td>
+					<td>Last Name:</td>
+					<td><input type="text" name="lastname" id="lastname" style=width:150px;/><br /></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="button" value="Search" onclick="searchVal()"></td>
