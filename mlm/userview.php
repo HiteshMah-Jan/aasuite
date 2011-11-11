@@ -40,7 +40,7 @@
 <body>
 <table width="100%" border="1">
 	<tr>
-		<td>
+		<td colspan="2">
 		<center>
 		<h1>Multi Level Marketing</h1>
 		</center>
@@ -70,10 +70,72 @@
 			?>
 			</table>
 		</td>
+		<td>
+			<?php
+			    $count = getChildrenCount($id);
+			    $level1count = count(getAllLevel1($id));
+			    $level2count = count(getAllLevel2($id));
+			    $level3count = count(getAllLevel3($id));
+			    $level4count = count(getAllLevel4($id));
+			    $level5count = count(getAllLevel5($id));
+			    $amount = (20 * $count);
+			?>
+			<div id='totals'>
+				<table border=1>
+					<tr>
+						<td>Promo</td>
+						<td>Count</td>
+						<td>Amount</td>
+						<td>Needed Count</td>
+					</tr>
+					<tr>
+						<td>20 Pesos</td>
+						<td><?php echo $count;?></td>
+						<td><?php echo $amount;?></td>
+						<td>NA</td>
+					</tr>
+					<tr>
+						<td>100K</td>
+						<td><?php echo $count;?></td>
+						<td>NA</td>
+						<td>3125</td>
+					</tr>
+					<tr>
+						<td>Level 1 Count</td>
+						<td><?php echo $level1count;?></td>
+						<td>NA</td>
+						<td>NA</td>
+					</tr>
+					<tr>
+						<td>Level 2 Count</td>
+						<td><?php echo $level2count;?></td>
+						<td>NA</td>
+						<td>NA</td>
+					</tr>
+					<tr>
+						<td>Level 3 Count</td>
+						<td><?php echo $level3count;?></td>
+						<td>NA</td>
+						<td>NA</td>
+					</tr>
+					<tr>
+						<td>Level 4 Count</td>
+						<td><?php echo $level4count;?></td>
+						<td>NA</td>
+						<td>NA</td>
+					</tr>
+					<tr>
+						<td>Level 5 Count</td>
+						<td><?php echo $level5count;?></td>
+						<td>NA</td>
+						<td>NA</td>
+					</tr>
+				</table>
+			</div>
+		</td>
 	</tr>
 	<tr>
-		<td class="bottom">Copyright
-		© 2011 mysoftlabs.com</td>
+		<td class="bottom" colspan="2">Copyright© 2011 mysoftlabs.com</td>
 	</tr>
 </table>
 </body>
