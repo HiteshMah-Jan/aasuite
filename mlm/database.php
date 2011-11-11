@@ -38,7 +38,7 @@
 		}
 	}
 	function getChildrenCount($id) {
-		$GLOBALS['tree_arr'] = '';
+		$GLOBALS['tree_arr'] = array();
 		getHierarchy($id);
 		return count($GLOBALS['tree_arr']);
 	}
