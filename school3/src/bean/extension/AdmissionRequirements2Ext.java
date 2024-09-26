@@ -91,8 +91,9 @@ public class AdmissionRequirements2Ext extends Admission {
         return copyOfAcr;
     }
 
-    public void setCopyOfAcr(boolean copyOfAcr) {
+    public boolean setCopyOfAcr(boolean copyOfAcr) {
         this.copyOfAcr = copyOfAcr;
+        return True;
     }
 
     public boolean isLatestReportCard() {
